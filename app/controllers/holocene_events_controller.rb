@@ -11,7 +11,7 @@ class HoloceneEventsController < ApplicationController
        }
        format.json {
            @holocene_events = HoloceneEvent.order(:start_year).where("start_year > ?", "%#{params[:year]}%")
-           render json: @holocene_events.map {|x| "#{x.name}" }
+           render json: @holocene_events
        }
     end
   end
