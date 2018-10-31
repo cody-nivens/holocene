@@ -15,10 +15,17 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-#  test "should get tagged 2" do
-#    get tag_url(:tag => nil)
-#    assert_response :success
-#  end
+  test "should get tagged 2" do
+    get tag_url
+    assert_response :success
+  end
+
+  test "should return json index" do
+    get '/holocene_events', as: :json
+    assert_response :success
+    body = JSON.parse(response.body)
+    assert_equal "MyText", body[0]["body"]
+  end
 
   test "should get new" do
     get new_holocene_event_url
