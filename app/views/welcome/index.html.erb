@@ -1,0 +1,19 @@
+<h1>Welcome</h1>
+
+<div id='tag_cloud'>
+  <% tag_cloud HoloceneEvent.tag_counts, %w{s m l} do |tag, css_class| %>
+    <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+  <% end %>
+</div>
+
+<table class='table'>
+    <tr><th>Component</th><th>Count</th></tr>
+    <tr><td><%= link_to "Holocene Events", holocene_events_path %></td><td><%= HoloceneEvent.count %></td></tr>
+    <tr><td><%= link_to "Event Type", event_types_path %></td><td><%= EventType.count %></td></tr>
+    <tr><td><%= link_to "Citation", citations_path %></td><td><%= Citation.count %></td></tr>
+    <tr><td><%= link_to "Timeline", timelines_path %></td><td><%= Timeline.count %></td></tr>
+    <tr><td><%= link_to "Era", eras_path %></td><td><%= Era.count %></td></tr>
+    <tr><td><%= link_to "Region", regions_path %></td><td><%= Region.count %></td></tr>
+    <tr><td><%= link_to "Authors", authors_path %></td><td><%= Author.count %></td></tr>
+    <tr><td><%= link_to "Biblioentries", biblioentries_path %></td><td><%= Biblioentry.count %></td></tr>
+</table>

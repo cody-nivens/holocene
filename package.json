@@ -1,0 +1,7 @@
+{
+  "name": "holocene",
+  "private": true,
+  "dependencies": {
+    "timelinejs-slider": "^0.1.0"
+  }
+}

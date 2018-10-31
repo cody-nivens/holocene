@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE refentry PUBLIC "-//Holocene-Team//DTD DocBook V4.2-Based Variant V1.0//EN" "file:///home/codynivens/holocene_book/DTD/holocene-doc">
+
+<book id="Climate and History: Timeline"
+	xmlns:xi="http://www.w3.org/2003/XInclude">
+<title>Climate and History: Timeline</title>
+
+<bookinfo>
+	<authorgroup>
+	<author>&person.codynivens;</author>
+	</authorgroup>
+	<pubdate><?latex \today ?></pubdate>
+        <xi:include href="revisions.xml"/>
+</bookinfo>
+
+<?latex \setcounter{page}{5} ?>
+
+<part>
+	<title>Time Line</title>
+		
+	<xi:include href="timeline.xml"/>
+</part>
+<part>
+<title>Index</title>
+<index/>
+</part>
+
+
+</book>

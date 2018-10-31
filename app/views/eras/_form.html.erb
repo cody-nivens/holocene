@@ -1,0 +1,32 @@
+<%= form_with(model: era, local: true) do |form| %>
+  <% if era.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(era.errors.count, "error") %> prohibited this era from being saved:</h2>
+
+      <ul>
+      <% era.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_date %>
+    <%= form.text_field :start_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_date %>
+    <%= form.text_field :end_date %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

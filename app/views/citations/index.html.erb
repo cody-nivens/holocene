@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Citations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Body</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @citations.each do |citation| %>
+      <tr>
+        <td><%= citation.name %></td>
+        <td><%= citation.body %></td>
+        <td><%= link_to 'Show', citation %></td>
+        <td><%= link_to 'Edit', edit_citation_path(citation) %></td>
+        <td><%= link_to 'Destroy', citation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Citation', new_citation_path %>

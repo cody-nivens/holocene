@@ -1,0 +1,40 @@
+<p>
+  <strong>Name:</strong>
+  <%= @holocene_event.name %>
+</p>
+
+<p>
+  <strong>Start year:</strong>
+  <%= @holocene_event.start_year %>
+  <strong>Start year uncert:</strong>
+  <%= @holocene_event.start_year_uncert %>
+  <strong>Start year mod:</strong>
+  <%= @holocene_event.start_year_mod %>
+</p>
+
+<p>
+  <strong>End year:</strong>
+  <%= @holocene_event.end_year %>
+  <strong>End year uncert:</strong>
+  <%= @holocene_event.end_year_uncert %>
+  <strong>End year mod:</strong>
+  <%= @holocene_event.end_year_mod %>
+</p>
+
+<p>
+  <strong>Event type:</strong>
+  <%= @holocene_event.event_type.name %>
+  <strong>Region:</strong>
+  <%= @holocene_event.region.name %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= raw @holocene_event.body %>
+</p>
+
+
+<p>Tags: <%= raw(@holocene_event.tag_list.map { |t| link_to t, tag_path(t) }.join(', ')) %></p>
+
+<%= link_to 'Edit', edit_holocene_event_path(@holocene_event) %> |
+<%= link_to 'Back', holocene_events_path %>

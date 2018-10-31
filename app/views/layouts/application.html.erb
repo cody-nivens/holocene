@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Holocene</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'timeline.css', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'timeline.js', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+      <div class="wrapper">
+      <!-- Sidebar Holder -->
+      <%= render 'layouts/side_column' %>
+      <div id="content">
+         <%= render 'layouts/navigation' %>
+         <%= render 'layouts/messages' %>
+         <%= yield %>
+      </div>
+    </div>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#sidebarCollapse').on('click', function () {
+          $('#sidebar').toggleClass('active');
+        });
+      });
+    </script>
+
+  </body>
+</html>

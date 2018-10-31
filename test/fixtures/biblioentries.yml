@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  xreflabel: MyString
+  copyright_year: 1
+  copyright_holder: MyString
+  publisher: MyString
+  authors: 
+  - one
+
+two:
+  name: MyString
+  xreflabel: MyString
+  copyright_year: 1
+  copyright_holder: MyString
+  publisher: MyString
+  authors: 
+  - two
