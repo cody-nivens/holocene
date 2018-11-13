@@ -22,8 +22,44 @@ After the third century, safety was in numbers and via the sea until the advent 
 </para>
 <para>
 Beginnings of Serfdom with the giving up of rights by people fleeing the cities.  
-These people were called <emphasis>coloni</emphasis> being tied to the land via Imperial Reforms with the resulting descendant suffrage.
+These people were called coloni being tied to the land via Imperial Reforms with the resulting descendant suffrage.
 </para>
+<section>
+<title>206 BC: Romans Arrive at Rio Tinto
+<indexterm><primary>Rio Tinto</primary></indexterm>
+</title>
+<event_type>Cultural</event_type>
+</section>
+<section>
+<title>165 AD - 180 AD: Antonine Plague
+<indexterm><primary>Epidemic</primary><secondary>Smallpox</secondary></indexterm>
+<indexterm><primary>Smallpox</primary><secondary>Antonine Plague</secondary></indexterm>
+</title>
+<para>First appearance of Smallpox.
+<indexterm><primary>Smallpox</primary></indexterm>
+</para><para>
+The plague decimated the army with a 13 to 15 percent loss with the cities suffering similarly while the rural population suffered 7 to 10 percent in loss of life.  When the Roman army contracted due to the plague, the Mauri invaded conquering the
+Rio Tinto area leading to the loss of the silver supplying the army.
+</para><para>
+Striping the value from the coin lead to economic unrest resulting in the Crisis of the Third Century.</para>
+<region>Europe</region>
+<event_type>Epidemic</event_type>
+</section>
+<section>
+<title>180 AD: Taupo, New Zealand VEI 7
+</title>
+</section>
+<section>
+<title>180 AD - 200 AD: Mauri Conquer Rio Tinto and area
+<indexterm><primary>Rio Tinto</primary></indexterm>
+</title>
+<para>The loss of the
+<indexterm><primary>Rio Tinto</primary></indexterm>
+Rio Tinto mines silver output to the Roman empire brought about the crisis of the Third century.
+</para><para>
+The Mauri conquered the area when the Roman army contracted due to the plague of Antonine.  The plague decimated the army with a 13 to 15 percent loss with the cities suffering similarly while the rural population suffered 7 to 10 percent in loss of life.</para>
+<event_type>Cultural</event_type>
+</section>
 <section>
 <title>284 AD: Beginnings of Serfdom and Manorialism
 </title>

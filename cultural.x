@@ -1,8 +1,23 @@
 <chapter id="cultural">
 <title>Cultural Events
 </title>
+<partition>Timelines</partition>
 <para>Events caused by Man or happeded to Mankind.
 </para>
+<section>
+<title>1274 BC: Battle of Kedesh
+</title>
+<region>Eurasia</region>
+<event_type>Cultural</event_type>
+</section>
+<section>
+<title>10900 BC: Bond 9
+</title>
+</section>
+<section>
+<title>10900 BC: The Clovis Comet
+</title>
+</section>
 <section>
 <title>12000 BC - 10900 BC: Hunter/Gatherer Agriculture
 </title>
@@ -29,6 +44,18 @@ During the Clovis Event illumination, the tops of the structures would have been
 A group remembrance of this would have lead to recreations of such an event with the ribs of the habitation's structure, the animals seen and the night sky.</para>
 </section>
 <section>
+<title>9500 BC: Domestication of Cows
+</title>
+<event_type>Cultural</event_type>
+<url>https://en.wikipedia.org/wiki/Cattle</url>
+</section>
+<section>
+<title>3500 BC: Domestication of Horses
+</title>
+<event_type>Cultural</event_type>
+<url>https://en.wikipedia.org/wiki/Domestication_of_the_horse</url>
+</section>
+<section>
 <title>8800 BC - 8000 BC: Gobekli Tepe - level II
 </title>
 <region>Eurasia</region>
@@ -39,13 +66,12 @@ A group remembrance of this would have lead to recreations of such an event with
 <indexterm><primary>Earth</primary><secondary>Flood of Dardanus</secondary></indexterm>
 <indexterm><primary>Flood</primary><secondary>Flood of Dardanus</secondary></indexterm>
 </title>
-<para>The story of the flood of Dardanus states that Dardanus survived on the  mountain which became Samothraki island in the Aegean sea.  The date for the flooding of the Samothraki plateau is about 8,500 BC(4).</para>
+<para>The story of the flood of Dardanus states that Dardanus survived on the  mountain which became Samothraki island in the Aegean sea.  The date for the flooding of the Samothraki plateau is about 8,500 BC.</para>
 <region>Eurasia</region>
 <event_type>Cultural</event_type>
 </section>
 <section>
-<title>8300 BC: Bond 7 - Beginnings of grain agriculture
-<indexterm><primary>Bond Event</primary></indexterm>
+<title>8300 BC: Beginnings of grain agriculture
 </title>
 <event_type>Cultural</event_type>
 </section>
@@ -56,9 +82,34 @@ A group remembrance of this would have lead to recreations of such an event with
 <event_type>Cultural</event_type>
 </section>
 <section>
+<title>7350 BC: Monolith worked on at submerged site south of Sicily
+</title>
+<para>Pantelleria Vecchia Bank</para>
+</section>
+<section>
+<title>8400 BC - 8100 BC: Nevali Cori
+</title>
+<region>Global</region>
+<event_type>Cultural</event_type>
+</section>
+<section>
+<title>10500 BC: Sphinx created in Egypt
+</title>
+<para>This age is based on the fact that the rising constilation at the time the Sphinx was created is Leo.  It is argued that the Sphinx as it is now
+is modified by later dynasties to resemble man instead of a lion.
+</para>
+</section>
+<section>
+<title>3250 BC: Possible water damage to the sphinx
+</title>
+<para>The Water erosion hypothesis says that they is evidence of water erosion in the quary from which the Sphinx was created.  It gives no date for the water fall. 
+I would content that Noah's flood was the cause of the erosion.
+</para>
+</section>
+<section>
 <title>5000 BC: First Ocean going boats
 </title>
-<para>The first ocean going boats used between the Mesopotamia delta and Kuwait and other place along the Gulf shore area(7).</para>
+<para>The first ocean going boats used between the Mesopotamia delta and Kuwait and other place along the Gulf shore area.</para>
 <event_type>Cultural</event_type>
 </section>
 <section>
@@ -72,6 +123,12 @@ Rio Tinto is the oldest mine in use in the western hemisphere.  It's importance 
 <indexterm><primary>Rio Tinto</primary></indexterm>
 Rio Tinto was mined by Neolithic man starting at least 3,000 BC.  A stone hoe was found at excavations at the site.</para>
 <event_type>Cultural</event_type>
+</section>
+<section>
+<title>3114 BC: Start of Mayan Calendar
+</title>
+<event_type>Cultural</event_type>
+<url>https://en.wikipedia.org/wiki/Maya_calendar</url>
 </section>
 <section>
 <title>2475 BC - 2275 BC: Rio Tinto Smelting recorded in Ice Cores
@@ -90,22 +147,8 @@ Rio Tinto was mined by Neolithic man starting at least 3,000 BC.  A stone hoe wa
 Rio Tinto was due to the deforestation of the surrounding areas.</para>
 </section>
 <section>
-<title>1399 BC - 1300 BC: The Sherden Sea People
-<indexterm><primary>Sea People</primary></indexterm>
+<title>2166 BC - 1991 BC: Abraham - The first Monotheist
 </title>
-<event_type>Cultural</event_type>
-</section>
-<section>
-<title>1150 BC: Trojan War
-</title>
-<para>That the Trojan war is placed in the bronze Age Collapse, the question of motives is that the Trojans and their allies may have been the
-<indexterm><primary>Sea People</primary></indexterm>
-Sea Peoples and were finally cornered as told by the Iliad.
-</para><para>
-Apollo his association with mice and their caring of
-<indexterm><primary>Epidemic</primary></indexterm>
-plague was noted in the Iliad.  That such an association should be stated so clearly indicated along standing understanding of causes of disease.
-</para><para></para>
 <event_type>Cultural</event_type>
 </section>
 <section>
@@ -114,7 +157,6 @@ plague was noted in the Iliad.  That such an association should be stated so cle
 </title>
 <event_type>Cultural</event_type>
 <para>Phoenicians begin trading with the Tartessians at
-<indexterm><primary>Rio Tinto</primary></indexterm>
 Rio Tinto.</para>
 </section>
 <section>
@@ -141,75 +183,28 @@ Rio Tinto.</para>
 <event_type>Cultural</event_type>
 </section>
 <section>
+<title>500 BC: Grafting practice for grapevines
+</title>
+<url>https://en.wikipedia.org/wiki/Grafting</url>
+<para>
+The Mishna describes grafting as a commonplace technique used to grow grapevines.
+</para>
+</section>
+<section>
 <title>430 BC: Plague of Athens
 <indexterm><primary>Epidemic</primary><secondary>Typhus</secondary></indexterm>
 <indexterm><primary>Typhus</primary><secondary>Plague of Athens</secondary></indexterm>
 </title>
 <region>Europe</region>
 <event_type>Epidemic</event_type>
-<event_type>Cultural</event_type>
 <para>
 Typhus appears amoung the Athenians.</para>
-</section>
-<section>
-<title>2354 BC - 2345 BC: Gilgamesh: The Babylonian Flood
-<indexterm><primary>Gilgamesh</primary></indexterm>
-<indexterm><primary>Earth</primary><secondary>Babylonian Flood</secondary></indexterm>
-<indexterm><primary>Flood</primary><secondary>Babylonian Flood</secondary></indexterm>
-</title>
-<para>The <emphasis>Gilgamesh</emphasis> story records a great flood in the general region of the middle east.  It states that certain area were flooded.  During the Biblical Event flood, cities were lost from history.</para>
-<event_type>Cultural</event_type>
-</section>
-<section>
-<title>2166 BC - 1991 BC: Abraham - The first Monotheist
-</title>
-<event_type>Cultural</event_type>
-</section>
-<section>
-<title>2000 BC - 1700 BC: The Lycian Sea People
-<indexterm><primary>Sea People</primary></indexterm>
-</title>
-<event_type>Cultural</event_type>
 </section>
 <section>
 <title>2200 BC: Skara Brae inundated</title>
 <para>
 Skara Brae is on the west coast of Mainland in the Orkney Isles off Scotland.  It is considered on with the best preserved Bronze Age villages due to being burred by a sand storm.  It is possible that it was buried by a tsumani as well.
 </para>
-<event_type>Cultural</event_type>
-</section>
-<section>
-<title>206 BC: Romans Arrive at Rio Tinto
-<indexterm><primary>Rio Tinto</primary></indexterm>
-</title>
-<event_type>Cultural</event_type>
-</section>
-<section>
-<title>165 AD - 180 AD: Antonine Plague
-<indexterm><primary>Epidemic</primary><secondary>Smallpox</secondary></indexterm>
-<indexterm><primary>Smallpox</primary><secondary>Antonine Plague</secondary></indexterm>
-</title>
-<para>First appearance of Smallpox.
-<indexterm><primary>Smallpox</primary></indexterm>
-</para><para>
-The plague decimated the army with a 13 to 15 percent loss with the cities suffering similarly while the rural population suffered 7 to 10 percent in loss of life.  When the Roman army contracted due to the plague, the Mauri invaded conquering the
-<indexterm><primary>Rio Tinto</primary></indexterm>
-Rio Tinto area leading to the loss of the silver supplying the army.
-</para><para>
-Striping the value from the coin lead to economic unrest resulting in the Crisis of the Third Century.</para>
-<region>Europe</region>
-<event_type>Epidemic</event_type>
-<event_type>Cultural</event_type>
-</section>
-<section>
-<title>180 AD - 200 AD: Mauri Conquer Rio Tinto and area
-<indexterm><primary>Rio Tinto</primary></indexterm>
-</title>
-<para>The loss of the
-<indexterm><primary>Rio Tinto</primary></indexterm>
-Rio Tinto mines silver output to the Roman empire brought about the crisis of the Third century.
-</para><para>
-The Mauri conquered the area when the Roman army contracted due to the plague of Antonine.  The plague decimated the army with a 13 to 15 percent loss with the cities suffering similarly while the rural population suffered 7 to 10 percent in loss of life.</para>
 <event_type>Cultural</event_type>
 </section>
 <section>
@@ -224,6 +219,14 @@ The Mauri conquered the area when the Roman army contracted due to the plague of
 <event_type>Cultural</event_type>
 </section>
 <section>
+<title>600 AD: Final collapse of the Roman Empire
+</title>
+<para>
+Lost of 'Noblest third' of population.
+Loss of complexity.
+</para>
+</section>
+<section>
 <title>700 AD: End of Migration Period
 </title>
 <event_type>Cultural</event_type>
@@ -236,13 +239,13 @@ The Mauri conquered the area when the Roman army contracted due to the plague of
 <event_type>Cultural</event_type>
 </section>
 <section>
-<title>1347 AD - 1351 AD: Black Death.  Third Occurrence of
+<title>1347 AD - 1351 AD: Black Death - The third occurance of Plague in Europe<citation>cantor2001</citation><citation>ziegler1969</citation>.
 <indexterm><primary>Historical</primary><secondary>Black Death</secondary></indexterm>
 <indexterm><primary>Epidemic</primary><secondary>Bubonic Plague</secondary></indexterm>
 <indexterm><primary>Bubonic Plague</primary><secondary>Black Death</secondary></indexterm>
-Plague in Europe<citation>cantor2001</citation><citation>ziegler1969</citation>
+<para>Third Occurrence of Plague in Europe.
 </title>
-<region>Global</region>
+<region>Europe</region>
 <event_type>Epidemic</event_type>
 <event_type>Cultural</event_type>
 </section>

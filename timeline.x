@@ -1,16 +1,16 @@
-<chapter id="timeline">
+<chapter id='timeline'>
 <title>Time line
 </title>
 <para>Earth related events such as volcanic eruptions, earthquakes, tsunamis, impact events, etc.
 </para>
 <section>
-<title>8400 BC - 8100 BC: Nevali Cori
+<title>1500 BC: Tsunami at Tartessos area
+<indexterm><primary>Tsunami</primary><secondary>1500 BC: Tsunami at Tartessos</secondary></indexterm>
 </title>
-<region>Global</region>
-<event_type>Cultural</event_type>
+<event_type>Earth</event_type>
 </section>
 <section>
-<title>10900 BC: Bond 9
+<title>10900 BC: Bond 9 - Colvis Impact Event
 <indexterm><primary>Bond Event</primary></indexterm>
 </title>
 <region>Global</region>
@@ -20,6 +20,7 @@
 <title>10900 BC: The Clovis Comet
 <indexterm><primary>Impact Event</primary><secondary>Clovis Comet</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/Younger_Dryas_impact_hypothesis</url>
 <region>North America</region>
 <event_type>Impact</event_type>
 </section>
@@ -27,6 +28,7 @@
 <title>2000 BC: Campo del Cielo Crater
 <indexterm><primary>Impact Event</primary><secondary>Campo del Cielo Crater</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/Campo_del_Cielo</url>
 <region>South America</region>
 <event_type>Impact</event_type>
 </section>
@@ -34,7 +36,14 @@
 <title>2007 AD: Carancas Impact Crater
 <indexterm><primary>Impact Event</primary><secondary>Carancas Impact Crater</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/2007_Carancas_impact_event</url>
 <region>South America</region>
+<event_type>Impact</event_type>
+</section>
+<section>
+<title>2013 AD: Chelyabinsk meteor
+</title>
+<url>https://en.wikipedia.org/wiki/Chelyabinsk_meteor</url>
 <event_type>Impact</event_type>
 </section>
 <section>
@@ -48,13 +57,15 @@
 <title>1000 AD: Haviland Crater
 <indexterm><primary>Impact Event</primary><secondary>Haviland Crater</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/Haviland_Crater</url>
 <region>North America</region>
 <event_type>Impact</event_type>
 </section>
 <section>
-<title>2200 BC: Henbury Meteorites Conservation Reserver
-<indexterm><primary>Impact Event</primary><secondary></secondary>Henbury Meteorites Conservation Reserver</indexterm>
+<title>2700 BC: Henbury Meteorites Conservation Reserve
+<indexterm><primary>Impact Event</primary><secondary>Henbury Meteorites Conservation Reserve</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/Henbury_Meteorites_Conservation_Reserve</url>
 <region>Australasia</region>
 <event_type>Impact</event_type>
 </section>
@@ -62,20 +73,16 @@
 <title>4600 BC: Ilumetsa Crater
 <indexterm><primary>Impact Event</primary><secondary>Ilumetsa Crater</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/Ilumetsa_crater</url>
 <region>Europe</region>
-<event_type>Impact</event_type>
-</section>
-<section>
-<title>535 AD: Kenmore Crater
-<indexterm><primary>Impact Event</primary><secondary>Kenmore Crater</secondary></indexterm>
-</title>
-<region>Australasia</region>
 <event_type>Impact</event_type>
 </section>
 <section>
 <title>3000 BC: Morasko Meterorite Nature Reseve
 <indexterm><primary>Impact Event</primary><secondary>Morasko Meterorite Nature Reseve</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/Morasko_Meteorite_Nature_Reserve</url>
+<image>220px-Morasko_krater_zima.jpg</image>
 <region>Europe</region>
 <event_type>Impact</event_type>
 </section>
@@ -108,13 +115,6 @@
 <event_type>Impact</event_type>
 </section>
 <section>
-<title>535 AD: Tabban Crater
-<indexterm><primary>Impact Event</primary><secondary>Tabban Crater</secondary></indexterm>
-</title>
-<region>Australasia</region>
-<event_type>Impact</event_type>
-</section>
-<section>
 <title>1863 AD: Wabar Craters
 <indexterm><primary>Impact Event</primary><secondary>Wabar Craters</secondary></indexterm>
 </title>
@@ -143,7 +143,7 @@
 <event_type>Impact</event_type>
 </section>
 <section>
-<title>10900 BC - 9600 BC: Younger Dryas
+<title>10900 BC - 9700 BC: Younger Dryas
 </title>
 <region>Global</region>
 <event_type>Climatic</event_type>
@@ -154,12 +154,16 @@
 <section>
 <title>5000 BC - 4100 BC: Older Peron
 </title>
+<para>High point in sea levels during the Holocene.
+</para>
 <region>Global</region>
 <event_type>Climatic</event_type>
 </section>
 <section>
 <title>4000 BC - 3400 BC: Younger Peron Transgression
 </title>
+<para>Second highest point in sea levels during the Holocene.
+</para>
 <region>Global</region>
 <event_type>Climatic</event_type>
 </section>
@@ -177,7 +181,7 @@
 <indexterm><primary>VEI 6</primary><secondary>Lvinaya Past, Kamchatka Peninsula (Russa)</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Lvinaya_Past</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Lvinaya_past_20070718011232.jpg/280px-Lvinaya_past_20070718011232.jpg</image>
+<image>280px-lvinaya_past_20070718011232.jpg</image>
 <region>East Asia</region>
 <event_type>Volcanic</event_type>
 <start_year_uncert>50</start_year_uncert>
@@ -185,6 +189,12 @@
 Confirmed Eruption<br/>
 Radiocarbon (uncorrected)<br/>
 </para>
+</section>
+<section>
+<title>8300 BC: Bond 7
+<indexterm><primary>Bond Event</primary></indexterm>
+</title>
+<event_type>Climatic</event_type>
 </section>
 <section>
 <title>7400 BC: Bond 6 - Erdalen Glacial activity
@@ -199,7 +209,7 @@ Radiocarbon (uncorrected)<br/>
 <indexterm><primary>VEI 6</primary><secondary>Sakura-Jima, Kyushu (Japan)</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Sakurajima</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Sakurajima55.jpg/280px-Sakurajima55.jpg</image>
+<image>280px-Sakurajima55.jpg</image>
 <start_year_uncert>1000</start_year_uncert>
 </section>
 <section>
@@ -214,7 +224,7 @@ Radiocarbon (uncorrected)<br/>
 <indexterm><primary>VEI 6</primary><secondary>Pinatubo, Philippines</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Mount_Pinatubo</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Pinatubo91eruption_clark_air_base.jpg/280px-Pinatubo91eruption_clark_air_base.jpg</image>
+<image>280px-Pinatubo91eruption_clark_air_base.jpg</image>
 <para>I have included this event as it is with in recorded history.  The global temperatures did dip though not as expected.  The discrepancy is due to the general overall warming due to human activity.</para>
 <region>Southeast Asia</region>
 <event_type>Volcanic</event_type>
@@ -225,6 +235,8 @@ Lower north flank and summit</para>
 </section>
 <section>
 <title>1912 AD: Novarupta
+<indexterm><primary>Eruption</primary><secondary>Novarupta</secondary></indexterm>
+<indexterm><primary>VEI 6</primary><secondary>Novarupta</secondary></indexterm>
 </title>
 <region>North America</region>
 <event_type>Volcanic</event_type>
@@ -233,13 +245,15 @@ Confirmed Eruption<br/>
 Historical Observations
 </para>
 <url>https://en.wikipedia.org/wiki/Novarupta</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Novarupta.jpg/280px-Novarupta.jpg</image>
+<image>Novarupta.jpg</image>
 </section>
 <section>
 <title>1902 AD: Santa Maria
+<indexterm><primary>Eruption</primary><secondary>Santa Maria</secondary></indexterm>
+<indexterm><primary>VEI 6</primary><secondary>Santa Maria</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Santa_Mar%C3%ADa_(volcano)</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Santiaguito_from_Santamaria.jpg/280px-Santiaguito_from_Santamaria.jpg</image>
+<image>280px-Santiaguito_from_Santamaria.jpg</image>
 <region>Central America</region>
 <event_type>Volcanic</event_type>
 <para>VEI 6?
@@ -253,7 +267,7 @@ SW flank</para>
 <indexterm><primary>VEI 6</primary><secondary>Krakatoa</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Krakatoa</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Krakatoa_eruption_lithograph.jpg/280px-Krakatoa_eruption_lithograph.jpg</image>
+<image>280px-Krakatoa_eruption_lithograph.jpg</image>
 <para>While not as big as Tambora, Krakatoa was better observed by a good many people.  The documentation is very informative as to the magnitude of such explosions.  It was heard around the world.</para>
 <region>Southeast Asia</region>
 <event_type>Volcanic</event_type>
@@ -263,31 +277,40 @@ Historical Observations
 Krakatau Island (Perbuwatan, Danan)</para>
 </section>
 <section>
-<title>1812 AD - 1815 AD: Tambora, Indonesia VEI 7<citation>HoloceneEruptions</citation>
+<title>1812 AD - 1815 AD: Tambora, Indonesia VEI 7 continious eruptions until explosion in 1815<citation>HoloceneEruptions</citation>
 <indexterm><primary>Eruption</primary><secondary>Tambora, Indonesia</secondary></indexterm>
 <indexterm><primary>VEI 7</primary><secondary>Tambora, Indonesia</secondary></indexterm>
+<citation>stommel1983</citation>
 </title>
 <url>https://en.wikipedia.org/wiki/Mount_Tambora</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Mount_Tambora_Volcano%2C_Sumbawa_Island%2C_Indonesia.jpg/280px-Mount_Tambora_Volcano%2C_Sumbawa_Island%2C_Indonesia.jpg</image>
+<image>280px-Mount_Tambora_Volcano%2C_Sumbawa_Island%2C_Indonesia.jpg</image>
+<region>Southeast Asia</region>
+<event_type>Volcanic</event_type>
+</section>
+<section>
+<title>1815 AD: Tambora, Indonesia VEI 7<citation>HoloceneEruptions</citation>
+<indexterm><primary>Eruption</primary><secondary>Tambora, Indonesia</secondary></indexterm>
+<indexterm><primary>VEI 7</primary><secondary>Tambora, Indonesia</secondary></indexterm>
+<citation>stommel1983</citation>
+</title>
+<url>https://en.wikipedia.org/wiki/Mount_Tambora</url>
+<image>280px-Mount_Tambora_Volcano%2C_Sumbawa_Island%2C_Indonesia.jpg</image>
 <region>Southeast Asia</region>
 <event_type>Volcanic</event_type>
 <para>VEI 7
 Confirmed Eruption<br/>
 Historical Observations
 </para>
-<para>This was the first 
-<indexterm><primary>Eruption</primary></indexterm>
-eruption within 'written' history that had the benefit of an extensive amount of information gathered by a wide range of individuals.  The Stommel's in their book <emphasis>Volcano Weather: the story of 1816, the year without a summer</emphasis><citation>stommel1983</citation> provide a very detailed account of the sequence of events in North America in 1816.  
+<para>This was the first eruption within 'written' history that had the benefit of an extensive amount of information gathered by a wide range of individuals.  The Stommel's in their book<footnote><para>Volcano Weather: the story of 1816, the year without a summer'</para></footnote> provide a very detailed account of the sequence of events in North America in 1816.  
 </para><para>
 One of the interesting things about the Stommel's research is the Cholera epidemics
-<indexterm><primary>Epidemic</primary><secondary>Cholera</secondary></indexterm>
-<indexterm><primary>Cholera</primary></indexterm>
  of mid-19Th century Europe may have resulted due to the spread of the disease by refugees from the India famine
-<indexterm><primary>Famine</primary></indexterm>
- of 1816<citation>Stommel1983</citation></para>
+ of 1816.</para>
 </section>
 <section>
 <title>1808 AD: Unknown Source
+<indexterm><primary>Eruption</primary><secondary>Unknown Source</secondary></indexterm>
+<indexterm><primary>VEI 6</primary><secondary>Unknown Source</secondary></indexterm>
 </title>
 <region>Unknown</region>
 <event_type>Volcanic</event_type>
@@ -302,7 +325,7 @@ Tropical latitude (SP, 365 ppb sulfate)</para>
 <indexterm><primary>VEI 6</primary><secondary>Long Island, Northeast of New Guinea</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Long_Island_(Papua_New_Guinea)</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Long_Island_NASA.jpg/280px-Long_Island_NASA.jpg</image>
+<image>280px-Long_Island_NASA.jpg</image>
 <start_year_uncert>20</start_year_uncert>
 <region>Australasia</region>
 <event_type>Volcanic</event_type>
@@ -317,7 +340,7 @@ Radiocarbon (uncorrected)<br/>
 <indexterm><primary>VEI 6</primary><secondary>Huaynaputina, Peru</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Huaynaputina</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Huaynaputina.jpg/220px-Huaynaputina.jpg</image>
+<image>220px-Huaynaputina.jpg</image>
 <region>South America</region>
 <event_type>Volcanic</event_type>
 <para>VEI 6<br/>
@@ -331,7 +354,7 @@ Summit and south flank</para>
 <indexterm><primary>VEI 6</primary><secondary>Billy Mitchell, Bougainville Island</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Billy_Mitchell_(volcano)</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/MtBalbiToreNASA.jpg/280px-MtBalbiToreNASA.jpg</image>
+<image>280px-MtBalbiToreNASA.jpg</image>
 <start_year_uncert>20</start_year_uncert>
 <region>Australasia</region>
 <event_type>Volcanic</event_type>
@@ -368,7 +391,9 @@ Radiocarbon (corrected)<br/>
 </para>
 </section>
 <section>
-<title>1257 AD: Rinjani
+<title>1257 AD: Rinjani VEI 7
+<indexterm><primary>Eruption</primary><secondary>Rinjani</secondary></indexterm>
+<indexterm><primary>VEI 6</primary><secondary>Rinjani</secondary></indexterm>
 </title>
 <region>Southeast Asia</region>
 <event_type>Volcanic</event_type>
@@ -378,7 +403,9 @@ Ice Core
 Samalas</para>
 </section>
 <section>
-<title>942 AD: Changbaishan
+<title>942 AD: Changbaishan VEI 7
+<indexterm><primary>Eruption</primary><secondary>Changbaishan</secondary></indexterm>
+<indexterm><primary>VEI 7</primary><secondary>Changbaishan</secondary></indexterm>
 </title>
 <start_year_uncert>4</start_year_uncert>
 <region>East Asia</region>
@@ -403,9 +430,11 @@ Radiocarbon (uncorrected)<br/>
 </section>
 <section>
 <title>847 AD: Churchill
+<indexterm><primary>Eruption</primary><secondary>Churchill</secondary></indexterm>
+<indexterm><primary>VEI 6</primary><secondary>Churchill</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Mount_Churchill</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Relief_map_of_USA_Alaska.png/248px-Relief_map_of_USA_Alaska.png</image>
+<image>280px-MtChurchill-KlutlanGlacier.jpg</image>
 <region>North America</region>
 <event_type>Volcanic</event_type>
 <start_year_uncert>1</start_year_uncert>
@@ -416,6 +445,8 @@ Tephrochronology
 </section>
 <section>
 <title>710 AD: Witori
+<indexterm><primary>Eruption</primary><secondary>Witori</secondary></indexterm>
+<indexterm><primary>VEI 6</primary><secondary>Witori</secondary></indexterm>
 </title>
 <start_year_uncert>75</start_year_uncert>
 <region>Australasia</region>
@@ -427,9 +458,11 @@ Radiocarbon (uncorrected)<br/>
 </section>
 <section>
 <title>683 AD: Rabaul
+<indexterm><primary>Eruption</primary><secondary>Rabaul</secondary></indexterm>
+<indexterm><primary>VEI 6</primary><secondary>Rabaul</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Rabaul_caldera</url>
-<image>https://upload.wikimedia.org/wikipedia/en/thumb/8/8e/Rabaul.png/280px-Rabaul.png</image>
+<image>280px-Rabaul.png</image>
 <start_year_uncert>2</start_year_uncert>
 <region>Australasia</region>
 <event_type>Volcanic</event_type>
@@ -440,9 +473,11 @@ Radiocarbon (corrected)<br/>
 </section>
 <section>
 <title>653 AD: Dakataua
+<indexterm><primary>Eruption</primary><secondary>Dakataua</secondary></indexterm>
+<indexterm><primary>VEI 6</primary><secondary>Dakataua</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Dakataua</url>
-<image>https://en.wikipedia.org/wiki/File:Papua_New_Guinea_location_map_Topographic.png</image>
+<image>Papua_New_Guinea_location_map_Topographic.png</image>
 <start_year_uncert>18</start_year_uncert>
 <region>Australasia</region>
 <event_type>Volcanic</event_type>
@@ -457,7 +492,7 @@ Radiocarbon (uncorrected)<br/>
 <indexterm><primary>VEI 6</primary><secondary>Ilopango, El Salvador</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Lake_Ilopango</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Ilopango_caldera.jpg/280px-Ilopango_caldera.jpg</image>
+<image>280px-Ilopango_caldera.jpg</image>
 <start_year_uncert>30</start_year_uncert>
 <region>Central America</region>
 <event_type>Volcanic</event_type>
@@ -468,6 +503,8 @@ Ilopango</para>
 </section>
 <section>
 <title>240 AD: Ksudach
+<indexterm><primary>Eruption</primary><secondary>Ksudach</secondary></indexterm>
+<indexterm><primary>VEI 6</primary><secondary>Ksudach</secondary></indexterm>
 </title>
 <start_year_uncert>100</start_year_uncert>
 <region>East Asia</region>
@@ -479,8 +516,10 @@ Ksudach V caldera</para>
 </section>
 <section>
 <title>233 AD: Taupo
+<indexterm><primary>Eruption</primary><secondary>Taupo</secondary></indexterm>
+<indexterm><primary>VEI 6</primary><secondary>Taupo</secondary></indexterm>
 </title>
-<image>https://en.wikipedia.org/wiki/File:Taupo.Volcanic.Zone.North.Island.NZ.JPG</image>
+<image>Taupo.Volcanic.Zone.North.Island.NZ.JPG</image>
 <url>https://en.wikipedia.org/wiki/Taupo_Volcano</url>
 <start_year_uncert>13</start_year_uncert>
 <region>Australasia</region>
@@ -492,9 +531,11 @@ Horomatangi Reefs area</para>
 </section>
 <section>
 <title>60 AD: Churchill
+<indexterm><primary>Eruption</primary><secondary>Churchill</secondary></indexterm>
+<indexterm><primary>VEI 6</primary><secondary>Churchill</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Mount_Churchill</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Relief_map_of_USA_Alaska.png/248px-Relief_map_of_USA_Alaska.png</image>
+<image>280px-MtChurchill-KlutlanGlacier.jpg</image>
 <start_year_uncert>200</start_year_uncert>
 <region>North America</region>
 <event_type>Volcanic</event_type>
@@ -548,7 +589,7 @@ Okmok II caldera</para>
 <indexterm><primary>VEI 6</primary><secondary>Pinatubo, Philippines</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Mount_Pinatubo</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Pinatubo91eruption_clark_air_base.jpg/280px-Pinatubo91eruption_clark_air_base.jpg</image>
+<image>280px-Pinatubo91eruption_clark_air_base.jpg</image>
 <start_year_uncert>500</start_year_uncert>
 <region>Southeast Asia</region>
 <event_type>Volcanic</event_type>
@@ -559,6 +600,8 @@ Radiocarbon (corrected)<br/>
 </section>
 <section>
 <title>1370 BC: Witori
+<indexterm><primary>Eruption</primary><secondary>Witori</secondary></indexterm>
+<indexterm><primary>VEI 6</primary><secondary>Witori</secondary></indexterm>
 </title>
 <start_year_uncert>160</start_year_uncert>
 <region>Australasia</region>
@@ -570,7 +613,11 @@ Radiocarbon (corrected)<br/>
 </section>
 <section>
 <title>1645 BC: Aniakchak
+<indexterm><primary>Eruption</primary><secondary>Aniakchak</secondary></indexterm>
+<indexterm><primary>VEI 6</primary><secondary>Aniakchak</secondary></indexterm>
 </title>
+<image>280px-Aniakchak-caldera_alaska.jpg</image>
+<url>https://en.wikipedia.org/wiki/Mount_Aniakchak</url>
 <start_year_uncert>10</start_year_uncert>
 <region>North America</region>
 <event_type>Volcanic</event_type>
@@ -584,6 +631,8 @@ Ice Core
 <indexterm><primary>Eruption</primary><secondary>Veniaminof, Alaska Peninsula</secondary></indexterm>
 <indexterm><primary>VEI 6</primary><secondary>Veniaminof, Alaska Peninsula</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/Mount_Veniaminof</url>
+<image>280px-MountVeniaminof.jpg</image>
 <region>North America</region>
 <event_type>Volcanic</event_type>
 <para>VEI 6<br/>
@@ -596,6 +645,8 @@ Radiocarbon (uncorrected)<br/>
 <indexterm><primary>Eruption</primary><secondary>St. Helens, Washington, USA</secondary></indexterm>
 <indexterm><primary>VEI 6</primary><secondary>St. Helens, Washington, USA</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/Mount_St._Helens</url>
+<image>280px-MSH82_st_helens_plume_from_harrys_ridge_05-19-82.jpg</image>
 <region>North America</region>
 <event_type>Volcanic</event_type>
 <para>VEI 6<br/>
@@ -608,6 +659,8 @@ Radiocarbon (corrected)<br/>
 <indexterm><primary>Eruption</primary><secondary>Hudson, Cerro Southern Chile</secondary></indexterm>
 <indexterm><primary>VEI 6</primary><secondary>Hudson, Cerro Southern Chile</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/Mount_Hudson</url>
+<image>280px-Cerro_hudson.jpg</image>
 <region>South America</region>
 <event_type>Volcanic</event_type>
 <para>VEI 6<br/>
@@ -620,6 +673,8 @@ Radiocarbon (corrected)<br/>
 <indexterm><primary>Eruption</primary><secondary>Black Peak, Alaska</secondary></indexterm>
 <indexterm><primary>VEI 6</primary><secondary>Black Peak, Alaska</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/Black_Peak_(Alaska)</url>
+<image>280px-Black_Peak.jpg</image>
 <region>North America</region>
 <event_type>Volcanic</event_type>
 <start_year_uncert>150</start_year_uncert>
@@ -634,7 +689,7 @@ Tephrochronology
 <indexterm><primary>VEI 6</primary><secondary>Long Island, Northeast of New Guinea</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Long_Island_(Papua_New_Guinea)</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Long_Island_NASA.jpg/280px-Long_Island_NASA.jpg</image>
+<image>280px-Long_Island_NASA.jpg</image>
 <region>Australasia</region>
 <event_type>Volcanic</event_type>
 <start_year_uncert>100</start_year_uncert>
@@ -644,9 +699,13 @@ Radiocarbon (uncorrected)<br/>
 </para>
 </section>
 <section>
-<title>2300 BC: Blanco, Cerro
+<title>2300 BC: Blanco, Cerro VEI 7
+<indexterm><primary>Eruption</primary><secondary>South America</secondary></indexterm>
+<indexterm><primary>VEI 7</primary><secondary>South America</secondary></indexterm>
 </title>
 <region>South America</region>
+<url>https://en.wikipedia.org/wiki/Cerro_Blanco_(volcano)</url>
+<image>280px-Cerro_Blanco_volcano_(AVA_Granule_L1B_20000916145757).jpg</image>
 <event_type>Volcanic</event_type>
 <start_year_uncert>160</start_year_uncert>
 <para>VEI 7
@@ -660,7 +719,7 @@ Radiocarbon (corrected)<br/>
 <indexterm><primary>VEI 6</primary><secondary>Pinatubo, Philippines</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Mount_Pinatubo</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Pinatubo91eruption_clark_air_base.jpg/280px-Pinatubo91eruption_clark_air_base.jpg</image>
+<image>280px-Pinatubo91eruption_clark_air_base.jpg</image>
 <region>Southeast Asia</region>
 <event_type>Volcanic</event_type>
 <para>VEI 6<br/>
@@ -673,6 +732,8 @@ Radiocarbon (corrected)<br/>
 <indexterm><primary>Eruption</primary><secondary>Taal, Philippines</secondary></indexterm>
 <indexterm><primary>VEI 6</primary><secondary>Taal, Philippines</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/Taal_Volcano</url>
+<image>280px-Taal_Volcano_aerial_2013.jpg</image>
 <region>Southeast Asia</region>
 <event_type>Volcanic</event_type>
 <start_year_uncert>200</start_year_uncert>
@@ -682,8 +743,10 @@ Radiocarbon (uncorrected)<br/>
 </para>
 </section>
 <section>
-<title>4000 BC: Witori
+<title>4000 BC: Witori Caldera
 </title>
+<url>https://en.wikipedia.org/wiki/Pago_(volcano)</url>
+<image>280px-Ulawun_steam_plume.jpg</image>
 <region>Australasia</region>
 <event_type>Volcanic</event_type>
 <start_year_uncert>210</start_year_uncert>
@@ -695,6 +758,8 @@ Radiocarbon (corrected)<br/>
 <section>
 <title>4050 BC: Masaya, Nicaragua
 </title>
+<url>https://en.wikipedia.org/wiki/Masaya_Volcano</url>
+<image>280px-Volcan_Masaya2.jpg</image>
 <region>Central America</region>
 <event_type>Volcanic</event_type>
 <para>VEI 6<br/>
@@ -707,6 +772,8 @@ NW of caldera</para>
 <indexterm><primary>Eruption</primary><secondary>Kikai Caldera, Ryukyu Islands (Japan)</secondary></indexterm>
 <indexterm><primary>VEI 7</primary><secondary>Kikai Caldera, Ryukyu Islands (Japan)</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/Kikai_Caldera</url>
+<image>Kikai_Caldera_Relief_Map,_SRTM,_English.jpg</image>
 <region>East Asia</region>
 <event_type>Volcanic</event_type>
 <para>VEI 7
@@ -719,6 +786,8 @@ Kikai caldera</para>
 <indexterm><primary>Eruption</primary><secondary>Maculey Island, Kermadec Islands</secondary></indexterm>
 <indexterm><primary>VEI 6</primary><secondary>Maculey Island, Kermadec Islands</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/Macauley_Island</url>
+<image>260px-Macauley_Island.png</image>
 <region>Australasia</region>
 <event_type>Volcanic</event_type>
 <start_year_uncert>200</start_year_uncert>
@@ -732,6 +801,8 @@ Radiocarbon (uncorrected)<br/>
 <indexterm><primary>Eruption</primary><secondary>Hudson, Cerro Southern Chile</secondary></indexterm>
 <indexterm><primary>VEI 6</primary><secondary>Hudson, Cerro Southern Chile</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/Mount_Hudson</url>
+<image>280px-Cerro_hudson.jpg</image>
 <region>South America</region>
 <event_type>Volcanic</event_type>
 <para>VEI 6<br/>
@@ -744,6 +815,8 @@ Radiocarbon (uncorrected)<br/>
 <indexterm><primary>Eruption</primary><secondary>Aniakchak, Alaska Peninsula</secondary></indexterm>
 <indexterm><primary>VEI 6</primary><secondary>Aniakchak, Alaska Peninsula</secondary></indexterm>
 </title>
+<image>280px-Aniakchak-caldera_alaska.jpg</image>
+<url>https://en.wikipedia.org/wiki/Mount_Aniakchak</url>
 <start_year_uncert>1000</start_year_uncert>
 <region>North America</region>
 <event_type>Volcanic</event_type>
@@ -760,6 +833,8 @@ Tephrochronology
 <region>East Asia</region>
 <event_type>Volcanic</event_type>
 <start_year_uncert>75</start_year_uncert>
+<url>https://en.wikipedia.org/wiki/Tao-Rusyr_Caldera</url>
+<image>OnekotanIslandNASA.jpg</image>
 <para>VEI 6<br/>
 Confirmed Eruption<br/>
 Radiocarbon (uncorrected)<br/>
@@ -770,6 +845,8 @@ Tao-Rusyr</para>
 <indexterm><primary>Eruption</primary><secondary>Mashu, Hokkaido (Japan)</secondary></indexterm>
 <indexterm><primary>VEI 6</primary><secondary>Mashu, Hokkaido (Japan)</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/Lake_Mash%C5%AB</url>
+<image>250px-Image-2008_Lake_Masshu.jpg</image>
 <start_year_uncert>100</start_year_uncert>
 <region>East Asia</region>
 <event_type>Volcanic</event_type>
@@ -779,14 +856,16 @@ Radiocarbon (corrected)<br/>
 </para>
 </section>
 <section>
-<title>5677 BC: Crater Lakes CalderaVEI 7<citation>HoloceneEruptions</citation>
+<title>5677 BC: Crater Lakes Caldera VEI 7<citation>HoloceneEruptions</citation>
 <indexterm><primary>Eruption</primary><secondary>Crater Lakes Caldera</secondary></indexterm>
 <indexterm><primary>VEI 7</primary><secondary>Crater Lakes Caldera</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/Crater_Lake</url>
+<image>250px-Crater_Lake_winter_pano2.jpg</image>
 <region>North America</region>
 <event_type>Volcanic</event_type>
 <start_year_uncert>150</start_year_uncert>
-<para>This event is noted in native American legions about a battle of the Gods where one threw down the other(6).</para>
+<para>This event is noted in native American legions about a battle of the Gods where one threw down the other.</para>
 <para>VEI 7
 Confirmed Eruption<br/>
 Ice Core
@@ -798,6 +877,8 @@ Mt. Mazama summit and flank vents</para>
 <region>East Asia</region>
 <event_type>Volcanic</event_type>
 <start_year_uncert>16</start_year_uncert>
+<url>https://en.wikipedia.org/wiki/Khangar</url>
+<image>280px-Khangar.jpg</image>
 <para>VEI 6<br/>
 Confirmed Eruption<br/>
 Radiocarbon (corrected)<br/>
@@ -809,6 +890,8 @@ Radiocarbon (corrected)<br/>
 <region>North America</region>
 <event_type>Volcanic</event_type>
 <start_year_uncert>50</start_year_uncert>
+<url>https://en.wikipedia.org/wiki/Crater_Lake</url>
+<image>250px-Crater_Lake_winter_pano2.jpg</image>
 <para>VEI 6<br/>
 Confirmed Eruption<br/>
 Radiocarbon (corrected)<br/>
@@ -819,6 +902,8 @@ North flank (Llao Rock)</para>
 <indexterm><primary>Eruption</primary><secondary>Menenga, Eastern Africa</secondary></indexterm>
 <indexterm><primary>VEI 6</primary><secondary>Menenga, Eastern Africa</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/Menengai</url>
+<image>Menengai_crater_view_from_the_edge.jpg</image>
 <region>Africa</region>
 <event_type>Volcanic</event_type>
 <para>VEI 6+
@@ -827,11 +912,13 @@ Radiocarbon (uncorrected)<br/>
 </para>
 </section>
 <section>
-<title>6440 BC: Kurile Lake CalderaVEI 7<citation>HoloceneEruptions</citation>
+<title>6440 BC: Kurile Lake Caldera VEI 7<citation>HoloceneEruptions</citation>
 <indexterm><primary>Eruption</primary><secondary>Kurile Lake Caldera</secondary></indexterm>
 <indexterm><primary>VEI 7</primary><secondary>Kurile Lake Caldera</secondary></indexterm>
 </title>
 <region>East Asia</region>
+<url>https://en.wikipedia.org/wiki/Tao-Rusyr_Caldera</url>
+<image>OnekotanIslandNASA.jpg</image>
 <event_type>Volcanic</event_type>
 <start_year_uncert>25</start_year_uncert>
 <para>VEI 7
@@ -844,19 +931,22 @@ Radiocarbon (corrected)<br/>
 </title>
 <region>East Asia</region>
 <event_type>Volcanic</event_type>
+<url>https://en.wikipedia.org/wiki/Karymsky_(volcano)</url>
+<image>280px-Akademia_nauk.jpg</image>
 <para>VEI 6<br/>
 Confirmed Eruption<br/>
 Radiocarbon (corrected)<br/>
 Karymsky caldera</para>
 </section>
 <section>
-<title>7420 BC: Fisher, Aleutian Islands  VEI 6<citation>HoloceneEruptions</citation>
+<title>7420 BC: Fisher Caldera, Aleutian Islands  VEI 6<citation>HoloceneEruptions</citation>
 <indexterm><primary>Eruption</primary><secondary>Fisher, Aleutian Islands</secondary></indexterm>
 <indexterm><primary>VEI 6</primary><secondary>Fisher, Aleutian Islands</secondary></indexterm>
 </title>
 <region>North America</region>
 <event_type>Volcanic</event_type>
 <start_year_uncert>200</start_year_uncert>
+<url>https://en.wikipedia.org/wiki/Fisher_Caldera</url>
 <para>VEI 6?
 Confirmed Eruption<br/>
 Radiocarbon (uncorrected)<br/>
@@ -868,7 +958,7 @@ NE and SW parts of Fisher caldera</para>
 <indexterm><primary>VEI 6</primary><secondary>Pinatubo, Philippines</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Mount_Pinatubo</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Pinatubo91eruption_clark_air_base.jpg/280px-Pinatubo91eruption_clark_air_base.jpg</image>
+<image>280px-Pinatubo91eruption_clark_air_base.jpg</image>
 <region>Southeast Asia</region>
 <event_type>Volcanic</event_type>
 <start_year_uncert>150</start_year_uncert>
@@ -878,11 +968,13 @@ Radiocarbon (corrected)<br/>
 Tayawan caldera</para>
 </section>
 <section>
-<title>8050 BC: Aira
+<title>8050 BC: Aira Caldera
 </title>
 <region>East Asia</region>
 <event_type>Volcanic</event_type>
 <start_year_uncert>1000</start_year_uncert>
+<image>280px-Sakura-jima_from_space.jpg</image>
+<url>https://en.wikipedia.org/wiki/Aira_Caldera</url>
 <para>VEI 6<br/>
 Confirmed Eruption<br/>
 Radiocarbon (uncorrected)<br/>
@@ -892,9 +984,9 @@ Wakamiko Caldera</para>
 <title>8230 BC: Grimsvotn, Iceland VEI 6<citation>HoloceneEruptions</citation>
 <indexterm><primary>Eruption</primary><secondary>Grimsvotn, Iceland</secondary></indexterm>
 <indexterm><primary>VEI 6</primary><secondary>Grimsvotn, Iceland</secondary></indexterm>
-<url>https://en.wikipedia.org/wiki/Gr%C3%ADmsv%C3%B6tn</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Iceland_Grimsvoetn_1972-B.jpg/280px-Iceland_Grimsvoetn_1972-B.jpg</image>
 </title>
+<url>https://en.wikipedia.org/wiki/Gr%C3%ADmsv%C3%B6tn</url>
+<image>280px-Iceland_Grimsvoetn_1972-B.jpg</image>
 <region>Iceland and Arctic Ocean</region>
 <event_type>Volcanic</event_type>
 <start_year_uncert>50</start_year_uncert>
@@ -909,6 +1001,8 @@ Radiocarbon (corrected)<br/>
 <region>South America</region>
 <event_type>Volcanic</event_type>
 <start_year_uncert>150</start_year_uncert>
+<image>280px-The-glaciated-michinmavida-volcano-lies-directly-behind-chaiten-in-eruption.jpg</image>
+<url>https://en.wikipedia.org/wiki/Michinmahuida</url>
 <para>VEI 6<br/>
 Confirmed Eruption<br/>
 Radiocarbon (corrected)<br/>
@@ -920,7 +1014,7 @@ Radiocarbon (corrected)<br/>
 <indexterm><primary>VEI 6</primary><secondary>Ulreung, Korea</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Ulleungdo</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Ulleung_island_from_above.jpg/260px-Ulleung_island_from_above.jpg</image>
+<image>260px-Ulleung_island_from_above.jpg</image>
 <region>East Asia</region>
 <event_type>Volcanic</event_type>
 <para>VEI 6<br/>
@@ -941,7 +1035,7 @@ Radiocarbon (corrected)<br/>
 <event_type>Climatic</event_type>
 </section>
 <section>
-<title>6100 BC: Bond 5 - 8.2K Event
+<title>6200 BC - 6050 BC: Bond 5 - 8.2K Event
 <indexterm><primary>Bond Event</primary></indexterm>
 </title>
 <region>Global</region>
@@ -953,7 +1047,7 @@ Radiocarbon (corrected)<br/>
 <indexterm><primary>VEI 5</primary><secondary>Cotopaxi, Ecuador</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Cotopaxi</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Cotopaxi_volcano_2008-06-27T1322.jpg/280px-Cotopaxi_volcano_2008-06-27T1322.jpg</image>
+<image>280px-Cotopaxi_volcano_2008-06-27T1322.jpg</image>
 <start_year_uncert>75</start_year_uncert>
 </section>
 <section>
@@ -961,6 +1055,7 @@ Radiocarbon (corrected)<br/>
 <indexterm><primary>Earth</primary><secondary>Flooding of the Black Sea</secondary></indexterm>
 <indexterm><primary>Flood</primary><secondary>Flooding of the Black Sea</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/Black_Sea_deluge_hypothesis</url>
 <region>Near East</region>
 <event_type>Earth</event_type>
 </section>
@@ -984,11 +1079,11 @@ Tree Ring Event
 <indexterm><primary>VEI 6</primary><secondary>Pago, New Britain</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Pago_(volcano)</url>
-<image>https://en.wikipedia.org/wiki/File:Papua_New_Guinea_location_map_Topographic.png</image>
+<image>280px-ulawun_steam_plume.jpg</image>
 <start_year_uncert>200</start_year_uncert>
 </section>
 <section>
-<title>3900 BC: Bond 4 - 5.9K Event - intense aridification
+<title>4200 BC - 3900 BC: Bond 4 - 5.9K Event - intense aridification
 <indexterm><primary>Bond Event</primary></indexterm>
 </title>
 <para>5.9K Event was one of the most intense aridification events during the Holocene.</para>
@@ -1001,7 +1096,7 @@ Tree Ring Event
 <indexterm><primary>VEI 5</primary><secondary>Cotopaxi, Ecuador</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Cotopaxi</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Cotopaxi_volcano_2008-06-27T1322.jpg/280px-Cotopaxi_volcano_2008-06-27T1322.jpg</image>
+<image>280px-Cotopaxi_volcano_2008-06-27T1322.jpg</image>
 <start_year_uncert>75</start_year_uncert>
 </section>
 <section>
@@ -1034,13 +1129,6 @@ Tree Ring Event
 <event_type>Climatic</event_type>
 </section>
 <section>
-<title>2200 BC: Bond 3
-<indexterm><primary>Bond Event</primary></indexterm>
-</title>
-<region>Global</region>
-<event_type>Climatic</event_type>
-</section>
-<section>
 <title>2354 BC: Umm al Bini -  The confusion of Civilizations
 <indexterm><primary>Impact Event</primary><secondary>Umm al Bini</secondary></indexterm>
 <indexterm><primary>Earth</primary><secondary>Babylonian Flood</secondary></indexterm>
@@ -1066,7 +1154,8 @@ The Egyptian Drought</para>
 <para>Lasted 9 years.</para>
 </section>
 <section>
-<title>2200 BC - 2100 BC: 4.2 Kiloyear Event</title>
+<title>2200 BC - 2100 BC: Bond 3 - 4.2 Kiloyear Event</title>
+<url>https://en.wikipedia.org/wiki/4.2_kiloyear_event</url>
 <region>Global</region>
 <event_type>Climatic</event_type>
 </section>
@@ -1075,12 +1164,13 @@ The Egyptian Drought</para>
 <indexterm><primary>Eruption</primary><secondary>Santorini/Thera</secondary></indexterm>
 <indexterm><primary>VEI 7</primary><secondary>Santorini/Thera</secondary></indexterm>
 <indexterm><primary>Tsunami</primary><secondary>1628 BC Santorini/Thera</secondary></indexterm>
-<indexterm><primary>Atlantis</primary></indexterm>
 <indexterm><primary>Earthquake</primary><secondary>1628 BC Olympia</secondary></indexterm>
 </title>
 <start_year_uncert>14</start_year_uncert>
 <region>Europe</region>
 <event_type>Volcanic</event_type>
+<url>https://en.wikipedia.org/wiki/Santorini_caldera</url>
+<image>280px-Santorini_Caldera_Landsat.jpg</image>
 <para>VEI 7?
 Confirmed Eruption<br/>
 Radiocarbon (corrected)<br/>
@@ -1101,12 +1191,16 @@ It is one of two calderas that have been remembered in folk lore.  The other cal
 <title>1500 BC - 1400 BC: Kaali Meteor Impact
 <indexterm><primary>Impact Event</primary><secondary>Kaali Meteor Impact</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/Kaali_crater</url>
+<image>220px-Kaali-crater-saaremaa-estonia-aug-2007.jpg</image>
 <region>Europe</region>
 <event_type>Impact</event_type>
 </section>
 <section>
-<title>6000 BC: Macha Crater
+<title>5300 BC: Macha Crater
 </title>
+<url>https://en.wikipedia.org/wiki/Macha_crater</url>
+<image>Macha_craters_overview_map.jpg</image>
 <region>Eurasia</region>
 <event_type>Impact</event_type>
 </section>
@@ -1115,7 +1209,7 @@ It is one of two calderas that have been remembered in folk lore.  The other cal
 <indexterm><primary>Eruption</primary><secondary>Taupo, New Zealand</secondary></indexterm>
 <indexterm><primary>VEI 6</primary><secondary>Taupo, New Zealand</secondary></indexterm>
 </title>
-<image>https://en.wikipedia.org/wiki/File:Taupo.Volcanic.Zone.North.Island.NZ.JPG</image>
+<image>Taupo.Volcanic.Zone.North.Island.NZ.JPG</image>
 <url>https://en.wikipedia.org/wiki/Taupo_Volcano</url>
 <start_year_uncert>40</start_year_uncert>
 <region>Australasia</region>
@@ -1131,7 +1225,7 @@ Horomatangi Reefs?</para>
 <indexterm><primary>VEI 6</primary><secondary>Pago, New Britain</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Pago_(volcano)</url>
-<image>https://en.wikipedia.org/wiki/File:Papua_New_Guinea_location_map_Topographic.png</image>
+<image>280px-ulawun_steam_plume.jpg</image>
 <start_year_uncert>100</start_year_uncert>
 </section>
 <section>
@@ -1156,7 +1250,7 @@ This earthquake was perhaps the earthquake described to Solon in Plato's Atlanis
 <indexterm><primary>VEI 6</primary><secondary>Helka 3, Iceland</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Hekla</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/2006-05-21-153901_Iceland_St%C3%B3rin%C3%BApur.jpg/280px-2006-05-21-153901_Iceland_St%C3%B3rin%C3%BApur.jpg</image>
+<image>280px-2006-05-21-153901_Iceland_St%C3%B3rin%C3%BApur.jpg</image>
 <para>LHE date 1100 BC &#177;50 years
 </para>
 <start_year_uncert>50</start_year_uncert>
@@ -1182,8 +1276,14 @@ Lasted 18 years<citation>Baillie1999</citation>.</para>
 <event_type>Climatic</event_type>
 </section>
 <section>
-<title>800 BC: Bond 2 - Iron Age Cold Epoch
+<title>800 BC: Bond 2
 <indexterm><primary>Bond Event</primary></indexterm>
+</title>
+<region>Global</region>
+<event_type>Climatic</event_type>
+</section>
+<section>
+<title>1200 BC - 1100 BC: Late Bronze Age Collapse
 </title>
 <region>Global</region>
 <event_type>Climatic</event_type>
@@ -1211,11 +1311,11 @@ Lasted 18 years<citation>Baillie1999</citation>.</para>
 <section>
 <title>440 BC: Destruction of Tartessos
 </title>
-<para>Located on south-western coast of Spain, just outside of the gates of Gibraltar(24).</para>
+<para>Located on south-western coast of Spain, just outside of the gates of Gibraltar.</para>
 <event_type>Earth</event_type>
 </section>
 <section>
-<title>373 BC: Helike, Greece disappears into the sea(25)
+<title>373 BC: Helike, Greece disappears into the sea
 </title>
 <event_type>Earth</event_type>
 </section>
@@ -1227,6 +1327,8 @@ Lasted 18 years<citation>Baillie1999</citation>.</para>
 <start_year_uncert>75</start_year_uncert>
 <region>Australasia</region>
 <event_type>Volcanic</event_type>
+<image>260px-STS008-36-1403_cropped_rotated.jpg</image>
+<url>https://en.wikipedia.org/wiki/Raoul_Island</url>
 <para>VEI 6<br/>
 Confirmed Eruption<br/>
 Radiocarbon (uncorrected)<br/>
@@ -1251,6 +1353,8 @@ Denham caldera</para>
 <indexterm><primary>Eruption</primary><secondary>Masaya, Nicaragua</secondary></indexterm>
 <indexterm><primary>VEI 5</primary><secondary>Masaya, Nicaragua</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/Masaya_Volcano</url>
+<image>280px-Volcan_Masaya2.jpg</image>
 </section>
 <section>
 <title>180 AD: Taupo, New Zealand VEI 7
@@ -1271,7 +1375,7 @@ The magnitude of the explosion was the determining factor for its effect on the 
 </para>
 <region>Australasia</region>
 <event_type>Volcanic</event_type>
-<image>https://en.wikipedia.org/wiki/File:Taupo.Volcanic.Zone.North.Island.NZ.JPG</image>
+<image>Taupo.Volcanic.Zone.North.Island.NZ.JPG</image>
 <url>https://en.wikipedia.org/wiki/Taupo_Volcano</url>
 </section>
 <section>
@@ -1279,6 +1383,8 @@ The magnitude of the explosion was the determining factor for its effect on the 
 <indexterm><primary>Eruption</primary><secondary>Rabul, New Britain</secondary></indexterm>
 <indexterm><primary>VEI 6</primary><secondary>Rabul, New Britain</secondary></indexterm>
 </title>
+<url>https://en.wikipedia.org/wiki/Raoul_Island</url>
+<image>260px-STS008-36-1403_cropped_rotated.jpg</image>
 <start_year_uncert>4</start_year_uncert>
 <para>This event is noted in the ice cores as a sulfur event at 516 AD &#177; 4 years.  Perhaps this is the explanation for the Saxon invasion of the Celtic side of Britain resulting the Braton Hill battle.  The LHE list says 540 AD &#177;100 years.</para>
 </section>
@@ -1290,12 +1396,11 @@ The magnitude of the explosion was the determining factor for its effect on the 
 <region>Global</region>
 <event_type>Climatic</event_type>
 <para>
-<indexterm><primary>Impact Event</primary><secondary>Tabban and Kenmore</secondary></indexterm>
-Impact event by two bodies resulting in impact craters called  Tabban and Kenmore in the Gulf of Carpeneria, Australia.  The cold period lasted 9 years in the tree ring records<citation>Baillie1999</citation>.   This impact left an impact in both the recorded history around the world and the climate proxies allowing for a reconstruction of what a global winter is like.
+The cold period lasted 9 years in the tree ring records<citation>Baillie1999</citation>.   This impact left an impact in both the recorded history around the world and the climate proxies allowing for a reconstruction of what a global winter is like.
 </para><para>
 The cloud cover started on March 24, 535 and ended on June 24, 536.   It's ocular density was 2 and a half times the explosion of Tambora (1815).  
 </para><para>
-'There was a sign from the sun, the like of which had not been reported before. The sun became dark and its darkness lasted for 18 months.  Each day, it shone for about four hours, and still this light was only a feeble shadow.  Everyone declared that sun would never recover its full light again.'(30)</para>
+'There was a sign from the sun, the like of which had not been reported before. The sun became dark and its darkness lasted for 18 months.  Each day, it shone for about four hours, and still this light was only a feeble shadow.  Everyone declared that sun would never recover its full light again.'</para>
 </section>
 <section>
 <title>540 AD: Tree Ring Event
@@ -1320,7 +1425,7 @@ The cloud cover started on March 24, 535 and ended on June 24, 536.   It's ocula
 </title>
 <start_year_uncert>75</start_year_uncert>
 <url>https://en.wikipedia.org/wiki/Pago_(volcano)</url>
-<image>https://en.wikipedia.org/wiki/File:Papua_New_Guinea_location_map_Topographic.png</image>
+<image>280px-Ulawun_steam_plume.jpg</image>
 </section>
 <section>
 <title>800 AD: Churchill, Eastern Alaska VEI 6<citation>HoloceneEruptions</citation>
@@ -1328,7 +1433,7 @@ The cloud cover started on March 24, 535 and ended on June 24, 536.   It's ocula
 <indexterm><primary>VEI 6</primary><secondary>Churchill, Eastern Alaska</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Mount_Churchill</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Relief_map_of_USA_Alaska.png/248px-Relief_map_of_USA_Alaska.png</image>
+<image>280px-MtChurchill-KlutlanGlacier.jpg</image>
 <start_year_uncert>100</start_year_uncert>
 </section>
 <section>
@@ -1337,7 +1442,7 @@ The cloud cover started on March 24, 535 and ended on June 24, 536.   It's ocula
 <indexterm><primary>VEI 6</primary><secondary>Dakataua, New Britain</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Dakataua</url>
-<image>https://en.wikipedia.org/wiki/File:Papua_New_Guinea_location_map_Topographic.png</image>
+<image>280px-Ulawun_steam_plume.jpg</image>
 <start_year_uncert>50</start_year_uncert>
 </section>
 <section>
@@ -1346,20 +1451,18 @@ The cloud cover started on March 24, 535 and ended on June 24, 536.   It's ocula
 <indexterm><primary>VEI 5</primary><secondary>Billy Mitchell, Bougainville Island</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Billy_Mitchell_(volcano)</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/MtBalbiToreNASA.jpg/280px-MtBalbiToreNASA.jpg</image>
+<image>MtBalbiToreNASA.jpg</image>
 <start_year_uncert>25</start_year_uncert>
 </section>
 <section>
-<title>1294/1297 AD: 'Lighting and Meteors destroyed the corn' in Ireland
+<title>1294 AD - 1297 AD: 'Lighting and Meteors destroyed the corn' in Ireland<citation>Baillie1999</citation>
 </title>
+<start_year_uncert>4</start_year_uncert>
 <para>
-'Lighting and Meteors destroyed the corn' in Ireland 1294, 'ten fireballs the size of houses' fell in China 1295, extraterrestrial inpact in Russia 1296 and fire-induced growth in giant sequoia dendrochronology
-<indexterm><primary>Dendrochronology</primary></indexterm>
-, 1297<citation>Baillie1999</citation>
-<indexterm><primary>Impact Event</primary></indexterm>
-.
+'Lighting and Meteors destroyed the corn' in Ireland 1294, 'ten fireballs the size of houses' fell in China 1295, extraterrestrial inpact in Russia 1296 and fire-induced growth in giant sequoia dendrochronology, 1297.
 </para>
 <event_type>Impact</event_type>
+<region>Europe</region>
 </section>
 <section>
 <title>1440 AD: Mahuika Crater
@@ -1372,10 +1475,23 @@ The cloud cover started on March 24, 535 and ended on June 24, 536.   It's ocula
 <start_year_uncert>15</start_year_uncert>
 </section>
 <section>
-<title>1453 AD: Kuwae, Vanuatu
+<title>1453 AD: Kuwae, Vanuatu VEI 7
+<indexterm><primary>Eruption</primary><secondary>Kuwae, Vanuatu</secondary></indexterm>
+<indexterm><primary>VEI 7</primary><secondary>Kuwae, Vanuatu</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Kuwae</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/ShepherdIslandsMap.png/280px-ShepherdIslandsMap.png</image>
+<image>280px-ShepherdIslandsMap.png</image>
+<para>
+Three year cooling event.
+</para>
+<region>Global</region>
+<event_type>Volcanic</event_type>
+</section>
+<section>
+<title>1453 AD - 1456 AD: Three year cold event
+</title>
+<event_type>Climatic</event_type>
+<region>Global</region>
 </section>
 <section>
 <title>1550 AD: Beginning of Little Ice Age
@@ -1397,9 +1513,9 @@ The cloud cover started on March 24, 535 and ended on June 24, 536.   It's ocula
 <indexterm><primary>Eruption</primary><secondary>Grimsvotn Volanco, Iceland</secondary></indexterm>
 <indexterm><primary>VEI 4</primary><secondary>Grimsvotn Volanco, Iceland</secondary></indexterm>
 </title>
-<para>The famous volcanic event which started the great Benjamin Franklin asking the question of weither the Liki eruption had an effect on the weather in Europe and North America in the years following the eruption(39).</para>
+<para>The famous volcanic event which started the great Benjamin Franklin asking the question of weither the Liki eruption had an effect on the weather in Europe and North America in the years following the eruption.</para>
 <url>https://en.wikipedia.org/wiki/Gr%C3%ADmsv%C3%B6tn</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Iceland_Grimsvoetn_1972-B.jpg/280px-Iceland_Grimsvoetn_1972-B.jpg</image>
+<image>Iceland_Grimsvoetn_1972-B.jpg</image>
 </section>
 <section>
 <title>1850 AD: Third Cold Point of the Little Ice Age
@@ -1410,9 +1526,9 @@ The cloud cover started on March 24, 535 and ended on June 24, 536.   It's ocula
 <title>1859 AD: The Carrington Event: Solar Storm of 1859
 <indexterm><primary>Magnetic Event</primary><secondary>Carrington Event</secondary></indexterm>
 <indexterm><primary>Historical</primary><secondary>Carrington Event</secondary></indexterm>
-<indexterm><primary>Carrington Event</primary></indexterm>
 </title>
 <para>This was the largest Geomagnetic storm on the sun.  It took 17 hours to travel to earth on a journey which normally take 3 days.
+There were fires along the telegraph lines and station due to the storm generating power in the wires.
 </para>
 <event_type>Climatic</event_type>
 </section>
@@ -1420,12 +1536,12 @@ The cloud cover started on March 24, 535 and ended on June 24, 536.   It's ocula
 <title>1908 AD: Tunguska Event
 <indexterm><primary>Impact Event</primary><secondary>Tunguska</secondary></indexterm>
 <indexterm><primary>Historical</primary><secondary>Tunguska</secondary></indexterm>
-<indexterm><primary>Tunguska</primary></indexterm>
 </title>
 <para>The first major Impact Event in recorded history.  It took almost 15 years to find the explosion point due to its remoteness in Siberia.  Recent models show an explosion of an asteroid above the earth with a small Impact Event.  The wide spread destruction was due to the mid-air explosion. 
 </para><para>
 People in London were able to read the new paper at night for 8 days after the event.  It was heard around the world.</para>
-<event_type>Earth</event_type>
+<event_type>Impact</event_type>
+<region>Far East</region>
 </section>
 <section>
 <title>2010 AD: Grimsvotn Volanco, Iceland VEI 4
@@ -1433,7 +1549,7 @@ People in London were able to read the new paper at night for 8 days after the e
 <indexterm><primary>VEI 4</primary><secondary>Grimsvotn Volanco, Iceland</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Gr%C3%ADmsv%C3%B6tn</url>
-<image>https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Iceland_Grimsvoetn_1972-B.jpg/280px-Iceland_Grimsvoetn_1972-B.jpg</image>
+<image>Iceland_Grimsvoetn_1972-B.jpg</image>
 <para>This eruption caused desruptions to air travel in Europe.  President Obama had to cut short his visit to Ireland due to worries about the ash cloud.
 </para>
 <event_type>Volcanic</event_type>

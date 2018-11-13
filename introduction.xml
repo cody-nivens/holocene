@@ -1,6 +1,7 @@
 <chapter id='introduction'>
 <title>Introduction
 </title>
+<partition>Introduction</partition>
 <para>My first and primary occupation in life has been Computer Science.  From beginning with Basic on a Woods<footnote><para>Pencil and paper</para></footnote> computer and the December 1973 Popular Science magazine's article on the Intel 8080 microprocessor chip to today's cloud environment, Computer Science and its practice has allowed me to sharpen my skills at pattern recognition.  
 </para>
 <para>
@@ -15,11 +16,8 @@ As time passed the Chinese scholars augmented the understanding of these traditi
 Chinese Medicine
 <indexterm><primary>Chinese medicine</primary></indexterm>
  lead me to study the epidemics of history looking at the patterns that a virus would have on society.  In 220 AD Zhong Zhung Zhing 
-<indexterm><primary>Zhong Zhung Zhing</primary></indexterm>
-published the <emphasis>Shan Han Lun</emphasis> (The treatment of Cold Disorders).   
+published the 'Shan Han Lun' (The treatment of Cold Disorders).   
 This book came about because Dr Zhong lost three quarters of his clan to an epidemic (believed to be Typhus)
-<indexterm><primary>Typhus</primary></indexterm>
-<indexterm><primary>Epidemic</primary><secondary>Typhus</secondary></indexterm>
 causing him to begin the practice of medicine to aid the survivors. 
 85% of the herbal formulas in this book are still in use today.
 </para>
@@ -28,12 +26,8 @@ Having looked at the history of several epidemics, it is apparent to me that man
 Yet, time has proved many historians of the past to be accurate to the extent of their observations and it is not incomprehensible that in fact at various place during the Justian Plague and the Black Death that populations in some areas were indeed decimated with 9 of 10 people dying just as other places felt no losses.
 </para>
 <para>
-Documentation of this phenomena are in the modern worlds interactions with 'lost' tribes in the Amazon and how first contact results in a 90% loss of life.  Cortez
- conquered Mexico due to Smallpox
-<indexterm><primary>Cortez</primary></indexterm>
-<indexterm><primary>Smallpox</primary></indexterm>
-<indexterm><primary>Epidemic</primary><secondary>Smallpox</secondary></indexterm>
- and other viruses that the Incas had caught from Cortez and his crew.   
+Documentation of this phenomena are in the modern worlds interactions with 'lost' tribes in the Amazon and how first contact results in a 90% loss of life.
+Cortez conquered Mexico due to Smallpox and other viruses that the Incas had caught from Cortez and his crew.   
 </para>
 <para>
 In the Amazon, there are archaeological digs going on documenting the settlements abandoned 500 years ago<footnote><para>Amazon archaeology of 1500 settlements</para></footnote>.   
@@ -48,8 +42,7 @@ During a plague, your chances are dependent on exposure, genes and preexisting i
 During the 'Swine' flu epidemic of 1919, it was the young and strong that died is most numbers.  
 Their immune systems launched too strong of an attack resulting in an autoimmune condition.  
 During the 2008 round of Swine flu, it was children who were most effected with prolonged effects observed.  
-<footnote><para>I remember that during the Swine flu the early 1970's, my father was struck with flu and pneumonia.</para></footnote>
-</para>
+<footnote><para>I remember that during the Swine flu the early 1970's, my father was struck with flu and pneumonia.</para></footnote></para>
 <para>
 This pattern of epidemics on a native<footnote><para>Exposure of 'lost' tribes to diseases</para></footnote> population can possibly be used to explain the mystery of the Minion's disappearance from history as well as the interesting fact that an epidemic of 1,500BC left its mark on the gene pool of Europe<footnote><para>Gene study which lead to discovery of European plague in 1500BC</para></footnote>.
 </para>
@@ -69,7 +62,6 @@ Each type of event has its own effects yet all have a similar effect on weather 
 </para>
 <para>
 This effect is to create a Global or Hemispheric Winter. 
-<indexterm><primary>Global Winter</primary></indexterm>
  
 A condition under which the temperature is low and plants do not grow due to cold and low light conditions.  
 In the 535-6 event, the effect was described as a year of living in eclipse as that was the resulting light density from the sun filtering through the dust throw up into the atmosphere. During the 'Cold War', much discussion was given to the effects of a Nuclear Winter.  A similar condition, but with nuclear radiation to contend with as well.  

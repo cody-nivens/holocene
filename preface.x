@@ -1,13 +1,24 @@
 <chapter>
-<title>Preface</title>
-<para>This book started with the book <emphasis>After the Ice</emphasis><citation>mithen2003</citation>.  During it's reading, I began to look at history in a different way.  Previously, I had followed the tradition of cultural forces verses population as the main driver of history. 
-<emphasis>After the Ice</emphasis> presented the idea that the environment's changes and the trail left by various peoples as they have struggled to live and ensure they children's survival influenced the development of civilization.
+<title>Preface
+<citation>mithen2003</citation>
+</title>
+<partition>Preface</partition>
+<partition_body>
+<para>
+Survivalists worry that the government is out to get them.  
+</para>
+<para>
+Preppers worry that the government will not be there when they need it.
+</para>
+</partition_body>
+<para>This book started with the book 'After the Ice'.  During it's reading, I began to look at history in a different way.  Previously, I had followed the tradition of cultural forces verses population as the main driver of history. 
+'After the Ice' presented the idea that the environment's changes and the trail left by various peoples as they have struggled to live and ensure they children's survival influenced the development of civilization.
 </para><para>
 Brian Fagan's books and their assorted information on climate and its affect on history further informed this concept with data in recorded history.
 Patterns in weather and their effects on the history of people became very apparent. 
 Yet it was apparent from these books that weather could not explain all the various changes in the development of civilization.
 A question formed in my mind as to what caused the breaks in historical development.  
-Richard Stothers'<citation>stothersxxxx</citation> work presented the Global Winter pattern by applying to many cases in the last 2,000 years.  
+Richard Stothers' work presented the Global Winter pattern by applying to many cases in the last 2,000 years.  
 These cases showed a simple elegant solution for these drop-outs of history.  
 Other historical periods should also have simple solutions as their causes especially when changes are wide spread.  A simple bad winter in one region may not affect another.  When it does, then a solution should explain why.
 </para><para>

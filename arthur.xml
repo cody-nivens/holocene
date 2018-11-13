@@ -1,13 +1,11 @@
 <chapter>
 <title>Arthur and The Justian Plague
-<indexterm><primary>Arthur</primary></indexterm>
 <indexterm><primary>Epidemic</primary><secondary>Bubonic Plague</secondary></indexterm>
 <indexterm><primary>Bubonic Plague</primary></indexterm>
 </title>
 <para>
-Impact event by two bodies resulting in impact craters called Tabban and Kenmore in the Gulf of Carpeneria, Australia.
 The cold period lasted 9 years in the tree ring records.
-This impact left an impact in both the recorded history around the world and the climate proxies allowing for a reconstruction of what a global winter is like.
+This event left an impact in both the recorded history around the world and the climate proxies allowing for a reconstruction of what a global winter is like.
 </para>
 <para>
 The cloud cover started on March 24, 535 and ended on June 24, 536.
@@ -51,7 +49,7 @@ The fifth year, the whole Anglo-Saxon presence would have been looking to find a
 </title>
 <para>
 In the Anneals Cambriae entry for 537 states 'The Strife of Camlann in which Arthur and Medraut fell [and there was death in Britain and in Ireland].'
-The '[and there was death in Britain and Ireland]' ties the death of Arthur to the deaths resulting from the 535 impact at Kenmore and Tabban in Australia.
+The '[and there was death in Britain and Ireland]' ties the death of Arthur to the deaths resulting from the 535 event.
 </para>
 </section>
 <section>
@@ -72,10 +70,10 @@ The '[and there was death in Britain and Ireland]' ties the death of Arthur to t
 </title>
 </section>
 <section>
-<title>541 AD: Justian Plague.  Second Occurrence of Plague in Europe
+<title>541 AD - Justian Plague.  Second Occurrence of Plague in Europe
+<indexterm><primary>Historical</primary><secondary>Justian Plague</secondary></indexterm>
 <indexterm><primary>Epidemic</primary><secondary>Bubonic Plague</secondary></indexterm>
 <indexterm><primary>Bubonic Plague</primary><secondary>Justian Plague</secondary></indexterm>
-<indexterm><primary>Historical</primary><secondary>Justian Plague</secondary></indexterm>
 </title>
 <para>
 An Empire is not only the ground help by those disposed to its existence, but also the people.
@@ -92,14 +90,9 @@ The Manorialism started in the Third century contributed to this reduction in kn
 The lost of an estates master with the job following to a journeyman would cause the Estate owner to seek out a master of the craft if they could be found.
 </para>
 <region>Global</region>
-<event_type>Cultural</event_type>
-</section>
+<event_type>Epidemic</event_type>
 <section>
-<title>600 AD: Final collapse of the Roman Empire
-</title>
-<para>
-Lost of 'Noblest third' of population.
-Loss of complexity.
-</para>
+<title>541 AD: Justian Plague.  Second Occurrence of Plague in Europe
+</section>
 </section>
 </chapter>
