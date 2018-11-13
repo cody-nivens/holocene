@@ -87,11 +87,17 @@ def do_publisher(child)
     @book[:publisher] = child.text
 end
 
+def do_releaseinfo(child)
+    @releaseinfo = "<a href='#{child.children[1].attributes['url']}'>#{child.children[1].text}</a>"
+end
+
 def print_record
     puts "result = Biblioentry.create({:name => \"#{@book[:title]}\","
     puts "  :xreflabel => \"#{@book[:xreflabel]}\","
     puts "  :copyright_year => \"#{@book[:copyright][:year]}\"," unless @book[:copyright].nil?
     puts "  :copyright_holder => \"#{@book[:copyright][:holder]}\"," unless @book[:copyright].nil?
+    puts "  :releaseinfo => \"#{@releaseinfo}\"," unless @releaseinfo.nil?
+    puts "  :user_id => @user.id,"
     puts "  :publisher => \"#{@book[:publisher]}\""
     puts "})"
     puts "debugger if result.errors.count > 0"
@@ -99,6 +105,7 @@ def print_record
     puts "  authors = Author.where(:first_name => name_info[:firstname], :last_name => name_info[:surname])"
     puts "  if authors.length == 0"
     puts "    author = Author.create(:first_name => name_info[:firstname],"
+    puts "                           :user_id => @user.id,"
     puts "                           :last_name => name_info[:surname])"
     puts "  else"
     puts "    author = authors[0]"
@@ -108,7 +115,8 @@ def print_record
 end
 
 
-["bibliobooks.xml"].each do |file|
+["bibliobooks.xml","biblioweb.xml"].each do |file|
+#["biblioweb.xml"].each do |file|
 #["global_winter.xml"].each do |file|
 @timeline_name = file.gsub(/.xml/,'')
 dom = Nokogiri::XML(open(file))
@@ -135,6 +143,10 @@ dom.children[0].children.each do |child|
         do_copyright(child.children[index1])
       when "publisher"
         do_publisher(child.children[index1])
+      when "releaseinfo"
+          do_releaseinfo(child.children[index1])
+      else
+    #      puts "#{child.children[index1].name} not found"
       end
       index1 += 1
     end

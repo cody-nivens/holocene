@@ -1,10 +1,11 @@
 #!/bin/bash
 
-for j in bibliobooks preface introduction cultural arthur genesis first_plague crisis_3rd_century timeline global_winter; do 
+for j in bronze_age little_ice_age revisions holocene-attributions preface introduction climate climate_factors global_winter genesis first_plague babylon_flood crisis_3rd_century arthur bond_zero timeline bibliobooks biblioweb cultural ; do
  cp ${j}.x ${j}.xml 
 done
 
  cp seed_tmpl.rb db/seeds.rb
- ./read_timeline.rb >>db/seeds.rb 
  ./do_biblio.rb >>db/seeds.rb
+ cat seed_tmpl1.rb >>db/seeds.rb
+ ./read_timeline.rb >>db/seeds.rb 
  rake db:reset
