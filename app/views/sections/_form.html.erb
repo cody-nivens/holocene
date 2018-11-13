@@ -1,17 +1,42 @@
-
-<%= simple_form_for(@section) do |f| %>
+<%= simple_form_for [@book, @chapter,@section], html: { class: 'form-inline' } do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
-    <%= f.input :chapter_id, :as => :hidden, :input_html => { :value =>  @chapter} %>
+    <%= f.association :chapter, :as => :hidden %>
     <%= f.input :name %>
-    <%= f.input :body %>
-    <%= f.input :rank %>
-    <%= f.collection_select :chapter_id, Chapter.all, :id, :name %>
+    <%= f.input :display_name, as: :boolean %>
+    <%= f.input :position %>
+  </div>
+
+  <div class="jumbotron" >
+      <%= f.text_area :body, as: :wysihtml5, cols: "80", rows: "15" %>
   </div>
 
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#section_body').each(function(i, elem) {
+        $(elem).wysihtml5({
+           toolbar: {
+              "style": false,
+              "font-styles": false,
+              "emphasis": true,
+              "lists": false,
+              "html": true,
+              "link": false,
+              "image": false,
+              "color": false
+           },
+           parser: function(html) {
+              return html;
+           }
+        });
+    });
+  })
+</script>
+
 <% end %>

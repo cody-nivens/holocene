@@ -1,0 +1,31 @@
+<h1>Epochs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @epochs.each do |epoch| %>
+      <tr>
+        <td><%= epoch.name %></td>
+        <td><%= epoch.start_date %></td>
+        <td><%= epoch.end_date %></td>
+        <td><%= link_to 'Show', epoch %></td>
+        <td><%= link_to 'Edit', edit_epoch_path(epoch) %></td>
+        <td><%= link_to 'Destroy', epoch, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<div class="navbar-fixed-bottom footer">
+<%= link_to 'New Epoch', new_epoch_path %>
+</div>

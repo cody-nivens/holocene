@@ -3,7 +3,9 @@
 one:
   name: MyString
   body: MyText
+  user: one
 
 two:
   name: MyString
   body: MyText
+  user: one

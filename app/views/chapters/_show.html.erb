@@ -1,0 +1,34 @@
+<% chapter = @chapter unless @chapter.nil? %>
+<% if chapter.partition  != "" -%>
+<p style='page-break-after:always;'></p>
+    <h1><%= chapter.partition %></h1>
+
+    <%= raw chapter.partition_body %>
+<% end -%>
+<p style='page-break-after:always;'></p>
+<% unless chapter.partition == chapter.name.gsub(/\s+$/, '') -%>
+<h1>
+  <%= chapter.name %>
+</h1>
+<% end -%>
+
+<% @slugs = [] -%>
+<% @footnotes = process_body(chapter, @slugs) -%>
+<%= raw @footnotes[0]  %>
+<% unless chapter.holocene_events.length == 0 -%>
+<%= render 'holocene_events/index.html', holocene_events: chapter.holocene_events.order(:start_year) %>
+<% end -%>
+<% @slugs += @footnotes[1] -%>
+
+<% chapter.sections.each do |section| -%>
+<h2><%= section.name %></h2>
+<% @footnotes = process_body(section, @slugs, @footnotes[2]) -%>
+<% @slugs += @footnotes[1] -%>
+<%= raw @footnotes[0]  %>
+<% unless section.holocene_events.length == 0 -%>
+<%= render 'holocene_events/index.html', holocene_events: section.holocene_events.order(:start_year) %>
+<% end -%>
+<% end -%>
+<% unless @slugs.length == 0 -%>
+<%= raw write_footnotes(@slugs) %>
+<% end -%>

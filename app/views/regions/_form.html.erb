@@ -12,16 +12,37 @@
   <% end %>
 
   <div class="field">
+      <%= form.hidden_field :user_id %>
     <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
 
-  <div class="field">
-    <%= form.label :body %>
-    <%= form.text_area :body %>
+   <div class="jumbotron" >
+      <%= form.text_area :body, as: :wysihtml5, cols: "80", rows: "15" %>
   </div>
 
   <div class="actions">
     <%= form.submit %>
   </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#region_body').each(function(i, elem) {
+        $(elem).wysihtml5({
+           toolbar: {
+              "style": false,
+              "font-styles": false,
+              "emphasis": true,
+              "lists": false,
+              "html": true,
+              "link": false,
+              "image": false,
+              "color": false
+           },
+           parser: function(html) {
+              return html;
+           }
+        });
+    });
+  })
+</script>
 <% end %>

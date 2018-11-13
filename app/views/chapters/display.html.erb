@@ -1,0 +1,17 @@
+<p>
+  <strong>Name:</strong>
+  <%= @chapter.name %>
+</p>
+
+<%= link_to 'Add Event', chapter_holocene_events_path(@chapter) %> |
+<%= datagrid_form_for @grid, :method => :get, :url => holocene_events_path %>
+
+<%= paginate(@grid.assets) %>
+<%= datagrid_table @grid %>
+<%= paginate(@grid.assets) %>
+
+
+<%= link_to 'Edit', edit_book_chapter_path(@book, @chapter) %> |
+<%= link_to 'Timeline', chapter_timeline_path(@book, @chapter) %> |
+<%= link_to 'Back', book_chapters_path(@book) %>
+

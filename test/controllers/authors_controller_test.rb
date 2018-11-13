@@ -3,6 +3,8 @@ require 'test_helper'
 class AuthorsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @author = authors(:one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get index" do
@@ -17,7 +19,7 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create author" do
     assert_difference('Author.count') do
-      post authors_url, params: { author: { first_name: @author.first_name, last_name: @author.last_name } }
+        post authors_url, params: { author: { first_name: @author.first_name, last_name: @author.last_name, user_id: @user.id } }
     end
 
     assert_redirected_to author_url(Author.last)
@@ -25,7 +27,7 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create author" do
     assert_difference('Author.count', 0) do
-      post authors_url, params: { author: { first_name: "", last_name: @author.last_name } }
+        post authors_url, params: { author: { first_name: "", last_name: @author.last_name, user_id: @user.id } }
     end
 
     assert_response :success
@@ -42,12 +44,12 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update author" do
-    patch author_url(@author), params: { author: { first_name: @author.first_name, last_name: @author.last_name } }
+      patch author_url(@author), params: { author: { first_name: @author.first_name, last_name: @author.last_name, user_id: @user.id } }
     assert_redirected_to author_url(@author)
   end
 
   test "should not update author" do
-    patch author_url(@author), params: { author: { first_name: "", last_name: @author.last_name } }
+      patch author_url(@author), params: { author: { first_name: "", last_name: @author.last_name, user_id: @user.id } }
     assert_response :success
   end
 

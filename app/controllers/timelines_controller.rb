@@ -1,5 +1,5 @@
 class TimelinesController < ApplicationController
-  before_action :set_timeline, only: [:display, :show, :edit, :update, :destroy]
+  before_action :set_timeline, only: [:timeline, :display, :show, :edit, :update, :destroy]
 
   # GET /timelines
   # GET /timelines.json
@@ -17,14 +17,29 @@ class TimelinesController < ApplicationController
 
   end
 
-  # GET /timelines/display/1
-  # GET /timelines/display/1.json
   def display
+    @events = @timeline.holocene_events.order(:start_year)
+    ids = @timeline.holocene_events.pluck(:id)
+    @object = @timeline
+    if ids.length == 0
+        @command = "Add Events"
+    else
+        @command = "Delete Events"
+    end
+    @grid = HoloceneEventsGrid.new(hgrid_params.merge({:id => ids,:object => @object})) do |scope|
+        scope.page(params[:page])
+    end
   end
+
+  def timeline
+  end
+
+
 
   # GET /timelines/new
   def new
     @timeline = Timeline.new
+    @timeline.user_id = current_user.id
   end
 
   # GET /timelines/1/edit
@@ -85,6 +100,6 @@ class TimelinesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def timeline_params
-      params.require(:timeline).permit(:name, :description)
+      params.require(:timeline).permit(:name, :description, :user_id)
     end
 end

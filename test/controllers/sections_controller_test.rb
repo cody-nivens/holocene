@@ -2,61 +2,64 @@ require 'test_helper'
 
 class SectionsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @section = sections(:one)
-    @chapter = chapters(:two)
+    @section = sections(:section_one)
+    @chapter = chapters(:chapter_one)
+    @book = books(:book_one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get index" do
-    get sections_url
+      get book_chapter_sections_url(@book, @chapter)
     assert_response :success
   end
 
   test "should get new" do
-    get new_section_url
+      get new_book_chapter_section_url(@book, @chapter)
     assert_response :success
   end
 
   test "should create section" do
     assert_difference('Section.count') do
-        post sections_url, params: { section: { body: @section.body, name: "#{@section.name}1", rank: @section.rank, chapter_id: @chapter.id } }
+        post book_chapter_sections_url(@book, @chapter), params: {:chapter_id => @chapter.id, section: { body: @section.body, name: "#{@section.name}1", position: @section.position, chapter_id: @chapter.id } }
     end
 
-    assert_redirected_to section_url(Section.last)
+    assert_redirected_to book_chapter_section_url(@book, @chapter, Section.last)
   end
 
   test "should not create section" do
     assert_difference('Section.count', 0) do
-        post sections_url, params: { section: { body: @section.body, name: "", rank: @section.rank, chapter_id: @chapter.id } }
+        post book_chapter_sections_url(@book, @chapter), params: {:chapter_id => @chapter.id, section: { body: @section.body, name: "", position: @section.position, chapter_id: @chapter.id } }
     end
 
     assert_response :success
   end
 
   test "should show section" do
-    get section_url(@section)
+    get book_chapter_section_url(@book, @chapter,@section)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_section_url(@section)
+    get edit_book_chapter_section_url(@book, @chapter,@section)
     assert_response :success
   end
 
   test "should update section" do
-      patch section_url(@section), params: { section: { body: @section.body, name: @section.name, rank: @section.rank, chapter: @section.chapter_id } }
-    assert_redirected_to section_url(@section)
+      patch book_chapter_section_url(@book, @chapter, @section), params: {:chapter_id => @chapter.id,  section: { body: @section.body, name: @section.name, position: @section.position, chapter_id: @chapter.id } }
+    assert_redirected_to book_chapter_section_url(@book, @chapter, @section)
   end
 
   test "should not update section" do
-      patch section_url(@section), params: { section: { body: @section.body, name: "", rank: @section.rank, chapter: @section.chapter_id } }
+      patch book_chapter_section_url(@book, @chapter, @section), params: { :chapter_id => @chapter.id, section: { body: @section.body, name: "", position: @section.position, chapter: @section.chapter_id } }
       assert_response :success
   end
 
   test "should destroy section" do
     assert_difference('Section.count', -1) do
-      delete section_url(@section)
+      delete book_chapter_section_url(@book, @chapter, @section)
     end
 
-    assert_redirected_to sections_url
+    assert_redirected_to book_chapter_sections_url(@book, @chapter)
   end
 end

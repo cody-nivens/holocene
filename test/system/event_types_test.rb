@@ -3,6 +3,8 @@ require "application_system_test_case"
 class EventTypesTest < ApplicationSystemTestCase
   setup do
     @event_type = event_types(:one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test "visiting the index" do
@@ -10,26 +12,58 @@ class EventTypesTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Event Types"
   end
 
-  test "creating a Event type" do
+  test "creating an Event type" do
     visit event_types_url
     click_on "New Event Type"
 
-    fill_in "Body", with: @event_type.body
     fill_in "Name", with: @event_type.name
+    page.execute_script("var wysihtml5Editor = $('#event_type_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@event_type.body}')")
     click_on "Create Event type"
 
     assert_text "Event type was successfully created"
     click_on "Back"
   end
 
-  test "updating a Event type" do
+  test "should not create an Event type" do
+    visit event_types_url
+    click_on "New Event Type"
+
+    fill_in "Name", with: ""
+    click_on "Create Event type"
+
+    assert_text "error prohibited this event_type from being saved"
+    assert_text "Name can't be blank"
+
+    fill_in "Name", with: @event_type.name
+    click_on "Create Event type"
+    assert_text "Event type was successfully created"
+    click_on "Back"
+  end
+
+  test "updating an Event type" do
     visit event_types_url
     click_on "Edit", match: :first
 
-    fill_in "Body", with: @event_type.body
     fill_in "Name", with: @event_type.name
+    page.execute_script("var wysihtml5Editor = $('#event_type_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@event_type.body}')")
     click_on "Update Event type"
 
+    assert_text "Event type was successfully updated"
+    click_on "Back"
+  end
+
+  test "should not update an Event type" do
+    visit event_types_url
+    click_on "Edit", match: :first
+
+    fill_in "Name", with: ""
+    click_on "Update Event type"
+
+    assert_text "error prohibited this event_type from being saved"
+    assert_text "Name can't be blank"
+
+    fill_in "Name", with: @event_type.name
+    click_on "Update Event type"
     assert_text "Event type was successfully updated"
     click_on "Back"
   end

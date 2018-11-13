@@ -18,6 +18,7 @@ class EventTypesController < ApplicationController
   # GET /event_types/new
   def new
     @event_type = EventType.new
+    @event_type.user_id = current_user.id
   end
 
   # GET /event_types/1/edit
@@ -78,6 +79,6 @@ class EventTypesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_type_params
-      params.require(:event_type).permit(:name, :body)
+      params.require(:event_type).permit(:name, :body, :user_id)
     end
 end

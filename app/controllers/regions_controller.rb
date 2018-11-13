@@ -18,6 +18,7 @@ class RegionsController < ApplicationController
   # GET /regions/new
   def new
     @region = Region.new
+    @region.user_id = current_user.id
   end
 
   # GET /regions/1/edit
@@ -79,6 +80,6 @@ class RegionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def region_params
-      params.require(:region).permit(:name, :body)
+      params.require(:region).permit(:name, :body, :user_id)
     end
 end

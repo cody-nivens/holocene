@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+book_one:
+  name: MyBook
+  body: MyBookBody
+  user: one
+
+book_two:
+  name: MyBook
+  body: MyBookBody
+  user: two

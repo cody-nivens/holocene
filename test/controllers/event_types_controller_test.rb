@@ -3,6 +3,8 @@ require 'test_helper'
 class EventTypesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @event_type = event_types(:one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get index" do
@@ -17,7 +19,7 @@ class EventTypesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create event_type" do
     assert_difference('EventType.count') do
-      post event_types_url, params: { event_type: { body: @event_type.body, name: @event_type.name } }
+      post event_types_url, params: { event_type: { body: @event_type.body, name: @event_type.name, user_id: @user.id } }
     end
 
     assert_redirected_to event_type_url(EventType.last)
@@ -25,7 +27,7 @@ class EventTypesControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create event_type" do
     assert_difference('EventType.count', 0) do
-      post event_types_url, params: { event_type: { body: @event_type.body, name: ""} }
+      post event_types_url, params: { event_type: { body: @event_type.body, name: "", user_id: @user.id} }
     end
 
     assert_response :success
@@ -42,12 +44,12 @@ class EventTypesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update event_type" do
-    patch event_type_url(@event_type), params: { event_type: { body: @event_type.body, name: @event_type.name } }
+    patch event_type_url(@event_type), params: { event_type: { body: @event_type.body, name: @event_type.name, user_id: @user.id } }
     assert_redirected_to event_type_url(@event_type)
   end
 
   test "should not update event_type" do
-    patch event_type_url(@event_type), params: { event_type: { body: @event_type.body, name: ""} }
+    patch event_type_url(@event_type), params: { event_type: { body: @event_type.body, name: "", user_id: @user.id} }
     assert_response :success
   end
 

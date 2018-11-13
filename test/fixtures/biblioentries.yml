@@ -6,6 +6,7 @@ one:
   copyright_year: 1
   copyright_holder: MyString
   publisher: MyString
+  user: one
   authors: 
   - one
 
@@ -15,5 +16,6 @@ two:
   copyright_year: 1
   copyright_holder: MyString
   publisher: MyString
+  user: one
   authors: 
   - two

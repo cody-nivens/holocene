@@ -6,6 +6,7 @@ class CreateBiblioentries < ActiveRecord::Migration[5.2]
       t.string :copyright_year
       t.string :copyright_holder
       t.string :publisher
+      t.string :releaseinfo
 
       t.timestamps
     end

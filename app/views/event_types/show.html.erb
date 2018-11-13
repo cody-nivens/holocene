@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Name:</strong>
   <%= @event_type.name %>
@@ -10,12 +8,14 @@
   <%= @event_type.body %>
 </p>
 
-<%= link_to 'Edit', edit_event_type_path(@event_type) %> |
-<%= link_to 'Back', event_types_path %>
-
 <%= datagrid_form_for @grid, :method => :get, :url => holocene_events_path %>
 
 <%= paginate(@grid.assets) %>
 <%= datagrid_table @grid %>
 <%= paginate(@grid.assets) %>
 
+
+<div class="navbar-fixed-bottom footer">
+<%= link_to 'Edit', edit_event_type_path(@event_type) %> |
+<%= link_to 'Back', event_types_path %>
+</div>

@@ -3,7 +3,9 @@
 one:
   first_name: MyString
   last_name: MyString
+  user: one
 
 two:
   first_name: MyString
   last_name: MyString
+  user: one

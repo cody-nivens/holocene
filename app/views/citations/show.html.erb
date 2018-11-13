@@ -1,21 +1,28 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Name:</strong>
   <%= @citation.name %>
 </p>
 
-<p>
-  <strong>Body:</strong>
-  <%= @citation.body %>
-</p>
+<%= @citation.biblioentry.name %>
 
-<%= link_to 'Edit', edit_citation_path(@citation) %> |
-<%= link_to 'Back', citations_path %>
+<% @slugs = [] -%>
+<% @footnotes = process_body(@citation, @slugs) -%>
+<%= raw @footnotes[0]  %>
+<% @slugs += @footnotes[1] -%>
 
-<%= datagrid_form_for @grid, :method => :get, :url => holocene_events_path %>
 
-<%= paginate(@grid.assets) %>
-<%= datagrid_table @grid %>
-<%= paginate(@grid.assets) %>
+<% unless @citation.holocene_events.length == 0 -%>
+<%= render 'holocene_events/index.html', holocene_events: @citation.holocene_events.order(:start_year) %>
+<% end -%>
+<% unless @slugs.length == 0 -%>
+<%= raw write_footnotes(@slugs) %>
+<% end -%>
+
+
+<div class="navbar-fixed-bottom footer">
+<%= link_to 'Edit', edit_biblioentry_citation_path(:biblioentry_id => @citation.biblioentry_id, :id => @citation) %> |
+<%= link_to 'Timeline', citation_timeline_path(@citation) %> |
+<%= link_to 'Display',  citation_display_path(@citation) %> |
+<%= link_to 'Back', biblioentry_citations_path(:bibloentry_id => @citation.biblioentry_id) %>
+</div>
 

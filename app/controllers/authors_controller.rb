@@ -15,6 +15,7 @@ class AuthorsController < ApplicationController
   # GET /authors/new
   def new
     @author = Author.new
+    @author.user_id = current_user.id
   end
 
   # GET /authors/1/edit
@@ -69,6 +70,6 @@ class AuthorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def author_params
-      params.require(:author).permit(:first_name, :last_name)
+      params.require(:author).permit(:first_name, :last_name, :user_id)
     end
 end

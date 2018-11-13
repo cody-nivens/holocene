@@ -1,0 +1,16 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  slug: footnote_slug
+  body: MyText
+  noted: chapter_one (Chapter)
+
+two:
+  slug: old_slug
+  body: MyText
+  noted: section_one (Section)
+
+three:
+  slug: old_slug
+  body: MyText
+  noted: one (HoloceneEvent)

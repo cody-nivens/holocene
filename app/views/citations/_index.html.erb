@@ -1,0 +1,28 @@
+<h1>Citations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Body</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% citations.each do |citation| %>
+      <tr>
+        <td><%= citation.name %></td>
+        <td><%= citation.biblioentry.name %></td>
+        <td><%= citation.body %></td>
+        <td><%= link_to 'Show', biblioentry_citation_url(:biblioentry_id => citation.biblioentry_id, :id => citation.id) %></td>
+        <td><%= link_to 'Edit', edit_biblioentry_citation_path(:biblioentry_id => citation.biblioentry_id, :id => citation.id) %></td>
+        <td><%= link_to 'Destroy', biblioentry_citation_url(:biblioentry_id=>citation.biblioentry_id, :id => citation.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Citation', new_biblioentry_citation_path(:biblioentry_id => @biblioentry.id) %>

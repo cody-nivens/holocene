@@ -5,7 +5,7 @@
 
 <p>
   <strong>Start year:</strong>
-  <%= @holocene_event.start_year %>
+  <%= convert_ad(@holocene_event.start_year) %>
   <strong>Start year uncert:</strong>
   <%= @holocene_event.start_year_uncert %>
   <strong>Start year mod:</strong>
@@ -14,7 +14,7 @@
 
 <p>
   <strong>End year:</strong>
-  <%= @holocene_event.end_year %>
+  <%= convert_ad(@holocene_event.end_year) %>
   <strong>End year uncert:</strong>
   <%= @holocene_event.end_year_uncert %>
   <strong>End year mod:</strong>
@@ -23,18 +23,32 @@
 
 <p>
   <strong>Event type:</strong>
-  <%= @holocene_event.event_type.name %>
+  <%= event_types_to_s(@holocene_event.event_types) %>
   <strong>Region:</strong>
   <%= @holocene_event.region.name %>
 </p>
 
 <p>
+  <strong>URL:</strong>
+  <%= @holocene_event.url %>
+  <strong>Image:</strong>
+  <%= @holocene_event.image %>
+</p>
+<p>
   <strong>Body:</strong>
+  <% if @slugs.nil? -%>
+      <% @slugs = [] -%>
+  <% end -%>
+<% @footnotes = process_body(@holocene_event, @slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
   <%= raw @holocene_event.body %>
 </p>
-
+<% unless @footnotes.nil? -%>
+<% @slugs += @footnotes[1] -%>
+<% end -%>
 
 <p>Tags: <%= raw(@holocene_event.tag_list.map { |t| link_to t, tag_path(t) }.join(', ')) %></p>
 
+<div class="navbar-fixed-bottom footer">
 <%= link_to 'Edit', edit_holocene_event_path(@holocene_event) %> |
 <%= link_to 'Back', holocene_events_path %>
+</div>

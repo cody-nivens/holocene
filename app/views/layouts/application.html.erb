@@ -1,6 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <title>Holocene</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,14 +16,10 @@
   </head>
 
   <body>
-      <div class="wrapper">
-      <!-- Sidebar Holder -->
-      <%= render 'layouts/side_column' %>
       <div id="content">
          <%= render 'layouts/navigation' %>
          <%= render 'layouts/messages' %>
          <%= yield %>
-      </div>
     </div>
     <script type="text/javascript">
       $(document).ready(function () {

@@ -1,11 +1,18 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  body: MyText
-  rank: 1
-
-two:
-  name: MyString
-  body: MyText
-  rank: 1
+chapter_one:
+  name: MyChapter
+  body: MyChapterBody
+  position: 1
+  slug: chap_slug
+  book: book_one
+  holocene_events:
+      - one
+chapter_two:
+  name: MyChapter
+  body: MyChapterBody
+  position: 2
+  slug: chap2_slug
+  book: book_one
+  holocene_events:
+      - two

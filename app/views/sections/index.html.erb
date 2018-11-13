@@ -1,31 +1,27 @@
-<p id="notice"><%= notice %></p>
+<h1>Sections for Chapter <%= @chapter.name %></h1>
 
-<h1>Sections</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Body</th>
-      <th>Rank</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @sections.each do |section| %>
-      <tr>
+<table class="table table-striped">
+  <tbody class="sortable">  <!-- sortable target -->
+    <% @sections.each_with_sortable_id do |section, sortable_id| %>
+      <tr id="<%= sortable_id %>">  <!-- Needs id tag on sorting elements -->
         <td><%= section.name %></td>
-        <td><%= raw section.body %></td>
-        <td><%= section.rank %></td>
-        <td><%= link_to 'Show', section %></td>
-        <td><%= link_to 'Edit', edit_section_path(section) %></td>
-        <td><%= link_to 'Destroy', section, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= (section.display_name ? 'Y' : 'N') %></td>
+        <td><%= render :partial => "shared/summary", :locals => { :object => section} %>
+        <td><%= link_to 'Show', book_chapter_section_path(@book, @chapter, section) %></td>
+        <td><%= link_to 'Edit', edit_book_chapter_section_path(@book, @chapter, section) %></td>
+        <td><%= link_to 'Destroy', book_chapter_section_path(@book, @chapter, section), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
+<div class="navbar-fixed-bottom footer">
+<%= link_to 'New Section', new_book_chapter_section_path(@book, @chapter) %> |
+<%= link_to 'Back', book_chapter_path(@book, @chapter) %>
+</div>
 
-<%= link_to 'New Section', new_section_path %>
+<script>
+$(function() {
+  $('.sortable').railsSortable();
+});
+</script>

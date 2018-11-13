@@ -1,10 +1,11 @@
 class CitationsController < ApplicationController
-  before_action :set_citation, only: [:show, :edit, :update, :destroy]
+  before_action :set_citation, only: [:timeline, :display, :show, :edit, :update, :destroy]
+  before_action :set_biblioentry, only: [:index, :new, :show, :edit, :create, :update, :destroy]
 
   # GET /citations
   # GET /citations.json
   def index
-    @citations = Citation.all
+      @citations = @biblioentry.citations 
   end
 
   # GET /citations/1
@@ -16,9 +17,29 @@ class CitationsController < ApplicationController
     end
   end
 
+  def display
+    @events = @citation.holocene_events.order(:start_year)
+    ids = @citation.holocene_events.pluck(:id)
+    @object = @citation
+    if ids.length == 0
+      @command = "Add Events"
+    else
+      @command = "Delete Events"
+    end
+
+    @grid = HoloceneEventsGrid.new(hgrid_params.merge({:id => ids,:object => @object})) do |scope|
+        scope.page(params[:page])
+    end
+  end
+
+  def timeline
+  end
+
   # GET /citations/new
   def new
     @citation = Citation.new
+    @citation.user_id = current_user.id
+    @citation.biblioentry_id = @biblioentry.id
   end
 
   # GET /citations/1/edit
@@ -32,7 +53,7 @@ class CitationsController < ApplicationController
 
     respond_to do |format|
       if @citation.save
-        format.html { redirect_to @citation, notice: 'Citation was successfully created.' }
+          format.html { redirect_to biblioentry_citation_url(@citation.biblioentry,@citation), notice: 'Citation was successfully created.' }
         format.json { render :show, status: :created, location: @citation }
       else
         format.html { render :new }
@@ -46,7 +67,7 @@ class CitationsController < ApplicationController
   def update
     respond_to do |format|
       if @citation.update(citation_params)
-        format.html { redirect_to @citation, notice: 'Citation was successfully updated.' }
+        format.html { redirect_to biblioentry_citation_url(@citation.biblioentry,@citation), notice: 'Citation was successfully updated.' }
         format.json { render :show, status: :ok, location: @citation }
       else
         format.html { render :edit }
@@ -60,7 +81,7 @@ class CitationsController < ApplicationController
   def destroy
     @citation.destroy
     respond_to do |format|
-      format.html { redirect_to citations_url, notice: 'Citation was successfully destroyed.' }
+      format.html { redirect_to biblioentry_citations_url(@biblioentry), notice: 'Citation was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -77,8 +98,12 @@ class CitationsController < ApplicationController
       @citation = Citation.find(params[:id])
     end
 
+    def set_biblioentry
+      @biblioentry = Biblioentry.find(params[:biblioentry_id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def citation_params
-      params.require(:citation).permit(:name, :body)
+      params.require(:citation).permit(:name, :body, :user_id, :biblioentry_id)
     end
 end

@@ -13,6 +13,7 @@ class CreateHoloceneEvents < ActiveRecord::Migration[5.2]
       t.string :image
       t.string :url
       t.text :body
+      t.string :slug
 
       t.timestamps
     end

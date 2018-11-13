@@ -3,6 +3,8 @@ require 'test_helper'
 class TimelinesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @timeline = timelines(:one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get index" do
@@ -17,7 +19,7 @@ class TimelinesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create timeline" do
     assert_difference('Timeline.count') do
-      post timelines_url, params: { timeline: { description: @timeline.description, name: @timeline.name } }
+        post timelines_url, params: { timeline: { description: @timeline.description, name: @timeline.name, user_id: @user.id } }
     end
 
     assert_redirected_to timeline_url(Timeline.last)
@@ -42,7 +44,7 @@ class TimelinesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update timeline" do
-    patch timeline_url(@timeline), params: { timeline: { description: @timeline.description, name: @timeline.name } }
+      patch timeline_url(@timeline), params: { timeline: { description: @timeline.description, name: @timeline.name, user_id: @user.id } }
     assert_redirected_to timeline_url(@timeline)
   end
 

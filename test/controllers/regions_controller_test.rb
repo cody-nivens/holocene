@@ -3,6 +3,8 @@ require 'test_helper'
 class RegionsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @region = regions(:one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get index" do
@@ -17,7 +19,7 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create region" do
     assert_difference('Region.count') do
-      post regions_url, params: { region: { body: @region.body, name: @region.name } }
+        post regions_url, params: { region: { body: @region.body, name: @region.name, user_id: @user.id } }
     end
 
     assert_redirected_to region_url(Region.last)
@@ -42,7 +44,7 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update region" do
-    patch region_url(@region), params: { region: { body: @region.body, name: @region.name } }
+    patch region_url(@region), params: { region: { body: @region.body, name: @region.name, user_id: @user.id } }
     assert_redirected_to region_url(@region)
   end
 

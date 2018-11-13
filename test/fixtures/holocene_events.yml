@@ -1,25 +1,43 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  start_year: 1
+  name: First event
+  start_year: -10
   end_year: 1
   start_year_uncert: 1
   start_year_mod: 1
   end_year_uncert: 1
   end_year_mod: 1
-  event_type: one 
+  event_types: [ one, two ]
   body: MyText
   region:  one
+  user: one
+  timelines: [ one ]
 
 two:
-  name: MyString
+  name: Second event
+  start_year: -5 
+  end_year: 1
+  start_year_uncert: 1
+  start_year_mod: 1
+  end_year_uncert: 1
+  end_year_mod: 1
+  event_types: [ two ]
+  body: MyText
+  region: two
+  user: one
+  timelines: [ one ]
+
+three:
+  name: Third event
   start_year: 1
   end_year: 1
   start_year_uncert: 1
   start_year_mod: 1
   end_year_uncert: 1
   end_year_mod: 1
-  event_type: two
+  event_types: [ two ]
   body: MyText
   region: two
+  user: one
+  timelines: [ one ]

@@ -3,7 +3,8 @@ class CreateChapters < ActiveRecord::Migration[5.2]
     create_table :chapters do |t|
       t.string :name
       t.text :body
-      t.integer :rank
+      t.integer :position
+      t.string :slug
 
       t.timestamps
     end

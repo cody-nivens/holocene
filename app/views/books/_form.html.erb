@@ -1,0 +1,38 @@
+<%= simple_form_for(@book, html: { class: 'form-inline' }) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :user_id, as: :hidden %>
+  </div>
+  <div class="jumbotron" >
+      <%= f.text_area :body, as: :wysihtml5, cols: "80", rows: "15" %>
+  </div>
+
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#book_body').each(function(i, elem) {
+        $(elem).wysihtml5({
+           toolbar: {
+              "style": true,
+              "font-styles": true,
+              "emphasis": true,
+              "lists": true,
+              "html": true,
+              "link": true,
+              "image": true,
+              "color": true
+           },
+           parser: function(html) {
+              return html;
+           }
+        });
+    });
+  })
+</script>
+<% end %>

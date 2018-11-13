@@ -36,16 +36,6 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
-gem 'datagrid'
-gem 'nokogiri', '1.8.5'
-gem 'mini_portile2', '~> 2.3.0'
-gem 'acts-as-taggable-on', '~> 6.0'
-gem 'high_voltage', '~> 3.1'
-gem 'bootstrap-sass'
-gem 'jquery-rails'
-gem 'bootstrap', '~> 4.1.3'
-gem 'bootstrap-wysihtml5-rails'
-gem 'simple_form'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -70,6 +60,9 @@ group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15', '< 4.0'
   gem 'selenium-webdriver'
+  gem 'pdf-reader'
+  gem 'geckodriver-helper'
+
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
 end
@@ -77,4 +70,24 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+gem 'devise'
+gem 'rolify'
+
 gem 'kaminari'
+gem 'datagrid'
+gem 'nokogiri', '1.8.5'
+gem 'mini_portile2', '~> 2.3.0'
+gem 'acts-as-taggable-on', '~> 6.0'
+gem 'high_voltage', '~> 3.1'
+gem 'bootstrap-sass'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'rails_sortable'
+gem 'bootstrap', '~> 4.1.3'
+gem 'bootstrap-wysihtml5-rails'
+gem 'simple_form'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+gem 'redis'
+gem 'hiredis'
+gem 'rails-erd', group: :development

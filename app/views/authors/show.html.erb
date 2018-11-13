@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>First name:</strong>
   <%= @author.first_name %>
@@ -10,5 +8,7 @@
   <%= @author.last_name %>
 </p>
 
+<div class="navbar-fixed-bottom footer">
 <%= link_to 'Edit', edit_author_path(@author) %> |
 <%= link_to 'Back', authors_path %>
+</div>

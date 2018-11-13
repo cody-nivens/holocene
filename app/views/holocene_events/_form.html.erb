@@ -1,4 +1,4 @@
-<%= simple_form_for(holocene_event ) do |form| %>
+<%= simple_form_for(holocene_event, html: { class: 'form-inline' } ) do |form| %>
   <% if holocene_event.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(holocene_event.errors.count, "error") %> prohibited this holocene_event from being saved:</h2>
@@ -12,6 +12,7 @@
   <% end %>
 
   <div class="field">
+      <%= form.hidden_field :user_id %>
     <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
@@ -53,12 +54,25 @@
   <div class="actions">
     <%= form.submit %>
   </div>
-  <script type="text/javascript">
+<script type="text/javascript">
   $(document).ready(function(){
     $('#holocene_event_body').each(function(i, elem) {
-      $(elem).wysihtml5();
+        $(elem).wysihtml5({
+           toolbar: {
+              "style": false,
+              "font-styles": false,
+              "emphasis": true,
+              "lists": false,
+              "html": true,
+              "link": false,
+              "image": false,
+              "color": false
+           },
+           parser: function(html) {
+              return html;
+           }
+        });
     });
-
   })
 </script>
 <% end %>

@@ -15,6 +15,7 @@ class BiblioentriesController < ApplicationController
   # GET /biblioentries/new
   def new
     @biblioentry = Biblioentry.new
+    @biblioentry.user_id = current_user.id
   end
 
   # GET /biblioentries/1/edit
@@ -69,6 +70,6 @@ class BiblioentriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def biblioentry_params
-      params.require(:biblioentry).permit(:name, :xreflabel, :copyright_year, :copyright_holder, :publisher)
+      params.require(:biblioentry).permit(:name, :xreflabel, :copyright_year, :copyright_holder, :publisher, :user_id)
     end
 end

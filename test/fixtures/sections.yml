@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  body: MyText
-  rank: 1
-  chapter: one
+section_one:
+  name: MySection
+  body: MySectionBody
+  position: 1
+  chapter: chapter_one
 
-two:
-  name: MyString
-  body: MyText
-  rank: 1
-  chapter: one
+section_two:
+  name: MySection
+  body: MySectionBody
+  position: 2
+  chapter: chapter_two

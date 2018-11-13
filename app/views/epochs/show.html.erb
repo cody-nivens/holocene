@@ -1,0 +1,25 @@
+<p>
+  <strong>Name:</strong>
+  <%= @epoch.name %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @epoch.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @epoch.end_date %>
+</p>
+
+<%= datagrid_form_for @grid, :method => :get, :url => holocene_events_path %>
+
+<%= paginate(@grid.assets) %>
+<%= datagrid_table @grid %>
+<%= paginate(@grid.assets) %>
+
+<div class="navbar-fixed-bottom footer">
+<%= link_to 'Edit', edit_epoch_path(@epoch) %> |
+<%= link_to 'Back', epochs_path %>
+</div>

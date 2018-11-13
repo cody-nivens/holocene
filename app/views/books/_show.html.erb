@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @book.name %></h1>
+
+<%= render 'authors/index.html', authors: @book.authors %>
+<%= @book.body %>
+
+<% @chapters.each do |chapter| -%>
+    <%= render 'chapters/show.html', book: @book, chapter: chapter %>
+<% end -%>

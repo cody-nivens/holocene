@@ -3,6 +3,8 @@ require "application_system_test_case"
 class RegionsTest < ApplicationSystemTestCase
   setup do
     @region = regions(:one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test "visiting the index" do
@@ -14,10 +16,29 @@ class RegionsTest < ApplicationSystemTestCase
     visit regions_url
     click_on "New Region"
 
-    fill_in "Body", with: @region.body
     fill_in "Name", with: @region.name
+    page.execute_script("var wysihtml5Editor = $('#region_body').data('wysihtml5').editor;wysihtml5Editor.setValue('Test for Region.')")
+
     click_on "Create Region"
 
+    assert_text "Region was successfully created"
+    click_on "Back"
+  end
+
+  test "should not create a Region" do
+    visit regions_url
+    click_on "New Region"
+
+    fill_in "Name", with: ""
+    page.execute_script("var wysihtml5Editor = $('#region_body').data('wysihtml5').editor;wysihtml5Editor.setValue('Test for Region.')")
+
+    click_on "Create Region"
+
+    assert_text " error prohibited this region from being saved"
+    assert_text "Name can't be blank"
+
+    fill_in "Name", with: @region.name
+    click_on "Create Region"
     assert_text "Region was successfully created"
     click_on "Back"
   end
@@ -26,10 +47,27 @@ class RegionsTest < ApplicationSystemTestCase
     visit regions_url
     click_on "Edit", match: :first
 
-    fill_in "Body", with: @region.body
     fill_in "Name", with: @region.name
+    page.execute_script("var wysihtml5Editor = $('#region_body').data('wysihtml5').editor;wysihtml5Editor.setValue('Test for Region.')")
     click_on "Update Region"
 
+    assert_text "Region was successfully updated"
+    click_on "Back"
+  end
+
+  test "should not update a Region" do
+    visit regions_url
+    click_on "Edit", match: :first
+
+    fill_in "Name", with: ""
+    page.execute_script("var wysihtml5Editor = $('#region_body').data('wysihtml5').editor;wysihtml5Editor.setValue('Test for Region.')")
+    click_on "Update Region"
+
+    assert_text " error prohibited this region from being saved"
+    assert_text "Name can't be blank"
+
+    fill_in "Name", with: @region.name
+    click_on "Update Region"
     assert_text "Region was successfully updated"
     click_on "Back"
   end

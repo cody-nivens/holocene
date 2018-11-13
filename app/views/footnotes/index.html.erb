@@ -1,0 +1,42 @@
+<h1>Footnotes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Slug</th>
+      <th>Body</th>
+      <th>Noted</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @footnotes.each do |footnote| %>
+      <tr>
+        <td><%= footnote.slug %></td>
+        <td><%= footnote.body %></td>
+        <td><%= footnote.noted.name %></td>
+        <td><%= link_to 'Show', footnote %></td>
+        <td><%= link_to 'Edit', edit_footnote_path(footnote) %></td>
+        <td><%= link_to 'Destroy', footnote, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<div class="navbar-fixed-bottom footer">
+<% case @noted.class.name -%>
+<% when "Chapter" -%>
+<%= link_to 'New Footnote', new_chapter_footnote_path(:chapter_id => @noted.id, :slug => "") %>
+<% when "Section" -%>
+<%= link_to 'New Footnote', new_section_footnote_path(:section_id => @noted.id, :slug => "") %>
+<% end -%>
+<% case @noted.class.name -%>
+<% when "Chapter" -%>
+<%= link_to 'Back', book_chapter_path(@noted.book,@noted) %>
+<% when "Section" -%>
+<%= link_to 'Back', book_chapter_section_path(@noted.chapter.book, @noted.chapter,@noted) %>
+<% end -%>
+</div>

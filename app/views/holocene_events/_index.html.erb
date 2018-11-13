@@ -1,0 +1,20 @@
+<table class='table'>
+    <tr><th>Name</th><th>Event Type</th><th>Region</th><th>Start Year</th><th>Start Year Uncert</th></tr>
+    <% holocene_events.each do |he| -%>
+        <tr>
+          <td><%= he.name %></td>
+          <td><%= event_types_to_s(he.event_types) %></td>
+          <td><%= he.region.name %></td>
+          <td><%= HoloceneEvent.convert_ad(he.start_year) %><%= (he.end_year.nil?  ? "" : " - #{HoloceneEvent.convert_ad(he.end_year)}") %></td>
+          <td><%= he.start_year_uncert %></td>
+        </tr>
+        <% unless he.body.blank? -%>
+        <tr>
+          <% @footnotes = process_body(he, @slugs, (@footnotes[2].nil? ? 1 : @footnotes[2])) -%>
+          <td colspan=5 style="background-color: #EEE"><%= raw @footnotes[0] %></td>
+          <% @slugs += @footnotes[1] -%>
+          <!-- <td colspan=5><%#= render :partial => "shared/summary.html", :locals => { :object => he} %></td> -->
+        </tr>
+    <% end -%>
+    <% end -%>
+</table>

@@ -1,0 +1,85 @@
+require "application_system_test_case"
+
+class EpochsTest < ApplicationSystemTestCase
+  setup do
+    @epoch = epochs(:one)
+    @user = users(:one)
+    sign_in @user
+  end
+
+  test "visiting the index" do
+    visit epochs_url
+    assert_selector "h1", text: "Epochs"
+  end
+
+  test "creating a Epoch" do
+    visit epochs_url
+    click_on "New Epoch"
+
+    fill_in "End date", with: @epoch.end_date
+    fill_in "Name", with: @epoch.name
+    fill_in "Start date", with: @epoch.start_date
+    click_on "Create Epoch"
+
+    assert_text "Epoch was successfully created"
+    click_on "Back"
+  end
+
+  test "should not create a Epoch" do
+    visit epochs_url
+    click_on "New Epoch"
+
+    fill_in "End date", with: @epoch.end_date
+    fill_in "Name", with: ""
+    fill_in "Start date", with: @epoch.start_date
+    click_on "Create Epoch"
+
+    assert_text " error prohibited this epoch from being saved"
+    assert_text "Name can't be blank"
+
+    fill_in "Name", with: @epoch.name
+    click_on "Create Epoch"
+    assert_text "Epoch was successfully created"
+    click_on "Back"
+  end
+
+  test "updating a Epoch" do
+    visit epochs_url
+    click_on "Edit", match: :first
+
+    fill_in "End date", with: @epoch.end_date
+    fill_in "Name", with: @epoch.name
+    fill_in "Start date", with: @epoch.start_date
+    click_on "Update Epoch"
+
+    assert_text "Epoch was successfully updated"
+    click_on "Back"
+  end
+
+  test "should not update a Epoch" do
+    visit epochs_url
+    click_on "Edit", match: :first
+
+    fill_in "End date", with: @epoch.end_date
+    fill_in "Name", with: ""
+    fill_in "Start date", with: @epoch.start_date
+    click_on "Update Epoch"
+
+    assert_text " error prohibited this epoch from being saved"
+    assert_text "Name can't be blank"
+
+    fill_in "Name", with: @epoch.name
+    click_on "Update Epoch"
+    assert_text "Epoch was successfully updated"
+    click_on "Back"
+  end
+
+  test "destroying a Epoch" do
+    visit epochs_url
+    page.accept_confirm do
+      click_on "Destroy", match: :first
+    end
+
+    assert_text "Epoch was successfully destroyed"
+  end
+end

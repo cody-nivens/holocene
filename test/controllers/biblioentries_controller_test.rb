@@ -3,6 +3,8 @@ require 'test_helper'
 class BiblioentriesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @biblioentry = biblioentries(:one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get index" do
@@ -17,7 +19,7 @@ class BiblioentriesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create biblioentry" do
     assert_difference('Biblioentry.count') do
-      post biblioentries_url, params: { biblioentry: { copyright_holder: @biblioentry.copyright_holder, copyright_year: @biblioentry.copyright_year, name: @biblioentry.name, publisher: @biblioentry.publisher, xreflabel: @biblioentry.xreflabel } }
+      post biblioentries_url, params: { biblioentry: { copyright_holder: @biblioentry.copyright_holder, copyright_year: @biblioentry.copyright_year, name: @biblioentry.name, publisher: @biblioentry.publisher, xreflabel: @biblioentry.xreflabel, user_id: @user.id } }
     end
 
     assert_redirected_to biblioentry_url(Biblioentry.last)
@@ -25,7 +27,7 @@ class BiblioentriesControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create biblioentry" do
     assert_difference('Biblioentry.count', 0) do
-      post biblioentries_url, params: { biblioentry: { copyright_holder: @biblioentry.copyright_holder, copyright_year: @biblioentry.copyright_year, name: "", publisher: @biblioentry.publisher, xreflabel: @biblioentry.xreflabel } }
+        post biblioentries_url, params: { biblioentry: { copyright_holder: @biblioentry.copyright_holder, copyright_year: @biblioentry.copyright_year, name: "", publisher: @biblioentry.publisher, xreflabel: @biblioentry.xreflabel, user_id: @user.id } }
     end
 
     assert_response :success

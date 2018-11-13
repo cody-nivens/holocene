@@ -1,0 +1,28 @@
+<h1>Chapters</h1>
+
+<table class="table table-striped">
+  <tbody class="sortable">  <!-- sortable target -->
+    <% @chapters.each_with_sortable_id do |chapter, sortable_id| %>
+      <tr id="<%= sortable_id %>">  <!-- Needs id tag on sorting elements -->
+        <td><%= chapter.name %></td>
+        <td><%= chapter.partition %></td>
+        <td><%= (chapter.partition_body.blank? ? "" :chapter.partition_body[0,100]) %></td>
+        <td><%= link_to 'Show', book_chapter_path(@book, chapter) %></td>
+        <td><%= link_to 'Edit', edit_book_chapter_path(@book, chapter) %></td>
+        <td><%= link_to 'Destroy', book_chapter_path(@book, chapter), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="navbar-fixed-bottom footer">
+<%= link_to 'New Chapter', new_book_chapter_path(@book) %> |
+<%= link_to 'Back', book_path(@book) %>
+</div>
+
+
+<script>
+$(function() {
+  $('.sortable').railsSortable();
+});
+</script>
