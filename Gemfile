@@ -79,7 +79,6 @@ gem 'nokogiri', '1.8.5'
 gem 'mini_portile2', '~> 2.3.0'
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'high_voltage', '~> 3.1'
-gem 'bootstrap-sass'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'rails_sortable'
@@ -91,3 +90,8 @@ gem 'wkhtmltopdf-binary'
 gem 'redis'
 gem 'hiredis'
 gem 'rails-erd', group: :development
+gem "bootstrap_form", ">= 4.0.0"
+gem "font-awesome-rails"
+gem 'font-awesome-sass', '~> 5.5.0'
+gem 'timelineJS-rails'
+gem 'rails_admin'

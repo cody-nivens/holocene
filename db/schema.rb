@@ -66,13 +66,6 @@ ActiveRecord::Schema.define(version: 2018_11_11_214158) do
     t.text "partition_body"
   end
 
-  create_table "chapters_citations", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.bigint "chapter_id", null: false
-    t.bigint "citation_id", null: false
-    t.index ["chapter_id", "citation_id"], name: "index_chapter_citation_1"
-    t.index ["citation_id", "chapter_id"], name: "index_chapter_citation_2"
-  end
-
   create_table "chapters_holocene_events", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "chapter_id", null: false
     t.bigint "holocene_event_id", null: false
@@ -85,22 +78,6 @@ ActiveRecord::Schema.define(version: 2018_11_11_214158) do
     t.bigint "timeline_id", null: false
     t.index ["chapter_id", "timeline_id"], name: "index_chapter_timeline_1"
     t.index ["timeline_id", "chapter_id"], name: "index_chapter_timeline_2"
-  end
-
-  create_table "citations", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.string "name"
-    t.text "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "biblioentry_id"
-  end
-
-  create_table "citations_holocene_events", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
-    t.bigint "citation_id", null: false
-    t.bigint "holocene_event_id", null: false
-    t.index ["citation_id", "holocene_event_id"], name: "index_citation_holocene_event_1"
-    t.index ["holocene_event_id", "citation_id"], name: "index_citation_holocene_event_2"
   end
 
   create_table "epochs", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -140,8 +117,10 @@ ActiveRecord::Schema.define(version: 2018_11_11_214158) do
     t.text "body"
     t.string "noted_type"
     t.bigint "noted_id"
+    t.bigint "biblioentry_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["biblioentry_id"], name: "index_footnotes_on_biblioentry_id"
     t.index ["noted_type", "noted_id"], name: "index_footnotes_on_noted_type_and_noted_id"
   end
 
@@ -153,7 +132,6 @@ ActiveRecord::Schema.define(version: 2018_11_11_214158) do
     t.integer "start_year_mod"
     t.integer "end_year_uncert"
     t.integer "end_year_mod"
-    t.bigint "event_type_id"
     t.bigint "region_id"
     t.string "image"
     t.string "url"
@@ -162,7 +140,6 @@ ActiveRecord::Schema.define(version: 2018_11_11_214158) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
-    t.index ["event_type_id"], name: "index_holocene_events_on_event_type_id"
     t.index ["region_id"], name: "index_holocene_events_on_region_id"
   end
 

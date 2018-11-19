@@ -4,6 +4,7 @@ class CreateFootnotes < ActiveRecord::Migration[5.2]
       t.string :slug
       t.text :body
       t.references :noted, polymorphic: true, index: true
+      t.references :biblioentry
 
       t.timestamps
     end

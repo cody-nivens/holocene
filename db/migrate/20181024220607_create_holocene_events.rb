@@ -8,7 +8,6 @@ class CreateHoloceneEvents < ActiveRecord::Migration[5.2]
       t.integer :start_year_mod
       t.integer :end_year_uncert
       t.integer :end_year_mod
-      t.references :event_type
       t.references :region
       t.string :image
       t.string :url
