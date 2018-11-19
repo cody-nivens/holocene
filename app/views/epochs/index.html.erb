@@ -26,6 +26,4 @@
 
 <br>
 
-<div class="navbar-fixed-bottom footer">
-<%= link_to 'New Epoch', new_epoch_path %>
-</div>
+<% @footer_content << "#{link_to 'New Epoch', new_epoch_path}" %>

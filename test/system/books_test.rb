@@ -2,14 +2,16 @@ require "application_system_test_case"
 
 class BooksTest < ApplicationSystemTestCase
   setup do
-    @book = books(:book_one)
-    @user = users(:one)
+    @book = books(:book_1)
+    @user = users(:users_1)
     sign_in @user
   end
 
   test "visiting the index" do
     visit books_url
     assert_selector "h1", text: "Books"
+    assert_link "New Book"
+    assert_no_text "link_to"
   end
 
   test "generating PDF" do
@@ -17,7 +19,7 @@ class BooksTest < ApplicationSystemTestCase
 
     content = DownloadHelpers::download_content
     body = convert_pdf_to_page(content)
-    assert_match /MySection/,body
+    assert_match /Climate and History/,body
   end
 
   test "creating a Book" do
@@ -39,8 +41,7 @@ class BooksTest < ApplicationSystemTestCase
     fill_in "Name", with: ""
     click_on "Create Book"
 
-    assert_text "Please review the problems below:"
-    assert_text "Name can't be blank"
+    assert_text "can't be blank"
 
     fill_in "Name", with: @book.name
     click_on "Create Book"
@@ -67,8 +68,7 @@ class BooksTest < ApplicationSystemTestCase
     fill_in "Name", with: ""
     click_on "Update Book"
 
-    assert_text "Please review the problems below:"
-    assert_text "Name can't be blank"
+    assert_text "can't be blank"
 
     fill_in "Name", with: @book.name
     click_on "Update Book"

@@ -1,6 +1,6 @@
 <h1>Editing Biblioentry</h1>
 
-<%= render 'form', biblioentry: @biblioentry %>
+<%= render 'form', biblioentry: @biblioentry, command_label: "Update Biblioentry"  %>
 
-<%= link_to 'Show', @biblioentry %> |
-<%= link_to 'Back', biblioentries_path %>
+<% @footer_content << "#{link_to 'Show', @biblioentry}" %>
+<% @footer_content << "#{link_to 'Back', biblioentries_path}" %>

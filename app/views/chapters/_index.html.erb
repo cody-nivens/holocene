@@ -7,6 +7,7 @@
         <td><%= chapter.name %></td>
         <td><%= chapter.partition %></td>
         <td><%= (chapter.partition_body.blank? ? "" :chapter.partition_body[0,100]) %></td>
+        <td><%= chapter.citations.count %></td>
         <td><%= link_to 'Show', book_chapter_path(@book, chapter) %></td>
         <td><%= link_to 'Edit', edit_book_chapter_path(@book, chapter) %></td>
         <td><%= link_to 'Destroy', book_chapter_path(@book, chapter), method: :delete, data: { confirm: 'Are you sure?' } %></td>

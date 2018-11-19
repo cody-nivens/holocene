@@ -2,8 +2,8 @@ require 'test_helper'
 
 class AuthorsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @author = authors(:one)
-    @user = users(:one)
+    @author = authors(:authors_1)
+    @user = users(:users_1)
     sign_in @user
   end
 

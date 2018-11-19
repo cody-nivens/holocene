@@ -2,8 +2,8 @@ require 'test_helper'
 
 class EventTypesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @event_type = event_types(:one)
-    @user = users(:one)
+    @event_type = event_types(:Impact)
+    @user = users(:users_1)
     sign_in @user
   end
 

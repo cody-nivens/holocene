@@ -1,0 +1,15 @@
+<table>
+  <thead>
+    <tr>
+      <th>Citations</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% footnotes.each do |footnote| %>
+      <tr>
+        <td><%= footnote.biblioentry.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

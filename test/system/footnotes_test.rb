@@ -2,17 +2,24 @@ require "application_system_test_case"
 
 class FootnotesTest < ApplicationSystemTestCase
   setup do
-    @footnote = footnotes(:one)
-    @chapter = chapters(:chapter_one)
-    @section = sections(:section_one)
-    @holocene_event = holocene_events(:one)
-    @user = users(:one)
+    @footnote = footnotes(:footnote_1)
+    @chapter = chapters(:chapter_1)
+    @section = sections(:section_1)
+    @holocene_event = holocene_events(:holocene_event_1)
+    @user = users(:users_1)
     sign_in @user
   end
 
   test "visiting the index" do
     visit chapter_footnotes_url(:chapter_id => @chapter.id)
     assert_selector "h1", text: "Footnotes"
+    assert_link "New Footnote"
+    assert_no_text "link_to"
+  end
+
+  test "showing the footnote" do
+      visit chapter_footnote_url(:chapter_id => @chapter.id, :id => @footnote.id)
+    assert_text "footnote_slug"
   end
 
   test "creating a Footnote" do
@@ -32,8 +39,7 @@ class FootnotesTest < ApplicationSystemTestCase
     fill_in "Slug", with: ""
     click_on "Create Footnote"
 
-    assert_text "Please review the problems below:"
-    assert_text "Slug can't be blank"
+    assert_text "can't be blank"
 
     fill_in "Slug", with: @footnote.slug
     click_on "Create Footnote"
@@ -60,8 +66,7 @@ class FootnotesTest < ApplicationSystemTestCase
     fill_in "Slug", with: ""
     click_on "Update Footnote"
 
-    assert_text "Please review the problems below:"
-    assert_text "Slug can't be blank"
+    assert_text "can't be blank"
 
     fill_in "Slug", with: @footnote.slug
     click_on "Update Footnote"
@@ -99,8 +104,7 @@ class FootnotesTest < ApplicationSystemTestCase
     fill_in "Slug", with: ""
     click_on "Create Footnote"
 
-    assert_text "Please review the problems below:"
-    assert_text "Slug can't be blank"
+    assert_text "can't be blank"
 
     fill_in "Slug", with: @footnote.slug
     click_on "Create Footnote"
@@ -121,14 +125,12 @@ class FootnotesTest < ApplicationSystemTestCase
   end
 
   test "should not update a Footnote_2" do
-      visit section_footnotes_url(:section_id => @section.id)
+    visit section_footnotes_url(:section_id => @section.id)
     click_on "Edit", match: :first
 
     fill_in "Slug", with: ""
     click_on "Update Footnote"
 
-    assert_text "Please review the problems below:"
-    assert_text "Slug can't be blank"
 
     fill_in "Slug", with: @footnote.slug
     click_on "Update Footnote"
@@ -166,8 +168,7 @@ class FootnotesTest < ApplicationSystemTestCase
     fill_in "Slug", with: ""
     click_on "Create Footnote"
 
-    assert_text "Please review the problems below:"
-    assert_text "Slug can't be blank"
+    assert_text "can't be blank"
 
     fill_in "Slug", with: @footnote.slug
     click_on "Create Footnote"
@@ -194,8 +195,7 @@ class FootnotesTest < ApplicationSystemTestCase
     fill_in "Slug", with: ""
     click_on "Update Footnote"
 
-    assert_text "Please review the problems below:"
-    assert_text "Slug can't be blank"
+    assert_text "can't be blank"
 
     fill_in "Slug", with: @footnote.slug
     click_on "Update Footnote"

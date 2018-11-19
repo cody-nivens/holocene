@@ -2,15 +2,34 @@ require "application_system_test_case"
 
 class HoloceneEventsTest < ApplicationSystemTestCase
   setup do
-    @holocene_event = holocene_events(:one)
-    @user = users(:one)
+    @holocene_event = holocene_events(:holocene_event_1)
+    @user = users(:users_1)
     sign_in @user
   end
 
   test "visiting the index" do
     visit holocene_events_url
     assert_selector "h1", text: "Holocene Events"
+    assert_link "New Holocene event"
+    assert_no_text "link_to"
   end
+
+    test "should get tagged 1" do
+    visit tag_url(:tag => 'Domestication')
+    assert_text "Domestication of Horse"
+  end
+
+  test "should get tagged 2" do
+    visit tag_url
+    assert_text "Dog buried inside"
+  end
+
+#  test "should return json index" do
+#    get '/holocene_events.json'
+#    body = JSON.parse(page.source)
+#    assert_equal "", body[0]["body"]
+#    assert_response :success
+#  end
 
   test "creating a Holocene event" do
     visit holocene_events_url
@@ -25,7 +44,7 @@ class HoloceneEventsTest < ApplicationSystemTestCase
     fill_in "Start year mod", with: @holocene_event.start_year_mod
     fill_in "Start year uncert", with: @holocene_event.start_year_uncert
     page.execute_script("var wysihtml5Editor = $('#holocene_event_body').data('wysihtml5').editor;wysihtml5Editor.setValue('Test for Holocene event.')")
-    find('#holocene_event_event_type_id').find(:xpath, 'option[2]').select_option
+    #find('#holocene_event_event_type_id').find(:xpath, 'option[2]').select_option
     find('#holocene_event_region_id').find(:xpath, 'option[2]').select_option
     click_on "Create Holocene event"
 
@@ -46,12 +65,11 @@ class HoloceneEventsTest < ApplicationSystemTestCase
     fill_in "Start year mod", with: @holocene_event.start_year_mod
     fill_in "Start year uncert", with: @holocene_event.start_year_uncert
     page.execute_script("var wysihtml5Editor = $('#holocene_event_body').data('wysihtml5').editor;wysihtml5Editor.setValue('Test for Holocene event.')")
-    find('#holocene_event_event_type_id').find(:xpath, 'option[2]').select_option
+    #find('#holocene_event_event_type_id').find(:xpath, 'option[2]').select_option
     find('#holocene_event_region_id').find(:xpath, 'option[2]').select_option
     click_on "Create Holocene event"
 
-    assert_text "error prohibited this holocene_event from being saved"
-    assert_text "Name can't be blank"
+    assert_text "can't be blank"
 
     fill_in "Name", with: @holocene_event.name
     click_on "Create Holocene event"
@@ -72,7 +90,7 @@ class HoloceneEventsTest < ApplicationSystemTestCase
     fill_in "Start year mod", with: @holocene_event.start_year_mod
     fill_in "Start year uncert", with: @holocene_event.start_year_uncert
     page.execute_script("var wysihtml5Editor = $('#holocene_event_body').data('wysihtml5').editor;wysihtml5Editor.setValue('Test for Holocene event.')")
-    find('#holocene_event_event_type_id').find(:xpath, 'option[2]').select_option
+    #find('#holocene_event_event_type_id').find(:xpath, 'option[2]').select_option
     find('#holocene_event_region_id').find(:xpath, 'option[2]').select_option
     click_on "Update Holocene event"
 
@@ -93,12 +111,11 @@ class HoloceneEventsTest < ApplicationSystemTestCase
     fill_in "Start year mod", with: @holocene_event.start_year_mod
     fill_in "Start year uncert", with: @holocene_event.start_year_uncert
     page.execute_script("var wysihtml5Editor = $('#holocene_event_body').data('wysihtml5').editor;wysihtml5Editor.setValue('Test for Holocene event.')")
-    find('#holocene_event_event_type_id').find(:xpath, 'option[2]').select_option
+    #find('#holocene_event_event_type_id').find(:xpath, 'option[2]').select_option
     find('#holocene_event_region_id').find(:xpath, 'option[2]').select_option
     click_on "Update Holocene event"
 
-    assert_text "error prohibited this holocene_event from being saved"
-    assert_text "Name can't be blank"
+    assert_text "can't be blank"
 
     fill_in "Name", with: @holocene_event.name
     click_on "Update Holocene event"

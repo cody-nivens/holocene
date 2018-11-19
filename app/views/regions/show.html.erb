@@ -15,7 +15,5 @@
 <%= datagrid_table @grid %>
 <%= paginate(@grid.assets) %>
 
-<div class="navbar-fixed-bottom footer">
-<%= link_to 'Edit', edit_region_path(@region) %> |
-<%= link_to 'Back', regions_path %>
-</div>
+<% @footer_content << "#{link_to 'Edit', edit_region_path(@region)}" %>
+<% @footer_content << "#{link_to 'Back', regions_path}" %>

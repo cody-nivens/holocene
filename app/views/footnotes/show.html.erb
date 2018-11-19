@@ -7,20 +7,12 @@
   <strong>Body:</strong>
   <%= @footnote.body %>
 </p>
+<% unless @footnote.biblioentry.nil? %>
+<p>
+  <strong>Biblioentry:</strong>
+  <%= @footnote.biblioentry.name %>
+</p>
+<% end %>
 
-<div class="navbar-fixed-bottom footer">
-<%= link_to 'Edit', edit_footnote_path(@footnote) %> |
-<% case @noted.class.name -%>
-<% when "Chapter" -%>
-<%= link_to 'New Footnote', new_chapter_footnote_path(:chapter_id => @noted.id) %> |
-<% when "Section" -%>
-<%= link_to 'New Footnote', new_section_footnote_path(:section_id => @noted.id) %> |
-<% end -%>
-
-<% case @noted.class.name -%>
-<% when "Chapter" -%>
-<%= link_to 'Back', chapter_footnotes_path(:chapter_id => @noted.id) %>
-<% when "Section" -%>
-<%= link_to 'Back', section_footnotes_path(:section_id => @noted.id) %>
-<% end -%>
-</div>
+<% @footer_content << "#{link_to 'Edit', edit_footnote_path(@footnote)}" %>
+<% @footer_content << "#{link_to 'Back', "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnotes"}" %>

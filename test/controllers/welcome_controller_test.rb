@@ -3,7 +3,7 @@ require 'test_helper'
 class WelcomeControllerTest < ActionDispatch::IntegrationTest
 
   setup do
-    @user = users(:one)
+    @user = users(:users_1)
     sign_in @user
   end
 

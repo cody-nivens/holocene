@@ -9,7 +9,6 @@ class User < ApplicationRecord
 
   has_many :authors
   has_many :biblioentries
-  has_many :citations
   has_many :event_types
   has_many :holocene_events
   has_many :regions

@@ -1,18 +1,38 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-chapter_one:
-  name: MyChapter
-  body: MyChapterBody
+---
+chapter_1:
+  name: 'Cultural Events '
+  body: Events caused by Man or happened to Mankind.
+  position: 0
+  slug: 4tWrCAXQXx
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2018-11-15 04:18:23.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2018-11-15 17:27:30.000000000 Z
+    zone: *2
+    time: *3
+  book: 'book_1'
+  partition: Timelines
+  partition_body: ''
+  holocene_events:
+      - holocene_event_1
+chapter_2:
+  name: 'Chapter Two Stuff '
+  body: ''
   position: 1
-  slug: chap_slug
-  book: book_one
+  slug: tE3vUMrsN3
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &4 2018-11-15 04:18:25.000000000 Z
+    zone: *2
+    time: *4
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &5 2018-11-15 04:18:25.000000000 Z
+    zone: *2
+    time: *5
+  book: book_1
+  partition: ''
+  partition_body: ''
   holocene_events:
-      - one
-chapter_two:
-  name: MyChapter
-  body: MyChapterBody
-  position: 2
-  slug: chap2_slug
-  book: book_one
-  holocene_events:
-      - two
+      - holocene_event_2

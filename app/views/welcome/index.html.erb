@@ -1,5 +1,3 @@
-<h1>Welcome</h1>
-
 <div id='tag_cloud'>
   <% tag_cloud HoloceneEvent.tag_counts, %w{s m l} do |tag, css_class| %>
     <%= link_to tag.name, tag_path(tag.name), class: css_class %>
@@ -7,17 +5,25 @@
 </div>
 
 <table class='table'>
-    <tr><th>Component</th><th>Count</th></tr>
     <tr><td><%= link_to "Holocene Events", holocene_events_path %></td><td><%= HoloceneEvent.count %></td></tr>
-    <tr><td><%= link_to "Event Type", event_types_path %></td><td><%= EventType.count %></td></tr>
-    <tr><td><%= link_to "Book", books_path %></td><td><%= Book.count %></td></tr>
-    <tr><td>&nbsp;&nbsp;<%= link_to "Chapter", book_chapters_path(Book.first) %></td><td><%= Chapter.count %></td></tr>
-    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Section", book_chapter_sections_path(Chapter.first.book,Chapter.first) %></td><td><%= Section.count %></td></tr>
-    <tr><td><%= link_to "Citation", biblioentry_citations_path(Biblioentry.first) %></td><td><%= Citation.count %></td></tr>
+    <tr><td><%= link_to "Region", regions_path %>&nbsp;<%= Region.count %></td>
+    <td><%= link_to "Event Type", event_types_path %>&nbsp;<%= EventType.count %></td></tr>
+    <tr><td><table class='table'><tbody>
+    <% Region.all.each do |region| -%>
+        <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "#{region.name}", region_path(region) %></td><td><%= region.holocene_events.count %></td></tr>
+    <% end -%>
+    </tbody></table></td>
+    <td><table class='table'><tbody>
+    <% EventType.all.each do |event_type| -%>
+        <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "#{event_type.name}", event_type_path(event_type) %></td><td><%= event_type.holocene_events.count %></td></tr>
+    <% end -%>
+    </tbody></table></td></tr>
     <tr><td><%= link_to "Timeline", timelines_path %></td><td><%= Timeline.count %></td></tr>
     <tr><td><%= link_to "Epoch", epochs_path %></td><td><%= Epoch.count %></td></tr>
-    <tr><td><%= link_to "Region", regions_path %></td><td><%= Region.count %></td></tr>
-    <tr><td><%= link_to "Authors", authors_path %></td><td><%= Author.count %></td></tr>
-    <tr><td><%= link_to "Biblioentries", biblioentries_path %></td><td><%= Biblioentry.count %></td></tr>
+    <tr><td><%= link_to "Book", books_path %></td><td><%= Book.count %></td></tr>
+    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Chapter", book_chapters_path(Book.first) %></td><td><%= Chapter.count %></td></tr>
+    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Section", book_chapter_sections_path(Chapter.first.book,Chapter.first) %></td><td><%= Section.count %></td></tr>
     <tr><td><%= link_to "Footnotes", footnotes_path %></td><td><%= Footnote.count %></td></tr>
+    <tr><td><%= link_to "Biblioentries", biblioentries_path %></td><td><%= Biblioentry.count %></td></tr>
+    <tr><td><%= link_to "Authors", authors_path %></td><td><%= Author.count %></td></tr>
 </table>

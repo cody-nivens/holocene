@@ -2,8 +2,8 @@ require 'test_helper'
 
 class BiblioentriesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @biblioentry = biblioentries(:one)
-    @user = users(:one)
+      @biblioentry = biblioentries(:biblioentry_1)
+    @user = users(:users_1)
     sign_in @user
   end
 

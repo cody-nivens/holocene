@@ -1,0 +1,33 @@
+---
+tagging_1:
+  tag: tag_one
+  taggable: holocene_event_1 (HoloceneEvent)
+  context: tags
+tagging_2:
+  tag: tag_one
+  taggable: holocene_event_2 (HoloceneEvent)
+  context: tags
+tagging_3:
+  tag: tag_one
+  taggable: holocene_event_3 (HoloceneEvent)
+  context: tags
+tagging_4:
+  tag: tag_one
+  taggable: holocene_event_4 (HoloceneEvent)
+  context: tags
+tagging_5:
+  tag: tag_one
+  taggable: holocene_event_5 (HoloceneEvent)
+  context: tags
+tagging_6:
+  tag: tag_one
+  taggable: holocene_event_6 (HoloceneEvent)
+  context: tags
+tagging_7:
+  tag: tag_two
+  taggable: holocene_event_7 (HoloceneEvent)
+  context: tags
+tagging_8:
+  tag: tag_two
+  taggable: holocene_event_8 (HoloceneEvent)
+  context: tags

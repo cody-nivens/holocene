@@ -22,7 +22,7 @@ module ApplicationHelper
             if my_footnote.length == 0
                 str += "<a href='/#{slug[1].class.name.underscore.pluralize}/#{slug[1].id}/footnotes/#{slug[0]}'>Missing footnote</a>"
             else
-              str += "<sup id='fn#{index}'>#{index}. [#{my_footnote[0].body}]<a href='#ref#{index}' data-turbolinks='false' title='Jump back to footnote #{index} in the text.'>↩</a></sup><br/>"
+                str += "<sup id='fn#{index}'>#{index}. [#{my_footnote[0].body.gsub(/<br>/,'')}]<a href='#ref#{index}' data-turbolinks='false' title='Jump back to footnote #{index} in the text.'>↩</a></sup><br/>"
             end
         end
         return str

@@ -2,14 +2,16 @@ require "application_system_test_case"
 
 class AuthorsTest < ApplicationSystemTestCase
   setup do
-    @author = authors(:one)
-    @user = users(:one)
+    @author = authors(:authors_1)
+    @user = users(:users_1)
     sign_in @user
   end
 
   test "visiting the index" do
     visit authors_url
     assert_selector "h1", text: "Authors"
+    assert_link "New Author"
+    assert_no_text "link_to"
   end
 
   test "creating an Author" do
@@ -32,8 +34,7 @@ class AuthorsTest < ApplicationSystemTestCase
     fill_in "Last name", with: @author.last_name
     click_on "Create Author"
 
-    assert_text "Please review the problems below:"
-    assert_text "First name can't be blank"
+    assert_text "can't be blank"
 
     fill_in "First name", with: @author.first_name
     click_on "Create Author"
@@ -62,8 +63,7 @@ class AuthorsTest < ApplicationSystemTestCase
     fill_in "Last name", with: @author.last_name
     click_on "Update Author"
 
-    assert_text "Please review the problems below:"
-    assert_text "First name can't be blank"
+    assert_text "can't be blank"
 
     fill_in "First name", with: @author.first_name
     click_on "Update Author"

@@ -6,11 +6,8 @@ class Epoch < ApplicationRecord
 
     validates :name, :start_date, :end_date, presence: true
 
-    def epoch_json_tjs
-        node = {:name => mk_text(self.name),
-                :start_date => mk_date(self.start_date),
-                :end_date => mk_date(self.end_date)
-        }
-        return node
+    def timeline_json
+        return {:events => HoloceneEvent.where(["start_year >= ? and start_year <= ?", self.start_date,self.end_date]).collect{|x| x.slide}}.to_json
     end
+
 end

@@ -1,6 +1,6 @@
 <h1>Editing Region</h1>
 
-<%= render 'form', region: @region %>
+<%= render 'form', region: @region, command_label: "Update Region"  %>
 
-<%= link_to 'Show', @region %> |
-<%= link_to 'Back', regions_path %>
+<% @footer_content << "#{link_to 'Show', @region}" %>
+<% @footer_content << "#{link_to 'Back', regions_path}" %>

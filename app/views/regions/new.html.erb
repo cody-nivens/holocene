@@ -1,5 +1,5 @@
 <h1>New Region</h1>
 
-<%= render 'form', region: @region %>
+<%= render 'form', region: @region, command_label: "Create Region"  %>
 
-<%= link_to 'Back', regions_path %>
+<% @footer_content << "#{link_to 'Back', regions_path}" %>

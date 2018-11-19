@@ -1,4 +1,4 @@
-<%= form_with(model: region, local: true) do |form| %>
+<%= bootstrap_form_for(region, local: true) do |form| %>
   <% if region.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(region.errors.count, "error") %> prohibited this region from being saved:</h2>
@@ -11,24 +11,20 @@
     </div>
   <% end %>
 
-  <div class="field">
       <%= form.hidden_field :user_id %>
-    <%= form.label :name %>
     <%= form.text_field :name %>
-  </div>
 
    <div class="jumbotron" >
       <%= form.text_area :body, as: :wysihtml5, cols: "80", rows: "15" %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <%= form.primary "#{command_label}" %>
 <script type="text/javascript">
   $(document).ready(function(){
     $('#region_body').each(function(i, elem) {
         $(elem).wysihtml5({
            toolbar: {
+               "fa": true,
               "style": false,
               "font-styles": false,
               "emphasis": true,

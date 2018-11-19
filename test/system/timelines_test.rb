@@ -2,14 +2,16 @@ require "application_system_test_case"
 
 class TimelinesTest < ApplicationSystemTestCase
   setup do
-    @timeline = timelines(:one)
-    @user = users(:one)
+    @timeline = timelines(:timeline_1)
+    @user = users(:users_1)
     sign_in @user
   end
 
   test "visiting the index" do
     visit timelines_url
     assert_selector "h1", text: "Timelines"
+    assert_link "New Timeline"
+    assert_no_text "link_to"
     click_on "Show", match: :first
 
     assert_text "Name"
@@ -19,8 +21,10 @@ class TimelinesTest < ApplicationSystemTestCase
   end
 
   test "visiting the timeline" do
-    visit timeline_timeline_url(@timeline)
-    assert_text "First event"
+      visit timeline_timeline_url(:timeline_id => @timeline.id)
+    assert_text "Dog buried"
+    assert_link "Display"
+    assert_link "Back"
   end
 
 
@@ -32,26 +36,26 @@ class TimelinesTest < ApplicationSystemTestCase
     click_on "Display"
 
     assert_button "Delete Events"
-    assert_text "First event"
+    assert_text "Domestication of Horses"
 
-    he = HoloceneEvent.find_by_name("First event")
+    he = HoloceneEvent.find_by_name("Domestication of Horses")
     find(:xpath,"//input[@type='checkbox' and @value=#{he.id}]").set(true)
     click_on "Delete Events"
    
-    assert_text "Timeline was successfully updated."
-    assert_no_text "First event"
+    assert_text "Timeline was successfully updated"
+    assert_no_text "Domestication of Horses"
 
     assert_link  "Display"
     click_on "Display"
     assert_button "Delete Events"
     click_on "Add Event"
 
-    assert_text "First event"
+    assert_text "Domestication of Horses"
     find(:xpath,"//input[@type='checkbox' and @value=#{he.id}]").set(true)
     click_on "Add Events"
    
-    assert_text "Timeline was successfully updated."
-    assert_text "First event"
+    assert_text "Timeline was successfully updated"
+    assert_text "Domestication of Horses"
 
   end
 
@@ -75,8 +79,7 @@ class TimelinesTest < ApplicationSystemTestCase
     fill_in "Name", with: ""
     click_on "Create Timeline"
 
-    assert_text "error prohibited this timeline from being saved"
-    assert_text "Name can't be blank"
+    assert_text "can't be blank"
 
     fill_in "Name", with: @timeline.name
     click_on "Create Timeline"
@@ -104,8 +107,7 @@ class TimelinesTest < ApplicationSystemTestCase
     fill_in "Name", with: ""
     click_on "Update Timeline"
 
-    assert_text "error prohibited this timeline from being saved"
-    assert_text "Name can't be blank"
+    assert_text "can't be blank"
 
     fill_in "Name", with: @timeline.name
     click_on "Update Timeline"

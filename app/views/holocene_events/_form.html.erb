@@ -1,4 +1,4 @@
-<%= simple_form_for(holocene_event, html: { class: 'form-inline' } ) do |form| %>
+<%= bootstrap_form_for(holocene_event, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-8") do |form| %>
   <% if holocene_event.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(holocene_event.errors.count, "error") %> prohibited this holocene_event from being saved:</h2>
@@ -11,61 +11,40 @@
     </div>
   <% end %>
 
-  <div class="field">
-      <%= form.hidden_field :user_id %>
-    <%= form.label :name %>
+    <%= form.hidden_field :user_id %>
     <%= form.text_field :name %>
-  </div>
 
-  <div class="field">
-    <%= form.label :start_year %>
     <%= form.number_field :start_year %>
-    <%= form.label :start_year_uncert %>
     <%= form.number_field :start_year_uncert %>
-    <%= form.label :start_year_mod %>
     <%= form.number_field :start_year_mod %>
-  </div>
 
-  <div class="field">
-    <%= form.label :end_year %>
     <%= form.number_field :end_year %>
-    <%= form.label :end_year_uncert %>
     <%= form.number_field :end_year_uncert %>
-    <%= form.label :end_year_mod %>
     <%= form.number_field :end_year_mod %>
-  </div>
 
-  <div class="field">
-    <%= form.label :event_type %>
-    <%= form.collection_select :event_type_id, EventType.all, :id, :name %>
-    <%= form.label :region %>
+    <%= form.collection_check_boxes :event_type_ids, EventType.all, :id, :name, multiple: true %>
     <%= form.collection_select :region_id, Region.all, :id, :name %>
-  </div>
 
   <div class="jumbotron" >
-      <%= form.text_area :body, as: :wysihtml5, cols: "80", rows: "15" %>
+      <%= form.text_area :body, as: :wysihtml5, label: false, cols: "80", rows: "15" %>
   </div>
 
-  <div class='field'>
-    <%= form.label :tag_list, 'Tags (separated by commas)' %><br/>
     <%= form.text_field :tag_list %>
-  </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+    <%= form.primary "#{command_label}" %>
 <script type="text/javascript">
   $(document).ready(function(){
     $('#holocene_event_body').each(function(i, elem) {
         $(elem).wysihtml5({
            toolbar: {
-              "style": false,
+               "fa": true,
+              "style": true,
               "font-styles": false,
               "emphasis": true,
-              "lists": false,
+              "lists": true,
               "html": true,
-              "link": false,
-              "image": false,
+              "link": true,
+              "image": true,
               "color": false
            },
            parser: function(html) {

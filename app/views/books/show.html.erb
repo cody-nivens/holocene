@@ -10,8 +10,6 @@
 
 <%#= render 'chapters/index', book_id: @book.id %>
 
-<div class="navbar-fixed-bottom footer">
-<%= link_to 'Edit', edit_book_path(@book) %> |
-<%= link_to 'Chapters', book_chapters_path(@book) %> |
-<%= link_to 'Back', books_path %>
-</div>
+<% @footer_content << "#{link_to 'Edit', edit_book_path(@book)}" %>
+<% @footer_content << "#{link_to 'Chapters', book_chapters_path(@book)}" %>
+<% @footer_content << "#{link_to 'Back', books_path}" %>

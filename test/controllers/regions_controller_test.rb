@@ -2,8 +2,8 @@ require 'test_helper'
 
 class RegionsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @region = regions(:one)
-    @user = users(:one)
+    @region = regions(:Africa)
+    @user = users(:users_1)
     sign_in @user
   end
 

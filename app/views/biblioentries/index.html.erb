@@ -5,9 +5,8 @@
     <tr>
       <th>Name</th>
       <th>Xreflabel</th>
-      <th>Copyright year</th>
-      <th>Copyright holder</th>
-      <th>Publisher</th>
+      <th># Citations</th>
+      <th># Events</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -17,9 +16,7 @@
       <tr>
         <td><%= biblioentry.name %></td>
         <td><%= biblioentry.xreflabel %></td>
-        <td><%= biblioentry.copyright_year %></td>
-        <td><%= biblioentry.copyright_holder %></td>
-        <td><%= biblioentry.publisher %></td>
+        <td><%= biblioentry.footnotes.count %></td>
         <td><%= link_to 'Show', biblioentry %></td>
         <td><%= link_to 'Edit', edit_biblioentry_path(biblioentry) %></td>
         <td><%= link_to 'Destroy', biblioentry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -30,6 +27,4 @@
 
 <br>
 
-<div class="navbar-fixed-bottom footer">
-<%= link_to 'New Biblioentry', new_biblioentry_path %>
-</div>
+<% @footer_content <<  "#{link_to 'New Biblioentry', new_biblioentry_path}" %>

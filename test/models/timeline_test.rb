@@ -5,7 +5,7 @@ class TimelineTest < ActiveSupport::TestCase
   #   assert true
   # end
   test "timeline_json should return json" do
-      timeline = timelines(:one)
+      timeline = timelines(:timeline_1)
       assert_not_equal "", timeline.timeline_json
   end
 end

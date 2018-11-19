@@ -1,21 +1,52 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  name: MyString
-  xreflabel: MyString
-  copyright_year: 1
-  copyright_holder: MyString
-  publisher: MyString
-  user: one
-  authors: 
-  - one
-
-two:
-  name: MyString
-  xreflabel: MyString
-  copyright_year: 1
-  copyright_holder: MyString
-  publisher: MyString
-  user: one
-  authors: 
-  - two
+---
+biblioentry_1:
+  name: 'Exodus to Arthur: Catastrophic encounters with comets'
+  xreflabel: baillie1999
+  copyright_year: 1999, 2000, 2001
+  copyright_holder: Mike Baillie
+  publisher: B. T. Batsford Ltd
+  releaseinfo: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2018-11-15 04:18:23.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2018-11-15 04:18:23.000000000 Z
+    zone: *2
+    time: *3
+  user: users_1
+'Medieval Sourcebook: Annales Camriae 447-954 (The Annals of Wales)':
+  name: 'Medieval Sourcebook: Annales Camriae 447-954 (The Annals of Wales)'
+  xreflabel: AnnalesCambriae
+  copyright_year: 
+  copyright_holder: 
+  publisher: ''
+  releaseinfo: "<a href='http://www.fordham.edu/halsall/source/annalescambriae.asp'>Medieval
+    Sourcebook: Annales Camriae 447-954 (The Annals of Wales)</a>"
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &4 2018-11-15 04:18:23.000000000 Z
+    zone: *2
+    time: *4
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &5 2018-11-15 04:18:23.000000000 Z
+    zone: *2
+    time: *5
+  user: users_1
+'Corpus of Electronic Texts: The Annals of Ulster':
+  name: 'Corpus of Electronic Texts: The Annals of Ulster'
+  xreflabel: AnnalesUlster
+  copyright_year: 
+  copyright_holder: 
+  publisher: ''
+  releaseinfo: "<a href='http://www.ucc.ie/celt/published/t100001A/'>Corpus of Electronic
+    Texts: The Annals of Ulster</a>"
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &6 2018-11-15 04:18:23.000000000 Z
+    zone: *2
+    time: *6
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &7 2018-11-15 04:18:23.000000000 Z
+    zone: *2
+    time: *7
+  user: users_1

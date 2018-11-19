@@ -1,18 +1,14 @@
 
-<%= simple_form_for(@biblioentry) do |f| %>
-  <%= f.error_notification %>
+<%= bootstrap_form_for(@biblioentry ) do |f| %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.input :user_id, as: :hidden %>
-    <%= f.input :name %>
-    <%= f.input :xreflabel %>
-    <%= f.input :copyright_year %>
-    <%= f.input :copyright_holder %>
-    <%= f.input :publisher %>
-  </div>
+    <%= f.hidden_field :user_id %>
+    <%= f.text_field :name %>
+    <%= f.text_field :xreflabel %>
+    <%= f.text_field :copyright_year %>
+    <%= f.text_field :copyright_holder %>
+    <%= f.text_field :publisher %>
+    <%= f.collection_check_boxes :author_ids, Author.all.order(:last_name), :id, :last_name, {include_blank: ''}  %>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+    <%= f.primary "#{command_label}" %>
 <% end %>

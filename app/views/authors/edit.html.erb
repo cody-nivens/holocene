@@ -1,6 +1,6 @@
 <h1>Editing Author</h1>
 
-<%= render 'form', user: current_user, author: @author %>
+<%= render 'form', user: current_user, author: @author, command_label: "Update Author"  %>
 
-<%= link_to 'Show', @author %> |
-<%= link_to 'Back', authors_path %>
+<% @footer_content << "#{link_to 'Show', @author}" %>
+<% @footer_content << "#{link_to 'Back', authors_path}" %>

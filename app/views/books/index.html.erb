@@ -19,6 +19,7 @@
 <td><%= ts %></td>
 <td><%= link_to 'Show', book %></td>
 <td><%= link_to 'PDF', book_pdf_path(book) %></td>
+<td><%= link_to 'Chapters', book_chapters_path(book) %></td>
 <td><%= link_to 'Edit', edit_book_path(book) %></td>
 <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 </tr>
@@ -27,6 +28,4 @@
 </table>
 
 
-<div class="navbar-fixed-bottom footer">
-<%= link_to 'New Book', new_book_path %>
-</div>
+<% @footer_content << "#{link_to 'New Book', new_book_path}" %>

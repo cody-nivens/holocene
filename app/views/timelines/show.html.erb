@@ -3,19 +3,16 @@
   <%= @timeline.name %>
 </p>
 
-<p>
   <%= raw @timeline.description %>
-</p>
-
-<div class="navbar-fixed-bottom footer">
-<%= link_to 'Edit', edit_timeline_path(@timeline) %> |
-<%= link_to 'Display', timeline_display_path(:timeline => @timeline.id) %> |
-<%= link_to 'Back', timelines_path %>
-</div>
 
 <%= datagrid_form_for @grid, :method => :get, :url => holocene_events_path %>
 
 <%= paginate(@grid.assets) %>
 <%= datagrid_table @grid %>
 <%= paginate(@grid.assets) %>
+
+<% @footer_content << "#{link_to 'Edit', edit_timeline_path(@timeline)}" %>
+<% @footer_content << "#{link_to 'Timeline', timeline_timeline_path(:timeline_id => @timeline.id)}" %>
+<% @footer_content << "#{link_to 'Display', timeline_display_path(:timeline_id => @timeline.id)}" %>
+<% @footer_content << "#{link_to 'Back', timelines_path}" %>
 

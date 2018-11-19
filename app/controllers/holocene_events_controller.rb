@@ -1,20 +1,12 @@
 class HoloceneEventsController < ApplicationController
   before_action :set_holocene_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_object, only: [:index, :display, :add_event ]
 
   def index
-    @object = find_object
     @command = "Add Events"
 
-    respond_to do |format|
-       format.html {
-            @grid = HoloceneEventsGrid.new(grid_params) do |scope|
-              scope.page(params[:page])
-            end
-       }
-       format.json {
-           @holocene_events = HoloceneEvent.order(:start_year).where("start_year > ?", "%#{params[:year]}%")
-           render json: @holocene_events
-       }
+    @grid = HoloceneEventsGrid.new(grid_params) do |scope|
+       scope.page(params[:page])
     end
   end
 
@@ -29,6 +21,28 @@ class HoloceneEventsController < ApplicationController
   # GET /holocene_events/1
   # GET /holocene_events/1.json
   def show
+  end
+
+  def display
+    @events = @object.holocene_events.order(:start_year)
+    ids = @object.holocene_events.pluck(:id)
+    if ids.length == 0
+        @command = "Add Events"
+    else
+        @command = "Delete Events"
+    end
+    @grid = HoloceneEventsGrid.new(grid_params.merge({:id => ids,:object => @object})) do |scope|
+        scope.page(params[:page])
+    end
+  end
+
+  def add_event
+    @events = @object.holocene_events.order(:start_year)
+    ids = HoloceneEvent.all.pluck(:id) - @object.holocene_events.pluck(:id)
+    @command = "Add Events"
+    @grid = HoloceneEventsGrid.new(grid_params.merge({:id => ids,:object => @object})) do |scope|
+        scope.page(params[:page])
+    end
   end
 
   # GET /holocene_events/new
@@ -56,16 +70,8 @@ class HoloceneEventsController < ApplicationController
       end
       respond_to do |format|
         format.html {
-            case @object.class.name
-              when 'Chapter'
-                  redirect_to book_chapter_url(:book_id => @object.book.id, :id => @object.id), notice: 'Chapter was successfully updated.'
-              when 'Section'
-                  redirect_to book_chapter_section_url(:book_id => @object.chapter.book.id, :chapter_id => @object.chapter.id, :id => @object.id), notice: 'Section was successfully updated.'
-              when 'Timeline'
-                  redirect_to timeline_url(:id => @object.id), notice: 'Timeline was successfully updated.'
-              when 'Citation'
-                  redirect_to biblioentry_citation_url(:biblioentry_id => @object.biblioentry_id,:id => @object.id), notice: 'Citation was successfully updated.'
-              end
+            redirect_to "/#{@object.class.name.underscore.pluralize}/show/#{@object.id}",
+                                :notice => "#{@object.class.name} was successfully updated"
         }
         format.json { render :show, status: :created, location: @holocene_event }
       end
@@ -131,10 +137,11 @@ class HoloceneEventsController < ApplicationController
       @holocene_event = HoloceneEvent.find(params[:id])
     end
 
-    def find_object
+    def set_object
       params.each do |name, value|
         if name =~ /(.+)_id$/
-          return $1.classify.constantize.find(value)
+          @object = $1.classify.constantize.find(value)
+          return
         end
       end
       nil
@@ -142,6 +149,6 @@ class HoloceneEventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def holocene_event_params
-      params.require(:holocene_event).permit(:name, :start_year, :end_year, :start_year_uncert, :start_year_mod, :end_year_uncert, :end_year_mod, :event_type_id, :body, :region_id, :tag_list, :citations, :user_id, :activated, :seen, :object_id, :object_type)
+      params.require(:holocene_event).permit(:name, :start_year, :end_year, :start_year_uncert, :start_year_mod, :end_year_uncert, :end_year_mod, :body, :region_id, :tag_list, :citations, :user_id, :activated, :seen, :object_id, :object_type, event_type_ids: [])
     end
 end

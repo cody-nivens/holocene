@@ -11,18 +11,22 @@
 // about supported directives.
 //
 //= require rails-ujs
-//  = require jquery
+//= require jquery3
 //= require activestorage
 //= require turbolinks
-//= require jquery3
 //= require jquery_ujs
 //= require jquery-ui/widgets/sortable
 //= require rails_sortable
 //= require popper
-//= require bootstrap-sprockets
 //= require bootstrap
 //= require bootstrap-wysihtml5
+//= require bootstrap-wysihtml5/locales
+//=r equire timelineJS/timeline
+//= link_tree ../icons
+//= link_tree ../fonts
+//= link_tree ../images
 //= require_tree .
+
 
 
 $(document).ready(function(){

@@ -1,11 +1,206 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  name: MyString
-  body: MyText
-  user: one
-
-two:
-  name: MyString
-  body: MyText
-  user: one
+---
+Africa:
+  name: Africa
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2018-11-15 04:18:21.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2018-11-15 04:18:21.000000000 Z
+    zone: *2
+    time: *3
+  user: users_1
+Australasia:
+  name: Australasia
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &4 2018-11-15 04:18:21.000000000 Z
+    zone: *2
+    time: *4
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &5 2018-11-15 04:18:21.000000000 Z
+    zone: *2
+    time: *5
+  user: users_1
+Central America:
+  name: Central America
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &6 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *6
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &7 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *7
+  user: users_1
+Central Asia:
+  name: Central Asia
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &8 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *8
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &9 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *9
+  user: users_1
+East Asia:
+  name: East Asia
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &10 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *10
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &11 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *11
+  user: users_1
+Eurasia:
+  name: Eurasia
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &12 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *12
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &13 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *13
+  user: users_1
+Europe:
+  name: Europe
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &14 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *14
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &15 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *15
+  user: users_1
+FarEast:
+  name: Far East
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &16 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *16
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &17 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *17
+  user: users_1
+Global:
+  name: Global
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &18 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *18
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &19 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *19
+  user: users_1
+Iceland and Arctic Ocean:
+  name: Iceland and Arctic Ocean
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &20 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *20
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &21 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *21
+  user: users_1
+Indian Ocean:
+  name: Indian Ocean
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &22 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *22
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &23 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *23
+  user: users_1
+Middle East:
+  name: Middle East
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &24 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *24
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &25 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *25
+  user: users_1
+NearEast:
+  name: Near East
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &26 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *26
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &27 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *27
+  user: users_1
+North America:
+  name: North America
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &28 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *28
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &29 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *29
+  user: users_1
+South America:
+  name: South America
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &30 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *30
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &31 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *31
+  user: users_1
+Southeast Asia:
+  name: Southeast Asia
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &32 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *32
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &33 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *33
+  user: users_1
+Unknown:
+  name: Unknown
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &34 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *34
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &35 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *35
+  user: users_1

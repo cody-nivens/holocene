@@ -4,8 +4,6 @@
 
 <%= paginate(@grid.assets) %>
 <%= datagrid_table @grid %>
-
-<div class="navbar-fixed-bottom footer">
-<%= link_to 'New Holocene event', new_holocene_event_path %>
-</div>
 <%= paginate(@grid.assets) %>
+
+<% @footer_content << "#{link_to 'New Holocene event', new_holocene_event_path}" %>

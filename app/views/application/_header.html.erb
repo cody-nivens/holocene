@@ -1,0 +1,14 @@
+<div class="app-header">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <%= link_to 'Home', root_path, class: 'navbar-brand' %>
+      <div class="collapse navbar-collapse" id="navbar-header">
+          <ul class="nav navbar-nav navbar-right">
+            <%= render 'layouts/nav_links' %>
+            <%= content_tag(:li, link_to("Documentation", about_path, class: "nav-link"), class: "nav-item") %>
+            <%= render 'layouts/nav_links_for_auth' %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>

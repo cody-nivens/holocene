@@ -4,11 +4,11 @@
   <tbody class="sortable">
     <% @chapters.each_with_sortable_id do |chapter, sortable_id| %>
       <tr id="<%= sortable_id %>">
-        <td><%= chapter.name %></td>
         <td><%= chapter.partition %></td>
-        <td><%= (chapter.partition_body.blank? ? "" :chapter.partition_body[0,100]) %></td>
+        <td><%= chapter.name %></td>
         <td><%= link_to 'Show', book_chapter_path(@book, chapter) %></td>
         <td><%= link_to 'PDF', chapter_pdf_path(chapter) %></td>
+        <td><%= link_to 'Sections', book_chapter_sections_path(chapter.book, chapter) %></td>
         <td><%= link_to 'Edit', edit_book_chapter_path(@book, chapter) %></td>
         <td><%= link_to 'Destroy', book_chapter_path(@book, chapter), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -17,10 +17,8 @@
 </table>
 
 
-<div class="navbar-fixed-bottom footer">
-<%= link_to 'New Chapter', new_book_chapter_path(@book) %> |
-<%= link_to 'Back', book_chapters_path(@book) %>
-</div>
+<% @footer_content << "#{link_to 'New Chapter', new_book_chapter_path(@book)}" %>
+<% @footer_content << "#{link_to 'Back', book_path(@book)}" %>
 
 <script>
 $(function() {

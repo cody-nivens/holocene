@@ -1,0 +1,23 @@
+<table>
+  <thead>
+    <tr>
+      <th>Slug</th>
+      <th>Noted</th>
+      <th>Type</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% footnotes.each do |footnote| %>
+      <tr>
+        <td><%= footnote.slug %></td>
+        <td><%= footnote.noted.name %></td>
+        <td><%= footnote.noted_type %></td>
+        <td><%= link_to 'Show', footnote %></td>
+        <td><%= link_to 'Edit', edit_footnote_path(footnote) %></td>
+        <td><%= link_to 'Destroy', footnote, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

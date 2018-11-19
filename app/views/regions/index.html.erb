@@ -24,6 +24,4 @@
 
 <br>
 
-<div class="navbar-fixed-bottom footer">
-<%= link_to 'New Region', new_region_path %>
-</div>
+<% @footer_content << "#{link_to 'New Region', new_region_path}" %>

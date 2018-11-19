@@ -11,7 +11,7 @@ class EventTypesController < ApplicationController
   # GET /event_types/1.json
   def show
     @grid = HoloceneEventsGrid.new(hgrid_params) do |scope|
-        scope.where(:event_type_id => @event_type.id).page(params[:page])
+        scope.joins(:event_types).where("event_type_id = ?", "#{@event_type.id}").page(params[:page])
     end
   end
 

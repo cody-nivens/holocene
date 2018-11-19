@@ -4,7 +4,7 @@ class BiblioentriesController < ApplicationController
   # GET /biblioentries
   # GET /biblioentries.json
   def index
-    @biblioentries = Biblioentry.all
+      @biblioentries = Biblioentry.all.order(:name)
   end
 
   # GET /biblioentries/1
@@ -70,6 +70,6 @@ class BiblioentriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def biblioentry_params
-      params.require(:biblioentry).permit(:name, :xreflabel, :copyright_year, :copyright_holder, :publisher, :user_id)
+      params.require(:biblioentry).permit(:name, :xreflabel, :copyright_year, :copyright_holder, :publisher, :user_id, :author_ids => [])
     end
 end

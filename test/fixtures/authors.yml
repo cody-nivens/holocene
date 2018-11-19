@@ -1,11 +1,26 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  first_name: MyString
-  last_name: MyString
-  user: one
-
-two:
-  first_name: MyString
-  last_name: MyString
-  user: one
+---
+authors_1:
+  first_name: Erggy
+  last_name: Poincycle
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2018-11-15 04:18:23.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2018-11-15 04:18:23.000000000 Z
+    zone: *2
+    time: *3
+  user: users_1
+authors_2:
+  first_name: Mike
+  last_name: Baillie
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &4 2018-11-15 04:18:23.000000000 Z
+    zone: *2
+    time: *4
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &5 2018-11-15 04:18:23.000000000 Z
+    zone: *2
+    time: *5
+  user: users_1

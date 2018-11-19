@@ -1,10 +1,6 @@
-<p>
-  <strong>Name:</strong>
-  <%= @event_type.name %>
-</p>
+<h1><%= @event_type.name %></h1>
 
 <p>
-  <strong>Body:</strong>
   <%= @event_type.body %>
 </p>
 
@@ -15,7 +11,5 @@
 <%= paginate(@grid.assets) %>
 
 
-<div class="navbar-fixed-bottom footer">
-<%= link_to 'Edit', edit_event_type_path(@event_type) %> |
-<%= link_to 'Back', event_types_path %>
-</div>
+<% @footer_content << "#{link_to 'Edit', edit_event_type_path(@event_type)}" %>
+<% @footer_content << "#{link_to 'Back', event_types_path}" %>

@@ -2,9 +2,9 @@ require "application_system_test_case"
 
 class ChaptersTest < ApplicationSystemTestCase
   setup do
-    @chapter = chapters(:chapter_one)
+    @chapter = chapters(:chapter_1)
     @book = @chapter.book
-    @user = users(:one)
+    @user = users(:users_1)
     sign_in @user
   end
 
@@ -13,36 +13,38 @@ class ChaptersTest < ApplicationSystemTestCase
 
     content = DownloadHelpers::download_content
     body = convert_pdf_to_page(content)
-    assert_match /MyChapter/,body
+    assert_match /Climate and History/,body
   end
 
 
   test "visiting the index" do
     visit book_chapters_url(@book)
     assert_selector "h1", text: "Chapters"
+    assert_link "New Chapter"
+    assert_no_text "link_to"
   end
 
   test "visiting the timeline" do
     visit chapter_timeline_url(@chapter)
-    assert_text "First event"
+    assert_text "Domestication of Horses"
   end
 
   test "visiting display" do
     visit book_chapter_url(@book,@chapter)
 
-    assert_selector "h1", text: "MyChapter"
+    assert_selector "h1", text: "Cultural Events"
     assert_link  "Display"
     click_on "Display"
 
     assert_button "Delete Events"
-    assert_text "First event"
+    assert_text "Domestication of Horses"
 
-    he = HoloceneEvent.find_by_name("First event")
+    he = HoloceneEvent.find_by_name("Domestication of Horses")
     find(:xpath,"//input[@type='checkbox' and @value=#{he.id}]").set(true)
     click_on "Delete Events"
    
-    assert_text "Chapter was successfully updated."
-    assert_no_text "First event"
+    assert_text "Chapter was successfully updated"
+    assert_no_text "Domestication of Horses"
 
     assert_link  "Display"
     click_on "Display"
@@ -51,8 +53,8 @@ class ChaptersTest < ApplicationSystemTestCase
     find(:xpath,"//input[@type='checkbox' and @value=#{he.id}]").set(true)
     click_on "Add Events"
    
-    assert_text "Chapter was successfully updated."
-    assert_text "First event"
+    assert_text "Chapter was successfully updated"
+    assert_text "Domestication of Horses"
 
   end
 
@@ -61,7 +63,6 @@ class ChaptersTest < ApplicationSystemTestCase
     click_on "New Chapter"
 
     fill_in "Name", with: @chapter.name
-    fill_in "Position", with: @chapter.position
     page.execute_script("var wysihtml5Editor = $('#chapter_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@chapter.body}\[\[test99\]\]')")
 
     click_on "Create Chapter"
@@ -84,11 +85,9 @@ class ChaptersTest < ApplicationSystemTestCase
     click_on "New Chapter"
 
     fill_in "Name", with: ""
-    fill_in "Position", with: @chapter.position
     click_on "Create Chapter"
 
-    assert_text "Please review the problems below:"
-    assert_text "Name can't be blank"
+    assert_text "can't be blank"
 
     fill_in "Name", with: @chapter.name
     click_on "Create Chapter"
@@ -102,7 +101,6 @@ class ChaptersTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Name", with: @chapter.name
-    fill_in "Position", with: @chapter.position
     page.execute_script("var wysihtml5Editor = $('#chapter_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@chapter.body}')")
 
     click_on "Update Chapter"
@@ -116,11 +114,9 @@ class ChaptersTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Name", with: ""
-    fill_in "Position", with: @chapter.position
     click_on "Update Chapter"
 
-    assert_text "Please review the problems below:"
-    assert_text "Name can't be blank"
+    assert_text "can't be blank"
 
     fill_in "Name", with: @chapter.name
     click_on "Update Chapter"

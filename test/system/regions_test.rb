@@ -2,14 +2,16 @@ require "application_system_test_case"
 
 class RegionsTest < ApplicationSystemTestCase
   setup do
-    @region = regions(:one)
-    @user = users(:one)
+    @region = regions(:Africa)
+    @user = users(:users_1)
     sign_in @user
   end
 
   test "visiting the index" do
     visit regions_url
     assert_selector "h1", text: "Regions"
+    assert_link "New Region"
+    assert_no_text "link_to"
   end
 
   test "creating a Region" do
@@ -34,8 +36,7 @@ class RegionsTest < ApplicationSystemTestCase
 
     click_on "Create Region"
 
-    assert_text " error prohibited this region from being saved"
-    assert_text "Name can't be blank"
+    assert_text "can't be blank"
 
     fill_in "Name", with: @region.name
     click_on "Create Region"
@@ -63,8 +64,7 @@ class RegionsTest < ApplicationSystemTestCase
     page.execute_script("var wysihtml5Editor = $('#region_body').data('wysihtml5').editor;wysihtml5Editor.setValue('Test for Region.')")
     click_on "Update Region"
 
-    assert_text " error prohibited this region from being saved"
-    assert_text "Name can't be blank"
+    assert_text "can't be blank"
 
     fill_in "Name", with: @region.name
     click_on "Update Region"

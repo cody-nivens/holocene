@@ -2,14 +2,22 @@ require "application_system_test_case"
 
 class EpochsTest < ApplicationSystemTestCase
   setup do
-    @epoch = epochs(:one)
-    @user = users(:one)
+    @epoch = epochs(:epoch_1)
+    @user = users(:users_1)
     sign_in @user
   end
 
   test "visiting the index" do
     visit epochs_url
     assert_selector "h1", text: "Epochs"
+    assert_link "New Epoch"
+    assert_no_text "link_to"
+    click_on "Show", match: :first
+    assert_text "Dog buried inside"
+    assert_link "Timeline"
+    click_on "Timeline"
+    assert_link "Display"
+    click_on "Back"
   end
 
   test "creating a Epoch" do
@@ -34,8 +42,7 @@ class EpochsTest < ApplicationSystemTestCase
     fill_in "Start date", with: @epoch.start_date
     click_on "Create Epoch"
 
-    assert_text " error prohibited this epoch from being saved"
-    assert_text "Name can't be blank"
+    assert_text "can't be blank"
 
     fill_in "Name", with: @epoch.name
     click_on "Create Epoch"
@@ -65,8 +72,7 @@ class EpochsTest < ApplicationSystemTestCase
     fill_in "Start date", with: @epoch.start_date
     click_on "Update Epoch"
 
-    assert_text " error prohibited this epoch from being saved"
-    assert_text "Name can't be blank"
+    assert_text "can't be blank"
 
     fill_in "Name", with: @epoch.name
     click_on "Update Epoch"

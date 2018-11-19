@@ -1,47 +1,21 @@
-                    <li>
-	            		<a href="/books">
-                            <i class="glyphicon glyphicon-list"></i>
-				Books</a>
-                    </li>
-                    <% unless @book.nil? -%>
-                    <li>
-                        <a href="/books/<%= @book.id %>/chapters">
-                            <i class="glyphicon glyphicon-list"></i>
-				Chapters</a>
-                    </li>
-                <% end -%>
-                    <li>
-	            		<a href="/holocene_events">
-                            <i class="glyphicon glyphicon-list"></i>
-				Holocene Events</a>
-                    </li>
-                    <li>
-                        <a href="/timelines">
-                            <i class="glyphicon glyphicon-oil"></i>
-				Timelines</a>
-                    </li>
-                    <li>
-                        <a href="/epochs">
-                            <i class="glyphicon glyphicon-oil"></i>
-				Epochs</a>
-                    </li>
-                    <li>
-                        <a href="/regions">
-                            <i class="glyphicon glyphicon-oil"></i>
-				Regions</a>
-                    </li>
-                    <li>
-                        <a href="/event_types">
-                            <i class="glyphicon glyphicon-tree-conifer"></i>
-				Event Types</a>
-                    </li>
-                    <li>
-                        <a href="/authors">
-                            <i class="glyphicon glyphicon-tree-conifer"></i>
-				Authors</a>
-                    </li>
-                    <li>
-                        <a href="/biblioentries">
-                            <i class="glyphicon glyphicon-tree-conifer"></i>
-				Biblioentry</a>
-                    </li>
+<li class="nav-item"> <a href="/books" class="nav-link"> Books</a> </li>
+<li class="nav-item dropdown">
+ <a class="nav-link dropdown-toggle" href="#" id="navbar" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+ Holocene Events
+ </a>
+<div class="dropdown-menu" aria-labelledby="navbar">
+  <div class="dropdown-divider"></div>
+<% ['holocene_event','timeline','event_type','region','epoch'].each do |form| %>
+       <%= link_to t("app.index.#{form}.link"), [ form.pluralize], class: "dropdown-item" %>
+<% end %>
+  </div>
+</li>
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" id="navbar" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bibilogrphy</a>
+  <div class="dropdown-menu" aria-labelledby="navbar">
+     <div class="dropdown-divider"></div>
+       <a href="/biblioentries" class="dropdown-item"> <i class="glyphicon glyphicon-tree-conifer"></i> Biblioentry</a>
+       <a href="/authors" class="dropdown-item"> <i class="glyphicon glyphicon-tree-conifer"></i> Authors</a>
+  </div>
+</li>
+

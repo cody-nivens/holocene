@@ -15,10 +15,8 @@
   </tbody>
 </table>
 
-<div class="navbar-fixed-bottom footer">
-<%= link_to 'New Section', new_book_chapter_section_path(@book, @chapter) %> |
-<%= link_to 'Back', book_chapter_path(@book, @chapter) %>
-</div>
+<% @footer_content << "#{link_to 'New Section', new_book_chapter_section_path(@book, @chapter)}" %>
+<% @footer_content << "#{link_to 'Back', book_chapter_path(@book, @chapter)}" %>
 
 <script>
 $(function() {

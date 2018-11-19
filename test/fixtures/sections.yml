@@ -1,13 +1,32 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-section_one:
-  name: MySection
-  body: MySectionBody
+---
+section_1:
+  name: 'Domestication of the Animals '
+  display_name: 
+  body: 'This is a test[[old_slug]]'
+  position: 0
+  slug: FBz8kjcBbN
+  chapter: chapter_1
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2018-11-15 04:18:23.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2018-11-15 04:18:23.000000000 Z
+    zone: *2
+    time: *3
+section_2:
+  name: 'Agriculture '
+  display_name: 
+  body: ''
   position: 1
-  chapter: chapter_one
-
-section_two:
-  name: MySection
-  body: MySectionBody
-  position: 2
-  chapter: chapter_two
+  slug: HJct7pHDDe
+  chapter: chapter_1
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &4 2018-11-15 04:18:24.000000000 Z
+    zone: *2
+    time: *4
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &5 2018-11-15 04:18:24.000000000 Z
+    zone: *2
+    time: *5

@@ -9,8 +9,7 @@ class FootnotesController < ApplicationController
   # GET /footnotes/1
   # GET /footnotes/1.json
   def show
-    @noted = find_notable
-    @noted = @footnote
+    @noted = @footnote.noted
   end
 
   # GET /footnotes/section
@@ -29,26 +28,22 @@ class FootnotesController < ApplicationController
 
   # GET /footnotes/1/edit
   def edit
+    @noted = @footnote.noted
   end
 
   # POST /footnotes
   # POST /footnotes.json
   def create
     @footnote = Footnote.new(footnote_params)
-    @noted = find_notable
+    @noted = @footnote.noted
+    #@noted = find_notable
 
     respond_to do |format|
       if @footnote.save
-          format.html {
-              case @footnote.noted_type
-              when 'Chapter'
-                  redirect_to book_chapter_url(:book_id => @footnote.noted.book.id, :id => @footnote.noted.id), notice: 'Footnote was successfully created.' 
-              when 'HoloceneEvent'
-                  redirect_to holocene_event_url(:id => @footnote.noted.id), notice: 'Footnote was successfully created.' 
-              when 'Section'
-                  redirect_to book_chapter_section_url(:book_id => @footnote.noted.chapter.book.id, :chapter_id => @footnote.noted.chapter.id, :id => @footnote.noted.id), notice: 'Footnote was successfully created.' 
-              end
-          }
+        format.html {
+            redirect_to "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnote/#{@footnote.id}",
+                                :notice => "Footnote was successfully created"
+        }
         format.json { render :show, status: :created, location: @footnote }
       else
         format.html { render :new }
@@ -64,14 +59,8 @@ class FootnotesController < ApplicationController
     respond_to do |format|
       if @footnote.update(footnote_params)
         format.html {
-              case @footnote.noted_type
-              when 'Chapter'
-                  redirect_to book_chapter_url(:book_id => @footnote.noted.book.id, :id => @footnote.noted.id), notice: 'Footnote was successfully updated.' 
-              when 'HoloceneEvent'
-                  redirect_to holocene_event_url(:id => @footnote.noted.id), notice: 'Footnote was successfully updated.' 
-              when 'Section'
-                  redirect_to book_chapter_section_url(:book_id => @footnote.noted.chapter.book.id, :chapter_id => @footnote.noted.chapter.id, :id => @footnote.noted.id), notice: 'Footnote was successfully updated.' 
-              end
+            redirect_to "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnote/#{@footnote.id}",
+                                :notice => "Footnote was successfully updated"
         }
         format.json { render :show, status: :ok, location: @footnote }
       else
@@ -87,17 +76,10 @@ class FootnotesController < ApplicationController
     @noted = @footnote.noted
     @footnote.destroy
     respond_to do |format|
-      format.html {
-          case @noted.class.name
-          when "Chapter"
-              redirect_to chapter_footnotes_url(:chapter_id => @noted.id), notice: 'Footnote was successfully destroyed.' 
-          when "Section"
-              redirect_to section_footnotes_url(:section_id => @noted.id), notice: 'Footnote was successfully destroyed.' 
-          
-          when "HoloceneEvent"
-              redirect_to holocene_event_footnotes_url(:holocene_event_id => @noted.id), notice: 'Footnote was successfully destroyed.' 
-          end
-      }
+        format.html {
+            redirect_to "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnotes",
+                                :notice => "Footnote was successfully destroyed"
+        }
       format.json { head :no_content }
     end
   end
@@ -119,6 +101,6 @@ class FootnotesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def footnote_params
-      params.require(:footnote).permit(:slug, :body, :noted_id, :noted_type)
+      params.require(:footnote).permit(:slug, :body, :noted_id, :noted_type, :biblioentry_id)
     end
 end

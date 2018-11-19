@@ -2,10 +2,10 @@ require 'test_helper'
 
 class SectionsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @section = sections(:section_one)
-    @chapter = chapters(:chapter_one)
-    @book = books(:book_one)
-    @user = users(:one)
+      @section = sections(:section_1)
+      @chapter = chapters(:chapter_1)
+      @book = books(:book_1)
+    @user = users(:users_1)
     sign_in @user
   end
 
@@ -37,6 +37,21 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should show section" do
     get book_chapter_section_url(@book, @chapter,@section)
+    assert_response :success
+  end
+
+  test "should add event for section" do
+      get section_add_event_url(:section_id => @section.id)
+    assert_response :success
+  end
+
+  test "should show section timeline" do
+    get section_timeline_url(@section)
+    assert_response :success
+  end
+
+  test "should show section events" do
+    get section_display_url(@section)
     assert_response :success
   end
 

@@ -29,10 +29,8 @@
   <%= @biblioentry.publisher %>
 </p>
 <% end -%>
-
-<%= render "citations/index", citations: @biblioentry.citations %>
-
-<div class="navbar-fixed-bottom footer">
-<%= link_to 'Edit', edit_biblioentry_path(@biblioentry) %> |
-<%= link_to 'Back', biblioentries_path %>
-</div>
+<% unless @biblioentry.footnotes.nil? %>
+<%= render "footnotes/index", footnotes: @biblioentry.footnotes %>
+<% end %>
+<% @footer_content << "#{link_to 'Edit', edit_biblioentry_path(@biblioentry)}" %>
+<% @footer_content << "#{link_to 'Back', biblioentries_path}" %>

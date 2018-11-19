@@ -1,0 +1,17 @@
+<p>
+  <strong>Name:</strong>
+  <%= @object.name %>
+</p>
+
+<%= link_to 'Add Event', url_for(:controller => "holocene_events", :action => "add_event", 
+                                 "#{@object.class.name.underscore}_id".to_sym => @object.id) %> 
+
+<%= datagrid_form_for @grid, :method => :get, :url => holocene_events_path %>
+
+<%= paginate(@grid.assets) %>
+<%= datagrid_table @grid %>
+<%= paginate(@grid.assets) %>
+
+
+<% @footer_content << "#{link_to 'Timeline',  url_for(:controller => "timelines", :action => "timeline", "#{@object.class.name.underscore}_id".to_sym => @object.id)}" %>
+<% @footer_content << "#{link_to 'Back', "/#{@object.class.name.underscore.pluralize}/show/#{@object.id}"}" %>

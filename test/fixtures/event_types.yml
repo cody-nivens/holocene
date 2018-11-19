@@ -1,13 +1,74 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  id: 1
-  name: MyString
-  body: MyText
-  user: one
-
-two:
-  id: 2
-  name: MyString
-  body: MyText
-  user: one
+---
+Impact:
+  name: Impact
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2018-11-15 04:18:21.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2018-11-15 04:18:21.000000000 Z
+    zone: *2
+    time: *3
+  user: users_1
+Volcanic:
+  name: Volcanic
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &4 2018-11-15 04:18:21.000000000 Z
+    zone: *2
+    time: *4
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &5 2018-11-15 04:18:21.000000000 Z
+    zone: *2
+    time: *5
+  user: users_1
+Climate:
+  name: Climate
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &6 2018-11-15 04:18:21.000000000 Z
+    zone: *2
+    time: *6
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &7 2018-11-15 04:18:21.000000000 Z
+    zone: *2
+    time: *7
+  user: users_1
+Epidemic:
+  name: Epidemic
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &8 2018-11-15 04:18:21.000000000 Z
+    zone: *2
+    time: *8
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &9 2018-11-15 04:18:21.000000000 Z
+    zone: *2
+    time: *9
+  user: users_1
+Cultural:
+  name: Cultural
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &10 2018-11-15 04:18:21.000000000 Z
+    zone: *2
+    time: *10
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &11 2018-11-15 04:18:21.000000000 Z
+    zone: *2
+    time: *11
+  user: users_1
+Earth:
+  name: Earth
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &12 2018-11-15 04:18:21.000000000 Z
+    zone: *2
+    time: *12
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &13 2018-11-15 04:18:21.000000000 Z
+    zone: *2
+    time: *13
+  user: users_1

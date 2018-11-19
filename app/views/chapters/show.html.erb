@@ -1,6 +1,6 @@
 <h1>
   <%= @chapter.name %>
-| <%= link_to 'Edit',     edit_book_chapter_path(@book, @chapter) %>
+| <%= link_to 'Edit',     edit_book_chapter_path(@chapter.book, @chapter) %>
 </h1>
 
 <% @slugs = [] -%>
@@ -22,13 +22,16 @@
 <% unless @chapter.holocene_events.length == 0 -%>
 <%= render 'holocene_events/index.html', holocene_events: @chapter.holocene_events.order(:start_year) %>
 <% end -%>
+
 <% unless @slugs.length == 0 -%>
 <%= raw write_footnotes(@slugs) %>
 <% end -%>
 
-<div class="navbar-fixed-bottom footer">
-<%= link_to 'Sections', book_chapter_sections_path(@book, @chapter) %> |
-<%= link_to 'Timeline', chapter_timeline_path(@chapter) %> |
-<%= link_to 'Display',  chapter_display_path(@chapter) %> |
-<%= link_to 'Back',     book_chapters_path(@book) %>
-</div>
+<% unless @chapter.citations.length == 0 -%>
+<%= raw render "footnotes/citations", footnotes: @chapter.citations  %>
+<% end -%>
+<% @footer_content << "#{link_to 'Sections', book_chapter_sections_path(@chapter.book, @chapter)}" %>
+<% @footer_content << "#{link_to 'Timeline', chapter_timeline_path(@chapter)}" %>
+<% @footer_content << "#{link_to 'Display',  chapter_display_path(@chapter)}" %>
+<% @footer_content << "#{link_to 'Footnotes',chapter_footnotes_path(@chapter)}" %>
+<% @footer_content << "#{link_to 'Back',     book_chapters_path(@chapter.book)}" %>

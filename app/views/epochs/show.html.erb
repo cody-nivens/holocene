@@ -19,7 +19,6 @@
 <%= datagrid_table @grid %>
 <%= paginate(@grid.assets) %>
 
-<div class="navbar-fixed-bottom footer">
-<%= link_to 'Edit', edit_epoch_path(@epoch) %> |
-<%= link_to 'Back', epochs_path %>
-</div>
+<% @footer_content << "#{link_to 'Edit', edit_epoch_path(@epoch)}" %>
+<% @footer_content << "#{link_to 'Timeline', epoch_timeline_path(@epoch)}" %>
+<% @footer_content << "#{link_to 'Back', epochs_path}" %>

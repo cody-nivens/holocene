@@ -2,8 +2,8 @@ require 'test_helper'
 
 class EpochsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @epoch = epochs(:one)
-    @user = users(:one)
+    @epoch = epochs(:epoch_1)
+    @user = users(:users_1)
     sign_in @user
   end
 

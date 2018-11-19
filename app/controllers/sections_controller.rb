@@ -1,7 +1,7 @@
 class SectionsController < ApplicationController
-  before_action :set_section, only: [ :timeline, :display, :grid_params, :show, :edit, :update, :destroy]
-  before_action :set_chapter, only: [:index, :show, :new, :edit, :create, :update, :destroy]
-  before_action :set_book, only: [:index, :show, :new, :edit, :create, :update, :destroy]
+  before_action :set_section, only: [ :timeline, :grid_params, :show, :edit, :update, :destroy]
+  before_action :set_chapter, only: [:index, :new, :edit, :create, :update, :destroy]
+  before_action :set_book, only: [:index, :new, :edit, :create, :update, :destroy]
 
   def index
     @sections = @chapter.sections.order(:position)
@@ -10,6 +10,8 @@ class SectionsController < ApplicationController
   # GET /sections/1
   # GET /sections/1.json
   def show
+      @chapter = @section.chapter
+      @book = @chapter.book
   end
 
   # GET /sections/new
@@ -20,23 +22,6 @@ class SectionsController < ApplicationController
 
   # GET /sections/1/edit
   def edit
-  end
-
-  def display
-    @events = @section.holocene_events.order(:start_year)
-    ids = @section.holocene_events.pluck(:id)
-    @object = @section
-    if ids.length == 0
-    @command = "Add Events"
-    else
-    @command = "Delete Events"
-    end
-    @grid = HoloceneEventsGrid.new(hgrid_params.merge({:id => ids,:object => @object})) do |scope|
-        scope.page(params[:page])
-    end
-  end
-
-  def timeline
   end
 
   # POST /sections
@@ -79,13 +64,6 @@ class SectionsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  protected
-
-  def hgrid_params
-    params.fetch(:holocene_events_grid, {:order => :start_year, :descending => false}).permit!
-  end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.

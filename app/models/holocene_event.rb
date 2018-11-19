@@ -5,7 +5,6 @@ class HoloceneEvent < ApplicationRecord
   belongs_to :user
 
   has_and_belongs_to_many :event_types
-  has_and_belongs_to_many :citations
   has_and_belongs_to_many :timelines
   has_and_belongs_to_many :chapters
   has_and_belongs_to_many :sections
@@ -24,9 +23,11 @@ class HoloceneEvent < ApplicationRecord
                :end_date => mk_date((self.end_year.blank? ? self.start_year : self.end_year)),
                :text => mk_text(self.body,self.name)
       }
+      unless self.image.blank?
       slde['media'] = { :url => "/assets/#{self.image}",
                         :link => self.url
       }
+      end
     return slde
   end
 

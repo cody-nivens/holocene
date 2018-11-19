@@ -4,8 +4,8 @@ class EpochTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
-  test "epoch_json_tjs should return json" do
-      epoch = epochs(:one)
-      assert_not_equal "", epoch.epoch_json_tjs
+  test "timeline_json should return json" do
+      epoch = epochs(:epoch_1)
+      assert_not_equal "", epoch.timeline_json
   end
 end

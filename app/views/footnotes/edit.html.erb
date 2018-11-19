@@ -1,6 +1,6 @@
 <h1>Editing Footnote</h1>
 
-<%= render 'form', footnote: @footnote %>
+<%= render 'form', footnote: @footnote, command_label: "Update Footnote"  %>
 
-<%= link_to 'Show', @footnote %> |
-<%= link_to 'Back', footnotes_path %>
+<% @footer_content << "#{link_to 'Show', @footnote}" %>
+<% @footer_content << "#{link_to 'Back', "/#{@noted.class.name.underscore.pluralize}/show/#{@noted.id}"}" %>

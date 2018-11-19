@@ -2,8 +2,8 @@ require 'test_helper'
 
 class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @holocene_event = holocene_events(:one)
-    @user = users(:one)
+    @holocene_event = holocene_events(:holocene_event_1)
+    @user = users(:users_1)
     sign_in @user
   end
 
@@ -13,20 +13,13 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get tagged 1" do
-    get tag_url(:tag => 'Event')
+    get tag_url(:tag => 'Domestication')
     assert_response :success
   end
 
   test "should get tagged 2" do
     get tag_url
     assert_response :success
-  end
-
-  test "should return json index" do
-    get '/holocene_events', as: :json
-    assert_response :success
-    body = JSON.parse(response.body)
-    assert_equal "MyText", body[0]["body"]
   end
 
   test "should get new" do
@@ -36,7 +29,7 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create holocene_event" do
     assert_difference('HoloceneEvent.count') do
-        post holocene_events_url, params: { holocene_event: { body: @holocene_event.body, end_year: @holocene_event.end_year, end_year_mod: @holocene_event.end_year_mod, end_year_uncert: @holocene_event.end_year_uncert, event_types: @holocene_event.event_types, name: @holocene_event.name, region_id: @holocene_event.region.id.to_i, start_year: @holocene_event.start_year, start_year_mod: @holocene_event.start_year_mod, start_year_uncert: @holocene_event.start_year_uncert, user_id: @user.id } }
+        post holocene_events_url, params: { holocene_event: { body: @holocene_event.body, end_year: @holocene_event.end_year, end_year_mod: @holocene_event.end_year_mod, end_year_uncert: @holocene_event.end_year_uncert, event_types: [ @holocene_event.event_types ], name: @holocene_event.name, region_id: @holocene_event.region.id.to_i, start_year: @holocene_event.start_year, start_year_mod: @holocene_event.start_year_mod, start_year_uncert: @holocene_event.start_year_uncert, user_id: @user.id } }
     end
 
     assert_redirected_to holocene_event_url(HoloceneEvent.last)
@@ -44,7 +37,7 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create holocene_event" do
     assert_difference('HoloceneEvent.count', 0) do
-        post holocene_events_url, params: { holocene_event: { body: @holocene_event.body, end_year: @holocene_event.end_year, end_year_mod: @holocene_event.end_year_mod, end_year_uncert: @holocene_event.end_year_uncert, event_types: @holocene_event.event_types, name: "", region_id: @holocene_event.region.id.to_i, start_year: @holocene_event.start_year, start_year_mod: @holocene_event.start_year_mod, start_year_uncert: @holocene_event.start_year_uncert, user_id: @user.id } }
+        post holocene_events_url, params: { holocene_event: { body: @holocene_event.body, end_year: @holocene_event.end_year, end_year_mod: @holocene_event.end_year_mod, end_year_uncert: @holocene_event.end_year_uncert, event_types: [ @holocene_event.event_types ], name: "", region_id: @holocene_event.region.id.to_i, start_year: @holocene_event.start_year, start_year_mod: @holocene_event.start_year_mod, start_year_uncert: @holocene_event.start_year_uncert, user_id: @user.id } }
     end
 
     assert_response :success
@@ -61,12 +54,12 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update holocene_event" do
-      patch holocene_event_url(@holocene_event), params: { holocene_event: { body: @holocene_event.body, end_year: @holocene_event.end_year, end_year_mod: @holocene_event.end_year_mod, end_year_uncert: @holocene_event.end_year_uncert, event_types: @holocene_event.event_types, name: @holocene_event.name, region: @holocene_event.region, start_year: @holocene_event.start_year, start_year_mod: @holocene_event.start_year_mod, start_year_uncert: @holocene_event.start_year_uncert, user_id: @user.id } }
+      patch holocene_event_url(@holocene_event), params: { holocene_event: { body: @holocene_event.body, end_year: @holocene_event.end_year, end_year_mod: @holocene_event.end_year_mod, end_year_uncert: @holocene_event.end_year_uncert, event_types: [ @holocene_event.event_types ], name: @holocene_event.name, region: @holocene_event.region, start_year: @holocene_event.start_year, start_year_mod: @holocene_event.start_year_mod, start_year_uncert: @holocene_event.start_year_uncert, user_id: @user.id } }
     assert_redirected_to holocene_event_url(@holocene_event)
   end
 
   test "should not update holocene_event" do
-      patch holocene_event_url(@holocene_event), params: { holocene_event: { body: @holocene_event.body, end_year: @holocene_event.end_year, end_year_mod: @holocene_event.end_year_mod, end_year_uncert: @holocene_event.end_year_uncert, event_types: @holocene_event.event_types, name: "", region: @holocene_event.region, start_year: @holocene_event.start_year, start_year_mod: @holocene_event.start_year_mod, start_year_uncert: @holocene_event.start_year_uncert, user_id: @user.id } }
+      patch holocene_event_url(@holocene_event), params: { holocene_event: { body: @holocene_event.body, end_year: @holocene_event.end_year, end_year_mod: @holocene_event.end_year_mod, end_year_uncert: @holocene_event.end_year_uncert, event_types: [ @holocene_event.event_types ], name: "", region: @holocene_event.region, start_year: @holocene_event.start_year, start_year_mod: @holocene_event.start_year_mod, start_year_uncert: @holocene_event.start_year_uncert, user_id: @user.id } }
     assert_response :success
   end
 
@@ -79,7 +72,7 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should add holocene_event to chapter" do
-      @chapter = chapters(:chapter_one)
+      @chapter = chapters(:chapter_1)
       post chapter_holocene_event_url(@chapter), params: { 
           commit: "Add Events",
           holocene_event: { 
@@ -98,11 +91,11 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
               start_year_mod: @holocene_event.start_year_mod, 
               start_year_uncert: @holocene_event.start_year_uncert, 
               user_id: @user.id } }
-      assert_redirected_to book_chapter_url(@chapter.book,@chapter)
+      assert_redirected_to show_chapter_url(@chapter)
   end
 
   test "should add holocene_event to section" do
-      @section = sections(:section_one)
+      @section = sections(:section_1)
       post section_holocene_event_url(@section), params: { 
           commit: "Add Events",
           holocene_event: { 
@@ -121,11 +114,11 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
               start_year_mod: @holocene_event.start_year_mod, 
               start_year_uncert: @holocene_event.start_year_uncert, 
               user_id: @user.id } }
-      assert_redirected_to book_chapter_section_url(@section.chapter.book,@section.chapter,@section)
+      assert_redirected_to show_section_url(@section)
   end
 
   test "should add holocene_event to timeline" do
-      @timeline = timelines(:one)
+      @timeline = timelines(:timeline_1)
       post timeline_holocene_event_url(@timeline), params: { 
           commit: "Add Events",
           holocene_event: { 
@@ -144,34 +137,11 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
               start_year_mod: @holocene_event.start_year_mod, 
               start_year_uncert: @holocene_event.start_year_uncert, 
               user_id: @user.id } }
-      assert_redirected_to timeline_url(@timeline)
-  end
-
-  test "should add holocene_event to citation" do
-      @citation = citations(:one)
-      post citation_holocene_event_url(@citation), params: { 
-          commit: "Add Events",
-          holocene_event: { 
-              object_id: @citation.id, 
-              object_type: "Citation", 
-              activated: [ @holocene_event.id ],
-              seen: [],
-              body: @holocene_event.body, 
-              end_year: @holocene_event.end_year, 
-              end_year_mod: @holocene_event.end_year_mod, 
-              end_year_uncert: @holocene_event.end_year_uncert, 
-              event_types: @holocene_event.event_types, 
-              name: @holocene_event.name, 
-              region: @holocene_event.region, 
-              start_year: @holocene_event.start_year, 
-              start_year_mod: @holocene_event.start_year_mod, 
-              start_year_uncert: @holocene_event.start_year_uncert, 
-              user_id: @user.id } }
-      assert_redirected_to biblioentry_citation_url(@citation.biblioentry, @citation)
+      assert_redirected_to show_timeline_url(@timeline)
   end
 
   test "should delete holocene_event" do
-      @chapter = chapters(:chapter_one)
+      @chapter = chapters(:chapter_1)
       post chapter_holocene_event_url(@chapter), params: { 
           commit: "Delete Events",
           holocene_event: { 
@@ -190,6 +160,6 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
               start_year_mod: @holocene_event.start_year_mod, 
               start_year_uncert: @holocene_event.start_year_uncert, 
               user_id: @user.id } }
-      assert_redirected_to book_chapter_url(@chapter.book,@chapter)
+      assert_redirected_to show_chapter_url(@chapter)
   end
 end

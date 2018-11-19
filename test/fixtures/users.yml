@@ -1,14 +1,19 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one:
-  email: pass1@example.com
-
-# column: value
-#
-two:
-  email: pass2@example.com
-# column: value
+---
+users_1:
+  email: palo@alto.com
+  encrypted_password: "$2a$11$IJaLI5dAcN5IUWGAYq7luulc1VDuBE9NVGClQwF9FHKfk/zkonFwa"
+  reset_password_token: 
+  reset_password_sent_at: 
+  remember_created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2018-11-16 00:37:56.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2018-11-15 04:18:21.000000000 Z
+    zone: *2
+    time: *3
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &4 2018-11-16 00:37:56.000000000 Z
+    zone: *2
+    time: *4

@@ -16,9 +16,8 @@
 <%= raw write_footnotes(@slugs) %>
 <% end -%>
 
-<div class="navbar-fixed-bottom footer">
-<%= link_to 'Edit', edit_book_chapter_section_path(@book, @chapter, @section) %> |
-<%= link_to 'Timeline', section_timeline_path(@section.chapter.book, @section.chapter, @section) %> |
-<%= link_to 'Display',  section_display_path(@section) %> |
-<%= link_to 'Back', book_chapter_path(@book, @chapter) %>
-</div>
+<% @footer_content << "#{link_to 'Edit', edit_book_chapter_section_path(@book, @chapter, @section)}" %>
+<% @footer_content << "#{link_to 'Timeline', section_timeline_path(:section_id => @section.id)}" %>
+<% @footer_content << "#{link_to 'Display',  section_display_path(:section_id => @section.id)}" %>
+<% @footer_content << "#{link_to 'Footnotes',  section_footnotes_path(@section)}" %>
+<% @footer_content << "#{link_to 'Back', book_chapter_path(@book, @chapter)}" %>

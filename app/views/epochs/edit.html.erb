@@ -1,6 +1,6 @@
 <h1>Editing Epoch</h1>
 
-<%= render 'form', epoch: @epoch %>
+<%= render 'form', epoch: @epoch, command_label: "Update Epoch" %>
 
-<%= link_to 'Show', @epoch %> |
-<%= link_to 'Back', epochs_path %>
+<% @footer_content << "#{link_to 'Show', @epoch}" %>
+<% @footer_content << "#{link_to 'Back', epochs_path}" %>

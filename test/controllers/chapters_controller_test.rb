@@ -2,9 +2,9 @@ require 'test_helper'
 
 class ChaptersControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @chapter = chapters(:chapter_one)
-    @book = books(:book_one)
-    @user = users(:one)
+      @chapter = chapters(:chapter_1)
+      @book = books(:book_1)
+    @user = users(:users_1)
     sign_in @user
   end
 
@@ -45,7 +45,7 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show pdf chapter" do
-    get book_chapter_url(:book_id => @book.id, :id => @chapter.id, :format => :pdf)
+    get chapter_pdf_url(:id => @chapter.id, :format => :pdf)
     assert_response :success
   end
 
@@ -55,7 +55,7 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show chapter timeline" do
-      get chapter_timeline_url(:book_id => @book.id, :id => @chapter.id)
+      get chapter_timeline_url(:chapter_id => @chapter.id)
     assert_response :success
   end
 

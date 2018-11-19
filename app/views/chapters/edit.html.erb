@@ -1,6 +1,6 @@
 <h1>Editing Chapter</h1>
 
-<%= render 'form', book: @book, chapter: @chapter %>
+<%= render 'form', book: @book, chapter: @chapter, command_label: "Update Chapter"  %>
 
-<%= link_to 'Show', book_chapter_path(@book, @chapter) %> |
-<%= link_to 'Back', book_chapters_path(@book) %>
+<% @footer_content << "#{link_to 'Show', book_chapter_path(@book, @chapter)}" %>
+<% @footer_content << "#{link_to 'Back', book_chapters_path(@book)}" %>

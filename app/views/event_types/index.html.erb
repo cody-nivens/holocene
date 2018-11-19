@@ -26,6 +26,4 @@
 
 <br>
 
-<div class="navbar-fixed-bottom footer">
-<%= link_to 'New Event Type', new_event_type_path %>
-</div>
+<% @footer_content << "#{link_to 'New Event Type', new_event_type_path}" %>

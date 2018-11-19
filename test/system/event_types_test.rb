@@ -2,14 +2,16 @@ require "application_system_test_case"
 
 class EventTypesTest < ApplicationSystemTestCase
   setup do
-    @event_type = event_types(:one)
-    @user = users(:one)
+    @event_type = event_types(:Impact)
+    @user = users(:users_1)
     sign_in @user
   end
 
   test "visiting the index" do
     visit event_types_url
     assert_selector "h1", text: "Event Types"
+    assert_link "New Event Type"
+    assert_no_text "link_to"
   end
 
   test "creating an Event type" do
@@ -31,8 +33,7 @@ class EventTypesTest < ApplicationSystemTestCase
     fill_in "Name", with: ""
     click_on "Create Event type"
 
-    assert_text "error prohibited this event_type from being saved"
-    assert_text "Name can't be blank"
+    assert_text "can't be blank"
 
     fill_in "Name", with: @event_type.name
     click_on "Create Event type"
@@ -59,8 +60,7 @@ class EventTypesTest < ApplicationSystemTestCase
     fill_in "Name", with: ""
     click_on "Update Event type"
 
-    assert_text "error prohibited this event_type from being saved"
-    assert_text "Name can't be blank"
+    assert_text "can't be blank"
 
     fill_in "Name", with: @event_type.name
     click_on "Update Event type"

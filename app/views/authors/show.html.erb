@@ -8,7 +8,7 @@
   <%= @author.last_name %>
 </p>
 
-<div class="navbar-fixed-bottom footer">
-<%= link_to 'Edit', edit_author_path(@author) %> |
-<%= link_to 'Back', authors_path %>
-</div>
+<%= render "biblioentries/index", biblioentries: @author.biblioentries %>
+
+<% @footer_content << "#{link_to 'Edit', edit_author_path(@author)}" %>
+<% @footer_content << "#{link_to 'Back', authors_path}" %>

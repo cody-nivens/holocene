@@ -5,7 +5,7 @@ class HoloceneEventTest < ActiveSupport::TestCase
   #   assert true
   # end
   test "slide should return json" do
-      holocene_event = holocene_events(:one)
+      holocene_event = holocene_events(:holocene_event_1)
       assert_not_equal "", holocene_event.slide
   end
 

@@ -1,7 +1,7 @@
 class Biblioentry < ApplicationRecord
     has_and_belongs_to_many :authors
 
-    has_many :citations
+    has_many :footnotes
 
     belongs_to :user
 

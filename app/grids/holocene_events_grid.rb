@@ -7,16 +7,13 @@ class HoloceneEventsGrid < BaseGrid
   attr_accessor(:object)
 
   filter(:start_year, :integer, :range => true, :default => [-15000, nil])
-  #filter(:condition1, :dynamic)
-  #filter(:condition2, :dynamic)
 
   filter(:region_id, :enum, header: "Region", :select => proc { Region.all.map {|c| [c.name, c.id] }})
-  filter(:event_type_id, :enum, header: "Event Type", :select => proc { EventType.all.map {|c| [c.name, c.id] }})
 
   filter(:id, :integer, :multiple => true)
 
 
-  column(:id, :html => true ) do |event|
+  column(:id, :html => true, :if => proc {|grid| !grid.object.nil? } ) do |event|
       hidden_field_tag('holocene_event[seen][]', event.id)
       check_box_tag('holocene_event[activated][]', event.id)
   end

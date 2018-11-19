@@ -2,8 +2,8 @@ require 'test_helper'
 
 class TimelinesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @timeline = timelines(:one)
-    @user = users(:one)
+    @timeline = timelines(:timeline_1)
+    @user = users(:users_1)
     sign_in @user
   end
 
@@ -34,7 +34,17 @@ class TimelinesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show timeline" do
-    get timeline_url(@timeline)
+      get timeline_url(@timeline)
+    assert_response :success
+  end
+
+  test "should show timeline timeline" do
+      get timeline_timeline_url(:timeline_id => @timeline.id)
+    assert_response :success
+  end
+
+  test "should show timeline events" do
+      get timeline_display_url(@timeline)
     assert_response :success
   end
 

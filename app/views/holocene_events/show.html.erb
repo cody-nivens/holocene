@@ -48,7 +48,6 @@
 
 <p>Tags: <%= raw(@holocene_event.tag_list.map { |t| link_to t, tag_path(t) }.join(', ')) %></p>
 
-<div class="navbar-fixed-bottom footer">
-<%= link_to 'Edit', edit_holocene_event_path(@holocene_event) %> |
-<%= link_to 'Back', holocene_events_path %>
-</div>
+<% @footer_content << "#{link_to 'Edit', edit_holocene_event_path(@holocene_event)}" %>
+<% @footer_content << "#{link_to 'Footnotes',  holocene_event_footnotes_path(@holocene_event)}" %>
+<% @footer_content << "#{link_to 'Back', holocene_events_path}" %>

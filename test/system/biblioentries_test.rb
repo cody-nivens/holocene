@@ -2,14 +2,16 @@ require "application_system_test_case"
 
 class BiblioentriesTest < ApplicationSystemTestCase
   setup do
-    @biblioentry = biblioentries(:one)
-    @user = users(:one)
+    @biblioentry = biblioentries(:biblioentry_1)
+    @user = users(:users_1)
     sign_in @user
   end
 
   test "visiting the index" do
     visit biblioentries_url
     assert_selector "h1", text: "Biblioentries"
+    assert_link "New Biblioentry"
+    assert_no_text "link_to"
   end
 
   test "creating a Biblioentry" do
@@ -38,8 +40,7 @@ class BiblioentriesTest < ApplicationSystemTestCase
     fill_in "Xreflabel", with: @biblioentry.xreflabel
     click_on "Create Biblioentry"
 
-    assert_text "Please review the problems below:"
-    assert_text "Name can't be blank"
+    assert_text "can't be blank"
 
     fill_in "Name", with: @biblioentry.name
     click_on "Create Biblioentry"
@@ -73,8 +74,7 @@ class BiblioentriesTest < ApplicationSystemTestCase
     fill_in "Xreflabel", with: @biblioentry.xreflabel
     click_on "Update Biblioentry"
 
-    assert_text "Please review the problems below:"
-    assert_text "Name can't be blank"
+    assert_text "can't be blank"
 
     fill_in "Name", with: @biblioentry.name
     click_on "Update Biblioentry"

@@ -1,13 +1,30 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  name: MyString
-  start_date: MyString
-  end_date: MyString
-  user: one
-
-two:
-  name: MyString
-  start_date: MyString
-  end_date: MyString
-  user: one
+---
+epoch_1:
+  name: Before Common Era
+  start_date: -15000
+  end_date: 0
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2018-11-15 04:18:22.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *3
+  user: users_1
+Common Era:
+  name: Common Era
+  start_date: 1
+  end_date: 2100
+  body: 
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &4 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *4
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &5 2018-11-15 04:18:22.000000000 Z
+    zone: *2
+    time: *5
+  user: users_1

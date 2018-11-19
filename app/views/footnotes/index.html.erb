@@ -16,6 +16,7 @@
         <td><%= footnote.slug %></td>
         <td><%= footnote.body %></td>
         <td><%= footnote.noted.name %></td>
+        <td><%= (footnote.biblioentry.nil? ? '' : footnote.biblioentry.name) %></td>
         <td><%= link_to 'Show', footnote %></td>
         <td><%= link_to 'Edit', edit_footnote_path(footnote) %></td>
         <td><%= link_to 'Destroy', footnote, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -26,17 +27,5 @@
 
 <br>
 
-<div class="navbar-fixed-bottom footer">
-<% case @noted.class.name -%>
-<% when "Chapter" -%>
-<%= link_to 'New Footnote', new_chapter_footnote_path(:chapter_id => @noted.id, :slug => "") %>
-<% when "Section" -%>
-<%= link_to 'New Footnote', new_section_footnote_path(:section_id => @noted.id, :slug => "") %>
-<% end -%>
-<% case @noted.class.name -%>
-<% when "Chapter" -%>
-<%= link_to 'Back', book_chapter_path(@noted.book,@noted) %>
-<% when "Section" -%>
-<%= link_to 'Back', book_chapter_section_path(@noted.chapter.book, @noted.chapter,@noted) %>
-<% end -%>
-</div>
+<% @footer_content << "#{link_to 'New Footnote', "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnotes/#{Footnote.random_slug}"}" %>
+<% @footer_content << "#{link_to 'Back', "/#{@noted.class.name.underscore.pluralize}/show/#{@noted.id}"}" %>

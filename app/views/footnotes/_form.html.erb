@@ -1,26 +1,24 @@
-<%= simple_form_for [@chapter, @footnote], html: { class: 'form-inline' } do |f| %>
-  <%= f.error_notification %>
+<%= bootstrap_form_for [@noted, @footnote] do |f| %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-    <%= f.input :slug %>
-    <%= f.input :noted_id, :as => :hidden %>
-    <%= f.input :noted_type, :as => :hidden %>
-  </div>
+    <%= f.text_field :slug %>
+    <%= f.hidden_field :noted_id %>
+    <%= f.hidden_field :noted_type %>
+    <%= f.collection_select :biblioentry_id, Biblioentry.all.order(:name), :id, :name, {include_blank: ''} %>
+
 
     <div class="jumbotron" >
       <%= f.text_area :body, as: :wysihtml5, cols: "80", rows: "15" %>
   </div>
 
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+  <%= f.primary "#{command_label}" %>
 <script type="text/javascript">
   $(document).ready(function(){
     $('#footnote_body').each(function(i, elem) {
         $(elem).wysihtml5({
            toolbar: {
+              "fa": true,
               "style": true,
               "font-styles": true,
               "emphasis": true,

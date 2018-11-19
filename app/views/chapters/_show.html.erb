@@ -32,3 +32,6 @@
 <% unless @slugs.length == 0 -%>
 <%= raw write_footnotes(@slugs) %>
 <% end -%>
+<% unless chapter.citations.length == 0 -%>
+<%= raw render "footnotes/citations.html", footnotes: chapter.citations  %>
+<% end -%>

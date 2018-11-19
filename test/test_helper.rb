@@ -10,6 +10,8 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
+  set_fixture_class "tags" => ActsAsTaggableOn::Tag
+  set_fixture_class "taggings" => ActsAsTaggableOn::Tagging
   # Add more helper methods to be used by all tests here...
   include ApplicationHelper
   include Devise::Test::IntegrationHelpers

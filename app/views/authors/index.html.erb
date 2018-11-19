@@ -14,6 +14,8 @@
       <tr>
         <td><%= author.first_name %></td>
         <td><%= author.last_name %></td>
+        <td><%= author.books.count %></td>
+        <td><%= author.biblioentries.count %></td>
         <td><%= link_to 'Show', author %></td>
         <td><%= link_to 'Edit', edit_author_path(author) %></td>
         <td><%= link_to 'Destroy', author, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -24,6 +26,4 @@
 
 <br>
 
-<div class="navbar-fixed-bottom footer">
-<%= link_to 'New Author', new_author_path %>
-</div>
+<% @footer_content << "#{link_to 'New Author', new_author_path}" %>
