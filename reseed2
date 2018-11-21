@@ -1,0 +1,9 @@
+#!/bin/bash
+
+./reset_xml sample_book
+
+ cp seed_tmpl_1.rb db/seeds.rb
+ ./do_biblio.rb -n sample_book >>db/seeds.rb
+ ./do_glossary.rb -n sample_book >>db/seeds.rb
+ ./read_timeline.rb -n sample_book >>db/seeds.rb 
+ rake db:reset
