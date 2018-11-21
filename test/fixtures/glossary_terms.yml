@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  body: MyText
+  see_id: 
+  seealso_id: 1
+  acronym_id: 1
+  user: users_1
+  book: book_1
+
+two:
+  name: MyString
+  body: MyText
+  see_id: 
+  seealso_id: 1
+  acronym_id: 1
+  user: users_1
+  book: book_1

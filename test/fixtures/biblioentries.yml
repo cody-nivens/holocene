@@ -16,6 +16,7 @@ biblioentry_1:
     zone: *2
     time: *3
   user: users_1
+  book: book_1
 'Medieval Sourcebook: Annales Camriae 447-954 (The Annals of Wales)':
   name: 'Medieval Sourcebook: Annales Camriae 447-954 (The Annals of Wales)'
   xreflabel: AnnalesCambriae
@@ -33,6 +34,7 @@ biblioentry_1:
     zone: *2
     time: *5
   user: users_1
+  book: book_1
 'Corpus of Electronic Texts: The Annals of Ulster':
   name: 'Corpus of Electronic Texts: The Annals of Ulster'
   xreflabel: AnnalesUlster
@@ -50,3 +52,4 @@ biblioentry_1:
     zone: *2
     time: *7
   user: users_1
+  book: book_1
