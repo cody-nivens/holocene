@@ -3,6 +3,19 @@
 require 'rubygems'
 require 'nokogiri'
 require 'byebug'
+require 'optparse'
+require 'yaml'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: read_timeline.rb [options]"
+
+  opts.on('-n', '--sourcename NAME', 'Source name') { |v| options[:source_name] = v }
+
+end.parse!
+
+dest_options = YAML.load_file("#{options[:source_name]}.yaml")
+@source_files = dest_options['glossary']
 
 @glossarys = []
 
@@ -46,18 +59,21 @@ end
 
 
 def print_record
-    puts "result = Glossary.create({:name => \"#{@glossary[:title]}\","
-    puts "  :body => \"#{(@glossary[:body].nil? ? '' : @glossary[:body])}\"" 
-    puts "  :see => \"#{(@glossary[:see].nil? ? "" : @glossary[:see])}\"" 
-    puts "  :seealso => \"#{(@glossary[:seealso].nil? ? "" : @glossary[:seealso])}\"" 
-    puts "  :acronym => \"#{(@glossary[:acronym].nil? ? "" : @glossary[:acronym])}\"" 
+    puts "term = GlossaryTerm.find_or_create_by(name: \"#{@glossary[:title]}\")"
+    puts "term.update_attributes({"
+    puts "  :book => @book,"
+    puts "  :user => @user,"
+    puts "  :body => \"#{(@glossary[:body].nil? ? '' : @glossary[:body])}\"," 
+    puts "  :see => #{(@glossary[:see].nil? ? 'nil' : "GlossaryTerm.find_or_create_by(name: \"#{@glossary[:see]}\")")}," 
+    puts "  :seealso => #{(@glossary[:seealso].nil? ? 'nil' : "GlossaryTerm.find_or_create_by(name: \"#{@glossary[:seealso]}\")")},"
+    puts "  :acronym => #{(@glossary[:acronym].nil? ? 'nil' : "GlossaryTerm.find_or_create_by(name: \"#{@glossary[:acronym]}\")")}" 
     puts "})"
-    puts "debugger if result.errors.count > 0"
+    puts "debugger if term.errors.count > 0"
 end
 
 
 #["biblioglossarys.xml","biblioweb.xml"].each do |file|
-["glossary.xml"].each do |file|
+@source_files.each do |file|
 #["global_winter.xml"].each do |file|
 @timeline_name = file.gsub(/.xml/,'')
 dom = Nokogiri::XML(open(file))

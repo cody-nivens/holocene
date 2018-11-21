@@ -3,6 +3,19 @@
 require 'rubygems'
 require 'nokogiri'
 require 'byebug'
+require 'optparse'
+require 'yaml'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: read_timeline.rb [options]"
+
+  opts.on('-n', '--sourcename NAME', 'Source name') { |v| options[:source_name] = v }
+
+end.parse!
+
+dest_options = YAML.load_file("#{options[:source_name]}.yaml")
+@source_files = dest_options['bibliography']
 
 @books = []
 
@@ -98,6 +111,7 @@ def print_record
     puts "  :copyright_holder => \"#{@book[:copyright][:holder]}\"," unless @book[:copyright].nil?
     puts "  :releaseinfo => \"#{@releaseinfo}\"," unless @releaseinfo.nil?
     puts "  :user_id => @user.id,"
+    puts "  :book_id => @book.id,"
     puts "  :publisher => \"#{@book[:publisher]}\""
     puts "})"
     puts "debugger if result.errors.count > 0"
@@ -115,11 +129,10 @@ def print_record
 end
 
 
-["bibliobooks.xml","biblioweb.xml"].each do |file|
-#["biblioweb.xml"].each do |file|
-#["global_winter.xml"].each do |file|
+@source_files.each do |file|
 @timeline_name = file.gsub(/.xml/,'')
 dom = Nokogiri::XML(open(file))
+debuger unless dom.errors.length == 0
 doc = dom.children[0]
 
 init_vars

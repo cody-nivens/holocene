@@ -3,6 +3,19 @@
 require 'rubygems'
 require 'nokogiri'
 require 'byebug'
+require 'optparse'
+require 'yaml'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: read_timeline.rb [options]"
+
+  opts.on('-n', '--sourcename NAME', 'Source name') { |v| options[:source_name] = v }
+
+end.parse!
+ 
+dest_options = YAML.load_file("#{options[:source_name]}.yaml")
+@source_files = dest_options['source_files']
 
 @slugs = []
 
@@ -18,7 +31,7 @@ end
 @para_body = ""
 @tags = []
 @title = ""
-@citation = []
+@citations = []
 @start_year = ""
 @end_year = ""
 @region = "global"
@@ -39,7 +52,7 @@ def init_vars
 @para_body = ""
 @tags = []
 @title = ""
-@citation = []
+@citations = []
 @start_year = ""
 @end_year = ""
 @region = "global"
@@ -91,7 +104,7 @@ def do_title(child)
   while index < child.children.length do
     case child.children[index].name 
     when "citation"
-	    @citation << "@#{child.children[index].text.downcase}"
+	    @citations << "#{child.children[index].text.downcase}"
     when "indexterm"
       do_indexterm(child.children[index])
     end
@@ -109,7 +122,7 @@ def do_para(child)
     when "footnote"
       footnote_text = child.children[index].text
       footnote_slug =  random_slug if @footnote_slug.nil?
-      @para_body += "[[#{@slug}#{footnote_slug}]]"
+      @para_body += "[[#{footnote_slug}]]"
       @footnotes << {:slug => "#{footnote_slug}", :body => "#{footnote_text}"}
     end
     index += 1
@@ -212,32 +225,22 @@ def event_type_from_tags
 end
 
 
-def citation_to_var(citations)
-  s = "[ "
-  citations.each do |cit|
-    s += "#{cit},"
-  end
-  return "#{s.chop}]"
-end
-
 def print_record(record_type)
     @body = @para_body
   case record_type
   when "event"
-      #debugger if @title == "Joshua 6:17 - Destruction of Jerico "
     puts "result = HoloceneEvent.where(:name => \"#{@title}\", :start_year => #{@start_year})"
     puts "if result.length == 0"
     puts "result = HoloceneEvent.create({:name => \"#{@title}\","
     puts ":end_year => \"#{@end_year}\","
     puts ":body => \"#{@body}\","
-    puts ":slug => \"#{@slug}\","
     puts ":tag_list => #{@tags},"
     puts ":event_types => [  #{event_type_from_tags} ] ,"
-    puts ":citations => #{citation_to_var(@citation)},"
     puts ":region => @#{@region},"
     puts ":image => \"#{@image}\","
     puts ":url => \"#{@url}\","
     puts ":user_id => @user.id,"
+    puts ":slug => \"#{@slug}\","
     puts ":start_year_uncert => \"#{@start_year_uncert}\","
     puts ":start_year => \"#{@start_year}\""
     puts "})"
@@ -248,21 +251,20 @@ def print_record(record_type)
     puts "res = result[0].update_attributes({:name => \"#{@title}\","
     puts ":end_year => \"#{@end_year}\","
     puts ":body => \"#{@body}\","
-    puts ":slug => \"#{@slug}\","
     puts ":tag_list => #{@tags},"
     puts ":event_types => [ #{event_type_from_tags} ],"
-    puts ":citations => #{citation_to_var(@citation)},"
     puts ":region => @#{@region},"
     puts ":image => \"#{@image}\","
+    puts ":slug => \"#{@slug}\","
     puts ":url => \"#{@url}\","
     puts ":user_id => @user.id,"
     puts ":start_year_uncert => \"#{@start_year_uncert}\","
     puts ":start_year => \"#{@start_year}\""
     puts "})"
     puts "debugger if res.nil?"
+    puts "result = result[0]"
     puts "end"
     puts "end"
-
     puts "@object.holocene_events << result"
   when "section"
     puts "result = Section.create({:name => \"#{@title}\","
@@ -287,7 +289,14 @@ def print_record(record_type)
     puts "chapter_index += 1"
     puts "section_index = 0"
   end
-  if ["section", "chapter"].include?(record_type)
+  unless @citations.nil?
+  @citations.each do |cit|
+      puts "biblio = Biblioentry.find_by_xreflabel(\"#{cit}\")"
+      puts "Footnote.create(:slug => \"\", :body => \"\", :noted => result,:biblioentry_id => biblio.id)"
+  end
+  end
+
+  if ["event", "section", "chapter"].include?(record_type)
     @footnotes.each do |footnote|
       puts "Footnote.create(:slug => \"#{footnote[:slug]}\", :body => \"#{footnote[:body]}\", :noted => result)"
     end
@@ -296,7 +305,6 @@ end
 
 def do_section(child)
     print_record(@record_type)
-    #debugger
   
     init_vars
     index1 = 0
@@ -323,17 +331,13 @@ def do_section(child)
     end
 end
 
-#"revisions.xml", "holocene-attributions.xml", 
-["preface.xml", "introduction.xml",
- "climate.xml", "climate_factors.xml", "global_winter.xml",
- "babylon_flood.xml", "genesis.xml", "first_plague.xml", "bronze_age.xml", "crisis_3rd_century.xml", "arthur.xml",
- "little_ice_age.xml", "bond_zero.xml", "cultural.xml", "timeline.xml" ].each do |file|
-#["climate_factors.xml"].each do |file|
-@timeline_name = file.gsub(/.xml/,'')
+@source_files.each do |file|
+    @timeline_name = file.gsub(/.xml/,'').gsub("#{options[:source_name]}/","")
 dom = Nokogiri::XML(open(file))
 
 doc = dom.children[0]
-#debugger if file == "global_winter.xml"
+debugger if dom.errors.length > 0
+#debugger if file == "bronze_age.xml"
 
 init_vars
 @record_type = "chapter"
