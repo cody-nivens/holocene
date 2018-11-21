@@ -1,0 +1,46 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: setup
+spec:
+  template:
+    metadata:
+      name: setup
+    spec:
+      containers:
+      - name: setup
+        image: 127.0.0.1:30400/holocene:latest
+        args: ["rake db:migrate && rake db:seed"]
+        env:
+        - name: DATABASE_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-user
+              key: username
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-user-pass
+              key: password
+        - name: DATABASE_NAME
+          valueFrom:
+            secretKeyRef:
+              name: db-name
+              key: name
+        - name: RAILS_ENV
+          value: production
+        - name: SECRET_KEY_BASE
+          valueFrom:
+            secretKeyRef:
+              name: railsapp-secrets
+              key: secret-key-base          
+        - name: REDIS_PASS
+          valueFrom:
+            secretKeyRef:
+              name: redis
+              key: redis-password
+        - name: REDIS_HOST
+          value: redis-master.app-test.svc.cluster.local
+        - name: REDIS_PORT
+          value: "6379"
+      restartPolicy: Never
