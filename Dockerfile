@@ -24,7 +24,7 @@ WORKDIR /usr/src/app
 # are made.
 COPY Gemfile Gemfile.lock ./
 RUN gem install bundler && \
-    gem install nokogiri -v 1.8.3 && \
+    gem install nokogiri -v 1.8.5 && \
     gem install listen -v 3.1.5 && \
     bundle install -j "$(getconf _NPROCESSORS_ONLN)" --retry 5 --without development,test
 
