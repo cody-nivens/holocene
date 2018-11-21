@@ -2,15 +2,14 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
   resources :footnotes
-  resources :biblioentries do
-    resources :citations
-  end
-  resources :authors
   resources :books do
+    resources :glossary_terms
+    resources :biblioentries
     resources :chapters do
       resources :sections
     end
   end
+  resources :authors
   resources :epochs
   resources :timelines
   get "welcome/index"
@@ -44,8 +43,6 @@ Rails.application.routes.draw do
   get '/citations/show/:id', to: "citations#show", as: :show_citation
   get '/timelines/show/:id', to: "timelines#show", as: :show_timeline
   get '/epochs/show/:id', to: "epochs#show", as: :show_epoch
-
-  #get "/chapters/:chapter_id/footnotes/new", to: "footnotes#chapter", as: :new_chapter_footnotes
 
   get "/chapters/:chapter_id/footnotes",               to: "footnotes#index", as: :chapter_footnotes
   get "/sections/:section_id/footnotes",               to: "footnotes#index", as: :section_footnotes
