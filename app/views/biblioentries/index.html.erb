@@ -17,9 +17,9 @@
         <td><%= biblioentry.name %></td>
         <td><%= biblioentry.xreflabel %></td>
         <td><%= biblioentry.footnotes.count %></td>
-        <td><%= link_to 'Show', biblioentry %></td>
-        <td><%= link_to 'Edit', edit_biblioentry_path(biblioentry) %></td>
-        <td><%= link_to 'Destroy', biblioentry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', book_biblioentry_path(@book, biblioentry) %></td>
+        <td><%= link_to 'Edit', edit_book_biblioentry_path(@book, biblioentry) %></td>
+        <td><%= link_to 'Destroy', book_biblioentry_path(@book, biblioentry), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -27,4 +27,4 @@
 
 <br>
 
-<% @footer_content <<  "#{link_to 'New Biblioentry', new_biblioentry_path}" %>
+<% @footer_content <<  "#{link_to 'New Biblioentry', new_book_biblioentry_path(@book)}" %>

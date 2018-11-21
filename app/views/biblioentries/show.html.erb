@@ -32,5 +32,5 @@
 <% unless @biblioentry.footnotes.nil? %>
 <%= render "footnotes/index", footnotes: @biblioentry.footnotes %>
 <% end %>
-<% @footer_content << "#{link_to 'Edit', edit_biblioentry_path(@biblioentry)}" %>
-<% @footer_content << "#{link_to 'Back', biblioentries_path}" %>
+<% @footer_content << "#{link_to 'Edit', edit_book_biblioentry_path(@book, @biblioentry)}" %>
+<% @footer_content << "#{link_to 'Back', book_biblioentries_path(@book)}" %>

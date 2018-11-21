@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_11_214158) do
+ActiveRecord::Schema.define(version: 2018_11_20_232318) do
 
-  create_table "authors", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "authors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.datetime "created_at", null: false
@@ -20,21 +20,21 @@ ActiveRecord::Schema.define(version: 2018_11_11_214158) do
     t.integer "user_id"
   end
 
-  create_table "authors_biblioentries", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "authors_biblioentries", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "author_id", null: false
     t.bigint "biblioentry_id", null: false
     t.index ["author_id", "biblioentry_id"], name: "index_author_biblioentry_1"
     t.index ["biblioentry_id", "author_id"], name: "index_author_biblioentry_2"
   end
 
-  create_table "authors_books", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "authors_books", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "author_id", null: false
     t.bigint "book_id", null: false
     t.index ["author_id", "book_id"], name: "index_author_book_1"
     t.index ["book_id", "author_id"], name: "index_author_book_2"
   end
 
-  create_table "biblioentries", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "biblioentries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.string "xreflabel"
     t.string "copyright_year"
@@ -44,9 +44,10 @@ ActiveRecord::Schema.define(version: 2018_11_11_214158) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.integer "book_id"
   end
 
-  create_table "books", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "books", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.text "body"
     t.datetime "created_at", null: false
@@ -54,7 +55,7 @@ ActiveRecord::Schema.define(version: 2018_11_11_214158) do
     t.integer "user_id"
   end
 
-  create_table "chapters", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "chapters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.text "body"
     t.integer "position"
@@ -66,21 +67,21 @@ ActiveRecord::Schema.define(version: 2018_11_11_214158) do
     t.text "partition_body"
   end
 
-  create_table "chapters_holocene_events", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "chapters_holocene_events", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "chapter_id", null: false
     t.bigint "holocene_event_id", null: false
     t.index ["chapter_id", "holocene_event_id"], name: "index_chapter_holocene_event_1"
     t.index ["holocene_event_id", "chapter_id"], name: "index_chapter_holocene_event_2"
   end
 
-  create_table "chapters_timelines", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "chapters_timelines", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "chapter_id", null: false
     t.bigint "timeline_id", null: false
     t.index ["chapter_id", "timeline_id"], name: "index_chapter_timeline_1"
     t.index ["timeline_id", "chapter_id"], name: "index_chapter_timeline_2"
   end
 
-  create_table "epochs", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "epochs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.integer "start_date"
     t.integer "end_date"
@@ -90,14 +91,14 @@ ActiveRecord::Schema.define(version: 2018_11_11_214158) do
     t.integer "user_id"
   end
 
-  create_table "epochs_timelines", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "epochs_timelines", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "epoch_id", null: false
     t.bigint "timeline_id", null: false
     t.index ["epoch_id", "timeline_id"], name: "index_epoch_timeline_1"
     t.index ["timeline_id", "epoch_id"], name: "index_epoch_timeline_2"
   end
 
-  create_table "event_types", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "event_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.text "body"
     t.datetime "created_at", null: false
@@ -105,14 +106,14 @@ ActiveRecord::Schema.define(version: 2018_11_11_214158) do
     t.integer "user_id"
   end
 
-  create_table "event_types_holocene_events", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "event_types_holocene_events", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "event_type_id", null: false
     t.bigint "holocene_event_id", null: false
     t.index ["event_type_id", "holocene_event_id"], name: "index_event_type_holocene_event_1"
     t.index ["holocene_event_id", "event_type_id"], name: "index_event_type_holocene_event_2"
   end
 
-  create_table "footnotes", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "footnotes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "slug"
     t.text "body"
     t.string "noted_type"
@@ -124,7 +125,19 @@ ActiveRecord::Schema.define(version: 2018_11_11_214158) do
     t.index ["noted_type", "noted_id"], name: "index_footnotes_on_noted_type_and_noted_id"
   end
 
-  create_table "holocene_events", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "glossary_terms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.text "body"
+    t.integer "see_id"
+    t.integer "seealso_id"
+    t.integer "acronym_id"
+    t.integer "user_id"
+    t.integer "book_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "holocene_events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.integer "start_year"
     t.integer "end_year"
@@ -143,21 +156,21 @@ ActiveRecord::Schema.define(version: 2018_11_11_214158) do
     t.index ["region_id"], name: "index_holocene_events_on_region_id"
   end
 
-  create_table "holocene_events_sections", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "holocene_events_sections", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "holocene_event_id", null: false
     t.bigint "section_id", null: false
     t.index ["holocene_event_id", "section_id"], name: "index_holocene_event_section_1"
     t.index ["section_id", "holocene_event_id"], name: "index_holocene_event_section_2"
   end
 
-  create_table "holocene_events_timelines", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "holocene_events_timelines", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "holocene_event_id", null: false
     t.bigint "timeline_id", null: false
     t.index ["holocene_event_id", "timeline_id"], name: "index_timeline_holocene_event_2"
     t.index ["timeline_id", "holocene_event_id"], name: "index_timeline_holocene_event_1"
   end
 
-  create_table "regions", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "regions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.text "body"
     t.datetime "created_at", null: false
@@ -165,7 +178,7 @@ ActiveRecord::Schema.define(version: 2018_11_11_214158) do
     t.integer "user_id"
   end
 
-  create_table "roles", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "roles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
     t.bigint "resource_id"
@@ -176,7 +189,7 @@ ActiveRecord::Schema.define(version: 2018_11_11_214158) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
   end
 
-  create_table "sections", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "sections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.boolean "display_name"
     t.text "body"
@@ -187,7 +200,7 @@ ActiveRecord::Schema.define(version: 2018_11_11_214158) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "taggings", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "taggings", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "tag_id"
     t.string "taggable_type"
     t.integer "taggable_id"
@@ -206,13 +219,13 @@ ActiveRecord::Schema.define(version: 2018_11_11_214158) do
     t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
   end
 
-  create_table "tags", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "tags", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", collation: "utf8_bin"
     t.integer "taggings_count", default: 0
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
-  create_table "timelines", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "timelines", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
@@ -220,7 +233,7 @@ ActiveRecord::Schema.define(version: 2018_11_11_214158) do
     t.integer "user_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -232,7 +245,7 @@ ActiveRecord::Schema.define(version: 2018_11_11_214158) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "users_roles", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "users_roles", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "role_id"
     t.index ["role_id"], name: "index_users_roles_on_role_id"

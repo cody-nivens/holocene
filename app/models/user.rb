@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :regions
   has_many :timelines
   has_many :books
+  has_many :glossary_terms
 
   def assign_default_role
     self.add_role(:newuser) if self.roles.blank?

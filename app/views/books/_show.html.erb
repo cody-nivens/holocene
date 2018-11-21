@@ -8,3 +8,6 @@
 <% @chapters.each do |chapter| -%>
     <%= render 'chapters/show.html', book: @book, chapter: chapter %>
 <% end -%>
+
+<%= render 'biblioentries/index.html', biblioentries: @book.biblioentries %>
+<%= render 'glossary_terms/index.html', glossary_terms: @book.glossary_terms %>

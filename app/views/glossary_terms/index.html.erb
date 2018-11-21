@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Glossary Terms</h1>
+
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Body</th>
+      <th>See</th>
+      <th>Seealso</th>
+      <th>Acronym</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @glossary_terms.each do |glossary_term| %>
+      <tr>
+        <td><%= glossary_term.name %></td>
+        <td><%= glossary_term.body %></td>
+        <td><%= (glossary_term.see.nil? ? '' : glossary_term.see.name) %></td>
+        <td><%= (glossary_term.seealso.nil? ? '' : glossary_term.seealso.name) %></td>
+        <td><%= (glossary_term.acronym.nil? ? '' : glossary_term.acronym.name) %></td>
+        <td><%= link_to 'Show', book_glossary_term_url(@book,glossary_term) %></td>
+        <td><%= link_to 'Edit', edit_book_glossary_term_path(@book,glossary_term) %></td>
+        <td><%= link_to 'Destroy', book_glossary_term_url(@book,glossary_term), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Glossary Term', new_book_glossary_term_path(@book) %>

@@ -1,0 +1,16 @@
+
+<%= bootstrap_form_for [@book, @glossary_term] do |f| %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+    <%= f.hidden_field :user_id %>
+    <%= f.hidden_field :book_id %>
+    <%= f.text_field :name %>
+    <%= f.text_area :body %>
+    <%= f.collection_select :see_id, GlossaryTerm.where(book_id: @book.id).order(:name), :id, :name %>
+    <%= f.collection_select :seealso_id , GlossaryTerm.where(book_id: @book.id).order(:name), :id, :name %>
+    <%= f.collection_select :acronym_id , GlossaryTerm.where(book_id: @book.id).order(:name), :id, :name %>
+
+  <div class="form-actions">
+    <%= f.submit %>
+  </div>
+<% end %>

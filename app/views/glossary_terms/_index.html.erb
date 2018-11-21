@@ -1,0 +1,29 @@
+<p style='page-break-after:always;'></p>
+
+<h1>Glossary Terms</h1>
+
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Body</th>
+      <th>See</th>
+      <th>Seealso</th>
+      <th>Acronym</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% glossary_terms.each do |glossary_term| %>
+      <tr>
+        <td><%= glossary_term.name %></td>
+        <td><%= glossary_term.body %></td>
+        <td><%= (glossary_term.see.nil? ? '' : glossary_term.see.name) %></td>
+        <td><%= (glossary_term.seealso.nil? ? '' : glossary_term.seealso.name) %></td>
+        <td><%= (glossary_term.acronym.nil? ? '' : glossary_term.acronym.name) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

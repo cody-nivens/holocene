@@ -4,6 +4,7 @@ class Biblioentry < ApplicationRecord
     has_many :footnotes
 
     belongs_to :user
+    belongs_to :book
 
     validates :name, presence: true
 end

@@ -1,35 +1,40 @@
 class BiblioentriesController < ApplicationController
   before_action :set_biblioentry, only: [:show, :edit, :update, :destroy]
+  before_action :set_book, only: [:index, :show, :edit, :update, :destroy, :new ]
 
   # GET /biblioentries
   # GET /biblioentries.json
   def index
-      @biblioentries = Biblioentry.all.order(:name)
+      @biblioentries = @book.biblioentries.order(:name)
   end
 
   # GET /biblioentries/1
   # GET /biblioentries/1.json
   def show
+      @book = @biblioentry.book
   end
 
   # GET /biblioentries/new
   def new
     @biblioentry = Biblioentry.new
     @biblioentry.user_id = current_user.id
+    @biblioentry.book_id = @book.id
   end
 
   # GET /biblioentries/1/edit
   def edit
+    @book = @biblioentry.book
   end
 
   # POST /biblioentries
   # POST /biblioentries.json
   def create
     @biblioentry = Biblioentry.new(biblioentry_params)
+    @book = @biblioentry.book
 
     respond_to do |format|
       if @biblioentry.save
-        format.html { redirect_to @biblioentry, notice: 'Biblioentry was successfully created.' }
+        format.html { redirect_to book_biblioentry_url(@book, @biblioentry), notice: 'Biblioentry was successfully created.' }
         format.json { render :show, status: :created, location: @biblioentry }
       else
         format.html { render :new }
@@ -41,9 +46,10 @@ class BiblioentriesController < ApplicationController
   # PATCH/PUT /biblioentries/1
   # PATCH/PUT /biblioentries/1.json
   def update
+    @book = @biblioentry.book
     respond_to do |format|
       if @biblioentry.update(biblioentry_params)
-        format.html { redirect_to @biblioentry, notice: 'Biblioentry was successfully updated.' }
+        format.html { redirect_to book_biblioentry_url(@book, @biblioentry), notice: 'Biblioentry was successfully updated.' }
         format.json { render :show, status: :ok, location: @biblioentry }
       else
         format.html { render :edit }
@@ -57,7 +63,7 @@ class BiblioentriesController < ApplicationController
   def destroy
     @biblioentry.destroy
     respond_to do |format|
-      format.html { redirect_to biblioentries_url, notice: 'Biblioentry was successfully destroyed.' }
+      format.html { redirect_to book_biblioentries_path(@book), notice: 'Biblioentry was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -68,8 +74,13 @@ class BiblioentriesController < ApplicationController
       @biblioentry = Biblioentry.find(params[:id])
     end
 
+    # Use callbacks to share common setup or constraints between actions.
+    def set_book
+      @book = Book.find(params[:book_id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def biblioentry_params
-      params.require(:biblioentry).permit(:name, :xreflabel, :copyright_year, :copyright_holder, :publisher, :user_id, :author_ids => [])
+      params.require(:biblioentry).permit(:name, :xreflabel, :copyright_year, :copyright_holder, :publisher, :user_id, :book_id, :author_ids => [])
     end
 end

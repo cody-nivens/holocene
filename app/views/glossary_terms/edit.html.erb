@@ -1,0 +1,6 @@
+<h1>Editing Glossary Term</h1>
+
+<%= render 'form', glossary_term: @glossary_term %>
+
+<%= link_to 'Show', book_glossary_term_path(@book,@glossary_term) %>
+<%= link_to 'Back', book_glossary_terms_path(@book) %>

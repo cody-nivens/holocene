@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @glossary_term.name %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @glossary_term.body %>
+</p>
+
+<p>
+  <strong>See:</strong>
+  <%= @glossary_term.see_id %>
+</p>
+
+<p>
+  <strong>Seealso:</strong>
+  <%= @glossary_term.seealso_id %>
+</p>
+
+<p>
+  <strong>Acronym:</strong>
+  <%= @glossary_term.acronym_id %>
+</p>
+
+<%= link_to 'Edit', edit_book_glossary_term_path(@book,@glossary_term) %> |
+<%= link_to 'Back', book_glossary_terms_path(@book) %>
