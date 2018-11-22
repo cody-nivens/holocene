@@ -1,15 +1,8 @@
-<table>
-  <thead>
-    <tr>
-      <th>Citations</th>
-    </tr>
-  </thead>
+      <h2>Citations</h2>
 
-  <tbody>
+      <dl class="dl-horizontal">
     <% footnotes.each do |footnote| %>
-      <tr>
-        <td><%= footnote.biblioentry.name %></td>
-      </tr>
+        <dt><%= footnote.biblioentry.xreflabel %></dt>
+        <dd><%= raw format_biblioentry(footnote.biblioentry) %></dd>
     <% end %>
-  </tbody>
-</table>
+      </dl>

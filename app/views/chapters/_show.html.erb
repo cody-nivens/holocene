@@ -1,12 +1,12 @@
 <% chapter = @chapter unless @chapter.nil? %>
-<% if chapter.partition  != "" -%>
+<% unless  chapter.partition.nil? -%>
 <p style='page-break-after:always;'></p>
-    <h1><%= chapter.partition %></h1>
+    <h1><%= chapter.partition.name %></h1>
 
-    <%= raw chapter.partition_body %>
+    <%= raw chapter.partition.body %>
 <% end -%>
 <p style='page-break-after:always;'></p>
-<% unless chapter.partition == chapter.name.gsub(/\s+$/, '') -%>
+<% unless !chapter.partition.nil? && chapter.partition.name == chapter.name.gsub(/\s+$/, '') -%>
 <h1>
   <%= chapter.name %>
 </h1>

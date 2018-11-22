@@ -1,13 +1,16 @@
 <%= bootstrap_form_for [@book, @chapter] do |f| %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
     <%= f.hidden_field :book_id %>
 
     <%= f.text_field :name %>
+    <%= f.text_field :partition %>
+
+  <div class="jumbotron" >
+      <%= f.text_area :body, as: :wysihtml5, cols: "80", rows: "15", hide_label: true %>
   </div>
   <div class="jumbotron" >
-      <%= f.text_area :body, as: :wysihtml5, cols: "80", rows: "15" %>
+      <%= f.text_area :partition_body, as: :wysihtml5, cols: "80", rows: "15" %>
   </div>
 
 
@@ -15,6 +18,24 @@
 <script type="text/javascript">
   $(document).ready(function(){
     $('#chapter_body').each(function(i, elem) {
+        $(elem).wysihtml5({
+           toolbar: {
+              "fa": true,
+              "style": true,
+              "font-styles": true,
+              "emphasis": true,
+              "lists": true,
+              "html": true,
+              "link": true,
+              "image": true,
+              "color": true
+           },
+           parser: function(html) {
+              return html;
+           }
+        });
+    });
+    $('#chapter_partition_body').each(function(i, elem) {
         $(elem).wysihtml5({
            toolbar: {
               "fa": true,

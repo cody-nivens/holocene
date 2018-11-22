@@ -26,7 +26,7 @@
     <%= form.collection_select :region_id, Region.all, :id, :name %>
 
   <div class="jumbotron" >
-      <%= form.text_area :body, as: :wysihtml5, label: false, cols: "80", rows: "15" %>
+      <%= form.text_area :body, as: :wysihtml5, label: false, cols: "80", rows: "15", hide_label: true %>
   </div>
 
     <%= form.text_field :tag_list %>

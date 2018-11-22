@@ -20,7 +20,7 @@ chapter_1:
       - holocene_event_1
 chapter_2:
   name: 'Chapter Two Stuff '
-  body: ''
+  body: '[[slug55]]'
   position: 1
   slug: tE3vUMrsN3
   created_at: !ruby/object:ActiveSupport::TimeWithZone

@@ -2,26 +2,12 @@
 
 <h1>Biblioentries</h1>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Xreflabel</th>
-      <th># Citations</th>
-      <th># Events</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% biblioentries.each do |biblioentry| %>
-      <tr>
-        <td><%= biblioentry.name %></td>
-        <td><%= biblioentry.xreflabel %></td>
-        <td><%= biblioentry.footnotes.count %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<dl class="dl-horizontal">
+<% biblioentries.each do |biblioentry| %>
+    <dt><%= biblioentry.xreflabel %></dt>
+    <dd><%= raw format_biblioentry(biblioentry) %></dd>
+<% end %>
+</dl>
 
 <br>
 

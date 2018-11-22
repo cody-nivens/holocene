@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Partitions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Body</th>
+      <th>Chapter</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @partitions.each do |partition| %>
+      <tr>
+        <td><%= partition.name %></td>
+        <td><%= partition.body %></td>
+        <td><%= partition.chapter_id %></td>
+        <td><%= link_to 'Show', partition %></td>
+        <td><%= link_to 'Edit', edit_partition_path(partition) %></td>
+        <td><%= link_to 'Destroy', partition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Partition', new_partition_path %>

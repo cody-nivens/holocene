@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @partition.name %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @partition.body %>
+</p>
+
+<p>
+  <strong>Chapter:</strong>
+  <%= @partition.chapter_id %>
+</p>
+
+<%= link_to 'Edit', edit_partition_path(@partition) %> |
+<%= link_to 'Back', partitions_path %>

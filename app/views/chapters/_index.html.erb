@@ -5,8 +5,10 @@
     <% @chapters.each_with_sortable_id do |chapter, sortable_id| %>
       <tr id="<%= sortable_id %>">  <!-- Needs id tag on sorting elements -->
         <td><%= chapter.name %></td>
-        <td><%= chapter.partition %></td>
-        <td><%= (chapter.partition_body.blank? ? "" :chapter.partition_body[0,100]) %></td>
+        <td><%= (chapter.partition.nil? ? '' : chapter.partition.name) %></td>
+        <td><%= (chapter.partition.nil? || chapter.partition.body.blank? ? "" :chapter.partition.body[0,100]) %></td>
+        <td><%= chapter.sections.count %></td>
+        <td><%= chapter.holocene_events.count %></td>
         <td><%= chapter.citations.count %></td>
         <td><%= link_to 'Show', book_chapter_path(@book, chapter) %></td>
         <td><%= link_to 'Edit', edit_book_chapter_path(@book, chapter) %></td>
@@ -18,7 +20,6 @@
 
 <div class="navbar-fixed-bottom footer">
 <%= link_to 'New Chapter', new_book_chapter_path(@book) %> |
-<%= link_to 'Back', book_path(@book) %>
 </div>
 
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_20_232318) do
+ActiveRecord::Schema.define(version: 2018_11_22_181339) do
 
   create_table "authors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "first_name"
@@ -63,8 +63,6 @@ ActiveRecord::Schema.define(version: 2018_11_20_232318) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "book_id"
-    t.string "partition"
-    t.text "partition_body"
   end
 
   create_table "chapters_holocene_events", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -168,6 +166,14 @@ ActiveRecord::Schema.define(version: 2018_11_20_232318) do
     t.bigint "timeline_id", null: false
     t.index ["holocene_event_id", "timeline_id"], name: "index_timeline_holocene_event_2"
     t.index ["timeline_id", "holocene_event_id"], name: "index_timeline_holocene_event_1"
+  end
+
+  create_table "partitions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "body"
+    t.integer "chapter_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "regions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|

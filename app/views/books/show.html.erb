@@ -1,6 +1,6 @@
 <p>
   <strong>Name:</strong>
-  <%= @book.name %>
+  <%= @book.name %> | <%= link_to 'Edit',     edit_book_path(@book) %>
 </p>
 
 <p>
@@ -8,7 +8,7 @@
   <%= @book.body %>
 </p>
 
-<%#= render 'chapters/index', book_id: @book.id %>
+<%= render 'chapters/index', book_id: @book.id %>
 
 <% @footer_content << "#{link_to 'Edit', edit_book_path(@book)}" %>
 <% @footer_content << "#{link_to 'Chapters', book_chapters_path(@book)}" %>

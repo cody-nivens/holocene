@@ -16,7 +16,7 @@
     <%= form.text_field :name %>
 
    <div class="jumbotron" >
-      <%= form.text_area :body, as: :wysihtml5, cols: "80", rows: "15" %>
+      <%= form.text_area :body, as: :wysihtml5, cols: "80", rows: "15", hide_label: true %>
   </div>
 
   <%= form.primary "#{command_label}" %>

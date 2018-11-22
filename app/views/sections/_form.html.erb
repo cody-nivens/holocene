@@ -6,7 +6,7 @@
   <%= f.check_box :display_name %>
 
   <div class="jumbotron" >
-      <%= f.text_area :body, as: :wysihtml5, cols: "80", rows: "15" %>
+      <%= f.text_area :body, as: :wysihtml5, cols: "80", rows: "15", hide_label: true %>
   </div>
 
   <%= f.primary "#{command_label}" %>

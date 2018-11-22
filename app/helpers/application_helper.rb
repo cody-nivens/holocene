@@ -1,5 +1,16 @@
 module ApplicationHelper
 
+    def format_biblioentry(bib)
+        s = ""
+        bib.authors.each do |author|
+            s += "#{author.first_name} #{author.last_name},"
+        end
+        s += "<em>#{bib.name}</em>,"
+        s += " #{bib.publisher}," unless bib.publisher.blank?
+        s += " #{bib.copyright_year}" unless bib.copyright_year.blank?
+        return s
+    end
+
     def event_types_to_s(types)
         str = ""
         types.each do |ty|

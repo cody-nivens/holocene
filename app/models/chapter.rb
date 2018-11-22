@@ -8,6 +8,8 @@ class Chapter < ApplicationRecord
     has_many :footnotes, as: :noted
 
     belongs_to :book
+    has_one :partition
+
     validates :name, presence: true
 
     def citations

@@ -17,6 +17,8 @@ biblioentry_1:
     time: *3
   user: users_1
   book: book_1
+  authors:
+      - authors_2
 'Medieval Sourcebook: Annales Camriae 447-954 (The Annals of Wales)':
   name: 'Medieval Sourcebook: Annales Camriae 447-954 (The Annals of Wales)'
   xreflabel: AnnalesCambriae

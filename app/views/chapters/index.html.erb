@@ -4,7 +4,7 @@
   <tbody class="sortable">
     <% @chapters.each_with_sortable_id do |chapter, sortable_id| %>
       <tr id="<%= sortable_id %>">
-        <td><%= chapter.partition %></td>
+        <td><%= (chapter.partition.nil? ? "" : chapter.partition.name) %></td>
         <td><%= chapter.name %></td>
         <td><%= link_to 'Show', book_chapter_path(@book, chapter) %></td>
         <td><%= link_to 'PDF', chapter_pdf_path(chapter) %></td>
