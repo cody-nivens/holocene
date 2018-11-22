@@ -2,47 +2,63 @@ require 'test_helper'
 
 class PartitionsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @partition = partitions(:one)
+    @partition = partitions(:partition_1)
+    @chapter = chapters(:chapter_1)
+    @book = books(:book_1)
+    @user = users(:users_1)
+    sign_in @user
   end
 
   test "should get index" do
-    get partitions_url
+    get book_chapter_partitions_url(@book,@chapter)
     assert_response :success
   end
 
   test "should get new" do
-    get new_partition_url
+    get new_book_chapter_partition_url(@book,@chapter)
     assert_response :success
   end
 
   test "should create partition" do
     assert_difference('Partition.count') do
-      post partitions_url, params: { partition: { body: @partition.body, chapter_id: @partition.chapter_id, name: @partition.name } }
+      post book_chapter_partitions_url(@book,@chapter), params: { partition: { body: @partition.body, chapter_id: @partition.chapter_id, name: @partition.name } }
     end
 
-    assert_redirected_to partition_url(Partition.last)
+    assert_redirected_to book_chapter_partition_url(@book,@chapter,Partition.last)
+  end
+
+  test "should not create partition" do
+    assert_difference('Partition.count',0) do
+      post book_chapter_partitions_url(@book,@chapter), params: { partition: { body: @partition.body, chapter_id: @partition.chapter_id, name: ''} }
+    end
+
+    assert_response :success
   end
 
   test "should show partition" do
-    get partition_url(@partition)
+    get book_chapter_partition_url(@book,@chapter,@partition)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_partition_url(@partition)
-    assert_response :success
+    get edit_book_chapter_partition_url(@book,@chapter,@partition)
   end
 
   test "should update partition" do
-    patch partition_url(@partition), params: { partition: { body: @partition.body, chapter_id: @partition.chapter_id, name: @partition.name } }
-    assert_redirected_to partition_url(@partition)
+    patch book_chapter_partition_url(@book,@chapter,@partition), params: { partition: { body: @partition.body, chapter_id: @partition.chapter_id, name: @partition.name } }
+    assert_redirected_to book_chapter_partition_url(@book,@chapter,@partition)
+  end
+
+  test "should not update partition" do
+    patch book_chapter_partition_url(@book,@chapter,@partition), params: { partition: { body: @partition.body, chapter_id: @partition.chapter_id, name: ''} }
+    assert_response :success
   end
 
   test "should destroy partition" do
     assert_difference('Partition.count', -1) do
-      delete partition_url(@partition)
+      delete book_chapter_partition_url(@book,@chapter,@partition)
     end
 
-    assert_redirected_to partitions_url
+    assert_redirected_to book_chapter_partitions_url(@book,@chapter)
   end
 end

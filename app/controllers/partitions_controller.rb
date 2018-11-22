@@ -1,5 +1,7 @@
 class PartitionsController < ApplicationController
   before_action :set_partition, only: [:show, :edit, :update, :destroy]
+  before_action :set_chapter, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+  before_action :set_book, only: [:index, :new, :create, :show, :edit, :update, :destroy]
 
   # GET /partitions
   # GET /partitions.json
@@ -10,11 +12,15 @@ class PartitionsController < ApplicationController
   # GET /partitions/1
   # GET /partitions/1.json
   def show
+      @chapter = @chapter
+      @book = @chapter.book
   end
 
   # GET /partitions/new
   def new
     @partition = Partition.new
+    @partition.chapter = @chapter
+    @book = @chapter.book
   end
 
   # GET /partitions/1/edit
@@ -28,7 +34,7 @@ class PartitionsController < ApplicationController
 
     respond_to do |format|
       if @partition.save
-        format.html { redirect_to @partition, notice: 'Partition was successfully created.' }
+        format.html { redirect_to book_chapter_partition_url(@book,@chapter,@partition), notice: 'Partition was successfully created.' }
         format.json { render :show, status: :created, location: @partition }
       else
         format.html { render :new }
@@ -42,7 +48,7 @@ class PartitionsController < ApplicationController
   def update
     respond_to do |format|
       if @partition.update(partition_params)
-        format.html { redirect_to @partition, notice: 'Partition was successfully updated.' }
+        format.html { redirect_to book_chapter_partition_url(@book,@chapter,@partition), notice: 'Partition was successfully updated.' }
         format.json { render :show, status: :ok, location: @partition }
       else
         format.html { render :edit }
@@ -56,7 +62,7 @@ class PartitionsController < ApplicationController
   def destroy
     @partition.destroy
     respond_to do |format|
-      format.html { redirect_to partitions_url, notice: 'Partition was successfully destroyed.' }
+      format.html { redirect_to book_chapter_partitions_url(@book,@chapter), notice: 'Partition was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -65,6 +71,14 @@ class PartitionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_partition
       @partition = Partition.find(params[:id])
+    end
+
+    def set_chapter
+      @chapter = Chapter.find(params[:chapter_id])
+    end
+
+    def set_book
+      @book = Book.find(params[:book_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

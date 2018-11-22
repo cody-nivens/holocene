@@ -1,6 +1,7 @@
 <h1>
   <%= @chapter.name %>
-| <%= link_to 'Edit',     edit_book_chapter_path(@chapter.book, @chapter) %>
+<%= link_to 'Edit', edit_book_chapter_path(@chapter.book, @chapter), :class => "btn btn-primary" %>
+<%= link_to 'Partition', (@chapter.partition.nil? ? new_book_chapter_partition_path(@chapter.book, @chapter) : edit_book_chapter_partition_path(@chapter.book, @chapter, @chapter.partition)), :class => "btn btn-primary" %>
 </h1>
 
 <% @slugs = [] -%>

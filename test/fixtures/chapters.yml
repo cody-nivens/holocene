@@ -14,8 +14,6 @@ chapter_1:
     zone: *2
     time: *3
   book: 'book_1'
-  partition: Timelines
-  partition_body: ''
   holocene_events:
       - holocene_event_1
 chapter_2:
@@ -32,7 +30,5 @@ chapter_2:
     zone: *2
     time: *5
   book: book_1
-  partition: ''
-  partition_body: ''
   holocene_events:
       - holocene_event_2

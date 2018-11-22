@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :set_footer_content
-  before_action :set_globals
+#  before_action :set_globals
 
   def home
   end
@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def set_globals
-      @book = Book.find(session['book_id']) unless session.nil? || !session.keys.include?('book_id')
-  end
+#  def set_globals
+#      @book = Book.find(session['book_id']) unless session.nil? || !session.keys.include?('book_id')
+#  end
 end

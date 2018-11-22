@@ -7,6 +7,7 @@
         <td><%= (chapter.partition.nil? ? "" : chapter.partition.name) %></td>
         <td><%= chapter.name %></td>
         <td><%= link_to 'Show', book_chapter_path(@book, chapter) %></td>
+        <td><%= link_to 'Partition', (chapter.partition.nil? ? new_book_chapter_partition_path(@book, chapter) : book_chapter_partition_path(@book, chapter,chapter.partition)) %></td>
         <td><%= link_to 'PDF', chapter_pdf_path(chapter) %></td>
         <td><%= link_to 'Sections', book_chapter_sections_path(chapter.book, chapter) %></td>
         <td><%= link_to 'Edit', edit_book_chapter_path(@book, chapter) %></td>

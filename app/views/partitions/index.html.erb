@@ -18,9 +18,9 @@
         <td><%= partition.name %></td>
         <td><%= partition.body %></td>
         <td><%= partition.chapter_id %></td>
-        <td><%= link_to 'Show', partition %></td>
-        <td><%= link_to 'Edit', edit_partition_path(partition) %></td>
-        <td><%= link_to 'Destroy', partition, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', book_chapter_partition_url(partition.chapter.book,partition.chapter,partition) %></td>
+        <td><%= link_to 'Edit', edit_book_chapter_partition_path(partition.chapter.book,partition.chapter,partition) %></td>
+        <td><%= link_to 'Destroy', book_chapter_partition_url(partition.chapter.book,partition.chapter,partition), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New Partition', new_partition_path %>
+<%= link_to 'New Partition', new_book_chapter_partition_path(@book,@chapter) %>

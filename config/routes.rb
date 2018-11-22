@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :partitions
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
   resources :footnotes
@@ -7,6 +6,7 @@ Rails.application.routes.draw do
     resources :glossary_terms
     resources :biblioentries
     resources :chapters do
+      resources :partitions
       resources :sections
     end
   end
