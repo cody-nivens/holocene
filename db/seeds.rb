@@ -1,6 +1,7 @@
 require 'csv'
 
-if User.find_by_email('palo@alto.com').nil?
+@user = User.find_by_email('palo@alto.com')
+if @user.nil?
   @user = User.create!(email: 'palo@alto.com',
                password: '123456789',
                password_confirmation: '123456789')
