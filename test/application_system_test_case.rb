@@ -1,7 +1,7 @@
 require "test_helper"
 
 DOWNLOADS_PATH = File.expand_path(File.join(Rails.root, 'tmp', 'downloads'))
-if 1 == 0
+#if 1 == 0
 Capybara.register_driver :headless_selenium do |app|
   options = Selenium::WebDriver::Chrome::Options.new
 
@@ -32,13 +32,14 @@ Capybara.register_driver :headless_selenium do |app|
 
   driver
 end
-end
+#end
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
-    if 1 == 0
+#    if 1 == 0
   driven_by :headless_selenium
-    end
+#    end
 
+    if 1 == 0
   driven_by :selenium, using: :chrome, screen_size: [1024, 900], options: {
       desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(
         'chromeOptions' => {
@@ -50,6 +51,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
         }
       )
     }
+end
 
 
 end
