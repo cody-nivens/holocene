@@ -13,6 +13,11 @@ RUN apk update \
   && curl -o- -L https://yarnpkg.com/install.sh | bash \
   && apk del curl tar binutils
 
+RUN apk add --update --no-cache \
+    libgcc libstdc++ libx11 glib libxrender libxext libintl \
+    libcrypto1.0 libssl1.0 \
+    ttf-dejavu ttf-droid ttf-freefont ttf-liberation ttf-ubuntu-font-family 
+
 # Configure the main working directory. This is the base
 # directory used in any further RUN, COPY, and ENTRYPOINT
 # commands.
