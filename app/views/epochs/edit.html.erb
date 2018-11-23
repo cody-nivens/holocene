@@ -2,5 +2,5 @@
 
 <%= render 'form', epoch: @epoch, command_label: "Update Epoch" %>
 
-<% @footer_content << "#{link_to 'Show', @epoch}" %>
-<% @footer_content << "#{link_to 'Back', epochs_path}" %>
+<% @footer_content << "#{link_to 'Show', @epoch, :class => "btn btn-primary"}" %>
+<% @footer_content << "#{link_to 'Back', epochs_path, :class => "btn btn-primary"}" %>

@@ -1,19 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
+<h1>
   <%= @partition.name %>
-</p>
+</h1>
 
 <p>
-  <strong>Body:</strong>
-  <%= @partition.body %>
+  <%= raw @partition.body %>
 </p>
 
-<p>
-  <strong>Chapter:</strong>
-  <%= @partition.chapter_id %>
-</p>
-
-<%= link_to 'Edit', edit_book_chapter_partition_path(@book,@chapter,@partition) %> |
-<%= link_to 'Back', book_chapter_path(@book,@chapter) %>
+<% @footer_content << "#{link_to 'Edit', edit_book_chapter_partition_path(@book,@chapter,@partition), :class => "btn btn-primary" }" %>
+<% @footer_content << "#{link_to 'Back', book_chapter_path(@book,@chapter), :class => "btn btn-primary" }" %>

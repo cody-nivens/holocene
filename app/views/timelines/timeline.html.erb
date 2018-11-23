@@ -24,5 +24,5 @@
           window.timeline = new TL.Timeline('timeline-embed', timeline_json, additionalOptions);
   </script>
 
-<% @footer_content << "#{link_to 'Display', timeline_display_path(@object)}" %>
-<% @footer_content << "#{link_to 'Back', "/#{@object.class.name.underscore.pluralize}/show/#{@object.id}"}" %>
+<% @footer_content << "#{link_to 'Display', timeline_display_path(@object), :class => "btn btn-primary"}" %>
+<% @footer_content << "#{link_to 'Back', "/#{@object.class.name.underscore.pluralize}/show/#{@object.id}", :class => "btn btn-primary"}" %>

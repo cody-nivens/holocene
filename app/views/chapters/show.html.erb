@@ -31,8 +31,8 @@
 <% unless @chapter.citations.length == 0 -%>
 <%= raw render "footnotes/citations", footnotes: @chapter.citations  %>
 <% end -%>
-<% @footer_content << "#{link_to 'Sections', book_chapter_sections_path(@chapter.book, @chapter)}" %>
-<% @footer_content << "#{link_to 'Timeline', chapter_timeline_path(@chapter)}" %>
-<% @footer_content << "#{link_to 'Display',  chapter_display_path(@chapter)}" %>
-<% @footer_content << "#{link_to 'Footnotes',chapter_footnotes_path(@chapter)}" %>
-<% @footer_content << "#{link_to 'Back',     book_chapters_path(@chapter.book)}" %>
+<% @footer_content << "#{link_to 'Sections', book_chapter_sections_path(@chapter.book, @chapter), :class => "btn btn-primary" }" %>
+<% @footer_content << "#{link_to 'Timeline', chapter_timeline_path(@chapter), :class => "btn btn-primary" }" %>
+<% @footer_content << "#{link_to 'Display',  chapter_display_path(@chapter), :class => "btn btn-primary" }" %>
+<% @footer_content << "#{link_to 'Footnotes',chapter_footnotes_path(@chapter), :class => "btn btn-primary" }" %>
+<% @footer_content << "#{link_to 'Back',     book_chapters_path(@chapter.book), :class => "btn btn-primary" }" %>

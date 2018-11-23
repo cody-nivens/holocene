@@ -19,6 +19,6 @@
 <%= datagrid_table @grid %>
 <%= paginate(@grid.assets) %>
 
-<% @footer_content << "#{link_to 'Edit', edit_epoch_path(@epoch)}" %>
-<% @footer_content << "#{link_to 'Timeline', epoch_timeline_path(@epoch)}" %>
-<% @footer_content << "#{link_to 'Back', epochs_path}" %>
+<% @footer_content << "#{link_to 'Edit', edit_epoch_path(@epoch), :class => "btn btn-primary"}" %>
+<% @footer_content << "#{link_to 'Timeline', epoch_timeline_path(@epoch), :class => "btn btn-primary"}" %>
+<% @footer_content << "#{link_to 'Back', epochs_path, :class => "btn btn-primary"}" %>

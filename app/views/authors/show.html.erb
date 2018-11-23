@@ -10,5 +10,5 @@
 
 <%= render "biblioentries/index", biblioentries: @author.biblioentries %>
 
-<% @footer_content << "#{link_to 'Edit', edit_author_path(@author)}" %>
-<% @footer_content << "#{link_to 'Back', authors_path}" %>
+<% @footer_content << "#{link_to 'Edit', edit_author_path(@author), :class => "btn btn-primary"}" %>
+<% @footer_content << "#{link_to 'Back', authors_path, :class => "btn btn-primary"}" %>

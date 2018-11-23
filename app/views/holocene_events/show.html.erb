@@ -48,6 +48,6 @@
 
 <p>Tags: <%= raw(@holocene_event.tag_list.map { |t| link_to t, tag_path(t) }.join(', ')) %></p>
 
-<% @footer_content << "#{link_to 'Edit', edit_holocene_event_path(@holocene_event)}" %>
-<% @footer_content << "#{link_to 'Footnotes',  holocene_event_footnotes_path(@holocene_event)}" %>
-<% @footer_content << "#{link_to 'Back', holocene_events_path}" %>
+<% @footer_content << "#{link_to 'Edit', edit_holocene_event_path(@holocene_event), :class => "btn btn-primary"}" %>
+<% @footer_content << "#{link_to 'Footnotes',  holocene_event_footnotes_path(@holocene_event), :class => "btn btn-primary"}" %>
+<% @footer_content << "#{link_to 'Back', holocene_events_path, :class => "btn btn-primary"}" %>

@@ -13,5 +13,5 @@
 <%= paginate(@grid.assets) %>
 
 
-<% @footer_content << "#{link_to 'Timeline',  url_for(:controller => "timelines", :action => "timeline", "#{@object.class.name.underscore}_id".to_sym => @object.id)}" %>
-<% @footer_content << "#{link_to 'Back', "/#{@object.class.name.underscore.pluralize}/show/#{@object.id}"}" %>
+<% @footer_content << "#{link_to 'Timeline',  url_for(:controller => "timelines", :action => "timeline", "#{@object.class.name.underscore}_id".to_sym => @object.id), :class => "btn btn-primary"}" %>
+<% @footer_content << "#{link_to 'Back', "/#{@object.class.name.underscore.pluralize}/show/#{@object.id}", :class => "btn btn-primary"}" %>

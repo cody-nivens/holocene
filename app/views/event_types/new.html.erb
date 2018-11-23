@@ -2,4 +2,4 @@
 
 <%= render 'form', event_type: @event_type, command_label: "Create Event type"  %>
 
-<% @footer_content << "#{link_to 'Back', event_types_path}" %>
+<% @footer_content << "#{link_to 'Back', event_types_path, :class => "btn btn-primary"}" %>

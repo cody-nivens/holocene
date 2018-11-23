@@ -15,5 +15,5 @@
 <%= datagrid_table @grid %>
 <%= paginate(@grid.assets) %>
 
-<% @footer_content << "#{link_to 'Edit', edit_region_path(@region)}" %>
-<% @footer_content << "#{link_to 'Back', regions_path}" %>
+<% @footer_content << "#{link_to 'Edit', edit_region_path(@region), :class => "btn btn-primary"}" %>
+<% @footer_content << "#{link_to 'Back', regions_path, :class => "btn btn-primary"}" %>

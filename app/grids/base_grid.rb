@@ -11,11 +11,11 @@ class BaseGrid
   # Enable forbidden attributes protection
   # self.forbidden_attributes_protection = true
 
-  def self.date_column(name, *args)
-    column(name, *args) do |model|
-      format(block_given? ? yield : model.send(name)) do |date|
-        date.strftime("%m/%d/%Y")
-      end
-    end
-  end
+#  def self.date_column(name, *args)
+#    column(name, *args) do |model|
+#      format(block_given? ? yield : model.send(name)) do |date|
+#        date.strftime("%m/%d/%Y")
+#      end
+#    end
+#  end
 end

@@ -2,5 +2,5 @@
 
 <%= render 'form', event_type: @event_type, command_label: "Update Event type"  %>
 
-<% @footer_content << "#{link_to 'Show', @event_type}" %>
-<% @footer_content << "#{link_to 'Back', event_types_path}" %>
+<% @footer_content << "#{link_to 'Show', @event_type, :class => "btn btn-primary"}" %>
+<% @footer_content << "#{link_to 'Back', event_types_path, :class => "btn btn-primary"}" %>

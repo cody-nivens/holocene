@@ -2,5 +2,5 @@
 
 <%= render 'form', book: @book, command_label: "Update Book"  %>
 
-<% @footer_content << "#{link_to 'Show', @book}" %>
-<% @footer_content << "#{link_to 'Back', books_path}" %>
+<% @footer_content << "#{link_to 'Show', @book, :class => "btn btn-primary"}" %>
+<% @footer_content << "#{link_to 'Back', books_path, :class => "btn btn-primary"}" %>
