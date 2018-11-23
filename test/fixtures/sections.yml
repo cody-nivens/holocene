@@ -2,7 +2,7 @@
 section_1:
   name: 'Domestication of the Animals '
   display_name: 
-  body: 'This is a test[[old_slug]]'
+  body: 'This [[new_slug]]is a test[[old_slug]]'
   position: 0
   slug: FBz8kjcBbN
   chapter: chapter_1
