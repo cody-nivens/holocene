@@ -17,7 +17,7 @@ RUN apk update \
   && curl -o- -L https://yarnpkg.com/install.sh | bash \
   && apk del curl tar binutils
 
-RUN apt-get update && apt-get install -y -q --no-install-recommends \
+RUN apk update && apk install -y -q --no-install-recommends \
     build-essential \
     libfontconfig1-dev \
     libfreetype6-dev \
