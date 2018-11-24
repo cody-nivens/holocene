@@ -53,12 +53,12 @@ RUN apk add --update --no-cache \
     libcrypto1.0 libssl1.0 \
     ttf-dejavu ttf-droid ttf-freefont ttf-liberation ttf-ubuntu-font-family
 
-COPY --from=wkhtmltopdf_image /bin/wkhtmltopdf /bin/
+COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
+COPY --from=wkhtmltopdf_image /bin/wkhtmltopdf /usr/local/bundle/bin/
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 COPY --from=builder /usr/src/app/ /usr/src/app/
 COPY --from=builder /usr/src/app/ /usr/src/app/
 #COPY --from=builder /app/config/gpg/ /root/.gnupg/
