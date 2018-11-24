@@ -89,6 +89,7 @@ dom.children[0].children.each do |child|
     do_title(child)
   when "glossentry"
     init_vars
+    @id = child.attributes[:id]
     index1 = 0
     while index1 < child.children.length do
       case child.children[index1].name 
