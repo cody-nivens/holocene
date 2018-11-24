@@ -1,4 +1,8 @@
-FROM ruby:2.5-alpine
+FROM madnight/docker-alpine-wkhtmltopdf as wkhtmltopdf_image
+
+# Builder stage
+#FROM ruby:2.4.4-alpine3.7 as builder
+FROM ruby:2.5-alpine as builder
 
 ENV PATH /root/.yarn/bin:$PATH
 
@@ -38,6 +42,25 @@ RUN gem install bundler && \
 COPY package.json yarn.lock ./
 RUN yarn install
 RUN npm rebuild node-sass --force
+
+FROM ruby:2.5-alpine
+
+RUN apk update && apk upgrade && \
+    apk add --no-cache bash git openssh build-base nodejs nodejs-npm tzdata mysql-dev
+
+RUN apk add --update --no-cache \
+    libgcc libstdc++ libx11 glib libxrender libxext libintl \
+    libcrypto1.0 libssl1.0 \
+    ttf-dejavu ttf-droid ttf-freefont ttf-liberation ttf-ubuntu-font-family
+
+COPY --from=wkhtmltopdf_image /bin/wkhtmltopdf /bin/
+
+RUN mkdir -o /usr/src/app
+WORKDIR /usr/src/app
+
+COPY --from=builder /usr/src/app/ /usr/src/app/
+COPY --from=builder /usr/app/ /usr/src/app/
+COPY --from=builder /app/config/gpg/ /root/.gnupg/
 
 # Set Rails to run in production
 ENV RAILS_ENV production 
