@@ -17,19 +17,10 @@ RUN apk update \
   && curl -o- -L https://yarnpkg.com/install.sh | bash \
   && apk del curl tar binutils
 
-RUN apk update && apk install -y -q --no-install-recommends \
-    build-essential \
-    libfontconfig1-dev \
-    libfreetype6-dev \
-    libjpeg-dev \
-    libpng-dev \
-    libssl-dev \
-    libx11-dev \
-    libxext-dev \
-    libxrender-dev \
-    python \
-    zlib1g-dev \
-&& rm -rf /var/lib/apt/lists/*
+RUN apk add --update --no-cache \
+    libgcc libstdc++ libx11 glib libxrender libxext libintl \
+    libcrypto1.0 libssl1.0 \
+    ttf-dejavu ttf-droid ttf-freefont ttf-liberation ttf-ubuntu-font-family
 
 # Configure the main working directory. This is the base
 # directory used in any further RUN, COPY, and ENTRYPOINT
