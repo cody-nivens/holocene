@@ -10,7 +10,7 @@ spec:
       containers:
       - name: setup
         image: 127.0.0.1:30400/holocene:latest
-        args: ["bin/rails db:environment:set RAILS_ENV=production && rake db:drop && rake db:create && rake db:migrate && rake db:seed"]
+        args: ["bin/rails db:environment:set RAILS_ENV=production && bin/rails db:environment:set DISABLE_DATABASE_ENVIRONMENT_CHECK=1 && rake db:drop && rake db:create && rake db:migrate && rake db:seed"]
         env:
         - name: DATABASE_USER
           valueFrom:
