@@ -68,8 +68,8 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 COPY --from=builder /usr/src/app/ /usr/src/app/
-COPY --from=builder /usr/app/ /usr/src/app/
-COPY --from=builder /app/config/gpg/ /root/.gnupg/
+COPY --from=builder /usr/src/app/ /usr/src/app/
+#COPY --from=builder /app/config/gpg/ /root/.gnupg/
 
 # Set Rails to run in production
 ENV RAILS_ENV test
