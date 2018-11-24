@@ -15,7 +15,7 @@ class BooksTest < ApplicationSystemTestCase
   end
 
   test "generating PDF" do
-    visit book_pdf_url(@book)
+    visit book_url(@book, format: 'pdf')
 
     content = DownloadHelpers::download_content
     body = convert_pdf_to_page(content)

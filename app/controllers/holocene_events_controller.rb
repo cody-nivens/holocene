@@ -38,11 +38,15 @@ class HoloceneEventsController < ApplicationController
 
   def add_event
     @events = @object.holocene_events.order(:start_year)
-    ids = HoloceneEvent.all.pluck(:id) - @object.holocene_events.pluck(:id)
+    event_ids = add_background_events(@object)
+    ids = event_ids - @object.holocene_events.ids
     @command = "Add Events"
     @grid = HoloceneEventsGrid.new(grid_params.merge({:id => ids,:object => @object})) do |scope|
         scope.page(params[:page])
     end
+    respond_to do |format|
+        format.html { render :display }
+    end 
   end
 
   # GET /holocene_events/new

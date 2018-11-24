@@ -45,7 +45,7 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show pdf chapter" do
-    get chapter_pdf_url(:id => @chapter.id, :format => :pdf)
+    get book_chapter_url(@book, @chapter, :format => :pdf)
     assert_response :success
   end
 

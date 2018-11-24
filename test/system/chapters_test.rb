@@ -9,7 +9,7 @@ class ChaptersTest < ApplicationSystemTestCase
   end
 
   test "generating PDF" do
-    visit chapter_pdf_url(@chapter)
+    visit book_chapter_url(@book,@chapter, format: 'pdf')
 
     content = DownloadHelpers::download_content
     body = convert_pdf_to_page(content)
@@ -34,27 +34,27 @@ class ChaptersTest < ApplicationSystemTestCase
 
     assert_selector "h1", text: "Cultural Events"
     assert_link  "Display"
-    click_on "Display"
+    click_on "Display", match: :first
 
-    assert_button "Delete Events"
+    assert_button "Add Events"
     assert_text "Domestication of Horses"
 
     he = HoloceneEvent.find_by_name("Domestication of Horses")
     find(:xpath,"//input[@type='checkbox' and @value=#{he.id}]").set(true)
-    click_on "Delete Events"
-   
-    assert_text "Chapter was successfully updated"
-    assert_no_text "Domestication of Horses"
-
-    assert_link  "Display"
-    click_on "Display"
-    assert_button "Add Events"
-
-    find(:xpath,"//input[@type='checkbox' and @value=#{he.id}]").set(true)
     click_on "Add Events"
    
-    assert_text "Chapter was successfully updated"
+    assert_text "Section was successfully updated"
     assert_text "Domestication of Horses"
+
+    assert_link  "Display"
+    click_on "Display", match: :first
+    assert_button "Delete Events"
+
+    find(:xpath,"//input[@type='checkbox' and @value=#{he.id}]").set(true)
+    click_on "Delete Events"
+   
+    assert_text "Section was successfully updated"
+    assert_no_text "Domestication of Horses"
 
   end
 

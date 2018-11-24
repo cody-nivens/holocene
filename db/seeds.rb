@@ -529,6 +529,46 @@ debugger if result.errors.count > 0
   end
   result.authors << author
 end
+result = Biblioentry.create({:name => "The Illiad of Homer",
+  :xreflabel => "homer800BC",
+  :copyright_year => "800 BC",
+  :copyright_holder => "Public Domain",
+  :user_id => @user.id,
+  :book_id => @book.id,
+  :publisher => ""
+})
+debugger if result.errors.count > 0
+[{:firstname=>"Homer", :surname=>""}].each do |name_info|
+  authors = Author.where(:first_name => name_info[:firstname], :last_name => name_info[:surname])
+  if authors.length == 0
+    author = Author.create(:first_name => name_info[:firstname],
+                           :user_id => @user.id,
+                           :last_name => name_info[:surname])
+  else
+    author = authors[0]
+  end
+  result.authors << author
+end
+result = Biblioentry.create({:name => "Rats, Lice and History",
+  :xreflabel => "zinsser1935",
+  :copyright_year => "1935",
+  :copyright_holder => "Routledge; Revised edition (November 1, 2007)",
+  :user_id => @user.id,
+  :book_id => @book.id,
+  :publisher => ""
+})
+debugger if result.errors.count > 0
+[{:firstname=>"Hans", :surname=>"Zinsser"}].each do |name_info|
+  authors = Author.where(:first_name => name_info[:firstname], :last_name => name_info[:surname])
+  if authors.length == 0
+    author = Author.create(:first_name => name_info[:firstname],
+                           :user_id => @user.id,
+                           :last_name => name_info[:surname])
+  else
+    author = authors[0]
+  end
+  result.authors << author
+end
 result = Biblioentry.create({:name => "Krakatoa",
   :xreflabel => "winchester2003",
   :copyright_year => "2003",
@@ -559,6 +599,25 @@ result = Biblioentry.create({:name => "The Black Death",
 })
 debugger if result.errors.count > 0
 [{:firstname=>"Philip", :surname=>"Ziegler"}].each do |name_info|
+  authors = Author.where(:first_name => name_info[:firstname], :last_name => name_info[:surname])
+  if authors.length == 0
+    author = Author.create(:first_name => name_info[:firstname],
+                           :user_id => @user.id,
+                           :last_name => name_info[:surname])
+  else
+    author = authors[0]
+  end
+  result.authors << author
+end
+result = Biblioentry.create({:name => "Volcanic Dry Fogs, Climate Cooling, and Plague Pandemics in Europe and the Middle East",
+  :xreflabel => "stothers1999",
+  :releaseinfo => "<a href='https://link.springer.com/article/10.1023/A:1005480105370'>Volcanic Dry Fogs, Climate Cooling, and Plague Pandemics in Europe and the Middle East</a>",
+  :user_id => @user.id,
+  :book_id => @book.id,
+  :publisher => ""
+})
+debugger if result.errors.count > 0
+[].each do |name_info|
   authors = Author.where(:first_name => name_info[:firstname], :last_name => name_info[:surname])
   if authors.length == 0
     author = Author.create(:first_name => name_info[:firstname],
@@ -806,7 +865,7 @@ term.update_attributes({
 debugger if term.errors.count > 0
 result = Chapter.create({:name => "Preface ",
 :position =>chapter_index,
-:slug => "vUxp8zhTJc",
+:slug => "Q1u3YhChe8",
 :book => @book,
 :body => "<p>This book started with the book 'After the Ice'.  During it's reading, I began to look at history in a different way.  Previously, I had followed the tradition of cultural forces verses population as the main driver of history. 
 'After the Ice' presented the idea that the environment's changes and the trail left by various peoples as they have struggled to live and ensure they children's survival influenced the development of civilization.
@@ -877,9 +936,9 @@ biblio = Biblioentry.find_by_xreflabel("fagan2008")
 Footnote.create(:slug => "", :body => "", :noted => result,:biblioentry_id => biblio.id)
 result = Chapter.create({:name => "Introduction ",
 :position =>chapter_index,
-:slug => "dBR9AKpAvt",
+:slug => "Lq32UVzLZm",
 :book => @book,
-:body => "<p>My first and primary occupation in life has been Computer Science.  From beginning with Basic on a Woods[[FQcky58HRd]] computer and the December 1973 Popular Science magazine's article on the Intel 8080 microprocessor chip to today's cloud environment, Computer Science and its practice has allowed me to sharpen my skills at pattern recognition.  
+:body => "<p>My first and primary occupation in life has been Computer Science.  From beginning with Basic on a Woods[[EFLaAf8e5r]] computer and the December 1973 Popular Science magazine's article on the Intel 8080 microprocessor chip to today's cloud environment, Computer Science and its practice has allowed me to sharpen my skills at pattern recognition.  
 </p><p>
 The science of Computer Science is finding the patterns that define the interaction and manipulation of data and doing so in an efficient manner.  The engineering art of Computer Science is in finding ways to apply those patterns to an ever changing array of data and the needs for knowledge that arises from the crunching of that data.
 </p><p>
@@ -901,7 +960,7 @@ Yet, time has proved many historians of the past to be accurate to the extent of
 Documentation of this phenomena are in the modern worlds interactions with 'lost' tribes in the Amazon and how first contact results in a 90% loss of life.
 Cortez conquered Mexico due to Smallpox and other viruses that the Incas had caught from Cortez and his crew.   
 </p><p>
-In the Amazon, there are archaeological digs going on documenting the settlements abandoned 500 years ago[[07rUpSwqt1]].   
+In the Amazon, there are archaeological digs going on documenting the settlements abandoned 500 years ago[[0GffDNAExe]].   
 With the destruction of a civilization to such an extent, more than culture is lost as the skills to continue basic survival are reduced to subsistence level at best.  
 Plague is indiscriminate in its effects on the knowledge level of a population.  
 During a famine,
@@ -913,8 +972,8 @@ During a plague, your chances are dependent on exposure, genes and preexisting i
 During the 'Swine' flu epidemic of 1919, it was the young and strong that died is most numbers.  
 Their immune systems launched too strong of an attack resulting in an autoimmune condition.  
 During the 2008 round of Swine flu, it was children who were most effected with prolonged effects observed.  
-[[qNnM06VJXe]]</p><p>
-This pattern of epidemics on a native[[X9dEXUmEpA]] population can possibly be used to explain the mystery of the Minion's disappearance from history as well as the interesting fact that an epidemic of 1,500BC left its mark on the gene pool of Europe[[9QhCLvwQqu]].
+[[MEdyvpu9SH]]</p><p>
+This pattern of epidemics on a native[[UcBKGUvMNm]] population can possibly be used to explain the mystery of the Minion's disappearance from history as well as the interesting fact that an epidemic of 1,500BC left its mark on the gene pool of Europe[[42xf7HQ000]].
 </p><p>
 Modern sanitation tends to belay the effects of disease on a naive population.  
 Even the comparatively recent impact of European diseases on American Indians is reduced to the 'Moral' principle with the idea being that those who are not affected by a disease have higher morals than those affected.  
@@ -943,14 +1002,19 @@ res = Partition.create({
 @chapter = result
 chapter_index += 1
 section_index = 0
-Footnote.create(:slug => "FQcky58HRd", :body => "Pencil and paper", :noted => result)
-Footnote.create(:slug => "07rUpSwqt1", :body => "Amazon archaeology of 1500 settlements", :noted => result)
-Footnote.create(:slug => "qNnM06VJXe", :body => "I remember that during the Swine flu the early 1970's, my father was struck with flu and pneumonia.", :noted => result)
-Footnote.create(:slug => "X9dEXUmEpA", :body => "Exposure of 'lost' tribes to diseases", :noted => result)
-Footnote.create(:slug => "9QhCLvwQqu", :body => "Gene study which lead to discovery of European plague in 1500BC", :noted => result)
+biblio = nil
+Footnote.create(:slug => "EFLaAf8e5r", :body => "Pencil and paper", :biblioentry_id => (biblio.nil? ? nil : biblio.id), :noted => result)
+biblio = nil
+Footnote.create(:slug => "0GffDNAExe", :body => "Amazon archaeology of 1500 settlements", :biblioentry_id => (biblio.nil? ? nil : biblio.id), :noted => result)
+biblio = nil
+Footnote.create(:slug => "MEdyvpu9SH", :body => "I remember that during the Swine flu the early 1970's, my father was struck with flu and pneumonia.", :biblioentry_id => (biblio.nil? ? nil : biblio.id), :noted => result)
+biblio = nil
+Footnote.create(:slug => "UcBKGUvMNm", :body => "Exposure of 'lost' tribes to diseases", :biblioentry_id => (biblio.nil? ? nil : biblio.id), :noted => result)
+biblio = nil
+Footnote.create(:slug => "42xf7HQ000", :body => "Gene study which lead to discovery of European plague in 1500BC", :biblioentry_id => (biblio.nil? ? nil : biblio.id), :noted => result)
 result = Chapter.create({:name => "Climatology ",
 :position =>chapter_index,
-:slug => "KJYkEbXuQZ",
+:slug => "FPcz98krgC",
 :book => @book,
 :body => "<p>
 Climatology is the study of the interaction of the atmosphere, the oceans and the land to produce the observed climatic effects - the weather.   
@@ -986,7 +1050,7 @@ result = Section.create({:name => "Oceans Circulation ",
 Should this circulation shutdown, Europe would return to an Ice age with glacial advances and summer ice.  
 Europe is at the same latitude as Greenland.
 </p>",
-:slug => "XYnSBzvYHM",
+:slug => "RFGmZme18V",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -997,19 +1061,20 @@ result = Section.create({:name => "Climate Reconstruction ",
 </p><p>
 The greater the range of types of reconstructions as well as the breadth of geological coverage of climate information expands our understanding of past climate history.
 </p><p>
-Ice cores, tree rings and stalactite slices are allow called proxies as they are  representative of the temperature at the time the at 'layer' was deposited.  Ice cores provide a additional benefit from the accumulation of dust and its contents.  One of the few ways to distinguish a volcanic winter event from a meteorite event is that a meteorite event usually has micro spears of glass and metal.  The micro-spears are thrown up when the body impacts the planet.  With a comet impact such spears do not seem to be present[[qze3JvmzRj]].
+Ice cores, tree rings and stalactite slices are allow called proxies as they are  representative of the temperature at the time the at 'layer' was deposited.  Ice cores provide a additional benefit from the accumulation of dust and its contents.  One of the few ways to distinguish a volcanic winter event from a meteorite event is that a meteorite event usually has micro spears of glass and metal.  The micro-spears are thrown up when the body impacts the planet.  With a comet impact such spears do not seem to be present[[2dGsPtshhr]].
 </p><p>
 In reconstructing the climate of the planet,  tree rings provide a picture of the local climate and changes in it.  While ice cores paint a picture of the planet as a whole providing a Forest view for the trees view of the trees (You really don't think I would miss that would you?)</p>",
-:slug => "7yNfLYryjx",
+:slug => "S2z9ank2nq",
 :position => section_index,
 :chapter_id => @chapter.id
 })
 @object = result
 section_index += 1
-Footnote.create(:slug => "qze3JvmzRj", :body => "Arizona University website", :noted => result)
+biblio = nil
+Footnote.create(:slug => "2dGsPtshhr", :body => "Arizona University website", :biblioentry_id => (biblio.nil? ? nil : biblio.id), :noted => result)
 result = Section.create({:name => "Ice Core ",
 :body => "<p>The drilling of ice cores in the move 'The day after tomorrow' provide a wonderful window into climate in the hemisphere and together from both the Arctic and Antarctic provide a picture of global weather on a yearly basis.  Ice traps dust as well as gases as show deposits.  The ice provide isotopes which together with gases and such things as sulfuric acid give information as to the temperature, CO2 content of the air, even the sun's influence via solar flares.</p>",
-:slug => "eCY5F4tCAZ",
+:slug => "39xCAvzCF4",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -1018,7 +1083,7 @@ section_index += 1
 result = Section.create({:name => "Sulfuric Acid ",
 :body => "<p>Sulfuric Acid in the ice is indicative of Volcanic activity.
 </p>",
-:slug => "G8CtzhNXkW",
+:slug => "LPgawus5tQ",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -1027,7 +1092,7 @@ section_index += 1
 result = Section.create({:name => "Nitrate ",
 :body => "<p>Nitrates relate to biomass burning measured with Ammonia and solar activity by itself.
 </p>",
-:slug => "xQFndraqL6",
+:slug => "6EELLxvnJy",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -1036,7 +1101,7 @@ section_index += 1
 result = Section.create({:name => "Ammonia ",
 :body => "<p>Ammonia with nitrates measure burning biomass.  Ammonia is also an indicator of cometary impacts.
 </p>",
-:slug => "yYmW5HGGVY",
+:slug => "fmRgx9tssc",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -1045,7 +1110,7 @@ section_index += 1
 result = Section.create({:name => "Dust Particles ",
 :body => "<p>Dust particles relate to volcanic activity as well as impact events. 
 </p>",
-:slug => "XqxPtFJgG9",
+:slug => "gpThEtLvjy",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -1054,7 +1119,7 @@ section_index += 1
 result = Section.create({:name => "Metallic Spheres ",
 :body => "<p>Small silicon and metallic spears relate to impact events as ejected mass for micro spears in the atmosphere.
 </p>",
-:slug => "cPLeNNVHF3",
+:slug => "9Xv0m2swRs",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -1062,7 +1127,7 @@ result = Section.create({:name => "Metallic Spheres ",
 section_index += 1
 result = Chapter.create({:name => "Factors affecting the climate ",
 :position =>chapter_index,
-:slug => "35sbwM8efd",
+:slug => "36nSXt5RE7",
 :book => @book,
 :body => "<p>Climate is usually a pretty stable system.  Oscillations do occurs, yet they are predictable.  Sometime things happen which affect the climate, but are not predictable.  Such things as volcanic eruptions and impact events from space do leave their mark on the climate and have a profound impact on history.</p>"
 })
@@ -1075,7 +1140,7 @@ result = Section.create({:name => "Volcanic Events ",
 </p><p>
 The eruption which create the Year without a Summer (1815 - Tambora) was a 7 on the VEI.</p><p>A partial list of eruptions during the Holocene:
 </p>",
-:slug => "pxqb4pmSFK",
+:slug => "rwF6NkKCXJ",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -1092,7 +1157,7 @@ result = HoloceneEvent.create({:name => "Tambora, Indonesia VEI 7",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "CmRaLWZfc4",
+:slug => "Z46t2UKHuJ",
 :start_year_uncert => "",
 :start_year => "1815"
 })
@@ -1107,7 +1172,7 @@ res = result[0].update_attributes({:name => "Tambora, Indonesia VEI 7",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "CmRaLWZfc4",
+:slug => "Z46t2UKHuJ",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1131,7 +1196,7 @@ result = HoloceneEvent.create({:name => "Rinjani VEI 7 ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "YykvVyG0mY",
+:slug => "A0DcCS03KH",
 :start_year_uncert => "",
 :start_year => "1257"
 })
@@ -1146,7 +1211,7 @@ res = result[0].update_attributes({:name => "Rinjani VEI 7 ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "YykvVyG0mY",
+:slug => "A0DcCS03KH",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1168,7 +1233,7 @@ result = HoloceneEvent.create({:name => "Changbaishan VEI 7 ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "tB5ZqShuEf",
+:slug => "2D3KydVPKT",
 :start_year_uncert => "",
 :start_year => "942"
 })
@@ -1183,7 +1248,7 @@ res = result[0].update_attributes({:name => "Changbaishan VEI 7 ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "tB5ZqShuEf",
+:slug => "2D3KydVPKT",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1205,7 +1270,7 @@ result = HoloceneEvent.create({:name => "Blanco, Cerro VEI 7 ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "PHBgvVNBpQ",
+:slug => "B3nVESVc9A",
 :start_year_uncert => "",
 :start_year => "-2300"
 })
@@ -1220,7 +1285,7 @@ res = result[0].update_attributes({:name => "Blanco, Cerro VEI 7 ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "PHBgvVNBpQ",
+:slug => "B3nVESVc9A",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1242,7 +1307,7 @@ result = HoloceneEvent.create({:name => "Kikai Caldera, Ryukyu Islands (Japan) V
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "Pj1JVTrzfk",
+:slug => "Ldj3dWNtAm",
 :start_year_uncert => "",
 :start_year => "-4350"
 })
@@ -1257,7 +1322,7 @@ res = result[0].update_attributes({:name => "Kikai Caldera, Ryukyu Islands (Japa
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "Pj1JVTrzfk",
+:slug => "Ldj3dWNtAm",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1279,7 +1344,7 @@ result = HoloceneEvent.create({:name => "Crater Lakes Caldera VEI 7 ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "gtRzKwhheT",
+:slug => "yc9Mfc9xrk",
 :start_year_uncert => "",
 :start_year => "-5677"
 })
@@ -1294,7 +1359,7 @@ res = result[0].update_attributes({:name => "Crater Lakes Caldera VEI 7 ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "gtRzKwhheT",
+:slug => "yc9Mfc9xrk",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1316,7 +1381,7 @@ result = HoloceneEvent.create({:name => "Kurile Lake Caldera VEI 7 ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "tCuztZTTeA",
+:slug => "kn5KPRdUhh",
 :start_year_uncert => "",
 :start_year => "-6440"
 })
@@ -1331,7 +1396,7 @@ res = result[0].update_attributes({:name => "Kurile Lake Caldera VEI 7 ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "tCuztZTTeA",
+:slug => "kn5KPRdUhh",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1353,7 +1418,7 @@ result = HoloceneEvent.create({:name => "Santorini/Thera VEI 7 ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "TLXCevabQ7",
+:slug => "2vLX6ReWFt",
 :start_year_uncert => "",
 :start_year => "-1628"
 })
@@ -1368,7 +1433,7 @@ res = result[0].update_attributes({:name => "Santorini/Thera VEI 7 ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "TLXCevabQ7",
+:slug => "2vLX6ReWFt",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1390,7 +1455,7 @@ result = HoloceneEvent.create({:name => "Taupo, New Zealand VEI 7 ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "htf3q75eza",
+:slug => "6gACry8GCR",
 :start_year_uncert => "",
 :start_year => "180"
 })
@@ -1405,7 +1470,7 @@ res = result[0].update_attributes({:name => "Taupo, New Zealand VEI 7 ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "htf3q75eza",
+:slug => "6gACry8GCR",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1427,7 +1492,7 @@ result = HoloceneEvent.create({:name => "Kuwae, Vanuatu VEI 7 ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "zUT4CURTSH",
+:slug => "PBxmsTE2VJ",
 :start_year_uncert => "",
 :start_year => "1453"
 })
@@ -1442,7 +1507,7 @@ res = result[0].update_attributes({:name => "Kuwae, Vanuatu VEI 7 ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "zUT4CURTSH",
+:slug => "PBxmsTE2VJ",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1458,7 +1523,7 @@ result = Section.create({:name => "Impact Events ",
 </p><p>
 A potential measure would be the check the ammonia levels in the ice core caps to determine if there is a relationship to impact events and high levels.  The level of the 535 impact event was the second highest of the last 2,000 year in the Greenland ice cores.  The highest in that time frame was at 1014 AD.</p><p>A partial list of impact events for the Holocene:
 </p>",
-:slug => "fg713t1pbh",
+:slug => "HvVUZ4AxHS",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -1475,7 +1540,7 @@ result = HoloceneEvent.create({:name => "The Clovis Comet ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "ahEU6gkRfm",
+:slug => "pewykcWf09",
 :start_year_uncert => "",
 :start_year => "-10900"
 })
@@ -1490,7 +1555,7 @@ res = result[0].update_attributes({:name => "The Clovis Comet ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "ahEU6gkRfm",
+:slug => "pewykcWf09",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1512,7 +1577,7 @@ result = HoloceneEvent.create({:name => "Campo del Cielo Crater ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "2Na10cjPqX",
+:slug => "B9x9kn5VSF",
 :start_year_uncert => "",
 :start_year => "-2000"
 })
@@ -1527,7 +1592,7 @@ res = result[0].update_attributes({:name => "Campo del Cielo Crater ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "2Na10cjPqX",
+:slug => "B9x9kn5VSF",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1549,7 +1614,7 @@ result = HoloceneEvent.create({:name => "Carancas Impact Crater ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "ZE23qUqsjF",
+:slug => "g84x3jPphr",
 :start_year_uncert => "",
 :start_year => "2007"
 })
@@ -1564,7 +1629,7 @@ res = result[0].update_attributes({:name => "Carancas Impact Crater ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "ZE23qUqsjF",
+:slug => "g84x3jPphr",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1586,7 +1651,7 @@ result = HoloceneEvent.create({:name => "Chelyabinsk meteor ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "eCgBYDHfVq",
+:slug => "V7tBctqPbx",
 :start_year_uncert => "",
 :start_year => "2013"
 })
@@ -1601,7 +1666,7 @@ res = result[0].update_attributes({:name => "Chelyabinsk meteor ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "eCgBYDHfVq",
+:slug => "V7tBctqPbx",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1623,7 +1688,7 @@ result = HoloceneEvent.create({:name => "Grendel Crater ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "eqwSNj3DYS",
+:slug => "3QNYrf6u0r",
 :start_year_uncert => "",
 :start_year => "536"
 })
@@ -1638,7 +1703,7 @@ res = result[0].update_attributes({:name => "Grendel Crater ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "eqwSNj3DYS",
+:slug => "3QNYrf6u0r",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1660,7 +1725,7 @@ result = HoloceneEvent.create({:name => "Haviland Crater ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "eGBXcSHzUQ",
+:slug => "9kCnb7mfHW",
 :start_year_uncert => "",
 :start_year => "1000"
 })
@@ -1675,7 +1740,7 @@ res = result[0].update_attributes({:name => "Haviland Crater ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "eGBXcSHzUQ",
+:slug => "9kCnb7mfHW",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1697,7 +1762,7 @@ result = HoloceneEvent.create({:name => "Henbury Meteorites Conservation Reserve
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "8cPNU02Xd7",
+:slug => "WBvL6D6N6x",
 :start_year_uncert => "",
 :start_year => "-2700"
 })
@@ -1712,7 +1777,7 @@ res = result[0].update_attributes({:name => "Henbury Meteorites Conservation Res
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "8cPNU02Xd7",
+:slug => "WBvL6D6N6x",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1734,7 +1799,7 @@ result = HoloceneEvent.create({:name => "Ilumetsa Crater ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "FjJd6f1WYh",
+:slug => "aDy3dbKRQ0",
 :start_year_uncert => "",
 :start_year => "-4600"
 })
@@ -1749,7 +1814,7 @@ res = result[0].update_attributes({:name => "Ilumetsa Crater ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "FjJd6f1WYh",
+:slug => "aDy3dbKRQ0",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1771,7 +1836,7 @@ result = HoloceneEvent.create({:name => "Morasko Meterorite Nature Reseve ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "59BYV3RxUh",
+:slug => "keMKBumm88",
 :start_year_uncert => "",
 :start_year => "-3000"
 })
@@ -1786,7 +1851,7 @@ res = result[0].update_attributes({:name => "Morasko Meterorite Nature Reseve ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "59BYV3RxUh",
+:slug => "keMKBumm88",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1808,7 +1873,7 @@ result = HoloceneEvent.create({:name => "Rio Caurto Craters ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "pX2PEB12vH",
+:slug => "FzqKM4xJVy",
 :start_year_uncert => "",
 :start_year => "-3000"
 })
@@ -1823,7 +1888,7 @@ res = result[0].update_attributes({:name => "Rio Caurto Craters ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "pX2PEB12vH",
+:slug => "FzqKM4xJVy",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1845,7 +1910,7 @@ result = HoloceneEvent.create({:name => "Sirente Crater ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "032YxL20NN",
+:slug => "CsXBDWwe7n",
 :start_year_uncert => "",
 :start_year => "312"
 })
@@ -1860,7 +1925,7 @@ res = result[0].update_attributes({:name => "Sirente Crater ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "032YxL20NN",
+:slug => "CsXBDWwe7n",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1882,7 +1947,7 @@ result = HoloceneEvent.create({:name => "Sobolev Crater ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "CgrgJTbnhF",
+:slug => "DWmR8wrJNm",
 :start_year_uncert => "",
 :start_year => "1000"
 })
@@ -1897,7 +1962,7 @@ res = result[0].update_attributes({:name => "Sobolev Crater ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "CgrgJTbnhF",
+:slug => "DWmR8wrJNm",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1919,7 +1984,7 @@ result = HoloceneEvent.create({:name => "Tai Hu Lake ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "VrEe4dgXVm",
+:slug => "jM4b6pWAeu",
 :start_year_uncert => "",
 :start_year => "-2500"
 })
@@ -1934,7 +1999,7 @@ res = result[0].update_attributes({:name => "Tai Hu Lake ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "VrEe4dgXVm",
+:slug => "jM4b6pWAeu",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1956,7 +2021,7 @@ result = HoloceneEvent.create({:name => "Wabar Craters ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "6THAkkfthy",
+:slug => "12wFGZkBVF",
 :start_year_uncert => "",
 :start_year => "1863"
 })
@@ -1971,7 +2036,7 @@ res = result[0].update_attributes({:name => "Wabar Craters ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "6THAkkfthy",
+:slug => "12wFGZkBVF",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -1993,7 +2058,7 @@ result = HoloceneEvent.create({:name => "Kamil Crater ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "pw1KAsdnJB",
+:slug => "ghDq1C1dJb",
 :start_year_uncert => "",
 :start_year => "-3000"
 })
@@ -2008,7 +2073,7 @@ res = result[0].update_attributes({:name => "Kamil Crater ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "pw1KAsdnJB",
+:slug => "ghDq1C1dJb",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2030,7 +2095,7 @@ result = HoloceneEvent.create({:name => "Whitecourt Crater ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "UfbhPGY4R6",
+:slug => "VKuJT6BFWr",
 :start_year_uncert => "",
 :start_year => "1105"
 })
@@ -2045,7 +2110,7 @@ res = result[0].update_attributes({:name => "Whitecourt Crater ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "UfbhPGY4R6",
+:slug => "VKuJT6BFWr",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2067,7 +2132,7 @@ result = HoloceneEvent.create({:name => "Dalgaranga crater ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "AfFEyJY0TF",
+:slug => "nQydbZyWYV",
 :start_year_uncert => "",
 :start_year => "-1000"
 })
@@ -2082,7 +2147,7 @@ res = result[0].update_attributes({:name => "Dalgaranga crater ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "AfFEyJY0TF",
+:slug => "nQydbZyWYV",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2096,14 +2161,15 @@ end
 result = Section.create({:name => "Bond Events ",
 :body => "<p>Bond events
 
- are events which have occurred in the climate of the earth on a regularly reoccurring basis of about 1470 years.  They are observed in sediments that come from changes in the ice flows in the Arctic.[[V3TANxSE0v]]</p>",
-:slug => "ztHze9SCGS",
+ are events which have occurred in the climate of the earth on a regularly reoccurring basis of about 1470 years.  They are observed in sediments that come from changes in the ice flows in the Arctic.[[F0frSwNd0s]]</p>",
+:slug => "V0kkrk5szS",
 :position => section_index,
 :chapter_id => @chapter.id
 })
 @object = result
 section_index += 1
-Footnote.create(:slug => "V3TANxSE0v", :body => "http://rivernet.ncsu.edu/courselocker/PaleoClimate/Bond et al., 1997 Millenial Scale Holocene Change.pdf", :noted => result)
+biblio = nil
+Footnote.create(:slug => "F0frSwNd0s", :body => "http://rivernet.ncsu.edu/courselocker/PaleoClimate/Bond et al., 1997 Millenial Scale Holocene Change.pdf", :biblioentry_id => (biblio.nil? ? nil : biblio.id), :noted => result)
 result = HoloceneEvent.where(:name => "Bond 9 - Colvis Impact Event ", :start_year => -10900)
 if result.length == 0
 result = HoloceneEvent.create({:name => "Bond 9 - Colvis Impact Event ",
@@ -2115,7 +2181,7 @@ result = HoloceneEvent.create({:name => "Bond 9 - Colvis Impact Event ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "AeZehjg0t2",
+:slug => "2wZJK74UPg",
 :start_year_uncert => "",
 :start_year => "-10900"
 })
@@ -2130,7 +2196,7 @@ res = result[0].update_attributes({:name => "Bond 9 - Colvis Impact Event ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "AeZehjg0t2",
+:slug => "2wZJK74UPg",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2152,7 +2218,7 @@ result = HoloceneEvent.create({:name => "Bond 8 - End of Younger Dryas ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "tVgWsnsL0E",
+:slug => "EAaZ20mhuf",
 :start_year_uncert => "",
 :start_year => "-9100"
 })
@@ -2167,7 +2233,7 @@ res = result[0].update_attributes({:name => "Bond 8 - End of Younger Dryas ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "tVgWsnsL0E",
+:slug => "EAaZ20mhuf",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2189,7 +2255,7 @@ result = HoloceneEvent.create({:name => "Bond 7 ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "R19Shn5Fbn",
+:slug => "jC32Qy23R9",
 :start_year_uncert => "",
 :start_year => "-8300"
 })
@@ -2204,7 +2270,7 @@ res = result[0].update_attributes({:name => "Bond 7 ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "R19Shn5Fbn",
+:slug => "jC32Qy23R9",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2226,7 +2292,7 @@ result = HoloceneEvent.create({:name => "Bond 6 - Erdalen Glacial activity ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "C5ZDfLWaNu",
+:slug => "S2Yb18g9Ku",
 :start_year_uncert => "",
 :start_year => "-7400"
 })
@@ -2241,7 +2307,7 @@ res = result[0].update_attributes({:name => "Bond 6 - Erdalen Glacial activity "
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "C5ZDfLWaNu",
+:slug => "S2Yb18g9Ku",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2263,7 +2329,7 @@ result = HoloceneEvent.create({:name => "Bond 5 - 8.2K Event ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "xjY3A40a7K",
+:slug => "dhAtnymN2Y",
 :start_year_uncert => "",
 :start_year => "-6200"
 })
@@ -2278,7 +2344,7 @@ res = result[0].update_attributes({:name => "Bond 5 - 8.2K Event ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "xjY3A40a7K",
+:slug => "dhAtnymN2Y",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2300,7 +2366,7 @@ result = HoloceneEvent.create({:name => "Bond 4 - 5.9K Event - intense aridifica
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "vVEpNRttc6",
+:slug => "wyaSB5EssE",
 :start_year_uncert => "",
 :start_year => "-4200"
 })
@@ -2315,7 +2381,7 @@ res = result[0].update_attributes({:name => "Bond 4 - 5.9K Event - intense aridi
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "vVEpNRttc6",
+:slug => "wyaSB5EssE",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2337,7 +2403,7 @@ result = HoloceneEvent.create({:name => "Bond 3 - 4.2 Kiloyear Event ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "tH4E1sp5fH",
+:slug => "aVhQTCrWSV",
 :start_year_uncert => "",
 :start_year => "-2200"
 })
@@ -2352,7 +2418,7 @@ res = result[0].update_attributes({:name => "Bond 3 - 4.2 Kiloyear Event ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "tH4E1sp5fH",
+:slug => "aVhQTCrWSV",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2374,7 +2440,7 @@ result = HoloceneEvent.create({:name => "Bond 2 ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "ycUZ4DPdPn",
+:slug => "sH8vmJgYrg",
 :start_year_uncert => "",
 :start_year => "-800"
 })
@@ -2389,7 +2455,7 @@ res = result[0].update_attributes({:name => "Bond 2 ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "ycUZ4DPdPn",
+:slug => "sH8vmJgYrg",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2411,7 +2477,7 @@ result = HoloceneEvent.create({:name => "Bond 1 Tree Ring Event ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "EPKuqQfCnt",
+:slug => "8cUYSyvwr1",
 :start_year_uncert => "",
 :start_year => "536"
 })
@@ -2426,7 +2492,7 @@ res = result[0].update_attributes({:name => "Bond 1 Tree Ring Event ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "EPKuqQfCnt",
+:slug => "8cUYSyvwr1",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2439,7 +2505,7 @@ end
 @object.holocene_events << result
 result = Chapter.create({:name => "Global Winter",
 :position =>chapter_index,
-:slug => "KJPEY8Vx1A",
+:slug => "MHgfkxncKf",
 :book => @book,
 :body => "<p>A global winter is a condition that was first examined in relation to Nuclear war.  What would happen if the globe suffered a winter condition that lasted several years?
 While we hope that Nuclear war is not something that will affect history anytime soon, a volcano can and often does produce the effect.
@@ -2450,7 +2516,7 @@ In 2009, a volcano in Iceland exploded and in the winter of 2010, Western Europe
 While today, it is great  inconvenience to the inhabitants of Western Europe, in the past it would have meant the deaths of young and old from exposure and starvation.
 When the cold extends into summer, a 'Winter' is happening.
 </p><p>
-In 1815, the Tambora volcano exploded resulting in a global winter within 'recorded' history.[[DU0UN70pAb]]
+In 1815, the Tambora volcano exploded resulting in a global winter within 'recorded' history.[[jYsL39e8Gt]]
 Indeed the records available demonstrate the extent to which the weather in North Eastern America changed is very dramatic.
 When examined along side the records from Krakatoa, it can be seen that 1815 'winter' effect was significantly larger.
 1815 is called the last crisis of subsistence where the ability of people to feed themselves was greatly challenged.</p>"
@@ -2464,9 +2530,10 @@ res = Partition.create({
 @chapter = result
 chapter_index += 1
 section_index = 0
-Footnote.create(:slug => "DU0UN70pAb", :body => "Volcano Weather: the story of 1816, the year without a summer", :noted => result)
+biblio = Biblioentry.find_by_xreflabel("stommel1983")
+Footnote.create(:slug => "jYsL39e8Gt", :body => "Volcano Weather: the story of 1816, the year without a summer", :biblioentry_id => (biblio.nil? ? nil : biblio.id), :noted => result)
 result = Section.create({:name => "Definition",
-:body => "<p>A Global winter is a climate event which encompasses the whole planet[[Up23yE0ZPH]].
+:body => "<p>A Global winter is a climate event which encompasses the whole planet[[3qjXHb4z1m]].
 A cooling of the planet's temperature which affects plant growth significantly enough to affect food production.
 Visions of Nuclear Winter have prevailed in the West since the inception of the Atomic bomb.
 Yet, nature has provided us with an example of what we need fear.
@@ -2483,13 +2550,14 @@ The difference between a global  and a hemispheric winter is that the hemispheri
 Not much effect would be felt about four years down the line when waters warmed in the Pacific tootles along side Europe as most of those waters are warmed in the southern pacific.
 </p><p>
 A event in the Southern Hemisphere would have an immediate effect on Australia and South America and southern Africa as well as an effect on Europe as soon as two years latter since all the waters on the way to Europe are coursing through the southern hemisphere and would last longer than a purely northern event as the main volume of water in the Thermohaline circulation runs through the southern hemisphere.</p>",
-:slug => "WGtJ8fEfyW",
+:slug => "Wj3sVFgEkA",
 :position => section_index,
 :chapter_id => @chapter.id
 })
 @object = result
 section_index += 1
-Footnote.create(:slug => "Up23yE0ZPH", :body => "Volcanic Dry Fogs, Climate Cooling, and Plague Pandemics in Europe and the Middle East", :noted => result)
+biblio = Biblioentry.find_by_xreflabel("stothers1999")
+Footnote.create(:slug => "3qjXHb4z1m", :body => "Volcanic Dry Fogs, Climate Cooling, and Plague Pandemics in Europe and the Middle East", :biblioentry_id => (biblio.nil? ? nil : biblio.id), :noted => result)
 result = Section.create({:name => "Famine",
 :body => "<p>Famine was very common event with an extreme change of weather.
 The Year without a Summer in 1816 was the last great Crisis of subsistence in the Western Hemisphere.
@@ -2499,7 +2567,7 @@ In ancient time, an extreme weather event would result in famine with in a year.
 If the event occur ed early in the year and no real crops where harvested, famine would occur.
 With a truncated harvest, famine would start early the next year.
 From a simple event, there could be 1 to 2 years of no or substandard harvests followed by 2 years of barely sufficient harvests followed by another 2 to 3 years of substandard harvests.</p>",
-:slug => "VYBq6RNC9b",
+:slug => "VzDVG0QpB3",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -2516,7 +2584,7 @@ result = HoloceneEvent.create({:name => "The Great Famine ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "7R23j55GbA",
+:slug => "whMccXHrw0",
 :start_year_uncert => "",
 :start_year => "1315"
 })
@@ -2531,7 +2599,7 @@ res = result[0].update_attributes({:name => "The Great Famine ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "7R23j55GbA",
+:slug => "whMccXHrw0",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2553,7 +2621,7 @@ result = HoloceneEvent.create({:name => "Year of Darkness - global winter ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "mY3VqVFuQx",
+:slug => "jLkF7PdVT9",
 :start_year_uncert => "",
 :start_year => "535"
 })
@@ -2568,7 +2636,7 @@ res = result[0].update_attributes({:name => "Year of Darkness - global winter ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "mY3VqVFuQx",
+:slug => "jLkF7PdVT9",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2590,7 +2658,7 @@ result = HoloceneEvent.create({:name => "Failure of Bread ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "D1xe23UDN5",
+:slug => "SU2AMj43y0",
 :start_year_uncert => "",
 :start_year => "535"
 })
@@ -2605,7 +2673,7 @@ res = result[0].update_attributes({:name => "Failure of Bread ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "D1xe23UDN5",
+:slug => "SU2AMj43y0",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2627,7 +2695,7 @@ result = HoloceneEvent.create({:name => "Failure of Bread ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "2wG8q5PtPf",
+:slug => "wTPJLuGsvU",
 :start_year_uncert => "",
 :start_year => "539"
 })
@@ -2642,7 +2710,7 @@ res = result[0].update_attributes({:name => "Failure of Bread ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "2wG8q5PtPf",
+:slug => "wTPJLuGsvU",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2664,7 +2732,7 @@ result = HoloceneEvent.create({:name => "Failure of Bread ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "UPSAqcRESc",
+:slug => "tEahsja7zz",
 :start_year_uncert => "",
 :start_year => "540"
 })
@@ -2679,7 +2747,7 @@ res = result[0].update_attributes({:name => "Failure of Bread ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "UPSAqcRESc",
+:slug => "tEahsja7zz",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2702,7 +2770,7 @@ Consider that the Plague of Cyprian was smallpox and when introduced to new area
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "eBrbjwE7pv",
+:slug => "qyd6Y8TXga",
 :start_year_uncert => "",
 :start_year => "304"
 })
@@ -2718,7 +2786,7 @@ Consider that the Plague of Cyprian was smallpox and when introduced to new area
 :event_types => [ @epidemic ],
 :region => @global,
 :image => "",
-:slug => "eBrbjwE7pv",
+:slug => "qyd6Y8TXga",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2733,36 +2801,43 @@ result = Section.create({:name => "Plagues: A history of plagues, a plague of hi
 :body => "<p>A common pattern to extreme weather events is plague.
 Plague is different from an epidemic in that diseases like smallpox, measles and mumps were introduced and stayed in the populations of Europe and the Middle east eventually becoming childhood diseases in the cases of mumps and measles.
 </p><p>
-The plagues of Antonine[[yMcJ8mqUF3]]  and Cyprian[[ZMD6tHx1xL]] were the result of the introduction of Smallpox into the Roman army on the borders of the empire resulting in the spread of the disease into the heart land of Rome.
-It is believed that both of these epidemic were Smallpox because tests on the measles virus lead some to believe that it did not evolve into it present form until around 1,000 AD[[tpUWVKNYfD]].
+The plagues of Antonine[[YgEtYLuRRz]]  and Cyprian[[RNCQwDKF1s]] were the result of the introduction of Smallpox into the Roman army on the borders of the empire resulting in the spread of the disease into the heart land of Rome.
+It is believed that both of these epidemic were Smallpox because tests on the measles virus lead some to believe that it did not evolve into it present form until around 1,000 AD[[BfGFWfDadr]].
 </p><p>
 Global Winter events always have some sort of epidemic factors involved be it typhoid fever via local rodent population explosion/collapse or the plague from the same explosion/collapse on the plague caring rodents in Africa.
-If the 'Winter' is severe enough, plague rears out of Africa traveling along the eastern coast to the Red sea and it connection to the Mediterranean[[FqaxTXXcVG]].
+If the 'Winter' is severe enough, plague rears out of Africa traveling along the eastern coast to the Red sea and it connection to the Mediterranean[[5rCL25dH5D]].
 </p><p>
-During the Little Ice Age (1300-1850), the Black  Death was not the only plague to hit Europe[[btuXVxfx26]].
+During the Little Ice Age (1300-1850), the Black  Death was not the only plague to hit Europe[[cu73jvJTVU]].
 </p><p>
 Typhus made an appearance as the Plague of Athens becoming the second appearance in recorded Greek history.
 The fist is argued as the appearance of disease in the openings of the Iliad which ravages for 9 days destroying horses, mules, dogs and finally humans.
-Sent by Apollo via his 'army' of mice[[B9QxXeCvRn]].
+Sent by Apollo via his 'army' of mice[[1DtkgrEzE3]].
 </p><p>
 Bubonic plague's effects on animals other than rats and man is complex.
 Cats are very susceptible to the plague and as hunters of rats would be the first animals affects when a rat die off occurs.
 Dogs are not affected by the plague, but can carry the plague fleas until they die of malnutrition and dehydration.
-Black footed ferrets can also carry the plague fleas without harm[[FwtP4uyLXt]].
+Black footed ferrets can also carry the plague fleas without harm[[J0usf2Lf2t]].
 </p>",
-:slug => "jLB7B3SF7L",
+:slug => "uByMg7Qt8m",
 :position => section_index,
 :chapter_id => @chapter.id
 })
 @object = result
 section_index += 1
-Footnote.create(:slug => "yMcJ8mqUF3", :body => "165 - 189 AD", :noted => result)
-Footnote.create(:slug => "ZMD6tHx1xL", :body => "251 - 270 AD", :noted => result)
-Footnote.create(:slug => "tpUWVKNYfD", :body => "Wiki reference", :noted => result)
-Footnote.create(:slug => "FqaxTXXcVG", :body => "Justinian's Flea", :noted => result)
-Footnote.create(:slug => "btuXVxfx26", :body => "Rats, Lice and History", :noted => result)
-Footnote.create(:slug => "B9QxXeCvRn", :body => "Iliad", :noted => result)
-Footnote.create(:slug => "FwtP4uyLXt", :body => "Yellow fever, black goddess", :noted => result)
+biblio = nil
+Footnote.create(:slug => "YgEtYLuRRz", :body => "165 - 189 AD", :biblioentry_id => (biblio.nil? ? nil : biblio.id), :noted => result)
+biblio = nil
+Footnote.create(:slug => "RNCQwDKF1s", :body => "251 - 270 AD", :biblioentry_id => (biblio.nil? ? nil : biblio.id), :noted => result)
+biblio = nil
+Footnote.create(:slug => "BfGFWfDadr", :body => "Wiki reference", :biblioentry_id => (biblio.nil? ? nil : biblio.id), :noted => result)
+biblio = Biblioentry.find_by_xreflabel("rosen2007")
+Footnote.create(:slug => "5rCL25dH5D", :body => "Justinian's Flea", :biblioentry_id => (biblio.nil? ? nil : biblio.id), :noted => result)
+biblio = Biblioentry.find_by_xreflabel("zinsser1935")
+Footnote.create(:slug => "cu73jvJTVU", :body => "Rats, Lice and History", :biblioentry_id => (biblio.nil? ? nil : biblio.id), :noted => result)
+biblio = Biblioentry.find_by_xreflabel("homer800BC")
+Footnote.create(:slug => "1DtkgrEzE3", :body => "Illiad", :biblioentry_id => (biblio.nil? ? nil : biblio.id), :noted => result)
+biblio = Biblioentry.find_by_xreflabel("wills1996")
+Footnote.create(:slug => "J0usf2Lf2t", :body => "Yellow fever, black goddess", :biblioentry_id => (biblio.nil? ? nil : biblio.id), :noted => result)
 result = HoloceneEvent.where(:name => "Trojan War", :start_year => -1150)
 if result.length == 0
 result = HoloceneEvent.create({:name => "Trojan War",
@@ -2776,7 +2851,7 @@ That such an association should be stated so clearly indicated a long standing u
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "qFKsG8mdL9",
+:slug => "eUBRunfsLp",
 :start_year_uncert => "",
 :start_year => "-1150"
 })
@@ -2793,7 +2868,7 @@ That such an association should be stated so clearly indicated a long standing u
 :event_types => [ @epidemic ],
 :region => @global,
 :image => "",
-:slug => "qFKsG8mdL9",
+:slug => "eUBRunfsLp",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2815,7 +2890,7 @@ result = HoloceneEvent.create({:name => "Plague of Athens ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "Rv0VrVmx1C",
+:slug => "tpxayLm2Wu",
 :start_year_uncert => "",
 :start_year => "-430"
 })
@@ -2830,7 +2905,7 @@ res = result[0].update_attributes({:name => "Plague of Athens ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "Rv0VrVmx1C",
+:slug => "tpxayLm2Wu",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2852,7 +2927,7 @@ result = HoloceneEvent.create({:name => "Antonine Plague - First appearance of S
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "RfSuMCWJrp",
+:slug => "8swqVVDnaC",
 :start_year_uncert => "",
 :start_year => "165"
 })
@@ -2867,7 +2942,7 @@ res = result[0].update_attributes({:name => "Antonine Plague - First appearance 
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "RfSuMCWJrp",
+:slug => "8swqVVDnaC",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2889,7 +2964,7 @@ result = HoloceneEvent.create({:name => "Plague of Cyprian - Second appearance o
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "8xBvmeaBXz",
+:slug => "jms1fN8b5z",
 :start_year_uncert => "",
 :start_year => "251"
 })
@@ -2904,7 +2979,7 @@ res = result[0].update_attributes({:name => "Plague of Cyprian - Second appearan
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "8xBvmeaBXz",
+:slug => "jms1fN8b5z",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2926,7 +3001,7 @@ Anglo-Saxon Britons did not suffer the same extent of population damage when the
 When the Black Death hit England, the death toll was similar to that suffered by Constantinople in 541, about half.
 </p><p>
 While the first two occurrences of plague came to Europe via climate change, the third visit was due to that other great determiner of cultural change - War.</p>",
-:slug => "ZzuZXN4jcw",
+:slug => "935srRBW4u",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -2943,7 +3018,7 @@ result = HoloceneEvent.create({:name => "First Occurrence of the Plague",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "4nJyCEnfvf",
+:slug => "72nP8atz8K",
 :start_year_uncert => "",
 :start_year => "-1500"
 })
@@ -2958,7 +3033,7 @@ res = result[0].update_attributes({:name => "First Occurrence of the Plague",
 :event_types => [ @epidemic ],
 :region => @global,
 :image => "",
-:slug => "4nJyCEnfvf",
+:slug => "72nP8atz8K",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -2989,7 +3064,7 @@ The lost of an estates master with the job following to a journeyman would cause
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "z6kYFfwGQ3",
+:slug => "d5Sy3F6zP5",
 :start_year_uncert => "",
 :start_year => "541"
 })
@@ -3013,7 +3088,7 @@ The lost of an estates master with the job following to a journeyman would cause
 :event_types => [ @epidemic,@cultural ],
 :region => @global,
 :image => "",
-:slug => "z6kYFfwGQ3",
+:slug => "d5Sy3F6zP5",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -3035,7 +3110,7 @@ result = HoloceneEvent.create({:name => "Black Death - The third occurance of Pl
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "gHwnzvHJYb",
+:slug => "Uw7vNGSmut",
 :start_year_uncert => "",
 :start_year => "1347"
 })
@@ -3050,7 +3125,7 @@ res = result[0].update_attributes({:name => "Black Death - The third occurance o
 :event_types => [ @epidemic,@cultural ],
 :region => @global,
 :image => "",
-:slug => "gHwnzvHJYb",
+:slug => "Uw7vNGSmut",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -3100,7 +3175,7 @@ In the third year, we recover.  In the fourth year, we have another child.
 In the fifth year, the child dies from starvation; another middle child; perhaps  an uncle.
 Finally, the eldest child is endangered.
 What parent would not do what they must to ensure survival of their eldest child?</p>",
-:slug => "tULj0314vr",
+:slug => "fdRyWSkqVN",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -3108,7 +3183,7 @@ What parent would not do what they must to ensure survival of their eldest child
 section_index += 1
 result = Chapter.create({:name => "The Confusion of Civilizations:  Too many floods ",
 :position =>chapter_index,
-:slug => "yVMkvVPRxh",
+:slug => "0wJwRfJqap",
 :book => @book,
 :body => "<p>Archeologests are begining to recognize that many events in oral history are really two seperate events with enough of an overlap
 to be compresses by story tellers into one story.  In the Bible, the Exodus is now recognized as such a split event.
@@ -3137,7 +3212,7 @@ The Egyptian Drought</p>",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "R4nTy8VWBT",
+:slug => "QkdmnmwY5L",
 :start_year_uncert => "",
 :start_year => "-2354"
 })
@@ -3158,7 +3233,7 @@ The Egyptian Drought</p>",
 :event_types => [ @impact ],
 :region => @global,
 :image => "",
-:slug => "R4nTy8VWBT",
+:slug => "QkdmnmwY5L",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -3180,7 +3255,7 @@ result = HoloceneEvent.create({:name => "Gilgamesh: The Babylonian Flood ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "V8HFshW8WT",
+:slug => "SGvTTyWN5T",
 :start_year_uncert => "",
 :start_year => "-2354"
 })
@@ -3195,7 +3270,7 @@ res = result[0].update_attributes({:name => "Gilgamesh: The Babylonian Flood ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "V8HFshW8WT",
+:slug => "SGvTTyWN5T",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -3217,7 +3292,7 @@ result = HoloceneEvent.create({:name => "Tree Ring Event ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "Z8utaAfjr3",
+:slug => "YMfPk6hWfK",
 :start_year_uncert => "",
 :start_year => "-2354"
 })
@@ -3232,7 +3307,7 @@ res = result[0].update_attributes({:name => "Tree Ring Event ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "Z8utaAfjr3",
+:slug => "YMfPk6hWfK",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -3254,7 +3329,7 @@ result = HoloceneEvent.create({:name => "Umm al Bini ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "9AggJrKshK",
+:slug => "qeBrwPcEmR",
 :start_year_uncert => "",
 :start_year => "-2354"
 })
@@ -3269,7 +3344,7 @@ res = result[0].update_attributes({:name => "Umm al Bini ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "9AggJrKshK",
+:slug => "qeBrwPcEmR",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -3282,7 +3357,7 @@ end
 @object.holocene_events << result
 result = Section.create({:name => "Floods - too many floods ",
 :body => "",
-:slug => "7qgpYXrENC",
+:slug => "PRC7hn4VnE",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -3300,7 +3375,7 @@ result = HoloceneEvent.create({:name => "Flooding of the Persian Gulf ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "zF6uJ0kZbN",
+:slug => "2CpVy5Kpwg",
 :start_year_uncert => "",
 :start_year => "-16000"
 })
@@ -3316,7 +3391,7 @@ res = result[0].update_attributes({:name => "Flooding of the Persian Gulf ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "zF6uJ0kZbN",
+:slug => "2CpVy5Kpwg",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -3338,7 +3413,7 @@ result = HoloceneEvent.create({:name => "Flood of Ogyges ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "Nvt2SusSz1",
+:slug => "P26XzswKE9",
 :start_year_uncert => "",
 :start_year => "-9600"
 })
@@ -3353,7 +3428,7 @@ res = result[0].update_attributes({:name => "Flood of Ogyges ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "Nvt2SusSz1",
+:slug => "P26XzswKE9",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -3375,7 +3450,7 @@ result = HoloceneEvent.create({:name => "Flood of Dardanus ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "FVjZe54f96",
+:slug => "AHBcx64Eda",
 :start_year_uncert => "",
 :start_year => "-8500"
 })
@@ -3390,7 +3465,7 @@ res = result[0].update_attributes({:name => "Flood of Dardanus ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "FVjZe54f96",
+:slug => "AHBcx64Eda",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -3412,7 +3487,7 @@ result = HoloceneEvent.create({:name => "Noah's Flood ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "ceRvPKPsjB",
+:slug => "r1kWgPKUPe",
 :start_year_uncert => "",
 :start_year => "-3000"
 })
@@ -3427,7 +3502,7 @@ res = result[0].update_attributes({:name => "Noah's Flood ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "ceRvPKPsjB",
+:slug => "r1kWgPKUPe",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -3449,7 +3524,7 @@ result = HoloceneEvent.create({:name => "Deucalion Deluge ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "rdH0NhLLDH",
+:slug => "9RK18XAUTA",
 :start_year_uncert => "",
 :start_year => "-3000"
 })
@@ -3464,7 +3539,7 @@ res = result[0].update_attributes({:name => "Deucalion Deluge ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "rdH0NhLLDH",
+:slug => "9RK18XAUTA",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -3481,7 +3556,7 @@ result = Section.create({:name => "Eden - Two seperate events ",
 The second exile from Eden was the flooding of the Black sea in 5500 BC.
 With this event is a hint of what what was being achieved in terms of plant management.
 </p>",
-:slug => "yG4ajy6x4N",
+:slug => "Q2CFWXkUV5",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -3499,7 +3574,7 @@ result = HoloceneEvent.create({:name => "Flooding of the Persian Gulf ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "EjVPN3S88L",
+:slug => "f5Cq4aqF2G",
 :start_year_uncert => "",
 :start_year => "-8500"
 })
@@ -3515,7 +3590,7 @@ res = result[0].update_attributes({:name => "Flooding of the Persian Gulf ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "EjVPN3S88L",
+:slug => "f5Cq4aqF2G",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -3537,7 +3612,7 @@ result = HoloceneEvent.create({:name => "Flooding of the Persian Gulf ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "t79D0k4JrK",
+:slug => "fQqKQNWvbt",
 :start_year_uncert => "",
 :start_year => "-16000"
 })
@@ -3552,7 +3627,7 @@ res = result[0].update_attributes({:name => "Flooding of the Persian Gulf ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "t79D0k4JrK",
+:slug => "fQqKQNWvbt",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -3574,7 +3649,7 @@ result = HoloceneEvent.create({:name => "Cast out of Eden - Flooding of the Blac
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "c3DW76C4uk",
+:slug => "aKr3uR9Vxn",
 :start_year_uncert => "",
 :start_year => "-5500"
 })
@@ -3589,7 +3664,7 @@ res = result[0].update_attributes({:name => "Cast out of Eden - Flooding of the 
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "c3DW76C4uk",
+:slug => "aKr3uR9Vxn",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -3604,7 +3679,7 @@ result = Section.create({:name => "Exodus - Two seperate events ",
 :body => "<p>The first Exodus occured sometime between the explosing of Santorini in 1628 BC and the distruction of Jerico.
 </p><p>The second Exodus occured during the time of Ramsis due to the expusion of the Hyxos from Egypt.
 </p>",
-:slug => "v59hpKv17V",
+:slug => "hVemPJVK45",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -3621,7 +3696,7 @@ result = HoloceneEvent.create({:name => "Santorini/Thera VEI 7 ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "8TxkjuYUGY",
+:slug => "PGyUQTRnGQ",
 :start_year_uncert => "",
 :start_year => "-1628"
 })
@@ -3636,7 +3711,7 @@ res = result[0].update_attributes({:name => "Santorini/Thera VEI 7 ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "8TxkjuYUGY",
+:slug => "PGyUQTRnGQ",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -3647,6 +3722,24 @@ result = result[0]
 end
 end
 @object.holocene_events << result
+result = Section.create({:name => "Which Joshua? ",
+:body => "<p>With the changes in dating of the mass destruction of Jerico, the issue of did Joshua exist and was there a battle of 
+Jericho?  I see this as a tale of two different things: first the battle of Jericho and the battles of Joshua. I believe that
+what has happened is that the battle of Jericho was committed on the first Exodus because the city had acquired the plague and 
+visitors were gettig sick.  There are two items that lead me to this conclusion.  During the archeological excavations, it was
+found that all the grain  was present and burnt.  Raiders of a community would not leave food stuffs.  Second the elaborate 
+cleansing ritual that the troops had to perform after the battle.  This 'ritual' bespeaks of decomtaination from any pathogenic
+factors in Jerico as the troops destroyed everything.
+</p><p>When Joshua reached his majority and began leading battles against various locations, the cleansing ritual had to be performed
+due to the containated state of some locations.  I belive that the scribes used the cleansing ritual to tie the battle of Jericho
+and Joshua.
+</p>",
+:slug => "eNSqqAkxDR",
+:position => section_index,
+:chapter_id => @chapter.id
+})
+@object = result
+section_index += 1
 result = HoloceneEvent.where(:name => "Joshua 6:17 - Destruction of Jerico ", :start_year => -1600)
 if result.length == 0
 result = HoloceneEvent.create({:name => "Joshua 6:17 - Destruction of Jerico ",
@@ -3658,7 +3751,7 @@ result = HoloceneEvent.create({:name => "Joshua 6:17 - Destruction of Jerico ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "yYdnxUHmML",
+:slug => "ScPYhfyNVF",
 :start_year_uncert => "",
 :start_year => "-1600"
 })
@@ -3673,7 +3766,7 @@ res = result[0].update_attributes({:name => "Joshua 6:17 - Destruction of Jerico
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "yYdnxUHmML",
+:slug => "ScPYhfyNVF",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -3684,9 +3777,46 @@ result = result[0]
 end
 end
 @object.holocene_events << result
+result = HoloceneEvent.where(:name => "Joshua ", :start_year => -1485)
+if result.length == 0
+result = HoloceneEvent.create({:name => "Joshua ",
+:end_year => "-1375",
+:body => "",
+:tag_list => [],
+:event_types => [  @cultural ] ,
+:region => @global,
+:image => "",
+:url => "",
+:user_id => @user.id,
+:slug => "XkS73J9PZq",
+:start_year_uncert => "",
+:start_year => "-1485"
+})
+@timeline.holocene_events << result
+@babylon_flood_timeline.holocene_events << result
+else
+if result[0].body ==""
+res = result[0].update_attributes({:name => "Joshua ",
+:end_year => "-1375",
+:body => "",
+:tag_list => [],
+:event_types => [ @cultural ],
+:region => @global,
+:image => "",
+:slug => "XkS73J9PZq",
+:url => "",
+:user_id => @user.id,
+:start_year_uncert => "",
+:start_year => "-1485"
+})
+debugger if res.nil?
+result = result[0]
+end
+end
+@object.holocene_events << result
 result = Chapter.create({:name => "Genesis ",
 :position =>chapter_index,
-:slug => "7s6rmwnr79",
+:slug => "ubDR5Bgs4y",
 :book => @book,
 :body => "<p>My maternal grandmother corralled my one day just before I went off to college.  She exponded to me the history of the Bible and that someday I 
 or someone else would demonstrate it's validity.
@@ -3717,7 +3847,7 @@ Perhaps, but consider that Mankind at that time was dispersed over a large area 
 Such an event  would be known by by those in the Eurasian continent with awe as a supernatural event.
 Unlike the peoples of the new world for which the event was catastrophe, the Old world was awed into the beginnings of awareness of a single Creator of events.
 </p>",
-:slug => "8P9SYpcEcE",
+:slug => "8Yh7TDrjZc",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -3734,7 +3864,7 @@ result = HoloceneEvent.create({:name => "Day 1 Let there be Light ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "LCM9m6TUwr",
+:slug => "5r5sCYByKk",
 :start_year_uncert => "",
 :start_year => "-10900"
 })
@@ -3749,7 +3879,7 @@ res = result[0].update_attributes({:name => "Day 1 Let there be Light ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "LCM9m6TUwr",
+:slug => "5r5sCYByKk",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -3772,7 +3902,7 @@ Rivers would swell with sudden influxes of water and streams that seem to have a
 By the end of the period most major rivers had formed.
 Their wandering over their ancient beds would continue, but their jumping over vast areas would have subsided.
 </p>",
-:slug => "6Kz3G46FD1",
+:slug => "KsFDhxHT2Q",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -3789,7 +3919,7 @@ result = HoloceneEvent.create({:name => "Day 2 - Dividing the Waters ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "2HP6bb6G31",
+:slug => "DP63WWnmqv",
 :start_year_uncert => "",
 :start_year => "-9600"
 })
@@ -3804,7 +3934,7 @@ res = result[0].update_attributes({:name => "Day 2 - Dividing the Waters ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "2HP6bb6G31",
+:slug => "DP63WWnmqv",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -3829,7 +3959,7 @@ I believe that part of the ancient traditions in Judaism which refer to worship 
 This Day's end effect was the creation of the herbs, grasses and fruit trees.
 Plants could finally establish permanent residence on the plains and mankind began planting grains.
 </p>",
-:slug => "6V4av8Z9bd",
+:slug => "59cGt5Kn1u",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -3846,7 +3976,7 @@ result = HoloceneEvent.create({:name => "Day 3: Dry Land ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "tDLpcdjabX",
+:slug => "jWPX7juJBD",
 :start_year_uncert => "",
 :start_year => "-9100"
 })
@@ -3861,7 +3991,7 @@ res = result[0].update_attributes({:name => "Day 3: Dry Land ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "tDLpcdjabX",
+:slug => "jWPX7juJBD",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -3878,7 +4008,7 @@ A 'Day' which seems to reflect the growing wonder at God's creation.
 A cold period with low atmospheric particulates or moisture.
 Cold nights offer clearer sighs of the stars, planets and possible Aurora Brollies displays.
 </p>",
-:slug => "duq2pxXyEd",
+:slug => "RsFexeAHJf",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -3895,7 +4025,7 @@ result = HoloceneEvent.create({:name => "Day 4 - Sun, Moon and Stars 'Lights in 
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "WFet8Nxysv",
+:slug => "wzpG0X9AdS",
 :start_year_uncert => "",
 :start_year => "-7400"
 })
@@ -3910,7 +4040,7 @@ res = result[0].update_attributes({:name => "Day 4 - Sun, Moon and Stars 'Lights
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "WFet8Nxysv",
+:slug => "wzpG0X9AdS",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -3927,7 +4057,7 @@ After such flooding caused by the ice melt, the rivers and streams would have be
 The time needed for fish to establish themselves in the rivers and streams would have varied by species.
 I think that as fish populations increase, so would Avian species preying on them.
 </p>",
-:slug => "4yeFadMbcF",
+:slug => "HkABSx9f1Z",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -3944,7 +4074,7 @@ result = HoloceneEvent.create({:name => "Day 5 - Water and Air creatures ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "9Yv6Kb5dUL",
+:slug => "xq3qv81kYe",
 :start_year_uncert => "",
 :start_year => "-6100"
 })
@@ -3959,7 +4089,7 @@ res = result[0].update_attributes({:name => "Day 5 - Water and Air creatures ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "9Yv6Kb5dUL",
+:slug => "xq3qv81kYe",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -3979,7 +4109,7 @@ Eventually, they cased the inflow of sea water into the Black Sea.
 The domestication of animals has allowed man to expand in a manner never before seen in human history. While some animals have been with mankind for millennium, others are more recent and some will never be tamed.
 As man's awareness has grown over time, the dependency on livestock for food and labor has grown as well.
 </p>",
-:slug => "H7eEjbeJLT",
+:slug => "ZaaWYXHwGu",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -3996,7 +4126,7 @@ result = HoloceneEvent.create({:name => "Day 6 - Land creatures and Man ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "ctJKbLJyw8",
+:slug => "F6tJ44q1M9",
 :start_year_uncert => "",
 :start_year => "-6000"
 })
@@ -4011,7 +4141,7 @@ res = result[0].update_attributes({:name => "Day 6 - Land creatures and Man ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "ctJKbLJyw8",
+:slug => "F6tJ44q1M9",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -4024,7 +4154,7 @@ end
 @object.holocene_events << result
 result = Section.create({:name => "5700 BC - Day 7 - The Lord Rested ",
 :body => "",
-:slug => "7f37aZyd4n",
+:slug => "weY7sH68YY",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -4041,7 +4171,7 @@ result = HoloceneEvent.create({:name => "Day 7 - The Lord Rested ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "LTux9NWf90",
+:slug => "Kx1kdXgVt5",
 :start_year_uncert => "",
 :start_year => "-5700"
 })
@@ -4056,7 +4186,7 @@ res = result[0].update_attributes({:name => "Day 7 - The Lord Rested ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "LTux9NWf90",
+:slug => "Kx1kdXgVt5",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -4074,7 +4204,7 @@ What would a person consider as a visit from God?  I content that a volcano expl
 I could also contend that an impact event would also qualify.  First the bright sreak across the sky.  Then an explosion generating a massive sound. 
 Two such impacts are the Tunguska event and the Chelyabinsk meteor.
 </p>",
-:slug => "KdB6n8kVPA",
+:slug => "Bs8yzmnwHf",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -4091,7 +4221,7 @@ result = HoloceneEvent.create({:name => "God Comes to visit ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "xYc9dVSAQH",
+:slug => "yZc2KzFYhZ",
 :start_year_uncert => "",
 :start_year => "-5677"
 })
@@ -4106,7 +4236,7 @@ res = result[0].update_attributes({:name => "God Comes to visit ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "xYc9dVSAQH",
+:slug => "yZc2KzFYhZ",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -4128,7 +4258,7 @@ result = HoloceneEvent.create({:name => "Crater Lakes Caldera VEI 7",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "qcZW4GPuVn",
+:slug => "Q8cuygSkvh",
 :start_year_uncert => "",
 :start_year => "-5677"
 })
@@ -4143,7 +4273,7 @@ res = result[0].update_attributes({:name => "Crater Lakes Caldera VEI 7",
 :event_types => [ @cultural ],
 :region => @northamerica,
 :image => "",
-:slug => "qcZW4GPuVn",
+:slug => "Q8cuygSkvh",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -4166,7 +4296,7 @@ The Black Sea basin before the flooding by the sea was a paradice compaired to o
 </p><p>
 Depending on the rate of rise of the wasters, one could find oneself at the edge of the new ocean with literally the cloths on ones back.
 </p>",
-:slug => "BjZ3eGE91N",
+:slug => "GZN0ZZknEX",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -4180,7 +4310,7 @@ I imagine that to remady this, they cut branches to skirt the tree pointing down
 Now imagine some of the branches are apple and being stuck into the apple tree, they grew.
 Not somethings that those who grow beards and know things know about.
 </p>",
-:slug => "hEdYcZ3eC4",
+:slug => "43NrG4qv7U",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -4197,7 +4327,7 @@ result = HoloceneEvent.create({:name => "Cast out of Eden - Flooding of the Blac
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "DrXbc141Fh",
+:slug => "4zh9KRUV7Q",
 :start_year_uncert => "",
 :start_year => "-5500"
 })
@@ -4212,7 +4342,7 @@ res = result[0].update_attributes({:name => "Cast out of Eden - Flooding of the 
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "DrXbc141Fh",
+:slug => "4zh9KRUV7Q",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -4234,7 +4364,7 @@ This event would have been global with solid rain for several months.
 This event is called the Piora Oscillation and lasted from 3250BC to 2900BC.
 A Greenland GISP2 ice core sample shows a sulfate spike and methane trough about 3250 BC.
 </p>",
-:slug => "cqUEG4HpCV",
+:slug => "WTu9nSPHWT",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -4251,7 +4381,7 @@ result = HoloceneEvent.create({:name => "Burckle Crater ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "rUJgZnggzv",
+:slug => "R9951kfBGv",
 :start_year_uncert => "",
 :start_year => "-2800"
 })
@@ -4266,7 +4396,7 @@ res = result[0].update_attributes({:name => "Burckle Crater ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "rUJgZnggzv",
+:slug => "R9951kfBGv",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -4288,7 +4418,7 @@ result = HoloceneEvent.create({:name => "Deucalion Deluge ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "WgcbFXY41a",
+:slug => "jKMAPwpkgf",
 :start_year_uncert => "",
 :start_year => "-3000"
 })
@@ -4303,7 +4433,7 @@ res = result[0].update_attributes({:name => "Deucalion Deluge ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "WgcbFXY41a",
+:slug => "jKMAPwpkgf",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -4325,7 +4455,7 @@ result = HoloceneEvent.create({:name => "Noah's Flood ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "cFz15Xdmbq",
+:slug => "kEQ4sU0Myt",
 :start_year_uncert => "",
 :start_year => "-3000"
 })
@@ -4340,7 +4470,7 @@ res = result[0].update_attributes({:name => "Noah's Flood ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "cFz15Xdmbq",
+:slug => "kEQ4sU0Myt",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -4369,7 +4499,7 @@ as defined in the Bible.  During the work of excuvation, large quantities of gla
 indicating a very hot explotion.  That the glass was located in a area covering Tall el-Hammam suggests to me a 
 volcanic cinder bomb not cooling correctly as it comes down resulting in a superheated explosion on a limited scale.
 </p>",
-:slug => "2dEYtnhM5h",
+:slug => "zRGYXjjDrS",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -4386,7 +4516,7 @@ result = HoloceneEvent.create({:name => "Destrection of Sodom and Gomorrah ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "qM9PaYh3gR",
+:slug => "1u4FNNhXhb",
 :start_year_uncert => "",
 :start_year => "-1628"
 })
@@ -4401,7 +4531,7 @@ res = result[0].update_attributes({:name => "Destrection of Sodom and Gomorrah "
 :event_types => [ @cultural ],
 :region => @middleeast,
 :image => "",
-:slug => "qM9PaYh3gR",
+:slug => "1u4FNNhXhb",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -4423,7 +4553,7 @@ result = HoloceneEvent.create({:name => "Santorini/Thera VEI 7 ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "SXh7JfWwDq",
+:slug => "xsz6bGYJh9",
 :start_year_uncert => "",
 :start_year => "-1628"
 })
@@ -4438,7 +4568,7 @@ res = result[0].update_attributes({:name => "Santorini/Thera VEI 7 ",
 :event_types => [ @cultural ],
 :region => @europe,
 :image => "",
-:slug => "SXh7JfWwDq",
+:slug => "xsz6bGYJh9",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -4478,7 +4608,7 @@ In the 2006 documentary Exodus Decoded, Jewish Canadian filmmaker Simcha Jacobov
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "stYSzXq3Td",
+:slug => "xsSKaG2cQ0",
 :start_year_uncert => "",
 :start_year => "-1628"
 })
@@ -4511,7 +4641,7 @@ In the 2006 documentary Exodus Decoded, Jewish Canadian filmmaker Simcha Jacobov
 :event_types => [ @cultural ],
 :region => @middleeast,
 :image => "",
-:slug => "stYSzXq3Td",
+:slug => "xsSKaG2cQ0",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -4527,7 +4657,7 @@ result = Section.create({:name => "Exodus ",
 Research has shown that there were possibly two Exodus episodes.  The first due to the plagues of Egypt during the Santorini explosion and the 
 section during the expltion of the Hyksos.
 </p>",
-:slug => "rzzLgyBqMe",
+:slug => "4rddDsgbD5",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -4544,7 +4674,7 @@ result = HoloceneEvent.create({:name => "Exodus - First ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "LN92NvvEWK",
+:slug => "y5EVc1kvbL",
 :start_year_uncert => "",
 :start_year => "-1446"
 })
@@ -4559,7 +4689,7 @@ res = result[0].update_attributes({:name => "Exodus - First ",
 :event_types => [ @cultural ],
 :region => @middleeast,
 :image => "",
-:slug => "LN92NvvEWK",
+:slug => "y5EVc1kvbL",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -4581,7 +4711,7 @@ result = HoloceneEvent.create({:name => "Exodus - Second ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "Gk1ZqxjLKR",
+:slug => "WRLEr8d3nP",
 :start_year_uncert => "",
 :start_year => "-1300"
 })
@@ -4596,7 +4726,7 @@ res = result[0].update_attributes({:name => "Exodus - Second ",
 :event_types => [ @cultural ],
 :region => @middleeast,
 :image => "",
-:slug => "Gk1ZqxjLKR",
+:slug => "WRLEr8d3nP",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -4618,7 +4748,7 @@ result = HoloceneEvent.create({:name => "Moses ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "FgVxm3LrGf",
+:slug => "kpW8ZzD7uL",
 :start_year_uncert => "",
 :start_year => "-1391"
 })
@@ -4633,7 +4763,7 @@ res = result[0].update_attributes({:name => "Moses ",
 :event_types => [ @cultural ],
 :region => @middleeast,
 :image => "",
-:slug => "FgVxm3LrGf",
+:slug => "kpW8ZzD7uL",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -4659,7 +4789,7 @@ Some scholars believe the phrase mingled seeds includes grafting, although this 
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "sCFWBedmGR",
+:slug => "XgY6tah61H",
 :start_year_uncert => "",
 :start_year => "-1400"
 })
@@ -4678,7 +4808,7 @@ Some scholars believe the phrase mingled seeds includes grafting, although this 
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "sCFWBedmGR",
+:slug => "XgY6tah61H",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -4700,7 +4830,7 @@ result = HoloceneEvent.create({:name => "Tsunami at Tartessos area ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "bnezeu1HSh",
+:slug => "HMBezcHDzR",
 :start_year_uncert => "",
 :start_year => "-1500"
 })
@@ -4715,7 +4845,7 @@ res = result[0].update_attributes({:name => "Tsunami at Tartessos area ",
 :event_types => [ @cultural ],
 :region => @europe,
 :image => "",
-:slug => "bnezeu1HSh",
+:slug => "HMBezcHDzR",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -4737,7 +4867,7 @@ result = HoloceneEvent.create({:name => "Kaali Meteor Impact ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "YJnqGMvZmk",
+:slug => "w5v3p3Y2WG",
 :start_year_uncert => "",
 :start_year => "-1530"
 })
@@ -4752,7 +4882,7 @@ res = result[0].update_attributes({:name => "Kaali Meteor Impact ",
 :event_types => [ @cultural ],
 :region => @europe,
 :image => "",
-:slug => "YJnqGMvZmk",
+:slug => "w5v3p3Y2WG",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -4774,7 +4904,7 @@ result = HoloceneEvent.create({:name => "Taupo, New Zealand VEI 6 ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "z0cTEcSKcG",
+:slug => "6YEGhHpZqP",
 :start_year_uncert => "",
 :start_year => "-1460"
 })
@@ -4789,7 +4919,7 @@ res = result[0].update_attributes({:name => "Taupo, New Zealand VEI 6 ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "z0cTEcSKcG",
+:slug => "6YEGhHpZqP",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -4814,7 +4944,7 @@ to not murder your wife and children after killing everyone in Jerico.
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "kfDvPbW5CW",
+:slug => "Xehaz68p7p",
 :start_year_uncert => "",
 :start_year => "-1600"
 })
@@ -4832,11 +4962,48 @@ to not murder your wife and children after killing everyone in Jerico.
 :event_types => [ @cultural ],
 :region => @middleeast,
 :image => "",
-:slug => "kfDvPbW5CW",
+:slug => "Xehaz68p7p",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
 :start_year => "-1600"
+})
+debugger if res.nil?
+result = result[0]
+end
+end
+@object.holocene_events << result
+result = HoloceneEvent.where(:name => "Joshua ", :start_year => -1485)
+if result.length == 0
+result = HoloceneEvent.create({:name => "Joshua ",
+:end_year => "-1375",
+:body => "",
+:tag_list => [],
+:event_types => [  @cultural ] ,
+:region => @global,
+:image => "",
+:url => "",
+:user_id => @user.id,
+:slug => "N9gAm94Xjd",
+:start_year_uncert => "",
+:start_year => "-1485"
+})
+@timeline.holocene_events << result
+@genesis_timeline.holocene_events << result
+else
+if result[0].body ==""
+res = result[0].update_attributes({:name => "Joshua ",
+:end_year => "-1375",
+:body => "",
+:tag_list => [],
+:event_types => [ @cultural ],
+:region => @global,
+:image => "",
+:slug => "N9gAm94Xjd",
+:url => "",
+:user_id => @user.id,
+:start_year_uncert => "",
+:start_year => "-1485"
 })
 debugger if res.nil?
 result = result[0]
@@ -4854,7 +5021,7 @@ result = HoloceneEvent.create({:name => "Small reoccupation of Jerico ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "9MYhZ5X4Je",
+:slug => "ecB0b5G0Vc",
 :start_year_uncert => "",
 :start_year => "-1500"
 })
@@ -4869,7 +5036,7 @@ res = result[0].update_attributes({:name => "Small reoccupation of Jerico ",
 :event_types => [ @cultural ],
 :region => @middleeast,
 :image => "",
-:slug => "9MYhZ5X4Je",
+:slug => "ecB0b5G0Vc",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -4891,7 +5058,7 @@ result = HoloceneEvent.create({:name => "Jerico unoccupied ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "pZ4ghxAMtB",
+:slug => "5e0bLkRcGT",
 :start_year_uncert => "",
 :start_year => "-1400"
 })
@@ -4906,7 +5073,7 @@ res = result[0].update_attributes({:name => "Jerico unoccupied ",
 :event_types => [ @cultural ],
 :region => @middleeast,
 :image => "",
-:slug => "pZ4ghxAMtB",
+:slug => "5e0bLkRcGT",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -4928,7 +5095,7 @@ result = HoloceneEvent.create({:name => "Period of the Judges ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "nuybn3qvqw",
+:slug => "79yABHAg0A",
 :start_year_uncert => "",
 :start_year => "-1350"
 })
@@ -4943,7 +5110,7 @@ res = result[0].update_attributes({:name => "Period of the Judges ",
 :event_types => [ @cultural ],
 :region => @middleeast,
 :image => "",
-:slug => "nuybn3qvqw",
+:slug => "79yABHAg0A",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -4956,7 +5123,7 @@ end
 @object.holocene_events << result
 result = Chapter.create({:name => "Comets, plague, survivors and the issue of War ",
 :position =>chapter_index,
-:slug => "t8QQZvLgPy",
+:slug => "kEAdHmvVhy",
 :book => @book,
 :body => "<p>Research on DNA traces of epidemics identified a epidemic that struck Europe about 1,500BC.
 Curiously, it did not affect the population of the Middle East.
@@ -4982,7 +5149,7 @@ result = HoloceneEvent.create({:name => "Joshua 6:17 - Destruction of Jerico ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "5c9btA1Qjv",
+:slug => "W2yMcAvDnU",
 :start_year_uncert => "",
 :start_year => "-1600"
 })
@@ -4997,7 +5164,7 @@ res = result[0].update_attributes({:name => "Joshua 6:17 - Destruction of Jerico
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "5c9btA1Qjv",
+:slug => "W2yMcAvDnU",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5022,7 +5189,7 @@ The evidence for this is the destuction of trading cities in Cornwall.  The arch
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "CLA1nUPtpC",
+:slug => "wtPsjsEQ5P",
 :start_year_uncert => "",
 :start_year => "-1500"
 })
@@ -5040,7 +5207,7 @@ The evidence for this is the destuction of trading cities in Cornwall.  The arch
 :event_types => [ @epidemic,@cultural ],
 :region => @europe,
 :image => "",
-:slug => "CLA1nUPtpC",
+:slug => "wtPsjsEQ5P",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5062,7 +5229,7 @@ result = HoloceneEvent.create({:name => "Plague strikes Egypt ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "f83bxUu4BX",
+:slug => "YgVUgHevgg",
 :start_year_uncert => "",
 :start_year => "-1500"
 })
@@ -5077,7 +5244,7 @@ res = result[0].update_attributes({:name => "Plague strikes Egypt ",
 :event_types => [ @epidemic ],
 :region => @global,
 :image => "",
-:slug => "f83bxUu4BX",
+:slug => "YgVUgHevgg",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5104,7 +5271,7 @@ The comet ice may have contained large amounts of amino acids which promoted agg
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "ZWKVmLqVMA",
+:slug => "mdPTNtg10A",
 :start_year_uncert => "",
 :start_year => "-1486"
 })
@@ -5124,7 +5291,7 @@ The comet ice may have contained large amounts of amino acids which promoted agg
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "ZWKVmLqVMA",
+:slug => "mdPTNtg10A",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5148,7 +5315,7 @@ It is thought that this plague came from captives from wars particularly Egypt.
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "9MY0Y58RwV",
+:slug => "14PCzvnPfy",
 :start_year_uncert => "",
 :start_year => "-1322"
 })
@@ -5165,7 +5332,7 @@ It is thought that this plague came from captives from wars particularly Egypt.
 :event_types => [ @epidemic ],
 :region => @global,
 :image => "",
-:slug => "9MY0Y58RwV",
+:slug => "14PCzvnPfy",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5187,7 +5354,7 @@ result = HoloceneEvent.create({:name => "Tsunami at Tartessos area ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "BfLu2H1rVK",
+:slug => "D8Nww4qk01",
 :start_year_uncert => "",
 :start_year => "-1500"
 })
@@ -5202,7 +5369,7 @@ res = result[0].update_attributes({:name => "Tsunami at Tartessos area ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "BfLu2H1rVK",
+:slug => "D8Nww4qk01",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5224,7 +5391,7 @@ result = HoloceneEvent.create({:name => "Kaali Meteor Impact ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "C3hEsAQAQY",
+:slug => "J0ffRRuuZ3",
 :start_year_uncert => "",
 :start_year => "-1530"
 })
@@ -5239,7 +5406,7 @@ res = result[0].update_attributes({:name => "Kaali Meteor Impact ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "C3hEsAQAQY",
+:slug => "J0ffRRuuZ3",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5261,7 +5428,7 @@ result = HoloceneEvent.create({:name => "Taupo, New Zealand VEI 6 ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "bmW0WFHZrV",
+:slug => "gdYPfMETQE",
 :start_year_uncert => "",
 :start_year => "-1460"
 })
@@ -5276,7 +5443,7 @@ res = result[0].update_attributes({:name => "Taupo, New Zealand VEI 6 ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "bmW0WFHZrV",
+:slug => "gdYPfMETQE",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5298,7 +5465,7 @@ result = HoloceneEvent.create({:name => "Small reoccupation of Jerico ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "cDv1512VvB",
+:slug => "x3QqH942PD",
 :start_year_uncert => "",
 :start_year => "-1500"
 })
@@ -5313,7 +5480,7 @@ res = result[0].update_attributes({:name => "Small reoccupation of Jerico ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "cDv1512VvB",
+:slug => "x3QqH942PD",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5326,7 +5493,7 @@ end
 @object.holocene_events << result
 result = Chapter.create({:name => "Bronze Age Collapse ",
 :position =>chapter_index,
-:slug => "kzdD4Tkech",
+:slug => "7pYZYZKmuQ",
 :book => @book,
 :body => "<p>A great question in history has always been the collapse of the Prototypical Manoral societies in the Macadonian and Greek areas.  With an event which produced an 18 year substandard harvest resulting in a transgenerational famine
  with peoples facing genocide due to the weather.   Peoples searching for substance flooded south into any area that had any food without care as to those there already.  The most famous is the
@@ -5340,7 +5507,7 @@ chapter_index += 1
 section_index = 0
 result = Section.create({:name => "2200 BC - 2100 BC - 4.2 Kiloyear Event",
 :body => "",
-:slug => "dbrJ8fzS9n",
+:slug => "7RNN9MurXu",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -5357,7 +5524,7 @@ result = HoloceneEvent.create({:name => "4.2 Kiloyear Event",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "xepe26mqMD",
+:slug => "MuGLV0ahCN",
 :start_year_uncert => "",
 :start_year => "-2200"
 })
@@ -5372,7 +5539,7 @@ res = result[0].update_attributes({:name => "4.2 Kiloyear Event",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "xepe26mqMD",
+:slug => "MuGLV0ahCN",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5394,7 +5561,7 @@ result = HoloceneEvent.create({:name => "Bond 3 - 4.2 Kiloyear Event ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "eXUfHLt7TN",
+:slug => "1NpLBP3R5V",
 :start_year_uncert => "",
 :start_year => "-2200"
 })
@@ -5409,7 +5576,7 @@ res = result[0].update_attributes({:name => "Bond 3 - 4.2 Kiloyear Event ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "eXUfHLt7TN",
+:slug => "1NpLBP3R5V",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5431,7 +5598,7 @@ result = HoloceneEvent.create({:name => "The Lycian Sea People ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "rkr3pKnMCb",
+:slug => "vQ7bnam3cN",
 :start_year_uncert => "",
 :start_year => "-2000"
 })
@@ -5446,7 +5613,7 @@ res = result[0].update_attributes({:name => "The Lycian Sea People ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "rkr3pKnMCb",
+:slug => "vQ7bnam3cN",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5468,7 +5635,7 @@ result = HoloceneEvent.create({:name => "The Sherden Sea People ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "ULXnDJ6YQw",
+:slug => "G7qHwHMPK3",
 :start_year_uncert => "",
 :start_year => "-1399"
 })
@@ -5483,7 +5650,7 @@ res = result[0].update_attributes({:name => "The Sherden Sea People ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "ULXnDJ6YQw",
+:slug => "G7qHwHMPK3",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5507,7 +5674,7 @@ descendents of a people who occupied parts of Greece going on a voyage back to t
 :image => "",
 :url => "https://www.ancient.eu/article/425/jason--the-argonauts/",
 :user_id => @user.id,
-:slug => "DNDSwxBbwp",
+:slug => "Vbj2853rvk",
 :start_year_uncert => "",
 :start_year => "-1299"
 })
@@ -5524,7 +5691,7 @@ descendents of a people who occupied parts of Greece going on a voyage back to t
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "DNDSwxBbwp",
+:slug => "Vbj2853rvk",
 :url => "https://www.ancient.eu/article/425/jason--the-argonauts/",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5541,7 +5708,7 @@ Sea Peoples and were finally cornered as told by the Iliad.
 </p><p>
 Apollo his association with mice and their caring of plague was noted in the Iliad.  That such an association should be stated so clearly indicated along standing understanding of causes of disease.
 </p><p></p>",
-:slug => "t7J4fdEEJQ",
+:slug => "ctFhtnaV3Z",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -5558,7 +5725,7 @@ result = HoloceneEvent.create({:name => "Trojan War ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "n7Rja2DGan",
+:slug => "1GjH45m8qP",
 :start_year_uncert => "",
 :start_year => "-1150"
 })
@@ -5573,7 +5740,7 @@ res = result[0].update_attributes({:name => "Trojan War ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "n7Rja2DGan",
+:slug => "1GjH45m8qP",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5595,7 +5762,7 @@ result = HoloceneEvent.create({:name => "Bronze Age Collapse ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "C8VatVPQv1",
+:slug => "dC3tazAJ2Y",
 :start_year_uncert => "",
 :start_year => "-1206"
 })
@@ -5610,7 +5777,7 @@ res = result[0].update_attributes({:name => "Bronze Age Collapse ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "C8VatVPQv1",
+:slug => "dC3tazAJ2Y",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5632,7 +5799,7 @@ result = HoloceneEvent.create({:name => "Mycenea - Earthquake ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "1D13bTVRz1",
+:slug => "WSahDJs3kY",
 :start_year_uncert => "",
 :start_year => "-1200"
 })
@@ -5647,7 +5814,7 @@ res = result[0].update_attributes({:name => "Mycenea - Earthquake ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "1D13bTVRz1",
+:slug => "WSahDJs3kY",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5669,7 +5836,7 @@ result = HoloceneEvent.create({:name => "Helka 3, Iceland VEI 6 ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "JsAgAHZ5RF",
+:slug => "NLJpY7t8Ly",
 :start_year_uncert => "",
 :start_year => "-1159"
 })
@@ -5684,7 +5851,7 @@ res = result[0].update_attributes({:name => "Helka 3, Iceland VEI 6 ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "JsAgAHZ5RF",
+:slug => "NLJpY7t8Ly",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5706,7 +5873,7 @@ result = HoloceneEvent.create({:name => "Downturn of environment: Tree Ring Even
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "MQZR6nHVJE",
+:slug => "dGs0ygfmMx",
 :start_year_uncert => "",
 :start_year => "-1159"
 })
@@ -5721,7 +5888,7 @@ res = result[0].update_attributes({:name => "Downturn of environment: Tree Ring 
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "MQZR6nHVJE",
+:slug => "dGs0ygfmMx",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5743,7 +5910,7 @@ result = HoloceneEvent.create({:name => "Late Bronze Age Collapse ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "z4h5WT7fAL",
+:slug => "jKxjxVw8P7",
 :start_year_uncert => "",
 :start_year => "-1200"
 })
@@ -5758,7 +5925,7 @@ res = result[0].update_attributes({:name => "Late Bronze Age Collapse ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "z4h5WT7fAL",
+:slug => "jKxjxVw8P7",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5780,7 +5947,7 @@ result = HoloceneEvent.create({:name => "Poseidon's Horses: Earthquake Swarm ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "yPhby5ENNb",
+:slug => "5SwaQkxsXj",
 :start_year_uncert => "",
 :start_year => "-1225"
 })
@@ -5795,7 +5962,7 @@ res = result[0].update_attributes({:name => "Poseidon's Horses: Earthquake Swarm
 :event_types => [ @earth ],
 :region => @neareast,
 :image => "",
-:slug => "yPhby5ENNb",
+:slug => "5SwaQkxsXj",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5808,7 +5975,7 @@ end
 @object.holocene_events << result
 result = Section.create({:name => "1100 BC - 776 BC - Greek Dark Ages ",
 :body => "",
-:slug => "WwEEtBmmSr",
+:slug => "BMQK1E5VZZ",
 :position => section_index,
 :chapter_id => @chapter.id
 })
@@ -5825,7 +5992,7 @@ result = HoloceneEvent.create({:name => "Greek Dark Ages ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "1bLSQAzfTV",
+:slug => "YshdycVW4F",
 :start_year_uncert => "",
 :start_year => "-1100"
 })
@@ -5840,7 +6007,7 @@ res = result[0].update_attributes({:name => "Greek Dark Ages ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "1bLSQAzfTV",
+:slug => "YshdycVW4F",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5862,7 +6029,7 @@ result = HoloceneEvent.create({:name => "First Olympic Games ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "8k2sf6dq8t",
+:slug => "zpnEmNY6zx",
 :start_year_uncert => "",
 :start_year => "-776"
 })
@@ -5877,7 +6044,7 @@ res = result[0].update_attributes({:name => "First Olympic Games ",
 :event_types => [ @cultural ],
 :region => @europe,
 :image => "",
-:slug => "8k2sf6dq8t",
+:slug => "zpnEmNY6zx",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5890,7 +6057,7 @@ end
 @object.holocene_events << result
 result = Chapter.create({:name => "Crisis of the Third Century ",
 :position =>chapter_index,
-:slug => "sktaw49UuG",
+:slug => "BfhJ1LgY5X",
 :book => @book,
 :body => "<p>
 Perhaps one the most enduring mysteries of the Roman empire, the crisis of the Third Century has been difficult to explain in terms of the standard dynamics of culture.  
@@ -5900,9 +6067,9 @@ What lead to such a crisis?
 A non-cultural explanation is that the explosion of the Taupo volcano around 180 AD in the southern hemisphere lead to a hemispheric winter in Africa which caused the various peoples to migrate northward seeks subsistence.  
 This migration eventually lead the Mauri people to invade southern Spain conquering the Rio Tinto area and its mine.
 </p><p>
-Rio Tinto was the pay master of the Roman empire.  
-While the output in gold was not significant, the silver was the stable pay of the Army.  
-With its loss, the pay was made up from other areas of the empire eventually leading to the devaluation of the Demare and the eventually collapse of the tax system resulting in the Army's revolt in 235 AD.
+Rio Tinto was the stability of the Roman empire.  
+While the output in gold was not significant, the silver was the stable income to pay for bread and curcuses.  
+With its loss, the pay was made up from other areas of the empire eventually leading to the devaluation of the Demare and the eventually collapse of the tax system resulting in the Army's revolt in 235 AD.  The silver being used to pay both bread and curcuses and the army was streatched too thin.
 </p><p>
 The 'Crisis of the Third Century' resulted in the lost of safe passage along the Roman highway, the most amazing feat of the Roman world.  
 The roads systems allowed the common Roman the ability to travel over a large range of the empire without fear of out and out banditry.  
@@ -5927,7 +6094,7 @@ result = HoloceneEvent.create({:name => "Romans Arrive at Rio Tinto ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "pr7jsTsAn8",
+:slug => "JcAzswcczC",
 :start_year_uncert => "",
 :start_year => "-206"
 })
@@ -5942,7 +6109,7 @@ res = result[0].update_attributes({:name => "Romans Arrive at Rio Tinto ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "pr7jsTsAn8",
+:slug => "JcAzswcczC",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -5969,7 +6136,7 @@ Striping the value from the coin lead to economic unrest resulting in the Crisis
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "Mn8HJEr3ma",
+:slug => "S7gEBTd5X5",
 :start_year_uncert => "",
 :start_year => "165"
 })
@@ -5989,7 +6156,7 @@ Striping the value from the coin lead to economic unrest resulting in the Crisis
 :event_types => [ @epidemic ],
 :region => @europe,
 :image => "",
-:slug => "Mn8HJEr3ma",
+:slug => "S7gEBTd5X5",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6011,7 +6178,7 @@ result = HoloceneEvent.create({:name => "Taupo, New Zealand VEI 7 ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "DKRjc2AnWC",
+:slug => "Tqb2FynE4T",
 :start_year_uncert => "",
 :start_year => "180"
 })
@@ -6026,7 +6193,7 @@ res = result[0].update_attributes({:name => "Taupo, New Zealand VEI 7 ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "DKRjc2AnWC",
+:slug => "Tqb2FynE4T",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6052,7 +6219,7 @@ The Mauri conquered the area when the Roman army contracted due to the plague of
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "Hu8GZtV7Qe",
+:slug => "ScAzmfBzy8",
 :start_year_uncert => "",
 :start_year => "180"
 })
@@ -6071,7 +6238,7 @@ The Mauri conquered the area when the Roman army contracted due to the plague of
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "Hu8GZtV7Qe",
+:slug => "ScAzmfBzy8",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6098,7 +6265,7 @@ The disappearance of consistent trade goods lead many land owners to create mano
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "w8y6QSTtTv",
+:slug => "9xTQM1x5JP",
 :start_year_uncert => "",
 :start_year => "284"
 })
@@ -6118,7 +6285,7 @@ The disappearance of consistent trade goods lead many land owners to create mano
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "w8y6QSTtTv",
+:slug => "9xTQM1x5JP",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6142,7 +6309,7 @@ Several smaller volcanic eruptions about this time may have lead to the Age of M
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "pRszdjd9PB",
+:slug => "PXK5d0xCz6",
 :start_year_uncert => "",
 :start_year => "300"
 })
@@ -6159,7 +6326,7 @@ Several smaller volcanic eruptions about this time may have lead to the Age of M
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "pRszdjd9PB",
+:slug => "PXK5d0xCz6",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6181,7 +6348,7 @@ result = HoloceneEvent.create({:name => "Constantine I - Law reaffirming Coloni(
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "4fz43xmxm6",
+:slug => "DqxWgns5Qx",
 :start_year_uncert => "",
 :start_year => "325"
 })
@@ -6196,7 +6363,7 @@ res = result[0].update_attributes({:name => "Constantine I - Law reaffirming Col
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "4fz43xmxm6",
+:slug => "DqxWgns5Qx",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6218,7 +6385,7 @@ result = HoloceneEvent.create({:name => "Huns force Goths into Roman Empire ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "vdtpUp8jKD",
+:slug => "xm0LwgMLpx",
 :start_year_uncert => "",
 :start_year => "376"
 })
@@ -6233,7 +6400,7 @@ res = result[0].update_attributes({:name => "Huns force Goths into Roman Empire 
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "vdtpUp8jKD",
+:slug => "xm0LwgMLpx",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6246,7 +6413,7 @@ end
 @object.holocene_events << result
 result = Chapter.create({:name => "Arthur and The Justian Plague ",
 :position =>chapter_index,
-:slug => "JeypZpFB2h",
+:slug => "XN13HhNZkq",
 :book => @book,
 :body => "<p>
 The cold period lasted 9 years in the tree ring records.
@@ -6283,7 +6450,7 @@ The fifth year, the whole Anglo-Saxon presence would have been looking to find a
 :image => "",
 :url => "https://en.wikipedia.org/wiki/battle_of_badon",
 :user_id => @user.id,
-:slug => "cvCN1Cga1y",
+:slug => "8j2uDnarrT",
 :start_year_uncert => "",
 :start_year => "516"
 })
@@ -6308,7 +6475,7 @@ The fifth year, the whole Anglo-Saxon presence would have been looking to find a
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "cvCN1Cga1y",
+:slug => "8j2uDnarrT",
 :url => "https://en.wikipedia.org/wiki/battle_of_badon",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6330,7 +6497,7 @@ result = HoloceneEvent.create({:name => "535, Mar 24- 536, Jun 24 AD -  Year of 
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "UDjk490G4s",
+:slug => "CuS8utr3r9",
 :start_year_uncert => "",
 :start_year => "535"
 })
@@ -6345,7 +6512,7 @@ res = result[0].update_attributes({:name => "535, Mar 24- 536, Jun 24 AD -  Year
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "UDjk490G4s",
+:slug => "CuS8utr3r9",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6367,7 +6534,7 @@ result = HoloceneEvent.create({:name => "Year of Darkness - global winter ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "Hru4Pr7DHu",
+:slug => "dNDTsBfJt7",
 :start_year_uncert => "",
 :start_year => "535"
 })
@@ -6382,7 +6549,7 @@ res = result[0].update_attributes({:name => "Year of Darkness - global winter ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "Hru4Pr7DHu",
+:slug => "dNDTsBfJt7",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6404,7 +6571,7 @@ result = HoloceneEvent.create({:name => "Year of Darkness - total weather affect
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "Nr78cwDVA0",
+:slug => "JYwmBEF0rh",
 :start_year_uncert => "",
 :start_year => "535"
 })
@@ -6419,7 +6586,7 @@ res = result[0].update_attributes({:name => "Year of Darkness - total weather af
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "Nr78cwDVA0",
+:slug => "JYwmBEF0rh",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6444,7 +6611,7 @@ The '[and there was death in Britain and Ireland]' ties the death of Arthur to t
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "E670FB0aMD",
+:slug => "8yPzPe2pFp",
 :start_year_uncert => "",
 :start_year => "537"
 })
@@ -6462,7 +6629,7 @@ The '[and there was death in Britain and Ireland]' ties the death of Arthur to t
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "E670FB0aMD",
+:slug => "8yPzPe2pFp",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6484,7 +6651,7 @@ result = HoloceneEvent.create({:name => "Failure of Bread",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "zEBdhBHzSS",
+:slug => "zFmUcURDxs",
 :start_year_uncert => "",
 :start_year => "535"
 })
@@ -6499,7 +6666,7 @@ res = result[0].update_attributes({:name => "Failure of Bread",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "zEBdhBHzSS",
+:slug => "zFmUcURDxs",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6523,7 +6690,7 @@ result = HoloceneEvent.create({:name => "Failure of Bread",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "yRw3jc8W7R",
+:slug => "60BDzV6n3T",
 :start_year_uncert => "",
 :start_year => "539"
 })
@@ -6538,7 +6705,7 @@ res = result[0].update_attributes({:name => "Failure of Bread",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "yRw3jc8W7R",
+:slug => "60BDzV6n3T",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6562,7 +6729,7 @@ result = HoloceneEvent.create({:name => "Failure of Bread",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "jLZXQGN46s",
+:slug => "rq2QdEDSHj",
 :start_year_uncert => "",
 :start_year => "540"
 })
@@ -6577,7 +6744,7 @@ res = result[0].update_attributes({:name => "Failure of Bread",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "jLZXQGN46s",
+:slug => "rq2QdEDSHj",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6601,7 +6768,7 @@ result = HoloceneEvent.create({:name => "Justian Plague.  Second Occurrence of P
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "0UtgUFhmvq",
+:slug => "7U27n07MYx",
 :start_year_uncert => "",
 :start_year => "541"
 })
@@ -6616,7 +6783,7 @@ res = result[0].update_attributes({:name => "Justian Plague.  Second Occurrence 
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "0UtgUFhmvq",
+:slug => "7U27n07MYx",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6629,7 +6796,7 @@ end
 @object.holocene_events << result
 result = Chapter.create({:name => "The Little Ice Age ",
 :position =>chapter_index,
-:slug => "bnkJdaVGWe",
+:slug => "DH1wM3bKYB",
 :book => @book,
 :body => "<p>
 Recent research has provided a model under which an explanation of the Little Ice Age can be explained.  
@@ -6654,7 +6821,7 @@ result = HoloceneEvent.create({:name => "The Little Ice Age ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "7fxfxRWMW7",
+:slug => "FamKQQVfN6",
 :start_year_uncert => "",
 :start_year => "1253"
 })
@@ -6669,7 +6836,7 @@ res = result[0].update_attributes({:name => "The Little Ice Age ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "7fxfxRWMW7",
+:slug => "FamKQQVfN6",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6691,7 +6858,7 @@ result = HoloceneEvent.create({:name => "Little Ice Age starts with a series of 
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "zDUeaGemeE",
+:slug => "VFVLjhjndj",
 :start_year_uncert => "",
 :start_year => "1253"
 })
@@ -6706,7 +6873,7 @@ res = result[0].update_attributes({:name => "Little Ice Age starts with a series
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "zDUeaGemeE",
+:slug => "VFVLjhjndj",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6728,7 +6895,7 @@ result = HoloceneEvent.create({:name => "Beginning of Little Ice Age ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "huGNBPbJh3",
+:slug => "JNwhTDDw0f",
 :start_year_uncert => "",
 :start_year => "1550"
 })
@@ -6743,7 +6910,7 @@ res = result[0].update_attributes({:name => "Beginning of Little Ice Age ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "huGNBPbJh3",
+:slug => "JNwhTDDw0f",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6765,7 +6932,7 @@ result = HoloceneEvent.create({:name => "First Cold Point of Little Ice Age ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "h0deL4LezR",
+:slug => "HdgVHzXrsv",
 :start_year_uncert => "",
 :start_year => "1650"
 })
@@ -6780,7 +6947,7 @@ res = result[0].update_attributes({:name => "First Cold Point of Little Ice Age 
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "h0deL4LezR",
+:slug => "HdgVHzXrsv",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6802,7 +6969,7 @@ result = HoloceneEvent.create({:name => "Second Cold Point of Little Ice Age ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "krHcjPF7JT",
+:slug => "MB37y23Mj9",
 :start_year_uncert => "",
 :start_year => "1770"
 })
@@ -6817,7 +6984,7 @@ res = result[0].update_attributes({:name => "Second Cold Point of Little Ice Age
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "krHcjPF7JT",
+:slug => "MB37y23Mj9",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6839,7 +7006,7 @@ result = HoloceneEvent.create({:name => "Laki Eruption, Grimsvotn Volanco, Icela
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "azQggKnZHE",
+:slug => "yaCTj9t0BS",
 :start_year_uncert => "",
 :start_year => "1783"
 })
@@ -6854,7 +7021,7 @@ res = result[0].update_attributes({:name => "Laki Eruption, Grimsvotn Volanco, I
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "azQggKnZHE",
+:slug => "yaCTj9t0BS",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6876,7 +7043,7 @@ result = HoloceneEvent.create({:name => "Third Cold Point of the Little Ice Age 
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "N3UAygyW49",
+:slug => "0kZr9bv22a",
 :start_year_uncert => "",
 :start_year => "1850"
 })
@@ -6891,7 +7058,7 @@ res = result[0].update_attributes({:name => "Third Cold Point of the Little Ice 
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "N3UAygyW49",
+:slug => "0kZr9bv22a",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6904,7 +7071,7 @@ end
 @object.holocene_events << result
 result = Chapter.create({:name => "Bond Event 0 ",
 :position =>chapter_index,
-:slug => "fUSGTpNGYz",
+:slug => "HN19rw6g35",
 :book => @book,
 :body => "<p>
  
@@ -6916,7 +7083,7 @@ chapter_index += 1
 section_index = 0
 result = Chapter.create({:name => "Cultural Events ",
 :position =>chapter_index,
-:slug => "eLxu1M3e5L",
+:slug => "0rYrwHWBMb",
 :book => @book,
 :body => "<p>Events caused by Man or happeded to Mankind.
 </p>"
@@ -6930,6 +7097,117 @@ res = Partition.create({
 @chapter = result
 chapter_index += 1
 section_index = 0
+result = HoloceneEvent.where(:name => "Joshua  ", :start_year => -1485)
+if result.length == 0
+result = HoloceneEvent.create({:name => "Joshua  ",
+:end_year => "-1375",
+:body => "",
+:tag_list => [],
+:event_types => [  @cultural ] ,
+:region => @neareast,
+:image => "",
+:url => "https://en.wikipedia.org/wiki/battle_of_jericho",
+:user_id => @user.id,
+:slug => "XznSUuAKRB",
+:start_year_uncert => "",
+:start_year => "-1485"
+})
+@timeline.holocene_events << result
+@cultural_timeline.holocene_events << result
+else
+if result[0].body ==""
+res = result[0].update_attributes({:name => "Joshua  ",
+:end_year => "-1375",
+:body => "",
+:tag_list => [],
+:event_types => [ @cultural ],
+:region => @neareast,
+:image => "",
+:slug => "XznSUuAKRB",
+:url => "https://en.wikipedia.org/wiki/battle_of_jericho",
+:user_id => @user.id,
+:start_year_uncert => "",
+:start_year => "-1485"
+})
+debugger if res.nil?
+result = result[0]
+end
+end
+@object.holocene_events << result
+result = HoloceneEvent.where(:name => "Mureybet ", :start_year => -10200)
+if result.length == 0
+result = HoloceneEvent.create({:name => "Mureybet ",
+:end_year => "-8000",
+:body => "",
+:tag_list => [],
+:event_types => [  @cultural ] ,
+:region => @neareast,
+:image => "",
+:url => "https://en.wikipedia.org/wiki/mureybet",
+:user_id => @user.id,
+:slug => "j7rvfRZNRY",
+:start_year_uncert => "",
+:start_year => "-10200"
+})
+@timeline.holocene_events << result
+@cultural_timeline.holocene_events << result
+else
+if result[0].body ==""
+res = result[0].update_attributes({:name => "Mureybet ",
+:end_year => "-8000",
+:body => "",
+:tag_list => [],
+:event_types => [ @cultural ],
+:region => @neareast,
+:image => "",
+:slug => "j7rvfRZNRY",
+:url => "https://en.wikipedia.org/wiki/mureybet",
+:user_id => @user.id,
+:start_year_uncert => "",
+:start_year => "-10200"
+})
+debugger if res.nil?
+result = result[0]
+end
+end
+@object.holocene_events << result
+result = HoloceneEvent.where(:name => "Çayönü ", :start_year => -7200)
+if result.length == 0
+result = HoloceneEvent.create({:name => "Çayönü ",
+:end_year => "-6600",
+:body => "",
+:tag_list => [],
+:event_types => [  @cultural ] ,
+:region => @neareast,
+:image => "",
+:url => "https://en.wikipedia.org/wiki/%c3%87ay%c3%b6n%c3%bc",
+:user_id => @user.id,
+:slug => "fGvvFxgy6p",
+:start_year_uncert => "",
+:start_year => "-7200"
+})
+@timeline.holocene_events << result
+@cultural_timeline.holocene_events << result
+else
+if result[0].body ==""
+res = result[0].update_attributes({:name => "Çayönü ",
+:end_year => "-6600",
+:body => "",
+:tag_list => [],
+:event_types => [ @cultural ],
+:region => @neareast,
+:image => "",
+:slug => "fGvvFxgy6p",
+:url => "https://en.wikipedia.org/wiki/%c3%87ay%c3%b6n%c3%bc",
+:user_id => @user.id,
+:start_year_uncert => "",
+:start_year => "-7200"
+})
+debugger if res.nil?
+result = result[0]
+end
+end
+@object.holocene_events << result
 result = HoloceneEvent.where(:name => "Sweet Track in Britian ", :start_year => -3807)
 if result.length == 0
 result = HoloceneEvent.create({:name => "Sweet Track in Britian ",
@@ -6942,7 +7220,7 @@ result = HoloceneEvent.create({:name => "Sweet Track in Britian ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "8chfyZjb1E",
+:slug => "r2bP1psmgY",
 :start_year_uncert => "",
 :start_year => "-3807"
 })
@@ -6958,7 +7236,7 @@ res = result[0].update_attributes({:name => "Sweet Track in Britian ",
 :event_types => [ @cultural ],
 :region => @europe,
 :image => "",
-:slug => "8chfyZjb1E",
+:slug => "r2bP1psmgY",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -6981,7 +7259,7 @@ result = HoloceneEvent.create({:name => "Galen ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "MD6Ze7U938",
+:slug => "7AXTSNumZX",
 :start_year_uncert => "",
 :start_year => "216"
 })
@@ -6997,7 +7275,7 @@ res = result[0].update_attributes({:name => "Galen ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "MD6Ze7U938",
+:slug => "7AXTSNumZX",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7019,7 +7297,7 @@ result = HoloceneEvent.create({:name => "Measles emerges as an infectious diseas
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "S9c4S2ULse",
+:slug => "019sA2mKsX",
 :start_year_uncert => "",
 :start_year => "500"
 })
@@ -7034,7 +7312,7 @@ res = result[0].update_attributes({:name => "Measles emerges as an infectious di
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "S9c4S2ULse",
+:slug => "019sA2mKsX",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7057,7 +7335,7 @@ result = HoloceneEvent.create({:name => "Persian physician Rhazes 860–932 ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "wkENB0RrWh",
+:slug => "Z9ZgEAkZaP",
 :start_year_uncert => "",
 :start_year => "932"
 })
@@ -7073,7 +7351,7 @@ res = result[0].update_attributes({:name => "Persian physician Rhazes 860–932 
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "wkENB0RrWh",
+:slug => "Z9ZgEAkZaP",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7097,7 +7375,7 @@ Plato, Laws, Book III.
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "2nYVqP1A78",
+:slug => "TNGVX4VELM",
 :start_year_uncert => "",
 :start_year => "-9600"
 })
@@ -7114,7 +7392,7 @@ Plato, Laws, Book III.
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "2nYVqP1A78",
+:slug => "TNGVX4VELM",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7136,7 +7414,7 @@ result = HoloceneEvent.create({:name => "Chickens reached Europe ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "GDv29k5wYY",
+:slug => "nt8MmE0knY",
 :start_year_uncert => "",
 :start_year => "-3000"
 })
@@ -7151,7 +7429,7 @@ res = result[0].update_attributes({:name => "Chickens reached Europe ",
 :event_types => [ @cultural ],
 :region => @europe,
 :image => "",
-:slug => "GDv29k5wYY",
+:slug => "nt8MmE0knY",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7173,7 +7451,7 @@ result = HoloceneEvent.create({:name => "Chickens reached Syria ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "8WtKnzctfR",
+:slug => "CS5DVAzwFD",
 :start_year_uncert => "",
 :start_year => "-2000"
 })
@@ -7188,7 +7466,7 @@ res = result[0].update_attributes({:name => "Chickens reached Syria ",
 :event_types => [ @cultural ],
 :region => @middleeast,
 :image => "",
-:slug => "8WtKnzctfR",
+:slug => "CS5DVAzwFD",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7210,7 +7488,7 @@ result = HoloceneEvent.create({:name => "Chickens reached Egypt ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "QsYtXX13uB",
+:slug => "CrnEVqguNt",
 :start_year_uncert => "",
 :start_year => "-1400"
 })
@@ -7225,7 +7503,7 @@ res = result[0].update_attributes({:name => "Chickens reached Egypt ",
 :event_types => [ @cultural ],
 :region => @middleeast,
 :image => "",
-:slug => "QsYtXX13uB",
+:slug => "CrnEVqguNt",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7247,7 +7525,7 @@ result = HoloceneEvent.create({:name => "China/Harappan origins of Chickens ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "4BxxRQDAx0",
+:slug => "HBa3BFbLQ7",
 :start_year_uncert => "",
 :start_year => "-6000"
 })
@@ -7262,7 +7540,7 @@ res = result[0].update_attributes({:name => "China/Harappan origins of Chickens 
 :event_types => [ @cultural ],
 :region => @fareast,
 :image => "",
-:slug => "4BxxRQDAx0",
+:slug => "HBa3BFbLQ7",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7284,7 +7562,7 @@ result = HoloceneEvent.create({:name => "Signs of Tuberculosis in humans ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "Wz0X4BMYwk",
+:slug => "djcru6uXJ8",
 :start_year_uncert => "",
 :start_year => "-4000"
 })
@@ -7299,7 +7577,7 @@ res = result[0].update_attributes({:name => "Signs of Tuberculosis in humans ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "Wz0X4BMYwk",
+:slug => "djcru6uXJ8",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7321,7 +7599,7 @@ result = HoloceneEvent.create({:name => "Tubercular decay in the spines of Egypt
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "upuM3fD5f9",
+:slug => "Cb0J6NyyMJ",
 :start_year_uncert => "",
 :start_year => "-3000"
 })
@@ -7336,7 +7614,7 @@ res = result[0].update_attributes({:name => "Tubercular decay in the spines of E
 :event_types => [ @cultural ],
 :region => @middleeast,
 :image => "",
-:slug => "upuM3fD5f9",
+:slug => "Cb0J6NyyMJ",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7358,7 +7636,7 @@ result = HoloceneEvent.create({:name => "One in four deaths in England was due t
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "pf1BYVfjHh",
+:slug => "jfcCRwDmCC",
 :start_year_uncert => "",
 :start_year => "1815"
 })
@@ -7373,7 +7651,7 @@ res = result[0].update_attributes({:name => "One in four deaths in England was d
 :event_types => [ @cultural ],
 :region => @europe,
 :image => "",
-:slug => "pf1BYVfjHh",
+:slug => "jfcCRwDmCC",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7395,7 +7673,7 @@ result = HoloceneEvent.create({:name => "Oldest skeletal evidence for Leprosy ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "hHqt4ngkKs",
+:slug => "1cD3CWtKr4",
 :start_year_uncert => "",
 :start_year => "-2000"
 })
@@ -7410,7 +7688,7 @@ res = result[0].update_attributes({:name => "Oldest skeletal evidence for Lepros
 :event_types => [ @cultural ],
 :region => @eurasia,
 :image => "",
-:slug => "hHqt4ngkKs",
+:slug => "1cD3CWtKr4",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7432,7 +7710,7 @@ result = HoloceneEvent.create({:name => "Leprosy probably did not exist in Greec
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "cHhVGaG42P",
+:slug => "1CrN4HZUtg",
 :start_year_uncert => "",
 :start_year => "1"
 })
@@ -7447,7 +7725,7 @@ res = result[0].update_attributes({:name => "Leprosy probably did not exist in G
 :event_types => [ @cultural ],
 :region => @neareast,
 :image => "",
-:slug => "cHhVGaG42P",
+:slug => "1CrN4HZUtg",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7469,7 +7747,7 @@ result = HoloceneEvent.create({:name => "Hippocrates describes Leprosy ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "MznK97bX2M",
+:slug => "m9NDeUxrN3",
 :start_year_uncert => "",
 :start_year => "-460"
 })
@@ -7484,7 +7762,7 @@ res = result[0].update_attributes({:name => "Hippocrates describes Leprosy ",
 :event_types => [ @cultural ],
 :region => @europe,
 :image => "",
-:slug => "MznK97bX2M",
+:slug => "m9NDeUxrN3",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7506,7 +7784,7 @@ result = HoloceneEvent.create({:name => "Pigs were domesticated from wild boar "
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "uFYcbgJqBW",
+:slug => "vGT0N7eJZ4",
 :start_year_uncert => "",
 :start_year => "-12700"
 })
@@ -7521,7 +7799,7 @@ res = result[0].update_attributes({:name => "Pigs were domesticated from wild bo
 :event_types => [ @cultural ],
 :region => @neareast,
 :image => "",
-:slug => "uFYcbgJqBW",
+:slug => "vGT0N7eJZ4",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7543,7 +7821,7 @@ result = HoloceneEvent.create({:name => "Domestication of Horses ",
 :image => "",
 :url => "https://en.wikipedia.org/wiki/domestication_of_the_horse",
 :user_id => @user.id,
-:slug => "Mqzwvr7xHG",
+:slug => "r5daLMyDwB",
 :start_year_uncert => "",
 :start_year => "-3500"
 })
@@ -7558,7 +7836,7 @@ res = result[0].update_attributes({:name => "Domestication of Horses ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "Mqzwvr7xHG",
+:slug => "r5daLMyDwB",
 :url => "https://en.wikipedia.org/wiki/domestication_of_the_horse",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7580,7 +7858,7 @@ result = HoloceneEvent.create({:name => "Dog buried inside of human dwellings ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "H0cLj2SzkF",
+:slug => "WN6d13jF9Q",
 :start_year_uncert => "",
 :start_year => "-12700"
 })
@@ -7595,7 +7873,7 @@ res = result[0].update_attributes({:name => "Dog buried inside of human dwelling
 :event_types => [ @cultural ],
 :region => @eurasia,
 :image => "",
-:slug => "H0cLj2SzkF",
+:slug => "WN6d13jF9Q",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7618,7 +7896,7 @@ result = HoloceneEvent.create({:name => "Two distinct dog branches - East and We
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "twhWKF0GNA",
+:slug => "0EGWdqDf8p",
 :start_year_uncert => "",
 :start_year => "-12000"
 })
@@ -7634,7 +7912,7 @@ res = result[0].update_attributes({:name => "Two distinct dog branches - East an
 :event_types => [ @cultural ],
 :region => @eurasia,
 :image => "",
-:slug => "twhWKF0GNA",
+:slug => "0EGWdqDf8p",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7656,7 +7934,7 @@ result = HoloceneEvent.create({:name => "Domestication of Sheep ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "Yh01BxMEbk",
+:slug => "ZQFz5hsMYv",
 :start_year_uncert => "",
 :start_year => "-11000"
 })
@@ -7671,7 +7949,7 @@ res = result[0].update_attributes({:name => "Domestication of Sheep ",
 :event_types => [ @cultural ],
 :region => @neareast,
 :image => "",
-:slug => "Yh01BxMEbk",
+:slug => "ZQFz5hsMYv",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7693,7 +7971,7 @@ result = HoloceneEvent.create({:name => "Domestication of Goats ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "9tLCzseRVj",
+:slug => "F9nm7AuKyD",
 :start_year_uncert => "",
 :start_year => "-7000"
 })
@@ -7708,7 +7986,7 @@ res = result[0].update_attributes({:name => "Domestication of Goats ",
 :event_types => [ @cultural ],
 :region => @neareast,
 :image => "",
-:slug => "9tLCzseRVj",
+:slug => "F9nm7AuKyD",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7730,7 +8008,7 @@ result = HoloceneEvent.create({:name => "Domestication of Cats ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "fMePTcrWSV",
+:slug => "DJx3hTHAtn",
 :start_year_uncert => "",
 :start_year => "-7500"
 })
@@ -7745,7 +8023,7 @@ res = result[0].update_attributes({:name => "Domestication of Cats ",
 :event_types => [ @cultural ],
 :region => @neareast,
 :image => "",
-:slug => "fMePTcrWSV",
+:slug => "DJx3hTHAtn",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7771,7 +8049,7 @@ it where conditions seemed right creating true agriculture.
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "zQSj6atdr3",
+:slug => "juEpE8aVPM",
 :start_year_uncert => "",
 :start_year => "-12000"
 })
@@ -7790,7 +8068,7 @@ it where conditions seemed right creating true agriculture.
 :event_types => [ @cultural ],
 :region => @eurasia,
 :image => "",
-:slug => "zQSj6atdr3",
+:slug => "juEpE8aVPM",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7814,7 +8092,7 @@ The first cultivation was in the Levant.
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "KSyE6zUhtV",
+:slug => "eBH8V4JCA8",
 :start_year_uncert => "",
 :start_year => "-9500"
 })
@@ -7831,7 +8109,7 @@ The first cultivation was in the Levant.
 :event_types => [ @cultural ],
 :region => @neareast,
 :image => "",
-:slug => "KSyE6zUhtV",
+:slug => "eBH8V4JCA8",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7855,7 +8133,7 @@ The survivors went to Gobekli Tepe.
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "vXzQLKKKBx",
+:slug => "VpB9ueBXQm",
 :start_year_uncert => "",
 :start_year => "-9600"
 })
@@ -7872,7 +8150,7 @@ The survivors went to Gobekli Tepe.
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "vXzQLKKKBx",
+:slug => "VpB9ueBXQm",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7894,7 +8172,7 @@ result = HoloceneEvent.create({:name => "Battle of Kedesh ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "dYMrFRrtFk",
+:slug => "US1b7WkpNg",
 :start_year_uncert => "",
 :start_year => "-1274"
 })
@@ -7909,7 +8187,7 @@ res = result[0].update_attributes({:name => "Battle of Kedesh ",
 :event_types => [ @cultural ],
 :region => @middleeast,
 :image => "",
-:slug => "dYMrFRrtFk",
+:slug => "US1b7WkpNg",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7931,7 +8209,7 @@ result = HoloceneEvent.create({:name => "The Clovis Comet ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "DYs6uq0bBT",
+:slug => "rW9q6Tkqjg",
 :start_year_uncert => "",
 :start_year => "-10900"
 })
@@ -7946,7 +8224,7 @@ res = result[0].update_attributes({:name => "The Clovis Comet ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "DYs6uq0bBT",
+:slug => "rW9q6Tkqjg",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -7974,7 +8252,7 @@ A group remembrance of this would have lead to recreations of such an event with
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "NJs8ppVttE",
+:slug => "cUZvCXSN4n",
 :start_year_uncert => "",
 :start_year => "-9600"
 })
@@ -7995,7 +8273,7 @@ A group remembrance of this would have lead to recreations of such an event with
 :event_types => [ @cultural ],
 :region => @neareast,
 :image => "",
-:slug => "NJs8ppVttE",
+:slug => "cUZvCXSN4n",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8017,7 +8295,7 @@ result = HoloceneEvent.create({:name => "Domestication of Cows ",
 :image => "",
 :url => "https://en.wikipedia.org/wiki/cattle",
 :user_id => @user.id,
-:slug => "J38UPurSt9",
+:slug => "p8Z9HvJTHd",
 :start_year_uncert => "",
 :start_year => "-9500"
 })
@@ -8032,7 +8310,7 @@ res = result[0].update_attributes({:name => "Domestication of Cows ",
 :event_types => [ @cultural ],
 :region => @neareast,
 :image => "",
-:slug => "J38UPurSt9",
+:slug => "p8Z9HvJTHd",
 :url => "https://en.wikipedia.org/wiki/cattle",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8054,7 +8332,7 @@ result = HoloceneEvent.create({:name => "Gobekli Tepe - level II ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "DCMZaxhsPc",
+:slug => "XcPDwcRNG8",
 :start_year_uncert => "",
 :start_year => "-8800"
 })
@@ -8069,7 +8347,7 @@ res = result[0].update_attributes({:name => "Gobekli Tepe - level II ",
 :event_types => [ @cultural ],
 :region => @neareast,
 :image => "",
-:slug => "DCMZaxhsPc",
+:slug => "XcPDwcRNG8",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8091,7 +8369,7 @@ result = HoloceneEvent.create({:name => "Flood of Dardanus ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "g7qj7w2QEk",
+:slug => "v9Arz9FT5q",
 :start_year_uncert => "",
 :start_year => "-8500"
 })
@@ -8106,7 +8384,7 @@ res = result[0].update_attributes({:name => "Flood of Dardanus ",
 :event_types => [ @cultural ],
 :region => @europe,
 :image => "",
-:slug => "g7qj7w2QEk",
+:slug => "v9Arz9FT5q",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8128,7 +8406,7 @@ result = HoloceneEvent.create({:name => "Beginnings of grain agriculture ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "tvfyCXLU8J",
+:slug => "Fymjbxvmsv",
 :start_year_uncert => "",
 :start_year => "-8300"
 })
@@ -8143,7 +8421,7 @@ res = result[0].update_attributes({:name => "Beginnings of grain agriculture ",
 :event_types => [ @cultural ],
 :region => @neareast,
 :image => "",
-:slug => "tvfyCXLU8J",
+:slug => "Fymjbxvmsv",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8165,7 +8443,7 @@ result = HoloceneEvent.create({:name => "Gobekli Tepe - level I ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "7HPrsQCazL",
+:slug => "Xwhh2NpgDk",
 :start_year_uncert => "",
 :start_year => "-8000"
 })
@@ -8180,7 +8458,7 @@ res = result[0].update_attributes({:name => "Gobekli Tepe - level I ",
 :event_types => [ @cultural ],
 :region => @neareast,
 :image => "",
-:slug => "7HPrsQCazL",
+:slug => "Xwhh2NpgDk",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8202,7 +8480,7 @@ result = HoloceneEvent.create({:name => "Monolith worked on at submerged site so
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "uuQjFqEmvt",
+:slug => "jTKWGgbt9y",
 :start_year_uncert => "",
 :start_year => "-7350"
 })
@@ -8217,7 +8495,7 @@ res = result[0].update_attributes({:name => "Monolith worked on at submerged sit
 :event_types => [ @cultural ],
 :region => @europe,
 :image => "",
-:slug => "uuQjFqEmvt",
+:slug => "jTKWGgbt9y",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8240,7 +8518,7 @@ result = HoloceneEvent.create({:name => "Nevali Cori ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "P0kDR8j3rU",
+:slug => "471PTB2SF6",
 :start_year_uncert => "",
 :start_year => "-8400"
 })
@@ -8256,7 +8534,7 @@ res = result[0].update_attributes({:name => "Nevali Cori ",
 :event_types => [ @cultural ],
 :region => @neareast,
 :image => "",
-:slug => "P0kDR8j3rU",
+:slug => "471PTB2SF6",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8278,7 +8556,7 @@ result = HoloceneEvent.create({:name => "Çayönü Tepesi ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "JkdN44AfJL",
+:slug => "Em8x01QbZv",
 :start_year_uncert => "",
 :start_year => "-7200"
 })
@@ -8293,7 +8571,7 @@ res = result[0].update_attributes({:name => "Çayönü Tepesi ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "JkdN44AfJL",
+:slug => "Em8x01QbZv",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8317,7 +8595,7 @@ is modified by later dynasties to resemble man instead of a lion.
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "RYVYXmHLwg",
+:slug => "224rT3NfcQ",
 :start_year_uncert => "",
 :start_year => "-10500"
 })
@@ -8334,7 +8612,7 @@ is modified by later dynasties to resemble man instead of a lion.
 :event_types => [ @cultural ],
 :region => @middleeast,
 :image => "",
-:slug => "RYVYXmHLwg",
+:slug => "224rT3NfcQ",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8358,7 +8636,7 @@ I would content that Noah's flood was a major cause of the erosion.
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "J2HXT1QYvb",
+:slug => "HAAAK7Vzyu",
 :start_year_uncert => "",
 :start_year => "-3000"
 })
@@ -8375,7 +8653,7 @@ I would content that Noah's flood was a major cause of the erosion.
 :event_types => [ @cultural ],
 :region => @middleeast,
 :image => "",
-:slug => "J2HXT1QYvb",
+:slug => "HAAAK7Vzyu",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8397,7 +8675,7 @@ result = HoloceneEvent.create({:name => "First Ocean going boats ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "0QptPnWckP",
+:slug => "rG1jHGsQPN",
 :start_year_uncert => "",
 :start_year => "-5000"
 })
@@ -8412,7 +8690,7 @@ res = result[0].update_attributes({:name => "First Ocean going boats ",
 :event_types => [ @cultural ],
 :region => @eurasia,
 :image => "",
-:slug => "0QptPnWckP",
+:slug => "rG1jHGsQPN",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8437,7 +8715,7 @@ Rio Tinto was mined by Neolithic man starting at least 3,000 BC.  A stone hoe wa
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "pL4tWBQEba",
+:slug => "Ty7Qk2vWdw",
 :start_year_uncert => "",
 :start_year => "-3000"
 })
@@ -8455,7 +8733,7 @@ Rio Tinto was mined by Neolithic man starting at least 3,000 BC.  A stone hoe wa
 :event_types => [ @cultural ],
 :region => @europe,
 :image => "",
-:slug => "pL4tWBQEba",
+:slug => "Ty7Qk2vWdw",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8477,7 +8755,7 @@ result = HoloceneEvent.create({:name => "Start of Mayan Calendar ",
 :image => "",
 :url => "https://en.wikipedia.org/wiki/maya_calendar",
 :user_id => @user.id,
-:slug => "40uNU2evy2",
+:slug => "muEQQ2ufdG",
 :start_year_uncert => "",
 :start_year => "-3114"
 })
@@ -8492,7 +8770,7 @@ res = result[0].update_attributes({:name => "Start of Mayan Calendar ",
 :event_types => [ @cultural ],
 :region => @centralamerica,
 :image => "",
-:slug => "40uNU2evy2",
+:slug => "muEQQ2ufdG",
 :url => "https://en.wikipedia.org/wiki/maya_calendar",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8514,7 +8792,7 @@ result = HoloceneEvent.create({:name => "Rio Tinto Smelting recorded in Ice Core
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "hxpAxrkRM2",
+:slug => "Bsam8HFQcb",
 :start_year_uncert => "",
 :start_year => "-2475"
 })
@@ -8529,7 +8807,7 @@ res = result[0].update_attributes({:name => "Rio Tinto Smelting recorded in Ice 
 :event_types => [ @cultural ],
 :region => @europe,
 :image => "",
-:slug => "hxpAxrkRM2",
+:slug => "Bsam8HFQcb",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8553,7 +8831,7 @@ Rio Tinto was due to the deforestation of the surrounding areas.</p>",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "vdRpTmd1Ga",
+:slug => "69HzEBYTCu",
 :start_year_uncert => "",
 :start_year => "-2275"
 })
@@ -8570,7 +8848,7 @@ Rio Tinto was due to the deforestation of the surrounding areas.</p>",
 :event_types => [ @cultural ],
 :region => @europe,
 :image => "",
-:slug => "vdRpTmd1Ga",
+:slug => "69HzEBYTCu",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8592,7 +8870,7 @@ result = HoloceneEvent.create({:name => "Abraham - The first Monotheist ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "b7e4WrvSG5",
+:slug => "7yCnRSVhum",
 :start_year_uncert => "",
 :start_year => "-2166"
 })
@@ -8607,7 +8885,7 @@ res = result[0].update_attributes({:name => "Abraham - The first Monotheist ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "b7e4WrvSG5",
+:slug => "7yCnRSVhum",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8630,7 +8908,7 @@ Rio Tinto.</p>",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "LJrwJVE222",
+:slug => "Mvm8dJDnnU",
 :start_year_uncert => "",
 :start_year => "-1100"
 })
@@ -8646,7 +8924,7 @@ Rio Tinto.</p>",
 :event_types => [ @cultural ],
 :region => @europe,
 :image => "",
-:slug => "LJrwJVE222",
+:slug => "Mvm8dJDnnU",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8668,7 +8946,7 @@ result = HoloceneEvent.create({:name => "Leather Bellows ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "9jk5wxy2ew",
+:slug => "4sSFU5QZur",
 :start_year_uncert => "",
 :start_year => "-900"
 })
@@ -8683,7 +8961,7 @@ res = result[0].update_attributes({:name => "Leather Bellows ",
 :event_types => [ @cultural ],
 :region => @global,
 :image => "",
-:slug => "9jk5wxy2ew",
+:slug => "4sSFU5QZur",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8705,7 +8983,7 @@ result = HoloceneEvent.create({:name => "Rio Tinto as King Solomon\'s mines ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "3shuvuFUDu",
+:slug => "tqGLGpUMQD",
 :start_year_uncert => "",
 :start_year => "-971"
 })
@@ -8720,7 +8998,7 @@ res = result[0].update_attributes({:name => "Rio Tinto as King Solomon\'s mines 
 :event_types => [ @cultural ],
 :region => @europe,
 :image => "",
-:slug => "3shuvuFUDu",
+:slug => "tqGLGpUMQD",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8742,7 +9020,7 @@ result = HoloceneEvent.create({:name => "Solon ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "zkmdAEqB1q",
+:slug => "A5wgfymdLU",
 :start_year_uncert => "",
 :start_year => "-638"
 })
@@ -8757,7 +9035,7 @@ res = result[0].update_attributes({:name => "Solon ",
 :event_types => [ @cultural ],
 :region => @europe,
 :image => "",
-:slug => "zkmdAEqB1q",
+:slug => "A5wgfymdLU",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8779,7 +9057,7 @@ result = HoloceneEvent.create({:name => "Carthaginians Arrive at Rio Tinto ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "D0zJGq8h7M",
+:slug => "SzbHJjDfvG",
 :start_year_uncert => "",
 :start_year => "-535"
 })
@@ -8794,7 +9072,7 @@ res = result[0].update_attributes({:name => "Carthaginians Arrive at Rio Tinto "
 :event_types => [ @cultural ],
 :region => @europe,
 :image => "",
-:slug => "D0zJGq8h7M",
+:slug => "SzbHJjDfvG",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8818,7 +9096,7 @@ The Mishna describes grafting as a commonplace technique used to grow grapevines
 :image => "",
 :url => "https://en.wikipedia.org/wiki/grafting",
 :user_id => @user.id,
-:slug => "tEAPDZyAzJ",
+:slug => "5wG1gdhxF6",
 :start_year_uncert => "",
 :start_year => "-500"
 })
@@ -8835,7 +9113,7 @@ The Mishna describes grafting as a commonplace technique used to grow grapevines
 :event_types => [ @cultural ],
 :region => @middleeast,
 :image => "",
-:slug => "tEAPDZyAzJ",
+:slug => "5wG1gdhxF6",
 :url => "https://en.wikipedia.org/wiki/grafting",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8858,7 +9136,7 @@ Typhus appears amoung the Athenians.</p>",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "fkCQzNYw9L",
+:slug => "NkkvzXfg3w",
 :start_year_uncert => "",
 :start_year => "-430"
 })
@@ -8874,7 +9152,7 @@ Typhus appears amoung the Athenians.</p>",
 :event_types => [ @epidemic ],
 :region => @europe,
 :image => "",
-:slug => "fkCQzNYw9L",
+:slug => "NkkvzXfg3w",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8898,7 +9176,7 @@ Skara Brae is on the west coast of Mainland in the Orkney Isles off Scotland.  I
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "LX78upT2MV",
+:slug => "ehdMNApDcz",
 :start_year_uncert => "",
 :start_year => "-2200"
 })
@@ -8915,7 +9193,7 @@ Skara Brae is on the west coast of Mainland in the Orkney Isles off Scotland.  I
 :event_types => [ @cultural ],
 :region => @europe,
 :image => "",
-:slug => "LX78upT2MV",
+:slug => "ehdMNApDcz",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8938,7 +9216,7 @@ result = HoloceneEvent.create({:name => "Plague of Cyprian ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "YKVhBCUrtZ",
+:slug => "ycfQJSCFry",
 :start_year_uncert => "",
 :start_year => "251"
 })
@@ -8954,7 +9232,7 @@ res = result[0].update_attributes({:name => "Plague of Cyprian ",
 :event_types => [ @cultural,@epidemic ],
 :region => @africa,
 :image => "",
-:slug => "YKVhBCUrtZ",
+:slug => "ycfQJSCFry",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -8979,7 +9257,7 @@ Loss of complexity.
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "Tc24LMYxpJ",
+:slug => "gsWKbWHTC2",
 :start_year_uncert => "",
 :start_year => "600"
 })
@@ -8997,7 +9275,7 @@ Loss of complexity.
 :event_types => [ @cultural ],
 :region => @europe,
 :image => "",
-:slug => "Tc24LMYxpJ",
+:slug => "gsWKbWHTC2",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9019,7 +9297,7 @@ result = HoloceneEvent.create({:name => "End of Migration Period ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "v6Y5XYDb8S",
+:slug => "RPhD4UyyGu",
 :start_year_uncert => "",
 :start_year => "700"
 })
@@ -9034,7 +9312,7 @@ res = result[0].update_attributes({:name => "End of Migration Period ",
 :event_types => [ @cultural ],
 :region => @europe,
 :image => "",
-:slug => "v6Y5XYDb8S",
+:slug => "RPhD4UyyGu",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9056,7 +9334,7 @@ result = HoloceneEvent.create({:name => "The Great Famine ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "ghGxnfetdG",
+:slug => "GvqwzYeefj",
 :start_year_uncert => "",
 :start_year => "1315"
 })
@@ -9071,7 +9349,7 @@ res = result[0].update_attributes({:name => "The Great Famine ",
 :event_types => [ @cultural ],
 :region => @europe,
 :image => "",
-:slug => "ghGxnfetdG",
+:slug => "GvqwzYeefj",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9094,7 +9372,7 @@ result = HoloceneEvent.create({:name => "Black Death - The third occurance of Pl
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "K29q0uJxSb",
+:slug => "whseNTWAbR",
 :start_year_uncert => "",
 :start_year => "1347"
 })
@@ -9110,7 +9388,7 @@ res = result[0].update_attributes({:name => "Black Death - The third occurance o
 :event_types => [ @cultural,@epidemic ],
 :region => @europe,
 :image => "",
-:slug => "K29q0uJxSb",
+:slug => "whseNTWAbR",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9127,7 +9405,7 @@ biblio = Biblioentry.find_by_xreflabel("ziegler1969")
 Footnote.create(:slug => "", :body => "", :noted => result,:biblioentry_id => biblio.id)
 result = Chapter.create({:name => "Time line ",
 :position =>chapter_index,
-:slug => "sL1eaqGfbY",
+:slug => "3eN0vpbNCa",
 :book => @book,
 :body => "<p>Earth related events such as volcanic eruptions, earthquakes, tsunamis, impact events, etc.
 </p>"
@@ -9147,7 +9425,7 @@ result = HoloceneEvent.create({:name => "Electromagnetic storm from the Sun sets
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "YyKCzjHSTV",
+:slug => "C788XkkuzX",
 :start_year_uncert => "",
 :start_year => "1972"
 })
@@ -9162,7 +9440,7 @@ res = result[0].update_attributes({:name => "Electromagnetic storm from the Sun 
 :event_types => [ @earth ],
 :region => @southeastasia,
 :image => "",
-:slug => "YyKCzjHSTV",
+:slug => "C788XkkuzX",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9185,7 +9463,7 @@ result = HoloceneEvent.create({:name => "Flooding of the Persian Gulf ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "wx53AT9FuD",
+:slug => "ne91X6BeYc",
 :start_year_uncert => "",
 :start_year => "-16000"
 })
@@ -9201,7 +9479,7 @@ res = result[0].update_attributes({:name => "Flooding of the Persian Gulf ",
 :event_types => [ @earth ],
 :region => @middleeast,
 :image => "",
-:slug => "wx53AT9FuD",
+:slug => "ne91X6BeYc",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9223,7 +9501,7 @@ result = HoloceneEvent.create({:name => "Zerelia West and Zerelia East ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "Uv7eTmzx3C",
+:slug => "t98wyXeJbd",
 :start_year_uncert => "",
 :start_year => "-5000"
 })
@@ -9238,7 +9516,7 @@ res = result[0].update_attributes({:name => "Zerelia West and Zerelia East ",
 :event_types => [ @impact ],
 :region => @europe,
 :image => "",
-:slug => "Uv7eTmzx3C",
+:slug => "t98wyXeJbd",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9260,7 +9538,7 @@ result = HoloceneEvent.create({:name => "Boxhole ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "3WffundTvd",
+:slug => "y6kLS3jdyq",
 :start_year_uncert => "",
 :start_year => "-3400"
 })
@@ -9275,7 +9553,7 @@ res = result[0].update_attributes({:name => "Boxhole ",
 :event_types => [ @impact ],
 :region => @australasia,
 :image => "",
-:slug => "3WffundTvd",
+:slug => "y6kLS3jdyq",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9297,7 +9575,7 @@ result = HoloceneEvent.create({:name => "Morasko ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "uATQeDbkZU",
+:slug => "H6XLnesvmK",
 :start_year_uncert => "",
 :start_year => "-3000"
 })
@@ -9312,7 +9590,7 @@ res = result[0].update_attributes({:name => "Morasko ",
 :event_types => [ @impact ],
 :region => @europe,
 :image => "",
-:slug => "uATQeDbkZU",
+:slug => "H6XLnesvmK",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9334,7 +9612,7 @@ result = HoloceneEvent.create({:name => "Kachchh (Luna) ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "5RPD9q5pAF",
+:slug => "dJU4apZCUM",
 :start_year_uncert => "",
 :start_year => "-2000"
 })
@@ -9349,7 +9627,7 @@ res = result[0].update_attributes({:name => "Kachchh (Luna) ",
 :event_types => [ @impact ],
 :region => @eurasia,
 :image => "",
-:slug => "5RPD9q5pAF",
+:slug => "dJU4apZCUM",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9371,7 +9649,7 @@ result = HoloceneEvent.create({:name => "Svetloyar lake ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "4CsaR8XFeU",
+:slug => "r2EuzYBD9V",
 :start_year_uncert => "",
 :start_year => "-600"
 })
@@ -9386,7 +9664,7 @@ res = result[0].update_attributes({:name => "Svetloyar lake ",
 :event_types => [ @impact ],
 :region => @eurasia,
 :image => "",
-:slug => "4CsaR8XFeU",
+:slug => "r2EuzYBD9V",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9408,7 +9686,7 @@ result = HoloceneEvent.create({:name => "Merewether ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "QuFqU1bepZ",
+:slug => "RBHP5cH6BG",
 :start_year_uncert => "",
 :start_year => "1100"
 })
@@ -9423,7 +9701,7 @@ res = result[0].update_attributes({:name => "Merewether ",
 :event_types => [ @impact ],
 :region => @northamerica,
 :image => "",
-:slug => "QuFqU1bepZ",
+:slug => "RBHP5cH6BG",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9445,7 +9723,7 @@ result = HoloceneEvent.create({:name => "Ak-Bura (Murgab) ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "Pw5VQr3nyz",
+:slug => "GnYWwTgVsW",
 :start_year_uncert => "",
 :start_year => "1700"
 })
@@ -9460,7 +9738,7 @@ res = result[0].update_attributes({:name => "Ak-Bura (Murgab) ",
 :event_types => [ @impact ],
 :region => @eurasia,
 :image => "",
-:slug => "Pw5VQr3nyz",
+:slug => "GnYWwTgVsW",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9482,7 +9760,7 @@ result = HoloceneEvent.create({:name => "Lake Cheko ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "1c6GHW0ca8",
+:slug => "SKrvT5FNZF",
 :start_year_uncert => "",
 :start_year => "1908"
 })
@@ -9497,7 +9775,7 @@ res = result[0].update_attributes({:name => "Lake Cheko ",
 :event_types => [ @impact ],
 :region => @fareast,
 :image => "",
-:slug => "1c6GHW0ca8",
+:slug => "SKrvT5FNZF",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9519,7 +9797,7 @@ result = HoloceneEvent.create({:name => "Curuçá astrobleme ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "LtfTt2gek4",
+:slug => "4xELhw47CZ",
 :start_year_uncert => "",
 :start_year => "1930"
 })
@@ -9534,7 +9812,7 @@ res = result[0].update_attributes({:name => "Curuçá astrobleme ",
 :event_types => [ @impact ],
 :region => @southamerica,
 :image => "",
-:slug => "LtfTt2gek4",
+:slug => "4xELhw47CZ",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9556,7 +9834,7 @@ result = HoloceneEvent.create({:name => "Tsunami at Tartessos area ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "BA1UGHZTD1",
+:slug => "qpVWHwD5j9",
 :start_year_uncert => "",
 :start_year => "-1500"
 })
@@ -9571,7 +9849,7 @@ res = result[0].update_attributes({:name => "Tsunami at Tartessos area ",
 :event_types => [ @earth ],
 :region => @europe,
 :image => "",
-:slug => "BA1UGHZTD1",
+:slug => "qpVWHwD5j9",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9594,7 +9872,7 @@ result = HoloceneEvent.create({:name => "Sirente Italy ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "Ez7tJaW36U",
+:slug => "1K7ahBTx0d",
 :start_year_uncert => "90",
 :start_year => "320"
 })
@@ -9610,7 +9888,7 @@ res = result[0].update_attributes({:name => "Sirente Italy ",
 :event_types => [ @impact ],
 :region => @europe,
 :image => "",
-:slug => "Ez7tJaW36U",
+:slug => "1K7ahBTx0d",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "90",
@@ -9632,7 +9910,7 @@ result = HoloceneEvent.create({:name => "Bond 9 - Colvis Impact Event ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "WBJLdQSxLP",
+:slug => "U3a5agGDaj",
 :start_year_uncert => "",
 :start_year => "-10900"
 })
@@ -9647,7 +9925,7 @@ res = result[0].update_attributes({:name => "Bond 9 - Colvis Impact Event ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "WBJLdQSxLP",
+:slug => "U3a5agGDaj",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9669,7 +9947,7 @@ result = HoloceneEvent.create({:name => "The Clovis Comet ",
 :image => "",
 :url => "https://en.wikipedia.org/wiki/younger_dryas_impact_hypothesis",
 :user_id => @user.id,
-:slug => "W8D5AhwGSk",
+:slug => "M1gJeLKSUE",
 :start_year_uncert => "",
 :start_year => "-10900"
 })
@@ -9684,7 +9962,7 @@ res = result[0].update_attributes({:name => "The Clovis Comet ",
 :event_types => [ @impact ],
 :region => @northamerica,
 :image => "",
-:slug => "W8D5AhwGSk",
+:slug => "M1gJeLKSUE",
 :url => "https://en.wikipedia.org/wiki/younger_dryas_impact_hypothesis",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9706,7 +9984,7 @@ result = HoloceneEvent.create({:name => "Burckle Crater ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "MRSXf3A5zd",
+:slug => "e4K0cegHKu",
 :start_year_uncert => "",
 :start_year => "-2800"
 })
@@ -9721,7 +9999,7 @@ res = result[0].update_attributes({:name => "Burckle Crater ",
 :event_types => [ @impact ],
 :region => @global,
 :image => "",
-:slug => "MRSXf3A5zd",
+:slug => "e4K0cegHKu",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9743,7 +10021,7 @@ result = HoloceneEvent.create({:name => "Campo del Cielo Crater ",
 :image => "",
 :url => "https://en.wikipedia.org/wiki/campo_del_cielo",
 :user_id => @user.id,
-:slug => "6bVB1YETj6",
+:slug => "a1bz8506hx",
 :start_year_uncert => "",
 :start_year => "-2000"
 })
@@ -9758,7 +10036,7 @@ res = result[0].update_attributes({:name => "Campo del Cielo Crater ",
 :event_types => [ @impact ],
 :region => @southamerica,
 :image => "",
-:slug => "6bVB1YETj6",
+:slug => "a1bz8506hx",
 :url => "https://en.wikipedia.org/wiki/campo_del_cielo",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9780,7 +10058,7 @@ result = HoloceneEvent.create({:name => "Carancas Impact Crater ",
 :image => "",
 :url => "https://en.wikipedia.org/wiki/2007_carancas_impact_event",
 :user_id => @user.id,
-:slug => "Ttac9sqL43",
+:slug => "Se7PEP8FCu",
 :start_year_uncert => "",
 :start_year => "2007"
 })
@@ -9795,7 +10073,7 @@ res = result[0].update_attributes({:name => "Carancas Impact Crater ",
 :event_types => [ @impact ],
 :region => @southamerica,
 :image => "",
-:slug => "Ttac9sqL43",
+:slug => "Se7PEP8FCu",
 :url => "https://en.wikipedia.org/wiki/2007_carancas_impact_event",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9817,7 +10095,7 @@ result = HoloceneEvent.create({:name => "Chelyabinsk meteor ",
 :image => "",
 :url => "https://en.wikipedia.org/wiki/chelyabinsk_meteor",
 :user_id => @user.id,
-:slug => "rBQkLzVJCr",
+:slug => "Bebv4TkCWM",
 :start_year_uncert => "",
 :start_year => "2013"
 })
@@ -9832,7 +10110,7 @@ res = result[0].update_attributes({:name => "Chelyabinsk meteor ",
 :event_types => [ @impact ],
 :region => @global,
 :image => "",
-:slug => "rBQkLzVJCr",
+:slug => "Bebv4TkCWM",
 :url => "https://en.wikipedia.org/wiki/chelyabinsk_meteor",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9854,7 +10132,7 @@ result = HoloceneEvent.create({:name => "Grendel Crater ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "NgGJFyzNHZ",
+:slug => "ahvwf4BkUU",
 :start_year_uncert => "",
 :start_year => "536"
 })
@@ -9869,7 +10147,7 @@ res = result[0].update_attributes({:name => "Grendel Crater ",
 :event_types => [ @impact ],
 :region => @europe,
 :image => "",
-:slug => "NgGJFyzNHZ",
+:slug => "ahvwf4BkUU",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9891,7 +10169,7 @@ result = HoloceneEvent.create({:name => "Haviland Crater ",
 :image => "",
 :url => "https://en.wikipedia.org/wiki/haviland_crater",
 :user_id => @user.id,
-:slug => "SxASdcW4Kq",
+:slug => "4FzuQQhg09",
 :start_year_uncert => "",
 :start_year => "1000"
 })
@@ -9906,7 +10184,7 @@ res = result[0].update_attributes({:name => "Haviland Crater ",
 :event_types => [ @impact ],
 :region => @northamerica,
 :image => "",
-:slug => "SxASdcW4Kq",
+:slug => "4FzuQQhg09",
 :url => "https://en.wikipedia.org/wiki/haviland_crater",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9928,7 +10206,7 @@ result = HoloceneEvent.create({:name => "Henbury Meteorites Conservation Reserve
 :image => "",
 :url => "https://en.wikipedia.org/wiki/henbury_meteorites_conservation_reserve",
 :user_id => @user.id,
-:slug => "e5w8Rzh8MZ",
+:slug => "gLvbmeCdHF",
 :start_year_uncert => "",
 :start_year => "-2700"
 })
@@ -9943,7 +10221,7 @@ res = result[0].update_attributes({:name => "Henbury Meteorites Conservation Res
 :event_types => [ @impact ],
 :region => @australasia,
 :image => "",
-:slug => "e5w8Rzh8MZ",
+:slug => "gLvbmeCdHF",
 :url => "https://en.wikipedia.org/wiki/henbury_meteorites_conservation_reserve",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -9965,7 +10243,7 @@ result = HoloceneEvent.create({:name => "Ilumetsa Crater ",
 :image => "",
 :url => "https://en.wikipedia.org/wiki/ilumetsa_crater",
 :user_id => @user.id,
-:slug => "1tAPbaCrUL",
+:slug => "q2f34ZWxs0",
 :start_year_uncert => "",
 :start_year => "-4600"
 })
@@ -9980,7 +10258,7 @@ res = result[0].update_attributes({:name => "Ilumetsa Crater ",
 :event_types => [ @impact ],
 :region => @europe,
 :image => "",
-:slug => "1tAPbaCrUL",
+:slug => "q2f34ZWxs0",
 :url => "https://en.wikipedia.org/wiki/ilumetsa_crater",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10002,7 +10280,7 @@ result = HoloceneEvent.create({:name => "Morasko Meterorite Nature Reseve ",
 :image => "220px-morasko_krater_zima.jpg",
 :url => "https://en.wikipedia.org/wiki/morasko_meteorite_nature_reserve",
 :user_id => @user.id,
-:slug => "X7H7YreJDQ",
+:slug => "jDMNrU4EJf",
 :start_year_uncert => "",
 :start_year => "-3000"
 })
@@ -10017,7 +10295,7 @@ res = result[0].update_attributes({:name => "Morasko Meterorite Nature Reseve ",
 :event_types => [ @impact ],
 :region => @europe,
 :image => "220px-morasko_krater_zima.jpg",
-:slug => "X7H7YreJDQ",
+:slug => "jDMNrU4EJf",
 :url => "https://en.wikipedia.org/wiki/morasko_meteorite_nature_reserve",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10039,7 +10317,7 @@ result = HoloceneEvent.create({:name => "Rio Caurto Craters ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "bvzjNtU6qL",
+:slug => "MgPfa8b8En",
 :start_year_uncert => "",
 :start_year => "-3000"
 })
@@ -10054,7 +10332,7 @@ res = result[0].update_attributes({:name => "Rio Caurto Craters ",
 :event_types => [ @impact ],
 :region => @southamerica,
 :image => "",
-:slug => "bvzjNtU6qL",
+:slug => "MgPfa8b8En",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10076,7 +10354,7 @@ result = HoloceneEvent.create({:name => "Sirente Crater ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "MgmNYGqp1N",
+:slug => "CtZdteuYwD",
 :start_year_uncert => "",
 :start_year => "312"
 })
@@ -10091,7 +10369,7 @@ res = result[0].update_attributes({:name => "Sirente Crater ",
 :event_types => [ @impact ],
 :region => @europe,
 :image => "",
-:slug => "MgmNYGqp1N",
+:slug => "CtZdteuYwD",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10113,7 +10391,7 @@ result = HoloceneEvent.create({:name => "Sobolev Crater ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "v3GDWmk2QK",
+:slug => "WnStAQFeA3",
 :start_year_uncert => "",
 :start_year => "1000"
 })
@@ -10128,7 +10406,7 @@ res = result[0].update_attributes({:name => "Sobolev Crater ",
 :event_types => [ @impact ],
 :region => @eurasia,
 :image => "",
-:slug => "v3GDWmk2QK",
+:slug => "WnStAQFeA3",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10150,7 +10428,7 @@ result = HoloceneEvent.create({:name => "Tai Hu Lake ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "NfVTXgA55B",
+:slug => "vr5hW9v7ZR",
 :start_year_uncert => "",
 :start_year => "-2500"
 })
@@ -10165,7 +10443,7 @@ res = result[0].update_attributes({:name => "Tai Hu Lake ",
 :event_types => [ @impact ],
 :region => @centralasia,
 :image => "",
-:slug => "NfVTXgA55B",
+:slug => "vr5hW9v7ZR",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10187,7 +10465,7 @@ result = HoloceneEvent.create({:name => "Wabar Craters ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "KJdZEzj0R9",
+:slug => "5tj5TuNCHX",
 :start_year_uncert => "",
 :start_year => "1863"
 })
@@ -10202,7 +10480,7 @@ res = result[0].update_attributes({:name => "Wabar Craters ",
 :event_types => [ @impact ],
 :region => @middleeast,
 :image => "",
-:slug => "KJdZEzj0R9",
+:slug => "5tj5TuNCHX",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10224,7 +10502,7 @@ result = HoloceneEvent.create({:name => "Kamil Crater ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "u4UW9kXaPg",
+:slug => "sy0c1b7VGE",
 :start_year_uncert => "",
 :start_year => "-3000"
 })
@@ -10239,7 +10517,7 @@ res = result[0].update_attributes({:name => "Kamil Crater ",
 :event_types => [ @impact ],
 :region => @australasia,
 :image => "",
-:slug => "u4UW9kXaPg",
+:slug => "sy0c1b7VGE",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10261,7 +10539,7 @@ result = HoloceneEvent.create({:name => "Whitecourt Crater ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "Tghw32b1AV",
+:slug => "fmnCZUdkBh",
 :start_year_uncert => "",
 :start_year => "1105"
 })
@@ -10276,7 +10554,7 @@ res = result[0].update_attributes({:name => "Whitecourt Crater ",
 :event_types => [ @impact ],
 :region => @northamerica,
 :image => "",
-:slug => "Tghw32b1AV",
+:slug => "fmnCZUdkBh",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10298,7 +10576,7 @@ result = HoloceneEvent.create({:name => "Dalgaranga crater ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "uNs29sZzMS",
+:slug => "051FJ4xMP7",
 :start_year_uncert => "",
 :start_year => "-1000"
 })
@@ -10313,7 +10591,7 @@ res = result[0].update_attributes({:name => "Dalgaranga crater ",
 :event_types => [ @impact ],
 :region => @australasia,
 :image => "",
-:slug => "uNs29sZzMS",
+:slug => "051FJ4xMP7",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10336,7 +10614,7 @@ result = HoloceneEvent.create({:name => "Younger Dryas ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "TsvLk4Xe05",
+:slug => "yndABSr7Jj",
 :start_year_uncert => "70",
 :start_year => "-10900"
 })
@@ -10352,7 +10630,7 @@ res = result[0].update_attributes({:name => "Younger Dryas ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "TsvLk4Xe05",
+:slug => "yndABSr7Jj",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "70",
@@ -10375,7 +10653,7 @@ result = HoloceneEvent.create({:name => "Older Peron ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "EwMSaPa5zp",
+:slug => "kyZnfuHBje",
 :start_year_uncert => "",
 :start_year => "-5000"
 })
@@ -10391,7 +10669,7 @@ res = result[0].update_attributes({:name => "Older Peron ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "EwMSaPa5zp",
+:slug => "kyZnfuHBje",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10414,7 +10692,7 @@ result = HoloceneEvent.create({:name => "Younger Peron Transgression ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "W9F0hHwXGq",
+:slug => "X70L2fpvY0",
 :start_year_uncert => "",
 :start_year => "-4000"
 })
@@ -10430,7 +10708,7 @@ res = result[0].update_attributes({:name => "Younger Peron Transgression ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "W9F0hHwXGq",
+:slug => "X70L2fpvY0",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10452,7 +10730,7 @@ result = HoloceneEvent.create({:name => "Bond 8 - End of Younger Dryas ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "GkE13Zhg5X",
+:slug => "S9G7P89WuW",
 :start_year_uncert => "",
 :start_year => "-9100"
 })
@@ -10467,7 +10745,7 @@ res = result[0].update_attributes({:name => "Bond 8 - End of Younger Dryas ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "GkE13Zhg5X",
+:slug => "S9G7P89WuW",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10492,7 +10770,7 @@ Radiocarbon (uncorrected)
 :image => "280px-lvinaya_past_20070718011232.jpg",
 :url => "https://en.wikipedia.org/wiki/lvinaya_past",
 :user_id => @user.id,
-:slug => "hBxrmbXaV3",
+:slug => "cjhe0m1jWY",
 :start_year_uncert => "50",
 :start_year => "-7480"
 })
@@ -10510,7 +10788,7 @@ Radiocarbon (uncorrected)
 :event_types => [ @volcanic ],
 :region => @eastasia,
 :image => "280px-lvinaya_past_20070718011232.jpg",
-:slug => "hBxrmbXaV3",
+:slug => "cjhe0m1jWY",
 :url => "https://en.wikipedia.org/wiki/lvinaya_past",
 :user_id => @user.id,
 :start_year_uncert => "50",
@@ -10534,7 +10812,7 @@ result = HoloceneEvent.create({:name => "Bond 7 ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "fZnMCq8pqW",
+:slug => "g2JzsNc652",
 :start_year_uncert => "",
 :start_year => "-8300"
 })
@@ -10549,7 +10827,7 @@ res = result[0].update_attributes({:name => "Bond 7 ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "fZnMCq8pqW",
+:slug => "g2JzsNc652",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10571,7 +10849,7 @@ result = HoloceneEvent.create({:name => "Bond 6 - Erdalen Glacial activity ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "p2qTrNa4su",
+:slug => "L1Zdkj8cEp",
 :start_year_uncert => "",
 :start_year => "-7400"
 })
@@ -10586,7 +10864,7 @@ res = result[0].update_attributes({:name => "Bond 6 - Erdalen Glacial activity "
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "p2qTrNa4su",
+:slug => "L1Zdkj8cEp",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10608,7 +10886,7 @@ result = HoloceneEvent.create({:name => "Sakura-Jima, Kyushu (Japan) VEI 6+",
 :image => "280px-sakurajima55.jpg",
 :url => "https://en.wikipedia.org/wiki/sakurajima",
 :user_id => @user.id,
-:slug => "HBnfgAC828",
+:slug => "3vc9Ws29U7",
 :start_year_uncert => "1000",
 :start_year => "-6200"
 })
@@ -10623,7 +10901,7 @@ res = result[0].update_attributes({:name => "Sakura-Jima, Kyushu (Japan) VEI 6+"
 :event_types => [ @volcanic ],
 :region => @global,
 :image => "280px-sakurajima55.jpg",
-:slug => "HBnfgAC828",
+:slug => "3vc9Ws29U7",
 :url => "https://en.wikipedia.org/wiki/sakurajima",
 :user_id => @user.id,
 :start_year_uncert => "1000",
@@ -10647,7 +10925,7 @@ result = HoloceneEvent.create({:name => "Land Bridge from Siberia to North Ameri
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "sDAedeYcQj",
+:slug => "Rf5MDZbwK6",
 :start_year_uncert => "",
 :start_year => "-12000"
 })
@@ -10662,7 +10940,7 @@ res = result[0].update_attributes({:name => "Land Bridge from Siberia to North A
 :event_types => [ @climate ],
 :region => @fareast,
 :image => "",
-:slug => "sDAedeYcQj",
+:slug => "Rf5MDZbwK6",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10687,7 +10965,7 @@ Lower north flank and summit</p>",
 :image => "280px-pinatubo91eruption_clark_air_base.jpg",
 :url => "https://en.wikipedia.org/wiki/mount_pinatubo",
 :user_id => @user.id,
-:slug => "jB6zj0qJKx",
+:slug => "puWhVvfRA2",
 :start_year_uncert => "",
 :start_year => "1991"
 })
@@ -10705,7 +10983,7 @@ Lower north flank and summit</p>",
 :event_types => [ @volcanic ],
 :region => @southeastasia,
 :image => "280px-pinatubo91eruption_clark_air_base.jpg",
-:slug => "jB6zj0qJKx",
+:slug => "puWhVvfRA2",
 :url => "https://en.wikipedia.org/wiki/mount_pinatubo",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10732,7 +11010,7 @@ Historical Observations
 :image => "novarupta.jpg",
 :url => "https://en.wikipedia.org/wiki/novarupta",
 :user_id => @user.id,
-:slug => "emrXBVg9nK",
+:slug => "yG5vF7FRdk",
 :start_year_uncert => "",
 :start_year => "1912"
 })
@@ -10750,7 +11028,7 @@ Historical Observations
 :event_types => [ @volcanic ],
 :region => @northamerica,
 :image => "novarupta.jpg",
-:slug => "emrXBVg9nK",
+:slug => "yG5vF7FRdk",
 :url => "https://en.wikipedia.org/wiki/novarupta",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10775,7 +11053,7 @@ SW flank</p>",
 :image => "280px-santiaguito_from_santamaria.jpg",
 :url => "https://en.wikipedia.org/wiki/santa_mar%c3%ada_(volcano)",
 :user_id => @user.id,
-:slug => "MzSXU9VDBA",
+:slug => "QAmZwfpRkP",
 :start_year_uncert => "",
 :start_year => "1902"
 })
@@ -10793,7 +11071,7 @@ SW flank</p>",
 :event_types => [ @volcanic ],
 :region => @centralamerica,
 :image => "280px-santiaguito_from_santamaria.jpg",
-:slug => "MzSXU9VDBA",
+:slug => "QAmZwfpRkP",
 :url => "https://en.wikipedia.org/wiki/santa_mar%c3%ada_(volcano)",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10818,7 +11096,7 @@ Krakatau Island (Perbuwatan, Danan)</p>",
 :image => "280px-krakatoa_eruption_lithograph.jpg",
 :url => "https://en.wikipedia.org/wiki/krakatoa",
 :user_id => @user.id,
-:slug => "JcEXNxJLeZ",
+:slug => "aXSAAr1Q1A",
 :start_year_uncert => "",
 :start_year => "1883"
 })
@@ -10836,7 +11114,7 @@ Krakatau Island (Perbuwatan, Danan)</p>",
 :event_types => [ @volcanic ],
 :region => @southeastasia,
 :image => "280px-krakatoa_eruption_lithograph.jpg",
-:slug => "JcEXNxJLeZ",
+:slug => "aXSAAr1Q1A",
 :url => "https://en.wikipedia.org/wiki/krakatoa",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10860,7 +11138,7 @@ result = HoloceneEvent.create({:name => "Tambora, Indonesia VEI 7 continious eru
 :image => "280px-mount_tambora_volcano%2c_sumbawa_island%2c_indonesia.jpg",
 :url => "https://en.wikipedia.org/wiki/mount_tambora",
 :user_id => @user.id,
-:slug => "h6w0pG89CY",
+:slug => "bJVUX1sj0m",
 :start_year_uncert => "",
 :start_year => "1812"
 })
@@ -10875,7 +11153,7 @@ res = result[0].update_attributes({:name => "Tambora, Indonesia VEI 7 continious
 :event_types => [ @volcanic ],
 :region => @southeastasia,
 :image => "280px-mount_tambora_volcano%2c_sumbawa_island%2c_indonesia.jpg",
-:slug => "h6w0pG89CY",
+:slug => "bJVUX1sj0m",
 :url => "https://en.wikipedia.org/wiki/mount_tambora",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10897,7 +11175,7 @@ result = HoloceneEvent.create({:name => "Tambora, Indonesia VEI 7",
 :body => "<p>VEI 7
 Confirmed Eruption
 Historical Observations
-</p><p>This was the first eruption within 'written' history that had the benefit of an extensive amount of information gathered by a wide range of individuals.  The Stommel's in their book[[hCwV1cdS65]] provide a very detailed account of the sequence of events in North America in 1816.  
+</p><p>This was the first eruption within 'written' history that had the benefit of an extensive amount of information gathered by a wide range of individuals.  The Stommel's in their book[[LjPT3Mzet1]] provide a very detailed account of the sequence of events in North America in 1816.  
 </p><p>
 One of the interesting things about the Stommel's research is the Cholera epidemics
  of mid-19Th century Europe may have resulted due to the spread of the disease by refugees from the India famine
@@ -10908,7 +11186,7 @@ One of the interesting things about the Stommel's research is the Cholera epidem
 :image => "280px-mount_tambora_volcano%2c_sumbawa_island%2c_indonesia.jpg",
 :url => "https://en.wikipedia.org/wiki/mount_tambora",
 :user_id => @user.id,
-:slug => "p04spgcQs6",
+:slug => "VKyf0TuHbV",
 :start_year_uncert => "",
 :start_year => "1815"
 })
@@ -10921,7 +11199,7 @@ res = result[0].update_attributes({:name => "Tambora, Indonesia VEI 7",
 :body => "<p>VEI 7
 Confirmed Eruption
 Historical Observations
-</p><p>This was the first eruption within 'written' history that had the benefit of an extensive amount of information gathered by a wide range of individuals.  The Stommel's in their book[[hCwV1cdS65]] provide a very detailed account of the sequence of events in North America in 1816.  
+</p><p>This was the first eruption within 'written' history that had the benefit of an extensive amount of information gathered by a wide range of individuals.  The Stommel's in their book[[LjPT3Mzet1]] provide a very detailed account of the sequence of events in North America in 1816.  
 </p><p>
 One of the interesting things about the Stommel's research is the Cholera epidemics
  of mid-19Th century Europe may have resulted due to the spread of the disease by refugees from the India famine
@@ -10930,7 +11208,7 @@ One of the interesting things about the Stommel's research is the Cholera epidem
 :event_types => [ @volcanic ],
 :region => @southeastasia,
 :image => "280px-mount_tambora_volcano%2c_sumbawa_island%2c_indonesia.jpg",
-:slug => "p04spgcQs6",
+:slug => "VKyf0TuHbV",
 :url => "https://en.wikipedia.org/wiki/mount_tambora",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -10945,7 +11223,8 @@ biblio = Biblioentry.find_by_xreflabel("holoceneeruptions")
 Footnote.create(:slug => "", :body => "", :noted => result,:biblioentry_id => biblio.id)
 biblio = Biblioentry.find_by_xreflabel("stommel1983")
 Footnote.create(:slug => "", :body => "", :noted => result,:biblioentry_id => biblio.id)
-Footnote.create(:slug => "hCwV1cdS65", :body => "Volcano Weather: the story of 1816, the year without a summer", :noted => result)
+biblio = Biblioentry.find_by_xreflabel("stommel1983")
+Footnote.create(:slug => "LjPT3Mzet1", :body => "Volcano Weather: the story of 1816, the year without a summer", :biblioentry_id => (biblio.nil? ? nil : biblio.id), :noted => result)
 result = HoloceneEvent.where(:name => "Unknown Source ", :start_year => 1808)
 if result.length == 0
 result = HoloceneEvent.create({:name => "Unknown Source ",
@@ -10960,7 +11239,7 @@ Tropical latitude (SP, 365 ppb sulfate)</p>",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "pcLkNDDbTB",
+:slug => "uN8jn1f0m3",
 :start_year_uncert => "",
 :start_year => "1808"
 })
@@ -10978,7 +11257,7 @@ Tropical latitude (SP, 365 ppb sulfate)</p>",
 :event_types => [ @volcanic ],
 :region => @unknown,
 :image => "",
-:slug => "pcLkNDDbTB",
+:slug => "uN8jn1f0m3",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -11003,7 +11282,7 @@ Radiocarbon (uncorrected)
 :image => "280px-long_island_nasa.jpg",
 :url => "https://en.wikipedia.org/wiki/long_island_(papua_new_guinea)",
 :user_id => @user.id,
-:slug => "eQ6VvUabUM",
+:slug => "gzcwLVnccf",
 :start_year_uncert => "20",
 :start_year => "1660"
 })
@@ -11021,7 +11300,7 @@ Radiocarbon (uncorrected)
 :event_types => [ @volcanic ],
 :region => @australasia,
 :image => "280px-long_island_nasa.jpg",
-:slug => "eQ6VvUabUM",
+:slug => "gzcwLVnccf",
 :url => "https://en.wikipedia.org/wiki/long_island_(papua_new_guinea)",
 :user_id => @user.id,
 :start_year_uncert => "20",
@@ -11048,7 +11327,7 @@ Summit and south flank</p>",
 :image => "220px-huaynaputina.jpg",
 :url => "https://en.wikipedia.org/wiki/huaynaputina",
 :user_id => @user.id,
-:slug => "ZDRyeUzk3Z",
+:slug => "rJ59bAJcbF",
 :start_year_uncert => "",
 :start_year => "1601"
 })
@@ -11066,7 +11345,7 @@ Summit and south flank</p>",
 :event_types => [ @volcanic ],
 :region => @southamerica,
 :image => "220px-huaynaputina.jpg",
-:slug => "ZDRyeUzk3Z",
+:slug => "rJ59bAJcbF",
 :url => "https://en.wikipedia.org/wiki/huaynaputina",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -11093,7 +11372,7 @@ Radiocarbon (uncorrected)
 :image => "280px-mtbalbitorenasa.jpg",
 :url => "https://en.wikipedia.org/wiki/billy_mitchell_(volcano)",
 :user_id => @user.id,
-:slug => "ZWk6kG9NXW",
+:slug => "hrjzsP54Ur",
 :start_year_uncert => "20",
 :start_year => "1580"
 })
@@ -11111,7 +11390,7 @@ Radiocarbon (uncorrected)
 :event_types => [ @volcanic ],
 :region => @australasia,
 :image => "280px-mtbalbitorenasa.jpg",
-:slug => "ZWk6kG9NXW",
+:slug => "hrjzsP54Ur",
 :url => "https://en.wikipedia.org/wiki/billy_mitchell_(volcano)",
 :user_id => @user.id,
 :start_year_uncert => "20",
@@ -11138,7 +11417,7 @@ Veidivötn (Veidivatnahraun)</p>",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "0tRgEdcTpe",
+:slug => "w2DekVT06r",
 :start_year_uncert => "",
 :start_year => "1477"
 })
@@ -11156,7 +11435,7 @@ Veidivötn (Veidivatnahraun)</p>",
 :event_types => [ @volcanic ],
 :region => @icelandandarcticocean,
 :image => "",
-:slug => "0tRgEdcTpe",
+:slug => "w2DekVT06r",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -11185,7 +11464,7 @@ Radiocarbon (corrected)
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "hBf808YXNh",
+:slug => "1ZpgLv8AKv",
 :start_year_uncert => "",
 :start_year => "1280"
 })
@@ -11205,7 +11484,7 @@ Radiocarbon (corrected)
 :event_types => [ @volcanic ],
 :region => @southamerica,
 :image => "",
-:slug => "hBf808YXNh",
+:slug => "1ZpgLv8AKv",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -11232,7 +11511,7 @@ Samalas</p>",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "P7aPGTsKa0",
+:slug => "d0AcsZTLrY",
 :start_year_uncert => "",
 :start_year => "1257"
 })
@@ -11250,7 +11529,7 @@ Samalas</p>",
 :event_types => [ @volcanic ],
 :region => @southeastasia,
 :image => "",
-:slug => "P7aPGTsKa0",
+:slug => "d0AcsZTLrY",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -11275,7 +11554,7 @@ Radiocarbon (corrected)
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "fmtK0JHQHv",
+:slug => "cK8Q87Nfg8",
 :start_year_uncert => "4",
 :start_year => "942"
 })
@@ -11293,7 +11572,7 @@ Radiocarbon (corrected)
 :event_types => [ @volcanic ],
 :region => @eastasia,
 :image => "",
-:slug => "fmtK0JHQHv",
+:slug => "cK8Q87Nfg8",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "4",
@@ -11318,7 +11597,7 @@ Radiocarbon (uncorrected)
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "7BMmHu26jv",
+:slug => "zer2aMG9s5",
 :start_year_uncert => "200",
 :start_year => "930"
 })
@@ -11336,7 +11615,7 @@ Radiocarbon (uncorrected)
 :event_types => [ @volcanic ],
 :region => @centralamerica,
 :image => "",
-:slug => "7BMmHu26jv",
+:slug => "zer2aMG9s5",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "200",
@@ -11363,7 +11642,7 @@ Tephrochronology
 :image => "280px-mtchurchill-klutlanglacier.jpg",
 :url => "https://en.wikipedia.org/wiki/mount_churchill",
 :user_id => @user.id,
-:slug => "5qUTfJ2mkv",
+:slug => "wktsH442ru",
 :start_year_uncert => "1",
 :start_year => "847"
 })
@@ -11381,7 +11660,7 @@ Tephrochronology
 :event_types => [ @volcanic ],
 :region => @northamerica,
 :image => "280px-mtchurchill-klutlanglacier.jpg",
-:slug => "5qUTfJ2mkv",
+:slug => "wktsH442ru",
 :url => "https://en.wikipedia.org/wiki/mount_churchill",
 :user_id => @user.id,
 :start_year_uncert => "1",
@@ -11406,7 +11685,7 @@ Radiocarbon (uncorrected)
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "dZ0vDgPSuE",
+:slug => "baBSteSJvW",
 :start_year_uncert => "75",
 :start_year => "710"
 })
@@ -11424,7 +11703,7 @@ Radiocarbon (uncorrected)
 :event_types => [ @volcanic ],
 :region => @australasia,
 :image => "",
-:slug => "dZ0vDgPSuE",
+:slug => "baBSteSJvW",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "75",
@@ -11449,7 +11728,7 @@ Radiocarbon (corrected)
 :image => "280px-rabaul.png",
 :url => "https://en.wikipedia.org/wiki/rabaul_caldera",
 :user_id => @user.id,
-:slug => "4fD8Nt1mg8",
+:slug => "m5b0TuM4as",
 :start_year_uncert => "2",
 :start_year => "683"
 })
@@ -11467,7 +11746,7 @@ Radiocarbon (corrected)
 :event_types => [ @volcanic ],
 :region => @australasia,
 :image => "280px-rabaul.png",
-:slug => "4fD8Nt1mg8",
+:slug => "m5b0TuM4as",
 :url => "https://en.wikipedia.org/wiki/rabaul_caldera",
 :user_id => @user.id,
 :start_year_uncert => "2",
@@ -11492,7 +11771,7 @@ Radiocarbon (uncorrected)
 :image => "papua_new_guinea_location_map_topographic.png",
 :url => "https://en.wikipedia.org/wiki/dakataua",
 :user_id => @user.id,
-:slug => "QRt8ndUdLk",
+:slug => "Y7A0gaa0u5",
 :start_year_uncert => "18",
 :start_year => "653"
 })
@@ -11510,7 +11789,7 @@ Radiocarbon (uncorrected)
 :event_types => [ @volcanic ],
 :region => @australasia,
 :image => "papua_new_guinea_location_map_topographic.png",
-:slug => "QRt8ndUdLk",
+:slug => "Y7A0gaa0u5",
 :url => "https://en.wikipedia.org/wiki/dakataua",
 :user_id => @user.id,
 :start_year_uncert => "18",
@@ -11535,7 +11814,7 @@ Ilopango</p>",
 :image => "280px-ilopango_caldera.jpg",
 :url => "https://en.wikipedia.org/wiki/lake_ilopango",
 :user_id => @user.id,
-:slug => "0qbnMdcKBr",
+:slug => "LuhQFuVDcE",
 :start_year_uncert => "30",
 :start_year => "450"
 })
@@ -11553,7 +11832,7 @@ Ilopango</p>",
 :event_types => [ @volcanic ],
 :region => @centralamerica,
 :image => "280px-ilopango_caldera.jpg",
-:slug => "0qbnMdcKBr",
+:slug => "LuhQFuVDcE",
 :url => "https://en.wikipedia.org/wiki/lake_ilopango",
 :user_id => @user.id,
 :start_year_uncert => "30",
@@ -11580,7 +11859,7 @@ Ksudach V caldera</p>",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "Q7G01u1Pvw",
+:slug => "SnmDdXW0sv",
 :start_year_uncert => "100",
 :start_year => "240"
 })
@@ -11598,7 +11877,7 @@ Ksudach V caldera</p>",
 :event_types => [ @volcanic ],
 :region => @eastasia,
 :image => "",
-:slug => "Q7G01u1Pvw",
+:slug => "SnmDdXW0sv",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "100",
@@ -11623,7 +11902,7 @@ Horomatangi Reefs area</p>",
 :image => "taupo.volcanic.zone.north.island.nz.jpg",
 :url => "https://en.wikipedia.org/wiki/taupo_volcano",
 :user_id => @user.id,
-:slug => "QQkJq5vLb8",
+:slug => "5bzKNfZ7t0",
 :start_year_uncert => "13",
 :start_year => "233"
 })
@@ -11641,7 +11920,7 @@ Horomatangi Reefs area</p>",
 :event_types => [ @volcanic ],
 :region => @australasia,
 :image => "taupo.volcanic.zone.north.island.nz.jpg",
-:slug => "QQkJq5vLb8",
+:slug => "5bzKNfZ7t0",
 :url => "https://en.wikipedia.org/wiki/taupo_volcano",
 :user_id => @user.id,
 :start_year_uncert => "13",
@@ -11666,7 +11945,7 @@ Radiocarbon (uncorrected)
 :image => "280px-mtchurchill-klutlanglacier.jpg",
 :url => "https://en.wikipedia.org/wiki/mount_churchill",
 :user_id => @user.id,
-:slug => "CrL58n1Zcv",
+:slug => "4REwjjnM2Y",
 :start_year_uncert => "200",
 :start_year => "60"
 })
@@ -11684,7 +11963,7 @@ Radiocarbon (uncorrected)
 :event_types => [ @volcanic ],
 :region => @northamerica,
 :image => "280px-mtchurchill-klutlanglacier.jpg",
-:slug => "CrL58n1Zcv",
+:slug => "4REwjjnM2Y",
 :url => "https://en.wikipedia.org/wiki/mount_churchill",
 :user_id => @user.id,
 :start_year_uncert => "200",
@@ -11709,7 +11988,7 @@ Radiocarbon (uncorrected)
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "rwCC7eJ7A6",
+:slug => "66Nu2VDfkF",
 :start_year_uncert => "100",
 :start_year => "50"
 })
@@ -11727,7 +12006,7 @@ Radiocarbon (uncorrected)
 :event_types => [ @volcanic ],
 :region => @australasia,
 :image => "",
-:slug => "rwCC7eJ7A6",
+:slug => "66Nu2VDfkF",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "100",
@@ -11754,7 +12033,7 @@ Apoyeque</p>",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "XTYp0vG4kL",
+:slug => "8ZMngZRYRm",
 :start_year_uncert => "100",
 :start_year => "-50"
 })
@@ -11772,7 +12051,7 @@ Apoyeque</p>",
 :event_types => [ @volcanic ],
 :region => @centralamerica,
 :image => "",
-:slug => "XTYp0vG4kL",
+:slug => "8ZMngZRYRm",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "100",
@@ -11799,7 +12078,7 @@ Okmok II caldera</p>",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "KrGRaVrVJD",
+:slug => "DATey65UeG",
 :start_year_uncert => "50",
 :start_year => "-100"
 })
@@ -11817,7 +12096,7 @@ Okmok II caldera</p>",
 :event_types => [ @volcanic ],
 :region => @northamerica,
 :image => "",
-:slug => "KrGRaVrVJD",
+:slug => "DATey65UeG",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "50",
@@ -11844,7 +12123,7 @@ Radiocarbon (corrected)
 :image => "280px-pinatubo91eruption_clark_air_base.jpg",
 :url => "https://en.wikipedia.org/wiki/mount_pinatubo",
 :user_id => @user.id,
-:slug => "Czp8zFTUmx",
+:slug => "4KxNu1G26H",
 :start_year_uncert => "500",
 :start_year => "-1050"
 })
@@ -11862,7 +12141,7 @@ Radiocarbon (corrected)
 :event_types => [ @volcanic ],
 :region => @southeastasia,
 :image => "280px-pinatubo91eruption_clark_air_base.jpg",
-:slug => "Czp8zFTUmx",
+:slug => "4KxNu1G26H",
 :url => "https://en.wikipedia.org/wiki/mount_pinatubo",
 :user_id => @user.id,
 :start_year_uncert => "500",
@@ -11889,7 +12168,7 @@ Radiocarbon (corrected)
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "tjVCabKrCZ",
+:slug => "YTGLjvNWxU",
 :start_year_uncert => "160",
 :start_year => "-1370"
 })
@@ -11907,7 +12186,7 @@ Radiocarbon (corrected)
 :event_types => [ @volcanic ],
 :region => @australasia,
 :image => "",
-:slug => "tjVCabKrCZ",
+:slug => "YTGLjvNWxU",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "160",
@@ -11932,7 +12211,7 @@ Ice Core
 :image => "280px-aniakchak-caldera_alaska.jpg",
 :url => "https://en.wikipedia.org/wiki/mount_aniakchak",
 :user_id => @user.id,
-:slug => "LL3EyABbqv",
+:slug => "4F2LyYGuEB",
 :start_year_uncert => "10",
 :start_year => "-1645"
 })
@@ -11950,7 +12229,7 @@ Ice Core
 :event_types => [ @volcanic ],
 :region => @northamerica,
 :image => "280px-aniakchak-caldera_alaska.jpg",
-:slug => "LL3EyABbqv",
+:slug => "4F2LyYGuEB",
 :url => "https://en.wikipedia.org/wiki/mount_aniakchak",
 :user_id => @user.id,
 :start_year_uncert => "10",
@@ -11975,7 +12254,7 @@ Radiocarbon (uncorrected)
 :image => "280px-mountveniaminof.jpg",
 :url => "https://en.wikipedia.org/wiki/mount_veniaminof",
 :user_id => @user.id,
-:slug => "AHKXPb4Rxe",
+:slug => "Q5JVpcKU1W",
 :start_year_uncert => "",
 :start_year => "-1750"
 })
@@ -11993,7 +12272,7 @@ Radiocarbon (uncorrected)
 :event_types => [ @volcanic ],
 :region => @northamerica,
 :image => "280px-mountveniaminof.jpg",
-:slug => "AHKXPb4Rxe",
+:slug => "Q5JVpcKU1W",
 :url => "https://en.wikipedia.org/wiki/mount_veniaminof",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -12020,7 +12299,7 @@ Radiocarbon (corrected)
 :image => "280px-msh82_st_helens_plume_from_harrys_ridge_05-19-82.jpg",
 :url => "https://en.wikipedia.org/wiki/mount_st._helens",
 :user_id => @user.id,
-:slug => "rYPaFvcVK7",
+:slug => "rXfayBNEV4",
 :start_year_uncert => "",
 :start_year => "-1860"
 })
@@ -12038,7 +12317,7 @@ Radiocarbon (corrected)
 :event_types => [ @volcanic ],
 :region => @northamerica,
 :image => "280px-msh82_st_helens_plume_from_harrys_ridge_05-19-82.jpg",
-:slug => "rYPaFvcVK7",
+:slug => "rXfayBNEV4",
 :url => "https://en.wikipedia.org/wiki/mount_st._helens",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -12065,7 +12344,7 @@ Radiocarbon (corrected)
 :image => "280px-cerro_hudson.jpg",
 :url => "https://en.wikipedia.org/wiki/mount_hudson",
 :user_id => @user.id,
-:slug => "93UbKFGu08",
+:slug => "NqSx5euSum",
 :start_year_uncert => "",
 :start_year => "-1890"
 })
@@ -12083,7 +12362,7 @@ Radiocarbon (corrected)
 :event_types => [ @volcanic ],
 :region => @southamerica,
 :image => "280px-cerro_hudson.jpg",
-:slug => "93UbKFGu08",
+:slug => "NqSx5euSum",
 :url => "https://en.wikipedia.org/wiki/mount_hudson",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -12110,7 +12389,7 @@ Tephrochronology
 :image => "280px-black_peak.jpg",
 :url => "https://en.wikipedia.org/wiki/black_peak_(alaska)",
 :user_id => @user.id,
-:slug => "tTHdz0ReU6",
+:slug => "Z0Mbxcyrj0",
 :start_year_uncert => "150",
 :start_year => "-1900"
 })
@@ -12128,7 +12407,7 @@ Tephrochronology
 :event_types => [ @volcanic ],
 :region => @northamerica,
 :image => "280px-black_peak.jpg",
-:slug => "tTHdz0ReU6",
+:slug => "Z0Mbxcyrj0",
 :url => "https://en.wikipedia.org/wiki/black_peak_(alaska)",
 :user_id => @user.id,
 :start_year_uncert => "150",
@@ -12155,7 +12434,7 @@ Radiocarbon (uncorrected)
 :image => "280px-long_island_nasa.jpg",
 :url => "https://en.wikipedia.org/wiki/long_island_(papua_new_guinea)",
 :user_id => @user.id,
-:slug => "W6YqnTVmj0",
+:slug => "QSjpFLX2ms",
 :start_year_uncert => "100",
 :start_year => "-2040"
 })
@@ -12173,7 +12452,7 @@ Radiocarbon (uncorrected)
 :event_types => [ @volcanic ],
 :region => @australasia,
 :image => "280px-long_island_nasa.jpg",
-:slug => "W6YqnTVmj0",
+:slug => "QSjpFLX2ms",
 :url => "https://en.wikipedia.org/wiki/long_island_(papua_new_guinea)",
 :user_id => @user.id,
 :start_year_uncert => "100",
@@ -12200,7 +12479,7 @@ Radiocarbon (corrected)
 :image => "280px-cerro_blanco_volcano_(ava_granule_l1b_20000916145757).jpg",
 :url => "https://en.wikipedia.org/wiki/cerro_blanco_(volcano)",
 :user_id => @user.id,
-:slug => "mTezLkKfS6",
+:slug => "C4LCxRVczZ",
 :start_year_uncert => "160",
 :start_year => "-2300"
 })
@@ -12218,7 +12497,7 @@ Radiocarbon (corrected)
 :event_types => [ @volcanic ],
 :region => @southamerica,
 :image => "280px-cerro_blanco_volcano_(ava_granule_l1b_20000916145757).jpg",
-:slug => "mTezLkKfS6",
+:slug => "C4LCxRVczZ",
 :url => "https://en.wikipedia.org/wiki/cerro_blanco_(volcano)",
 :user_id => @user.id,
 :start_year_uncert => "160",
@@ -12243,7 +12522,7 @@ Radiocarbon (corrected)
 :image => "280px-pinatubo91eruption_clark_air_base.jpg",
 :url => "https://en.wikipedia.org/wiki/mount_pinatubo",
 :user_id => @user.id,
-:slug => "9xKy2Cf7cg",
+:slug => "NshSHvkY3M",
 :start_year_uncert => "",
 :start_year => "-3550"
 })
@@ -12261,7 +12540,7 @@ Radiocarbon (corrected)
 :event_types => [ @volcanic ],
 :region => @southeastasia,
 :image => "280px-pinatubo91eruption_clark_air_base.jpg",
-:slug => "9xKy2Cf7cg",
+:slug => "NshSHvkY3M",
 :url => "https://en.wikipedia.org/wiki/mount_pinatubo",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -12288,7 +12567,7 @@ Radiocarbon (uncorrected)
 :image => "280px-taal_volcano_aerial_2013.jpg",
 :url => "https://en.wikipedia.org/wiki/taal_volcano",
 :user_id => @user.id,
-:slug => "4CBB3hMxb0",
+:slug => "x4KNQALu0f",
 :start_year_uncert => "200",
 :start_year => "-3580"
 })
@@ -12306,7 +12585,7 @@ Radiocarbon (uncorrected)
 :event_types => [ @volcanic ],
 :region => @southeastasia,
 :image => "280px-taal_volcano_aerial_2013.jpg",
-:slug => "4CBB3hMxb0",
+:slug => "x4KNQALu0f",
 :url => "https://en.wikipedia.org/wiki/taal_volcano",
 :user_id => @user.id,
 :start_year_uncert => "200",
@@ -12333,7 +12612,7 @@ Radiocarbon (corrected)
 :image => "280px-ulawun_steam_plume.jpg",
 :url => "https://en.wikipedia.org/wiki/pago_(volcano)",
 :user_id => @user.id,
-:slug => "ur2vAz6V15",
+:slug => "ZnGKWmGnvq",
 :start_year_uncert => "210",
 :start_year => "-4000"
 })
@@ -12351,7 +12630,7 @@ Radiocarbon (corrected)
 :event_types => [ @volcanic ],
 :region => @australasia,
 :image => "280px-ulawun_steam_plume.jpg",
-:slug => "ur2vAz6V15",
+:slug => "ZnGKWmGnvq",
 :url => "https://en.wikipedia.org/wiki/pago_(volcano)",
 :user_id => @user.id,
 :start_year_uncert => "210",
@@ -12376,7 +12655,7 @@ NW of caldera</p>",
 :image => "280px-volcan_masaya2.jpg",
 :url => "https://en.wikipedia.org/wiki/masaya_volcano",
 :user_id => @user.id,
-:slug => "nhaGxtdGA0",
+:slug => "8HAPs1Ksqw",
 :start_year_uncert => "",
 :start_year => "-4050"
 })
@@ -12394,7 +12673,7 @@ NW of caldera</p>",
 :event_types => [ @volcanic ],
 :region => @centralamerica,
 :image => "280px-volcan_masaya2.jpg",
-:slug => "nhaGxtdGA0",
+:slug => "8HAPs1Ksqw",
 :url => "https://en.wikipedia.org/wiki/masaya_volcano",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -12419,7 +12698,7 @@ Kikai caldera</p>",
 :image => "kikai_caldera_relief_map,_srtm,_english.jpg",
 :url => "https://en.wikipedia.org/wiki/kikai_caldera",
 :user_id => @user.id,
-:slug => "kWVSeU6ezk",
+:slug => "T6deywpnBB",
 :start_year_uncert => "",
 :start_year => "-4350"
 })
@@ -12437,7 +12716,7 @@ Kikai caldera</p>",
 :event_types => [ @volcanic ],
 :region => @eastasia,
 :image => "kikai_caldera_relief_map,_srtm,_english.jpg",
-:slug => "kWVSeU6ezk",
+:slug => "T6deywpnBB",
 :url => "https://en.wikipedia.org/wiki/kikai_caldera",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -12464,7 +12743,7 @@ Radiocarbon (uncorrected)
 :image => "260px-macauley_island.png",
 :url => "https://en.wikipedia.org/wiki/macauley_island",
 :user_id => @user.id,
-:slug => "MknMQxe9Kk",
+:slug => "jPXmYXTMsa",
 :start_year_uncert => "200",
 :start_year => "-4360"
 })
@@ -12482,7 +12761,7 @@ Radiocarbon (uncorrected)
 :event_types => [ @volcanic ],
 :region => @australasia,
 :image => "260px-macauley_island.png",
-:slug => "MknMQxe9Kk",
+:slug => "jPXmYXTMsa",
 :url => "https://en.wikipedia.org/wiki/macauley_island",
 :user_id => @user.id,
 :start_year_uncert => "200",
@@ -12509,7 +12788,7 @@ Radiocarbon (uncorrected)
 :image => "280px-cerro_hudson.jpg",
 :url => "https://en.wikipedia.org/wiki/mount_hudson",
 :user_id => @user.id,
-:slug => "378F8ax9Eg",
+:slug => "yQw5ykfMty",
 :start_year_uncert => "",
 :start_year => "-4750"
 })
@@ -12527,7 +12806,7 @@ Radiocarbon (uncorrected)
 :event_types => [ @volcanic ],
 :region => @southamerica,
 :image => "280px-cerro_hudson.jpg",
-:slug => "378F8ax9Eg",
+:slug => "yQw5ykfMty",
 :url => "https://en.wikipedia.org/wiki/mount_hudson",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -12554,7 +12833,7 @@ Tephrochronology
 :image => "280px-aniakchak-caldera_alaska.jpg",
 :url => "https://en.wikipedia.org/wiki/mount_aniakchak",
 :user_id => @user.id,
-:slug => "r8WykCwpdF",
+:slug => "WQUuK20902",
 :start_year_uncert => "1000",
 :start_year => "-5250"
 })
@@ -12572,7 +12851,7 @@ Tephrochronology
 :event_types => [ @volcanic ],
 :region => @northamerica,
 :image => "280px-aniakchak-caldera_alaska.jpg",
-:slug => "r8WykCwpdF",
+:slug => "WQUuK20902",
 :url => "https://en.wikipedia.org/wiki/mount_aniakchak",
 :user_id => @user.id,
 :start_year_uncert => "1000",
@@ -12599,7 +12878,7 @@ Tao-Rusyr</p>",
 :image => "onekotanislandnasa.jpg",
 :url => "https://en.wikipedia.org/wiki/tao-rusyr_caldera",
 :user_id => @user.id,
-:slug => "6z9dkKtAxp",
+:slug => "cKZGs12KCQ",
 :start_year_uncert => "75",
 :start_year => "-5550"
 })
@@ -12617,7 +12896,7 @@ Tao-Rusyr</p>",
 :event_types => [ @volcanic ],
 :region => @eastasia,
 :image => "onekotanislandnasa.jpg",
-:slug => "6z9dkKtAxp",
+:slug => "cKZGs12KCQ",
 :url => "https://en.wikipedia.org/wiki/tao-rusyr_caldera",
 :user_id => @user.id,
 :start_year_uncert => "75",
@@ -12644,7 +12923,7 @@ Radiocarbon (corrected)
 :image => "250px-image-2008_lake_masshu.jpg",
 :url => "https://en.wikipedia.org/wiki/lake_mash%c5%ab",
 :user_id => @user.id,
-:slug => "34u1AvdWzD",
+:slug => "HQAGaBxkGL",
 :start_year_uncert => "100",
 :start_year => "-5550"
 })
@@ -12662,7 +12941,7 @@ Radiocarbon (corrected)
 :event_types => [ @volcanic ],
 :region => @eastasia,
 :image => "250px-image-2008_lake_masshu.jpg",
-:slug => "34u1AvdWzD",
+:slug => "HQAGaBxkGL",
 :url => "https://en.wikipedia.org/wiki/lake_mash%c5%ab",
 :user_id => @user.id,
 :start_year_uncert => "100",
@@ -12689,7 +12968,7 @@ Mt. Mazama summit and flank vents</p>",
 :image => "250px-crater_lake_winter_pano2.jpg",
 :url => "https://en.wikipedia.org/wiki/crater_lake",
 :user_id => @user.id,
-:slug => "yPPkuUkM5f",
+:slug => "SHNWCAXt9y",
 :start_year_uncert => "150",
 :start_year => "-5677"
 })
@@ -12707,7 +12986,7 @@ Mt. Mazama summit and flank vents</p>",
 :event_types => [ @volcanic ],
 :region => @northamerica,
 :image => "250px-crater_lake_winter_pano2.jpg",
-:slug => "yPPkuUkM5f",
+:slug => "SHNWCAXt9y",
 :url => "https://en.wikipedia.org/wiki/crater_lake",
 :user_id => @user.id,
 :start_year_uncert => "150",
@@ -12734,7 +13013,7 @@ Radiocarbon (corrected)
 :image => "280px-khangar.jpg",
 :url => "https://en.wikipedia.org/wiki/khangar",
 :user_id => @user.id,
-:slug => "x88gKhwKJk",
+:slug => "nL7vUmWZfk",
 :start_year_uncert => "16",
 :start_year => "-5700"
 })
@@ -12752,7 +13031,7 @@ Radiocarbon (corrected)
 :event_types => [ @volcanic ],
 :region => @eastasia,
 :image => "280px-khangar.jpg",
-:slug => "x88gKhwKJk",
+:slug => "nL7vUmWZfk",
 :url => "https://en.wikipedia.org/wiki/khangar",
 :user_id => @user.id,
 :start_year_uncert => "16",
@@ -12777,7 +13056,7 @@ North flank (Llao Rock)</p>",
 :image => "250px-crater_lake_winter_pano2.jpg",
 :url => "https://en.wikipedia.org/wiki/crater_lake",
 :user_id => @user.id,
-:slug => "rp3ByBnYsB",
+:slug => "Y6YF8uhgTJ",
 :start_year_uncert => "50",
 :start_year => "-5900"
 })
@@ -12795,7 +13074,7 @@ North flank (Llao Rock)</p>",
 :event_types => [ @volcanic ],
 :region => @northamerica,
 :image => "250px-crater_lake_winter_pano2.jpg",
-:slug => "rp3ByBnYsB",
+:slug => "Y6YF8uhgTJ",
 :url => "https://en.wikipedia.org/wiki/crater_lake",
 :user_id => @user.id,
 :start_year_uncert => "50",
@@ -12820,7 +13099,7 @@ Radiocarbon (uncorrected)
 :image => "menengai_crater_view_from_the_edge.jpg",
 :url => "https://en.wikipedia.org/wiki/menengai",
 :user_id => @user.id,
-:slug => "pjPTGjqmX1",
+:slug => "MLkWa4RbMx",
 :start_year_uncert => "",
 :start_year => "-6050"
 })
@@ -12838,7 +13117,7 @@ Radiocarbon (uncorrected)
 :event_types => [ @volcanic ],
 :region => @africa,
 :image => "menengai_crater_view_from_the_edge.jpg",
-:slug => "pjPTGjqmX1",
+:slug => "MLkWa4RbMx",
 :url => "https://en.wikipedia.org/wiki/menengai",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -12865,7 +13144,7 @@ Radiocarbon (corrected)
 :image => "onekotanislandnasa.jpg",
 :url => "https://en.wikipedia.org/wiki/tao-rusyr_caldera",
 :user_id => @user.id,
-:slug => "XWrEtmLwRa",
+:slug => "AN8AsMymv1",
 :start_year_uncert => "25",
 :start_year => "-6440"
 })
@@ -12883,7 +13162,7 @@ Radiocarbon (corrected)
 :event_types => [ @volcanic ],
 :region => @eastasia,
 :image => "onekotanislandnasa.jpg",
-:slug => "XWrEtmLwRa",
+:slug => "AN8AsMymv1",
 :url => "https://en.wikipedia.org/wiki/tao-rusyr_caldera",
 :user_id => @user.id,
 :start_year_uncert => "25",
@@ -12910,7 +13189,7 @@ Karymsky caldera</p>",
 :image => "280px-akademia_nauk.jpg",
 :url => "https://en.wikipedia.org/wiki/karymsky_(volcano)",
 :user_id => @user.id,
-:slug => "vDvwT1evcd",
+:slug => "XajzPaJeKr",
 :start_year_uncert => "",
 :start_year => "-6600"
 })
@@ -12928,7 +13207,7 @@ Karymsky caldera</p>",
 :event_types => [ @volcanic ],
 :region => @eastasia,
 :image => "280px-akademia_nauk.jpg",
-:slug => "vDvwT1evcd",
+:slug => "XajzPaJeKr",
 :url => "https://en.wikipedia.org/wiki/karymsky_(volcano)",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -12953,7 +13232,7 @@ NE and SW parts of Fisher caldera</p>",
 :image => "",
 :url => "https://en.wikipedia.org/wiki/fisher_caldera",
 :user_id => @user.id,
-:slug => "PCNQkub0RP",
+:slug => "Dkggw3fHak",
 :start_year_uncert => "200",
 :start_year => "-7420"
 })
@@ -12971,7 +13250,7 @@ NE and SW parts of Fisher caldera</p>",
 :event_types => [ @volcanic ],
 :region => @northamerica,
 :image => "",
-:slug => "PCNQkub0RP",
+:slug => "Dkggw3fHak",
 :url => "https://en.wikipedia.org/wiki/fisher_caldera",
 :user_id => @user.id,
 :start_year_uncert => "200",
@@ -12998,7 +13277,7 @@ Tayawan caldera</p>",
 :image => "280px-pinatubo91eruption_clark_air_base.jpg",
 :url => "https://en.wikipedia.org/wiki/mount_pinatubo",
 :user_id => @user.id,
-:slug => "SpCD1YaBnW",
+:slug => "8hTSuRQue6",
 :start_year_uncert => "150",
 :start_year => "-7460"
 })
@@ -13016,7 +13295,7 @@ Tayawan caldera</p>",
 :event_types => [ @volcanic ],
 :region => @southeastasia,
 :image => "280px-pinatubo91eruption_clark_air_base.jpg",
-:slug => "SpCD1YaBnW",
+:slug => "8hTSuRQue6",
 :url => "https://en.wikipedia.org/wiki/mount_pinatubo",
 :user_id => @user.id,
 :start_year_uncert => "150",
@@ -13043,7 +13322,7 @@ Wakamiko Caldera</p>",
 :image => "280px-sakura-jima_from_space.jpg",
 :url => "https://en.wikipedia.org/wiki/aira_caldera",
 :user_id => @user.id,
-:slug => "N5qnt7bALn",
+:slug => "FWUvva7WBA",
 :start_year_uncert => "1000",
 :start_year => "-8050"
 })
@@ -13061,7 +13340,7 @@ Wakamiko Caldera</p>",
 :event_types => [ @volcanic ],
 :region => @eastasia,
 :image => "280px-sakura-jima_from_space.jpg",
-:slug => "N5qnt7bALn",
+:slug => "FWUvva7WBA",
 :url => "https://en.wikipedia.org/wiki/aira_caldera",
 :user_id => @user.id,
 :start_year_uncert => "1000",
@@ -13086,7 +13365,7 @@ Radiocarbon (corrected)
 :image => "280px-iceland_grimsvoetn_1972-b.jpg",
 :url => "https://en.wikipedia.org/wiki/gr%c3%admsv%c3%b6tn",
 :user_id => @user.id,
-:slug => "70u7rpXfrh",
+:slug => "sFrn9DTACx",
 :start_year_uncert => "50",
 :start_year => "-8230"
 })
@@ -13104,7 +13383,7 @@ Radiocarbon (corrected)
 :event_types => [ @volcanic ],
 :region => @icelandandarcticocean,
 :image => "280px-iceland_grimsvoetn_1972-b.jpg",
-:slug => "70u7rpXfrh",
+:slug => "sFrn9DTACx",
 :url => "https://en.wikipedia.org/wiki/gr%c3%admsv%c3%b6tn",
 :user_id => @user.id,
 :start_year_uncert => "50",
@@ -13131,7 +13410,7 @@ Radiocarbon (corrected)
 :image => "280px-the-glaciated-michinmavida-volcano-lies-directly-behind-chaiten-in-eruption.jpg",
 :url => "https://en.wikipedia.org/wiki/michinmahuida",
 :user_id => @user.id,
-:slug => "tg50wFZn4q",
+:slug => "59f5MtXkDy",
 :start_year_uncert => "150",
 :start_year => "-8400"
 })
@@ -13149,7 +13428,7 @@ Radiocarbon (corrected)
 :event_types => [ @volcanic ],
 :region => @southamerica,
 :image => "280px-the-glaciated-michinmavida-volcano-lies-directly-behind-chaiten-in-eruption.jpg",
-:slug => "tg50wFZn4q",
+:slug => "59f5MtXkDy",
 :url => "https://en.wikipedia.org/wiki/michinmahuida",
 :user_id => @user.id,
 :start_year_uncert => "150",
@@ -13174,7 +13453,7 @@ Radiocarbon (corrected)
 :image => "260px-ulleung_island_from_above.jpg",
 :url => "https://en.wikipedia.org/wiki/ulleungdo",
 :user_id => @user.id,
-:slug => "CJv280y5xK",
+:slug => "bYL33GK7ct",
 :start_year_uncert => "",
 :start_year => "-8750"
 })
@@ -13192,7 +13471,7 @@ Radiocarbon (corrected)
 :event_types => [ @volcanic ],
 :region => @eastasia,
 :image => "260px-ulleung_island_from_above.jpg",
-:slug => "CJv280y5xK",
+:slug => "bYL33GK7ct",
 :url => "https://en.wikipedia.org/wiki/ulleungdo",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -13216,7 +13495,7 @@ result = HoloceneEvent.create({:name => "English Channel formed ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "szUG2WDUrj",
+:slug => "PhuanpFGEZ",
 :start_year_uncert => "",
 :start_year => "-8500"
 })
@@ -13231,7 +13510,7 @@ res = result[0].update_attributes({:name => "English Channel formed ",
 :event_types => [ @climate ],
 :region => @europe,
 :image => "",
-:slug => "szUG2WDUrj",
+:slug => "PhuanpFGEZ",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -13253,7 +13532,7 @@ result = HoloceneEvent.create({:name => "Climate or Thermal Maximum ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "e0m9G432yY",
+:slug => "ngfDBeZ16Y",
 :start_year_uncert => "",
 :start_year => "-8000"
 })
@@ -13268,7 +13547,7 @@ res = result[0].update_attributes({:name => "Climate or Thermal Maximum ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "e0m9G432yY",
+:slug => "ngfDBeZ16Y",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -13290,7 +13569,7 @@ result = HoloceneEvent.create({:name => "Bond 5 - 8.2K Event ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "CQdCfBf2Xt",
+:slug => "sQAGAK6mMf",
 :start_year_uncert => "",
 :start_year => "-6200"
 })
@@ -13305,7 +13584,7 @@ res = result[0].update_attributes({:name => "Bond 5 - 8.2K Event ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "CQdCfBf2Xt",
+:slug => "sQAGAK6mMf",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -13327,7 +13606,7 @@ result = HoloceneEvent.create({:name => "Cotopaxi, Ecuador VEI 5+",
 :image => "280px-cotopaxi_volcano_2008-06-27t1322.jpg",
 :url => "https://en.wikipedia.org/wiki/cotopaxi",
 :user_id => @user.id,
-:slug => "pdcfGga0tu",
+:slug => "Cn528ujs8Q",
 :start_year_uncert => "75",
 :start_year => "-5820"
 })
@@ -13342,7 +13621,7 @@ res = result[0].update_attributes({:name => "Cotopaxi, Ecuador VEI 5+",
 :event_types => [ @volcanic ],
 :region => @global,
 :image => "280px-cotopaxi_volcano_2008-06-27t1322.jpg",
-:slug => "pdcfGga0tu",
+:slug => "Cn528ujs8Q",
 :url => "https://en.wikipedia.org/wiki/cotopaxi",
 :user_id => @user.id,
 :start_year_uncert => "75",
@@ -13366,7 +13645,7 @@ result = HoloceneEvent.create({:name => "Flooding of the Black Sea ",
 :image => "",
 :url => "https://en.wikipedia.org/wiki/black_sea_deluge_hypothesis",
 :user_id => @user.id,
-:slug => "62WgX0mdWh",
+:slug => "RXj3dBz3dU",
 :start_year_uncert => "",
 :start_year => "-5600"
 })
@@ -13381,7 +13660,7 @@ res = result[0].update_attributes({:name => "Flooding of the Black Sea ",
 :event_types => [ @earth ],
 :region => @neareast,
 :image => "",
-:slug => "62WgX0mdWh",
+:slug => "RXj3dBz3dU",
 :url => "https://en.wikipedia.org/wiki/black_sea_deluge_hypothesis",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -13403,7 +13682,7 @@ result = HoloceneEvent.create({:name => "Low growth Irish Oak  ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "ehvf6v3eHD",
+:slug => "7j6yts20py",
 :start_year_uncert => "",
 :start_year => "-5060"
 })
@@ -13418,7 +13697,7 @@ res = result[0].update_attributes({:name => "Low growth Irish Oak  ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "ehvf6v3eHD",
+:slug => "7j6yts20py",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -13442,7 +13721,7 @@ result = HoloceneEvent.create({:name => "Low growth Irish Oak  ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "6pRxsPM8MF",
+:slug => "Dc5fPCj5eU",
 :start_year_uncert => "",
 :start_year => "-4375"
 })
@@ -13457,7 +13736,7 @@ res = result[0].update_attributes({:name => "Low growth Irish Oak  ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "6pRxsPM8MF",
+:slug => "Dc5fPCj5eU",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -13481,7 +13760,7 @@ result = HoloceneEvent.create({:name => "Pago, New Britain VEI 6",
 :image => "280px-ulawun_steam_plume.jpg",
 :url => "https://en.wikipedia.org/wiki/pago_(volcano)",
 :user_id => @user.id,
-:slug => "VxMBzEd1XA",
+:slug => "yuh4SsghaU",
 :start_year_uncert => "200",
 :start_year => "-4000"
 })
@@ -13496,7 +13775,7 @@ res = result[0].update_attributes({:name => "Pago, New Britain VEI 6",
 :event_types => [ @volcanic ],
 :region => @global,
 :image => "280px-ulawun_steam_plume.jpg",
-:slug => "VxMBzEd1XA",
+:slug => "yuh4SsghaU",
 :url => "https://en.wikipedia.org/wiki/pago_(volcano)",
 :user_id => @user.id,
 :start_year_uncert => "200",
@@ -13520,7 +13799,7 @@ result = HoloceneEvent.create({:name => "Bond 4 - 5.9K Event - intense aridifica
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "DXvD2mc137",
+:slug => "NxXBnmX7SZ",
 :start_year_uncert => "",
 :start_year => "-4200"
 })
@@ -13535,7 +13814,7 @@ res = result[0].update_attributes({:name => "Bond 4 - 5.9K Event - intense aridi
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "DXvD2mc137",
+:slug => "NxXBnmX7SZ",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -13557,7 +13836,7 @@ result = HoloceneEvent.create({:name => "Cotopaxi, Ecuador VEI 5+",
 :image => "280px-cotopaxi_volcano_2008-06-27t1322.jpg",
 :url => "https://en.wikipedia.org/wiki/cotopaxi",
 :user_id => @user.id,
-:slug => "FjhAEfTWJg",
+:slug => "NKSc0wH55s",
 :start_year_uncert => "75",
 :start_year => "-3880"
 })
@@ -13572,7 +13851,7 @@ res = result[0].update_attributes({:name => "Cotopaxi, Ecuador VEI 5+",
 :event_types => [ @volcanic ],
 :region => @global,
 :image => "280px-cotopaxi_volcano_2008-06-27t1322.jpg",
-:slug => "FjhAEfTWJg",
+:slug => "NKSc0wH55s",
 :url => "https://en.wikipedia.org/wiki/cotopaxi",
 :user_id => @user.id,
 :start_year_uncert => "75",
@@ -13596,7 +13875,7 @@ result = HoloceneEvent.create({:name => "Piora Oscillation ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "2SnmQA88Sv",
+:slug => "1NsJTwHTqz",
 :start_year_uncert => "",
 :start_year => "-3250"
 })
@@ -13611,7 +13890,7 @@ res = result[0].update_attributes({:name => "Piora Oscillation ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "2SnmQA88Sv",
+:slug => "1NsJTwHTqz",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -13633,7 +13912,7 @@ result = HoloceneEvent.create({:name => "Burkle Crater: Noah's Flood ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "ybWnxAyHjF",
+:slug => "jRBQ3WZAJD",
 :start_year_uncert => "",
 :start_year => "-3000"
 })
@@ -13648,7 +13927,7 @@ res = result[0].update_attributes({:name => "Burkle Crater: Noah's Flood ",
 :event_types => [ @impact,@cultural ],
 :region => @indianocean,
 :image => "",
-:slug => "ybWnxAyHjF",
+:slug => "jRBQ3WZAJD",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -13670,7 +13949,7 @@ result = HoloceneEvent.create({:name => "Low growth Irish Oak  ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "xcgFYDfvze",
+:slug => "NdK6pPEj80",
 :start_year_uncert => "",
 :start_year => "-3195"
 })
@@ -13685,7 +13964,7 @@ res = result[0].update_attributes({:name => "Low growth Irish Oak  ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "xcgFYDfvze",
+:slug => "NdK6pPEj80",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -13709,7 +13988,7 @@ result = HoloceneEvent.create({:name => "End of Piora Oscillation ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "6n8qqgVsZP",
+:slug => "zpHxUDtRuZ",
 :start_year_uncert => "",
 :start_year => "-2900"
 })
@@ -13724,7 +14003,7 @@ res = result[0].update_attributes({:name => "End of Piora Oscillation ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "6n8qqgVsZP",
+:slug => "zpHxUDtRuZ",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -13753,7 +14032,7 @@ The Egyptian Drought</p><p>Unconfirmed</p>",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "kX64xewSTT",
+:slug => "JfEQ1b3qAY",
 :start_year_uncert => "",
 :start_year => "-2354"
 })
@@ -13775,7 +14054,7 @@ The Egyptian Drought</p><p>Unconfirmed</p>",
 :event_types => [ @impact ],
 :region => @neareast,
 :image => "",
-:slug => "kX64xewSTT",
+:slug => "JfEQ1b3qAY",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -13797,7 +14076,7 @@ result = HoloceneEvent.create({:name => "Tree Ring Event ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "Vd4hfveqay",
+:slug => "ZwHRBuCc9N",
 :start_year_uncert => "",
 :start_year => "-2354"
 })
@@ -13812,7 +14091,7 @@ res = result[0].update_attributes({:name => "Tree Ring Event ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "Vd4hfveqay",
+:slug => "ZwHRBuCc9N",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -13836,7 +14115,7 @@ result = HoloceneEvent.create({:name => "Bond 3 - 4.2 Kiloyear Event",
 :image => "",
 :url => "https://en.wikipedia.org/wiki/4.2_kiloyear_event",
 :user_id => @user.id,
-:slug => "hhKMYRS1TN",
+:slug => "qUtgD1UMPs",
 :start_year_uncert => "",
 :start_year => "-2200"
 })
@@ -13851,7 +14130,7 @@ res = result[0].update_attributes({:name => "Bond 3 - 4.2 Kiloyear Event",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "hhKMYRS1TN",
+:slug => "qUtgD1UMPs",
 :url => "https://en.wikipedia.org/wiki/4.2_kiloyear_event",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -13879,7 +14158,7 @@ It is one of two calderas that have been remembered in folk lore.  The other cal
 :image => "280px-santorini_caldera_landsat.jpg",
 :url => "https://en.wikipedia.org/wiki/santorini_caldera",
 :user_id => @user.id,
-:slug => "SACSwNd261",
+:slug => "GBhhZ8QHJZ",
 :start_year_uncert => "14",
 :start_year => "-1628"
 })
@@ -13900,7 +14179,7 @@ It is one of two calderas that have been remembered in folk lore.  The other cal
 :event_types => [ @volcanic ],
 :region => @europe,
 :image => "280px-santorini_caldera_landsat.jpg",
-:slug => "SACSwNd261",
+:slug => "GBhhZ8QHJZ",
 :url => "https://en.wikipedia.org/wiki/santorini_caldera",
 :user_id => @user.id,
 :start_year_uncert => "14",
@@ -13924,7 +14203,7 @@ result = HoloceneEvent.create({:name => "Tree Ring Event ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "V0U6Ra6gBU",
+:slug => "sstgx2qmeT",
 :start_year_uncert => "",
 :start_year => "-1628"
 })
@@ -13939,7 +14218,7 @@ res = result[0].update_attributes({:name => "Tree Ring Event ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "V0U6Ra6gBU",
+:slug => "sstgx2qmeT",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -13963,7 +14242,7 @@ result = HoloceneEvent.create({:name => "Kaali Meteor Impact ",
 :image => "220px-kaali-crater-saaremaa-estonia-aug-2007.jpg",
 :url => "https://en.wikipedia.org/wiki/kaali_crater",
 :user_id => @user.id,
-:slug => "178dtbdFPb",
+:slug => "6n3uRZqFYn",
 :start_year_uncert => "",
 :start_year => "-1530"
 })
@@ -13978,7 +14257,7 @@ res = result[0].update_attributes({:name => "Kaali Meteor Impact ",
 :event_types => [ @impact ],
 :region => @europe,
 :image => "220px-kaali-crater-saaremaa-estonia-aug-2007.jpg",
-:slug => "178dtbdFPb",
+:slug => "6n3uRZqFYn",
 :url => "https://en.wikipedia.org/wiki/kaali_crater",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -14000,7 +14279,7 @@ result = HoloceneEvent.create({:name => "Macha Crater ",
 :image => "macha_craters_overview_map.jpg",
 :url => "https://en.wikipedia.org/wiki/macha_crater",
 :user_id => @user.id,
-:slug => "SZuzsrTyqS",
+:slug => "9QUmpp27uF",
 :start_year_uncert => "",
 :start_year => "-5300"
 })
@@ -14015,7 +14294,7 @@ res = result[0].update_attributes({:name => "Macha Crater ",
 :event_types => [ @impact ],
 :region => @eurasia,
 :image => "macha_craters_overview_map.jpg",
-:slug => "SZuzsrTyqS",
+:slug => "9QUmpp27uF",
 :url => "https://en.wikipedia.org/wiki/macha_crater",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -14040,7 +14319,7 @@ Horomatangi Reefs?</p>",
 :image => "taupo.volcanic.zone.north.island.nz.jpg",
 :url => "https://en.wikipedia.org/wiki/taupo_volcano",
 :user_id => @user.id,
-:slug => "Hhp2e5rhvK",
+:slug => "42qrV0pyEk",
 :start_year_uncert => "40",
 :start_year => "-1460"
 })
@@ -14058,7 +14337,7 @@ Horomatangi Reefs?</p>",
 :event_types => [ @volcanic ],
 :region => @australasia,
 :image => "taupo.volcanic.zone.north.island.nz.jpg",
-:slug => "Hhp2e5rhvK",
+:slug => "42qrV0pyEk",
 :url => "https://en.wikipedia.org/wiki/taupo_volcano",
 :user_id => @user.id,
 :start_year_uncert => "40",
@@ -14082,7 +14361,7 @@ result = HoloceneEvent.create({:name => "Pago, New Britain VEI 6",
 :image => "280px-ulawun_steam_plume.jpg",
 :url => "https://en.wikipedia.org/wiki/pago_(volcano)",
 :user_id => @user.id,
-:slug => "4p4CdRabqA",
+:slug => "UCbHjB2MdP",
 :start_year_uncert => "100",
 :start_year => "-1370"
 })
@@ -14097,7 +14376,7 @@ res = result[0].update_attributes({:name => "Pago, New Britain VEI 6",
 :event_types => [ @volcanic ],
 :region => @global,
 :image => "280px-ulawun_steam_plume.jpg",
-:slug => "4p4CdRabqA",
+:slug => "UCbHjB2MdP",
 :url => "https://en.wikipedia.org/wiki/pago_(volcano)",
 :user_id => @user.id,
 :start_year_uncert => "100",
@@ -14123,7 +14402,7 @@ This earthquake was perhaps the earthquake described to Solon in Plato's Atlanis
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "KG4Sc41WV8",
+:slug => "SaUpmNg56f",
 :start_year_uncert => "",
 :start_year => "-1240"
 })
@@ -14140,7 +14419,7 @@ This earthquake was perhaps the earthquake described to Solon in Plato's Atlanis
 :event_types => [ @earth ],
 :region => @global,
 :image => "",
-:slug => "KG4Sc41WV8",
+:slug => "SaUpmNg56f",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -14162,7 +14441,7 @@ result = HoloceneEvent.create({:name => "Mycenea  - Earthquake ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "FTwEPEP4UP",
+:slug => "dzSrR52zyE",
 :start_year_uncert => "",
 :start_year => "-1200"
 })
@@ -14177,7 +14456,7 @@ res = result[0].update_attributes({:name => "Mycenea  - Earthquake ",
 :event_types => [ @earth ],
 :region => @global,
 :image => "",
-:slug => "FTwEPEP4UP",
+:slug => "dzSrR52zyE",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -14200,7 +14479,7 @@ result = HoloceneEvent.create({:name => "Helka 3, Iceland VEI 6",
 :image => "280px-2006-05-21-153901_iceland_st%c3%b3rin%c3%bapur.jpg",
 :url => "https://en.wikipedia.org/wiki/hekla",
 :user_id => @user.id,
-:slug => "Nyms2fegV8",
+:slug => "4YfdC1zsRY",
 :start_year_uncert => "50",
 :start_year => "-1159"
 })
@@ -14216,7 +14495,7 @@ res = result[0].update_attributes({:name => "Helka 3, Iceland VEI 6",
 :event_types => [ @volcanic ],
 :region => @global,
 :image => "280px-2006-05-21-153901_iceland_st%c3%b3rin%c3%bapur.jpg",
-:slug => "Nyms2fegV8",
+:slug => "4YfdC1zsRY",
 :url => "https://en.wikipedia.org/wiki/hekla",
 :user_id => @user.id,
 :start_year_uncert => "50",
@@ -14242,7 +14521,7 @@ Lasted 18 years.</p>",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "Wzrx9x2eNh",
+:slug => "NpgjzFustg",
 :start_year_uncert => "",
 :start_year => "-1159"
 })
@@ -14259,7 +14538,7 @@ Lasted 18 years.</p>",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "Wzrx9x2eNh",
+:slug => "NpgjzFustg",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -14283,7 +14562,7 @@ result = HoloceneEvent.create({:name => "Iron Age Climate Pessimism ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "cmgUtZxSG5",
+:slug => "ug01XpsMPG",
 :start_year_uncert => "",
 :start_year => "-900"
 })
@@ -14298,7 +14577,7 @@ res = result[0].update_attributes({:name => "Iron Age Climate Pessimism ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "cmgUtZxSG5",
+:slug => "ug01XpsMPG",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -14320,7 +14599,7 @@ result = HoloceneEvent.create({:name => "Iron Age Climate Pessimism - Coldest Po
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "wqkXxDUxJA",
+:slug => "Yp6C2jnYDN",
 :start_year_uncert => "",
 :start_year => "-450"
 })
@@ -14335,7 +14614,7 @@ res = result[0].update_attributes({:name => "Iron Age Climate Pessimism - Coldes
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "wqkXxDUxJA",
+:slug => "Yp6C2jnYDN",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -14357,7 +14636,7 @@ result = HoloceneEvent.create({:name => "Bond 2 ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "PryFbyJYUE",
+:slug => "MzXZ085MHp",
 :start_year_uncert => "",
 :start_year => "-800"
 })
@@ -14372,7 +14651,7 @@ res = result[0].update_attributes({:name => "Bond 2 ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "PryFbyJYUE",
+:slug => "MzXZ085MHp",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -14394,7 +14673,7 @@ result = HoloceneEvent.create({:name => "Late Bronze Age Collapse ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "HW6xgq2GQJ",
+:slug => "UDka1s8bAF",
 :start_year_uncert => "",
 :start_year => "-1200"
 })
@@ -14409,7 +14688,7 @@ res = result[0].update_attributes({:name => "Late Bronze Age Collapse ",
 :event_types => [ @climate ],
 :region => @eurasia,
 :image => "",
-:slug => "HW6xgq2GQJ",
+:slug => "UDka1s8bAF",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -14431,7 +14710,7 @@ result = HoloceneEvent.create({:name => "Poseidon's Horses: Earthquake Swarm ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "aTeHfRDr4E",
+:slug => "KtfECwfKet",
 :start_year_uncert => "",
 :start_year => "-1225"
 })
@@ -14446,7 +14725,7 @@ res = result[0].update_attributes({:name => "Poseidon's Horses: Earthquake Swarm
 :event_types => [ @earth ],
 :region => @neareast,
 :image => "",
-:slug => "aTeHfRDr4E",
+:slug => "KtfECwfKet",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -14469,7 +14748,7 @@ result = HoloceneEvent.create({:name => "Storegga Slide ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "neevCBSKwp",
+:slug => "VJZmnfnKPP",
 :start_year_uncert => "",
 :start_year => "-8100"
 })
@@ -14485,7 +14764,7 @@ res = result[0].update_attributes({:name => "Storegga Slide ",
 :event_types => [ @earth ],
 :region => @europe,
 :image => "",
-:slug => "neevCBSKwp",
+:slug => "VJZmnfnKPP",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -14507,7 +14786,7 @@ result = HoloceneEvent.create({:name => "Coldest point of Iron Age  Pessimism ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "MLm2ZXJYCm",
+:slug => "tHA8guNNyn",
 :start_year_uncert => "",
 :start_year => "-450"
 })
@@ -14522,7 +14801,7 @@ res = result[0].update_attributes({:name => "Coldest point of Iron Age  Pessimis
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "MLm2ZXJYCm",
+:slug => "tHA8guNNyn",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -14544,7 +14823,7 @@ result = HoloceneEvent.create({:name => "Destruction of Tartessos ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "zS6LTxKrp9",
+:slug => "6Nwaxab7mR",
 :start_year_uncert => "",
 :start_year => "-440"
 })
@@ -14559,7 +14838,7 @@ res = result[0].update_attributes({:name => "Destruction of Tartessos ",
 :event_types => [ @earth ],
 :region => @europe,
 :image => "",
-:slug => "zS6LTxKrp9",
+:slug => "6Nwaxab7mR",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -14582,7 +14861,7 @@ result = HoloceneEvent.create({:name => "Helike, Greece disappears into the sea 
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "FQ3n96rs8U",
+:slug => "a5QXxm6Pyn",
 :start_year_uncert => "",
 :start_year => "-373"
 })
@@ -14598,7 +14877,7 @@ res = result[0].update_attributes({:name => "Helike, Greece disappears into the 
 :event_types => [ @earth ],
 :region => @europe,
 :image => "",
-:slug => "FQ3n96rs8U",
+:slug => "a5QXxm6Pyn",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -14623,7 +14902,7 @@ Denham caldera</p><p>LHE lists the date as 250 BC.</p>",
 :image => "260px-sts008-36-1403_cropped_rotated.jpg",
 :url => "https://en.wikipedia.org/wiki/raoul_island",
 :user_id => @user.id,
-:slug => "EnZyxTaYfb",
+:slug => "DYMXzSP632",
 :start_year_uncert => "75",
 :start_year => "-208"
 })
@@ -14641,7 +14920,7 @@ Denham caldera</p><p>LHE lists the date as 250 BC.</p>",
 :event_types => [ @volcanic ],
 :region => @australasia,
 :image => "260px-sts008-36-1403_cropped_rotated.jpg",
-:slug => "EnZyxTaYfb",
+:slug => "DYMXzSP632",
 :url => "https://en.wikipedia.org/wiki/raoul_island",
 :user_id => @user.id,
 :start_year_uncert => "75",
@@ -14665,7 +14944,7 @@ result = HoloceneEvent.create({:name => "Tree Ring Event ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "x45mgYKkG0",
+:slug => "BehupjhtjR",
 :start_year_uncert => "",
 :start_year => "-208"
 })
@@ -14680,7 +14959,7 @@ res = result[0].update_attributes({:name => "Tree Ring Event ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "x45mgYKkG0",
+:slug => "BehupjhtjR",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -14704,7 +14983,7 @@ result = HoloceneEvent.create({:name => "Roman Age Optimum ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "mzWAy55pQa",
+:slug => "tQxuTDC9E4",
 :start_year_uncert => "",
 :start_year => "-200"
 })
@@ -14719,7 +14998,7 @@ res = result[0].update_attributes({:name => "Roman Age Optimum ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "mzWAy55pQa",
+:slug => "tQxuTDC9E4",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -14741,7 +15020,7 @@ result = HoloceneEvent.create({:name => "Masaya, Nicaragua VEI 5+",
 :image => "280px-volcan_masaya2.jpg",
 :url => "https://en.wikipedia.org/wiki/masaya_volcano",
 :user_id => @user.id,
-:slug => "NWFn0JVade",
+:slug => "8ceX9uECqe",
 :start_year_uncert => "",
 :start_year => "150"
 })
@@ -14756,7 +15035,7 @@ res = result[0].update_attributes({:name => "Masaya, Nicaragua VEI 5+",
 :event_types => [ @volcanic ],
 :region => @global,
 :image => "280px-volcan_masaya2.jpg",
-:slug => "NWFn0JVade",
+:slug => "8ceX9uECqe",
 :url => "https://en.wikipedia.org/wiki/masaya_volcano",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -14789,7 +15068,7 @@ The magnitude of the explosion was the determining factor for its effect on the 
 :image => "taupo.volcanic.zone.north.island.nz.jpg",
 :url => "https://en.wikipedia.org/wiki/taupo_volcano",
 :user_id => @user.id,
-:slug => "4jUWSBXdGD",
+:slug => "n4zjL4CZJ7",
 :start_year_uncert => "",
 :start_year => "180"
 })
@@ -14813,7 +15092,7 @@ The magnitude of the explosion was the determining factor for its effect on the 
 :event_types => [ @volcanic ],
 :region => @australasia,
 :image => "taupo.volcanic.zone.north.island.nz.jpg",
-:slug => "4jUWSBXdGD",
+:slug => "n4zjL4CZJ7",
 :url => "https://en.wikipedia.org/wiki/taupo_volcano",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -14835,7 +15114,7 @@ result = HoloceneEvent.create({:name => "Rabul, New Britain VEI 6",
 :image => "260px-sts008-36-1403_cropped_rotated.jpg",
 :url => "https://en.wikipedia.org/wiki/raoul_island",
 :user_id => @user.id,
-:slug => "eQqUdDuDjV",
+:slug => "rdDf6X7fgG",
 :start_year_uncert => "4",
 :start_year => "512"
 })
@@ -14850,7 +15129,7 @@ res = result[0].update_attributes({:name => "Rabul, New Britain VEI 6",
 :event_types => [ @volcanic ],
 :region => @global,
 :image => "260px-sts008-36-1403_cropped_rotated.jpg",
-:slug => "eQqUdDuDjV",
+:slug => "rdDf6X7fgG",
 :url => "https://en.wikipedia.org/wiki/raoul_island",
 :user_id => @user.id,
 :start_year_uncert => "4",
@@ -14879,7 +15158,7 @@ The cloud cover started on March 24, 535 and ended on June 24, 536.   It's ocula
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "sL5SgAy0yZ",
+:slug => "8BBPvap8Ns",
 :start_year_uncert => "",
 :start_year => "536"
 })
@@ -14899,7 +15178,7 @@ The cloud cover started on March 24, 535 and ended on June 24, 536.   It's ocula
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "sL5SgAy0yZ",
+:slug => "8BBPvap8Ns",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -14923,7 +15202,7 @@ result = HoloceneEvent.create({:name => "Tree Ring Event ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "pd1QAjAegD",
+:slug => "0sJw00vQqW",
 :start_year_uncert => "",
 :start_year => "540"
 })
@@ -14938,7 +15217,7 @@ res = result[0].update_attributes({:name => "Tree Ring Event ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "pd1QAjAegD",
+:slug => "0sJw00vQqW",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -14962,7 +15241,7 @@ result = HoloceneEvent.create({:name => "Olympia destroyed by tsunami ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "nDpXzy2nZD",
+:slug => "MZ0TgZeay9",
 :start_year_uncert => "",
 :start_year => "551"
 })
@@ -14977,7 +15256,7 @@ res = result[0].update_attributes({:name => "Olympia destroyed by tsunami ",
 :event_types => [ @earth ],
 :region => @europe,
 :image => "",
-:slug => "nDpXzy2nZD",
+:slug => "MZ0TgZeay9",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -15001,7 +15280,7 @@ result = HoloceneEvent.create({:name => "Pago, New Britain VEI 6",
 :image => "280px-ulawun_steam_plume.jpg",
 :url => "https://en.wikipedia.org/wiki/pago_(volcano)",
 :user_id => @user.id,
-:slug => "zsFYyveBtP",
+:slug => "k6aqS2zAUW",
 :start_year_uncert => "75",
 :start_year => "710"
 })
@@ -15016,7 +15295,7 @@ res = result[0].update_attributes({:name => "Pago, New Britain VEI 6",
 :event_types => [ @volcanic ],
 :region => @global,
 :image => "280px-ulawun_steam_plume.jpg",
-:slug => "zsFYyveBtP",
+:slug => "k6aqS2zAUW",
 :url => "https://en.wikipedia.org/wiki/pago_(volcano)",
 :user_id => @user.id,
 :start_year_uncert => "75",
@@ -15040,7 +15319,7 @@ result = HoloceneEvent.create({:name => "Churchill, Eastern Alaska VEI 6",
 :image => "280px-mtchurchill-klutlanglacier.jpg",
 :url => "https://en.wikipedia.org/wiki/mount_churchill",
 :user_id => @user.id,
-:slug => "J9bZZWf1ve",
+:slug => "XWMVQM4pwa",
 :start_year_uncert => "100",
 :start_year => "800"
 })
@@ -15055,7 +15334,7 @@ res = result[0].update_attributes({:name => "Churchill, Eastern Alaska VEI 6",
 :event_types => [ @volcanic ],
 :region => @global,
 :image => "280px-mtchurchill-klutlanglacier.jpg",
-:slug => "J9bZZWf1ve",
+:slug => "XWMVQM4pwa",
 :url => "https://en.wikipedia.org/wiki/mount_churchill",
 :user_id => @user.id,
 :start_year_uncert => "100",
@@ -15079,7 +15358,7 @@ result = HoloceneEvent.create({:name => "Dakataua, New Britain VEI 6",
 :image => "280px-ulawun_steam_plume.jpg",
 :url => "https://en.wikipedia.org/wiki/dakataua",
 :user_id => @user.id,
-:slug => "AgbZQ750Ms",
+:slug => "m5YQm9DjRh",
 :start_year_uncert => "50",
 :start_year => "800"
 })
@@ -15094,7 +15373,7 @@ res = result[0].update_attributes({:name => "Dakataua, New Britain VEI 6",
 :event_types => [ @volcanic ],
 :region => @global,
 :image => "280px-ulawun_steam_plume.jpg",
-:slug => "AgbZQ750Ms",
+:slug => "m5YQm9DjRh",
 :url => "https://en.wikipedia.org/wiki/dakataua",
 :user_id => @user.id,
 :start_year_uncert => "50",
@@ -15118,7 +15397,7 @@ result = HoloceneEvent.create({:name => "Billy Mitchell, Bougainville Island VEI
 :image => "mtbalbitorenasa.jpg",
 :url => "https://en.wikipedia.org/wiki/billy_mitchell_(volcano)",
 :user_id => @user.id,
-:slug => "ev5Wxj2zr2",
+:slug => "P01Q478DnB",
 :start_year_uncert => "25",
 :start_year => "1030"
 })
@@ -15133,7 +15412,7 @@ res = result[0].update_attributes({:name => "Billy Mitchell, Bougainville Island
 :event_types => [ @volcanic ],
 :region => @global,
 :image => "mtbalbitorenasa.jpg",
-:slug => "ev5Wxj2zr2",
+:slug => "P01Q478DnB",
 :url => "https://en.wikipedia.org/wiki/billy_mitchell_(volcano)",
 :user_id => @user.id,
 :start_year_uncert => "25",
@@ -15159,7 +15438,7 @@ result = HoloceneEvent.create({:name => "'Lighting and Meteors destroyed the cor
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "2UGg2Weu9E",
+:slug => "CChk0MZt2S",
 :start_year_uncert => "4",
 :start_year => "1294"
 })
@@ -15176,7 +15455,7 @@ res = result[0].update_attributes({:name => "'Lighting and Meteors destroyed the
 :event_types => [ @impact ],
 :region => @europe,
 :image => "",
-:slug => "2UGg2Weu9E",
+:slug => "CChk0MZt2S",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "4",
@@ -15200,7 +15479,7 @@ result = HoloceneEvent.create({:name => "Mahuika Crater ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "uFGkXyS8CK",
+:slug => "SfasDedFw3",
 :start_year_uncert => "15",
 :start_year => "1440"
 })
@@ -15215,7 +15494,7 @@ res = result[0].update_attributes({:name => "Mahuika Crater ",
 :event_types => [ @impact ],
 :region => @australasia,
 :image => "",
-:slug => "uFGkXyS8CK",
+:slug => "SfasDedFw3",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "15",
@@ -15239,7 +15518,7 @@ Three year cooling event.
 :image => "280px-shepherdislandsmap.png",
 :url => "https://en.wikipedia.org/wiki/kuwae",
 :user_id => @user.id,
-:slug => "bDcQ65PFXL",
+:slug => "6uY9yPuvv3",
 :start_year_uncert => "",
 :start_year => "1453"
 })
@@ -15256,7 +15535,7 @@ Three year cooling event.
 :event_types => [ @volcanic ],
 :region => @global,
 :image => "280px-shepherdislandsmap.png",
-:slug => "bDcQ65PFXL",
+:slug => "6uY9yPuvv3",
 :url => "https://en.wikipedia.org/wiki/kuwae",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -15278,7 +15557,7 @@ result = HoloceneEvent.create({:name => "Three year cold event ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "qkBCQk41Ft",
+:slug => "RhcPXpgf74",
 :start_year_uncert => "",
 :start_year => "1453"
 })
@@ -15293,7 +15572,7 @@ res = result[0].update_attributes({:name => "Three year cold event ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "qkBCQk41Ft",
+:slug => "RhcPXpgf74",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -15315,7 +15594,7 @@ result = HoloceneEvent.create({:name => "Beginning of Little Ice Age ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "6419kLQnru",
+:slug => "7CFbZTL2WF",
 :start_year_uncert => "",
 :start_year => "1550"
 })
@@ -15330,7 +15609,7 @@ res = result[0].update_attributes({:name => "Beginning of Little Ice Age ",
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "6419kLQnru",
+:slug => "7CFbZTL2WF",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -15352,7 +15631,7 @@ result = HoloceneEvent.create({:name => "First Cold Point of Little Ice Age ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "XZ3Z8cntDZ",
+:slug => "JHBeususnX",
 :start_year_uncert => "",
 :start_year => "1650"
 })
@@ -15367,7 +15646,7 @@ res = result[0].update_attributes({:name => "First Cold Point of Little Ice Age 
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "XZ3Z8cntDZ",
+:slug => "JHBeususnX",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -15389,7 +15668,7 @@ result = HoloceneEvent.create({:name => "Second Cold Point of Little Ice Age ",
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "0FuDkLNtZE",
+:slug => "HPpF3ypQDU",
 :start_year_uncert => "",
 :start_year => "1770"
 })
@@ -15404,7 +15683,7 @@ res = result[0].update_attributes({:name => "Second Cold Point of Little Ice Age
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "0FuDkLNtZE",
+:slug => "HPpF3ypQDU",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -15426,7 +15705,7 @@ result = HoloceneEvent.create({:name => "Laki Eruption, Grimsvotn Volanco, Icela
 :image => "iceland_grimsvoetn_1972-b.jpg",
 :url => "https://en.wikipedia.org/wiki/gr%c3%admsv%c3%b6tn",
 :user_id => @user.id,
-:slug => "MDVnkcr85P",
+:slug => "HSWe9nxzML",
 :start_year_uncert => "",
 :start_year => "1783"
 })
@@ -15441,7 +15720,7 @@ res = result[0].update_attributes({:name => "Laki Eruption, Grimsvotn Volanco, I
 :event_types => [ @volcanic ],
 :region => @global,
 :image => "iceland_grimsvoetn_1972-b.jpg",
-:slug => "MDVnkcr85P",
+:slug => "HSWe9nxzML",
 :url => "https://en.wikipedia.org/wiki/gr%c3%admsv%c3%b6tn",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -15463,7 +15742,7 @@ result = HoloceneEvent.create({:name => "Third Cold Point of the Little Ice Age 
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "xYrpGP8dPU",
+:slug => "WSGsq4dRVr",
 :start_year_uncert => "",
 :start_year => "1850"
 })
@@ -15478,7 +15757,7 @@ res = result[0].update_attributes({:name => "Third Cold Point of the Little Ice 
 :event_types => [ @climate ],
 :region => @global,
 :image => "",
-:slug => "xYrpGP8dPU",
+:slug => "WSGsq4dRVr",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -15502,7 +15781,7 @@ There were fires along the telegraph lines and station due to the storm generati
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "hwYneQ1NvD",
+:slug => "0RLKqAZtC0",
 :start_year_uncert => "",
 :start_year => "1859"
 })
@@ -15519,7 +15798,7 @@ There were fires along the telegraph lines and station due to the storm generati
 :event_types => [ @climate,@cultural ],
 :region => @global,
 :image => "",
-:slug => "hwYneQ1NvD",
+:slug => "0RLKqAZtC0",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -15543,7 +15822,7 @@ People in London were able to read the new paper at night for 8 days after the e
 :image => "",
 :url => "",
 :user_id => @user.id,
-:slug => "vE20UrppZp",
+:slug => "DvWZNdD4KD",
 :start_year_uncert => "",
 :start_year => "1908"
 })
@@ -15560,7 +15839,7 @@ People in London were able to read the new paper at night for 8 days after the e
 :event_types => [ @impact,@cultural ],
 :region => @fareast,
 :image => "",
-:slug => "vE20UrppZp",
+:slug => "DvWZNdD4KD",
 :url => "",
 :user_id => @user.id,
 :start_year_uncert => "",
@@ -15583,7 +15862,7 @@ result = HoloceneEvent.create({:name => "Grimsvotn Volanco, Iceland VEI 4 ",
 :image => "iceland_grimsvoetn_1972-b.jpg",
 :url => "https://en.wikipedia.org/wiki/gr%c3%admsv%c3%b6tn",
 :user_id => @user.id,
-:slug => "aKKFau0E11",
+:slug => "DtDqD8k368",
 :start_year_uncert => "",
 :start_year => "2010"
 })
@@ -15599,7 +15878,7 @@ res = result[0].update_attributes({:name => "Grimsvotn Volanco, Iceland VEI 4 ",
 :event_types => [ @volcanic ],
 :region => @global,
 :image => "iceland_grimsvoetn_1972-b.jpg",
-:slug => "aKKFau0E11",
+:slug => "DtDqD8k368",
 :url => "https://en.wikipedia.org/wiki/gr%c3%admsv%c3%b6tn",
 :user_id => @user.id,
 :start_year_uncert => "",

@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :set_footer_content
-#  before_action :set_globals
 
   def home
   end
@@ -22,26 +21,23 @@ class ApplicationController < ActionController::Base
     @events = object.holocene_events.order(:start_year)
     my_ids = []
     unless @events.length == 0
-      start_year = @events.first.start_year
-      end_year = (@events[@events.length - 1].end_year.nil? ?  @events[@events.length - 1].start_year : @events[@events.length - 1].end_year)
+      start_year = @events.minimum(:start_year)
+      end_year = @events.maximum(:start_year)
 
-      timeline = Timeline.find_by_name("Main")
-      t_events = timeline.holocene_events
+      t_events = HoloceneEvent.where("user_id = ?", current_user.id)
 
-      my_events = t_events.where("start_year >= ?",start_year).where("start_year <= ?",end_year)
-      my_ids = my_events.pluck(:id)
+      case1 = t_events.where("start_year >= ?",start_year).where("start_year <= ?",end_year)
+      case2 = t_events.where("start_year >= ?",start_year).where("start_year <= ?",end_year).where("end_year is not null")
+      case3 = t_events.where("end_year is not null").where("end_year >= ?",start_year).where("end_year <= ?",end_year)
+      case4 = t_events.where("start_year >= ?",start_year).where("(start_year - start_year_uncert) <= ?",end_year)
+      case5 = t_events.where("start_year >= ?",end_year).where("(start_year + start_year_uncert) <= ?",start_year)
+      my_ids = (case1.ids + case2.ids + case3.ids + case4.ids + case5.ids).uniq
     end
-    ids = object.holocene_events.pluck(:id)
-    return ids + my_ids
+    return my_ids
   end
 
   private
   def set_footer_content
       @footer_content = []
   end
-
-
-#  def set_globals
-#      @book = Book.find(session['book_id']) unless session.nil? || !session.keys.include?('book_id')
-#  end
 end

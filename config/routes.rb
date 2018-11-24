@@ -78,8 +78,6 @@ Rails.application.routes.draw do
   post "/citations/:citation_id/holocene_events", to: "holocene_events#objects", as: :citation_holocene_event
 
   get "/books/:book_id/chapter/:id", to: "chapters#move", as: :move_book_chapter
-  get "/books/:id/pdf", to: "books#pdf", as: :book_pdf, defaults:  { :format => 'pdf' }
-  get "/chapters/:id/pdf", to: "chapters#pdf", as: :chapter_pdf, defaults:  { :format => 'pdf' }
 
   root to: "welcome#index"
   get "/faq", to: "application#faq", as: "faq"

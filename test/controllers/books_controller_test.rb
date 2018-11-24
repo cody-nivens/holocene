@@ -39,7 +39,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show pdf book" do
-    get book_pdf_url(@book, :format => :pdf)
+    get book_url(@book, :format => :pdf)
     assert_response :success
   end
 

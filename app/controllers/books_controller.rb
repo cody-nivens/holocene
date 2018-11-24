@@ -11,21 +11,9 @@ class BooksController < ApplicationController
   # GET /books/1.json
   def show
     @chapters = @book.chapters
-    session[:book_id] = @book.id
 
     respond_to do |format|
       format.html { render :show }
-    end
-  end
-
-  # GET /books/1
-  # GET /books/1.json
-  def pdf
-
-          #disposition: 'inline',
-    @chapters = @book.chapters
-    session[:book_id] = @book.id
-    respond_to do |format|
       format.pdf {
          render pdf: "export.pdf", 
           disposition: 'attachment',

@@ -12,11 +12,6 @@ class ChaptersController < ApplicationController
     @sections = @chapter.sections.order(:position)
     respond_to do |format|
       format.html { render :show }
-    end
-  end
-
-  def pdf
-    respond_to do |format|
       format.pdf {
          render pdf: "export.pdf", 
           disposition: 'attachment',

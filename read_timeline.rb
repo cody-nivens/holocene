@@ -120,10 +120,11 @@ def do_para(child)
     when "text"
       @para_body += "#{child.children[index].text}"
     when "footnote"
+      xreflabel = (child.children[index].attributes['xreflabel'].nil? ? nil : child.children[index].attributes['xreflabel'].value)
       footnote_text = child.children[index].text
       footnote_slug =  random_slug if @footnote_slug.nil?
       @para_body += "[[#{footnote_slug}]]"
-      @footnotes << {:slug => "#{footnote_slug}", :body => "#{footnote_text}"}
+      @footnotes << {:xreflabel => "#{(xreflabel.nil? ? '' : xreflabel)}", :slug => "#{footnote_slug}", :body => "#{footnote_text}"}
     end
     index += 1
   end
@@ -303,7 +304,12 @@ def print_record(record_type)
 
   if ["event", "section", "chapter"].include?(record_type)
     @footnotes.each do |footnote|
-      puts "Footnote.create(:slug => \"#{footnote[:slug]}\", :body => \"#{footnote[:body]}\", :noted => result)"
+      if footnote[:xreflabel].nil? || footnote[:xreflabel] == ''
+        puts "biblio = nil"
+      else
+        puts "biblio = Biblioentry.find_by_xreflabel(\"#{footnote[:xreflabel]}\")"
+      end
+      puts "Footnote.create(:slug => \"#{footnote[:slug]}\", :body => \"#{footnote[:body]}\", :biblioentry_id => (biblio.nil? ? nil : biblio.id), :noted => result)"
     end
   end
 end
