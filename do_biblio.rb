@@ -106,7 +106,7 @@ end
 
 def print_record
     puts "result = Biblioentry.create({:name => \"#{@book[:title]}\","
-    puts "  :xreflabel => \"#{@book[:xreflabel]}\","
+    puts "  :xreflabel => \"#{@book[:xreflabel].downcase}\","
     puts "  :copyright_year => \"#{@book[:copyright][:year]}\"," unless @book[:copyright].nil?
     puts "  :copyright_holder => \"#{@book[:copyright][:holder]}\"," unless @book[:copyright].nil?
     puts "  :releaseinfo => \"#{@releaseinfo}\"," unless @releaseinfo.nil?

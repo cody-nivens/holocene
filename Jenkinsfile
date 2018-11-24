@@ -35,7 +35,7 @@ node {
         sh "kubectl apply --namespace default -f k8s/railsapp_setup_job.yaml"
         sh "sleep 15"
         sh "until kubectl get jobs setup --namespace default -o jsonpath='{.status.conditions[?(@.type==\"Ready\")].status}' | grep True ; do sleep 15; done"
-        sh "kubectl logs --pod-running-timeout=2m -f pod/\$(kubectl get pods -l 'job-name=setup' -o jsonpath='{.items[0].metadata.name}')"
+        sh "kubectl logs -n default --pod-running-timeout=2m -f pod/\$(kubectl get -n default pods -l 'job-name=setup' -o jsonpath='{.items[0].metadata.name}')"
         sh "kubectl apply --namespace default -f k8s/railsapp_service.yaml"
         sh "sed 's#127.0.0.1:30400/holocenes:latest#'$BUILDIMG'#' k8s/railsapp_deployment.yaml | kubectl apply --namespace default -f -"
         sh "kubectl rollout status --namespace default deployment/railsapp-deployment"
