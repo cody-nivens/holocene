@@ -16,11 +16,8 @@ node {
     stage("Build"){
     
         sh "docker build -t ${imageName} -f ./Dockerfile ./"
-        sh "docker build -t ${imageNameTest} -f ./Dockerfile.test ./"
-    }
-    stage("Push"){
-
         sh "docker push ${imageName}"
+        sh "docker build -t ${imageNameTest} -f ./Dockerfile.test ./"
         sh "docker push ${imageNameTest}"
     }
     stage("Test"){
