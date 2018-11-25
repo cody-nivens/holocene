@@ -1,4 +1,3 @@
-<script>
       function number_pages() {
         var vars={};
         var x=document.location.search.substring(1).split('&');
@@ -9,4 +8,3 @@
           for(var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
         }
       }
-</script>
