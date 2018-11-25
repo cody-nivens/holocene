@@ -41,6 +41,5 @@ node {
         sh "kubectl rollout status --namespace default deployment/railsapp-deployment"
         sh "sleep 15"
         sh "kubectl set image deployment/railsapp-deployment --namespace default railsapp=127.0.0.1:30400/holocenes:latest"
-        sh "kubectl set image deployment/railsapp-deployment --namespace default railsapp=127.0.0.1:30400/holocenes"
     }
 }
