@@ -6,7 +6,7 @@
     <%= wicked_pdf_javascript_include_tag "number_pages" %>
     <title><%= @book.name %></title>
   </head>
-  <body onload='number_pages'>
+  <body onload='number_pages()'>
     <div id="header">
       <%#= wicked_pdf_image_tag 'mysite.jpg' %>
     </div>
