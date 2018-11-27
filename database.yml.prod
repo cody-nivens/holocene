@@ -15,7 +15,7 @@ test:
   <<: *default
   username: db_user
   password: mysecurepass
-  database: railsapp_test
+  database: holocene_test
   host: mariadb-mariadb
   port: 3306
 
