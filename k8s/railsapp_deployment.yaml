@@ -31,17 +31,17 @@ spec:
           - name: DATABASE_USER
             valueFrom:
               secretKeyRef:
-                name: db-user
+                name: holocene-db-user
                 key: username
           - name: DATABASE_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: db-user-pass
+                name: holocene-db-user-pass
                 key: password
           - name: DATABASE_NAME
             valueFrom:
               secretKeyRef:
-                name: db-name
+                name: holocene-db-name
                 key: name
           - name: RAILS_ENV
             value: production
