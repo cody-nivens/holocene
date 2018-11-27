@@ -1,11 +1,13 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: setup
+  name: holocene-setup
+  labels:
+    app: holocene
 spec:
   template:
     metadata:
-      name: setup
+      name: holocene-setup
     spec:
       containers:
       - name: setup

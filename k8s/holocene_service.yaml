@@ -1,10 +1,12 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: railsapp-service
+  name: holocene-service
+  labels:
+    app: holocene
 spec:
   selector:
-    app: railsapp
+    app: holocene
   type: NodePort
   #type: LoadBalancer
   ports:

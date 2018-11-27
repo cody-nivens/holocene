@@ -1,13 +1,13 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: tests
+  name: holocene-tests
   labels:
-    app: railsapp
+    app: holocene
 spec:
   template:
     metadata:
-      name: tests
+      name: holocene-tests
     spec:
       containers:
       - name: tests
