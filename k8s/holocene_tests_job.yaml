@@ -10,7 +10,7 @@ spec:
       name: holocene-tests
     spec:
       containers:
-      - name: tests
+      - name: holocene-tests
         image: 127.0.0.1:30400/holocene_test:latest
         args: ["bin/rails db:environment:set RAILS_ENV=test && rake db:drop && rake db:create && rake db:migrate && rake db:test:prepare && rake test"]
         env:
