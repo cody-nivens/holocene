@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: holocene-deployment
+  name: holocene
   labels:
     app: holocene
 spec:

@@ -35,8 +35,8 @@ node {
         sh "kubectl logs -n default --pod-running-timeout=2m -f pod/\$(kubectl get -n default pods -l 'job-name=${appName}-setup' -o jsonpath='{.items[0].metadata.name}')"
         sh "kubectl apply --namespace default -f k8s/${appName}_service.yaml"
         sh "sed 's#${registryHost}/${appName}:latest#'${BUILDIMG}'#' k8s/${appName}_deployment.yaml | kubectl apply --namespace default -f -"
-        sh "kubectl rollout status --namespace default deployment/${appName}-deployment"
+        sh "kubectl rollout status --namespace default deployment/${appName}"
         sh "sleep 15"
-        sh "kubectl set image deployment/${appName}-deployment --namespace default ${appName}=${imageName}"
+        sh "kubectl set image deployment/${appName} --namespace default ${appName}=${imageName}"
     }
 }
