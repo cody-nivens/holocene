@@ -10,7 +10,7 @@ node {
     appName = "holocene"
     registryHost = "127.0.0.1:30400/"
     imageName = "${registryHost}${appName}:${tag}"
-    imageNameTest = "${registryHost}${appName}_test:${tag}"
+    imageNameTest = "${registryHost}${appName}_test:latest"
     env.BUILDIMG=imageName
 
     stage("Build"){
