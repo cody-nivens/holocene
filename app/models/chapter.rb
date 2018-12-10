@@ -12,6 +12,12 @@ class Chapter < ApplicationRecord
 
     validates :name, presence: true
 
+    def total_events
+        total = self.sections.map{|x| x.holocene_events.length}.sum
+        total += self.holocene_events.length
+        return total
+    end
+
     def citations
         cits = Footnote.where(noted_id: self.id).where(slug: "")
         return cits

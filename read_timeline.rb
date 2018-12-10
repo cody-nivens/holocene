@@ -46,6 +46,8 @@ end
 @footnotes = []
 @slug = random_slug
 @update_flag = false
+@lat = ''
+@lng = ''
 
 def init_vars
 @body = ""
@@ -67,6 +69,8 @@ def init_vars
 @footnotes = []
 @slug = random_slug
 @update_flag = false
+@lat = ''
+@lng = ''
 end
 
 def do_indexterm(child)
@@ -147,6 +151,20 @@ def do_url(child)
   while index < child.children.length do
     if child.children[index].name == "text"
 	    @url = "#{child.children[index].text.downcase.gsub(/ /,'')}"
+    end
+    index += 1
+  end
+end
+
+def do_gis(child)
+  index = 0
+  while index < child.children.length do
+    if child.children[index].name == "text"
+        if child.name == 'lat'
+	    @lat = "#{child.children[index].text.downcase.gsub(/ /,'')}"
+        else
+	    @lng = "#{child.children[index].text.downcase.gsub(/ /,'')}"
+        end
     end
     index += 1
   end
@@ -242,6 +260,8 @@ def print_record(record_type)
     puts ":url => \"#{@url}\","
     puts ":user_id => @user.id,"
     puts ":slug => \"#{@slug}\","
+    puts ":lat => \"#{@lat}\","
+    puts ":lng => \"#{@lng}\","
     puts ":start_year_uncert => \"#{@start_year_uncert}\","
     puts ":start_year => \"#{@start_year}\""
     puts "})"
@@ -257,6 +277,8 @@ def print_record(record_type)
     puts ":region => @#{@region},"
     puts ":image => \"#{@image}\","
     puts ":slug => \"#{@slug}\","
+    puts ":lat => \"#{@lat}\","
+    puts ":lng => \"#{@lng}\","
     puts ":url => \"#{@url}\","
     puts ":user_id => @user.id,"
     puts ":start_year_uncert => \"#{@start_year_uncert}\","
@@ -331,6 +353,8 @@ def do_section(child)
         do_image(child.children[index1])
       when "url"
         do_url(child.children[index1])
+      when "lat","lng"
+        do_gis(child.children[index1])
       when "event_type"
         do_event_type(child.children[index1])
       when "start_year_uncert"

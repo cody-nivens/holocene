@@ -3,28 +3,12 @@ default: &default
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
-development:
-  <<: *default
-  database: holocene_development
-  username: db_user
-  password: mysecurepass
-  host: mariadb-mariadb
-  port: 3306
-
-test:
-  <<: *default
-  username: db_user
-  password: mysecurepass
-  database: holocene_test
-  host: mariadb-mariadb
-  port: 3306
-
 production:
   <<: *default
   database: <%= ENV.fetch("DATABASE_NAME") %>
   username: <%= ENV.fetch("DATABASE_USER") %>
   password: <%= ENV.fetch("DATABASE_PASSWORD") %>
   host: <%= ENV.fetch("DATABASE_URL") { "mariadb-mariadb.db-apps.svc.cluster.local" } %>
-  port: <%= ENV.fetch("DATABASE_PORT") { 3306} %>
+  port: <%= ENV.fetch("DATABASE_PORT") { 3306 } %>
 
 

@@ -95,3 +95,6 @@ gem "font-awesome-rails"
 gem 'font-awesome-sass', '~> 5.5.0'
 gem 'timelineJS-rails'
 gem 'rails_admin'
+#gem "rgeo"
+#gem 'rgeo-activerecord', :git => 'https://github.com/rgeo/rgeo-activerecord'
+gem 'rails-ci-k8s', :git => 'https://github.com/cody-nivens/rails-ci-k8s.git'

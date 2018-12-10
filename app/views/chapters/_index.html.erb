@@ -18,7 +18,7 @@
         <td><%= (chapter.partition.nil? ? '' : chapter.partition.name) %></td>
         <!--  <td><%#= (chapter.partition.nil? || chapter.partition.body.blank? ? "" :chapter.partition.body[0,100]) %></td> -->
         <td><%= chapter.sections.count %></td>
-        <td><%= chapter.holocene_events.count %></td>
+        <td><%= chapter.total_events %></td>
         <td><%= chapter.citations.count %></td>
 
         <td><%= link_to 'Show', book_chapter_path(@book, chapter)  %></td>
