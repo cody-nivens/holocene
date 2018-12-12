@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/cody-nivens/rails-ci-k8s.git
-  revision: 50bc1a5c0d00cbca215d2e4b9dbe0a9c2d3d3e6b
+  revision: e58085be4512959550bbc35fd0879b8da99e4635
   specs:
     rails-ci-k8s (0.1.0)
 
@@ -126,7 +126,7 @@ GEM
     hashery (2.1.2)
     high_voltage (3.1.0)
     hiredis (0.6.3)
-    i18n (1.1.1)
+    i18n (1.2.0)
       concurrent-ruby (~> 1.0)
     io-like (0.3.0)
     jbuilder (2.8.0)
