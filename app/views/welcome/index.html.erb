@@ -9,12 +9,12 @@
     <tr><td><%= link_to "Region", regions_path %>&nbsp;<%= Region.count %></td>
     <td><%= link_to "Event Type", event_types_path %>&nbsp;<%= EventType.count %></td></tr>
     <tr><td><table class='table'><tbody>
-    <% Region.all.each do |region| -%>
+    <% Region.all.order(:name).each do |region| -%>
         <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "#{region.name}", region_path(region) %></td><td><%= region.holocene_events.count %></td></tr>
     <% end -%>
     </tbody></table></td>
     <td><table class='table'><tbody>
-    <% EventType.all.each do |event_type| -%>
+    <% EventType.all.order(:name).each do |event_type| -%>
         <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "#{event_type.name}", event_type_path(event_type) %></td><td><%= event_type.holocene_events.count %></td></tr>
     <% end -%>
     </tbody></table></td></tr>

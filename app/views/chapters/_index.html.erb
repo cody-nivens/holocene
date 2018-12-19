@@ -3,8 +3,8 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Name</th>
             <th>Partition</th>
+            <th>Name</th>
             <th>Sections</th>
             <th>Events</th>
             <th>Citations</th>
@@ -14,8 +14,8 @@
   <tbody class="sortable">  <!-- sortable target -->
     <% @chapters.each_with_sortable_id do |chapter, sortable_id| %>
       <tr id="<%= sortable_id %>">  <!-- Needs id tag on sorting elements -->
-        <td><%= chapter.name %></td>
         <td><%= (chapter.partition.nil? ? '' : chapter.partition.name) %></td>
+        <td><%= chapter.name %></td>
         <!--  <td><%#= (chapter.partition.nil? || chapter.partition.body.blank? ? "" :chapter.partition.body[0,100]) %></td> -->
         <td><%= chapter.sections.count %></td>
         <td><%= chapter.total_events %></td>

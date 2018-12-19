@@ -3,8 +3,8 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Name</th>
             <th>Partition</th>
+            <th>Name</th>
             <th>Sections</th>
             <th>Events</th>
             <th>Citations</th>
@@ -18,7 +18,7 @@
         <td><%= (chapter.partition.nil? ? "" : chapter.partition.name) %></td>
         <td><%= chapter.name %></td>
         <td><%= chapter.sections.count %></td>
-        <td><%= chapter.holocene_events.count %></td>
+        <td><%= chapter.total_events %></td>
         <td><%= chapter.citations.count %></td>
 
         <td><%= link_to 'Show', book_chapter_path(@book, chapter) %></td>
