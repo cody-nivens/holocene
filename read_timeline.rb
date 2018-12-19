@@ -129,6 +129,8 @@ def do_para(child)
       footnote_slug =  random_slug if @footnote_slug.nil?
       @para_body += "[[#{footnote_slug}]]"
       @footnotes << {:xreflabel => "#{(xreflabel.nil? ? '' : xreflabel)}", :slug => "#{footnote_slug}", :body => "#{footnote_text}"}
+    when "ul"
+        @para_body += "<ul>#{child.children[index].children.to_s}</ul>"
     end
     index += 1
   end
