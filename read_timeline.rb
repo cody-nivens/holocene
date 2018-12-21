@@ -131,10 +131,14 @@ def do_para(child)
       @footnotes << {:xreflabel => "#{(xreflabel.nil? ? '' : xreflabel)}", :slug => "#{footnote_slug}", :body => "#{footnote_text}"}
     when "ul"
         @para_body += "<ul>#{child.children[index].children.to_s}</ul>"
+    when "div"
+        div_class = (child.children[index].attributes['class'].nil? ? nil : child.children[index].attributes['class'].value)
+        @para_body += "<div#{(div_class.nil? ? "" : " class='#{div_class}'")}>#{child.children[index].children.to_s}</div>"
     end
     index += 1
   end
   @para_body += "</p>"
+  @para_body.gsub!(/"/,"'")
 end
 
 def do_region(child)
