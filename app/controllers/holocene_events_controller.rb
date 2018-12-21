@@ -29,8 +29,9 @@ class HoloceneEventsController < ApplicationController
     if ids.length == 0
         @command = "Add Events"
     else
-        @command = "Delete Events"
+        @command = "Delete/Move Events"
     end
+    @list_items = (@object.class.name == 'Chapter' ? @object.sections.order(:name) : (@object.class.name == 'Section' ? @object.chapter.sections.order(:name) : nil))
     @grid = HoloceneEventsGrid.new(grid_params.merge({:id => ids,:object => @object})) do |scope|
         scope.page(params[:page])
     end
@@ -67,9 +68,25 @@ class HoloceneEventsController < ApplicationController
           when "Add Events"
             he = HoloceneEvent.find(he_id)
             @object.holocene_events << he
-          when "Delete Events"
+          when "Delete/Move Events"
             he = HoloceneEvent.find(he_id)
             @object.holocene_events.delete(he)
+            if params[:holocene_event][:other_id] != ""
+                case object_type = params[:holocene_event][:object_type]
+                when "Section"
+                    @other = @object.chapter.sections.find(params[:holocene_event][:other_id])
+                    @other.holocene_events << he
+                when "Chapter"
+                    @other = @object.sections.find(params[:holocene_event][:other_id])
+                    @other.holocene_events << he
+                end
+            else
+                case object_type = params[:holocene_event][:object_type]
+                when "Section"
+                    @other = @object.chapter
+                    @other.holocene_events << he
+                end
+            end
           end
       end
       respond_to do |format|

@@ -60,7 +60,7 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show chapter display" do
-    get chapter_display_url(@chapter)
+    get chapter_display_url(chapters(:chapter_3))
     assert_response :success
   end
 

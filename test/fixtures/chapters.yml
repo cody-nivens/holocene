@@ -32,3 +32,17 @@ chapter_2:
   book: book_1
   holocene_events:
       - holocene_event_2
+chapter_3:
+  name: 'Chapter THree Stuff '
+  body: '[[slug56]]'
+  position: 1
+  slug: tE3vUMrsN3
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &4 2018-11-15 04:18:25.000000000 Z
+    zone: *2
+    time: *4
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &5 2018-11-15 04:18:25.000000000 Z
+    zone: *2
+    time: *5
+  book: book_1

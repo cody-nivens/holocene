@@ -10,6 +10,9 @@ Local variables:
  <%= f.hidden_field :object_id, value: @object.id %>
  <%= f.hidden_field :object_type, value: @object.class.name %>
  <%= f.submit "#{@command}", :class => "datagrid-submit" %>
+ <% unless @list_items.nil? -%>
+ <%= f.collection_select :other_id, @list_items, :id, :name, {include_blank: ''} %>
+ <% end -%>
 <% if grid.html_columns(*options[:columns]).any? %>
   <%= content_tag :table, options[:html] do %>
     <thead>
