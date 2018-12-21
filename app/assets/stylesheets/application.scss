@@ -77,3 +77,171 @@ td.dd-type {
 /*    display: block; */
     padding-left: 40px;
 }
+/*p {
+  padding-top: 20px;
+  padding-left: 300px;
+  border-style: solid;
+  border-width: 2px;
+}
+
+a {
+  margin-top: 50px;
+}
+
+* {
+  margin: auto;
+  padding: auto;
+}
+*/
+.gtree ul {
+  padding-top: 20px;
+  position: relative;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.gtree li {
+  float: left;
+  text-align: center;
+  list-style-type: none;
+  position: relative;
+  padding: 20px 5px 0 5px;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+
+/*We will use ::before and ::after to draw the connectors*/
+
+.gtree li::before,
+.gtree li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 50%;
+  border-top: 1px solid #ccc;
+  width: 50%;
+  height: 45px;
+  z-index: -1;
+}
+
+.gtree li::after {
+  right: auto;
+  left: 50%;
+  border-left: 1px solid #ccc;
+}
+
+
+/*We need to remove left-right connectors from elements without
+			any siblings*/
+
+.gtree li:only-child::after,
+.gtree li:only-child::before {
+  display: none;
+}
+
+
+/*Remove space from the top of single children*/
+
+.gtree li:only-child {
+  padding-top: 0;
+}
+
+
+/*Remove left connector from first child and
+			right connector from last child*/
+
+.gtree li:first-child::before,
+.gtree li:last-child::after {
+  border: 0 none;
+}
+
+
+/*Adding back the vertical connector to the last nodes*/
+
+.gtree li:last-child::before {
+  border-right: 1px solid #ccc;
+  border-radius: 0 5px 0 0;
+  -webkit-transform: translateX(1px);
+  -moz-transform: translateX(1px);
+  transform: translateX(1px);
+  -webkit-border-radius: 0 5px 0 0;
+  -moz-border-radius: 0 5px 0 0;
+  border-radius: 0 5px 0 0;
+}
+
+.gtree li:first-child::after {
+  border-radius: 5px 0 0 0;
+  -webkit-border-radius: 5px 0 0 0;
+  -moz-border-radius: 5px 0 0 0;
+}
+
+
+/*Time to add downward connectors from parents*/
+
+.gtree ul ul::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  border-left: 1px solid #ccc;
+  width: 0;
+  height: 32px;
+  z-index: -1;
+}
+
+.gtree li a {
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #666;
+  font-family: arial, verdana, tahoma;
+  font-size: 11px;
+  display: inline-block;
+  background: white;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.gtree li a+a {
+  margin-left: 20px;
+  position: relative;
+}
+
+.gtree li a+a::before {
+  content: '';
+  position: absolute;
+  border-top: 1px solid #ccc;
+  top: 50%;
+  left: -21px;
+  width: 20px;
+}
+
+
+/*Time for some hover effects*/
+
+
+/*We will apply the hover effect the the lineage of the element also*/
+
+.gtree li a:hover,
+.gtree li a:hover~ul li a {
+  background: #c8e4f8;
+  color: #000;
+  border: 1px solid #94a0b4;
+}
+
+
+/*Connector styles on hover*/
+
+.gtree li a:hover~ul li::after,
+.gtree li a:hover~ul li::before,
+.gtree li a:hover~ul::before,
+.gtree li a:hover~ul ul::before {
+  border-color: #94a0b4;
+}
