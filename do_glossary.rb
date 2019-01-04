@@ -23,6 +23,7 @@ dest_options = YAML.load_file("#{options[:source_name]}.yaml")
 @firstname = ""
 @surname = ""
 @glossary = {:authors => []}
+@created = []
 
 def init_vars
     @glossary = {:authors => [] }
@@ -59,14 +60,27 @@ end
 
 
 def print_record
-    puts "term = GlossaryTerm.find_or_create_by(name: \"#{@glossary[:title]}\")"
-    puts "term.update_attributes({"
+    ['see','seealso','acronym'].each do |str|
+    token = str.to_sym
+    if @glossary[token].nil?
+        puts "#{token.to_s} = nil"
+    elsif !@created.include?(@glossary[token])
+        puts "#{token.to_s} = GlossaryTerm.where(\"name = ? or term = ?\",\"#{@glossary[token]}\",\"#{@glossary[token]}\").find_or_create_by({term: \"#{@glossary[token]}\","
+        puts "  :name => \"#{@glossary[token]}\","
+        puts "  :book => @book,"
+        puts "  :user => @user"
+        puts "})"
+        @created << @glossary[token]
+      end
+    end
+    puts "term = GlossaryTerm.where(\"name = ? or term = ?\",\"#{@glossary[:title]}\",\"#{@glossary[:title]}\").find_or_create_by({name: \"#{@glossary[:title]}\","
     puts "  :book => @book,"
     puts "  :user => @user,"
+    puts "  :term => \"#{@id}\","
     puts "  :body => \"#{(@glossary[:body].nil? ? '' : @glossary[:body])}\"," 
-    puts "  :see => #{(@glossary[:see].nil? ? 'nil' : "GlossaryTerm.find_or_create_by(name: \"#{@glossary[:see]}\")")}," 
-    puts "  :seealso => #{(@glossary[:seealso].nil? ? 'nil' : "GlossaryTerm.find_or_create_by(name: \"#{@glossary[:seealso]}\")")},"
-    puts "  :acronym => #{(@glossary[:acronym].nil? ? 'nil' : "GlossaryTerm.find_or_create_by(name: \"#{@glossary[:acronym]}\")")}" 
+    puts "  :see => see," 
+    puts "  :seealso => seealso," 
+    puts "  :acronym => acronym" 
     puts "})"
     puts "debugger if term.errors.count > 0"
 end
@@ -89,7 +103,7 @@ dom.children[0].children.each do |child|
     do_title(child)
   when "glossentry"
     init_vars
-    @id = child.attributes[:id]
+    @id = (child.attributes["id"].nil? ? nil : child.attributes["id"].value)
     index1 = 0
     while index1 < child.children.length do
       case child.children[index1].name 
