@@ -1,5 +1,5 @@
 class TimelinesController < ApplicationController
-  before_action :set_timeline, only: [:show, :edit, :update, :destroy]
+  before_action :set_timeline, only: [:geo_map, :show, :edit, :update, :destroy]
   before_action :set_object, only: [:timeline ]
 
   # GET /timelines
@@ -17,6 +17,11 @@ class TimelinesController < ApplicationController
     end
 
   end
+
+  def geo_map
+      @object = @timeline
+  end
+
 
   def timeline
   end

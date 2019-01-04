@@ -14,6 +14,16 @@ class EventTypesTest < ApplicationSystemTestCase
     assert_no_text "link_to"
   end
 
+  test "visiting the map" do
+    visit event_types_url
+    assert_selector "h1", text: "Event Types"
+    click_on "Show", match: :first
+    assert_link "Map"
+    click_on "Map"
+    assert_link "Back"
+    click_on "Back"
+  end
+
   test "creating an Event type" do
     visit event_types_url
     click_on "New Event Type"

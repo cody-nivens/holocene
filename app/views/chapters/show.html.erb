@@ -1,8 +1,8 @@
 <h1>
   <%= @chapter.name %>
   <% @title = @chapter.name %>
-<%= link_to 'Edit', edit_book_chapter_path(@chapter.book, @chapter), :class => "btn btn-primary" %>
-<%= link_to 'Partition', (@chapter.partition.nil? ? new_book_chapter_partition_path(@chapter.book, @chapter) : edit_book_chapter_partition_path(@chapter.book, @chapter, @chapter.partition)), :class => "btn btn-primary" %>
+<%= link_to 'Edit', edit_book_chapter_path(@chapter.book, @chapter), :class => "btn btn-default" %>
+<%= link_to 'Partition', (@chapter.partition.nil? ? new_book_chapter_partition_path(@chapter.book, @chapter) : edit_book_chapter_partition_path(@chapter.book, @chapter, @chapter.partition)), :class => "btn btn-default" %>
 </h1>
 
 <% @slugs = [] -%>
@@ -16,8 +16,8 @@
 
 <% @chapter.sections.each do |section| -%>
 <h2><%= section.name %>
-<%= link_to 'Edit', edit_book_chapter_section_path(@chapter.book, @chapter,section), :class => "btn btn-primary" %>
-<%= link_to 'Display',  section_display_path(:section_id => section.id), :class => "btn btn-primary" %>
+<%= link_to 'Edit', edit_book_chapter_section_path(@chapter.book, @chapter,section), :class => "btn btn-default" %>
+<%= link_to 'Display',  section_display_path(:section_id => section.id), :class => "btn btn-default" %>
 </h2>
 <% @footnotes = process_body(section, @slugs, @footnotes[2]) -%>
 
@@ -35,8 +35,9 @@
 <% unless @chapter.citations.length == 0 -%>
 <%= raw render "footnotes/citations", slugs: @slugs, footnotes: @chapter.citations  %>
 <% end -%>
-<% @footer_content << "#{link_to 'Sections', book_chapter_sections_path(@chapter.book, @chapter), :class => "btn btn-primary" }" %>
-<% @footer_content << "#{link_to 'Timeline', chapter_timeline_path(@chapter), :class => "btn btn-primary" }" %>
-<% @footer_content << "#{link_to 'Display',  chapter_display_path(@chapter), :class => "btn btn-primary" }" %>
-<% @footer_content << "#{link_to 'Footnotes',chapter_footnotes_path(@chapter), :class => "btn btn-primary" }" %>
-<% @footer_content << "#{link_to 'Back',     book_chapters_path(@chapter.book), :class => "btn btn-primary" }" %>
+<% @footer_content << "#{link_to 'Sections', book_chapter_sections_path(@chapter.book, @chapter), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Timeline', chapter_timeline_path(@chapter), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Display',  chapter_display_path(@chapter), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Map',  geo_map_chapter_path(@chapter), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Footnotes',chapter_footnotes_path(@chapter), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Back',     book_chapters_path(@chapter.book), :class => "btn btn-default" }" %>

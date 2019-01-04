@@ -1,5 +1,5 @@
 class EventTypesController < ApplicationController
-  before_action :set_event_type, only: [:show, :edit, :update, :destroy]
+  before_action :set_event_type, only: [:geo_map, :show, :edit, :update, :destroy]
 
   # GET /event_types
   # GET /event_types.json
@@ -13,6 +13,10 @@ class EventTypesController < ApplicationController
     @grid = HoloceneEventsGrid.new(hgrid_params) do |scope|
         scope.joins(:event_types).where("event_type_id = ?", "#{@event_type.id}").page(params[:page])
     end
+  end
+
+  def geo_map
+      @object = @event_type
   end
 
   # GET /event_types/new

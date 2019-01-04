@@ -14,7 +14,18 @@ class HoloceneEventsTest < ApplicationSystemTestCase
     assert_no_text "link_to"
   end
 
-    test "should get tagged 1" do
+  test "visiting the map" do
+    visit holocene_events_url
+    assert_selector "h1", text: "Holocene Events"
+    assert_link "New Holocene event"
+    click_on "Show", match: :first
+    assert_link "Map"
+    click_on "Map"
+    assert_link "Back"
+    click_on "Back"
+  end
+
+  test "should get tagged 1" do
     visit tag_url(:tag => 'Domestication')
     assert_text "Domestication of Horse"
   end

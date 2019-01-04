@@ -1,43 +1,6 @@
 <h1>Chapters</h1>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Partition</th>
-            <th>Name</th>
-            <th>Sections</th>
-            <th>Events</th>
-            <th>Citations</th>
-            <th span=6></th>
-        </tr>
-    </thead>
+<%= render 'chapters/index' %>
 
-  <tbody class="sortable">
-    <% @chapters.each_with_sortable_id do |chapter, sortable_id| %>
-      <tr id="<%= sortable_id %>">
-        <td><%= (chapter.partition.nil? ? "" : chapter.partition.name) %></td>
-        <td><%= chapter.name %></td>
-        <td><%= chapter.sections.count %></td>
-        <td><%= chapter.total_events %></td>
-        <td><%= chapter.citations.count %></td>
-
-        <td><%= link_to 'Show', book_chapter_path(@book, chapter) %></td>
-        <td><%= link_to 'Partition', (chapter.partition.nil? ? new_book_chapter_partition_path(@book, chapter) : book_chapter_partition_path(@book, chapter,chapter.partition)) %></td>
-        <td><%= link_to 'PDF', book_chapter_path(@book,chapter,format: 'pdf') %></td>
-        <td><%= link_to 'Sections', book_chapter_sections_path(chapter.book, chapter) %></td>
-        <td><%= link_to 'Edit', edit_book_chapter_path(@book, chapter) %></td>
-        <td><%= link_to 'Destroy', book_chapter_path(@book, chapter), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-
-<% @footer_content << "#{link_to 'New Chapter', new_book_chapter_path(@book), :class => "btn btn-primary"}" %>
-<% @footer_content << "#{link_to 'Back', book_path(@book), :class => "btn btn-primary"}" %>
-
-<script>
-$(function() {
-  $('.sortable').railsSortable();
-});
-</script>
+<% @footer_content << "#{link_to 'New Chapter', new_book_chapter_path(@book), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>

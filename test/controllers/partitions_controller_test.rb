@@ -38,6 +38,12 @@ class PartitionsControllerTest < ActionDispatch::IntegrationTest
   test "should show partition" do
     get book_chapter_partition_url(@book,@chapter,@partition)
     assert_response :success
+
+    assert_select "a[text()=?]",'Edit'
+    assert_select "a[href=?]", edit_book_chapter_partition_path(@partition.chapter.book,@partition.chapter,@partition)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_chapter_path(@chapter.book,@chapter)
+    assert_select ".footer>div>a", 2
   end
 
   test "should get edit" do

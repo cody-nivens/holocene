@@ -10,4 +10,8 @@ class Timeline < ApplicationRecord
         return {:events => self.holocene_events.order(:start_year).collect{|x| x.slide}}.to_json
     end
 
+    def map_locs
+        return self.holocene_events.collect{|x| (x.lat.nil? ? nil : x.location) }.compact
+    end
+
 end

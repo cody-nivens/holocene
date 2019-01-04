@@ -19,9 +19,11 @@ module ApplicationHelper
         return str.gsub(/^ /,'').gsub(/,$/,'')
     end
 
-	def convert_ad(value)
+	def convert_ad(value,uncert = nil)
         return "" if value.nil?
-		return (value < 0 ? "#{-value} BC" : "#{value} AD")
+		a = (value < 0 ? "#{-value} BC" : "#{value} AD")
+        a += " &plusmn; #{uncert} years" unless uncert.nil?
+        return a
     end
 
     def write_footnotes(slugs)

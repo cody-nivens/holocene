@@ -7,16 +7,16 @@
         <td><%= section.name %></td>
         <td><%= (section.display_name ? 'Y' : 'N') %></td>
         <td><%= render :partial => "shared/summary", :locals => { :object => section} %>
-        <td><%= link_to 'Show', book_chapter_section_path(@book, @chapter, section) %></td>
-        <td><%= link_to 'Edit', edit_book_chapter_section_path(@book, @chapter, section) %></td>
-        <td><%= link_to 'Destroy', book_chapter_section_path(@book, @chapter, section), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to (fa_icon "search-plus"), book_chapter_section_path(@book, @chapter, section), :title => "Show" %></td>
+        <td><%= link_to (fa_icon "edit"), edit_book_chapter_section_path(@book, @chapter, section), :title => "Edit" %></td>
+        <td><%= link_to (fa_icon "trash-o"), book_chapter_section_path(@book, @chapter, section), method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<% @footer_content << "#{link_to 'New Section', new_book_chapter_section_path(@book, @chapter), :class => "btn btn-primary"}" %>
-<% @footer_content << "#{link_to 'Back', book_chapter_path(@book, @chapter), :class => "btn btn-primary"}" %>
+<% @footer_content << "#{link_to 'New Section', new_book_chapter_section_path(@book, @chapter), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', book_chapter_path(@book, @chapter), :class => "btn btn-default"}" %>
 
 <script>
 $(function() {

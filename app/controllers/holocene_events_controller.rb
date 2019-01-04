@@ -1,5 +1,5 @@
 class HoloceneEventsController < ApplicationController
-  before_action :set_holocene_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_holocene_event, only: [:geo_map, :show, :edit, :update, :destroy]
   before_action :set_object, only: [:index, :display, :add_event ]
 
   def index
@@ -23,13 +23,18 @@ class HoloceneEventsController < ApplicationController
   def show
   end
 
+  def geo_map
+      @object = @holocene_event
+  end
+
+
   def display
     @events = @object.holocene_events.order(:start_year)
     ids = @object.holocene_events.pluck(:id)
     if ids.length == 0
         @command = "Add Events"
     else
-        @command = "Delete/Move Events"
+        @command = "Delete Events"
     end
     @list_items = (@object.class.name == 'Chapter' ? @object.sections.order(:name) : (@object.class.name == 'Section' ? @object.chapter.sections.order(:name) : nil))
     @grid = HoloceneEventsGrid.new(grid_params.merge({:id => ids,:object => @object})) do |scope|
@@ -68,7 +73,10 @@ class HoloceneEventsController < ApplicationController
           when "Add Events"
             he = HoloceneEvent.find(he_id)
             @object.holocene_events << he
-          when "Delete/Move Events"
+          when "Delete Events"
+            he = HoloceneEvent.find(he_id)
+            @object.holocene_events.delete(he)
+          when "Move Events"
             he = HoloceneEvent.find(he_id)
             @object.holocene_events.delete(he)
             if params[:holocene_event][:other_id] != ""

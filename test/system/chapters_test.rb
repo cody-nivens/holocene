@@ -24,6 +24,18 @@ class ChaptersTest < ApplicationSystemTestCase
     assert_no_text "link_to"
   end
 
+  test "visiting the map" do
+    visit book_chapters_url(@book)
+    assert_selector "h1", text: "Chapters"
+    assert_link "New Chapter"
+    assert_no_text "link_to"
+    click_on "Show", match: :first
+    assert_link "Map"
+    click_on "Map"
+    assert_link "Back"
+    click_on "Back"
+  end
+
   test "visiting the timeline" do
     visit chapter_timeline_url(@chapter)
     assert_text "Domestication of Horses"
@@ -36,25 +48,34 @@ class ChaptersTest < ApplicationSystemTestCase
     assert_link  "Display"
     click_on "Display", match: :first
 
-    assert_button "Add Events"
-    assert_text "Domestication of Horses"
+    assert_link "Add Event"
+    assert_text "Domestication of Goats"
 
-    he = HoloceneEvent.find_by_name("Domestication of Horses")
+    click_on "Add Event"
+
+    assert_link "Add Event"
+    assert_button "Add Events"
+
+    he = HoloceneEvent.find_by_name("Domestication of Cats")
     find(:xpath,"//input[@type='checkbox' and @value=#{he.id}]").set(true)
     click_on "Add Events"
-   
+
     assert_text "Section was successfully updated"
-    assert_text "Domestication of Horses"
+    assert_text "Domestication of Cats"
 
     assert_link  "Display"
-    click_on "Display", match: :first
+    click_on "Display"
+
     assert_button "Delete Events"
 
+    find('#holocene_event_other_id').find(:xpath, 'option[2]').select_option
     find(:xpath,"//input[@type='checkbox' and @value=#{he.id}]").set(true)
-    click_on "Delete Events"
-   
+
+    assert_button "Move Events"
+    click_on "Move Events"
+
     assert_text "Section was successfully updated"
-    assert_no_text "Domestication of Horses"
+    assert_no_text "Domestication of Cats"
 
   end
 

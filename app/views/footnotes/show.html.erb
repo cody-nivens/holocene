@@ -14,5 +14,5 @@
 </p>
 <% end %>
 
-<% @footer_content << "#{link_to 'Edit', edit_footnote_path(@footnote), :class => "btn btn-primary"}" %>
-<% @footer_content << "#{link_to 'Back', "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnotes", :class => "btn btn-primary"}" %>
+<% @footer_content << "#{link_to 'Edit', edit_footnote_path(@footnote), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnotes", :class => "btn btn-default"}" %>

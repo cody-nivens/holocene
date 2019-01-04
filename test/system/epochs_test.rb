@@ -20,6 +20,19 @@ class EpochsTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
+  test "visiting the map" do
+    visit epochs_url
+    assert_selector "h1", text: "Epochs"
+    assert_link "New Epoch"
+    assert_no_text "link_to"
+    click_on "Show", match: :first
+    assert_text "Dog buried inside"
+    assert_link "Map"
+    click_on "Map"
+    assert_link "Back"
+    click_on "Back"
+  end
+
   test "creating a Epoch" do
     visit epochs_url
     click_on "New Epoch"

@@ -20,6 +20,18 @@ class TimelinesTest < ApplicationSystemTestCase
     assert_text "Name"
   end
 
+  test "visiting the map" do
+    visit timelines_url
+    assert_selector "h1", text: "Timelines"
+    assert_link "New Timeline"
+    assert_no_text "link_to"
+    click_on "Show", match: :first
+    assert_link "Map"
+    click_on "Map"
+    assert_link "Back"
+    click_on "Back"
+  end
+
   test "visiting the timeline" do
       visit timeline_timeline_url(:timeline_id => @timeline.id)
     assert_text "Dog buried"

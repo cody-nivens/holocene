@@ -1,31 +1,3 @@
 <h1>Footnotes</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Slug</th>
-      <th>Body</th>
-      <th>Noted</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @footnotes.each do |footnote| %>
-      <tr>
-        <td><%= footnote.slug %></td>
-        <td><%= footnote.body %></td>
-        <td><%= footnote.noted.name %></td>
-        <td><%= (footnote.biblioentry.nil? ? '' : footnote.biblioentry.name) %></td>
-        <td><%= link_to 'Show', footnote %></td>
-        <td><%= link_to 'Edit', edit_footnote_path(footnote) %></td>
-        <td><%= link_to 'Destroy', footnote, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<% @footer_content << "#{link_to 'New Footnote', "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnotes/#{Footnote.random_slug}", :class => "btn btn-primary"}" %>
-<% @footer_content << "#{link_to 'Back', "/#{@noted.class.name.underscore.pluralize}/show/#{@noted.id}", :class => "btn btn-primary"}" %>
+<%= render 'footnotes/index', footnotes: @footnotes %>

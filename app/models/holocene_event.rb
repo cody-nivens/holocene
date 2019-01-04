@@ -31,4 +31,13 @@ class HoloceneEvent < ApplicationRecord
     return slde
   end
 
+  def location
+      loc = { latLng: [ self.lat, self.lng ], name: self.name }
+      return loc
+  end
+
+  def map_locs
+    return [ (self.lat.nil? ? nil : self.location) ]
+  end
+
 end

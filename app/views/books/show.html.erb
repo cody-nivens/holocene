@@ -1,5 +1,5 @@
 <h1>
-  <%= @book.name %> | <%= link_to 'Edit', edit_book_path(@book), :class => "btn btn-primary" %>
+  <%= @book.name %>  <%= link_to 'Edit', edit_book_path(@book), :class => "btn btn-default" %>
 </h1>
 
 <p>
@@ -8,6 +8,7 @@
 
 <%= render 'chapters/index', book_id: @book.id %>
 
-<% @footer_content << "#{link_to 'Edit', edit_book_path(@book), :class => "btn btn-primary" }" %>
-<% @footer_content << "#{link_to 'Chapters', book_chapters_path(@book), :class => "btn btn-primary" }" %>
-<% @footer_content << "#{link_to 'Back', books_path, :class => "btn btn-primary" }" %>
+<% @footer_content << "#{link_to 'Edit', edit_book_path(@book), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'New Chapter', new_book_chapter_path(@book), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Chapters', book_chapters_path(@book), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>

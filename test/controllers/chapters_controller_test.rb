@@ -42,6 +42,25 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   test "should show chapter" do
     get book_chapter_url(:book_id => @book.id, :id => @chapter.id)
     assert_response :success
+
+    assert_select "a[text()=?]",'Edit'
+    assert_select "a[href=?]", edit_book_chapter_path(@book,@chapter)
+    assert_select "a[text()=?]",'Timeline'
+    assert_select "a[href=?]", chapter_timeline_path(@chapter)
+    assert_select "a[text()=?]",'Display'
+    assert_select "a[href=?]", chapter_display_path(@chapter)
+    assert_select "a[text()=?]",'Map'
+    assert_select "a[href=?]", geo_map_chapter_path(@chapter)
+    assert_select "a[text()=?]",'Footnotes'
+    assert_select "a[href=?]", chapter_footnotes_path(@chapter)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_chapters_path(@book)
+    assert_select ".footer>div>a", 6
+  end
+
+  test "should map chapter" do
+    get geo_map_chapter_url(:id => @chapter.id)
+    assert_response :success
   end
 
   test "should show pdf chapter" do

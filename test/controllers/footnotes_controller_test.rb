@@ -90,6 +90,12 @@ class FootnotesControllerTest < ActionDispatch::IntegrationTest
   test "should show footnote" do
       get chapter_footnote_url(:chapter_id => @chapter.id,:id => @footnote.id)
     assert_response :success
+
+    assert_select "a[text()=?]",'Edit'
+    assert_select "a[href=?]", edit_footnote_path(@footnote)
+    assert_select "a[text()=?]",'Back'
+    #assert_select "a[href=?]", footnotes_path
+    assert_select ".footer>div>a", 2
   end
 
   test "should get edit" do

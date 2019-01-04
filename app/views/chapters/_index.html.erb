@@ -1,5 +1,3 @@
-<h2>Chapters</h2>
-
 <table class="table table-striped">
     <thead>
         <tr>
@@ -11,31 +9,29 @@
             <th span=6></th>
         </tr>
     </thead>
-  <tbody class="sortable">  <!-- sortable target -->
+  <tbody class="sortable">
     <% @chapters.each_with_sortable_id do |chapter, sortable_id| %>
-      <tr id="<%= sortable_id %>">  <!-- Needs id tag on sorting elements -->
-        <td><%= (chapter.partition.nil? ? '' : chapter.partition.name) %></td>
+      <tr id="<%= sortable_id %>">
+        <td><%= raw (chapter.partition.nil? ? '' : "#{link_to chapter.partition.name, book_chapter_partition_path(chapter.book,chapter,chapter.partition)}") %></td>
         <td><%= chapter.name %></td>
-        <!--  <td><%#= (chapter.partition.nil? || chapter.partition.body.blank? ? "" :chapter.partition.body[0,100]) %></td> -->
         <td><%= chapter.sections.count %></td>
         <td><%= chapter.total_events %></td>
         <td><%= chapter.citations.count %></td>
 
-        <td><%= link_to 'Show', book_chapter_path(@book, chapter)  %></td>
-        <td><%= link_to 'Partition', (chapter.partition.nil? ? new_book_chapter_partition_path(@book, chapter) : book_chapter_partition_path(@book, chapter,chapter.partition))  %></td>
-        <td><%= link_to 'PDF', book_chapter_path(@book,chapter, format: 'pdf')  %></td>
-        <td><%= link_to 'Sections', book_chapter_sections_path(chapter.book, chapter)  %></td>
-        <td><%= link_to 'Edit', edit_book_chapter_path(@book, chapter)  %></td>
-        <td><%= link_to 'Destroy', book_chapter_path(@book, chapter), method: :delete, data: { confirm: 'Are you sure?' }  %></td>
+        <td><%= link_to (fa_icon "search-plus"), book_chapter_path(@book, chapter), :title => "Show"  %></td>
+        <% if chapter.partition.nil? %>
+        <td><%= link_to (fa_icon "plus"), new_book_chapter_partition_path(@book, chapter), :title => "Partition"  %></td>
+    <% else %>
+        <td><%= link_to (fa_icon "pencil"), book_chapter_partition_path(@book, chapter,chapter.partition), :title => "Partition"  %></td>
+    <% end %>
+        <td><%= link_to (fa_icon "list-alt"), book_chapter_sections_path(chapter.book, chapter), :title => "Sections"  %></td>
+        <td><%= link_to (fa_icon "file-pdf-o"), book_chapter_path(@book,chapter, format: 'pdf'), :title => "PDF"  %></td>
+        <td><%= link_to (fa_icon "edit"), edit_book_chapter_path(@book, chapter), :title => "Edit"  %></td>
+        <td><%= link_to (fa_icon "trash-o"), book_chapter_path(@book, chapter), method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy"  %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<div class="navbar-fixed-bottom footer">
-<%= link_to 'New Chapter', new_book_chapter_path(@book), :class => "btn btn-primary" %> |
-</div>
-
 
 <script>
 $(function() {

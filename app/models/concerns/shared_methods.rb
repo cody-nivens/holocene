@@ -18,10 +18,11 @@ module SharedMethods
     end
 
   module ClassMethods
-    def convert_ad(value)
+    def convert_ad(value,uncert = nil)
         return "" if value.nil?
-        return (value < 0 ? "#{-value} BC" : "#{value} AD")
+        a = (value < 0 ? "#{-value} BC" : "#{value} AD")
+        a += " ± #{uncert} years" unless uncert.nil?
+        return a
     end
-
   end
 end

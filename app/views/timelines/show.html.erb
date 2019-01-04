@@ -11,8 +11,9 @@
 <%= datagrid_table @grid %>
 <%= paginate(@grid.assets) %>
 
-<% @footer_content << "#{link_to 'Edit', edit_timeline_path(@timeline), :class => "btn btn-primary"}" %>
-<% @footer_content << "#{link_to 'Timeline', timeline_timeline_path(:timeline_id => @timeline.id), :class => "btn btn-primary"}" %>
-<% @footer_content << "#{link_to 'Display', timeline_display_path(:timeline_id => @timeline.id), :class => "btn btn-primary"}" %>
-<% @footer_content << "#{link_to 'Back', timelines_path, :class => "btn btn-primary"}" %>
+<% @footer_content << "#{link_to 'Edit', edit_timeline_path(@timeline), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Timeline', timeline_timeline_path(:timeline_id => @timeline.id), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Display', timeline_display_path(:timeline_id => @timeline.id), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Map', geo_map_timeline_path(@timeline), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', timelines_path, :class => "btn btn-default"}" %>
 

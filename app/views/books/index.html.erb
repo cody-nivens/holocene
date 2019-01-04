@@ -17,15 +17,17 @@
 <% ts += "#{author.first_name} #{author.last_name}" -%>
 <% end -%>
 <td><%= ts %></td>
-<td><%= link_to 'Show', book %></td>
-<td><%= link_to 'PDF', book_path(book, format: 'pdf') %></td>
-<td><%= link_to 'Chapters', book_chapters_path(book) %></td>
-<td><%= link_to 'Edit', edit_book_path(book) %></td>
-<td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<td><%= link_to (fa_icon "search-plus"), book, :title => "Show" %></td>
+<td><%= link_to (fa_icon "file-pdf-o"), book_path(book, format: 'pdf'), :title => "PDF" %></td>
+<td><%= link_to (fa_icon "list-alt"), book_chapters_path(book), :title => "Chapters" %></td>
+<td><%= link_to (fa_icon "book"), book_biblioentries_path(book), :title => "Biblioentries" %></td>
+<td><%= link_to (fa_icon "list-alt"), book_glossary_terms_path(book), :title => "Glossary" %></td>
+<td><%= link_to (fa_icon "edit"), edit_book_path(book), :title => "Edit" %></td>
+<td><%= link_to (fa_icon "trash-o"), book, method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy" %></td>
 </tr>
 <% end %>
 </tbody>
 </table>
 
 
-<% @footer_content << "#{link_to 'New Book', new_book_path, :class => "btn btn-primary"}" %>
+<% @footer_content << "#{link_to 'New Book', new_book_path, :class => "btn btn-default"}" %>

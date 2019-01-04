@@ -36,6 +36,12 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
   test "should show region" do
     get region_url(@region)
     assert_response :success
+
+    assert_select "a[text()=?]",'Edit'
+    assert_select "a[href=?]", edit_region_path(@region)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", regions_path
+    assert_select ".footer>div>a", 2
   end
 
   test "should get edit" do

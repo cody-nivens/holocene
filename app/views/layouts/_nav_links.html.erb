@@ -1,6 +1,11 @@
 <li class="nav-item ">
    <a href="/books" class="nav-link"> <i class="glyphicon glyphicon-tree-conifer"></i> Books</a>
 </li>
+<% unless @book.nil? %>
+<li class="nav-item ">
+    <a href="/books/<%= @book.id %>/authors" class="nav-link"> <i class="glyphicon glyphicon-tree-conifer"></i> Authors</a>
+</li>
+<% end %>
 <li class="nav-item dropdown">
  <a class="nav-link dropdown-toggle" href="#" id="navbar" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
  Holocene Events

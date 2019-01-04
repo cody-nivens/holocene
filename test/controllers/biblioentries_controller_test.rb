@@ -37,6 +37,12 @@ class BiblioentriesControllerTest < ActionDispatch::IntegrationTest
   test "should show biblioentry" do
     get book_biblioentry_url(@book,@biblioentry)
     assert_response :success
+
+    assert_select "a[text()=?]",'Edit'
+    assert_select "a[href=?]", edit_book_biblioentry_path(@book,@biblioentry)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_biblioentries_path(@biblioentry.book)
+    assert_select ".footer>div>a", 2
   end
 
   test "should get edit" do

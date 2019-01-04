@@ -1,14 +1,8 @@
 <p>
-  <strong>Name:</strong>
-  <%= @epoch.name %>
-</p>
-
-<p>
+<strong>Name:</strong>
+  <%= @epoch.name %><br/>
   <strong>Start date:</strong>
-  <%= @epoch.start_date %>
-</p>
-
-<p>
+  <%= @epoch.start_date %><br/>
   <strong>End date:</strong>
   <%= @epoch.end_date %>
 </p>
@@ -19,6 +13,7 @@
 <%= datagrid_table @grid %>
 <%= paginate(@grid.assets) %>
 
-<% @footer_content << "#{link_to 'Edit', edit_epoch_path(@epoch), :class => "btn btn-primary"}" %>
-<% @footer_content << "#{link_to 'Timeline', epoch_timeline_path(@epoch), :class => "btn btn-primary"}" %>
-<% @footer_content << "#{link_to 'Back', epochs_path, :class => "btn btn-primary"}" %>
+<% @footer_content << "#{link_to 'Edit', edit_epoch_path(@epoch), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Timeline', epoch_timeline_path(@epoch), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Map', geo_map_epoch_path(@epoch), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>

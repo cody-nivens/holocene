@@ -2,5 +2,5 @@
 
 <%= render 'form', user: current_user, author: @author, command_label: "Update Author"  %>
 
-<% @footer_content << "#{link_to 'Show', @author, :class => "btn btn-primary"}" %>
-<% @footer_content << "#{link_to 'Back', authors_path, :class => "btn btn-primary"}" %>
+<% @footer_content << "#{link_to 'Show', book_author_path(@book,@author), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', book_authors_path(@book), :class => "btn btn-default"}" %>

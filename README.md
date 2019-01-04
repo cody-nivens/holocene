@@ -55,3 +55,5 @@ The use of wkhtmltopdf as a build image to pull binaries from is outlined in [Do
 https://anonoz.github.io/tech/2018/05/01/rails-dockerfile.html)
 
 Geneology tree css code is from [https://stackoverflow.com/questions/49656477/creating-family-tree-using-html-css](https://stackoverflow.com/questions/49656477/creating-family-tree-using-html-css).
+
+Map code is from [https://github.com/bjornd/jvectormap](https://github.com/bjornd/jvectormap)

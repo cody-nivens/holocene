@@ -2,5 +2,5 @@
 
 <%= render 'form', book: @book, chapter: @chapter,partition: @partition %>
 
-<%= link_to 'Show', book_chapter_partition_path(@book,@chapter,@partition) %> |
-<%= link_to 'Back', book_chapter_partitions_path(@book,@chapter) %>
+<% @footer_content << "#{link_to 'Show', book_chapter_partition_path(@book,@chapter,@partition), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Back', book_chapter_path(@book,@chapter), :class => "btn btn-default" }" %>

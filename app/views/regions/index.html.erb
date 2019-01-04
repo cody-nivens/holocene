@@ -14,9 +14,9 @@
       <tr>
         <td><%= region.name %></td>
         <td><%= region.body %></td>
-        <td><%= link_to 'Show', region %></td>
-        <td><%= link_to 'Edit', edit_region_path(region) %></td>
-        <td><%= link_to 'Destroy', region, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to (fa_icon "search-plus"), region, :title => 'Show' %></td>
+        <td><%= link_to (fa_icon "edit"), edit_region_path(region), :title => 'Edit' %></td>
+        <td><%= link_to (fa_icon "trash-o"), region, method: :delete, data: { confirm: 'Are you sure?' }, :title => 'Destroy' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +24,4 @@
 
 <br>
 
-<% @footer_content << "#{link_to 'New Region', new_region_path, :class => "btn btn-primary"}" %>
+<% @footer_content << "#{link_to 'New Region', new_region_path, :class => "btn btn-default"}" %>

@@ -1,11 +1,16 @@
 class EpochsController < ApplicationController
-  before_action :set_epoch, only: [:show, :edit, :update, :destroy]
+  before_action :set_epoch, only: [:geo_map, :show, :edit, :update, :destroy]
 
   # GET /epochs
   # GET /epochs.json
   def index
       @epochs = Epoch.order(:start_date).all
   end
+
+  def geo_map
+      @object = @epoch
+  end
+
 
   # GET /epochs/1
   # GET /epochs/1.json

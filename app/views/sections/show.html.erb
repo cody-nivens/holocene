@@ -17,8 +17,9 @@
 <%= raw write_footnotes(@slugs) %>
 <% end -%>
 
-<% @footer_content << "#{link_to 'Edit', edit_book_chapter_section_path(@book, @chapter, @section), :class => "btn btn-primary"}" %>
-<% @footer_content << "#{link_to 'Timeline', section_timeline_path(:section_id => @section.id), :class => "btn btn-primary"}" %>
-<% @footer_content << "#{link_to 'Display',  section_display_path(:section_id => @section.id), :class => "btn btn-primary"}" %>
-<% @footer_content << "#{link_to 'Footnotes',  section_footnotes_path(@section), :class => "btn btn-primary"}" %>
-<% @footer_content << "#{link_to 'Back', book_chapter_path(@book, @chapter), :class => "btn btn-primary"}" %>
+<% @footer_content << "#{link_to 'Edit', edit_book_chapter_section_path(@book, @chapter, @section), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Timeline', section_timeline_path(:section_id => @section.id), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Display',  section_display_path(:section_id => @section.id), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Map',  geo_map_section_path(@section), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Footnotes',  section_footnotes_path(@section), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', book_chapter_path(@book, @chapter), :class => "btn btn-default"}" %>

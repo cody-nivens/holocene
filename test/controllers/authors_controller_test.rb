@@ -4,60 +4,71 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @author = authors(:authors_1)
     @user = users(:users_1)
+    @book = @author.books[0]
     sign_in @user
   end
 
   test "should get index" do
-    get authors_url
+    get book_authors_url(@book)
     assert_response :success
   end
 
   test "should get new" do
-    get new_author_url
+    get new_book_author_url(@book)
     assert_response :success
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_authors_path(@book)
+    assert_select ".footer>div>a", 1
   end
 
   test "should create author" do
     assert_difference('Author.count') do
-        post authors_url, params: { author: { first_name: @author.first_name, last_name: @author.last_name, user_id: @user.id } }
+        post book_authors_path(@book), params: { author: { first_name: @author.first_name, last_name: @author.last_name, user_id: @user.id } }
     end
 
-    assert_redirected_to author_url(Author.last)
+    assert_redirected_to book_author_url(@book,Author.last)
   end
 
   test "should not create author" do
     assert_difference('Author.count', 0) do
-        post authors_url, params: { author: { first_name: "", last_name: @author.last_name, user_id: @user.id } }
+        post book_authors_url(@book), params: { author: { first_name: "", last_name: @author.last_name, user_id: @user.id } }
     end
 
     assert_response :success
   end
 
   test "should show author" do
-    get author_url(@author)
+    get book_author_url(@book,@author)
     assert_response :success
+
+    assert_select "a[text()=?]",'Edit'
+    assert_select "a[href=?]", edit_book_author_path(@book,@author)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_authors_path(@book)
+    assert_select ".footer>div>a", 2
   end
 
   test "should get edit" do
-    get edit_author_url(@author)
+    get edit_book_author_url(@book,@author)
+    assert_select "a[text()=?]",'Back'
     assert_response :success
   end
 
   test "should update author" do
-      patch author_url(@author), params: { author: { first_name: @author.first_name, last_name: @author.last_name, user_id: @user.id } }
-    assert_redirected_to author_url(@author)
+      patch book_author_url(@book,@author), params: { author: { first_name: @author.first_name, last_name: @author.last_name, user_id: @user.id } }
+    assert_redirected_to book_author_url(@book, @author)
   end
 
   test "should not update author" do
-      patch author_url(@author), params: { author: { first_name: "", last_name: @author.last_name, user_id: @user.id } }
+      patch book_author_url(@book,@author), params: { author: { first_name: "", last_name: @author.last_name, user_id: @user.id } }
     assert_response :success
   end
 
   test "should destroy author" do
     assert_difference('Author.count', -1) do
-      delete author_url(@author)
+      delete book_author_url(@book,@author)
     end
 
-    assert_redirected_to authors_url
+    assert_redirected_to book_authors_path(@book)
   end
 end

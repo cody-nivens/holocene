@@ -12,6 +12,8 @@ authors_1:
     zone: *2
     time: *3
   user: users_1
+  books:
+    - book_1
 authors_2:
   first_name: Mike
   last_name: Baillie
@@ -24,3 +26,5 @@ authors_2:
     zone: *2
     time: *5
   user: users_1
+  books:
+    - book_1

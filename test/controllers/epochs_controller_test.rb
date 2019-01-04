@@ -36,6 +36,21 @@ class EpochsControllerTest < ActionDispatch::IntegrationTest
   test "should show epoch" do
     get epoch_url(@epoch)
     assert_response :success
+
+    assert_select "a[text()=?]",'Edit'
+    assert_select "a[href=?]", edit_epoch_path(@epoch)
+    assert_select "a[text()=?]",'Timeline'
+    assert_select "a[href=?]", epoch_timeline_path(@epoch)
+    assert_select "a[text()=?]",'Map'
+    assert_select "a[href=?]", geo_map_epoch_path(@epoch)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", epochs_path
+    assert_select ".footer>div>a", 4
+  end
+
+  test "should map epoch" do
+    get geo_map_epoch_url(@epoch)
+    assert_response :success
   end
 
   test "should get edit" do

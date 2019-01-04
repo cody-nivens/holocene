@@ -1,0 +1,3 @@
+<%= render 'shared/map' %>    
+<% @footer_content << "#{link_to 'Display', event_type_path(@event_type), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', event_type_path(@event_type), :class => "btn btn-default"}" %>

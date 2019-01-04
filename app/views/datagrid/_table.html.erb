@@ -9,7 +9,7 @@ Local variables:
                                                            :object_id => @object.id}}) do |f| -%>
  <%= f.hidden_field :object_id, value: @object.id %>
  <%= f.hidden_field :object_type, value: @object.class.name %>
- <%= f.submit "#{@command}", :class => "datagrid-submit" %>
+ <%= f.submit "#{@command}", :id => "datagrid_select", :class => "datagrid-submit" %>
  <% unless @list_items.nil? -%>
  <%= f.collection_select :other_id, @list_items, :id, :name, {include_blank: ''} %>
  <% end -%>
@@ -46,3 +46,12 @@ Local variables:
   <% end %>
 <% end %>
 <% end %>
+<script>
+$('#holocene_event_other_id').change(function() {
+    if ($(this).val() == "") {
+        $('#datagrid_select').val("Delete Events");
+    } else {
+        $('#datagrid_select').val("Move Events");
+    }
+});
+</script>

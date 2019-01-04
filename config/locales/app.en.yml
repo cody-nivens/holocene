@@ -23,6 +23,12 @@ en:
         link: Citation
       epoch:
         link: Epoch
+      biblioentry:
+        link: Biblioentry
+      glossary_term:
+        link: Glossary Term
+      book:
+        link: Book
 
     # Examples
     # labels:

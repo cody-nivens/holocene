@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :footnotes
   resources :books do
+    resources :authors
     resources :glossary_terms
     resources :biblioentries
     resources :chapters do
@@ -10,16 +11,23 @@ Rails.application.routes.draw do
       resources :sections
     end
   end
-  resources :authors
   resources :epochs
   resources :timelines
   get "welcome/index"
+  get "/stats", to: "welcome#stats"
   resources :holocene_events
   resources :regions
   resources :event_types
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #
   get "tagged/(:tag)", to: "holocene_events#tagged", as: :tag
+
+  get "event_types/:id/geo_map", to: "event_types#geo_map", as: :geo_map_event_type
+  get "timelines/:id/geo_map", to: "timelines#geo_map", as: :geo_map_timeline
+  get "epochs/:id/geo_map", to: "epochs#geo_map", as: :geo_map_epoch
+  get "chapters/:id/geo_map", to: "chapters#geo_map", as: :geo_map_chapter
+  get "sections/:id/geo_map", to: "sections#geo_map", as: :geo_map_section
+  get "holocene_events/:id/geo_map", to: "holocene_events#geo_map", as: :geo_map_holocene_event
 
   get "/timelines/display/:timeline_id", to: "holocene_events#display", as: :timeline_display
   get "/citation/display/:citation_id", to: "holocene_events#display", as: :citation_display

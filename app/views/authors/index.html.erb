@@ -16,9 +16,9 @@
         <td><%= author.last_name %></td>
         <td><%= author.books.count %></td>
         <td><%= author.biblioentries.count %></td>
-        <td><%= link_to 'Show', author %></td>
-        <td><%= link_to 'Edit', edit_author_path(author) %></td>
-        <td><%= link_to 'Destroy', author, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to (fa_icon "search-plus"), book_author_path(@book,author), :title => 'Show' %></td>
+        <td><%= link_to (fa_icon "edit"), edit_book_author_path(@book,author), :title => 'Edit' %></td>
+        <td><%= link_to (fa_icon "trash-o"), book_author_path(@book,author), method: :delete, data: { confirm: 'Are you sure?' }, :title => 'Destroy' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +26,4 @@
 
 <br>
 
-<% @footer_content << "#{link_to 'New Author', new_author_path, :class => "btn btn-primary"}" %>
+<% @footer_content << "#{link_to 'New Author', new_book_author_path(@book), :class => "btn btn-default"}" %>

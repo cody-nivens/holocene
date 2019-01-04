@@ -18,36 +18,40 @@ class HoloceneEventsGrid < BaseGrid
       check_box_tag('holocene_event[activated][]', event.id)
   end
 
-  column(:name, :html => true) do |holocene_event|
-    link_to holocene_event.name, "/holocene_events/#{holocene_event.id}"
+  column(:name, :html => true) do |he|
+    link_to he.name, "/holocene_events/#{he.id}"
   end
 
-  column(:event_type) do
+  column(:event_type, :html => true) do |he|
       str = ""
-      self.event_types.each do |etype|
-          str += "#{etype.name},"
+      he.event_types.each do |etype|
+          str += "#{etype.name}, "
       end
-      str.gsub(/,$/,'')
+      str.gsub(/, $/,'')
   end
   column(:region) do
 	  self.region.name
   end
 
-  column(:start_year) do
-      HoloceneEvent.convert_ad(self.start_year)
+  column(:start_year, :html => true) do |he|
+      HoloceneEvent.convert_ad(he.start_year,he.start_year_uncert)
   end
-  column(:start_year_uncert)
-  column(:end_year) do
-      HoloceneEvent.convert_ad(self.end_year)
+  #column(:start_year_uncert)
+  column(:end_year,:html => true) do |he|
+      HoloceneEvent.convert_ad(he.end_year)
   end
+  #column(:lat)
+  #column(:lng)
   column(:body, :html => true) do |he|
       render :partial => "shared/summary", :locals => { :object => he}
   end
   column(:action1, :header => "", :html => true) do |holocene_event|
-    link_to 'Edit', edit_holocene_event_path(holocene_event)
+    link_to (fa_icon "search-plus"), holocene_event_path(holocene_event), :title => 'Show'
   end
-
   column(:action2, :header => "", :html => true) do |holocene_event|
-    link_to 'Destroy', holocene_event, method: :delete, data: { confirm: 'Are you sure?' }
+    link_to (fa_icon "edit"), edit_holocene_event_path(holocene_event), :title => 'Edit'
+  end
+  column(:action3, :header => "", :html => true) do |holocene_event|
+    link_to (fa_icon "trash-o"), holocene_event, method: :delete, data: { confirm: 'Are you sure?' }, :title => 'Destroy'
   end
 end

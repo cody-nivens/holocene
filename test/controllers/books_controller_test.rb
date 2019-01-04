@@ -36,6 +36,16 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
   test "should show book" do
     get book_url(@book)
     assert_response :success
+
+    assert_select "a[text()=?]",'Chapters'
+    assert_select "a[href=?]", book_chapters_path(@book)
+    assert_select "a[text()=?]",'New Chapter'
+    assert_select "a[href=?]", new_book_chapter_path(@book)
+    assert_select "a[text()=?]",'Edit'
+    assert_select "a[href=?]", edit_book_path(@book)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", books_path
+    assert_select ".footer>div>a", 4
   end
 
   test "should show pdf book" do

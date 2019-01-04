@@ -1,10 +1,15 @@
 class ChaptersController < ApplicationController
-  before_action :set_chapter, only: [:pdf, :holocene_events, :sections, :show, :edit, :update, :destroy]
+  before_action :set_chapter, only: [:geo_map, :pdf, :holocene_events, :sections, :show, :edit, :update, :destroy]
   before_action :set_book, only: [ :index, :create, :new, :edit, :update, :destroy]
 
   def index
        @chapters = @book.chapters.order(:position).all
   end
+
+  def geo_map
+      @object = @chapter
+  end
+
 
   # GET /chapters/1
   # GET /chapters/1.json

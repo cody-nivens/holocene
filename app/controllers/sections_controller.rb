@@ -1,11 +1,16 @@
 class SectionsController < ApplicationController
-  before_action :set_section, only: [ :timeline, :grid_params, :show, :edit, :update, :destroy]
+  before_action :set_section, only: [:geo_map, :timeline, :grid_params, :show, :edit, :update, :destroy]
   before_action :set_chapter, only: [:index, :new, :edit, :create, :update, :destroy]
   before_action :set_book, only: [:index, :new, :edit, :create, :update, :destroy]
 
   def index
     @sections = @chapter.sections.order(:position)
   end
+
+  def geo_map
+      @object = @section
+  end
+
 
   # GET /sections/1
   # GET /sections/1.json

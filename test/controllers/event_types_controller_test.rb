@@ -36,6 +36,19 @@ class EventTypesControllerTest < ActionDispatch::IntegrationTest
   test "should show event_type" do
     get event_type_url(@event_type)
     assert_response :success
+
+    assert_select "a[text()=?]",'Edit'
+    assert_select "a[href=?]", edit_event_type_path(@event_type)
+    assert_select "a[text()=?]",'Map'
+    assert_select "a[href=?]", geo_map_event_type_path(@event_type)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", event_types_path
+    assert_select ".footer>div>a", 3
+  end
+
+  test "should map event_type" do
+    get geo_map_event_type_url(@event_type)
+    assert_response :success
   end
 
   test "should get edit" do

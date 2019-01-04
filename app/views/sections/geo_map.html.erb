@@ -1,0 +1,10 @@
+<p>
+  <strong>Name:</strong>
+  <%= @section.name %>
+</p>
+
+<%= render 'shared/map' %>    
+<% @footer_content << "#{link_to 'Timeline', section_timeline_path(:section_id => @section.id), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Display',  section_display_path(:section_id => @section.id), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', book_chapter_path(@section.chapter.book, @section.chapter), :class => "btn btn-default"}" %>
+~
