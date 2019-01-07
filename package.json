@@ -2,6 +2,8 @@
   "name": "holocene",
   "private": true,
   "dependencies": {
-    "timelinejs-slider": "^0.1.0"
+    "timelinejs-slider": "^0.1.0",
+    "uglify-js": "^3.4.9",
+    "uglifyjs": "^2.4.11"
   }
 }
