@@ -10,11 +10,18 @@ class EventTypesControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get event_types_url
     assert_response :success
+    assert_select "a[text()=?]",'New Event Type'
+    assert_select "a[href=?]", new_event_type_path
+    assert_select ".footer>div>a", 1
   end
 
   test "should get new" do
     get new_event_type_url
     assert_response :success
+
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", event_types_path
+    assert_select ".footer>div>a", 1
   end
 
   test "should create event_type" do
@@ -49,11 +56,23 @@ class EventTypesControllerTest < ActionDispatch::IntegrationTest
   test "should map event_type" do
     get geo_map_event_type_url(@event_type)
     assert_response :success
+
+    assert_select "a[text()=?]",'Display'
+    assert_select "a[href=?]", event_type_path(@event_type)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", event_types_path
+    assert_select ".footer>div>a", 2
   end
 
   test "should get edit" do
     get edit_event_type_url(@event_type)
     assert_response :success
+
+    assert_select "a[text()=?]",'Show'
+    assert_select "a[href=?]", event_type_path(@event_type)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", event_types_path
+    assert_select ".footer>div>a", 2
   end
 
   test "should update event_type" do

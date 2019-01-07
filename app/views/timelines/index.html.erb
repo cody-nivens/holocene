@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Events</th>
       <th>Description</th>
       <th colspan="3"></th>
     </tr>
@@ -13,6 +14,7 @@
     <% @timelines.each do |timeline| %>
       <tr>
         <td><%= timeline.name %></td>
+        <td><%= timeline.holocene_events.count %></td>
         <td><%= timeline.description %></td>
         <td><%= link_to (fa_icon "search-plus"), timeline, :title => "Show" %></td>
         <td><%= link_to (fa_icon 'edit'), edit_timeline_path(timeline) , :title => "Edit"%></td>

@@ -2,4 +2,4 @@
 
 <%= render 'form', section: @object, footnote: @footnote %>
 
-<%= link_to 'Back', section_footnotes_path(:id => @object.id) %>
+<% @footer_content << "#{link_to 'Back', section_footnotes_path(:id => @object.id), :class => "btn btn-default"}" %>

@@ -10,6 +10,10 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get holocene_events_url
     assert_response :success
+
+    assert_select "a[text()=?]",'New Holocene Event'
+    assert_select "a[href=?]", new_holocene_event_path
+    assert_select ".footer>div>a", 1
   end
 
   test "should get tagged 1" do
@@ -25,6 +29,10 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
   test "should get new" do
     get new_holocene_event_url
     assert_response :success
+
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", holocene_events_path
+    assert_select ".footer>div>a", 1
   end
 
   test "should create holocene_event" do
@@ -66,6 +74,12 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
   test "should get edit" do
     get edit_holocene_event_url(@holocene_event)
     assert_response :success
+
+    assert_select "a[text()=?]",'Show'
+    assert_select "a[href=?]", holocene_event_path(@holocene_event)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", holocene_events_path
+    assert_select ".footer>div>a", 2
   end
 
   test "should update holocene_event" do

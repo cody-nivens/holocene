@@ -15,32 +15,57 @@ class FootnotesControllerTest < ActionDispatch::IntegrationTest
   test "should get chapter index" do
     get chapter_footnotes_url(:chapter_id => @chapter.id)
     assert_response :success
+
+    assert_select "a[text()=?]",'New Footnote'
+    #assert_select "a[href=?]", new_chapter_footnote_path(@chapter,:slug => 'Hope')
+    assert_select "a[text()=?]",'Back'
+    #assert_select "a[href=?]", footnotes_path
+    assert_select ".footer>div>a", 2
   end
 
   test "should get section index" do
     get section_footnotes_url(:section_id => @section.id)
     assert_response :success
+
+    assert_select "a[text()=?]",'New Footnote'
+    #assert_select "a[href=?]", new_section_footnote_path(@section, :slug=>"Hope")
+    assert_select "a[text()=?]",'Back'
+    #assert_select "a[href=?]", footnotes_path
+    assert_select ".footer>div>a", 2
   end
 
   test "should get new footnote form for chapter" do
       get chapter_footnotes_url(:chapter_id => @chapter.id, :slug => "test2")
     assert_response :success
+
+    assert_select "a[text()=?]",'Back'
+    #assert_select "a[href=?]", footnotes_path
+    assert_select ".footer>div>a", 2
   end
 
   test "should get new footnote form for section" do
       get section_footnotes_url(:section_id => @section.id, :slug => "test2")
     assert_response :success
+
+    assert_select "a[text()=?]",'Back'
+    #assert_select "a[href=?]", footnotes_path
+    assert_select ".footer>div>a", 2
   end
 
   test "should get new footnote form for holocene_event" do
     get holocene_event_footnotes_url(:holocene_event_id => @holocene_event.id, :slug => "test2")
     assert_response :success
+
+    assert_select "a[text()=?]",'Back'
+    #assert_select "a[href=?]", footnotes_path
+    assert_select ".footer>div>a", 2
   end
 
   test "should create chapter footnote" do
       @chapter = @footnote.noted
       assert_difference('Footnote.count') do
       post chapter_footnote_create_url(:chapter_id => @chapter.id), params: { footnote: { body: @footnote.body, noted_id: @footnote.noted_id, noted_type: @footnote.noted_type, slug: 'newslug' } }
+
     end
 
       assert_redirected_to chapter_footnote_url(@chapter,Footnote.last)
@@ -101,6 +126,12 @@ class FootnotesControllerTest < ActionDispatch::IntegrationTest
   test "should get edit" do
     get edit_footnote_url(@footnote)
     assert_response :success
+
+    assert_select "a[text()=?]",'Show'
+    assert_select "a[href=?]", footnote_path(@footnote)
+    assert_select "a[text()=?]",'Back'
+    #assert_select "a[href=?]", footnotes_path
+    assert_select ".footer>div>a", 2
   end
 
   test "should update chapter footnote" do

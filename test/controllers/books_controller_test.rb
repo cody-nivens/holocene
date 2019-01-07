@@ -10,11 +10,19 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get books_url
     assert_response :success
+
+    assert_select "a[text()=?]",'New Book'
+    assert_select "a[href=?]", new_book_path
+    assert_select ".footer>div>a", 1
   end
 
   test "should get new" do
     get new_book_url
     assert_response :success
+
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", books_path
+    assert_select ".footer>div>a", 1
   end
 
   test "should create book" do
@@ -56,6 +64,12 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
   test "should get edit" do
     get edit_book_url(@book)
     assert_response :success
+
+    assert_select "a[text()=?]",'Show'
+    assert_select "a[href=?]", book_path(@book)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", books_path
+    assert_select ".footer>div>a", 2
   end
 
   test "should update book" do

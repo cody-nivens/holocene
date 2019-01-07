@@ -10,11 +10,19 @@ class EpochsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get epochs_url
     assert_response :success
+
+    assert_select "a[text()=?]",'New Epoch'
+    assert_select "a[href=?]", new_epoch_path
+    assert_select ".footer>div>a", 1
   end
 
   test "should get new" do
     get new_epoch_url
     assert_response :success
+
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", epochs_path
+    assert_select ".footer>div>a", 1
   end
 
   test "should create epoch" do
@@ -51,11 +59,25 @@ class EpochsControllerTest < ActionDispatch::IntegrationTest
   test "should map epoch" do
     get geo_map_epoch_url(@epoch)
     assert_response :success
+
+    assert_select "a[text()=?]",'Timeline'
+    assert_select "a[href=?]", epoch_timeline_path(@epoch)
+    assert_select "a[text()=?]",'Display'
+    assert_select "a[href=?]", epoch_display_path(@epoch)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", epochs_path
+    assert_select ".footer>div>a", 3
   end
 
   test "should get edit" do
     get edit_epoch_url(@epoch)
     assert_response :success
+
+    assert_select "a[text()=?]",'Show'
+    assert_select "a[href=?]", epoch_path(@epoch)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", epochs_path
+    assert_select ".footer>div>a", 2
   end
 
   test "should update epoch" do

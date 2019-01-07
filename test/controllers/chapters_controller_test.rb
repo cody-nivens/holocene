@@ -11,6 +11,12 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get book_chapters_url(@book)
     assert_response :success
+
+    assert_select "a[text()=?]",'New Chapter'
+    assert_select "a[href=?]", new_book_chapter_path(@chapter.book)
+    assert_select "a[text()=?]",'Back'
+    #assert_select "a[href=?]", back_path
+    assert_select ".footer>div>a", 2
   end
 
   test "should get holocene events" do
@@ -21,6 +27,10 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   test "should get new" do
     get new_book_chapter_url(@book)
     assert_response :success
+
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_chapters_path(@book)
+    assert_select ".footer>div>a", 1
   end
 
   test "should create chapter" do
@@ -61,6 +71,12 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   test "should map chapter" do
     get geo_map_chapter_url(:id => @chapter.id)
     assert_response :success
+
+    assert_select "a[text()=?]",'Display'
+    assert_select "a[href=?]", chapter_display_path(@chapter)
+    assert_select "a[text()=?]",'Back'
+    #assert_select "a[href=?]", back_path
+    assert_select ".footer>div>a", 2
   end
 
   test "should show pdf chapter" do
@@ -86,6 +102,12 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   test "should get edit" do
     get edit_book_chapter_url(:book_id => @book.id, :id => @chapter.id)
     assert_response :success
+
+    assert_select "a[text()=?]",'Show'
+    assert_select "a[href=?]", book_chapter_path(@book,@chapter)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_chapters_path(@book)
+    assert_select ".footer>div>a", 2
   end
 
   test "should update chapter" do

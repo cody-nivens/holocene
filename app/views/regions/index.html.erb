@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Events</th>
       <th>Body</th>
       <th colspan="3"></th>
     </tr>
@@ -13,6 +14,7 @@
     <% @regions.each do |region| %>
       <tr>
         <td><%= region.name %></td>
+        <td><%= region.holocene_events.count %></td>
         <td><%= region.body %></td>
         <td><%= link_to (fa_icon "search-plus"), region, :title => 'Show' %></td>
         <td><%= link_to (fa_icon "edit"), edit_region_path(region), :title => 'Edit' %></td>

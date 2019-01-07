@@ -5,6 +5,8 @@
     <tr>
       <th>First name</th>
       <th>Last name</th>
+      <th>Books</th>
+      <th>Biblioentries</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -27,3 +29,4 @@
 <br>
 
 <% @footer_content << "#{link_to 'New Author', new_book_author_path(@book), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>

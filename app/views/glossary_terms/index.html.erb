@@ -38,3 +38,4 @@
 </table>
 
 <% @footer_content << "#{link_to 'New Glossary Term', new_book_glossary_term_path(@book), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', book_path(@book), :class => "btn btn-default"}" %>

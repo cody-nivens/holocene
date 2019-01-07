@@ -11,11 +11,20 @@ class GlossaryTermsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get book_glossary_terms_url(@book)
     assert_response :success
+
+    assert_select "a[text()=?]",'New Glossary Term'
+    assert_select "a[href=?]", new_book_glossary_term_path(@book)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_path(@book)
+    assert_select ".footer>div>a", 2
   end
 
   test "should get new" do
     get new_book_glossary_term_url(@book)
     assert_response :success
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_glossary_terms_path(@book)
+    assert_select ".footer>div>a", 1
   end
 
   test "should create glossary_term" do
@@ -37,11 +46,23 @@ class GlossaryTermsControllerTest < ActionDispatch::IntegrationTest
   test "should show glossary_term" do
     get book_glossary_term_url(@book,@glossary_term)
     assert_response :success
+
+    assert_select "a[text()=?]",'Edit'
+    assert_select "a[href=?]", edit_book_glossary_term_path(@book,@glossary_term)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_glossary_terms_path(@book)
+    assert_select ".footer>div>a", 2
   end
 
   test "should get edit" do
     get edit_book_glossary_term_url(@book,@glossary_term)
     assert_response :success
+
+    assert_select "a[text()=?]",'Show'
+    assert_select "a[href=?]", book_glossary_term_path(@book,@glossary_term)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_glossary_terms_path(@book)
+    assert_select ".footer>div>a", 2
   end
 
   test "should update glossary_term" do

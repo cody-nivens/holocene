@@ -11,11 +11,18 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get book_authors_url(@book)
     assert_response :success
+
+    assert_select "a[text()=?]",'New Author'
+    assert_select "a[href=?]", new_book_author_path(@book)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_authors_path(@book)
+    assert_select ".footer>div>a", 2
   end
 
   test "should get new" do
     get new_book_author_url(@book)
     assert_response :success
+
     assert_select "a[text()=?]",'Back'
     assert_select "a[href=?]", book_authors_path(@book)
     assert_select ".footer>div>a", 1
@@ -52,6 +59,13 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
     get edit_book_author_url(@book,@author)
     assert_select "a[text()=?]",'Back'
     assert_response :success
+
+
+    assert_select "a[text()=?]",'Show'
+    assert_select "a[href=?]", book_author_path(@book, @author)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_authors_path(@book)
+    assert_select ".footer>div>a", 2
   end
 
   test "should update author" do

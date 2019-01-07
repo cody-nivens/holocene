@@ -3,4 +3,4 @@
 <%= render 'form', footnote: @footnote, command_label: "Update Footnote"  %>
 
 <% @footer_content << "#{link_to 'Show', @footnote, :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', "/#{@noted.class.name.underscore.pluralize}/show/#{@noted.id}", :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>

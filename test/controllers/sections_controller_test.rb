@@ -12,11 +12,21 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
       get book_chapter_sections_url(@book, @chapter)
     assert_response :success
+
+    assert_select "a[text()=?]",'New Section'
+    assert_select "a[href=?]", new_book_chapter_section_path(@book,@chapter)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_chapter_path(@section.chapter.book,@section.chapter)
+    assert_select ".footer>div>a", 2
   end
 
   test "should get new" do
-      get new_book_chapter_section_url(@book, @chapter)
+    get new_book_chapter_section_url(@book, @chapter)
     assert_response :success
+
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_chapter_sections_path(@section.chapter.book,@section.chapter)
+    assert_select ".footer>div>a", 1
   end
 
   test "should create section" do
@@ -67,16 +77,36 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
   test "should show section timeline" do
     get section_timeline_url(@section)
     assert_response :success
+
+    assert_select "a[text()=?]",'Display'
+    assert_select "a[href=?]", timeline_display_path(@section)
+    assert_select "a[text()=?]",'Back'
+    #assert_select "a[href=?]", back_path
+    assert_select ".footer>div>a", 2
   end
 
   test "should show section events" do
     get section_display_url(@section)
     assert_response :success
+
+    assert_select "a[text()=?]",'Timeline'
+    assert_select "a[href=?]", section_timeline_path(@section)
+    assert_select "a[text()=?]",'Map'
+    assert_select "a[href=?]", geo_map_section_path(@section)
+    assert_select "a[text()=?]",'Back'
+    #assert_select "a[href=?]", back_path
+    assert_select ".footer>div>a", 3
   end
 
   test "should get edit" do
     get edit_book_chapter_section_url(@book, @chapter,@section)
     assert_response :success
+
+    assert_select "a[text()=?]",'Show'
+    assert_select "a[href=?]", book_chapter_section_path(@book,@chapter,@section)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_chapter_sections_path(@section.chapter.book,@section.chapter)
+    assert_select ".footer>div>a", 2
   end
 
   test "should update section" do

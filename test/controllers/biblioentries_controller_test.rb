@@ -3,7 +3,8 @@ require 'test_helper'
 class BiblioentriesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @biblioentry = biblioentries(:biblioentry_1)
-    @book = books(:book_1)
+    @book = @biblioentry.book
+    #@book = books(:book_1)
     @user = users(:users_1)
     sign_in @user
   end
@@ -11,11 +12,21 @@ class BiblioentriesControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get book_biblioentries_url(@book)
     assert_response :success
+
+    assert_select "a[text()=?]",'New Biblioentry'
+    assert_select "a[href=?]", new_book_biblioentry_path(@book)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_biblioentries_path(@book)
+    assert_select ".footer>div>a", 2
   end
 
   test "should get new" do
-      get new_book_biblioentry_url(@book)
+    get new_book_biblioentry_url(@book)
     assert_response :success
+
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_biblioentries_path(@biblioentry.book)
+    assert_select ".footer>div>a", 1
   end
 
   test "should create biblioentry" do
@@ -46,8 +57,14 @@ class BiblioentriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    get edit_book_biblioentry_url(@book,@biblioentry)
+    get edit_book_biblioentry_url(@biblioentry.book,@biblioentry)
     assert_response :success
+
+    assert_select "a[text()=?]",'Show'
+    assert_select "a[href=?]", book_biblioentry_path(@biblioentry.book,@biblioentry)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_biblioentries_path(@biblioentry.book)
+    assert_select ".footer>div>a", 2
   end
 
   test "should update biblioentry" do

@@ -25,5 +25,6 @@
   <%= @glossary_term.acronym_id %>
 </p>
 
-<%= link_to 'Edit', edit_book_glossary_term_path(@book,@glossary_term) %> |
-<%= link_to 'Back', book_glossary_terms_path(@book) %>
+<% @footer_content << "#{link_to 'Edit', edit_book_glossary_term_path(@book,@glossary_term), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', book_glossary_terms_path(@book), :class => "btn btn-default"}" %>
+

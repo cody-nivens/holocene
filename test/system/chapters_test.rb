@@ -45,11 +45,14 @@ class ChaptersTest < ApplicationSystemTestCase
     visit book_chapter_url(@book,@chapter)
 
     assert_selector "h1", text: "Cultural Events"
-    assert_link  "Display"
-    click_on "Display", match: :first
+
+    within(:css, ".footer") do
+        assert_link  "Display"
+        click_on "Display"
+    end
 
     assert_link "Add Event"
-    assert_text "Domestication of Goats"
+    assert_text "Domestication of Horses"
 
     click_on "Add Event"
 
@@ -60,11 +63,17 @@ class ChaptersTest < ApplicationSystemTestCase
     find(:xpath,"//input[@type='checkbox' and @value=#{he.id}]").set(true)
     click_on "Add Events"
 
-    assert_text "Section was successfully updated"
+    assert_text "Chapter was successfully updated"
     assert_text "Domestication of Cats"
 
-    assert_link  "Display"
-    click_on "Display"
+    within(:css, ".footer") do
+        assert_link  "Display"
+        click_on "Display"
+    end
+
+    assert_text "Domestication of Cats"
+    he = HoloceneEvent.find_by_name("Domestication of Cats")
+    find(:xpath,"//input[@type='checkbox' and @value=#{he.id}]").set(true)
 
     assert_button "Delete Events"
 
@@ -74,9 +83,13 @@ class ChaptersTest < ApplicationSystemTestCase
     assert_button "Move Events"
     click_on "Move Events"
 
-    assert_text "Section was successfully updated"
-    assert_no_text "Domestication of Cats"
+    assert_text "Chapter was successfully updated"
 
+    within(:css, ".footer") do
+        assert_link  "Display"
+        click_on "Display"
+    end
+    assert_no_text "Domestication of Cats"
   end
 
   test "creating a Chapter" do

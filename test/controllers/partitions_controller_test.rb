@@ -12,11 +12,21 @@ class PartitionsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get book_chapter_partitions_url(@book,@chapter)
     assert_response :success
+
+    assert_select "a[text()=?]",'Edit'
+    assert_select "a[href=?]", edit_book_chapter_partition_path(@partition.chapter.book,@partition.chapter,@partition)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_chapter_path(@chapter.book,@chapter)
+    assert_select ".footer>div>a", 2
   end
 
   test "should get new" do
     get new_book_chapter_partition_url(@book,@chapter)
     assert_response :success
+
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_chapter_path(@chapter.book,@chapter)
+    assert_select ".footer>div>a", 1
   end
 
   test "should create partition" do
@@ -48,6 +58,12 @@ class PartitionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get edit" do
     get edit_book_chapter_partition_url(@book,@chapter,@partition)
+
+    assert_select "a[text()=?]",'Show'
+    assert_select "a[href=?]", book_chapter_partition_path(@partition.chapter.book,@partition.chapter,@partition)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", book_chapter_path(@chapter.book,@chapter)
+    assert_select ".footer>div>a", 2
   end
 
   test "should update partition" do

@@ -10,11 +10,19 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get regions_url
     assert_response :success
+
+    assert_select "a[text()=?]",'New Region'
+    assert_select "a[href=?]", new_region_path
+    assert_select ".footer>div>a", 1
   end
 
   test "should get new" do
     get new_region_url
     assert_response :success
+
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", regions_path
+    assert_select ".footer>div>a", 1
   end
 
   test "should create region" do
@@ -47,6 +55,12 @@ class RegionsControllerTest < ActionDispatch::IntegrationTest
   test "should get edit" do
     get edit_region_url(@region)
     assert_response :success
+
+    assert_select "a[text()=?]",'Show'
+    assert_select "a[href=?]", region_path(@region)
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", regions_path
+    assert_select ".footer>div>a", 2
   end
 
   test "should update region" do
