@@ -1,0 +1,10 @@
+blob_1:
+  id: 1
+  key: '12345678'
+  filename: 'image.jpg'
+  content_type: 'image/jpg'
+  metadata: nil
+  byte_size: 9432
+  checksum: "123456789012345678901234"
+
+

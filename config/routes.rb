@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   get "/citations/timeline/:citation_id", to: "timelines#timeline", as: :citation_timeline
   get "/timelines/timeline/:timeline_id", to: "timelines#timeline", as: :timeline_timeline
   get "/epochs/timeline/:epoch_id", to: "timelines#timeline", as: :epoch_timeline
+  get "/event_types/timeline/:event_type_id", to: "timelines#timeline", as: :event_type_timeline
 
   get '/chapters/show/:id', to: "chapters#show", as: :show_chapter
   get '/sections/show/:id', to: "sections#show", as: :show_section

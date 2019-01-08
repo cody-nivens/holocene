@@ -14,6 +14,8 @@ class HoloceneEvent < ApplicationRecord
   accepts_nested_attributes_for :region
   accepts_nested_attributes_for :event_types
 
+  has_one_attached :image
+
   acts_as_taggable_on :tags
 
   validates :name, presence: true
@@ -23,8 +25,8 @@ class HoloceneEvent < ApplicationRecord
                :end_date => mk_date((self.end_year.blank? ? self.start_year : self.end_year)),
                :text => mk_text(self.body,self.name)
       }
-      unless self.image.blank?
-      slde['media'] = { :url => "/assets/#{self.image}",
+      if self.image.attached?
+          slde['media'] = { :url => "#{self.image.filename}",
                         :link => self.url
       }
       end

@@ -178,6 +178,6 @@ class HoloceneEventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def holocene_event_params
-      params.require(:holocene_event).permit(:name, :start_year, :end_year, :start_year_uncert, :start_year_mod, :end_year_uncert, :end_year_mod, :body, :region_id, :tag_list, :citations, :user_id, :activated, :seen, :object_id, :object_type, event_type_ids: [])
+      params.require(:holocene_event).permit(:name, :start_year, :end_year, :start_year_uncert, :start_year_mod, :end_year_uncert, :end_year_mod, :body, :region_id, :tag_list, :citations, :user_id, :activated, :seen, :object_id, :object_type, :image, event_type_ids: [])
     end
 end

@@ -53,5 +53,13 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     }
 end
 
+  def remove_uploaded_files
+    FileUtils.rm_rf("#{Rails.root}/tmp/storage")
+  end
+
+  def after_teardown
+    super
+    remove_uploaded_files
+  end
 
 end

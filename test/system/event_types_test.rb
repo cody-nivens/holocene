@@ -24,6 +24,12 @@ class EventTypesTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
+  test "visiting the timeline" do
+    visit event_type_timeline_url(@event_type)
+    assert_text "Tunguska Event"
+  end
+
+
   test "creating an Event type" do
     visit event_types_url
     click_on "New Event Type"

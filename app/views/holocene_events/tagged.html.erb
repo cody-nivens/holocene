@@ -1,7 +1,10 @@
 <% @holocene_events.order(:start_year).each do |r| %>
   <h2><%= link_to r.name, holocene_event_path(r) %></h2>
-  <h3><%= convert_ad(r.start_year) %> <%= convert_ad(r.end_year) %></h3>
+  <h3><%= raw convert_ad(r.start_year,r.start_year_uncert) %> <%= convert_ad(r.end_year) %></h3>
   <p><% r.tag_list.each do |tag| %>
     <%= link_to tag, tag_path(tag: tag) %>
   <% end %></p>
 <% end %>
+
+<% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>
+

@@ -2,6 +2,8 @@ class Timeline < ApplicationRecord
     has_and_belongs_to_many :holocene_events
     has_and_belongs_to_many :epochs
     has_and_belongs_to_many :chapters
+    has_and_belongs_to_many :event_types
+
     belongs_to :user
 
     validates :name, presence: true

@@ -1,3 +1,3 @@
 <%= render 'shared/map' %>    
 <% @footer_content << "#{link_to 'Display', holocene_event_path(@holocene_event), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', holocene_events_path, :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>

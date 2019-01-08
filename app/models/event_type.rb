@@ -8,4 +8,8 @@ class EventType < ApplicationRecord
         return self.holocene_events.collect{|x| (x.lat.nil? ? nil : x.location) }.compact
     end
 
+    def timeline_json
+        return {:events => self.holocene_events.collect{|x| x.slide}}.to_json
+    end
+
 end

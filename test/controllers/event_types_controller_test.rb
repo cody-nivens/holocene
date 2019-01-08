@@ -24,6 +24,12 @@ class EventTypesControllerTest < ActionDispatch::IntegrationTest
     assert_select ".footer>div>a", 1
   end
 
+  test "should show event_type timeline" do
+      get event_type_timeline_url(:event_type_id => @event_type.id)
+      assert_response :success
+  end
+
+
   test "should create event_type" do
     assert_difference('EventType.count') do
       post event_types_url, params: { event_type: { body: @event_type.body, name: @event_type.name, user_id: @user.id } }
@@ -46,11 +52,13 @@ class EventTypesControllerTest < ActionDispatch::IntegrationTest
 
     assert_select "a[text()=?]",'Edit'
     assert_select "a[href=?]", edit_event_type_path(@event_type)
+    assert_select "a[text()=?]",'Timeline'
+    assert_select "a[href=?]", event_type_timeline_path(@event_type)
     assert_select "a[text()=?]",'Map'
     assert_select "a[href=?]", geo_map_event_type_path(@event_type)
     assert_select "a[text()=?]",'Back'
     assert_select "a[href=?]", event_types_path
-    assert_select ".footer>div>a", 3
+    assert_select ".footer>div>a", 4
   end
 
   test "should map event_type" do

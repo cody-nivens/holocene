@@ -40,8 +40,13 @@ class HoloceneEventsGrid < BaseGrid
   column(:end_year,:html => true) do |he|
       HoloceneEvent.convert_ad(he.end_year)
   end
-  #column(:lat)
-  #column(:lng)
+  column(:image, :html => true) do |he|
+    if he.image.attached? 
+      image_tag(he.image.variant(resize: "100x100>"), :alt => he.image.filename.to_s)
+    end
+  end
+  column(:lat)
+  column(:lng)
   column(:body, :html => true) do |he|
       render :partial => "shared/summary", :locals => { :object => he}
   end

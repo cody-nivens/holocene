@@ -10,14 +10,14 @@ class HoloceneEventsTest < ApplicationSystemTestCase
   test "visiting the index" do
     visit holocene_events_url
     assert_selector "h1", text: "Holocene Events"
-    assert_link "New Holocene event"
+    assert_link "New Holocene Event"
     assert_no_text "link_to"
   end
 
   test "visiting the map" do
     visit holocene_events_url
     assert_selector "h1", text: "Holocene Events"
-    assert_link "New Holocene event"
+    assert_link "New Holocene Event"
     click_on "Show", match: :first
     assert_link "Map"
     click_on "Map"
@@ -44,7 +44,7 @@ class HoloceneEventsTest < ApplicationSystemTestCase
 
   test "creating a Holocene event" do
     visit holocene_events_url
-    click_on "New Holocene event"
+    click_on "New Holocene Event"
 
     #fill_in "Body", with: @holocene_event.body
     fill_in "End year", with: @holocene_event.end_year
@@ -65,7 +65,7 @@ class HoloceneEventsTest < ApplicationSystemTestCase
 
   test "should not create a Holocene event" do
     visit holocene_events_url
-    click_on "New Holocene event"
+    click_on "New Holocene Event"
 
     #fill_in "Body", with: @holocene_event.body
     fill_in "End year", with: @holocene_event.end_year

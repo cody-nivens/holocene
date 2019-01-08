@@ -3,8 +3,11 @@
 <%= javascript_include_tag 'jquery-jvectormap-world-mill-en.js', 'data-turbolinks-track': 'reload' %>
 
 <div id="world-map" style="width: 720px; height: 400px"></div>
+
 <script type="text/javascript">
+   
 jQuery(document).ready(function() {
+    var map_locs = <%= raw @object.map_locs.to_json %>
   //@code_start
     $('#world-map').vectorMap({
       map: 'world_mill_en',
@@ -19,7 +22,7 @@ jQuery(document).ready(function() {
         }
       },
       backgroundColor: '#383f47',
-      markers: <%= raw @object.map_locs.to_json %>
+      markers: map_locs.map(function(h){ return {name: h.name, latLng: h.latLng} })
     }); 
   //@code_end
 });

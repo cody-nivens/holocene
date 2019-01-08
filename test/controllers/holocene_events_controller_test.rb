@@ -3,6 +3,7 @@ require 'test_helper'
 class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @holocene_event = holocene_events(:holocene_event_1)
+    @timeline = timelines(:timeline_1)
     @user = users(:users_1)
     sign_in @user
   end
@@ -15,6 +16,12 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", new_holocene_event_path
     assert_select ".footer>div>a", 1
   end
+
+  test "should show holocene_event timeline" do
+      get timeline_timeline_url(:timeline_id => @timeline.id)
+      assert_response :success
+  end
+
 
   test "should get tagged 1" do
     get tag_url(:tag => 'Domestication')

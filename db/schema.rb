@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_01_171830) do
+ActiveRecord::Schema.define(version: 2019_01_08_202117) do
+
+  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "authors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "first_name"
@@ -111,6 +132,13 @@ ActiveRecord::Schema.define(version: 2019_01_01_171830) do
     t.index ["holocene_event_id", "event_type_id"], name: "index_event_type_holocene_event_2"
   end
 
+  create_table "event_types_timelines", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "event_type_id", null: false
+    t.bigint "timeline_id", null: false
+    t.index ["event_type_id", "timeline_id"], name: "index_event_type_timeline_1"
+    t.index ["timeline_id", "event_type_id"], name: "index_event_type_timeline_2"
+  end
+
   create_table "footnotes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "slug"
     t.text "body"
@@ -145,7 +173,6 @@ ActiveRecord::Schema.define(version: 2019_01_01_171830) do
     t.integer "end_year_uncert"
     t.integer "end_year_mod"
     t.bigint "region_id"
-    t.string "image"
     t.string "url"
     t.text "body"
     t.string "slug"
@@ -262,4 +289,5 @@ ActiveRecord::Schema.define(version: 2019_01_01_171830) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
 end

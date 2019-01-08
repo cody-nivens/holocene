@@ -25,6 +25,12 @@ class EpochsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".footer>div>a", 1
   end
 
+  test "should show epoch timeline" do
+      get epoch_timeline_url(:epoch_id => @epoch.id)
+      assert_response :success
+  end
+
+
   test "should create epoch" do
     assert_difference('Epoch.count') do
       post epochs_url, params: { epoch: { end_date: @epoch.end_date, name: @epoch.name, start_date: @epoch.start_date, user_id: @user.id } }

@@ -24,6 +24,10 @@
 
     <%= form.collection_check_boxes :event_type_ids, EventType.all, :id, :name, multiple: true %>
     <%= form.collection_select :region_id, Region.all, :id, :name %>
+    <%= form.file_field :image, multiple: false, direct_upload: true %>
+    <% unless @holocene_event.id.nil? || !@holocene_event.image.attached? %>
+    <%= image_tag @holocene_event.image.variant(resize: "100x100>") %>
+    <% end %>
 
   <div class="jumbotron" >
       <%= form.text_area :body, as: :wysihtml5, label: false, cols: "80", rows: "15", hide_label: true %>
@@ -37,7 +41,7 @@
     $('#holocene_event_body').each(function(i, elem) {
         $(elem).wysihtml5({
            toolbar: {
-               "fa": true,
+              "fa": true,
               "style": true,
               "font-styles": false,
               "emphasis": true,

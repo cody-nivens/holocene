@@ -5,20 +5,12 @@
 
 <p>
   <strong>Start year:</strong>
-  <%= convert_ad(@holocene_event.start_year) %>
-  <strong>Start year uncert:</strong>
-  <%= @holocene_event.start_year_uncert %>
-  <strong>Start year mod:</strong>
-  <%= @holocene_event.start_year_mod %>
+  <%= raw convert_ad(@holocene_event.start_year,@holocene_event.start_year_uncert) %>
 </p>
 
 <p>
   <strong>End year:</strong>
   <%= convert_ad(@holocene_event.end_year) %>
-  <strong>End year uncert:</strong>
-  <%= @holocene_event.end_year_uncert %>
-  <strong>End year mod:</strong>
-  <%= @holocene_event.end_year_mod %>
 </p>
 
 <p>
@@ -32,7 +24,10 @@
   <strong>URL:</strong>
   <%= @holocene_event.url %>
   <strong>Image:</strong>
-  <%= @holocene_event.image %>
+  
+  <% if @holocene_event.image.attached? %>
+      <%= image_tag(url_for(@holocene_event.image), :alt => @holocene_event.image.filename.to_s) %>
+  <% end %>
 </p>
 <p>
   <strong>Lat:</strong>
