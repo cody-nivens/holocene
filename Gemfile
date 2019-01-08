@@ -98,3 +98,4 @@ gem 'rails_admin'
 #gem "rgeo"
 #gem 'rgeo-activerecord', :git => 'https://github.com/rgeo/rgeo-activerecord'
 gem 'rails-ci-k8s', :git => 'https://github.com/cody-nivens/rails-ci-k8s.git'
+gem 'mini_magick'
