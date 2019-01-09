@@ -63,8 +63,9 @@ spec:
                 name: redis
                 key: redis-password
         volumeMounts:
-        - mountPath: /usr/src/app/storage
-          name: active-support-volume
+        - name: code
+          mountPath: /usr/src/app/storage
       volumes:
-      - name: active-support-volume
-        emptyDir: {}
+      - name: code
+        persistentVolumeClaim:
+          claimName: sources-volume-claim
