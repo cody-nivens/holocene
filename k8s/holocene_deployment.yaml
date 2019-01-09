@@ -62,3 +62,9 @@ spec:
               secretKeyRef:
                 name: redis
                 key: redis-password
+        volumeMounts:
+        - mountPath: /usr/src/app/storage
+          name: active-support-volume
+      volumes:
+      - name: active-support-volume
+        emptyDir: {}
