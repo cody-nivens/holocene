@@ -84,4 +84,6 @@ EXPOSE 3000
 COPY docker-entrypoint.sh /usr/local/bin
 COPY database.yml.test config/database.yml
 
+RUN mkdir -p /usr/src/app/storage
+RUN chown -R root:root /usr/src/app
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
