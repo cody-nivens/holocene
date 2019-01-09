@@ -290,7 +290,7 @@ def print_record(record_type)
     puts "result = result[0]"
     puts "end"
     puts "end"
-    puts "result.image.attach(io: File.open(Rails.root.join('codys_book', 'images', '#{@image}')), filename: '#{@image}', content_type: 'image/#{@image.strip.downcase[1..-1]}')" unless @image == ''
+    puts "result.image.attach(io: File.open(Rails.root.join('db', 'seeds', '#{@image}')), filename: '#{@image}', content_type: 'image/#{@image.strip.downcase[1..-1]}')" unless @image == ''
     puts "@timeline.holocene_events << result unless @timeline.holocene_events.include?(result)"
     puts "@#{@timeline_name}_timeline.holocene_events << result unless @#{@timeline_name}_timeline.holocene_events.include?(result)"
     puts "@object.holocene_events << result"
