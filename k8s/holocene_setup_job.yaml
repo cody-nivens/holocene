@@ -45,5 +45,12 @@ spec:
           value: redis-master.default.svc.cluster.local
         - name: REDIS_PORT
           value: "6379"
+        volumeMounts:
+        - name: code
+          mountPath: /usr/src/app/storage
+      volumes:
+      - name: code
+        persistentVolumeClaim:
+          claimName: sources-volume-claim
       restartPolicy: Never
   backoffLimit: 1
