@@ -1,5 +1,6 @@
 class HoloceneEvent < ApplicationRecord
     include SharedMethods
+    include Rails.application.routes.url_helpers
 
   belongs_to :region
   belongs_to :user
@@ -26,11 +27,15 @@ class HoloceneEvent < ApplicationRecord
                :text => mk_text(self.body,self.name)
       }
       if self.image.attached?
-          slde['media'] = { :url => "#{self.image.filename}",
+          slde['media'] = { :url => "#{cover_url}",
                         :link => self.url
       }
       end
     return slde
+  end
+
+  def cover_url
+    rails_blob_path(self.image, disposition: "attachment", only_path: true)
   end
 
   def location
