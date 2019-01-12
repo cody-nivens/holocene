@@ -39,7 +39,7 @@ class HoloceneEvent < ApplicationRecord
   end
 
   def location
-      loc = { latLng: [ self.lat, self.lng ], name: self.name }
+      loc = { latLng: [ self.lat, self.lng ], name: self.name, :status => "#{self.event_types.first.name.downcase}" }
       return loc
   end
 
