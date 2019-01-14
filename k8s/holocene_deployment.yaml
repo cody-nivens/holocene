@@ -49,7 +49,7 @@ spec:
             value: production
           - name: RAILS_LOG_TO_STDOUT
             value: "true"
-          - name: RAILS_SERVE_STATIC_ASSETS
+          - name: RAILS_SERVE_STATIC_FILES
             value: "true"
           - name: REDIS_URL
             value: "redis://redis-master.default.svc.cluster.local"
