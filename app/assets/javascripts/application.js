@@ -16,18 +16,19 @@
 //= require turbolinks
 //= require jquery_ujs
 //= require jquery-ui/widgets/sortable
-//= require rails_sortable
 //= require popper
 //= require bootstrap
 //= require bootstrap-wysihtml5
 //= require bootstrap-wysihtml5/locales
 //= require timelineJS/timeline
+//= require jquery-1
 //= require jquery.jvectormap.min
 //= link_tree ../icons
 //= link_tree ../fonts
 //= link_tree ../images
 //= require_tree .
 
-$(document).ready(function(){
+/*$(document).ready(function(){
        $('.dropdown-toggle').dropdown();
    });
+   */
