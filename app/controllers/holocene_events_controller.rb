@@ -76,6 +76,11 @@ class HoloceneEventsController < ApplicationController
           when "Delete Events"
             he = HoloceneEvent.find(he_id)
             @object.holocene_events.delete(he)
+            case object_type = params[:holocene_event][:object_type]
+            when "Section"
+                @other = @object.chapter
+                @other.holocene_events << he
+            end
           when "Move Events"
             he = HoloceneEvent.find(he_id)
             @object.holocene_events.delete(he)
@@ -86,12 +91,6 @@ class HoloceneEventsController < ApplicationController
                     @other.holocene_events << he
                 when "Chapter"
                     @other = @object.sections.find(params[:holocene_event][:other_id])
-                    @other.holocene_events << he
-                end
-            else
-                case object_type = params[:holocene_event][:object_type]
-                when "Section"
-                    @other = @object.chapter
                     @other.holocene_events << he
                 end
             end

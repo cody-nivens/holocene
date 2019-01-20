@@ -254,7 +254,7 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
       @chapter = chapters(:chapter_1)
       @section = @chapter.sections[0]
       post section_holocene_event_url(:section_id => @section.id ), params: { 
-          commit: "Move Events",
+          commit: "Delete Events",
           
           holocene_event: { 
               object_id: @section.id, 

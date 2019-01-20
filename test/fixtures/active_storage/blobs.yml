@@ -3,8 +3,6 @@ blob_1:
   key: '12345678'
   filename: 'image.jpg'
   content_type: 'image/jpg'
-  metadata: nil
   byte_size: 9432
-  checksum: "123456789012345678901234"
-
-
+  checksum: "4f0f08c26fdf7de911a6433ae0ae63e7"
+  created_at: <%= Time.zone.now %>

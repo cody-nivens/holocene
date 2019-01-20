@@ -31,15 +31,15 @@ Capybara.register_driver :headless_selenium do |app|
                                 })
 
   driver
-end
 #end
+end
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
 #    if 1 == 0
   driven_by :headless_selenium
 #    end
 
-    if 1 == 0
+if 1 == 0
   driven_by :selenium, using: :chrome, screen_size: [1024, 900], options: {
       desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(
         'chromeOptions' => {
@@ -55,6 +55,13 @@ end
 
   def remove_uploaded_files
     FileUtils.rm_rf("#{Rails.root}/tmp/storage")
+  end
+
+  def before_setup
+    super
+    holocene_event = holocene_events(:holocene_event_1)
+    file = Rails.root.join('test', 'fixtures', 'files', 'image.jpg')
+    holocene_event.image.attach(io: File.open(file), filename: 'image.jpg')
   end
 
   def after_teardown

@@ -23,6 +23,9 @@ class ActiveSupport::TestCase
 
     def setup
       # Add code that need to be executed before each test
+      holocene_event = holocene_events(:holocene_event_1)
+      file = Rails.root.join('test', 'fixtures', 'files', 'image.jpg')
+      holocene_event.image.attach(io: File.open(file), filename: 'image.jpg')
     end
 
     def teardown
