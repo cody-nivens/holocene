@@ -8,7 +8,9 @@
 
 <script type="text/javascript">
    
-     $(function(){
+    // $(function(){
+    $(document).ready(function(){
+
     var map_locs = <%= raw @object.map_locs.to_json %>
   //@code_start
     $('#world-map').vectorMap({

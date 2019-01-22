@@ -23,6 +23,7 @@
 //= require timelineJS/timeline
 //= require jquery-1
 //= require jquery.jvectormap.min
+//= require jquery-jvectormap-world-mill-en
 //= link_tree ../icons
 //= link_tree ../fonts
 //= link_tree ../images
