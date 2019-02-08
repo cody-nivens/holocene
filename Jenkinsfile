@@ -17,10 +17,10 @@ node {
     env.BUILDIMG=imageName
 
     stage("Build"){
+        sh "rm -rf registry_cleaner"
         sh "git clone https://github.com/oniksfly/registry_cleaner.git"
         sh "cd registry_cleaner && ./registry_cleaner.rb --host=http://127.0.0.1 --port=5000 --repository=${imageName}"
         sh "kubectl --namespace default exec \$(kubectl get pods --namespace default -l 'app=registry' -o jsonpath='{.items[0].metadata.name}') ${registryGC}"
-        sh "rm -rf registry_cleaner"
         sh "docker build -t ${imageName} -f ./Dockerfile ./"
         sh "docker push ${imageName}"
         sh "docker build -t ${imageNameTest} -f ./Dockerfile.test ./"
