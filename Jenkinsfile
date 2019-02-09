@@ -10,7 +10,7 @@ node {
     appName = "holocene"
     appNS = "default"
     testNS = "app-test"
-    registryHost = "127.0.0.1:30400"
+    registryHost = "127.0.0.1:5000"
     imageName = "${registryHost}/${appName}:${tag}"
     imageNameTest = "${registryHost}/${appName}_test:latest"
     registryGC = "/bin/registry garbage-collect /etc/docker/registry/config.yml"
