@@ -8,13 +8,13 @@ class ChaptersTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "generating PDF" do
-    visit book_chapter_url(@book,@chapter, format: 'pdf')
-
-    content = DownloadHelpers::download_content
-    body = convert_pdf_to_page(content)
-    assert_match /Climate and History/,body
-  end
+#  test "generating PDF" do
+#    visit book_chapter_url(@book,@chapter, format: 'pdf')
+#
+#    content = DownloadHelpers::download_content
+#    body = convert_pdf_to_page(content)
+#    assert_match /Climate and History/,body
+#  end
 
 
   test "visiting the index" do

@@ -14,13 +14,13 @@ class BooksTest < ApplicationSystemTestCase
     assert_no_text "link_to"
   end
 
-  test "generating PDF" do
-    visit book_url(@book, format: 'pdf')
-
-    content = DownloadHelpers::download_content
-    body = convert_pdf_to_page(content)
-    assert_match /Climate and History/,body
-  end
+#  test "generating PDF" do
+#    visit book_url(@book, format: 'pdf')
+#
+#    content = DownloadHelpers::download_content
+#    body = convert_pdf_to_page(content)
+#    assert_match /Climate and History/,body
+#  end
 
   test "creating a Book" do
     visit books_url

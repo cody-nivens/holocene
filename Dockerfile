@@ -19,7 +19,7 @@ RUN apk update \
 
 RUN apk add --update --no-cache \
     libgcc libstdc++ libx11 glib libxrender libxext libintl \
-    libcrypto1.0-dev libssl1.0-dev \
+    libcrypto1.1 libssl1.1 \
     ttf-dejavu ttf-droid ttf-freefont ttf-liberation ttf-ubuntu-font-family 
 
 # Configure the main working directory. This is the base
@@ -50,7 +50,7 @@ RUN apk update && apk upgrade && \
 
 RUN apk add --update --no-cache \
     libgcc libstdc++ libx11 glib libxrender libxext libintl \
-    libcrypto1.0-dev libssl1.0-dev \
+    libcrypto1.1 libssl1.1 \
     ttf-dejavu ttf-droid ttf-freefont ttf-liberation ttf-ubuntu-font-family \
     imagemagick nfs-utils
 
