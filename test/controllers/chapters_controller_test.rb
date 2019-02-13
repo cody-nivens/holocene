@@ -79,10 +79,10 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
     assert_select ".footer>div>a", 2
   end
 
-#  test "should show pdf chapter" do
-#    get book_chapter_url(@book, @chapter, :format => :pdf)
-#    assert_response :success
-#  end
+  test "should show pdf chapter" do
+    get book_chapter_url(@book, @chapter, :format => :pdf)
+    assert_response :success
+  end
 
   test "should show chapter sections" do
     get book_chapter_sections_url(:book_id => @book.id, :chapter_id => @chapter.id)

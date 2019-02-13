@@ -56,10 +56,10 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_select ".footer>div>a", 4
   end
 
-#  test "should show pdf book" do
-#    get book_url(@book, :format => :pdf)
-#    assert_response :success
-#  end
+  test "should show pdf book" do
+    get book_url(@book, :format => :pdf)
+    assert_response :success
+  end
 
   test "should get edit" do
     get edit_book_url(@book)
