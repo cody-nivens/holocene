@@ -56,7 +56,9 @@ RUN apk add --update --no-cache \
 
 
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
-COPY --from=wkhtmltopdf_image /bin/wkhtmltopdf /usr/local/bundle/bin/
+RUN apk add --update --no-cache wkhtmltopdf
+
+#COPY --from=wkhtmltopdf_image /bin/wkhtmltopdf /usr/local/bundle/bin/
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
