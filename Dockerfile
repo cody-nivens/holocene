@@ -56,6 +56,7 @@ RUN apk add --update --no-cache \
 
 RUN apk add --update --no-cache wkhtmltopdf
 
+RUN which wkhtmltopdf
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 RUN which wkhtmltopdf
 COPY /usr/bin/wkhtmltopdf /usr/local/bundle/bin/
