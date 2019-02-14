@@ -38,6 +38,8 @@ RUN gem install bundler && \
     gem install webdrivers && \
     bundle install -j "$(getconf _NPROCESSORS_ONLN)" --retry 5 --without development
 
+RUN apk add --update --no-cache wkhtmltopdf
+
 # Copy dependencies for Node.js and instance the packages.
 # Again, being separate means this will cache.
 COPY package.json yarn.lock ./
@@ -55,10 +57,9 @@ RUN apk add --update --no-cache \
     ttf-dejavu ttf-droid ttf-freefont ttf-liberation ttf-ubuntu-font-family \
     imagemagick nfs-utils
 
-RUN apk add --update --no-cache wkhtmltopdf
 
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
-COPY /usr/bin/wkhtmltopdf /usr/local/bundle/bin/
+#COPY /usr/bin/wkhtmltopdf /usr/local/bundle/bin/
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app

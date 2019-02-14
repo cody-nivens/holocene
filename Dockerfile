@@ -37,6 +37,9 @@ RUN gem install bundler && \
     gem install listen -v 3.1.5 && \
     bundle install -j "$(getconf _NPROCESSORS_ONLN)" --retry 5 --without development,test
 
+RUN apk add --update --no-cache wkhtmltopdf
+RUN which wkhtmltopdf
+
 # Copy dependencies for Node.js and instance the packages.
 # Again, being separate means this will cache.
 COPY package.json yarn.lock ./
@@ -54,12 +57,11 @@ RUN apk add --update --no-cache \
     ttf-dejavu ttf-droid ttf-freefont ttf-liberation ttf-ubuntu-font-family \
     imagemagick nfs-utils
 
-RUN apk add --update --no-cache wkhtmltopdf
-RUN which wkhtmltopdf
 
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 RUN which wkhtmltopdf
-COPY /usr/bin/wkhtmltopdf /usr/local/bundle/bin/
+#COPY /usr/bin/wkhtmltopdf /usr/local/bundle/bin/
+RUN ls -l /usr/bin/wkhtmltopdf
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
