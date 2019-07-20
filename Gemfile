@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.5.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.1'
+gem 'rails', '~> 5.2.3'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
 # Use Puma as the app server
@@ -64,7 +64,7 @@ group :test do
   gem 'geckodriver-helper'
 
   # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'chromedriver-helper'
+  gem 'webdrivers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -98,4 +98,6 @@ gem 'rails_admin'
 #gem "rgeo"
 #gem 'rgeo-activerecord', :git => 'https://github.com/rgeo/rgeo-activerecord'
 gem 'rails-ci-k8s', :git => 'https://github.com/cody-nivens/rails-ci-k8s.git'
-gem 'mini_magick'
+gem 'mini_magick','~> 4.9.4'
+gem 'webpacker'
+gem 'react-rails'
