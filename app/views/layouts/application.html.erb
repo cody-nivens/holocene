@@ -10,10 +10,9 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%#= stylesheet_link_tag    'timelineJS/timeline', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%#= stylesheet_link_tag    'timelineJS/font/font.pt', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%#= javascript_include_tag 'timelineJS/timeline', 'data-turbolinks-track': 'reload' %>
+    <!-- application.html.erb in Head tag below turbolinks -->
+    <%= javascript_pack_tag 'application' %>
   </head>
 
   <body>

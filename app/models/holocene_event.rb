@@ -21,6 +21,9 @@ class HoloceneEvent < ApplicationRecord
 
   validates :name, presence: true
 
+  #
+  # Generate json for TimelineJS
+  #
   def slide
       slde = { :start_date => mk_date(self.start_year),
                :end_date => mk_date((self.end_year.blank? ? self.start_year : self.end_year)),
@@ -34,15 +37,24 @@ class HoloceneEvent < ApplicationRecord
     return slde
   end
 
+  #
+  # Generate URL for image
+  #
   def cover_url
     rails_blob_path(self.image, disposition: "attachment", only_path: true)
   end
 
+  #
+  # Return location information for jvectormap
+  #
   def location
       loc = { latLng: [ self.lat, self.lng ], name: self.name, :status => "#{self.event_types.first.name.downcase}" }
       return loc
   end
 
+  #
+  # Return location for jvectormap if only item added to map
+  #
   def map_locs
     return [ (self.lat.nil? ? nil : self.location) ]
   end

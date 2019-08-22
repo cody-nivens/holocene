@@ -33,7 +33,7 @@ chapter_2:
   holocene_events:
       - holocene_event_2
 chapter_3:
-  name: 'Chapter THree Stuff '
+  name: 'Chapter Three Stuff '
   body: '[[slug56]]'
   position: 1
   slug: tE3vUMrsN3

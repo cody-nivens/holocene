@@ -2,32 +2,29 @@ class BiblioentriesController < ApplicationController
   before_action :set_biblioentry, only: [:show, :edit, :update, :destroy]
   before_action :set_book, only: [:index, :show, :edit, :update, :destroy, :new ]
 
-  # GET /biblioentries
-  # GET /biblioentries.json
+  # GET /books/:book_id/biblioentries(.:format)
   def index
       @biblioentries = @book.biblioentries.order(:name)
   end
 
-  # GET /biblioentries/1
-  # GET /biblioentries/1.json
+  # GET /books/:book_id/biblioentries/:id(.:format)
   def show
       @book = @biblioentry.book
   end
 
-  # GET /biblioentries/new
+  # GET /books/:book_id/biblioentries/new(.:format)
   def new
     @biblioentry = Biblioentry.new
     @biblioentry.user_id = current_user.id
     @biblioentry.book_id = @book.id
   end
 
-  # GET /biblioentries/1/edit
+  # GET /books/:book_id/biblioentries/:id/edit(.:format)
   def edit
     @book = @biblioentry.book
   end
 
-  # POST /biblioentries
-  # POST /biblioentries.json
+  # POST /books/:book_id/biblioentries(.:format)
   def create
     @biblioentry = Biblioentry.new(biblioentry_params)
     @book = @biblioentry.book
@@ -43,8 +40,7 @@ class BiblioentriesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /biblioentries/1
-  # PATCH/PUT /biblioentries/1.json
+  # PATCH/PUT /books/:book_id/biblioentries/:id(.:format)
   def update
     @book = @biblioentry.book
     respond_to do |format|
@@ -58,8 +54,7 @@ class BiblioentriesController < ApplicationController
     end
   end
 
-  # DELETE /biblioentries/1
-  # DELETE /biblioentries/1.json
+  # DELETE /books/:book_id/biblioentries/:id(.:format)
   def destroy
     @biblioentry.destroy
     respond_to do |format|

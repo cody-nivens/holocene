@@ -8,13 +8,13 @@ class ChaptersTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-#  test "generating PDF" do
-#    visit book_chapter_url(@book,@chapter, format: 'pdf')
-#
-#    content = DownloadHelpers::download_content
-#    body = convert_pdf_to_page(content)
-#    assert_match /Climate and History/,body
-#  end
+  test "generating PDF" do
+    visit book_chapter_url(@book,@chapter, format: 'pdf')
+
+    content = DownloadHelpers::download_content
+    body = convert_pdf_to_page(content)
+    assert_match /Climate and History/,body
+  end
 
 
   test "visiting the index" do
@@ -24,6 +24,18 @@ class ChaptersTest < ApplicationSystemTestCase
     assert_no_text "link_to"
   end
 
+  test "visiting a chapter" do
+    visit book_chapter_url(@book,@chapter)
+    assert_selector "h1", text: "Cultural Events"
+    assert_link "Partition"
+    within(".footer") do
+      assert_link "Map"
+      click_on "Map"
+      assert_link "Back"
+      click_on "Back"
+    end
+  end
+
   test "visiting the map" do
     visit book_chapters_url(@book)
     assert_selector "h1", text: "Chapters"
@@ -31,7 +43,7 @@ class ChaptersTest < ApplicationSystemTestCase
     assert_no_text "link_to"
     click_on "Show", match: :first
     assert_link "Map"
-    click_on "Map"
+    click_on "Map", match: :first
     assert_link "Back"
     click_on "Back"
   end

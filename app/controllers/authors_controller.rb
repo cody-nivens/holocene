@@ -3,30 +3,27 @@ class AuthorsController < ApplicationController
   before_action :set_book, only: [ :show, :index, :create, :new, :edit, :update, :destroy]
 
 
-  # GET /authors
-  # GET /authors.json
+  # GET /books/:book_id/authors(.:format)
   def index
       @authors = @book.authors.order(:last_name)
   end
 
-  # GET /authors/1
-  # GET /authors/1.json
+  # GET /books/:book_id/authors/:id(.:format)
   def show
   end
 
-  # GET /authors/new
+  # GET /books/:book_id/authors/new(.:format)
   def new
     @author = Author.new
     @author.user_id = current_user.id
     @author.books << @book
   end
 
-  # GET /authors/1/edit
+  # GET /books/:book_id/authors/:id/edit(.:format) 
   def edit
   end
 
-  # POST /authors
-  # POST /authors.json
+  # POST /books/:book_id/authors(.:format)
   def create
     @author = Author.new(author_params)
 
@@ -41,8 +38,7 @@ class AuthorsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /authors/1
-  # PATCH/PUT /authors/1.json
+  # PATCH/PUT /books/:book_id/authors/:id(.:format)
   def update
     respond_to do |format|
       if @author.update(author_params)
@@ -55,8 +51,7 @@ class AuthorsController < ApplicationController
     end
   end
 
-  # DELETE /authors/1
-  # DELETE /authors/1.json
+  # DELETE /books/:book_id/authors/:id(.:format) 
   def destroy
     @author.destroy
     respond_to do |format|
@@ -78,6 +73,6 @@ class AuthorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def author_params
-      params.require(:author).permit(:first_name, :last_name, :user_id,:book_id)
+      params.require(:author).permit(:first_name, :last_name, :user_id, :book_id)
     end
 end

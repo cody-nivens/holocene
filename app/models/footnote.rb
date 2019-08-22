@@ -5,6 +5,9 @@ class Footnote < ApplicationRecord
   validates :slug, presence: true, unless: ->(footnote){footnote.biblioentry_id.present?}
   validates :biblioentry_id, presence: true, unless: ->(footnote){footnote.slug.present?}
 
+  #
+  # Generate a random slug if none is give my user
+  #
   def self.random_slug(length=10)
     chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ0123456789'
     slug = ''
