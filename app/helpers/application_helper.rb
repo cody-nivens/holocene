@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def my_link_to(text, href)
+    "<a href='#{href}'>#{text}</a>".html_safe
+  end
+
     def format_biblioentry(bib)
         s = ""
         bib.authors.each do |author|
@@ -14,14 +18,14 @@ module ApplicationHelper
     def event_types_to_s(types)
         str = ""
         types.each do |ty|
-            str += " #{ty.name},"
+          str += " <a href=\"/event_types/#{ty.id}\">#{ty.name}</a>,"
         end
         return str.gsub(/^ /,'').gsub(/,$/,'')
     end
 
 	def convert_ad(value,uncert = nil)
         return "" if value.nil?
-		a = (value < 0 ? "#{-value} BC" : "#{value} AD")
+        a = (value < 0 ? "#{ActiveSupport::NumberHelper.number_to_delimited(-value)} BC" : "#{ActiveSupport::NumberHelper.number_to_delimited(value)} AD")
         a += " &plusmn; #{uncert} years" unless uncert.nil?
         return a
     end

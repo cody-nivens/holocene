@@ -41,7 +41,7 @@ Rails.application.routes.draw do
   get "/citations/add_event/:citation_id", to: "holocene_events#add_event", as: :citation_add_event
   get "/epochs/add_event/:epoch_id", to: "holocene_events#add_event", as: :epoch_add_event
 
-  get "/chapters/timeline/:chapter_id", to: "timelines#timeline", as: :chapter_timeline
+  get "/chapters/timeline/:chapter_id/chapter", to: "timelines#timeline", as: :chapter_timeline
   get "/sections/timeline/:section_id", to: "timelines#timeline", as: :section_timeline
   get "/citations/timeline/:citation_id", to: "timelines#timeline", as: :citation_timeline
   get "/timelines/timeline/:timeline_id", to: "timelines#timeline", as: :timeline_timeline

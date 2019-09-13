@@ -33,4 +33,4 @@
 <%= render "footnotes/index", footnotes: @biblioentry.footnotes %>
 <% end %>
 <% @footer_content << "#{link_to 'Edit', edit_book_biblioentry_path(@book, @biblioentry), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', book_biblioentries_path(@book), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>

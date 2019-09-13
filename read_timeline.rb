@@ -39,7 +39,7 @@ end
 @partition = ""
 @partition_body = ""
 @image = ""
-@event_type = ""
+@event_types = ""
 @start_year_uncert = ""
 @record_type = "chapter"
 @footnote_count = 0
@@ -62,7 +62,7 @@ def init_vars
 @partition = ""
 @partition_body = ""
 @image = ""
-@event_type = ""
+@event_types = ""
 @start_year_uncert = ""
 @record_type = "event"
 @footnote_count = 0
@@ -156,7 +156,7 @@ def do_url(child)
   index = 0
   while index < child.children.length do
     if child.children[index].name == "text"
-	    @url = "#{child.children[index].text.downcase.gsub(/ /,'')}"
+	    @url = "#{child.children[index].text}"
     end
     index += 1
   end
@@ -212,11 +212,12 @@ def do_event_type(child)
   index = 0
   while index < child.children.length do
     if child.children[index].name == "text"
-	    @event_type = "#{child.children[index].text.downcase}"
+	    @event_types += "@#{child.children[index].text.downcase},"
         @update_flag = true
     end
     index += 1
   end
+  #@event_types.chop!
 end
 
 def do_start_year_uncert(child)
@@ -231,22 +232,25 @@ end
 
 def event_type_from_tags
   event_types = []
-  event_types << "@#{@event_type}" unless @event_type == "" 
-  event_types << "@volcanic" if @tags.include?("Eruption") && !event_types.include?("@volcanic")
-  event_types << "@impact" if @tags.include?("ImpactEvent") && !event_types.include?("@impact")
-  event_types << "@epidemic" if @tags.include?("Epidemic") && !event_types.include?("@epidemic")
-  event_types << "@climate" if @tags.include?("BondEvent") && !event_types.include?("@climate")
-  event_types << "@climate" if @tags.include?("TreeRingEvent") && !event_types.include?("@climate")
-  event_types << "@cultural" if @tags.include?("Famine") && !event_types.include?("@cultural")
-  event_types << "@cultural" if @tags.include?("BiblicalEvent") && !event_types.include?("@cultural")
-  event_types << "@cultural" if @tags.include?("Historical") && !event_types.include?("@cultural")
-  event_types << "@cultural" if event_types.length  == 0
+  event_types << "#{@event_types}" unless @event_types == "" 
+#  event_types << "@volcanic" if @tags.include?("Eruption") && !event_types.include?("@volcanic")
+#  event_types << "@impact" if @tags.include?("ImpactEvent") && !event_types.include?("@impact")
+#  event_types << "@epidemic" if @tags.include?("Epidemic") && !event_types.include?("@epidemic")
+#  event_types << "@climate" if @tags.include?("BondEvent") && !event_types.include?("@climate")
+#  event_types << "@climate" if @tags.include?("TreeRingEvent") && !event_types.include?("@climate")
+#  event_types << "@cultural" if @tags.include?("Famine") && !event_types.include?("@cultural")
+  #event_types << "@biblical" if @tags.include?("BiblicalEvent") && !event_types.include?("@biblical")
+#  event_types << "@cultural" if @tags.include?("Historical") && !event_types.include?("@cultural")
+#  event_types << "@cultural" if event_types.length  == 0
 
   str = ""
   event_types.each do |event|
       str += "#{event},"
   end
-  return str.gsub(/,$/,'')
+  str.chop!
+  str.chop! unless (str =~ /,$/).nil?
+  #debugger if str.include?("biblical")
+  return str
 end
 
 
@@ -292,8 +296,10 @@ def print_record(record_type)
     puts "end"
     puts "result.image.attach(io: File.open(Rails.root.join('db', 'seeds', '#{@image}')), filename: '#{@image}', content_type: 'image/#{@image.strip.downcase[1..-1]}')" unless @image == ''
     puts "@timeline.holocene_events << result unless @timeline.holocene_events.include?(result)"
+    #puts "debugger" if @title == "Bond 9 - Colvis Impact Event "
     puts "@#{@timeline_name}_timeline.holocene_events << result unless @#{@timeline_name}_timeline.holocene_events.include?(result)"
     puts "@object.holocene_events << result"
+    #puts "@chapter.holocene_events << result unless @object == @chapter"
   when "section"
     puts "result = Section.create({:name => \"#{@title}\","
     puts ":body => \"#{@body}\","

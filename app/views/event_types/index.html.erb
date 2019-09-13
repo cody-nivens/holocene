@@ -16,7 +16,6 @@
         <td><%= link_to event_type.name, event_type %></td>
         <td><%= event_type.holocene_events.count %></td>
         <td><%= event_type.body %></td>
-        <td><%= link_to (fa_icon "search-plus"), event_type, :title => 'Show' %></td>
         <td><%= link_to (fa_icon "edit"), edit_event_type_path(event_type), :title => 'Edit' %></td>
         <td><%= link_to (fa_icon "trash-o"), event_type, method: :delete, data: { confirm: 'Are you sure?' }, :title => 'Destroy' %></td>
       </tr>

@@ -29,8 +29,15 @@ class Chapter < ApplicationRecord
         return cits
     end
 
-    def timeline_json
-        return {:events => self.holocene_events.order(:start_year).collect{|x| x.slide}}.to_json
+    def timeline_json(section_flag = true)
+        events = self.holocene_events
+        if section_flag
+          self.sections.each do |section|
+            events << section.holocene_events
+          end
+        end
+
+        return {:events => events.order(:start_year).collect{|x| x.slide}}.to_json
     end
 
     def map_locs

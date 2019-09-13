@@ -21,15 +21,6 @@
 //= require bootstrap-wysihtml5
 //= require bootstrap-wysihtml5/locales
 //= require timelineJS/timeline
-//= require jquery-1
-//= require jquery.jvectormap.min
-//= require jquery-jvectormap-world-mill-en
 //= link_tree ../icons
 //= link_tree ../fonts
 //= link_tree ../images
-//= require_tree .
-
-/*$(document).ready(function(){
-       $('.dropdown-toggle').dropdown();
-   });
-   */

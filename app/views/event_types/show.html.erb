@@ -14,4 +14,4 @@
 <% @footer_content << "#{link_to 'Edit', edit_event_type_path(@event_type), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Timeline', event_type_timeline_path(@event_type), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Map', geo_map_event_type_path(@event_type), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', event_types_path, :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>

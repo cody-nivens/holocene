@@ -6,27 +6,27 @@
             <th>Sections</th>
             <th>Events</th>
             <th>Citations</th>
-            <th span=6></th>
+            <th colspan=3></th>
         </tr>
     </thead>
   <tbody class="sortable">
     <% @chapters.each_with_sortable_id do |chapter, sortable_id| %>
       <tr id="<%= sortable_id %>">
-        <td><%= raw (chapter.partition.nil? ? '' : "#{link_to chapter.partition.name, book_chapter_partition_path(chapter.book,chapter,chapter.partition)}") %></td>
-        <td><%= chapter.name %></td>
+    <% if chapter.partition.nil? %>
+        <td><%= link_to (fa_icon "plus"), new_book_chapter_partition_path(@book, chapter), :title => "Partition"  %>
+    <% else %>
+        <td><%= link_to (fa_icon "pencil"), book_chapter_partition_path(@book, chapter,chapter.partition), :title => "Partition"  %>
+    <% end %>
+        <%= raw (chapter.partition.nil? ? '' : "#{link_to chapter.partition.name, book_chapter_partition_path(chapter.book,chapter,chapter.partition)}") %></td>
+        <td><%= link_to (fa_icon "pencil"), edit_book_chapter_path(@book, chapter), :title => "Edit"  %>
+        <%= link_to chapter.name, book_chapter_path(@book, chapter), :title => "Show"  %></td>
+        
         <td><%= chapter.sections.count %></td>
         <td><%= chapter.total_events %></td>
         <td><%= chapter.citations.count %></td>
 
-        <td><%= link_to (fa_icon "search-plus"), book_chapter_path(@book, chapter), :title => "Show"  %></td>
-        <% if chapter.partition.nil? %>
-        <td><%= link_to (fa_icon "plus"), new_book_chapter_partition_path(@book, chapter), :title => "Partition"  %></td>
-    <% else %>
-        <td><%= link_to (fa_icon "pencil"), book_chapter_partition_path(@book, chapter,chapter.partition), :title => "Partition"  %></td>
-    <% end %>
         <td><%= link_to (fa_icon "list-alt"), book_chapter_sections_path(chapter.book, chapter), :title => "Sections"  %></td>
         <td><%= link_to (fa_icon "file-pdf-o"), book_chapter_path(@book,chapter, format: 'pdf'), :title => "PDF"  %></td>
-        <td><%= link_to (fa_icon "edit"), edit_book_chapter_path(@book, chapter), :title => "Edit"  %></td>
         <td><%= link_to (fa_icon "trash-o"), book_chapter_path(@book, chapter), method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy"  %></td>
       </tr>
     <% end %>

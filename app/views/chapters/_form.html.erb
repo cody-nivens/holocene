@@ -14,22 +14,7 @@
 <script type="text/javascript">
   $(document).ready(function(){
     $('#chapter_body').each(function(i, elem) {
-        $(elem).wysihtml5({
-           toolbar: {
-              "fa": true,
-              "style": true,
-              "font-styles": true,
-              "emphasis": true,
-              "lists": true,
-              "html": true,
-              "link": true,
-              "image": true,
-              "color": true
-           },
-           parser: function(html) {
-              return html;
-           }
-        });
+        $(elem).wysihtml5();
     });
   })
 </script>

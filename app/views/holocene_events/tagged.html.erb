@@ -1,3 +1,7 @@
+<% unless params[:tag].nil? -%>
+  <h2><%= params[:tag] %>
+  </h2>
+<% end -%>
 <% @holocene_events.order(:start_year).each do |r| %>
   <h2><%= link_to r.name, holocene_event_path(r) %></h2>
   <h3><%= raw convert_ad(r.start_year,r.start_year_uncert) %> <%= convert_ad(r.end_year) %></h3>

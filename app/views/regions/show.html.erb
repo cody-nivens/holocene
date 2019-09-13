@@ -16,4 +16,4 @@
 <%= paginate(@grid.assets) %>
 
 <% @footer_content << "#{link_to 'Edit', edit_region_path(@region), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', regions_path, :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>

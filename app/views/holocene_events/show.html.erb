@@ -4,39 +4,35 @@
 </p>
 
 <p>
-  <strong>Start year:</strong>
-  <%= raw convert_ad(@holocene_event.start_year,@holocene_event.start_year_uncert) %>
-</p>
-
-<p>
-  <strong>End year:</strong>
-  <%= convert_ad(@holocene_event.end_year) %>
+  <strong>Start year:</strong> <%= raw convert_ad(@holocene_event.start_year,@holocene_event.start_year_uncert) %>
+  <strong> - </strong> <%= convert_ad(@holocene_event.end_year) %>
 </p>
 
 <p>
   <strong>Event type:</strong>
-  <%= event_types_to_s(@holocene_event.event_types) %>
+  <%= raw event_types_to_s(@holocene_event.event_types) %>
   <strong>Region:</strong>
-  <%= @holocene_event.region.name %>
+  <%= link_to @holocene_event.region.name, region_path(@holocene_event.region) %>
 </p>
 
 <p>
   <strong>URL:</strong>
-  <%= @holocene_event.url %>
+  <%= my_link_to @holocene_event.url, @holocene_event.url %>
   <strong>Image:</strong>
   
   <% if @holocene_event.image.attached? %>
       <%= image_tag(url_for(@holocene_event.image), :alt => @holocene_event.image.filename.to_s) %>
   <% end %>
 </p>
+<% unless @holocene_event.lat.nil? -%>
 <p>
   <strong>Lat:</strong>
   <%= @holocene_event.lat %>
   <strong>Lng:</strong>
   <%= @holocene_event.lng %>
 </p>
+<% end -%>
 <p>
-  <strong>Body:</strong>
   <% if @slugs.nil? -%>
       <% @slugs = [] -%>
   <% end -%>
@@ -52,4 +48,4 @@
 <% @footer_content << "#{link_to 'Edit', edit_holocene_event_path(@holocene_event), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Map', geo_map_holocene_event_path(@holocene_event), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Footnotes',  holocene_event_footnotes_path(@holocene_event), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', holocene_events_path, :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>
