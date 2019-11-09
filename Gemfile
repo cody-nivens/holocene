@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.3'
+ruby '2.5.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
@@ -86,7 +86,7 @@ gem 'bootstrap', '~> 4.3.1'
 gem 'bootstrap-wysihtml5-rails'
 gem 'simple_form'
 gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
+gem 'wkhtmltopdf-binary', '0.12.4'
 gem 'redis'
 gem 'hiredis'
 gem 'rails-erd', group: :development
@@ -101,3 +101,4 @@ gem 'rails-ci-k8s', :git => 'https://github.com/cody-nivens/rails-ci-k8s.git'
 gem 'mini_magick','~> 4.9.4'
 gem 'webpacker'
 gem 'react-rails'
+gem 'words_counted'
