@@ -4,7 +4,7 @@
       <th>Slug</th>
       <th>Body</th>
       <th>Noted</th>
-      <th colspan="3"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -12,10 +12,9 @@
     <% footnotes.each do |footnote| %>
       <tr>
         <td><%= footnote.slug %></td>
-        <td><%= footnote.body %></td>
+        <td><%= link_to footnote.body, footnote, :title => 'Show'  %></td>
         <td><%= (footnote.biblioentry.nil? ? '' : footnote.biblioentry.name) %></td>
-        <td><%= link_to (fa_icon "search-plus"), footnote, :title => 'Show' %></td>
-        <td><%= link_to (fa_icon "edit"), edit_footnote_path(footnote), :title => 'Edit' %></td>
+        <td><%= link_to (fa_icon "pencil"), edit_footnote_path(footnote), :title => 'Edit' %></td>
         <td><%= link_to (fa_icon "trash-o"), footnote, method: :delete, data: { confirm: 'Are you sure?' }, :title => 'Destroy' %></td>
       </tr>
     <% end %>

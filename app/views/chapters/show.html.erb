@@ -1,7 +1,7 @@
 <h1>
-  <%= @chapter.name %>
-  <% @title = @chapter.name %>
-<%= link_to 'Edit', edit_book_chapter_path(@chapter.book, @chapter), :class => "btn btn-default" %>
+<%= @chapter.name %>
+<% @title = @chapter.name %>
+<%= link_to (fa_icon "pencil"), edit_book_chapter_path(@chapter.book, @chapter), :class => "btn btn-default" %>
 <%= link_to 'Partition', (@chapter.partition.nil? ? new_book_chapter_partition_path(@chapter.book, @chapter) : edit_book_chapter_partition_path(@chapter.book, @chapter, @chapter.partition)), :class => "btn btn-default" %>
 </h1>
 
@@ -16,7 +16,7 @@
 
 <% @chapter.sections.each do |section| -%>
 <h2><%= section.name %>
-<%= link_to 'Edit', edit_book_chapter_section_path(@chapter.book, @chapter,section), :class => "btn btn-default" %>
+<%= link_to (fa_icon "pencil"), edit_book_chapter_section_path(@chapter.book, @chapter,section), :class => "btn btn-default" %>
 <%= link_to 'Display',  section_display_path(:section_id => section.id), :class => "btn btn-default" %>
 <%= link_to 'Map',  geo_map_section_path(section), :class => "btn btn-default" %>
 <%= link_to 'Timeline',  section_timeline_path(:section_id => section.id), :class => "btn btn-default" %>

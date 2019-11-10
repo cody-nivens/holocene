@@ -3,8 +3,10 @@
         <tr>
             <th>Partition</th>
             <th>Name</th>
-            <th>Sections</th>
+<!--            <th>Sections</th> -->
+            <th>Word Count</th>
             <th>Events</th>
+            <th>Foot Notes</th>
             <th>Citations</th>
             <th colspan=3></th>
         </tr>
@@ -19,10 +21,27 @@
     <% end %>
         <%= raw (chapter.partition.nil? ? '' : "#{link_to chapter.partition.name, book_chapter_partition_path(chapter.book,chapter,chapter.partition)}") %></td>
         <td><%= link_to (fa_icon "pencil"), edit_book_chapter_path(@book, chapter), :title => "Edit"  %>
-        <%= link_to chapter.name, book_chapter_path(@book, chapter), :title => "Show"  %></td>
+        <%= link_to chapter.name, book_chapter_path(@book, chapter), :title => "Show"  %><br/>
+        <% chapter.sections.order(:position).each do |section| -%>
+          <%= section.name %><br/>
+        <% end -%>
+        </td>
         
-        <td><%= chapter.sections.count %></td>
-        <td><%= chapter.total_events %></td>
+        <!--        <td><%= chapter.sections.count %></td>-->
+        <td><%= chapter.word_count %><br/>
+        <% chapter.sections.order(:position).each do |section| -%>
+          <%= section.word_count %><br/>
+        <% end -%>
+        </td>
+        <td><%= chapter.total_events %><br/>
+        <% chapter.sections.order(:position).each do |section| -%>
+          <%= section.holocene_events.count %><br/>
+        <% end -%>
+        </td>
+        <td><%= chapter.footnotes.count %><br/>
+        <% chapter.sections.order(:position).each do |section| -%>
+          <%= section.footnotes.count %><br/>
+        <% end -%>
         <td><%= chapter.citations.count %></td>
 
         <td><%= link_to (fa_icon "list-alt"), book_chapter_sections_path(chapter.book, chapter), :title => "Sections"  %></td>
