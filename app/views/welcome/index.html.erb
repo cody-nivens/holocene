@@ -8,42 +8,5 @@
   <% end %>
 </div>
 
-<table class='table'>
-    <tr><td><%= link_to "Holocene Events", holocene_events_path %></td><td><%= HoloceneEvent.count %></td></tr>
-
-    <tr><td><%= link_to "Region", regions_path %>&nbsp;<%= Region.count %></td>
-    <td><%= link_to "Event Type", event_types_path %>&nbsp;<%= EventType.count %></td></tr>
-
-    <tr><td>
- <div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Regions
-  <span class="caret"></span></button>
-  <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-    <% Region.all.order(:name).each do |region| -%>
-        <li><%= link_to "#{region.name} #{region.holocene_events.count}", region_path(region), :html =>{:role => "menu"} %></li>
-    <% end -%>
-  </ul>
- </div> 
-        </td>
-
-    <td>
- <div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Event Types
-  <span class="caret"></span></button>
-  <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-    <% EventType.all.order(:name).each do |event_type| -%>
-        <li><%= link_to "#{event_type.name} #{event_type.holocene_events.count}", event_type_path(event_type), :html => {:role => 'menu'} %></li>
-    <% end -%>
-  </ul>
- </div> 
-    </td></tr>
-
-    <tr><td><%= link_to "Timeline", timelines_path %></td><td><%= Timeline.count %></td></tr>
-    <tr><td><%= link_to "Epoch", epochs_path %></td><td><%= Epoch.count %></td></tr>
-    <tr><td><%= link_to "Book", books_path %></td><td><%= Book.count %></td></tr>
-    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Chapter", book_chapters_path(Book.first) %></td><td><%= Chapter.count %></td></tr>
-    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Section", book_chapter_sections_path(Chapter.first.book,Chapter.first) %></td><td><%= Section.count %></td></tr>
-    <tr><td>Footnotes</td><td><%= Footnote.count %></td></tr>
-    <tr><td>Biblioentries</td><td><%= Biblioentry.count %></td></tr>
-    <tr><td>Authors</td><td><%= Author.count %></td></tr>
-</table>
+<hr/>
+<%= link_to "Stats", welcome_stats_path %>
