@@ -18,7 +18,7 @@ class ChaptersController < ApplicationController
     respond_to do |format|
       format.html { render :show }
       format.pdf {
-         render pdf: "export.pdf", 
+        render pdf: "chapter_#{@chapter.id}", 
           disposition: 'attachment',
           header: { right: '[page] of [topage]' }, 
           toc: {

@@ -15,7 +15,7 @@ class BooksController < ApplicationController
     respond_to do |format|
       format.html { render :show }
       format.pdf {
-         render pdf: "export.pdf", 
+         render pdf: "export", 
           disposition: 'attachment',
           header: { right: '[page] of [topage]' }, 
           toc: {
