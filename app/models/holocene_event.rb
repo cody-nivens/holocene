@@ -9,7 +9,7 @@ class HoloceneEvent < ApplicationRecord
   has_and_belongs_to_many :timelines
   has_and_belongs_to_many :chapters
   has_and_belongs_to_many :sections
-  has_and_belongs_to_many :holocene_events, as: :parents
+  #has_and_belongs_to_many :holocene_events, as: :parents
 
   has_many :footnotes, as: :noted
 

@@ -18,4 +18,7 @@ class Section < ApplicationRecord
         return self.holocene_events.collect{|x| (x.lat.nil? ? nil : x.location) }.compact
     end
 
+    def word_count
+      return WordsCounted.count(self.body).token_count
+    end
 end

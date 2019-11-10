@@ -44,4 +44,13 @@ class Chapter < ApplicationRecord
         return self.holocene_events.collect{|x| (x.lat.nil? ? nil : x.location) }.compact
     end
 
+    def word_count
+      count = WordsCounted.count(self.body).token_count
+      count += self.partition.word_count unless self.partition.nil?
+      self.sections.each do |sect|
+        count += sect.word_count
+      end
+      return count
+    end
+
 end
