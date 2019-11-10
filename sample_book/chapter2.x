@@ -33,7 +33,7 @@ People in London were able to read the new paper at night for 8 days after the e
 <indexterm><primary>VEI 4</primary><secondary>Grimsvotn Volanco, Iceland</secondary></indexterm>
 </title>
 <url>https://en.wikipedia.org/wiki/Gr%C3%ADmsv%C3%B6tn</url>
-<image>Iceland_Grimsvoetn_1972-B.jpg</image>
+<image>280px-Iceland_Grimsvoetn_1972-B.jpg</image>
 <para>This eruption caused desruptions to air travel in Europe.  President Obama had to cut short his visit to Ireland due to worries about the ash cloud.
 </para>
 <event_type>Volcanic</event_type>
