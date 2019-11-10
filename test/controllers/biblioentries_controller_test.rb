@@ -52,7 +52,9 @@ class BiblioentriesControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[text()=?]",'Edit'
     assert_select "a[href=?]", edit_book_biblioentry_path(@book,@biblioentry)
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", book_biblioentries_path(@biblioentry.book)
+
+    # history.back is now used
+    #assert_select "a[href=?]", book_biblioentries_path(@biblioentry.book)
     assert_select ".footer>div>a", 2
   end
 

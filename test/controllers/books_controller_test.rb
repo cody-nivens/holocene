@@ -51,9 +51,11 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", new_book_chapter_path(@book)
     assert_select "a[text()=?]",'Edit'
     assert_select "a[href=?]", edit_book_path(@book)
-    assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", books_path
-    assert_select ".footer>div>a", 4
+   # assert_select "a[text()=?]",'Back'
+    
+    # history.back is now used
+    # assert_select "a[href=?]", books_path
+    assert_select ".footer>div>a", 3
   end
 
   test "should show pdf book" do

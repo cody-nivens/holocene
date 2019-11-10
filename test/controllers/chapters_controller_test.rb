@@ -53,7 +53,7 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
     get book_chapter_url(:book_id => @book.id, :id => @chapter.id)
     assert_response :success
 
-    assert_select "a[text()=?]",'Edit'
+    #assert_select "a[text()=?]",'Edit'
     assert_select "a[href=?]", edit_book_chapter_path(@book,@chapter)
     assert_select "a[text()=?]",'Timeline'
     assert_select "a[href=?]", chapter_timeline_path(@chapter)

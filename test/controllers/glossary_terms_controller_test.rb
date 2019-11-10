@@ -50,7 +50,9 @@ class GlossaryTermsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[text()=?]",'Edit'
     assert_select "a[href=?]", edit_book_glossary_term_path(@book,@glossary_term)
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", book_glossary_terms_path(@book)
+    
+    # history.back is now used
+    # assert_select "a[href=?]", book_glossary_terms_path(@book)
     assert_select ".footer>div>a", 2
   end
 
