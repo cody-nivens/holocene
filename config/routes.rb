@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :epochs
   resources :timelines
   get "welcome/index"
+  get "welcome/stats"
   get "/stats", to: "welcome#stats"
   resources :holocene_events
   resources :regions
