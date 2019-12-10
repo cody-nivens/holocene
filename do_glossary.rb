@@ -68,6 +68,7 @@ def print_record
         puts "#{token.to_s} = GlossaryTerm.where(\"name = ? or term = ?\",\"#{@glossary[token]}\",\"#{@glossary[token]}\").find_or_create_by({term: \"#{@glossary[token]}\","
         puts "  :name => \"#{@glossary[token]}\","
         puts "  :book => @book,"
+        puts "  :body => \"#{(@glossary[:body].nil? ? '' : @glossary[:body])}\"," 
         puts "  :user => @user"
         puts "})"
         @created << @glossary[token]
