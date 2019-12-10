@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :glossary_terms
     resources :biblioentries
     resources :chapters do
+      resources :asides
       resources :partitions
       resources :sections
     end
