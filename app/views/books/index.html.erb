@@ -20,7 +20,7 @@
 <td><%= ts %></td>
 <td><%= book.word_count %></td>
 <td><%= link_to (fa_icon "file-pdf-o"), book_path(book, format: 'pdf'), :title => "PDF" %></td>
-<td><%= link_to (fa_icon "list-alt"), book_chapters_path(book), :title => "Chapters" %></td>
+<td><%= link_to (fa_icon "list-alt"), book_authors_path(book), :title => "Authors" %></td>
 <td><%= link_to (fa_icon "book"), book_biblioentries_path(book), :title => "Biblioentries" %></td>
 <td><%= link_to (fa_icon "list-alt"), book_glossary_terms_path(book), :title => "Glossary" %></td>
 <td><%= link_to (fa_icon "edit"), edit_book_path(book), :title => "Edit" %></td>
