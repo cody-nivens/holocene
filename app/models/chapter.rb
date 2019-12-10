@@ -9,6 +9,7 @@ class Chapter < ApplicationRecord
 
     belongs_to :book
     has_one :partition
+    has_one :aside
 
     validates :name, presence: true
 
@@ -45,8 +46,9 @@ class Chapter < ApplicationRecord
     end
 
     def word_count
-      count = WordsCounted.count(self.body).token_count
+      count = WordsCounted.count(self.body).token_count + WordsCounted.count(self.name).token_count
       count += self.partition.word_count unless self.partition.nil?
+      count += self.aside.word_count unless self.aside.nil?
       self.sections.each do |sect|
         count += sect.word_count
       end
