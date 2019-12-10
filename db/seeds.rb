@@ -147,6 +147,7 @@ seealso = nil
 acronym = GlossaryTerm.where("name = ? or term = ?","XML","XML").find_or_create_by({term: "XML",
   :name => "XML",
   :book => @book,
+  :body => "Some reasonable definition here.",
   :user => @user
 })
 term = GlossaryTerm.where("name = ? or term = ?","Extensible Markup Language","Extensible Markup Language").find_or_create_by({name: "Extensible Markup Language",
@@ -162,6 +163,7 @@ debugger if term.errors.count > 0
 see = GlossaryTerm.where("name = ? or term = ?","sgml","sgml").find_or_create_by({term: "sgml",
   :name => "sgml",
   :book => @book,
+  :body => "",
   :user => @user
 })
 seealso = nil
@@ -181,6 +183,7 @@ seealso = nil
 acronym = GlossaryTerm.where("name = ? or term = ?","SGML","SGML").find_or_create_by({term: "SGML",
   :name => "SGML",
   :book => @book,
+  :body => "Some reasonable definition here.",
   :user => @user
 })
 term = GlossaryTerm.where("name = ? or term = ?","Standard Generalized Markup Language","Standard Generalized Markup Language").find_or_create_by({name: "Standard Generalized Markup Language",
@@ -196,6 +199,7 @@ debugger if term.errors.count > 0
 see = GlossaryTerm.where("name = ? or term = ?","vei","vei").find_or_create_by({term: "vei",
   :name => "vei",
   :book => @book,
+  :body => "",
   :user => @user
 })
 seealso = nil
@@ -215,6 +219,7 @@ seealso = nil
 acronym = GlossaryTerm.where("name = ? or term = ?","VEI","VEI").find_or_create_by({term: "VEI",
   :name => "VEI",
   :book => @book,
+  :body => "A numeric value denoting how large a volcanic explosion is compaired to other explosions.  Indexes greater than 5 affect the global climate.",
   :user => @user
 })
 term = GlossaryTerm.where("name = ? or term = ?","Volcanic Explosion Index","Volcanic Explosion Index").find_or_create_by({name: "Volcanic Explosion Index",
@@ -242,7 +247,7 @@ term = GlossaryTerm.where("name = ? or term = ?","Typhus","Typhus").find_or_crea
 debugger if term.errors.count > 0
 result = Chapter.create({:name => "Cultural Events ",
 :position =>chapter_index,
-:slug => "hGukAx2nmU",
+:slug => "cTN3LCe15t",
 :book => @book,
 :body => "<p>Events caused by Man or happeded to Mankind.
 </p>"
@@ -258,7 +263,7 @@ chapter_index += 1
 section_index = 0
 result = Section.create({:name => "Docestication of the Animals ",
 :body => "",
-:slug => "k82Y0wR669",
+:slug => "nEvLda2jub",
 :position => section_index,
 :display_name => true,
 :chapter_id => @chapter.id
@@ -269,14 +274,14 @@ result = HoloceneEvent.where(:name => "Domestication of Horses", :start_year => 
 if result.length == 0
 result = HoloceneEvent.create({:name => "Domestication of Horses",
 :end_year => "",
-:body => "<p>The start of organized War[[xuW5gvH0Gt]]
+:body => "<p>The start of organized War[[QsRZgDX7AB]]
 </p>",
 :tag_list => ["Domestication"],
 :event_types => [  @cultural ] ,
 :region => @global,
 :url => "https://en.wikipedia.org/wiki/Domestication_of_the_horse",
 :user_id => @user.id,
-:slug => "7pQk42WTmw",
+:slug => "vZKGFKDf3K",
 :lat => "",
 :lng => "",
 :start_year_uncert => "",
@@ -286,12 +291,12 @@ else
 if result[0].body ==""
 res = result[0].update_attributes({:name => "Domestication of Horses",
 :end_year => "",
-:body => "<p>The start of organized War[[xuW5gvH0Gt]]
+:body => "<p>The start of organized War[[QsRZgDX7AB]]
 </p>",
 :tag_list => ["Domestication"],
 :event_types => [ @cultural ],
 :region => @global,
-:slug => "7pQk42WTmw",
+:slug => "vZKGFKDf3K",
 :lat => "",
 :lng => "",
 :url => "https://en.wikipedia.org/wiki/Domestication_of_the_horse",
@@ -306,10 +311,17 @@ end
 @timeline.holocene_events << result unless @timeline.holocene_events.include?(result)
 @chapter1_timeline.holocene_events << result unless @chapter1_timeline.holocene_events.include?(result)
 @object.holocene_events << result
+rsl = GlossaryTerm.where(:name => "Domestication")
+if rsl.length == 0
+rsl = GlossaryTerm.create({:name => "Domestication",
+:user_id => @user.id,
+:book => @book
+ })
+end
 biblio = Biblioentry.find_by_xreflabel("wikipedia")
 Footnote.create(:slug => "", :body => "", :noted => result,:biblioentry_id => biblio.id)
 biblio = nil
-Footnote.create(:slug => "xuW5gvH0Gt", :body => "This is my thoughts", :biblioentry_id => (biblio.nil? ? nil : biblio.id), :noted => result)
+Footnote.create(:slug => "QsRZgDX7AB", :body => "This is my thoughts", :biblioentry_id => (biblio.nil? ? nil : biblio.id), :noted => result)
 result = HoloceneEvent.where(:name => "Dog buried inside of human dwellings ", :start_year => -12700)
 if result.length == 0
 result = HoloceneEvent.create({:name => "Dog buried inside of human dwellings ",
@@ -320,7 +332,7 @@ result = HoloceneEvent.create({:name => "Dog buried inside of human dwellings ",
 :region => @neareast,
 :url => "",
 :user_id => @user.id,
-:slug => "aS548bQhr0",
+:slug => "L4fuYHJrFR",
 :lat => "",
 :lng => "",
 :start_year_uncert => "",
@@ -334,7 +346,7 @@ res = result[0].update_attributes({:name => "Dog buried inside of human dwelling
 :tag_list => ["Domestication"],
 :event_types => [ @cultural ],
 :region => @neareast,
-:slug => "aS548bQhr0",
+:slug => "L4fuYHJrFR",
 :lat => "",
 :lng => "",
 :url => "",
@@ -349,6 +361,13 @@ end
 @timeline.holocene_events << result unless @timeline.holocene_events.include?(result)
 @chapter1_timeline.holocene_events << result unless @chapter1_timeline.holocene_events.include?(result)
 @object.holocene_events << result
+rsl = GlossaryTerm.where(:name => "Domestication")
+if rsl.length == 0
+rsl = GlossaryTerm.create({:name => "Domestication",
+:user_id => @user.id,
+:book => @book
+ })
+end
 result = HoloceneEvent.where(:name => "Two distinct dog branches - East and West ", :start_year => -12000)
 if result.length == 0
 result = HoloceneEvent.create({:name => "Two distinct dog branches - East and West ",
@@ -360,7 +379,7 @@ result = HoloceneEvent.create({:name => "Two distinct dog branches - East and We
 :region => @global,
 :url => "",
 :user_id => @user.id,
-:slug => "Qhc3Eue9uL",
+:slug => "z5jn0r7AJu",
 :lat => "",
 :lng => "",
 :start_year_uncert => "",
@@ -375,7 +394,7 @@ res = result[0].update_attributes({:name => "Two distinct dog branches - East an
 :tag_list => ["Domestication"],
 :event_types => [ @cultural ],
 :region => @global,
-:slug => "Qhc3Eue9uL",
+:slug => "z5jn0r7AJu",
 :lat => "",
 :lng => "",
 :url => "",
@@ -390,6 +409,13 @@ end
 @timeline.holocene_events << result unless @timeline.holocene_events.include?(result)
 @chapter1_timeline.holocene_events << result unless @chapter1_timeline.holocene_events.include?(result)
 @object.holocene_events << result
+rsl = GlossaryTerm.where(:name => "Domestication")
+if rsl.length == 0
+rsl = GlossaryTerm.create({:name => "Domestication",
+:user_id => @user.id,
+:book => @book
+ })
+end
 result = HoloceneEvent.where(:name => "Domestication of Sheep ", :start_year => -11000)
 if result.length == 0
 result = HoloceneEvent.create({:name => "Domestication of Sheep ",
@@ -400,7 +426,7 @@ result = HoloceneEvent.create({:name => "Domestication of Sheep ",
 :region => @neareast,
 :url => "",
 :user_id => @user.id,
-:slug => "SKVs8JkJYT",
+:slug => "QTfpaD4pn9",
 :lat => "",
 :lng => "",
 :start_year_uncert => "",
@@ -414,7 +440,7 @@ res = result[0].update_attributes({:name => "Domestication of Sheep ",
 :tag_list => ["Domestication"],
 :event_types => [ @cultural,@cultural ],
 :region => @neareast,
-:slug => "SKVs8JkJYT",
+:slug => "QTfpaD4pn9",
 :lat => "",
 :lng => "",
 :url => "",
@@ -429,6 +455,13 @@ end
 @timeline.holocene_events << result unless @timeline.holocene_events.include?(result)
 @chapter1_timeline.holocene_events << result unless @chapter1_timeline.holocene_events.include?(result)
 @object.holocene_events << result
+rsl = GlossaryTerm.where(:name => "Domestication")
+if rsl.length == 0
+rsl = GlossaryTerm.create({:name => "Domestication",
+:user_id => @user.id,
+:book => @book
+ })
+end
 result = HoloceneEvent.where(:name => "Domestication of Goats ", :start_year => -7000)
 if result.length == 0
 result = HoloceneEvent.create({:name => "Domestication of Goats ",
@@ -439,7 +472,7 @@ result = HoloceneEvent.create({:name => "Domestication of Goats ",
 :region => @neareast,
 :url => "",
 :user_id => @user.id,
-:slug => "7e0N3VS0sj",
+:slug => "2M2LaGAkN9",
 :lat => "",
 :lng => "",
 :start_year_uncert => "",
@@ -453,7 +486,7 @@ res = result[0].update_attributes({:name => "Domestication of Goats ",
 :tag_list => ["Domestication"],
 :event_types => [ @cultural ],
 :region => @neareast,
-:slug => "7e0N3VS0sj",
+:slug => "2M2LaGAkN9",
 :lat => "",
 :lng => "",
 :url => "",
@@ -468,6 +501,13 @@ end
 @timeline.holocene_events << result unless @timeline.holocene_events.include?(result)
 @chapter1_timeline.holocene_events << result unless @chapter1_timeline.holocene_events.include?(result)
 @object.holocene_events << result
+rsl = GlossaryTerm.where(:name => "Domestication")
+if rsl.length == 0
+rsl = GlossaryTerm.create({:name => "Domestication",
+:user_id => @user.id,
+:book => @book
+ })
+end
 result = HoloceneEvent.where(:name => "Domestication of Cats ", :start_year => -7500)
 if result.length == 0
 result = HoloceneEvent.create({:name => "Domestication of Cats ",
@@ -478,7 +518,7 @@ result = HoloceneEvent.create({:name => "Domestication of Cats ",
 :region => @neareast,
 :url => "",
 :user_id => @user.id,
-:slug => "NP8uygm21g",
+:slug => "T4W86DBJ2V",
 :lat => "",
 :lng => "",
 :start_year_uncert => "",
@@ -492,7 +532,7 @@ res = result[0].update_attributes({:name => "Domestication of Cats ",
 :tag_list => ["Domestication"],
 :event_types => [ @cultural ],
 :region => @neareast,
-:slug => "NP8uygm21g",
+:slug => "T4W86DBJ2V",
 :lat => "",
 :lng => "",
 :url => "",
@@ -507,9 +547,16 @@ end
 @timeline.holocene_events << result unless @timeline.holocene_events.include?(result)
 @chapter1_timeline.holocene_events << result unless @chapter1_timeline.holocene_events.include?(result)
 @object.holocene_events << result
+rsl = GlossaryTerm.where(:name => "Domestication")
+if rsl.length == 0
+rsl = GlossaryTerm.create({:name => "Domestication",
+:user_id => @user.id,
+:book => @book
+ })
+end
 result = Section.create({:name => "Agriculture ",
 :body => "",
-:slug => "X0Usj7Ekkf",
+:slug => "SEtW9r10Zq",
 :position => section_index,
 :display_name => true,
 :chapter_id => @chapter.id
@@ -530,7 +577,7 @@ it where conditions seemed right creating true agriculture.
 :region => @eurasia,
 :url => "",
 :user_id => @user.id,
-:slug => "z97jLp1szq",
+:slug => "Js72eVMcd2",
 :lat => "",
 :lng => "",
 :start_year_uncert => "",
@@ -548,7 +595,7 @@ it where conditions seemed right creating true agriculture.
 :tag_list => [],
 :event_types => [ @cultural ],
 :region => @eurasia,
-:slug => "z97jLp1szq",
+:slug => "Js72eVMcd2",
 :lat => "",
 :lng => "",
 :url => "",
@@ -575,7 +622,7 @@ The first cultivation was in the Levant.
 :region => @neareast,
 :url => "",
 :user_id => @user.id,
-:slug => "JRPa0QwxNc",
+:slug => "zNL2su13sD",
 :lat => "",
 :lng => "",
 :start_year_uncert => "",
@@ -591,7 +638,7 @@ The first cultivation was in the Levant.
 :tag_list => [],
 :event_types => [ @cultural ],
 :region => @neareast,
-:slug => "JRPa0QwxNc",
+:slug => "zNL2su13sD",
 :lat => "",
 :lng => "",
 :url => "",
@@ -608,7 +655,7 @@ end
 @object.holocene_events << result
 result = Chapter.create({:name => "Chapter Two Stuff ",
 :position =>chapter_index,
-:slug => "22ZfmPh4RW",
+:slug => "KnVZxEAYkc",
 :book => @book,
 :body => ""
 })
@@ -626,7 +673,7 @@ result = HoloceneEvent.create({:name => "Third Cold Point of the Little Ice Age 
 :region => @global,
 :url => "",
 :user_id => @user.id,
-:slug => "BdtL4sM5Ws",
+:slug => "RHuC6z8mmV",
 :lat => "",
 :lng => "",
 :start_year_uncert => "",
@@ -640,7 +687,7 @@ res = result[0].update_attributes({:name => "Third Cold Point of the Little Ice 
 :tag_list => [],
 :event_types => [ @climate ],
 :region => @global,
-:slug => "BdtL4sM5Ws",
+:slug => "RHuC6z8mmV",
 :lat => "",
 :lng => "",
 :url => "",
@@ -667,7 +714,7 @@ There were fires along the telegraph lines and station due to the storm generati
 :region => @global,
 :url => "",
 :user_id => @user.id,
-:slug => "zWFHW5EYNx",
+:slug => "PnY0W8CN9D",
 :lat => "",
 :lng => "",
 :start_year_uncert => "",
@@ -683,7 +730,7 @@ There were fires along the telegraph lines and station due to the storm generati
 :tag_list => ["MagneticEvent", "Historical"],
 :event_types => [ @climate ],
 :region => @global,
-:slug => "zWFHW5EYNx",
+:slug => "PnY0W8CN9D",
 :lat => "",
 :lng => "",
 :url => "",
@@ -698,6 +745,20 @@ end
 @timeline.holocene_events << result unless @timeline.holocene_events.include?(result)
 @chapter2_timeline.holocene_events << result unless @chapter2_timeline.holocene_events.include?(result)
 @object.holocene_events << result
+rsl = GlossaryTerm.where(:name => "Magnetic Event")
+if rsl.length == 0
+rsl = GlossaryTerm.create({:name => "Magnetic Event",
+:user_id => @user.id,
+:book => @book
+ })
+end
+rsl = GlossaryTerm.where(:name => "Historical")
+if rsl.length == 0
+rsl = GlossaryTerm.create({:name => "Historical",
+:user_id => @user.id,
+:book => @book
+ })
+end
 result = HoloceneEvent.where(:name => "Tunguska Event ", :start_year => 1908)
 if result.length == 0
 result = HoloceneEvent.create({:name => "Tunguska Event ",
@@ -710,7 +771,7 @@ People in London were able to read the new paper at night for 8 days after the e
 :region => @fareast,
 :url => "",
 :user_id => @user.id,
-:slug => "nVZShw0zt2",
+:slug => "CG837uXBFK",
 :lat => "",
 :lng => "",
 :start_year_uncert => "",
@@ -726,7 +787,7 @@ People in London were able to read the new paper at night for 8 days after the e
 :tag_list => ["ImpactEvent", "Historical"],
 :event_types => [ @impact ],
 :region => @fareast,
-:slug => "nVZShw0zt2",
+:slug => "CG837uXBFK",
 :lat => "",
 :lng => "",
 :url => "",
@@ -741,6 +802,20 @@ end
 @timeline.holocene_events << result unless @timeline.holocene_events.include?(result)
 @chapter2_timeline.holocene_events << result unless @chapter2_timeline.holocene_events.include?(result)
 @object.holocene_events << result
+rsl = GlossaryTerm.where(:name => "Impact Event")
+if rsl.length == 0
+rsl = GlossaryTerm.create({:name => "Impact Event",
+:user_id => @user.id,
+:book => @book
+ })
+end
+rsl = GlossaryTerm.where(:name => "Historical")
+if rsl.length == 0
+rsl = GlossaryTerm.create({:name => "Historical",
+:user_id => @user.id,
+:book => @book
+ })
+end
 result = HoloceneEvent.where(:name => "Grimsvotn Volanco, Iceland VEI 4 ", :start_year => 2010)
 if result.length == 0
 result = HoloceneEvent.create({:name => "Grimsvotn Volanco, Iceland VEI 4 ",
@@ -752,7 +827,7 @@ result = HoloceneEvent.create({:name => "Grimsvotn Volanco, Iceland VEI 4 ",
 :region => @global,
 :url => "https://en.wikipedia.org/wiki/Gr%C3%ADmsv%C3%B6tn",
 :user_id => @user.id,
-:slug => "4Shv9ffHq8",
+:slug => "vFg1ETs9sX",
 :lat => "",
 :lng => "",
 :start_year_uncert => "",
@@ -767,7 +842,7 @@ res = result[0].update_attributes({:name => "Grimsvotn Volanco, Iceland VEI 4 ",
 :tag_list => ["Eruption", "VEI4"],
 :event_types => [ @volcanic ],
 :region => @global,
-:slug => "4Shv9ffHq8",
+:slug => "vFg1ETs9sX",
 :lat => "",
 :lng => "",
 :url => "https://en.wikipedia.org/wiki/Gr%C3%ADmsv%C3%B6tn",
@@ -783,3 +858,17 @@ result.image.attach(io: File.open(Rails.root.join('db', 'seeds', '280px-Iceland_
 @timeline.holocene_events << result unless @timeline.holocene_events.include?(result)
 @chapter2_timeline.holocene_events << result unless @chapter2_timeline.holocene_events.include?(result)
 @object.holocene_events << result
+rsl = GlossaryTerm.where(:name => "Eruption")
+if rsl.length == 0
+rsl = GlossaryTerm.create({:name => "Eruption",
+:user_id => @user.id,
+:book => @book
+ })
+end
+rsl = GlossaryTerm.where(:name => "VEI 4")
+if rsl.length == 0
+rsl = GlossaryTerm.create({:name => "VEI 4",
+:user_id => @user.id,
+:book => @book
+ })
+end
