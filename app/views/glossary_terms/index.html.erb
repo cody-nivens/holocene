@@ -5,7 +5,8 @@
 <table class='table table-striped'>
   <thead>
     <tr>
-      <th>Name</th>
+      <th></th>
+      <th>Events</th>
       <th>See<br/>
       Seealso<br/>
       Acronym</th>
@@ -18,8 +19,10 @@
       <tr>
           <td >
           <dt><%= glossary_term.name %></dt>
-          <dd><%= glossary_term.term %>
-        <%= glossary_term.body %></dd>
+          <dd><%= glossary_term.body %></dd>
+      </td>
+      <td>
+      <%= HoloceneEvent.tagged_with(glossary_term.name.gsub(/ /,'')).count %>
       </td>
       <td>
         <%= (glossary_term.see.nil? ? '' : glossary_term.see.name) %><br/>
