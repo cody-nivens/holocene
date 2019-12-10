@@ -30,6 +30,7 @@ end
 @body = ""
 @para_body = ""
 @tags = []
+@index_terms = []
 @title = ""
 @citations = []
 @start_year = ""
@@ -38,6 +39,8 @@ end
 @url = ""
 @partition = ""
 @partition_body = ""
+@aside = ""
+@aside_body = ""
 @image = ""
 @event_types = ""
 @start_year_uncert = ""
@@ -53,6 +56,7 @@ def init_vars
 @body = ""
 @para_body = ""
 @tags = []
+@index_terms = []
 @title = ""
 @citations = []
 @start_year = ""
@@ -61,6 +65,8 @@ def init_vars
 @url = ""
 @partition = ""
 @partition_body = ""
+@aside = ""
+@aside_body = ""
 @image = ""
 @event_types = ""
 @start_year_uncert = ""
@@ -78,6 +84,7 @@ def do_indexterm(child)
   while index < child.children.length do
    unless child.children[index].name == "secondary"
     tline = child.children[index].text.gsub(/,/,'')
+    @index_terms << tline unless @index_terms.include?(tline)
     @tags << "#{tline.gsub(/ /,'')}" unless @tags.include?(tline)
    end
     index += 1
@@ -123,7 +130,7 @@ def do_para(child)
     case child.children[index].name
     when "text"
       @para_body += "#{child.children[index].text}"
-    when "footnote"
+    when "citation", "footnote"
       xreflabel = (child.children[index].attributes['xreflabel'].nil? ? nil : child.children[index].attributes['xreflabel'].value)
       footnote_text = child.children[index].text
       footnote_slug =  random_slug if @footnote_slug.nil?
@@ -131,9 +138,21 @@ def do_para(child)
       @footnotes << {:xreflabel => "#{(xreflabel.nil? ? '' : xreflabel)}", :slug => "#{footnote_slug}", :body => "#{footnote_text}"}
     when "ul"
         @para_body += "<ul>#{child.children[index].children.to_s}</ul>"
+    when "ol"
+        @para_body += "<ol>#{child.children[index].children.to_s}</ol>"
+    when "dl"
+        @para_body += "<dl>#{child.children[index].children.to_s}</dl>"
     when "div"
         div_class = (child.children[index].attributes['class'].nil? ? nil : child.children[index].attributes['class'].value)
         @para_body += "<div#{(div_class.nil? ? "" : " class='#{div_class}'")}>#{child.children[index].children.to_s}</div>"
+    when "br"
+      @para_body += "<br/>"
+    when "indexterm"
+      do_indexterm(child.children[index])
+      @para_body += "#{child.children[index].text}"
+    else
+      debugger
+      a = 1
     end
     index += 1
   end
@@ -198,6 +217,28 @@ def do_partition_body(child)
    end
 end
 
+def do_aside(child)
+  index = 0
+  while index < child.children.length do
+    if child.children[index].name == "text"
+	    @aside = "#{child.children[index].text}"
+    end
+    index += 1
+  end
+end
+
+def do_aside_body(child)
+   child.children.each do |child|
+      next if child.name == "text"
+      case child.name
+      when "title"
+        do_title(child)
+      when "para"
+        do_para(child)
+      end
+   end
+end
+
 def do_image(child)
   index = 0
   while index < child.children.length do
@@ -233,15 +274,6 @@ end
 def event_type_from_tags
   event_types = []
   event_types << "#{@event_types}" unless @event_types == "" 
-#  event_types << "@volcanic" if @tags.include?("Eruption") && !event_types.include?("@volcanic")
-#  event_types << "@impact" if @tags.include?("ImpactEvent") && !event_types.include?("@impact")
-#  event_types << "@epidemic" if @tags.include?("Epidemic") && !event_types.include?("@epidemic")
-#  event_types << "@climate" if @tags.include?("BondEvent") && !event_types.include?("@climate")
-#  event_types << "@climate" if @tags.include?("TreeRingEvent") && !event_types.include?("@climate")
-#  event_types << "@cultural" if @tags.include?("Famine") && !event_types.include?("@cultural")
-  #event_types << "@biblical" if @tags.include?("BiblicalEvent") && !event_types.include?("@biblical")
-#  event_types << "@cultural" if @tags.include?("Historical") && !event_types.include?("@cultural")
-#  event_types << "@cultural" if event_types.length  == 0
 
   str = ""
   event_types.each do |event|
@@ -296,10 +328,8 @@ def print_record(record_type)
     puts "end"
     puts "result.image.attach(io: File.open(Rails.root.join('db', 'seeds', '#{@image}')), filename: '#{@image}', content_type: 'image/#{@image.strip.downcase[1..-1]}')" unless @image == ''
     puts "@timeline.holocene_events << result unless @timeline.holocene_events.include?(result)"
-    #puts "debugger" if @title == "Bond 9 - Colvis Impact Event "
     puts "@#{@timeline_name}_timeline.holocene_events << result unless @#{@timeline_name}_timeline.holocene_events.include?(result)"
     puts "@object.holocene_events << result"
-    #puts "@chapter.holocene_events << result unless @object == @chapter"
   when "section"
     puts "result = Section.create({:name => \"#{@title}\","
     puts ":body => \"#{@body}\","
@@ -324,11 +354,29 @@ def print_record(record_type)
     puts ":chapter_id => result.id"
     puts "})"
     end
+    unless @aside.nil? || @aside == ""
+    puts "res = Aside.create({"
+    puts ":name => \"#{@aside}\","
+    puts ":body => \"#{@aside_body}\","
+    puts ":chapter_id => result.id"
+    puts "})"
+    end
     puts "@object = result"
     puts "@chapter = result"
     puts "chapter_index += 1"
     puts "section_index = 0"
   end
+  @index_terms.each do |term|
+    puts "rsl = GlossaryTerm.where(:name => \"#{term}\")" 
+    puts "if rsl.length == 0"
+    puts "rsl = GlossaryTerm.create({:name => \"#{term}\","
+    puts ":user_id => @user.id,"
+    puts ":book => @book"
+    puts " })"
+    puts "end"
+
+  end
+
   unless @citations.nil?
   @citations.each do |cit|
       puts "biblio = Biblioentry.find_by_xreflabel(\"#{cit}\")"
@@ -401,11 +449,16 @@ dom.children[0].children.each do |child|
     do_partition_body(child)
     @partition_body = @para_body
     @para_body = ""
+  when "aside"
+    do_aside(child)
+  when "aside_body"
+    do_aside_body(child)
+    @aside_body = @para_body
+    @para_body = ""
   when "section"
       do_section(child)
   end
 end
       print_record(@record_type)
 end
-
 
