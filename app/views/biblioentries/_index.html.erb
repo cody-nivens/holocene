@@ -3,7 +3,7 @@
 <h1>Biblioentries</h1>
 
 <dl class="dl-horizontal">
-<% biblioentries.each do |biblioentry| %>
+<% biblioentries.order(:xreflabel).each do |biblioentry| %>
     <dt><%= biblioentry.xreflabel %></dt>
     <dd><%= raw format_biblioentry(biblioentry) %></dd>
 <% end %>
