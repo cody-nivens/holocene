@@ -22,7 +22,7 @@ class BooksController < ApplicationController
             disable_dotted_lines: true,
             disable_toc_links: true,
             level_indentation: 3,
-            header_text: 'Climate and History',
+            header_text: @book.name,
             text_size_shrink: 0.5
           }
       }
