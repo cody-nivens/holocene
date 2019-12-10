@@ -9,12 +9,26 @@
       <%= f.text_area :body, as: :wysihtml5, cols: "80", rows: "15", hide_label: true %>
   </div>
 
-
   <%= f.primary "#{command_label}" %>
 <script type="text/javascript">
   $(document).ready(function(){
     $('#chapter_body').each(function(i, elem) {
-        $(elem).wysihtml5();
+             $(elem).wysihtml5({
+           toolbar: {
+               "fa": true,
+              "style": false,
+              "font-styles": false,
+              "emphasis": true,
+              "lists": false,
+              "html": true,
+              "link": false,
+              "image": false,
+              "color": false
+           },
+           parser: function(html) {
+              return html;
+           }
+        });
     });
   })
 </script>
