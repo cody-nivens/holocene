@@ -246,3 +246,56 @@ a {
 .gtree li a:hover~ul ul::before {
   border-color: #94a0b4;
 }
+.flexbox {
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: flex;
+    width: 100%;
+}
+
+.box_left {
+    background: #a0ffa0;
+    min-width: 75px;
+    width: 500px;
+    flex-grow: 0;
+}
+
+.box_right {
+    background: #a0a0ff;
+    flex-grow: 1;
+}
+#content {
+clear: both;
+width: 950px;
+padding-bottom: 10px;
+overflow:hidden;
+}
+#contentLeft {
+float: left;
+display:inline;
+/* width: 630px; */
+margin: 10px;
+}
+#contentRight {
+float: right;
+width: 270px;
+margin-top:25px;
+margin-right:15px;
+} 
+div#aside {
+/*  width:92%;*/
+  width: 400px;
+  float: right;
+  overflow-x:hidden; overflow-y:visible;
+  padding:2%;
+  height:150px;
+  border:10px double yellowgreen;
+  background-color:#d7e5f7;
+}
+blockquote {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 40px;
+    margin-inline-end: 40px;
+}
