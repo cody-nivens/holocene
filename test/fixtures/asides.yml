@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+aside_1:
+  name: MyString
+  body: MyText
+  chapter: chapter_1
+
+aside_2:
+  name: MyString
+  body: MyText
+  chapter: chapter_2

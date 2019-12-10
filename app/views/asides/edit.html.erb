@@ -1,0 +1,7 @@
+<h1>Editing Aside</h1>
+
+<%= render 'form', aside: @aside %>
+
+<%= link_to 'Show', book_chapter_aside_path(@book, @chapter, @aside) %> |
+<%= link_to 'Destroy', book_chapter_aside_path(@book,@chapter,@aside), method: :delete, data: { confirm: 'Are you sure?' } %> |
+<%= link_to 'Back', :back %>

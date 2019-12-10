@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Asides</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Body</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @asides.each do |aside| %>
+      <tr>
+        <td><%= aside.name %></td>
+        <td><%= aside.body %></td>
+        <td><%= link_to 'Show', book_chapter_aside_path(@book,@chapter,aside) %></td>
+        <td><%= link_to 'Edit', edit_book_chapter_aside_path(@book,@chapter,aside) %></td>
+        <td><%= link_to 'Destroy', book_chapter_aside_path(@book,@chapter,aside), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Aside', new_book_chapter_aside_path %>

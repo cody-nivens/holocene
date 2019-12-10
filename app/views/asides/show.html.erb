@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+<strong><%= @aside.name %></strong>
+</p>
+
+<%= raw @aside.body %>
+
+<%= link_to 'Edit', edit_book_chapter_aside_path(@book,@chapter,@aside) %> |
+<%= link_to 'Back', :back %>
