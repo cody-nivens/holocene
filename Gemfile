@@ -77,7 +77,7 @@ gem 'rolify'
 
 gem 'kaminari'
 gem 'datagrid'
-gem 'nokogiri', '1.10.5'
+gem 'nokogiri', '1.10.8'
 gem 'mini_portile2', '~> 2.4.0'
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'high_voltage', '~> 3.1'
