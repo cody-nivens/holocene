@@ -81,7 +81,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise', '~> 4.7.1'
 gem 'rolify'
 
-gem 'kaminari'
+gem 'kaminari', '~> 1.2.1'
 gem 'datagrid'
 gem 'nokogiri', '1.10.8'
 gem 'mini_portile2', '~> 2.4.0'
