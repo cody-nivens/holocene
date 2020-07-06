@@ -16,6 +16,11 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_select ".footer>div>a", 1
   end
 
+#  test "should get export" do
+#    get book_export_url(@book)
+#    assert_response :success
+#  end
+
   test "should get new" do
     get new_book_url
     assert_response :success
@@ -58,8 +63,13 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_select ".footer>div>a", 3
   end
 
-  test "should show pdf book" do
-    get book_url(@book, :format => :pdf)
+#  test "should show pdf book" do
+#    get book_url(@book, :format => :pdf)
+#    assert_response :success
+#  end
+
+  test "should get epub" do
+    get book_epub_url(@book)
     assert_response :success
   end
 

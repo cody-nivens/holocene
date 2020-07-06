@@ -12,9 +12,14 @@ class WelcomeControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'assert_react_component' do
-    get "/"
-    assert_equal 200, response.status
+  test "should get stats" do
+    get welcome_stats_url
+    assert_response :success
+  end
+
+#  test 'assert_react_component' do
+#    get "/"
+#    assert_equal 200, response.status
 
     # assert rendered react component and check the props
 #    assert_react_component "HelloWorld" do |props|
@@ -25,5 +30,5 @@ class WelcomeControllerTest < ActionDispatch::IntegrationTest
 
     # or just assert component rendered
 #    assert_react_component "HelloWorld"
-  end
+#  end
 end

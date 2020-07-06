@@ -61,7 +61,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", section_footnotes_path(@section)
     assert_select "a[text()=?]",'Back'
     assert_select "a[href=?]", book_chapter_path(@section.chapter.book,@section.chapter)
-    assert_select ".footer>div>a", 6
+    assert_select ".footer>div>a", 7
   end
 
   test "should map section" do

@@ -16,7 +16,6 @@ class BiblioentriesControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[text()=?]",'New Biblioentry'
     assert_select "a[href=?]", new_book_biblioentry_path(@book)
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", book_biblioentries_path(@book)
     assert_select ".footer>div>a", 2
   end
 
