@@ -10,6 +10,11 @@ class Book < ApplicationRecord
 
     validates :name, presence: true
 
+    def show_events?
+      return self.show_events
+    end
+
+
     def word_count
       count = (self.body.nil? ? 0 : WordsCounted.count(self.body).token_count)
       self.chapters.each do |chap|

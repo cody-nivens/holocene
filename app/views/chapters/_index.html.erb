@@ -8,6 +8,8 @@
             <th>Events</th>
             <th>Footnotes</th>
             <th>Citations</th>
+            <th>Start Year</th>
+            <th>End Year</th>
             <th colspan=3></th>
         </tr>
     </thead>
@@ -21,7 +23,7 @@
     <% end %>
         <%= raw (chapter.partition.nil? ? '' : "#{link_to chapter.partition.name, book_chapter_partition_path(chapter.book,chapter,chapter.partition)}") %></td>
         <td><%= link_to (fa_icon "pencil"), edit_book_chapter_path(@book, chapter), :title => "Edit"  %>
-        <%= link_to chapter.name, book_chapter_path(@book, chapter), :title => "Show"  %>
+        <strong><font size="4"><%= link_to chapter.name, book_chapter_path(@book, chapter), :title => "Show"  %></font></strong>
     <% if chapter.aside.nil? %>
         <%= link_to (fa_icon "plus"), new_book_chapter_aside_path(@book, chapter), :title => "Aside" %>
     <% else %>
@@ -38,20 +40,23 @@
         <td align="right"><%= chapter.total_events %></td>
         <td align="right"><%= number_with_delimiter chapter.footnotes.count %></td>
         <td align="right"><%= number_with_delimiter chapter.citations.count %></td>
+        <td align="right"><%= HoloceneEvent.convert_ad(chapter.sections.map{|x| x.holocene_events.minimum('start_year')}.compact.min) %></td>
+        <td align="right"><%= HoloceneEvent.convert_ad(chapter.sections.map{|x| x.holocene_events.maximum('start_year')}.compact.max) %></td>
         <td><%= link_to (fa_icon "list-alt"), book_chapter_sections_path(chapter.book, chapter), :title => "Sections"  %></td>
         <td><%= link_to (fa_icon "file-pdf-o"), book_chapter_path(@book,chapter, format: 'pdf'), :title => "PDF"  %></td>
         <td><%= link_to (fa_icon "trash-o"), book_chapter_path(@book, chapter), method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy"  %></td>
       </tr>
         <% chapter.sections.order(:position).each do |section| -%>
           <tr><td></td>
-          <td><%= section.name %></td>
+            <td><strong><%= (section.embed? ? "Brief Note: " : '') %></strong><%= section.name %></td>
           <td align="right"><%= number_with_delimiter section.word_count %></td>
           <td align="right"><%= section.holocene_events.count %></td>
           <td align="right"><%= section.footnotes.count %></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+          <td align="right"></td>
+          <td align="right"><%= HoloceneEvent.convert_ad(section.holocene_events.minimum('start_year')) %></td>
+          <td align="right"><%= HoloceneEvent.convert_ad(section.holocene_events.maximum('start_year')) %></td>
+
+        <td colspan=6></td>
           </tr>
         <% end -%>
         </td>

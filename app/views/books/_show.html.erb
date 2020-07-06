@@ -5,8 +5,21 @@
 <%= render 'authors/index.html', authors: @book.authors %>
 <%= @book.body %>
 
+<% @notes = {} -%>
 <% @chapters.each do |chapter| -%>
-    <%= render 'chapters/show.html', book: @book, chapter: chapter %>
+    <%= render 'chapters/show.html', book: @book, chapter: chapter, epub: false %>
+<% end -%>
+
+<div style = "display:block; clear:both; page-break-after:always;"></div>
+<h1>Citations</h1>
+
+<% @slug = [] %>
+<% @chapters.each do |chapter| -%>
+<% unless chapter.citations.length == 0 -%>
+<div style="clear: both">
+<%= raw render "footnotes/citations.html", slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: false %>
+</div>
+<% end -%>
 <% end -%>
 
 <%= render 'biblioentries/index.html', biblioentries: @book.biblioentries %>

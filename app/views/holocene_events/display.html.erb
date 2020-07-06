@@ -6,7 +6,7 @@
 <%= link_to 'Add Event', url_for(:controller => "holocene_events", :action => "add_event", 
                                  "#{@object.class.name.underscore}_id".to_sym => @object.id), :class => "btn btn-secondary" %> 
 
-<%= datagrid_form_for @grid, :method => :get, :url => holocene_events_path %>
+                               <%= datagrid_form_for @grid, :method => :get, :url => "/#{@object.class.name.underscore.pluralize}/display/#{@object.id}" %>
 
 <%= paginate(@grid.assets) %>
 <%= datagrid_table @grid %>

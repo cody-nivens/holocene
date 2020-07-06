@@ -11,24 +11,25 @@ class ChaptersController < ApplicationController
   end
 
 
+      #format.pdf {
+      #  render pdf: "chapter_#{@chapter.id}", 
+      #    disposition: 'attachment',
+      #    header: { right: '[page] of [topage]' }, 
+      #    toc: {
+      #      disable_dotted_lines: true,
+      #      disable_toc_links: true,
+      #      level_indentation: 3,
+      #      header_text: 'Climate and History',
+      #      text_size_shrink: 0.5
+      #    }
+      #}
   # GET /chapters/1
   # GET /chapters/1.json
   def show
+    @notes = {}
     @sections = @chapter.sections.order(:position)
     respond_to do |format|
-      format.html { render :show }
-      format.pdf {
-        render pdf: "chapter_#{@chapter.id}", 
-          disposition: 'attachment',
-          header: { right: '[page] of [topage]' }, 
-          toc: {
-            disable_dotted_lines: true,
-            disable_toc_links: true,
-            level_indentation: 3,
-            header_text: 'Climate and History',
-            text_size_shrink: 0.5
-          }
-      }
+      format.html { render :show, locals: { epub: false }}
     end
   end
 
@@ -95,6 +96,6 @@ class ChaptersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def chapter_params
-      params.require(:chapter).permit(:name, :body, :position, :book_id, :position, :aside)
+      params.require(:chapter).permit(:name, :body, :position, :book_id, :position, :aside, :show_events, :always_display_events)
     end
 end

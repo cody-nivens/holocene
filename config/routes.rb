@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  resources :embeds
+#  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
   resources :footnotes
   resources :books do
@@ -24,6 +25,8 @@ Rails.application.routes.draw do
   #
   get "tagged/(:tag)", to: "holocene_events#tagged", as: :tag
 
+  get "books/:id/export", to: "books#export", as: :book_export
+  get "books/:id/epub", to: "books#epub", as: :book_epub
   get "event_types/:id/geo_map", to: "event_types#geo_map", as: :geo_map_event_type
   get "timelines/:id/geo_map", to: "timelines#geo_map", as: :geo_map_timeline
   get "epochs/:id/geo_map", to: "epochs#geo_map", as: :geo_map_epoch
@@ -31,6 +34,7 @@ Rails.application.routes.draw do
   get "sections/:id/geo_map", to: "sections#geo_map", as: :geo_map_section
   get "holocene_events/:id/geo_map", to: "holocene_events#geo_map", as: :geo_map_holocene_event
 
+  get 'citations/index'
   get "/timelines/display/:timeline_id", to: "holocene_events#display", as: :timeline_display
   get "/citation/display/:citation_id", to: "holocene_events#display", as: :citation_display
   get "/chapters/display/:chapter_id", to: "holocene_events#display", as: :chapter_display
@@ -56,6 +60,7 @@ Rails.application.routes.draw do
   get '/timelines/show/:id', to: "timelines#show", as: :show_timeline
   get '/epochs/show/:id', to: "epochs#show", as: :show_epoch
 
+  get "/chapters/:chapter_id/citations",               to: "citations#index", as: :chapter_citations
   get "/chapters/:chapter_id/footnotes",               to: "footnotes#index", as: :chapter_footnotes
   get "/sections/:section_id/footnotes",               to: "footnotes#index", as: :section_footnotes
   get "/holocene_events/:holocene_event_id/footnotes", to: "footnotes#index", as: :holocene_event_footnotes
@@ -68,10 +73,12 @@ Rails.application.routes.draw do
   get "/sections/:section_id/footnotes/:slug",               to: "footnotes#new", as: :new_section_footnote
   get "/holocene_events/:holocene_event_id/footnotes/:slug", to: "footnotes#new", as: :new_holocene_event_footnote
 
+  patch "/chapters/:chapter_id/citations",               to: "citations#update", as: :chapter_citation_update
   patch "/chapters/:chapter_id/footnote/:id",               to: "footnotes#update", as: :chapter_footnote_update
   patch "/sections/:section_id/footnote/:id",               to: "footnotes#update", as: :section_footnote_update
   patch "/holocene_events/:holocene_event_id/footnote/:id", to: "footnotes#update", as: :holocene_event_footnote_update
 
+  post "/chapters/:chapter_id/citations",               to: "citations#update", as: :chapter_citation_create
   post "/chapters/:chapter_id/footnotes",               to: "footnotes#create", as: :chapter_footnote_create
   post "/sections/:section_id/footnotes",               to: "footnotes#create", as: :section_footnote_create
   post "/holocene_events/:holocene_event_id/footnotes", to: "footnotes#create", as: :holocene_event_footnote_create

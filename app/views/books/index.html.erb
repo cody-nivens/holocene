@@ -5,25 +5,29 @@
 <tr>
 <th>Name</th>
 <th>Authors</th>
-<th colspan="6"></th>
+<th>Word Count</th>
+<th align="right">Glossary Terms</th>
+<th align="right">Bibiloentries</th>
+<th colspan="2"></th>
 </tr>
 </thead>
 <tbody>
 <% @books.each do |book| %>
 <tr>
 
-  <td><%= link_to "#{(fa_icon "pencil")} #{book.name}".html_safe, book_path(book), :title => book.name %></td>
+  <td><%= link_to "#{(fa_icon "pencil")}".html_safe, edit_book_path(book), :title => 'Edit' %>
+<%= link_to "#{book.name}".html_safe, book_path(book) %></td>
 <% ts = "" -%>
 <% book.authors.each do |author| -%>
 <% ts += "#{author.first_name} #{author.last_name}" -%>
 <% end -%>
-<td><%= ts %></td>
-<td><%= book.word_count %></td>
-<td><%= link_to (fa_icon "file-pdf-o"), book_path(book, format: 'pdf'), :title => "PDF" %></td>
-<td><%= link_to (fa_icon "list-alt"), book_authors_path(book), :title => "Authors" %></td>
-<td><%= link_to (fa_icon "book"), book_biblioentries_path(book), :title => "Biblioentries" %></td>
-<td><%= link_to (fa_icon "list-alt"), book_glossary_terms_path(book), :title => "Glossary" %></td>
-<td><%= link_to (fa_icon "edit"), edit_book_path(book), :title => "Edit" %></td>
+<% ts = fa_icon "plus" if ts.blank? -%>
+<td><%= link_to ts, book_authors_path(book), :title => "Authors" %></td>
+<td><%= number_with_delimiter book.word_count %></td>
+<td><%= link_to number_with_delimiter(book.glossary_terms.count), book_glossary_terms_path(book), :title => "Glossary" %></td>
+<td><%= link_to number_with_delimiter(book.biblioentries.count), book_biblioentries_path(book), :title => "Biblioentries" %></td>
+<td><%= link_to (fa_icon "file-pdf-o"), book_epub_path(book), :title => "EPub" %></td>
+<td><%= link_to (fa_icon "file-pdf-o"), book_path(book,:format => :pdf), :title => "PDF" %></td>
 <td><%= link_to (fa_icon "trash-o"), book, method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy" %></td>
 </tr>
 <% end %>

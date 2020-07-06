@@ -185,3 +185,26 @@ a:active {
   text-decoration: none;
   color: black;
 }
+div#aside {
+/*  width:92%;*/
+  width: 400px;
+  float: right;
+  overflow-x:hidden; overflow-y:visible;
+  padding:2%;
+  height:150px;
+  border:10px double yellowgreen;
+  background-color:#d7e5f7;
+}
+
+.border-primary {
+  border: 1px solid #333333;
+  }
+  .border-primary .card-body,.card-title {
+  padding: 3px;
+  margin: 3px;
+}
+
+.pull-right {
+    float: right;
+}
+

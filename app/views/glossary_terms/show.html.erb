@@ -29,7 +29,7 @@
 <strong>Events:</strong>
 <% @slugs = [] -%>
 <% @footnotes = [] -%>
-<%= render 'holocene_events/index.html', holocene_events: HoloceneEvent.tagged_with(@glossary_term.name).order(:start_year) %>
+<%= render 'holocene_events/index.html', holocene_events: HoloceneEvent.tagged_with(@glossary_term.name).order(:start_year), epub: false %>
 </p>
 
 <% @footer_content << "#{link_to 'Edit', edit_book_glossary_term_path(@book,@glossary_term), :class => "btn btn-default"}" %>

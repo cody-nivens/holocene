@@ -4,6 +4,15 @@ module ApplicationHelper
     "<a href='#{href}'>#{text}</a>".html_safe
   end
 
+    def format_biblio_authors(authors)
+        s = ""
+        authors.each do |author|
+            s += "#{author.first_name} #{author.last_name}, "
+        end
+        
+        return s.chomp(", ")
+    end
+
     def format_biblioentry(bib)
         s = ""
         bib.authors.each do |author|
@@ -15,19 +24,23 @@ module ApplicationHelper
         return s
     end
 
-    def event_types_to_s(types)
+    def event_types_to_s(types, epub)
         str = ""
         types.each do |ty|
-          str += " <a href=\"/event_types/#{ty.id}\">#{ty.name}</a>,"
+          if epub
+            str += " #{ty.name},"
+          else
+            str += " <a href=\"/event_types/#{ty.id}\">#{ty.name}</a>,"
+          end
         end
         return str.gsub(/^ /,'').gsub(/,$/,'')
     end
 
 	def convert_ad(value,uncert = nil)
         return "" if value.nil?
-        a = (value < 0 ? "#{ActiveSupport::NumberHelper.number_to_delimited(-value)} BC" : "#{ActiveSupport::NumberHelper.number_to_delimited(value)} AD")
+        a = (value < 0 ? "#{-value}&nbsp;BC" : "#{value}&nbsp;AD")
         a += " &plusmn; #{uncert} years" unless uncert.nil?
-        return a
+        return a.html_safe
     end
 
     def write_footnotes(slugs)
@@ -48,10 +61,10 @@ module ApplicationHelper
 
     def process_body(object, slugs, index = 1)
         footnote_slugs = []
-        my_body = object.body
+        my_body = object.body.gsub(/&nbsp;/,'')
         unless my_body.nil?
           while my_m = my_body.match(/\[\[([^ ]*)\]\]/)
-             my_body.gsub!(/\[\[#{my_m[1]}\]\]/,"<sup><a href=\"#fn#{index}\" data-turbolinks='false' id=\"ref#{index}\">#{index}</a></sup>")
+             my_body.gsub!(/\[\[#{my_m[1]}\]\]/,"<sup><a href=\"#fn#{index}\" data-turbolinks='false' id=\"ref#{index}\">[#{index}]</a></sup>")
              footnote_slugs << [ my_m[1], object, index]
              index += 1
           end

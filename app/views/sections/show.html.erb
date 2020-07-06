@@ -1,7 +1,7 @@
 <p>
   <% @title = @section.name %>
-  <strong>Name:</strong>
-  <%= @section.name %>
+  <h2><%= @section.name %></h2>
+  
 </p>
 
 <% @slugs = [] -%>
@@ -9,7 +9,7 @@
 <%= raw @footnotes[0]  %>
 <% @slugs += @footnotes[1] -%>
 
-<% unless @section.holocene_events.length == 0 -%>
+<% unless @section.holocene_events.length == 0 || @section.chapter.show_events? -%>
 <%= render 'holocene_events/index.html', holocene_events: @section.holocene_events.order(:start_year) %>
 <% end -%>
 
@@ -17,7 +17,11 @@
 <%= raw write_footnotes(@slugs) %>
 <% end -%>
 
+<% priv_section = Section.where(chapter_id: @chapter.id, position: @section.position-1) -%>
+<% next_section = Section.where(chapter_id: @chapter.id, position: @section.position+1) -%>
 <% @footer_content << "#{link_to 'Edit', edit_book_chapter_section_path(@book, @chapter, @section), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Priv', book_chapter_section_path(@book, @chapter, priv_section.first), :class => "btn btn-default"}" unless priv_section.length == 0 %>
+<% @footer_content << "#{link_to 'Next', book_chapter_section_path(@book, @chapter, next_section.first), :class => "btn btn-default"}" unless next_section.length == 0  %>
 <% @footer_content << "#{link_to 'Timeline', section_timeline_path(:section_id => @section.id), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Display',  section_display_path(:section_id => @section.id), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Map',  geo_map_section_path(@section), :class => "btn btn-default"}" %>

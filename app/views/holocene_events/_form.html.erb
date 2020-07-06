@@ -24,6 +24,8 @@
 
     <%= form.collection_check_boxes :event_type_ids, EventType.all, :id, :name, multiple: true %>
     <%= form.collection_select :region_id, Region.all, :id, :name %>
+
+    <%= form.text_field :url %>
     <%= form.file_field :image, multiple: false, direct_upload: true %>
     <% unless @holocene_event.id.nil? || !@holocene_event.image.attached? %>
     <%= image_tag @holocene_event.image.variant(resize: "100x100>") %>

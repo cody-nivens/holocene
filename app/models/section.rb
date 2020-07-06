@@ -3,12 +3,16 @@ class Section < ApplicationRecord
     set_sortable :position # Indicate a sort column
 
     belongs_to :chapter
-    has_many :footnotes, as: :noted
+    has_many :footnotes, -> { where("slug != ?","") }, as: :noted
 
     has_and_belongs_to_many :holocene_events
 
 
     validates :name, presence: true
+
+    def embed?
+      return self.embed != 0
+    end
 
     def timeline_json
         return {:events => self.holocene_events.order(:start_year).collect{|x| x.slide}}.to_json

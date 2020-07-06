@@ -1,54 +1,63 @@
+<div style = "display:block; clear:both; page-break-after:always;"></div>
 <% chapter = @chapter unless @chapter.nil? %>
-<% unless  chapter.partition.nil? -%>
-<p style='page-break-after:always;'></p>
+<% unless  chapter.partition.nil? || epub == true -%>
+  <div style = "display:block; clear:both; page-break-after:always;"></div>
     <h1><%= chapter.partition.name %></h1>
 
-    <%= raw chapter.partition.body %>
+    <%= raw chapter.partition.body.gsub(/&nbsp;/,'') %>
 <% end -%>
-<p style='page-break-after:always;'></p>
+<div style = "display:block; clear:both; page-break-after:always;"></div>
 <% unless !chapter.partition.nil? && chapter.partition.name == chapter.name.gsub(/\s+$/, '') -%>
-<h1>
-  <%= chapter.name %>
-</h1>
+<h1><%= chapter.name %></h1>
 <% end -%>
-
+<% @notes = notes if @notes.nil? -%>
 <% @slugs = [] -%>
 <% @footnotes = process_body(chapter, @slugs) -%>
 <% if chapter.aside.nil? -%>
   <%= raw @footnotes[0] %>
 <% else -%>
     <div id="aside_content">
-      <!-- <div id="aside"> -->
       <blockquote>
         <h2><%= chapter.aside.name %></h2>
-        <%= raw chapter.aside.body %>
+        <%= raw chapter.aside.body.gsub(/&nbsp;/,'') -%>
         <hr/>
       </blockquote>
-        <!-- </div> -->
-      <%= raw @footnotes[0] %>
+      <%= raw @footnotes[0] -%>
     </div>
 <% end -%>
-
-<% unless chapter.holocene_events.length == 0 -%>
-<%= render 'holocene_events/index.html', holocene_events: chapter.holocene_events.order(:start_year) %>
+<% if chapter.holocene_events.length != 0 && ((chapter.show_events? && chapter.book.show_events?) || chapter.always_display_events?) -%>
+  <%= render 'holocene_events/index.html', holocene_events: chapter.holocene_events.order(:start_year).uniq, epub: epub  -%>
 <% end -%>
 <% @slugs += @footnotes[1] -%>
-
-<% chapter.sections.each do |section| -%>
-<h2><%= section.name %></h2>
+<% chapter.sections.order(:position).each do |section| -%>
+  <% s = "" %>
+  <% if section.embed? %>
+      <div class="card border-primary border-dark mb3 pull-right" style="width: 60%;">
+        <div class="card-header bg-transparent border-primary">
+          <h2 class="card-header card-title">
+      <%= section.name %>
+            </h2>
+        </div>
+  <div class="card-body border">
+    <% s = " class=\"card-title\"" %>
+  <% end %>
+  <% unless section.embed? %>
+    <h2<%= raw s %>><%= section.name %></h2>
+  <% end %>
 <% @footnotes = process_body(section, @slugs, @footnotes[2]) -%>
 <% @slugs += @footnotes[1] -%>
-<%= raw @footnotes[0]  %>
+<%= raw @footnotes[0]  -%>
+  <% if section.embed? %>
+    </div>
+    </div>
+  <% end %>
 
-<% unless section.holocene_events.length == 0 -%>
-<%= render 'holocene_events/index.html', holocene_events: section.holocene_events.order(:start_year) %>
+<% if section.holocene_events.length != 0 && ((chapter.show_events? && chapter.book.show_events?) || chapter.always_display_events?) -%>
+<%= render 'holocene_events/index.html', holocene_events: section.holocene_events.order(:start_year).uniq, epub: epub -%>
 <% end -%>
 <% end -%>
 
 <% unless @slugs.length == 0 -%>
-<%= raw write_footnotes(@slugs) %>
-<% end -%>
-
-<% unless chapter.citations.length == 0 -%>
-<%= raw render "footnotes/citations.html", slugs: @slugs, footnotes: chapter.citations  %>
+<%# @notes[chapter.id] =  write_footnotes(@slugs) -%>
+<%= raw write_footnotes(@slugs) -%>
 <% end -%>

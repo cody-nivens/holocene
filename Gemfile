@@ -17,6 +17,8 @@ gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
 
+gem "actiontext", require: "action_text"
+gem "image_processing", "~> 1.2"
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -95,7 +97,7 @@ gem 'bootstrap-sass'
 gem 'bootstrap-wysihtml5-rails'
 gem 'simple_form'
 #gem 'rails_admin'
-#gem 'wicked_pdf'
+gem 'wicked_pdf'
 gem 'gepub'
 
 gem 'wkhtmltopdf-binary', '0.12.4'

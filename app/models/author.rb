@@ -7,6 +7,6 @@ class Author < ApplicationRecord
     validates :first_name, presence: true 
 
     def name_with_initial
-      "#{first_name.first}. #{last_name}"
+      "#{self.first_name.first}. #{self.last_name}"
     end
 end

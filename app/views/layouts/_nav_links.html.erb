@@ -1,19 +1,21 @@
-<li class="nav-item ">
-   <a href="/books" class="nav-link"> <i class="glyphicon glyphicon-tree-conifer"></i> Books</a>
+<li>
+   <a href="/books"> <i class="glyphicon glyphicon-tree-conifer"></i> Books</a>
 </li>
 <% unless @book.nil? %>
-<li class="nav-item ">
-    <a href="/books/<%= @book.id %>/authors" class="nav-link"> <i class="glyphicon glyphicon-tree-conifer"></i> Authors</a>
+<li>
+    <a href="/books/<%= @book.id %>/authors"> <i class="glyphicon glyphicon-tree-conifer"></i> Authors</a>
 </li>
 <% end %>
-<li class="nav-item dropdown">
- <a class="nav-link dropdown-toggle" href="#" id="navbar" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<li >
+ <a class="dropdown-toggle" href="#" id="navbar" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
  Holocene Events
  </a>
 <div class="dropdown-menu" aria-labelledby="navbar">
   <div class="dropdown-divider"></div>
+  <ul>
 <% ['holocene_event','timeline','event_type','region','epoch'].each do |form| %>
-       <%= link_to t("app.index.#{form}.link"), [ form.pluralize], class: "dropdown-item" %>
+  <li class="dropdown"> <%= link_to t("app.index.#{form}.link"), [ form.pluralize], class: "dropdown-item" %> </li>
 <% end %>
+  </ul>
   </div>
 </li>

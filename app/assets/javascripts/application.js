@@ -16,6 +16,7 @@
 //= require turbolinks
 //= require jquery_ujs
 //= require jquery-ui/widgets/sortable
+//= require rails_sortable
 //= require popper
 //= require bootstrap
 //= require bootstrap-wysihtml5

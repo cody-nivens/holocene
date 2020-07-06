@@ -10,7 +10,7 @@
 
 <p>
   <strong>Event type:</strong>
-  <%= raw event_types_to_s(@holocene_event.event_types) %>
+  <%= raw event_types_to_s(@holocene_event.event_types, false) %>
   <strong>Region:</strong>
   <%= link_to @holocene_event.region.name, region_path(@holocene_event.region) %>
 </p>

@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:pdf, :show, :edit, :update, :destroy]
+  before_action :set_book, only: [:epub, :export, :pdf, :show, :edit, :update, :destroy]
 
   # GET /books
   # GET /books.json
@@ -7,6 +7,20 @@ class BooksController < ApplicationController
     @books = Book.all
   end
 
+#      format.pdf {
+#         render pdf: "export", 
+#          disposition: 'attachment',
+#          header: { right: '[page] of [topage]' }, 
+#          outline: { outline: false,
+#                     outline_depth: 1 },
+#          toc: {
+#            disable_dotted_lines: true,
+#            disable_toc_links: true,
+#            level_indentation: 3,
+#            header_text: @book.name,
+#            text_size_shrink: 0.5
+#          }
+#      }
   # GET /books/1
   # GET /books/1.json
   def show
@@ -18,6 +32,8 @@ class BooksController < ApplicationController
          render pdf: "export", 
           disposition: 'attachment',
           header: { right: '[page] of [topage]' }, 
+          outline: { outline: false,
+                     outline_depth: 1 },
           toc: {
             disable_dotted_lines: true,
             disable_toc_links: true,
@@ -25,9 +41,30 @@ class BooksController < ApplicationController
             header_text: @book.name,
             text_size_shrink: 0.5
           }
-      }
+     }
+      
     end
   end
+
+  def epub
+    @notes = []
+    BookEPub.new(@book).build
+    tmpfile = "#{Rails.root}/tmp/example_test.epub"
+    @chapters = @book.chapters
+    
+
+    respond_to do |format|
+      format.html { send_file tmpfile, filename: 'file.epub', type: 'application/epub', disposition: 'inline'
+                    #redirect_to @book 
+                    }
+    end
+  end
+
+#  def export
+#    respond_to do |format|
+#      format.html { send_data BookExportXML.new(@book).build, filename: 'file.tmx', type: 'application/xml', disposition: 'attachment' }
+#    end
+#  end
 
   # GET /books/new
   def new
@@ -88,6 +125,6 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.require(:book).permit(:name, :body, :user_id)
+      params.require(:book).permit(:name, :body, :user_id, :show_events, :copyright, :sub_name, :publisher)
     end
 end

@@ -2,15 +2,25 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `rails
+# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_19_161632) do
+ActiveRecord::Schema.define(version: 2020_07_06_170112) do
+
+  create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "body", size: :long
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
+  end
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -82,6 +92,10 @@ ActiveRecord::Schema.define(version: 2019_11_19_161632) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.boolean "show_events", default: true
+    t.string "sub_name"
+    t.string "copyright"
+    t.text "publisher"
   end
 
   create_table "chapters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -92,6 +106,8 @@ ActiveRecord::Schema.define(version: 2019_11_19_161632) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "book_id"
+    t.boolean "show_events", default: true
+    t.boolean "always_display_events", default: false
   end
 
   create_table "chapters_holocene_events", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -242,6 +258,7 @@ ActiveRecord::Schema.define(version: 2019_11_19_161632) do
     t.integer "chapter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "embed", default: 0
   end
 
   create_table "taggings", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|

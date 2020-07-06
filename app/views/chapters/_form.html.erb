@@ -4,9 +4,11 @@
     <%= f.hidden_field :book_id %>
 
     <%= f.text_field :name %>
+    <%= f.check_box :show_events %>
+    <%= f.check_box :always_display_events %>
 
   <div class="jumbotron" >
-      <%= f.text_area :body, as: :wysihtml5, cols: "80", rows: "15", hide_label: true %>
+      <%= f.text_area :body, as: :wysihtml5, cols: "80", rows: "13", hide_label: true %>
   </div>
 
   <%= f.primary "#{command_label}" %>

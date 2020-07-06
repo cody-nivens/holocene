@@ -5,7 +5,7 @@ class Chapter < ApplicationRecord
     has_and_belongs_to_many :holocene_events
     has_and_belongs_to_many :timelines
     has_many :sections
-    has_many :footnotes, as: :noted
+    has_many :footnotes, -> { where("slug != ?","") }, as: :noted
 
     belongs_to :book
     has_one :partition
@@ -13,13 +13,17 @@ class Chapter < ApplicationRecord
 
     validates :name, presence: true
 
+    def show_events?
+      return self.show_events
+    end
+
     #
     # Total number of events in chapter
     #
     def total_events
-        total = self.sections.map{|x| x.holocene_events.length}.sum
-        total += self.holocene_events.length
-        return total
+      total = self.sections.map{|x| x.holocene_events.uniq.length}.sum
+      total += self.holocene_events.uniq.length
+      return total
     end
 
     #
@@ -31,14 +35,16 @@ class Chapter < ApplicationRecord
     end
 
     def timeline_json(section_flag = true)
-        events = self.holocene_events
+      events = self.holocene_events
         if section_flag
           self.sections.each do |section|
-            events << section.holocene_events
+            section.holocene_events.each do |event|
+              events << event unless events.include?(event)
+            end
           end
         end
 
-        return {:events => events.order(:start_year).collect{|x| x.slide}}.to_json
+        return {:events => events.order(:start_year).uniq.collect{|x| x.slide}}.to_json
     end
 
     def map_locs

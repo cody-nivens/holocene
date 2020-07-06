@@ -20,9 +20,9 @@ module SharedMethods
   module ClassMethods
     def convert_ad(value,uncert = nil)
         return "" if value.nil?
-        a = (value < 0 ? "#{ActiveSupport::NumberHelper.number_to_delimited(-value)} BC" : "#{ActiveSupport::NumberHelper.number_to_delimited(value)} AD")
+        a = (value < 0 ? "#{-value}&#160;BC" : "#{value}&#160;AD")
         a += " ± #{uncert} years" unless uncert.nil?
-        return a
+        return a.html_safe
     end
   end
 end

@@ -5,6 +5,7 @@
     <tr>
       <th>Name</th>
       <th>Xreflabel</th>
+      <th>Authors</th>
       <th># Citations</th>
       <th># Events</th>
       <th colspan="3"></th>
@@ -16,6 +17,7 @@
       <tr>
         <td><%= biblioentry.name %></td>
         <td><%= biblioentry.xreflabel %></td>
+        <td><%= format_biblio_authors(biblioentry.authors) %></td>
         <td><%= biblioentry.footnotes.count %></td>
         <td><%= link_to (fa_icon "search-plus"), book_biblioentry_path(@book, biblioentry), :title => 'Show' %></td>
         <td><%= link_to (fa_icon "edit"), edit_book_biblioentry_path(@book, biblioentry), :title => 'Edit' %></td>
@@ -25,8 +27,6 @@
   </tbody>
 </table>
 
-<br>
-
 <% @footer_content <<  "#{link_to 'New Biblioentry', new_book_biblioentry_path(@book), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', book_biblioentries_path(@book), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', book_path(@book), :class => "btn btn-default"}" %>
 

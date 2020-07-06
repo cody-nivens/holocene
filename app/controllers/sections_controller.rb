@@ -4,7 +4,7 @@ class SectionsController < ApplicationController
   before_action :set_book, only: [:index, :new, :edit, :create, :update, :destroy]
 
   def index
-    @sections = @chapter.sections.order(:position)
+    @sections = @chapter.sections.order(:position).all
   end
 
   def geo_map
@@ -87,6 +87,6 @@ class SectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def section_params
-      params.require(:section).permit(:name, :body, :position, :chapter_id, :display_name)
+      params.require(:section).permit(:name, :body, :position, :chapter_id, :display_name, :embed)
     end
 end

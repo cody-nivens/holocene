@@ -15,6 +15,7 @@
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 // @import "style4";
 $theme-colors: ( "bootstrap": #563d7c, "simpleform": #00617f );
+@import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bootstrap-wysihtml5/bootstrap3-wysihtml5";
 @import "welcome";
@@ -63,7 +64,7 @@ body {
 /* Not required for template or sticky footer method. */
 
 body > .container {
-  padding: 60px 15px 0;
+  padding: 15px 15px 0;
 }
 
 .footer > .container {
@@ -77,6 +78,7 @@ dd {
 td.dd-type {
 /*    display: block; */
     padding-left: 40px;
+    background-color: #EEE;
 }
 /*p {
   padding-top: 20px;
@@ -299,3 +301,14 @@ blockquote {
     margin-inline-start: 40px;
     margin-inline-end: 40px;
 }
+table td, table td * {
+    vertical-align: top;
+}
+.border-primary { 
+  border: 1px solid #333333; 
+  }
+  .border-primary .card-body,.card-title {
+  padding: 3px;
+  margin: 3px;
+}
+

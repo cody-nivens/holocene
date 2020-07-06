@@ -1,10 +1,11 @@
-<h1>
+<div style = "display:block; clear:both; page-break-after:always;"></div>
+<h2>
 <%= @chapter.name %>
 <% @title = @chapter.name %>
 <%= link_to (fa_icon "pencil"), edit_book_chapter_path(@chapter.book, @chapter), :class => "btn btn-default" %>
 <%= link_to 'Partition', (@chapter.partition.nil? ? new_book_chapter_partition_path(@chapter.book, @chapter) : edit_book_chapter_partition_path(@chapter.book, @chapter, @chapter.partition)), :class => "btn btn-default" %>
 <%= link_to 'Aside', (@chapter.aside.nil? ? new_book_chapter_aside_path(@chapter.book, @chapter) : edit_book_chapter_aside_path(@chapter.book, @chapter, @chapter.aside)), :class => "btn btn-default" %>
-</h1>
+</h2>
 
 <% @slugs = [] -%>
 <% @footnotes = process_body(@chapter, @slugs) -%>
@@ -26,32 +27,60 @@
 <%#= raw @footnotes[0]  %>
 <% @slugs += @footnotes[1] -%>
 
-<% unless @chapter.holocene_events.length == 0 -%>
-<%= render 'holocene_events/index.html', holocene_events: @chapter.holocene_events.order(:start_year) %>
+<% if @chapter.always_display_events? || (@chapter.holocene_events.length != 0  && (@chapter.show_events? && @chapter.book.show_events?)) -%>
+<%= render 'holocene_events/index.html', holocene_events: @chapter.holocene_events.order(:start_year).uniq, epub: false %>
 <% end -%>
 
-<% @chapter.sections.each do |section| -%>
-<h2><%= section.name %>
+<% @chapter.sections.order(:position).each do |section| -%>
+  <%# debugger %>
+  <% s = "" %>
+  <% if section.embed? %>
+      <div class="card border-primary border-dark mb3 pull-right float-right" style="width: 60%;">
+        <div class="card-header bg-transparent border-primary">
+          <h3 class="card-header card-title">
+      <%= section.name %>
+<%= link_to (fa_icon "pencil"), edit_book_chapter_section_path(@chapter.book, @chapter,section), :class => "btn btn-default" %>
+<%= link_to 'Display',  section_display_path(:section_id => section.id), :class => "btn btn-default" %>
+<%= link_to 'Map',  geo_map_section_path(section), :class => "btn btn-default" %>
+<%= link_to 'Timeline',  section_timeline_path(:section_id => section.id), :class => "btn btn-default" %>
+            </h3>
+        </div>
+  <div class="card-body border">
+    <% s = " class=\"card-title\"" %>
+  <% end %>
+  <% unless section.embed? %>
+    <h2<%= raw s %>>
+      <%= section.name %>
 <%= link_to (fa_icon "pencil"), edit_book_chapter_section_path(@chapter.book, @chapter,section), :class => "btn btn-default" %>
 <%= link_to 'Display',  section_display_path(:section_id => section.id), :class => "btn btn-default" %>
 <%= link_to 'Map',  geo_map_section_path(section), :class => "btn btn-default" %>
 <%= link_to 'Timeline',  section_timeline_path(:section_id => section.id), :class => "btn btn-default" %>
 </h2>
+  <% end %>
 <% @footnotes = process_body(section, @slugs, @footnotes[2]) -%>
 
 <% @slugs += @footnotes[1] -%>
 <%= raw @footnotes[0] %>
-<% unless section.holocene_events.length == 0 -%>
-<%= render 'holocene_events/index.html', holocene_events: section.holocene_events.order(:start_year) %>
+
+<% if @chapter.always_display_events? || (section.holocene_events.length != 0 && (@chapter.show_events? && @chapter.book.show_events?)) -%>
+<%= render 'holocene_events/index.html', holocene_events: section.holocene_events.order(:start_year).uniq, epub: false %>
 <% end -%>
+  <% if section.embed? %>
+    </div>
+    </div>
+  <% end %>
 <% end -%>
 
 <% unless @slugs.length == 0 -%>
 <%= raw write_footnotes(@slugs) %>
 <% end -%>
 
+
 <% unless @chapter.citations.length == 0 -%>
-<%= raw render "footnotes/citations", slugs: @slugs, footnotes: @chapter.citations  %>
+  <div style="clear: both">
+<hr/>
+<%= raw render "footnotes/citations", slugs: @slugs, footnotes: @chapter.citations, chapter: @chapter, links: true %>
+    </div>
 <% end -%>
 
 <% @footer_content << "#{link_to 'Sections', book_chapter_sections_path(@chapter.book, @chapter), :class => "btn btn-default" }" %>
@@ -59,4 +88,5 @@
 <% @footer_content << "#{link_to 'Display',  chapter_display_path(@chapter), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Map',      geo_map_chapter_path(@chapter), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Footnotes',chapter_footnotes_path(@chapter), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Citations',chapter_citations_path(@chapter), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Back',     book_chapters_path(@chapter.book), :class => "btn btn-default" }" %>

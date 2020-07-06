@@ -1,10 +1,16 @@
 <%= bootstrap_form_for(@book ) do |f| %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-    <%= f.text_field :name %>
+    <%= f.text_field :name %>  <%= f.check_box :show_events %>
+    <%= f.text_field :sub_name %>
+    <%= f.text_field :copyright %>
+
     <%= f.hidden_field :user_id %>
   <div class="jumbotron" >
-      <%= f.text_area :body, as: :wysihtml5, cols: "80", rows: "15", hide_label: true %>
+      <%= f.text_area :body, as: :wysihtml5, cols: "80", rows: "10", hide_label: true %>
+  </div>
+  <div class="jumbotron" >
+      <%= f.text_area :publisher, as: :wysihtml5, cols: "80", rows: "5", hide_label: true %>
   </div>
 
 
@@ -23,6 +29,24 @@
               "link": true,
               "image": true,
               "color": true
+           },
+           parser: function(html) {
+              return html;
+           }
+        });
+    });
+    $('#book_publisher').each(function(i, elem) {
+        $(elem).wysihtml5({
+           toolbar: {
+               "fa": true,
+              "style": true,
+              "font-styles": true,
+              "emphasis": true,
+              "lists": false,
+              "html": false,
+              "link": false,
+              "image": false,
+              "color": false
            },
            parser: function(html) {
               return html;
