@@ -1,0 +1,14 @@
+<holocene_event>
+<name>
+<indexterm><primary></primary><secondary></secondary></indexterm>
+<indexterm><primary></primary></indexterm>
+</name>
+<event_type></event_type>
+<region></region>
+<url></url>
+<lat></lat>
+<lng></lng>
+<body>
+<p></p>
+</body>
+</holocene_event>

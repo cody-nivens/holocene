@@ -1,0 +1,9 @@
+#!/bin/bash
+
+./reset_xml codys_book
+
+ cp codys_book/seed_tmpl.rb db/seeds.rb
+ ./do_biblio.rb -n codys_book >>db/seeds.rb
+ ./do_glossary.rb -n codys_book >>db/seeds.rb
+ ./read_timeline.rb -n codys_book >>db/seeds.rb 
+ rake db:reset

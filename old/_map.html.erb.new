@@ -1,0 +1,97 @@
+<%= stylesheet_link_tag    'jquery-jvectormap', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%#= stylesheet_link_tag    'jquery-ui-1', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'jquery-1.js', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'jquery.jvectormap.min.js', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'jquery-jvectormap-world-mill.js', 'data-turbolinks-track': 'reload' %>
+
+<div id="world-map" style="width: 720px; height: 400px"></div>
+
+<style>
+.jvectormap-legend-inner {
+  margin-bottom: 3px;
+}
+
+.jvectormap-legend-cnt-h .jvectormap-legend-tick {
+  width: auto;
+  margin-right: 10px;
+}
+
+.jvectormap-legend-cnt-h .jvectormap-legend-tick-text {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 13px;
+}
+
+.jvectormap-legend-cnt-h .jvectormap-legend-tick-sample {
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  vertical-align: middle;
+}
+</style>
+
+<script type="text/javascript">
+   
+    $(function(){
+    var map_locs = <%= raw @object.map_locs.to_json %>
+  //@code_start
+    $('#world-map').vectorMap({
+//  new jvm.Map({
+//      container: $('#world-map'),
+      map: 'world_mill',
+      scaleColors: ['#C8EEFF', '#0071A4'],
+      normalizeFunction: 'polynomial',
+      hoverOpacity: 0.7,
+      hoverColor: false,
+      backgroundColor: '#383f47',
+//      markerStyle: {
+//        initial: {
+//          fill: '#F8E23B',
+//          stroke: '#383f47'
+//        }
+//      },
+    markers: map_locs.map(function(h){ return {name: h.name, latLng: h.latLng} }),
+    labels: {
+        markers: {
+          render: function(index){
+            return map_locs[index].name;
+          },
+          offsets: function(index){
+            var offset = map_locs[index]['offsets'] || [0, 0];
+
+            return [offset[0] - 7, offset[1] + 3];
+          }
+        }
+    },
+    series: {
+      markers: [{
+        attribute: 'image',
+        scale: {
+          'volcanic': '/assets/pin_red.ico',
+          'earth': '/assets/pin_blue.ico',
+          'place': '/assets/pin_blue.ico',
+          'cultural': '/assets/pin_blue.ico',
+          'climate': '/assets/star_yellow.ico'
+        },
+        values: map_locs.reduce(function(p, c, i){ p[i] = c.status; return p }, {}),
+        legend: {
+          horizontal: true,
+            title: '<%= @object.name %>',
+          labelRender: function(v){
+            return {
+              place: 'Place',
+              volcanic: 'Volcanic',
+              earth: 'Earth',
+              cultural: 'Cultural',
+              climate: 'Climate'
+            }[v];
+          }
+        }
+      }]
+    }
+    }); 
+  //@code_end
+
+  });
+</script>
+<div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 		    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 		    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
