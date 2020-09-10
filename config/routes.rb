@@ -1,18 +1,37 @@
 Rails.application.routes.draw do
+
+  concern :scripted do |options|
+     resources :chapters, options
+     resources :key_points, options
+  end
+  resources :stories do
+    resources :key_points
+    resources :chapters
+  end
+  resources :signets
   resources :embeds
+  resources :character_values
+  resources :character_attributes
+  resources :character_categories
+
 #  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
   resources :footnotes
   resources :books do
+    concerns :scripted, scripted_type: 'Book'
+    resources :key_points
+    resources :scenes
+    resources :characters
     resources :authors
     resources :glossary_terms
     resources :biblioentries
+  end
     resources :chapters do
+      concerns :scripted, scripted_type: 'Chapter'
       resources :asides
       resources :partitions
       resources :sections
     end
-  end
   resources :epochs
   resources :timelines
   get "welcome/index"
@@ -27,6 +46,7 @@ Rails.application.routes.draw do
 
   get "books/:id/export", to: "books#export", as: :book_export
   get "books/:id/epub", to: "books#epub", as: :book_epub
+  get "books/:id/toc", to: "books#toc", as: :toc
   get "event_types/:id/geo_map", to: "event_types#geo_map", as: :geo_map_event_type
   get "timelines/:id/geo_map", to: "timelines#geo_map", as: :geo_map_timeline
   get "epochs/:id/geo_map", to: "epochs#geo_map", as: :geo_map_epoch
@@ -78,6 +98,9 @@ Rails.application.routes.draw do
   patch "/sections/:section_id/footnote/:id",               to: "footnotes#update", as: :section_footnote_update
   patch "/holocene_events/:holocene_event_id/footnote/:id", to: "footnotes#update", as: :holocene_event_footnote_update
 
+  get "/chapters/:id/sections/:section_id/promote",               to: "chapters#promote", as: :chapter_section_promote
+  get "/chapters/:id/demote",               to: "chapters#demote", as: :chapter_demote
+
   post "/chapters/:chapter_id/citations",               to: "citations#update", as: :chapter_citation_create
   post "/chapters/:chapter_id/footnotes",               to: "footnotes#create", as: :chapter_footnote_create
   post "/sections/:section_id/footnotes",               to: "footnotes#create", as: :section_footnote_create
@@ -97,7 +120,29 @@ Rails.application.routes.draw do
 
   get "/books/:book_id/chapter/:id", to: "chapters#move", as: :move_book_chapter
 
+  get "/chapters/:chapter_id/signets",               to: "signets#index", as: :chapter_signets
+  get "/sections/:section_id/signets",               to: "signets#index", as: :section_signets
+  get "/books/:book_id/signets",               to: "signets#index", as: :book_signets
+  get "/holocene_events/:holocene_event_id/signets", to: "signets#index", as: :holocene_event_signets
+  get "/chapters/:chapter_id/signet/:id",               to: "signets#show", as: :chapter_signet
+  get "/sections/:section_id/signet/:id",               to: "signets#show", as: :section_signet
+  get "/books/:book_id/signet/:id",               to: "signets#show", as: :book_signet
+  get "/holocene_events/:holocene_event_id/signet/:id", to: "signets#show", as: :holocene_event_signet
+  get "/chapters/:chapter_id/signets/new",               to: "signets#new", as: :new_chapter_signet
+  get "/sections/:section_id/signets/new",               to: "signets#new", as: :new_section_signet
+  get "/books/:book_id/signets/new",               to: "signets#new", as: :new_book_signet
+  get "/holocene_events/:holocene_event_id/signets/new", to: "signets#new", as: :new_holocene_event_signet
+  patch "/chapters/:chapter_id/signet/:id",               to: "signets#update", as: :chapter_signet_update
+  patch "/sections/:section_id/signet/:id",               to: "signets#update", as: :section_signet_update
+  patch "/books/:book_id/signet/:id",               to: "signets#update", as: :book_signet_update
+  patch "/holocene_events/:holocene_event_id/signet/:id", to: "signets#update", as: :holocene_event_signet_update
+  post "/chapters/:chapter_id/signets",               to: "signets#create", as: :chapter_signet_create
+  post "/sections/:section_id/signets",               to: "signets#create", as: :section_signet_create
+  post "/books/:book_id/signets",               to: "signets#create", as: :book_signet_create
+  post "/holocene_events/:holocene_event_id/signets", to: "signets#create", as: :holocene_event_signet_create
+
   root to: "welcome#index"
+
   get "/faq", to: "application#faq", as: "faq"
   get "/secret", to: "application#secret", as: "secret"
   get "/about", to: "application#about", as: "about"
