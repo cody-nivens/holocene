@@ -1,7 +1,0 @@
-<glossentry id=""><glossterm></glossterm>
-  <glossdef>
-    <para></para>
-    <glosssee otherterm=""></glosssee>
-    <glossseealso otherterm=""></glossseealso>
-  </glossdef>
-</glossentry>

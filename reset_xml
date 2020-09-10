@@ -1,8 +1,0 @@
-#!/bin/bash
-
-
-#revisions holocene-attributions
-for j in `ls $1/*.x`; do
- cp ${j} ${j}ml 
-done
-

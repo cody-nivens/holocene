@@ -1,9 +1,0 @@
----
-source_files:
-  - sample_book/chapter1.xml
-  - sample_book/chapter2.xml
-bibliography:
-  - sample_book/bibliobooks2.xml
-  - sample_book/biblioweb2.xml
-glossary:
-  - sample_book/glossary.xml
