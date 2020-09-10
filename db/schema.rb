@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_06_170112) do
+ActiveRecord::Schema.define(version: 2020_09_09_161216) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -98,6 +98,12 @@ ActiveRecord::Schema.define(version: 2020_07_06_170112) do
     t.text "publisher"
   end
 
+  create_table "books_characters", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "book_id", null: false
+    t.bigint "character_id", null: false
+    t.index ["book_id", "character_id"], name: "index_books_characters_on_book_id_and_character_id", unique: true
+  end
+
   create_table "chapters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.text "body"
@@ -105,9 +111,11 @@ ActiveRecord::Schema.define(version: 2020_07_06_170112) do
     t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "book_id"
     t.boolean "show_events", default: true
     t.boolean "always_display_events", default: false
+    t.string "scripted_type", null: false
+    t.bigint "scripted_id", null: false
+    t.index ["scripted_type", "scripted_id"], name: "index_chapters_on_scripted_type_and_scripted_id"
   end
 
   create_table "chapters_holocene_events", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -122,6 +130,50 @@ ActiveRecord::Schema.define(version: 2020_07_06_170112) do
     t.bigint "timeline_id", null: false
     t.index ["chapter_id", "timeline_id"], name: "index_chapter_timeline_1"
     t.index ["timeline_id", "chapter_id"], name: "index_chapter_timeline_2"
+  end
+
+  create_table "character_attributes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.bigint "character_category_id", null: false
+    t.integer "related_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["character_category_id"], name: "index_character_attributes_on_character_category_id"
+  end
+
+  create_table "character_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "character_values", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "character_id", null: false
+    t.bigint "character_attribute_id", null: false
+    t.string "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["character_attribute_id"], name: "index_character_values_on_character_attribute_id"
+    t.index ["character_id"], name: "index_character_values_on_character_id"
+  end
+
+  create_table "characters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "reason_for_name"
+    t.string "nickname"
+    t.string "reason_for_nickname"
+    t.string "race"
+    t.string "occupation_class"
+    t.string "social_class"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "characters_stories", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "story_id", null: false
+    t.bigint "character_id", null: false
+    t.index ["character_id", "story_id"], name: "index_story_character_2"
+    t.index ["story_id", "character_id"], name: "index_story_character_1"
   end
 
   create_table "epochs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -222,6 +274,23 @@ ActiveRecord::Schema.define(version: 2020_07_06_170112) do
     t.index ["timeline_id", "holocene_event_id"], name: "index_timeline_holocene_event_1"
   end
 
+  create_table "key_points", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.text "hook"
+    t.string "inciting_incident"
+    t.string "key_element"
+    t.string "first_plot_point"
+    t.string "first_pinch_point"
+    t.string "midpoint"
+    t.string "second_pinch_point"
+    t.string "third_plot_point"
+    t.string "climax"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "scripted_type"
+    t.bigint "scripted_id"
+    t.index ["scripted_type", "scripted_id"], name: "index_key_points_on_scripted_type_and_scripted_id"
+  end
+
   create_table "partitions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.text "body"
@@ -249,6 +318,17 @@ ActiveRecord::Schema.define(version: 2020_07_06_170112) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
   end
 
+  create_table "scenes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "abc"
+    t.boolean "check"
+    t.string "time"
+    t.integer "scene_sequel"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "key_point_id"
+    t.integer "book_id"
+  end
+
   create_table "sections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.boolean "display_name"
@@ -259,6 +339,23 @@ ActiveRecord::Schema.define(version: 2020_07_06_170112) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "embed", default: 0
+  end
+
+  create_table "signets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "color"
+    t.string "message"
+    t.string "sigged_type"
+    t.integer "sigged_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "stories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "title"
+    t.text "summary"
+    t.integer "book_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "taggings", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -315,4 +412,7 @@ ActiveRecord::Schema.define(version: 2020_07_06_170112) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "character_attributes", "character_categories"
+  add_foreign_key "character_values", "character_attributes"
+  add_foreign_key "character_values", "characters"
 end
