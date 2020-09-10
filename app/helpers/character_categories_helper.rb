@@ -1,0 +1,2 @@
+module CharacterCategoriesHelper
+end

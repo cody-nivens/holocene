@@ -14,12 +14,28 @@ class BooksTest < ApplicationSystemTestCase
     assert_no_text "link_to"
   end
 
+  test "visiting the TOC" do
+    visit book_url(@book)
+
+    click_on "Chapters, TOC"
+    assert_text "New Chapter"
+  end
+
   test "generating PDF" do
     visit book_url(@book, format: 'pdf')
 
     content = DownloadHelpers::download_content
+    sleep(1)
     body = convert_pdf_to_page(content)
-    assert_match /Climate and History/,body
+    assert_match /Fun Events in History/,body
+  end
+
+  test "generating EPUB" do
+    visit book_epub_url(@book)
+
+    content = DownloadHelpers::download_content
+#    body = convert_pdf_to_page(content)
+#    assert_match /Fun Events in History/,body
   end
 
   test "creating a Book" do
@@ -63,7 +79,11 @@ class BooksTest < ApplicationSystemTestCase
 
   test "should not update a Book" do
     visit book_url(@book)
-    click_on "Edit", match: :first
+
+    within(:xpath, "//*[contains(text(),'Fun Events in History ')]") do
+      Capybara.page.find('.fa-pencil').click
+    end
+
 
     fill_in "Name", with: ""
     click_on "Update Book"

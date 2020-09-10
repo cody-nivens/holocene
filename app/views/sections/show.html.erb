@@ -19,11 +19,12 @@
 
 <% priv_section = Section.where(chapter_id: @chapter.id, position: @section.position-1) -%>
 <% next_section = Section.where(chapter_id: @chapter.id, position: @section.position+1) -%>
-<% @footer_content << "#{link_to 'Edit', edit_book_chapter_section_path(@book, @chapter, @section), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Priv', book_chapter_section_path(@book, @chapter, priv_section.first), :class => "btn btn-default"}" unless priv_section.length == 0 %>
-<% @footer_content << "#{link_to 'Next', book_chapter_section_path(@book, @chapter, next_section.first), :class => "btn btn-default"}" unless next_section.length == 0  %>
-<% @footer_content << "#{link_to 'Timeline', section_timeline_path(:section_id => @section.id), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Display',  section_display_path(:section_id => @section.id), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Map',  geo_map_section_path(@section), :class => "btn btn-default"}" %>
+
+<% @footer_content << "#{link_to (fa_icon 'pencil'), edit_chapter_section_path(@chapter, @section), :class => "btn icon-ok icon-white"}" %>
+<% @footer_content << "#{link_to '<', chapter_section_path(@chapter, priv_section.first), :class => "btn icon-ok icon-white"}" unless priv_section.length == 0 %>
+<% @footer_content << "#{link_to '>', chapter_section_path(@chapter, next_section.first), :class => "btn icon-ok icon-white"}" unless next_section.length == 0  %>
+<% @footer_content << "#{link_to (fa_icon 'calendar-o'), section_timeline_path(:section_id => @section.id), :class => "btn icon-ok icon-white"}" %>
+<% @footer_content << "#{link_to (fa_icon 'list'),  section_display_path(:section_id => @section.id), :class => "btn icon-ok icon-white"}" %>
+<% @footer_content << "#{link_to (fa_icon 'map-o'),  geo_map_section_path(@section), :class => "btn icon-ok icon-white"}" %>
 <% @footer_content << "#{link_to 'Footnotes',  section_footnotes_path(@section), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', book_chapter_path(@book, @chapter), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', chapter_path(@chapter), :class => "btn btn-default"}" %>

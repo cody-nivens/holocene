@@ -2,7 +2,7 @@ require 'test_helper'
 
 class BooksControllerTest < ActionDispatch::IntegrationTest
   setup do
-      @book = books(:book_1)
+    @book = books(:book_1)
     @user = users(:users_1)
     sign_in @user
   end
@@ -14,6 +14,11 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[text()=?]",'New Book'
     assert_select "a[href=?]", new_book_path
     assert_select ".footer>div>a", 1
+  end
+
+  test "should get toc" do
+    get toc_url(@book.id)
+    assert_response :success
   end
 
 #  test "should get export" do
@@ -50,23 +55,21 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     get book_url(@book)
     assert_response :success
 
-    assert_select "a[text()=?]",'Chapters'
+    assert_select "a[text()=?]",'Chapters, TOC'
     assert_select "a[href=?]", book_chapters_path(@book)
-    assert_select "a[text()=?]",'New Chapter'
-    assert_select "a[href=?]", new_book_chapter_path(@book)
-    assert_select "a[text()=?]",'Edit'
-    assert_select "a[href=?]", edit_book_path(@book)
-   # assert_select "a[text()=?]",'Back'
+    assert_select "a[text()=?]",'Chapters, Details'
+    assert_select "a[href=?]", book_chapters_path(@book)
+    assert_select "a[text()=?]",'Back'
     
     # history.back is now used
     # assert_select "a[href=?]", books_path
     assert_select ".footer>div>a", 3
   end
 
-#  test "should show pdf book" do
-#    get book_url(@book, :format => :pdf)
-#    assert_response :success
-#  end
+  test "should show pdf book" do
+    get book_url(@book, :format => :pdf)
+    assert_response :success
+  end
 
   test "should get epub" do
     get book_epub_url(@book)

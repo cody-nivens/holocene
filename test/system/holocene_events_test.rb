@@ -11,18 +11,33 @@ class HoloceneEventsTest < ApplicationSystemTestCase
 
   test "visiting the index" do
     visit holocene_events_url
-    assert_selector "h1", text: "Holocene Events"
+
+    assert_selector "h2", text: "Holocene Events"
     assert_link "New Holocene Event"
     assert_no_text "link_to"
   end
 
+  test "visiting the index 2" do
+    visit holocene_events_url
+
+    assert_selector "h2", text: "Holocene Events"
+    assert_link "New Holocene Event"
+    assert_no_text "link_to"
+
+    fill_in "Name LIKE", with: @holocene_event.name
+    click_on "Search"
+  end
+
   test "visiting the map" do
     visit holocene_events_url
-    assert_selector "h1", text: "Holocene Events"
+
     assert_link "New Holocene Event"
-    click_on "Show", match: :first
+    find(:xpath, "//a[text()='Dog buried inside of human dwellings ']").click
+
+
     assert_link "Map"
     click_on "Map"
+
     assert_link "Back"
     click_on "Back"
   end
@@ -86,6 +101,7 @@ class HoloceneEventsTest < ApplicationSystemTestCase
 
     fill_in "Name", with: @holocene_event.name
     click_on "Create Holocene event"
+
     assert_text "Holocene event was successfully created"
     click_on "Back"
   end
@@ -132,6 +148,7 @@ class HoloceneEventsTest < ApplicationSystemTestCase
 
     fill_in "Name", with: @holocene_event.name
     click_on "Update Holocene event"
+
     assert_text "Holocene event was successfully updated"
     click_on "Back"
   end

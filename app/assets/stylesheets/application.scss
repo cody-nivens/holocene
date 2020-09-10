@@ -27,6 +27,9 @@ $fa-font-path: "font-awesome/fonts" !default;
 @import 'font-awesome';
 @import 'timelineJS/timeline';
 @import 'jquery-jvectormap';
+@import 'trix/dist/trix';
+@import "actiontext";
+
 //@import "timelineJS/fonts/font.pt";
 
 div.alwaysbreak { page-break-before: always; }
@@ -311,4 +314,26 @@ table td, table td * {
   padding: 3px;
   margin: 3px;
 }
+.triangle {
+    border-right: 10px solid; 
+    border-bottom: 10px solid;
+    height: 30px;
+    width: 30px;
+    transform: rotate(-45deg);
+}
+.color-FF69B4 {
+    background-color: #FF69B4;
+}
+.color-FFA500 {
+    background-color: #FFA500;
+    }
+.color-FFD700 {
+    background-color: #FFD700;
+    }
+.color-98FB98 {
+    background-color: #98FB98;
+    }
+.color-AFEEEE {
+    background-color: #AFEEEE;
+    }
 

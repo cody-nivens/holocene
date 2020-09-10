@@ -13,13 +13,15 @@ chapter_1:
     utc: &3 2018-11-15 17:27:30.000000000 Z
     zone: *2
     time: *3
-  book: 'book_1'
+  scripted: book_1 (Book)
+  show_events: true
+  always_display_events: true
   holocene_events:
       - holocene_event_1
 chapter_2:
   name: 'Chapter Two Stuff '
   body: '[[slug55]]'
-  position: 1
+  position: 3
   slug: tE3vUMrsN3
   created_at: !ruby/object:ActiveSupport::TimeWithZone
     utc: &4 2018-11-15 04:18:25.000000000 Z
@@ -29,13 +31,15 @@ chapter_2:
     utc: &5 2018-11-15 04:18:25.000000000 Z
     zone: *2
     time: *5
-  book: book_1
+  scripted: book_1 (Book)
+  show_events: true
+  always_display_events: true
   holocene_events:
       - holocene_event_2
 chapter_3:
   name: 'Chapter Three Stuff '
   body: '[[slug56]]'
-  position: 1
+  position: 5
   slug: tE3vUMrsN3
   created_at: !ruby/object:ActiveSupport::TimeWithZone
     utc: &4 2018-11-15 04:18:25.000000000 Z
@@ -45,4 +49,24 @@ chapter_3:
     utc: &5 2018-11-15 04:18:25.000000000 Z
     zone: *2
     time: *5
-  book: book_1
+  scripted: book_1 (Book)
+  show_events: true
+  always_display_events: true
+chapter_4:
+  name: 'Chapter Four Stuff '
+  body: '[[slug56]]'
+  position: 7
+  slug: tE3vUMrsN3
+  holocene_events:
+      - holocene_event_2
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &4 2018-11-15 04:18:25.000000000 Z
+    zone: *2
+    time: *4
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &5 2018-11-15 04:18:25.000000000 Z
+    zone: *2
+    time: *5
+  scripted: book_1 (Book)
+  show_events: true
+  always_display_events: true

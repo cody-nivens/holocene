@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @character.name %>
+</p>
+
+<p>
+  <strong>Reason for name:</strong>
+  <%= @character.reason_for_name %>
+</p>
+
+<p>
+  <strong>Nickname:</strong>
+  <%= @character.nickname %>
+</p>
+
+<p>
+  <strong>Reason for nickname:</strong>
+  <%= @character.reason_for_nickname %>
+</p>
+
+<p>
+  <strong>Race:</strong>
+  <%= @character.race %>
+</p>
+
+<p>
+  <strong>Occupation class:</strong>
+  <%= @character.occupation_class %>
+</p>
+
+<p>
+  <strong>Social class:</strong>
+  <%= @character.social_class %>
+</p>
+
+<%= link_to 'Edit', edit_book_character_path(:book_id => @book.id, :id => @character.id) %> |
+<%= link_to 'Attributes', character_values_path(:character_id => @character.id) %> |
+<%= link_to 'Back', book_characters_path(:book_id => @book.id) %>

@@ -42,13 +42,4 @@ class CitationsController < ApplicationController
     def set_chapter
       @chapter = Chapter.find(params[:chapter_id])
     end
-
-    def set_citation
-      @citation = Footnote.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def citation_params
-      params.fetch(:citation, {})
-    end
 end

@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+signet_1:
+  color: 1
+  message: Signet 1
+  sigged: chapter_1 (Chapter)
+
+signet_2:
+  color: 0
+  message: Signet 2
+  sigged: chapter_2 (Chapter)
+
+signet_3:
+  color: 1
+  message: Signet 3
+  sigged: section_1 (Section)
+
+signet_4:
+  color: 1
+  message: Signet 4
+  sigged: book_1 (Book)
+
+signet_5:
+  color: 1
+  message: Signet 5
+  sigged: holocene_event_1 (HoloceneEvent)
+
+signet_6:
+  color: 0
+  message: Signet 6
+  sigged: chapter_2 (Chapter)

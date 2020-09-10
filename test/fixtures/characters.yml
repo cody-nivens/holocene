@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+character_1:
+  name: John
+  reason_for_name: Mom
+  nickname: Slim
+  reason_for_nickname: Skinny
+  race: White
+  occupation_class: Educated
+  social_class: Alt-Punk
+  books:
+    - book_1
+
+character_2:
+  name: Joe
+  reason_for_name: Dad
+  nickname: Yojoe
+  reason_for_nickname: Hard to get to listen
+  race: White
+  occupation_class: Working
+  social_class: Working
+  books:
+    - book_1

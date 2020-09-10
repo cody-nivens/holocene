@@ -22,8 +22,8 @@
     <%= form.number_field :end_year_uncert %>
     <%= form.number_field :end_year_mod %>
 
-    <%= form.collection_check_boxes :event_type_ids, EventType.all, :id, :name, multiple: true %>
-    <%= form.collection_select :region_id, Region.all, :id, :name %>
+    <%= form.collection_check_boxes :event_type_ids, EventType.all.order(:name), :id, :name, multiple: true %>
+    <%= form.collection_select :region_id, Region.all.order(:name), :id, :name %>
 
     <%= form.text_field :url %>
     <%= form.file_field :image, multiple: false, direct_upload: true %>

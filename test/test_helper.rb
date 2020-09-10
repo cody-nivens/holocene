@@ -33,6 +33,14 @@ class ActiveSupport::TestCase
       Capybara.reset_sessions!
     end
 
+    def fill_in_editor(id, with:)
+      find(:css, ".#{id}").click.set(with)
+    end
+
+    def fill_in_rich_text_area(id, with:)
+      find(:css, "#{id}").click.set(with)
+    end
+
     def convert_pdf_to_page(content)
       pdf_io = StringIO.new(content)
       reader = PDF::Reader.new(pdf_io)

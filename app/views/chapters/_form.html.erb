@@ -1,14 +1,15 @@
-<%= bootstrap_form_for [@book, @chapter] do |f| %>
+<%= bootstrap_form_for [@scripted, @chapter] do |f| %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-    <%= f.hidden_field :book_id %>
+    <%= f.hidden_field :scripted_id %>
+    <%= f.hidden_field :scripted_type %>
 
     <%= f.text_field :name %>
     <%= f.check_box :show_events %>
     <%= f.check_box :always_display_events %>
 
   <div class="jumbotron" >
-      <%= f.text_area :body, as: :wysihtml5, cols: "80", rows: "13", hide_label: true %>
+      <%= f.text_area :body, as: :wysihtml5, cols: "80", rows: "15", hide_label: true %>
   </div>
 
   <%= f.primary "#{command_label}" %>
@@ -17,15 +18,14 @@
     $('#chapter_body').each(function(i, elem) {
              $(elem).wysihtml5({
            toolbar: {
-               "fa": true,
-              "style": false,
-              "font-styles": false,
+              "fa": true,
+              "font-styles": true,
               "emphasis": true,
-              "lists": false,
+              "lists": true,
               "html": true,
-              "link": false,
-              "image": false,
-              "color": false
+              "link": true,
+              "image": true,
+              "color":true
            },
            parser: function(html) {
               return html;

@@ -1,6 +1,6 @@
 <h1>Editing Section</h1>
 
-<%= render 'form', book: @book, chapter: @chapter, section: @section, command_label: "Update Section"  %>
+<%= render 'form', scripted: @scripted, chapter: @chapter, section: @section, command_label: "Update Section"  %>
 
-<% @footer_content << "#{link_to 'Show', book_chapter_section_path(@book, @chapter, @section), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', book_chapter_sections_path(@book, @chapter), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Show', chapter_section_path(@chapter, @section), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', chapter_sections_path(@chapter), :class => "btn btn-default"}" %>

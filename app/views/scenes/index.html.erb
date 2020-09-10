@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Scenes</h1>
+
+<%= datagrid_form_for @grid, :method => :get, :url => book_scenes_path(:book_id => @book.id) %>
+
+<%= paginate(@grid.assets) %>
+<%= datagrid_table @grid %>
+<%= paginate(@grid.assets) %>
+
+<br>
+<%= link_to 'New Scene', new_book_scene_path(:book_id => @book.id) %> |
+<% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>

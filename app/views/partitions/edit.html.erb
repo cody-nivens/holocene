@@ -1,6 +1,6 @@
 <h1>Editing Partition</h1>
 
-<%= render 'form', book: @book, chapter: @chapter,partition: @partition %>
+<%= render 'form', chapter: @chapter,partition: @partition %>
 
-<% @footer_content << "#{link_to 'Show', book_chapter_partition_path(@book,@chapter,@partition), :class => "btn btn-default" }" %>
-<% @footer_content << "#{link_to 'Back', book_chapter_path(@book,@chapter), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Show', chapter_partition_path(@chapter,@partition), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Back', chapter_path(@chapter), :class => "btn btn-default" }" %>

@@ -1,0 +1,6 @@
+<h1>Editing Character</h1>
+
+<%= render 'form', character: @character %>
+
+<%= link_to 'Show', book_character_path(:book_id => @book.id, :id => @character.id) %> |
+<%= link_to 'Back', book_characters_path(:book_id => @book.id) %>

@@ -1,0 +1,70 @@
+<%= bootstrap_form_for [@book, scene ] do |form| %>
+  <% if scene.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(scene.errors.count, "error") %> prohibited this scene from being saved:</h2>
+
+      <ul>
+        <% scene.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <%= form.error_notification message: form.object.errors[:base].to_sentence if form.object.errors[:base].present? %>
+
+    <%= hidden_field_tag :book_id %>
+    <%= form.hidden_field :book_id %>
+
+
+  <div class="field">
+    <%= form.text_field :abc %>
+  </div>
+
+  <div class="field">
+    <%= form.check_box :check %>
+  </div>
+
+  <div class="field" >
+      <%= form.rich_text_area :summary %>
+  </div>
+
+  <div class="field">
+    <%= form.rich_text_area :place %>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :time %>
+  </div>
+
+  <div class="field">
+    <%= form.number_field :scene_sequel %>
+  </div>
+
+  <div class="field">
+    <%= form.rich_text_area :goal_reaction %>
+  </div>
+
+  <div class="field">
+    <%= form.rich_text_area :conflict_dilemma %>
+  </div>
+
+  <div class="field">
+    <%= form.rich_text_area :disaster_decision %>
+  </div>
+
+  <div class="field">
+    <%= form.rich_text_area :short_term_goal %>
+  </div>
+
+  <div class="field">
+    <%= form.rich_text_area :long_term_goal %>
+  </div>
+
+  <div class="field">
+    <%= form.rich_text_area :over_arching_goal %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

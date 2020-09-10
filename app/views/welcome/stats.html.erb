@@ -34,8 +34,8 @@
     <tr><td><%= link_to "Timeline", timelines_path %></td><td><%= Timeline.count %></td></tr>
     <tr><td><%= link_to "Epoch", epochs_path %></td><td><%= Epoch.count %></td></tr>
     <tr><td><%= link_to "Book", books_path %></td><td><%= Book.count %></td></tr>
-    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Chapter", book_chapters_path(Book.first) %></td><td><%= Chapter.count %></td></tr>
-    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Section", book_chapter_sections_path(Chapter.first.book,Chapter.first) %></td><td><%= Section.count %></td></tr>
+    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Chapter", chapters_path(Book.first.chapters) %></td><td><%= Chapter.count %></td></tr>
+    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Section", chapter_sections_path(Chapter.first) %></td><td><%= Section.count %></td></tr>
     <tr><td>Footnotes</td><td><%= Footnote.count %></td></tr>
     <tr><td>Biblioentries</td><td><%= Biblioentry.count %></td></tr>
     <tr><td>Authors</td><td><%= Author.count %></td></tr>

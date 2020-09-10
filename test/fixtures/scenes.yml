@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+scene_1:
+  abc: A000001
+  check: false
+  time: Present
+  scene_sequel: 1
+  book: book_1
+
+scene_2:
+  abc: A00002
+  check: false
+  time: 100 years later
+  scene_sequel: 1
+  book: book_1

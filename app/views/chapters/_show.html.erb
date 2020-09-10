@@ -25,8 +25,8 @@
       <%= raw @footnotes[0] -%>
     </div>
 <% end -%>
-<% if chapter.holocene_events.length != 0 && ((chapter.show_events? && chapter.book.show_events?) || chapter.always_display_events?) -%>
-  <%= render 'holocene_events/index.html', holocene_events: chapter.holocene_events.order(:start_year).uniq, epub: epub  -%>
+<% if chapter.holocene_events.length != 0 && ((chapter.show_events? && chapter.scripted.show_events?) || chapter.always_display_events?) -%>
+  <%= render 'holocene_events/index.html', slugs: @slugs, holocene_events: chapter.holocene_events.order(:start_year).uniq, chapter: chapter, epub: epub  -%>
 <% end -%>
 <% @slugs += @footnotes[1] -%>
 <% chapter.sections.order(:position).each do |section| -%>
@@ -52,8 +52,8 @@
     </div>
   <% end %>
 
-<% if section.holocene_events.length != 0 && ((chapter.show_events? && chapter.book.show_events?) || chapter.always_display_events?) -%>
-<%= render 'holocene_events/index.html', holocene_events: section.holocene_events.order(:start_year).uniq, epub: epub -%>
+<% if section.holocene_events.length != 0 && ((chapter.show_events? && chapter.scripted.show_events?) || chapter.always_display_events?) -%>
+<%= render 'holocene_events/index.html', slugs: @slugs, holocene_events: section.holocene_events.order(:start_year).uniq, chapter: chapter, epub: epub -%>
 <% end -%>
 <% end -%>
 

@@ -8,10 +8,23 @@ class HoloceneEventsGrid < BaseGrid
 
   filter(:start_year, :integer, :range => true, :default => [-15000, nil])
 
-  filter(:region_id, :enum, header: "Region", :select => proc { Region.all.map {|c| [c.name, c.id] }})
+  filter(:region_id, :enum, header: "Region", :select => proc { Region.all.order(:name).map {|c| [c.name, c.id] }})
 
   filter(:id, :integer, :multiple => true)
 
+   filter(:name, :string, header: "Name LIKE") do |value|
+    self.where("name like ?","%#{value}%")
+  end
+
+  filter(:event_type, :enum, header: "Event Type", :select => proc { EventType.all.order(:name).map {|c| [c.name, c.id] }}) do |value|
+    ids = self.map{|x| ( x.event_types.ids.include?(value.to_i) == false ? nil : x.event_types.ids)}.compact.flatten
+    res = []
+    ids.each do |id|
+      et = EventType.find(id)
+      res << et.holocene_events unless et.holocene_events.nil?
+    end
+    self.where("id in (?)",res[0].ids) unless res.length == 0
+  end
 
   column(:id, :html => true, :if => proc {|grid| !grid.object.nil? } ) do |event|
       hidden_field_tag('holocene_event[seen][]', event.id)

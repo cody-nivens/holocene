@@ -14,7 +14,7 @@ class CitationsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should update footnote" do
+  test "should update citations" do
     patch chapter_citations_url(:chapter_id => @chapter.id), params: { cit_ids: [ footnotes(:footnote_1).id ], biblioentries_ids: [ biblioentries(:biblioentry_1).id ] }
     assert_redirected_to chapter_citations_url(@chapter)
   end

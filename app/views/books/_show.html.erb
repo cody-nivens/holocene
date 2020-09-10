@@ -13,15 +13,37 @@
 <div style = "display:block; clear:both; page-break-after:always;"></div>
 <h1>Citations</h1>
 
-<% @slug = [] %>
+<% @slugs = [] %>
 <% @chapters.each do |chapter| -%>
 <% unless chapter.citations.length == 0 -%>
-<div style="clear: both">
 <%= raw render "footnotes/citations.html", slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: false %>
 </div>
 <% end -%>
 <% end -%>
 
-<%= render 'biblioentries/index.html', biblioentries: @book.biblioentries %>
+
+<div style = "display:block; clear:both; page-break-after:always;"></div>
+<h1>Chapter Events</h1>
+
+<% @slugs = [] %>
+<% @notes = {} -%>
+<% @footnotes = ["",[],1] %>
+<% @chapters.each do |chapter| -%>
+  <% next if chapter.always_display_events %>
+<% unless chapter.holocene_events.length == 0 -%>
+  <%= raw render "holocene_events/index.html", holocene_events: chapter.holocene_events.order(:start_year), chapter: chapter, links: false, epub: true, slugs: @slugs %>
+</div>
+<% end -%>
+<% chapter.sections.order(:position).each do |section| %>
+  <%= raw render "holocene_events/index.html", holocene_events: section.holocene_events.order(:start_year), chapter: chapter, links: false, title: "#{chapter.name}:#{section.name}", epub: true, slugs: @slugs %>
+</div>
+<% end -%>
+<% end -%>
+<% unless @slugs.length == 0 -%>
+<%# @notes[chapter.id] =  write_footnotes(@slugs) -%>
+<%= raw write_footnotes(@slugs) -%>
+<% end -%>
+
 <%= render 'glossary_terms/index.html', glossary_terms: @book.glossary_terms.order(:name) %>
+<%= render 'biblioentries/index.html', biblioentries: @book.biblioentries %>
  

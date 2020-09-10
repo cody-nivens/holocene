@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :set_footer_content
+  helper_method :set_prev_chapter,:set_next_chapter
 
   def home
   end
@@ -36,6 +37,26 @@ class ApplicationController < ActionController::Base
     return my_ids
   end
 
+    def set_prev_chapter(chapter)
+      return chapter if chapter.position == 0
+      prev_position = chapter.position - 1
+      while chapter.scripted.chapters.where(position: prev_position).length == 0 && prev_position > 0
+        prev_position -= 1
+      end
+      return chapter.scripted.chapters.where(position: prev_position)[0]
+    end
+
+    def set_next_chapter(chapter)
+      max = chapter.scripted.chapters.map{|x| x.position}.max
+      return chapter if chapter.position == max
+      next_position = chapter.position + 1
+      num_of_chapters = chapter.scripted.chapters.length
+      while chapter.scripted.chapters.where(position: next_position).length == 0 && next_position < chapter.scripted.chapters.order(:position).last.position + 1
+        next_position += 1
+      end
+      return chapter.scripted.chapters.where(position: next_position)[0]
+    end
+
   private
   def set_footer_content
       @footer_content = []
@@ -60,15 +81,15 @@ class BookEPub
                    file_as: @book.name,
                    display_seq: 1
 
-    ts = ""
+    author_str = ""
     idx = 1
     @book.authors.each do |author|
       @ebook.add_creator "#{author.first_name} #{author.last_name}", display_seq: idx
-      ts += "#{author.first_name} #{author.last_name},"
+      author_str += "#{author.first_name} #{author.last_name},"
       idx += 1
     end
 
-    ts = ts.gsub(/^ /,'').gsub(/,$/,'')
+    author_str = author_str.gsub(/^ /,'').gsub(/,$/,'')
 
     imgfile = File.join(File.dirname(__FILE__),  '../../app/assets/images/image1.jpg')
     File.open(imgfile) do |io|
@@ -107,7 +128,7 @@ COVER
                <div class="title">
                  <h1 class="center">#{@book.name}</h1>
                  <h2 class="center">#{@book.sub_name}</h2>
-                 <h1 class="center">#{ts}</h1>
+                 <h1 class="center">#{author_str}</h1>
                  <hr/>
                  <h2 class="center">#{@book.publisher}</h2>
                </div>
@@ -122,7 +143,7 @@ TITLE_PAGE
                   <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
              </head>
              <body>
-                 <p class="no-indent">#{ts}</p>
+                 <p class="no-indent">#{author_str}</p>
                  <p class="no-indent">Copyright &#169; #{@book.copyright}</p>
                  <p class="no-indent">While every precaution has been taken in the
                  preparation of this book, the publisher and author assumes no
@@ -161,7 +182,7 @@ CHAP_ONE
    s = ""
    @book.chapters.each do |chapter|
      unless chapter.citations.length == 0
-       s += FootnotesController.render partial: "footnotes/citations.html", locals: { slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: false}
+       s += FootnotesController.render partial: "footnotes/citations.html", locals: { slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: false, title: nil}
      end
    end
 
@@ -176,15 +197,37 @@ CHAP_ONE
 </body></html>
 CITATIONS
 
-   @ebook.add_item("text/bibliography.xhtml").add_content(StringIO.new(<<-BIBLIOTERMS)).toc_text('Bibliography').landmark(type: 'bodymatter', title: 'Bibliography')
+@slugs = []
+@notes = {}
+@footnotes = []
+str = ""
+@book.chapters.order(:position).each do |chapter|
+  next unless chapter.always_display_events
+  unless chapter.holocene_events.length == 0
+    str += HoloceneEventsController.render :partial => "holocene_events/index.html", locals: {holocene_events: chapter.holocene_events.order(:start_year), chapter: chapter, links: false, epub: true, slugs: @slugs}
+  end
+  unless chapter.sections.length == 0
+    chapter.sections.order(:position).each do |section|
+      unless section.holocene_events.length == 0
+        str += HoloceneEventsController.render :partial => "holocene_events/index.html", locals: {holocene_events: section.holocene_events.order(:start_year), chapter: chapter, links: false, title: "#{chapter.name}:#{section.name}", epub: true, slugs: @slugs}
+      end
+    end
+  end
+end
+unless @slugs.length == 0
+str += write_footnotes(@slugs)
+end
+
+   @ebook.add_item("text/events.xhtml").add_content(StringIO.new(<<-EVENTS)).toc_text('Chapter Events').landmark(type: 'bodymatter', title: 'Chapter Events')
   <html xmlns="http://www.w3.org/1999/xhtml">
-  <head><title>Bibliography</title>
+  <head><title>Chapter Events</title>
         <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
   </head>
   <body>
-#{BiblioentriesController.render partial: 'biblioentries/index.html', locals: {biblioentries: @book.biblioentries}}
+  <h1>Chapter Events</h1>
+#{str}
 </body></html>
-BIBLIOTERMS
+EVENTS
 
    @ebook.add_item("text/glossary.xhtml").add_content(StringIO.new(<<-GLOSSTERMS)).toc_text('Glossary').landmark(type: 'bodymatter', title: 'Glossary')
   <html xmlns="http://www.w3.org/1999/xhtml">
@@ -195,6 +238,16 @@ BIBLIOTERMS
 #{GlossaryTermsController.render partial: 'glossary_terms/index.html', locals: {glossary_terms: @book.glossary_terms.order(:name)}}
 </body></html>
 GLOSSTERMS
+
+   @ebook.add_item("text/bibliography.xhtml").add_content(StringIO.new(<<-BIBLIOTERMS)).toc_text('Bibliography').landmark(type: 'bodymatter', title: 'Bibliography')
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head><title>Bibliography</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
+  </head>
+  <body>
+#{BiblioentriesController.render partial: 'biblioentries/index.html', locals: {biblioentries: @book.biblioentries}}
+</body></html>
+BIBLIOTERMS
 
 }
 

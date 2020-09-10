@@ -2,21 +2,25 @@ require 'test_helper'
 
 class ChaptersControllerTest < ActionDispatch::IntegrationTest
   setup do
+    @chapter_4 = chapters(:chapter_4)
+    @chapter_2 = chapters(:chapter_2)
     @chapter = chapters(:chapter_1)
-    @book = books(:book_1)
+    @section = sections(:section_1)
+    @scripted = @chapter.scripted
     @user = users(:users_1)
     sign_in @user
   end
 
   test "should get index" do
-    get book_chapters_url(@book)
+    get polymorphic_url([@scripted, 'chapters'])
     assert_response :success
 
     assert_select "a[text()=?]",'New Chapter'
-    assert_select "a[href=?]", new_book_chapter_path(@chapter.book)
+    assert_select "a[href=?]", new_polymorphic_path(@chapter.scripted)
+    assert_select "a[href=?]", toc_path(@chapter.scripted)
     assert_select "a[text()=?]",'Back'
     #assert_select "a[href=?]", back_path
-    assert_select ".footer>div>a", 2
+    assert_select ".footer>div>a", 3
   end
 
   test "should get holocene events" do
@@ -25,49 +29,56 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
-    get new_book_chapter_url(@book)
+    get new_polymorphic_url(@scripted)
     assert_response :success
 
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", book_chapters_path(@book)
     assert_select ".footer>div>a", 1
   end
 
-  test "should create chapter" do
-    assert_difference('Chapter.count') do
-        post book_chapters_url(@book), params: { chapter: { body: @chapter.body, name: @chapter.name, position: @chapter.position, book_id: @chapter.book_id} }
+  test "should demote chapter" do
+    assert_difference('Chapter.count',-1) do
+        get chapter_demote_url(@chapter_4)
     end
 
-    assert_redirected_to book_chapter_url(@book, Chapter.last)
+    assert_redirected_to polymorphic_url([@scripted, 'chapters'])
+  end
+
+  test "should promote chapter" do
+    assert_difference('Chapter.count',1) do
+      get chapter_section_promote_url(:id => @chapter_2.id,:section_id => @chapter_2.sections[1].id)
+    end
+
+    assert_redirected_to polymorphic_url([@scripted, 'chapters'])
   end
 
   test "should not create chapter" do
     assert_difference('Chapter.count', 0) do
-        post book_chapters_url(@book), params: {  chapter: { body: @chapter.body, name: "", position: @chapter.position, book_id: @chapter.book_id } }
+        post polymorphic_url([@scripted, 'chapters']), params: {  chapter: { body: @chapter.body, name: "", position: @chapter.position, scripted_id: @chapter.scripted_id, scripted_type: 'Book' } }
     end
 
     assert_response :success
   end
 
+  test "should create chapter" do
+    assert_difference('Chapter.count', 1) do
+        post polymorphic_url([@scripted, 'chapters']), params: { chapter: { body: @chapter.body, name: "Test", position: @chapter.position, scripted_type: 'Book', scripted_id: @chapter.scripted_id } }
+    end
+
+    assert_redirected_to polymorphic_path([@scripted, Chapter.last])
+  end
+
   test "should show chapter" do
-    get book_chapter_url(:book_id => @book.id, :id => @chapter.id)
+    get polymorphic_url([@scripted, @chapter])
     assert_response :success
 
-    #assert_select "a[text()=?]",'Edit'
-    assert_select "a[href=?]", edit_book_chapter_path(@book,@chapter)
-    assert_select "a[text()=?]",'Timeline'
-    assert_select "a[href=?]", chapter_timeline_path(@chapter)
-    assert_select "a[text()=?]",'Display'
-    assert_select "a[href=?]", chapter_display_path(@chapter)
-    assert_select "a[text()=?]",'Map'
-    assert_select "a[href=?]", geo_map_chapter_path(@chapter)
     assert_select "a[text()=?]",'Footnotes'
     assert_select "a[href=?]", chapter_footnotes_path(@chapter)
     assert_select "a[text()=?]",'Citations'
     assert_select "a[href=?]", chapter_citations_path(@chapter)
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", book_chapters_path(@book)
-    assert_select ".footer>div>a", 7
+    assert_select "a[href=?]", polymorphic_path([@scripted, 'chapters'])
+    assert_select ".footer>div>a", 11
   end
 
   test "should map chapter" do
@@ -82,12 +93,12 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   end
 
 #  test "should show pdf chapter" do
-#    get book_chapter_url(@book, @chapter, :format => :pdf)
+#    get polymorphic_url(@scripted, @chapter, :format => :pdf)
 #    assert_response :success
 #  end
 
   test "should show chapter sections" do
-    get book_chapter_sections_url(:book_id => @book.id, :chapter_id => @chapter.id)
+    get chapter_sections_url(:chapter_id => @chapter.id)
     assert_response :success
   end
 
@@ -102,31 +113,31 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    get edit_book_chapter_url(:book_id => @book.id, :id => @chapter.id)
+    get edit_polymorphic_url([@scripted, @chapter])
     assert_response :success
 
     assert_select "a[text()=?]",'Show'
-    assert_select "a[href=?]", book_chapter_path(@book,@chapter)
+    assert_select "a[href=?]", polymorphic_path([@scripted,@chapter])
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", book_chapters_path(@book)
+    assert_select "a[href=?]", polymorphic_path([@scripted, 'chapters'])
     assert_select ".footer>div>a", 2
   end
 
   test "should update chapter" do
-    patch book_chapter_url(:book_id => @book.id, :id => @chapter.id), params: { chapter: { body: @chapter.body, name: @chapter.name, position: @chapter.position, book: @book } }
-    assert_redirected_to book_chapter_url(@book, @chapter)
+    patch polymorphic_url([@scripted, @chapter]), params: { chapter: { body: @chapter.body, name: @chapter.name, position: @chapter.position, scripted: @scripted } }
+    assert_redirected_to polymorphic_url([@scripted, @chapter])
   end
 
   test "should not update chapter" do
-    patch book_chapter_url(:book_id => @book.id, :id => @chapter.id), params: { chapter: { body: @chapter.body, name: "", position: @chapter.position, book: @book } }
+    patch polymorphic_url([@scripted, @chapter]), params: { chapter: { body: @chapter.body, name: "", position: @chapter.position, scripted: @scripted } }
     assert_response :success
   end
 
   test "should destroy chapter" do
     assert_difference('Chapter.count', -1) do
-      delete book_chapter_url(:book_id => @book.id, :id => @chapter.id)
+      delete polymorphic_url([@scripted, @chapter])
     end
 
-    assert_redirected_to book_chapters_url(@book)
+    assert_redirected_to polymorphic_url([@scripted, 'chapters'])
   end
 end

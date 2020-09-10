@@ -4,26 +4,24 @@ class SectionsTest < ApplicationSystemTestCase
   setup do
     @section = sections(:section_1)
     @chapter = @section.chapter
-    @book = @chapter.book
     @user = users(:users_1)
     sign_in @user
   end
 
   test "visiting the index" do
-    visit book_chapter_sections_url(@book, @chapter)
+    visit chapter_sections_url(@chapter)
     assert_selector "h1", text: "Sections"
     assert_link "New Section"
     assert_no_text "link_to"
   end
 
   test "visiting the map" do
-    visit book_chapter_sections_url(@book, @chapter)
+    visit chapter_sections_url(@chapter)
     assert_selector "h1", text: "Sections"
     assert_link "New Section"
     assert_no_text "link_to"
     click_on "Show", match: :first
-    assert_link "Map"
-    click_on "Map"
+    Capybara.page.find('.fa-map-o').click
     assert_link "Back"
     click_on "Back"
   end
@@ -34,11 +32,10 @@ class SectionsTest < ApplicationSystemTestCase
   end
 
   test "visiting display" do
-    visit book_chapter_section_url(@book,@chapter,@section)
+    visit chapter_section_url(@chapter,@section)
 
     assert_text "Domestication of the Animals"
-    assert_link "Display"
-    click_on "Display"
+    Capybara.page.find('.fa-list').click
 
     assert_link "Add Event"
     assert_text "Domestication of Goats"
@@ -53,10 +50,9 @@ class SectionsTest < ApplicationSystemTestCase
     click_on "Add Events"
    
     assert_text "Section was successfully updated"
-    assert_text "Domestication of Cats"
 
-    assert_link  "Display"
-    click_on "Display"
+    Capybara.page.find('.fa-list').click
+    assert_text "Domestication of Cats"
 
     assert_button "Delete Events"
 
@@ -72,11 +68,10 @@ class SectionsTest < ApplicationSystemTestCase
   end
 
   test "visiting display 2" do
-    visit book_chapter_section_url(@book,@chapter,@section)
+    visit chapter_section_url(@chapter,@section)
 
     assert_text "Domestication of the Animals"
-    assert_link "Display"
-    click_on "Display"
+    Capybara.page.find('.fa-list').click
 
     assert_link "Add Event"
     assert_text "Domestication of Goats"
@@ -91,10 +86,9 @@ class SectionsTest < ApplicationSystemTestCase
     click_on "Add Events"
    
     assert_text "Section was successfully updated"
-    assert_text "Domestication of Cats"
 
-    assert_link  "Display"
-    click_on "Display"
+    Capybara.page.find('.fa-list').click
+    assert_text "Domestication of Cats"
 
     assert_button "Delete Events"
 
@@ -110,7 +104,7 @@ class SectionsTest < ApplicationSystemTestCase
   end
 
   test "creating a Section" do
-    visit book_chapter_sections_url(@book, @chapter)
+    visit chapter_sections_url(@chapter)
     click_on "New Section"
 
     fill_in "Name", with: @section.name
@@ -123,7 +117,7 @@ class SectionsTest < ApplicationSystemTestCase
   end
 
   test "should not create a Section" do
-    visit book_chapter_sections_url(@book, @chapter)
+    visit chapter_sections_url(@chapter)
     click_on "New Section"
 
     fill_in "Name", with: ""
@@ -140,8 +134,8 @@ class SectionsTest < ApplicationSystemTestCase
   end
 
   test "updating a Section" do
-    visit book_chapter_section_url(@book, @chapter, @section)
-    click_on "Edit", match: :first
+    visit chapter_section_url(@chapter, @section)
+    Capybara.page.find('.fa-pencil').click
 
     fill_in "Name", with: @section.name
     page.execute_script("var wysihtml5Editor = $('#section_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@section.body}')")
@@ -153,8 +147,8 @@ class SectionsTest < ApplicationSystemTestCase
   end
 
   test "should not update a Section" do
-    visit book_chapter_section_url(@book, @chapter, @section)
-    click_on "Edit", match: :first
+    visit chapter_section_url(@chapter, @section)
+    Capybara.page.find('.fa-pencil').click
 
     fill_in "Name", with: ""
     page.execute_script("var wysihtml5Editor = $('#section_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@section.body}')")
@@ -170,7 +164,7 @@ class SectionsTest < ApplicationSystemTestCase
   end
 
   test "destroying a Section" do
-    visit book_chapter_sections_url(@book, @chapter)
+    visit chapter_sections_url(@chapter)
     page.accept_confirm do
       click_on "Destroy", match: :first
     end

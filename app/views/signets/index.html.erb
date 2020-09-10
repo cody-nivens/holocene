@@ -1,0 +1,82 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Signets</h1>
+
+<table class='table'>
+  <thead>
+    <tr>
+      <th>Color</th>
+      <th>Message</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+<% if @sigged.class.name == "Book" %>
+  <% @sigged.chapters.order(:position).each do |chapter| %>
+    <% unless chapter.signets.length == 0 %>
+      <tr>
+        <td colspan=3><%= chapter.name %></td>
+      </tr>
+    <% chapter.signets.each do |signet| %>
+      <tr>
+        <td class="<%= Signet.color_class(signet.color) %>"><%= Signet.color_name(signet.color) %></td>
+        <td class="color-<%= Signet.color(signet.color) %>"><%= signet.message %></td>
+        <td><%= link_to (fa_icon "tv"), signet %>
+        <%= link_to (fa_icon "pencil"), edit_signet_path(signet) %>
+        <%= link_to (fa_icon "trash-o"), signet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  <% end %>
+  <% chapter.sections.order(:position).each do |section| %>
+    <% unless section.signets.length == 0 %>
+      <tr>
+        <td colspan=3><%= chapter.name %>:<%= section.name %></td>
+      </tr>
+    <% section.signets.each do |signet| %>
+      <tr>
+        <td class="<%= Signet.color_class(signet.color) %>"><%= Signet.color_name(signet.color) %></td>
+        <td class="color-<%= Signet.color(signet.color) %>"><%= signet.message %></td>
+        <td><%= link_to (fa_icon "tv"), signet %>
+        <%= link_to (fa_icon "pencil"), edit_signet_path(signet) %>
+        <%= link_to (fa_icon "trash-o"), signet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+    <% end %>
+    <% end %>
+  <% end %>
+<% else %>
+    <% @signets.each do |signet| %>
+      <tr>
+        <td class="<%= Signet.color_class(signet.color) %>"><%= Signet.color_name(signet.color) %></td>
+        <td class="color-<%= Signet.color(signet.color) %>"><%= signet.message %></td>
+        <td><%= link_to (fa_icon "tv"), signet %>
+        <%= link_to (fa_icon "pencil"), edit_signet_path(signet) %>
+        <%= link_to (fa_icon "trash-o"), signet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+<% end %>
+  </tbody>
+</table>
+
+<br>
+
+<% if @sigged.class.name == "Chapter" %>
+  <% @footer_content << "#{link_to 'New Signet', new_chapter_signet_path(@sigged), :class => "btn btn-default"}" %>
+<% elsif @sigged.class.name == "Section" %>
+  <% @footer_content << "#{link_to 'New Signet', new_section_signet_path(@sigged), :class => "btn btn-default"}" %>
+<% elsif @sigged.class.name == "Book" %>
+  <% @footer_content << "#{link_to 'New Signet', new_book_signet_path(@sigged), :class => "btn btn-default"}" %>
+<% elsif @sigged.class.name == "HoloceneEvent" %>
+  <% @footer_content << "#{link_to 'New Signet', new_holocene_event_signet_path(@sigged), :class => "btn btn-default"}" %>
+<% end %>
+<% if @sigged.class.name == "Chapter" %>
+  <% @footer_content << "#{link_to 'Back', chapter_path(@sigged), :class => "btn btn-default"}" %>
+<% elsif @sigged.class.name == "Section" %>
+  <% @footer_content << "#{link_to 'Back', chapter_path(@sigged.chapter), :class => "btn btn-default"}" %>
+<% elsif @sigged.class.name == "Book" %>
+  <% @footer_content << "#{link_to 'Back', book_path(@sigged), :class => "btn btn-default"}" %>
+<% elsif @sigged.class.name == "HoloceneEvent" %>
+  <% @footer_content << "#{link_to 'Back', holocene_event_path(@sigged), :class => "btn btn-default"}" %>
+<% end %>
+

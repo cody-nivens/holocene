@@ -9,6 +9,6 @@ class WelcomesTest < ApplicationSystemTestCase
 
    test "visiting the index" do
      visit root_url
-     assert_text "Holocene Events"
+     assert_text "Events"
    end
 end

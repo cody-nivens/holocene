@@ -1,0 +1,7 @@
+<p id="notice"><%= notice %></p>
+<h1>Character Attributes</h1>
+
+<%= render :partial => "character_attributes/index" %>
+<br/>
+
+<%= link_to 'New Character Attribute', new_character_attribute_path(:character_category_id => @character_category.id) %>

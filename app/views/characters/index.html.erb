@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Characters</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Reason for name</th>
+      <th>Nickname</th>
+      <th>Reason for nickname</th>
+      <th>Race</th>
+      <th>Occupation class</th>
+      <th>Social class</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @characters.each do |character| %>
+      <tr>
+        <td><%= character.name %></td>
+        <td><%= character.reason_for_name %></td>
+        <td><%= character.nickname %></td>
+        <td><%= character.reason_for_nickname %></td>
+        <td><%= character.race %></td>
+        <td><%= character.occupation_class %></td>
+        <td><%= character.social_class %></td>
+        <td><%= link_to 'Show', book_character_path(:book_id => @book.id, :id => character.id) %></td>
+        <td><%= link_to 'Edit', edit_book_character_path(:book_id => @book.id, :id => character.id) %></td>
+        <td><%= link_to 'Destroy', book_character_path(:book_id => @book.id, :id => character.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Character', new_book_character_path(:book_id => @book.id) %>

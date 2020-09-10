@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+key_point_1:
+  hook: Climate Change
+  inciting_incident: Government non-action
+  key_element: Technology
+  first_plot_point: Building the first ship
+  first_pinch_point: Using a volcano to reduce the earth's temperatures
+  midpoint: Enduring centuries on the ships
+  second_pinch_point: 
+  third_plot_point: Landing and transfer of technology to city created at landing site
+  climax: Restoration of the Earth 1,000 years in the Future
+  scripted: book_1 (Book)
+
+key_point_2:
+  hook: History is not based on the last 2,500 years
+  inciting_incident: Younger Dryas Impact Event
+  key_element: Gobekli Tepe
+  first_plot_point: Progression of the Stars
+  first_pinch_point: Time
+  midpoint: Nabta Playa hosting a school of the stars and mathematics
+  second_pinch_point: Climate Change
+  third_plot_point: Egypt as home of Watchers
+  climax: Egyptians at Baalbak
+  scripted: book_2 (Book)

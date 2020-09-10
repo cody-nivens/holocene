@@ -10,12 +10,12 @@ class PartitionsTest < ApplicationSystemTestCase
   end
 
   test "visiting the index" do
-    visit book_chapter_partitions_url(@book,@chapter)
+    visit chapter_partitions_url(@chapter)
     assert_selector "h1", text: "Partitions"
   end
 
   test "creating a Partition" do
-    visit book_chapter_partitions_url(@book,@chapter)
+    visit chapter_partitions_url(@chapter)
     click_on "New Partition"
 
     fill_in "Name", with: @partition.name
@@ -28,7 +28,7 @@ class PartitionsTest < ApplicationSystemTestCase
   end
 
   test "should not create a Partition" do
-    visit book_chapter_partitions_url(@book,@chapter)
+    visit chapter_partitions_url(@chapter)
     click_on "New Partition"
 
     fill_in "Name", with: ""
@@ -46,7 +46,7 @@ class PartitionsTest < ApplicationSystemTestCase
   end
 
   test "updating a Partition" do
-    visit book_chapter_partition_url(@book,@chapter,@partition)
+    visit chapter_partition_url(@chapter,@partition)
     click_on "Edit", match: :first
 
     fill_in "Name", with: @partition.name
@@ -58,7 +58,7 @@ class PartitionsTest < ApplicationSystemTestCase
   end
 
   test "should not update a Partition" do
-    visit book_chapter_partition_url(@book,@chapter,@partition)
+    visit chapter_partition_url(@chapter,@partition)
     click_on "Edit", match: :first
 
     fill_in "Name", with: ""
@@ -73,7 +73,7 @@ class PartitionsTest < ApplicationSystemTestCase
   end
 
   test "destroying a Partition" do
-    visit book_chapter_partitions_url(@book,@chapter)
+    visit chapter_partitions_url(@chapter)
     page.accept_confirm do
       click_on "Destroy", match: :first
     end

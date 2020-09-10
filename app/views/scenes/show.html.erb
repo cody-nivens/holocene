@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Abc:</strong>
+  <%= @scene.abc %>
+</p>
+
+<p>
+  <strong>Check:</strong>
+  <%= @scene.check %>
+</p>
+
+<p>
+  <strong>Summary:</strong>
+  <%= @scene.summary %>
+</p>
+
+<p>
+  <strong>Place:</strong>
+  <%= @scene.place %>
+</p>
+
+<p>
+  <strong>Time:</strong>
+  <%= @scene.time %>
+</p>
+
+<p>
+  <strong>Scene sequel:</strong>
+  <%= @scene.scene_sequel %>
+</p>
+
+<p>
+  <strong>Goal reaction:</strong>
+  <%= @scene.goal_reaction %>
+</p>
+
+<p>
+  <strong>Conflict dilemma:</strong>
+  <%= @scene.conflict_dilemma %>
+</p>
+
+<p>
+  <strong>Disaster decision:</strong>
+  <%= @scene.disaster_decision %>
+</p>
+
+<p>
+  <strong>Show term goal:</strong>
+  <%= @scene.short_term_goal %>
+</p>
+
+<p>
+  <strong>Long term goal:</strong>
+  <%= @scene.long_term_goal %>
+</p>
+
+<p>
+  <strong>Over arching goal:</strong>
+  <%= @scene.over_arching_goal %>
+</p>
+
+<%= link_to 'Edit', edit_book_scene_path(:book_id => @book.id, :id => @scene.id) %> |
+<%= link_to 'Back', :back %>

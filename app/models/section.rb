@@ -4,6 +4,7 @@ class Section < ApplicationRecord
 
     belongs_to :chapter
     has_many :footnotes, -> { where("slug != ?","") }, as: :noted
+    has_many :signets, as: :sigged
 
     has_and_belongs_to_many :holocene_events
 

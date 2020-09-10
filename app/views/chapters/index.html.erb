@@ -1,4 +1,5 @@
 <%= render 'chapters/index' %>
 
-<% @footer_content << "#{link_to 'New Chapter', new_book_chapter_path(@book), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'New Chapter', new_polymorphic_path([@scripted, Chapter]), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Chapters, TOC', toc_path(@scripted), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>

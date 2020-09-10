@@ -1,0 +1,19 @@
+<%= bootstrap_form_for [@book, @character] do |f| %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+    <%= hidden_field :book_id, value: @book.id %>
+
+  <div class="form-inputs">
+    <%= f.text_field :name %>
+    <%= f.text_field :reason_for_name %>
+    <%= f.text_field :nickname %>
+    <%= f.text_field :reason_for_nickname %>
+    <%= f.text_field :race %>
+    <%= f.text_field :occupation_class %>
+    <%= f.text_field :social_class %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -17,6 +17,24 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
     assert_select ".footer>div>a", 1
   end
 
+  test "should get index 2" do
+    get holocene_events_url params:{ holocene_events_grid: { name: "Dog" } }
+    assert_response :success
+
+    assert_select "a[text()=?]",'New Holocene Event'
+    assert_select "a[href=?]", new_holocene_event_path
+    assert_select ".footer>div>a", 1
+  end
+
+  test "should get index 3" do
+    get holocene_events_url params:{ holocene_events_grid: { event_type: EventType.first } }
+    assert_response :success
+
+    assert_select "a[text()=?]",'New Holocene Event'
+    assert_select "a[href=?]", new_holocene_event_path
+    assert_select ".footer>div>a", 1
+  end
+
   test "should show holocene_event timeline" do
       get timeline_timeline_url(:timeline_id => @timeline.id)
       assert_response :success

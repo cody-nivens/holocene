@@ -12,6 +12,7 @@ class HoloceneEvent < ApplicationRecord
   #has_and_belongs_to_many :holocene_events, as: :parents
 
   has_many :footnotes, -> { where("slug != ?","") }, as: :noted
+  has_many :signets, as: :sigged
 
   accepts_nested_attributes_for :region
   accepts_nested_attributes_for :event_types

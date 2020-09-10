@@ -3,64 +3,54 @@ require "application_system_test_case"
 class ChaptersTest < ApplicationSystemTestCase
   setup do
     @chapter = chapters(:chapter_1)
-    @book = @chapter.book
+    @scripted = @chapter.scripted
     @user = users(:users_1)
     sign_in @user
   end
 
-  test "generating PDF" do
-    visit book_chapter_url(@book,@chapter, format: 'pdf')
-
-    content = DownloadHelpers::download_content
-    body = convert_pdf_to_page(content)
-    assert_match /Climate and History/,body
+  test "visiting the map" do
+    visit polymorphic_url([@scripted, 'chapters'])
+    Capybara.page.find('.fa-map-o', match: :first).click
+    assert_no_text "link_to"
+    assert_link "Back"
+    click_on "Back"
   end
 
-
   test "visiting the index" do
-    visit book_chapters_url(@book)
-    assert_selector "h1", text: "Chapters"
+    visit polymorphic_url([@scripted, 'chapters'])
     assert_link "New Chapter"
     assert_no_text "link_to"
   end
 
+  test "demoting a chapter" do
+    visit polymorphic_url([@scripted, 'chapters'])
+    Capybara.page.find('.fa-level-down', match: :first).click
+  end
+
+  test "promoting a chapter" do
+    visit polymorphic_url([@scripted, 'chapters'])
+    Capybara.page.find('.fa-level-up', match: :first).click
+  end
+
   test "visiting a chapter" do
-    visit book_chapter_url(@book,@chapter)
-    assert_selector "h1", text: "Cultural Events"
+    visit polymorphic_url([@scripted,@chapter])
     assert_link "Partition"
     within(".footer") do
-      assert_link "Map"
-      click_on "Map"
       assert_link "Back"
       click_on "Back"
     end
   end
 
-  test "visiting the map" do
-    visit book_chapters_url(@book)
-    assert_selector "h1", text: "Chapters"
-    assert_link "New Chapter"
-    assert_no_text "link_to"
-    click_on "Show", match: :first
-    assert_link "Map"
-    click_on "Map", match: :first
-    assert_link "Back"
-    click_on "Back"
-  end
-
   test "visiting the timeline" do
     visit chapter_timeline_url(@chapter)
-    assert_text "Domestication of Horses"
+    assert_text " DOMESTICATION OF HORSES"
   end
 
   test "visiting display" do
-    visit book_chapter_url(@book,@chapter)
-
-    assert_selector "h1", text: "Cultural Events"
+    visit polymorphic_url([@scripted, @chapter])
 
     within(:css, ".footer") do
-        assert_link  "Display"
-        click_on "Display"
+      Capybara.page.find('.fa-list').click
     end
 
     assert_link "Add Event"
@@ -79,8 +69,7 @@ class ChaptersTest < ApplicationSystemTestCase
     assert_text "Domestication of Cats"
 
     within(:css, ".footer") do
-        assert_link  "Display"
-        click_on "Display"
+      Capybara.page.find('.fa-list').click
     end
 
     assert_text "Domestication of Cats"
@@ -98,14 +87,13 @@ class ChaptersTest < ApplicationSystemTestCase
     assert_text "Chapter was successfully updated"
 
     within(:css, ".footer") do
-        assert_link  "Display"
-        click_on "Display"
+      Capybara.page.find('.fa-list').click
     end
     assert_no_text "Domestication of Cats"
   end
 
   test "creating a Chapter" do
-    visit book_chapters_url(@book)
+    visit polymorphic_url([@scripted, 'chapters'])
     click_on "New Chapter"
 
     fill_in "Name", with: @chapter.name
@@ -127,7 +115,7 @@ class ChaptersTest < ApplicationSystemTestCase
   end
 
   test "should not create a Chapter" do
-    visit book_chapters_url(@book)
+    visit polymorphic_url([@scripted, 'chapters'])
     click_on "New Chapter"
 
     fill_in "Name", with: ""
@@ -143,8 +131,10 @@ class ChaptersTest < ApplicationSystemTestCase
   end
 
   test "updating a Chapter" do
-    visit book_chapters_url(@book)
-    click_on "Edit", match: :first
+    visit polymorphic_url([@scripted, 'chapters'])
+    within(:xpath, "//a[text()='Cultural Events ']/../../..") do
+      Capybara.page.find(:xpath,'(//a[contains(@href,"chapters")][contains(@href,"edit")])[2]').click
+    end
 
     fill_in "Name", with: @chapter.name
     page.execute_script("var wysihtml5Editor = $('#chapter_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@chapter.body}')")
@@ -156,22 +146,25 @@ class ChaptersTest < ApplicationSystemTestCase
   end
 
   test "should not update a Chapter" do
-    visit book_chapters_url(@book)
-    click_on "Edit", match: :first
+    visit polymorphic_url([@scripted, 'chapters'])
+    within(:xpath, "//a[text()='Cultural Events ']/../../..") do
+      Capybara.page.find(:xpath,'(//a[contains(@href,"chapters")][contains(@href,"edit")])[2]').click
+    end
 
     fill_in "Name", with: ""
-    click_on "Update Chapter"
+    click_on "Update"
 
     assert_text "can't be blank"
 
     fill_in "Name", with: @chapter.name
     click_on "Update Chapter"
+
     assert_text "Chapter was successfully updated"
     click_on "Back", match: :first
   end
 
   test "destroying a Chapter" do
-    visit book_chapters_url(@book)
+    visit polymorphic_url([@scripted, 'chapters'])
     page.accept_confirm do
       click_on "Destroy", match: :first
     end

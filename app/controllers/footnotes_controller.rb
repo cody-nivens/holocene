@@ -36,13 +36,13 @@ class FootnotesController < ApplicationController
   def create
     @footnote = Footnote.new(footnote_params)
     @noted = @footnote.noted
-    #@noted = find_notable
 
     respond_to do |format|
       if @footnote.save
         format.html {
             redirect_to "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnote/#{@footnote.id}",
-                                :notice => "Footnote was successfully created"
+                        :only_path => true,
+                        :notice => "Footnote was successfully created"
         }
         format.json { render :show, status: :created, location: @footnote }
       else
@@ -60,7 +60,8 @@ class FootnotesController < ApplicationController
       if @footnote.update(footnote_params)
         format.html {
             redirect_to "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnote/#{@footnote.id}",
-                                :notice => "Footnote was successfully updated"
+                        :only_path => true,
+                        :notice => "Footnote was successfully updated"
         }
         format.json { render :show, status: :ok, location: @footnote }
       else
@@ -78,7 +79,8 @@ class FootnotesController < ApplicationController
     respond_to do |format|
         format.html {
             redirect_to "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnotes",
-                                :notice => "Footnote was successfully destroyed"
+                        :only_path => true,
+                        :notice => "Footnote was successfully destroyed"
         }
       format.json { head :no_content }
     end

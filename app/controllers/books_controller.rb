@@ -1,10 +1,14 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:epub, :export, :pdf, :show, :edit, :update, :destroy]
+  before_action :set_book, only: [:toc, :epub, :export, :pdf, :show, :edit, :update, :destroy]
 
   # GET /books
   # GET /books.json
   def index
     @books = Book.all
+  end
+
+  def toc
+    @chapters = @book.chapters.order(:position).all
   end
 
 #      format.pdf {

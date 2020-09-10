@@ -18,14 +18,13 @@
         $(elem).wysihtml5({
            toolbar: {
                "fa": true,
-              "style": false,
-              "font-styles": false,
+              "font-styles": true,
               "emphasis": true,
-              "lists": false,
+              "lists": true,
               "html": true,
-              "link": false,
-              "image": false,
-              "color": false
+              "link": true,
+              "image": true,
+              "color":true 
            },
            parser: function(html) {
               return html;

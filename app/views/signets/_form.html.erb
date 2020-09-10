@@ -1,0 +1,22 @@
+<%= bootstrap_form_for [@sigged, @signet] do |f| %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <% colors = [] %>
+    <% indx = 0 %>
+    <% while indx < Signet.num_of_colors %>
+      <% colors << [ Signet.color_name(indx), indx ] %>
+      <% indx += 1 %>
+    <% end %>
+    <%= f.select :color, options_for_select(colors) %>
+
+    <%= f.text_field :message %>
+
+    <%= f.hidden_field :sigged_type %>
+    <%= f.hidden_field :sigged_id %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

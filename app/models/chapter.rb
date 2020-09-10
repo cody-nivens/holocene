@@ -6,8 +6,11 @@ class Chapter < ApplicationRecord
     has_and_belongs_to_many :timelines
     has_many :sections
     has_many :footnotes, -> { where("slug != ?","") }, as: :noted
+    has_many :signets, as: :sigged
+    has_many :scenes
 
-    belongs_to :book
+    belongs_to :scripted, polymorphic: true
+
     has_one :partition
     has_one :aside
 

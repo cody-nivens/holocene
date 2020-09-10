@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @character_category.name %>
+</p>
+<%= render :partial => "character_attributes/index" %>
+<%= link_to 'Edit', edit_character_category_path(@character_category) %> |
+<%= link_to 'New Character Attribute', new_character_attribute_path(:character_category_id => @character_category.id) %> |
+<%= link_to 'Back', character_categories_path %>

@@ -1,0 +1,73 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Partition</th>
+            <th>Name</th>
+<!--            <th>Sections</th> -->
+            <th>Word Count</th>
+            <th>Events</th>
+            <th>Footnotes</th>
+            <th>Citations</th>
+            <th>Start Year</th>
+            <th>End Year</th>
+            <th colspan=3></th>
+        </tr>
+    </thead>
+  <tbody class="sortable">
+    <% @chapters.each_with_sortable_id do |chapter, sortable_id| %>
+      <tr id="<%= sortable_id %>">
+    <% if chapter.partition.nil? %>
+        <td><%#= link_to (fa_icon "plus"), new_chapter_partition_path(@book, chapter), :title => "Partition"  %>
+    <% else %>
+        <td><%#= link_to (fa_icon "pencil"), chapter_partition_path(@book, chapter,chapter.partition), :title => "Partition"  %>
+    <% end %>
+        <%= raw (chapter.partition.nil? ? '' : "#{link_to chapter.partition.name, chapter_partition_path(chapter,chapter.partition)}") %></td>
+        <td><%#= link_to (fa_icon "pencil"), edit_polymorphic_path([@book, chapter]), :title => "Edit"  %>
+        <strong><font size="4"><%= link_to chapter.name, polymorphic_path([@book, chapter]), :title => "Show"  %></font></strong>
+    <% if chapter.aside.nil? %>
+        <%#= link_to (fa_icon "plus"), new_book_chapter_aside_path(@book, chapter), :title => "Aside" %>
+    <% else %>
+        <br/>
+        <%#= link_to chapter.aside.name, book_chapter_aside_path(@book, chapter, chapter.aside), :title => chapter.aside.name %>
+        <%#= link_to (fa_icon "pencil"), edit_book_chapter_aside_path(@book, chapter,chapter.aside), :title => "Edit Aside" %>
+    <% end %>
+        </td>
+        <td align="right"><%= number_with_delimiter chapter.word_count %>
+  <!--  <%# unless chapter.aside.nil? %>
+        <br/><%#= chapter.aside.word_count %>
+    <%# end -%> -->
+        </td>
+        <td align="right"><%= chapter.total_events %></td>
+        <td align="right"><%= number_with_delimiter chapter.footnotes.count %></td>
+        <td align="right"><%= number_with_delimiter chapter.citations.count %></td>
+        <td align="right"><%= HoloceneEvent.convert_ad(chapter.sections.map{|x| x.holocene_events.minimum('start_year')}.compact.min) %></td>
+        <td align="right"><%= HoloceneEvent.convert_ad(chapter.sections.map{|x| x.holocene_events.maximum('start_year')}.compact.max) %></td>
+        <td><%#= link_to (fa_icon "list-alt"), book_chapter_sections_path(chapter.scripted, chapter), :title => "Sections"  %></td>
+        <td><%= link_to (fa_icon "level-down"), chapter_demote_path(chapter), data: { confirm: 'Are you sure?' }, :title => "Demote"  %></td>
+        <td><%= link_to (fa_icon "trash-o"), polymorphic_path([@book, chapter]), method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy"  %></td>
+      </tr>
+      <!--  <%# chapter.sections.order(:position).each do |section| -%>
+          <tr><td></td>
+            <td><strong><%#= (section.embed? ? "Brief Note: " : '') %></strong><%#= section.name %></td>
+          <td align="right"><%#= number_with_delimiter section.word_count %></td>
+          <td align="right"><%#= section.holocene_events.count %></td>
+          <td align="right"><%#= section.footnotes.count %></td>
+          <td align="right"></td>
+          <td align="right"><%#= HoloceneEvent.convert_ad(section.holocene_events.minimum('start_year')) %></td>
+          <td align="right"><%#= HoloceneEvent.convert_ad(section.holocene_events.maximum('start_year')) %></td>
+        <td><%#= link_to (fa_icon "level-up"), chapter_section_promote_path(chapter, section), :title => "Promote"  %></td>
+
+        <td colspan=6></td>
+          </tr>
+        <%# end -%> -->
+        </td>
+        
+        </td>
+
+    <% end %>
+  </tbody>
+</table>
+
+<% @footer_content << "#{link_to 'New Chapter', new_polymorphic_path(@book), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Chapters, Details', polymorphic_path([@book, 'chapters']), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>

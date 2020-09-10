@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Hook:</strong>
+  <%= @key_point.hook %>
+</p>
+
+<p>
+  <strong>Inciting incident:</strong>
+  <%= @key_point.inciting_incident %>
+</p>
+
+<p>
+  <strong>Key element:</strong>
+  <%= @key_point.key_element %>
+</p>
+
+<p>
+  <strong>First plot point:</strong>
+  <%= @key_point.first_plot_point %>
+</p>
+
+<p>
+  <strong>First pinch point:</strong>
+  <%= @key_point.first_pinch_point %>
+</p>
+
+<p>
+  <strong>Midpoint:</strong>
+  <%= @key_point.midpoint %>
+</p>
+
+<p>
+  <strong>Second pinch point:</strong>
+  <%= @key_point.second_pinch_point %>
+</p>
+
+<p>
+  <strong>Third plot point:</strong>
+  <%= @key_point.third_plot_point %>
+</p>
+
+<p>
+  <strong>Climax:</strong>
+  <%= @key_point.climax %>
+</p>
+
+<%= link_to 'Edit', edit_polymorphic_path([@scripted, @key_point]) %> |
+<%= link_to 'Back', polymorphic_path(@scripted) %>

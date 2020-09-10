@@ -3,12 +3,15 @@ class Book < ApplicationRecord
 
     has_many :glossary_terms
     has_many :biblioentries
-
-    has_many :chapters
+    has_many :stories
+    has_many :chapters, :as => :scripted
+    has_many :key_points, :as => :scripted
     has_and_belongs_to_many :authors
 
 
     validates :name, presence: true
+
+    has_many :signets, as: :sigged
 
     def show_events?
       return self.show_events

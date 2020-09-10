@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Character Values</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Attribute</th>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @character_values.each do |character_value| %>
+      <tr>
+        <td><%= character_value.character_attribute.character_category.name.humanize %></td>
+        <td><%= character_value.character_attribute.name.humanize %></td>
+        <td><%= character_value.value %></td>
+        <td><%= link_to 'Show', character_value %></td>
+        <td><%= link_to 'Edit', edit_character_value_path(character_value) %></td>
+        <td><%= link_to 'Destroy', character_value, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Character Value', new_character_value_path(:character_id => @character.id) %>
