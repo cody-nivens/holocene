@@ -36,7 +36,7 @@ class HoloceneEventsController < ApplicationController
     else
         @command = "Delete Events"
     end
-    @list_items = (@object.class.name == 'Chapter' ? @object.sections.order(:name) : (@object.class.name == 'Section' ? @object.chapter.sections.order(:name) : nil))
+    @list_items = (@object.class.name == 'Chapter' ? @object.sections.order(:name) : (@object.class.name == 'Section' ? @object.sectioned.sections.order(:name) : nil))
     @grid = HoloceneEventsGrid.new(grid_params.merge({:id => ids,:object => @object})) do |scope|
         scope.page(params[:page])
     end
@@ -78,7 +78,7 @@ class HoloceneEventsController < ApplicationController
             @object.holocene_events.delete(he)
             case object_type = params[:holocene_event][:object_type]
             when "Section"
-                @other = @object.chapter
+                @other = @object.sectioned
                 @other.holocene_events << he
             end
           when "Move Events"
@@ -87,7 +87,7 @@ class HoloceneEventsController < ApplicationController
             if params[:holocene_event][:other_id] != ""
                 case object_type = params[:holocene_event][:object_type]
                 when "Section"
-                    @other = @object.chapter.sections.find(params[:holocene_event][:other_id])
+                    @other = @object.sectioned.sections.find(params[:holocene_event][:other_id])
                     @other.holocene_events << he
                 when "Chapter"
                     @other = @object.sections.find(params[:holocene_event][:other_id])

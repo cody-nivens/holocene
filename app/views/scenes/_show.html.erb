@@ -1,0 +1,73 @@
+<p id="notice"><%= notice %></td></tr>
+
+<table class="table">
+  <tbody>
+<tr>
+  <th>Abc:</th><td>
+  <%= scene.abc %>
+</td></tr>
+
+<tr>
+  <th>Check:</th><td>
+  <%= scene.check %>
+</td></tr>
+
+<tr>
+  <th>Summary:</th><td>
+  <%= scene.summary %>
+</td></tr>
+
+<tr>
+  <th>Place:</th><td>
+  <%= scene.place %>
+</td></tr>
+
+<tr>
+  <th>Time:</th><td>
+  <%= scene.time %>
+</td></tr>
+
+<tr>
+  <th>Scene sequel:</th><td>
+  <%= scene.scene_sequel %>
+</td></tr>
+
+<tr>
+  <th>Goal reaction:</th><td>
+  <%= scene.goal_reaction %>
+</td></tr>
+
+<tr>
+  <th>Conflict dilemma:</th><td>
+  <%= scene.conflict_dilemma %>
+</td></tr>
+
+<tr>
+  <th>Disaster decision:</th><td>
+  <%= scene.disaster_decision %>
+</td></tr>
+
+<tr>
+  <th>Short term goal:</th><td>
+  <%= scene.short_term_goal %>
+</td></tr>
+
+<tr>
+  <th>Long term goal:</th><td>
+  <%= scene.long_term_goal %>
+</td></tr>
+
+<tr>
+  <th>Over arching goal:</th><td>
+  <%= scene.over_arching_goal %>
+</td></tr>
+
+<tr>
+  <th>Section Body:</th><td>
+  <% unless scene.section.nil? %>
+  <%= raw scene.section.body %>
+  <% end %>
+</td></tr>
+  </tbody>
+</table>
+

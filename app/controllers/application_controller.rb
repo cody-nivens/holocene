@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :set_footer_content
   helper_method :set_prev_chapter,:set_next_chapter
+  helper_method :set_prev_key_point,:set_next_key_point
 
   def home
   end
@@ -55,6 +56,26 @@ class ApplicationController < ActionController::Base
         next_position += 1
       end
       return chapter.scripted.chapters.where(position: next_position)[0]
+    end
+
+    def set_prev_key_point(key_point)
+      return key_point if key_point.position.to_i == 0
+      prev_position = key_point.position.to_i - 1
+      while key_point.scripted.key_points.where(position: prev_position).length == 0 && prev_position > 0
+        prev_position -= 1
+      end
+      return key_point.scripted.key_points.where(position: prev_position)[0]
+    end
+
+    def set_next_key_point(key_point)
+      max = key_point.scripted.key_points.map{|x| x.position}.max
+      return key_point if key_point.position.to_i == max
+      next_position = key_point.position.to_i + 1
+      num_of_key_points = key_point.scripted.key_points.length
+      while key_point.scripted.key_points.where(position: next_position).length == 0 && next_position < key_point.scripted.key_points.order(:position).last.position.to_i + 1
+        next_position += 1
+      end
+      return key_point.scripted.key_points.where(position: next_position)[0]
     end
 
   private

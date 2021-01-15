@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:toc, :epub, :export, :pdf, :show, :edit, :update, :destroy]
+  before_action :set_book, only: [:resync_stories,:toc, :epub, :export, :pdf, :show, :edit, :update, :destroy]
 
   # GET /books
   # GET /books.json
@@ -25,10 +25,25 @@ class BooksController < ApplicationController
 #            text_size_shrink: 0.5
 #          }
 #      }
+
+  def resync_stories
+    index = 65
+    @book.stories.order(:position).each do |story|
+      story.update_attribute(:scene_character, index.chr)
+      index += 1
+      story.resync_key_points
+    end
+
+    respond_to do |format|
+        format.html { redirect_to book_stories_path(@book), notice: 'Stories were successfully resynced.' }
+    end
+  end
+
   # GET /books/1
   # GET /books/1.json
   def show
     @chapters = @book.chapters
+    @stories = @book.stories if @book.is_fiction?
 
     respond_to do |format|
       format.html { render :show }
@@ -41,7 +56,7 @@ class BooksController < ApplicationController
           toc: {
             disable_dotted_lines: true,
             disable_toc_links: true,
-            level_indentation: 3,
+            level_indentation: 4,
             header_text: @book.name,
             text_size_shrink: 0.5
           }
@@ -129,6 +144,6 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.require(:book).permit(:name, :body, :user_id, :show_events, :copyright, :sub_name, :publisher)
+      params.require(:book).permit(:name, :body, :user_id, :show_events, :copyright, :sub_name, :publisher, :fiction)
     end
 end

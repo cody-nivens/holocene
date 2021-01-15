@@ -21,8 +21,58 @@
 </p>
 
 <p>
+  <strong>Honorific:</strong>
+  <%= @character.honorific %>
+</p>
+
+<p>
   <strong>Race:</strong>
   <%= @character.race %>
+</p>
+
+<p>
+  <strong>Reign:</strong>
+  <%= @character.reign %>
+</p>
+
+<p>
+  <strong>Birth Year:</strong>
+  <%= @character.birth_year %>
+</p>
+
+<p>
+  <strong>Death Year:</strong>
+  <%= @character.death_year %>
+</p>
+
+<p>
+  <strong>Age at Son:</strong>
+  <%= @character.age_at_son %>
+</p>
+
+<p>
+  <strong>First Name:</strong>
+  <%= @character.first_name %>
+</p>
+
+<p>
+  <strong>Middle Name:</strong>
+  <%= @character.middle_name %>
+</p>
+
+<p>
+  <strong>Last Name:</strong>
+  <%= @character.last_name %>
+</p>
+
+<p>
+  <strong>Suffix:</strong>
+  <%= @character.suffix %>
+</p>
+
+<p>
+  <strong>Father:</strong>
+  <%= (@character.father.nil? ? '' : @character.father.name) %>
 </p>
 
 <p>
@@ -35,6 +85,6 @@
   <%= @character.social_class %>
 </p>
 
-<%= link_to 'Edit', edit_book_character_path(:book_id => @book.id, :id => @character.id) %> |
-<%= link_to 'Attributes', character_values_path(:character_id => @character.id) %> |
-<%= link_to 'Back', book_characters_path(:book_id => @book.id) %>
+<% @footer_content << "#{link_to 'Edit', edit_polymorphic_path([@object, @character]), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Attributes', polymorphic_path([@object, @character, 'character_values']), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', polymorphic_path([@object, 'characters']), :class => "btn btn-default"}" %>

@@ -9,11 +9,3 @@ users_1:
     zone: &2 !ruby/object:ActiveSupport::TimeZone
       name: Etc/UTC
     time: *1
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &3 2018-11-15 04:18:21.000000000 Z
-    zone: *2
-    time: *3
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &4 2018-11-16 00:37:56.000000000 Z
-    zone: *2
-    time: *4

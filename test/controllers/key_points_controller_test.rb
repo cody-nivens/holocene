@@ -4,6 +4,8 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @key_point = key_points(:key_point_1)
     @scripted = @key_point.scripted
+    @scene_2 = scenes(:scene_2)
+    @scene_3 = scenes(:scene_3)
     @user = users(:users_1)
     sign_in @user
   end
@@ -13,9 +15,40 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get new" do
-    get new_polymorphic_url(@scripted)
+  test "should get list" do
+    get polymorphic_url([@scripted, @key_point, 'list']), params: { selector: 1 }
     assert_response :success
+  end
+
+  test "should add key_points" do
+    assert_difference('KeyPoint.count', 0) do
+      post polymorphic_url([@scripted, @key_point, 'add']), params: { scenes_ids: [ ], scenes_avail: [ ],
+                                                                     selector: 1, "#{@scripted.class.name.underscore}_id" => @scripted.id }
+    end
+    assert_redirected_to polymorphic_url([@scripted, 'key_point_list'])
+  end
+
+  test "should add key_points II" do
+    assert_difference('@key_point.scenes.where(selector: 1).count') do
+      post polymorphic_url([@scripted, @key_point, 'add']), params: { scenes_ids: [ ], scenes_avail: [ @scene_3.id ],
+                                                                     selector: 1, "#{@scripted.class.name.underscore}_id" => @scripted.id }
+    end
+    assert_redirected_to polymorphic_url([@scripted, 'key_point_list'])
+  end
+
+  test "should add key_points III" do
+    assert_difference('@key_point.scenes.where(selector: 1).count', -1) do
+      post polymorphic_url([@scripted, @key_point, 'add']), params: { scenes_ids: [ @scene_2.id ], scenes_avail: [ ],
+                                                                     selector: 1, "#{@scripted.class.name.underscore}_id" => @scripted.id }
+    end
+    assert_redirected_to polymorphic_url([@scripted, 'key_point_list'])
+  end
+
+  test "should get new" do
+    get new_polymorphic_url([@scripted, KeyPoint])
+    assert_response :success
+
+    assert_select "h1", text: "New Key Point"
   end
 
   test "should create key_point" do

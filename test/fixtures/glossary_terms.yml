@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+glossary_1:
   name: MyString
   body: MyText
   see_id: 
@@ -9,7 +9,7 @@ one:
   user: users_1
   book: book_1
 
-two:
+glossary_2:
   name: MyString
   body: MyText
   see_id: 

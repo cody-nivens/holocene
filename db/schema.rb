@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_09_161216) do
+ActiveRecord::Schema.define(version: 2021_01_12_150038) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -96,6 +96,8 @@ ActiveRecord::Schema.define(version: 2020_09_09_161216) do
     t.string "sub_name"
     t.string "copyright"
     t.text "publisher"
+    t.boolean "fiction"
+    t.string "scene_character"
   end
 
   create_table "books_characters", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -115,7 +117,15 @@ ActiveRecord::Schema.define(version: 2020_09_09_161216) do
     t.boolean "always_display_events", default: false
     t.string "scripted_type", null: false
     t.bigint "scripted_id", null: false
+    t.boolean "display_title", default: true
     t.index ["scripted_type", "scripted_id"], name: "index_chapters_on_scripted_type_and_scripted_id"
+  end
+
+  create_table "chapters_characters", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "chapter_id", null: false
+    t.bigint "character_id", null: false
+    t.index ["chapter_id", "character_id"], name: "index_chapter_character_1"
+    t.index ["character_id", "chapter_id"], name: "index_chapter_character_2"
   end
 
   create_table "chapters_holocene_events", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -167,6 +177,24 @@ ActiveRecord::Schema.define(version: 2020_09_09_161216) do
     t.string "social_class"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "birth_year"
+    t.integer "death_year"
+    t.integer "father_id"
+    t.integer "age_at_son"
+    t.string "first_name"
+    t.string "middle_name"
+    t.string "last_name"
+    t.string "suffix"
+    t.string "honorific"
+    t.string "grouping"
+    t.boolean "use_honorific_only", default: false
+  end
+
+  create_table "characters_scenes", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "character_id", null: false
+    t.bigint "scene_id", null: false
+    t.index ["character_id", "scene_id"], name: "index_scene_character_1"
+    t.index ["scene_id", "character_id"], name: "index_scene_character_2"
   end
 
   create_table "characters_stories", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -288,6 +316,7 @@ ActiveRecord::Schema.define(version: 2020_09_09_161216) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "scripted_type"
     t.bigint "scripted_id"
+    t.integer "position"
     t.index ["scripted_type", "scripted_id"], name: "index_key_points_on_scripted_type_and_scripted_id"
   end
 
@@ -326,7 +355,14 @@ ActiveRecord::Schema.define(version: 2020_09_09_161216) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "key_point_id"
-    t.integer "book_id"
+    t.string "situated_type", null: false
+    t.bigint "situated_id", null: false
+    t.integer "position"
+    t.integer "selector", default: 0
+    t.bigint "section_id"
+    t.integer "insert_scene_id"
+    t.boolean "before_flag", default: false
+    t.index ["situated_type", "situated_id"], name: "index_scenes_on_situated_type_and_situated_id"
   end
 
   create_table "sections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -339,6 +375,9 @@ ActiveRecord::Schema.define(version: 2020_09_09_161216) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "embed", default: 0
+    t.string "sectioned_type", null: false
+    t.bigint "sectioned_id", null: false
+    t.index ["sectioned_type", "sectioned_id"], name: "index_sections_on_sectioned_type_and_sectioned_id"
   end
 
   create_table "signets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -356,6 +395,8 @@ ActiveRecord::Schema.define(version: 2020_09_09_161216) do
     t.integer "book_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "position"
+    t.string "scene_character"
   end
 
   create_table "taggings", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|

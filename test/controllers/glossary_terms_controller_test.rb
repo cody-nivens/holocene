@@ -2,7 +2,7 @@ require 'test_helper'
 
 class GlossaryTermsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @glossary_term = glossary_terms(:one)
+    @glossary_term = glossary_terms(:glossary_1)
     @book = books(:book_1)
     @user = users(:users_1)
     sign_in @user

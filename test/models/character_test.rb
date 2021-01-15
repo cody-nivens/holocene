@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class CharacterTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+   test "generating legacy" do
+     Character.create_character_lineage(["Charles","George"])
+   end
 end

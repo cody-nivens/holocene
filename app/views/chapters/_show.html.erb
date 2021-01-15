@@ -8,7 +8,9 @@
 <% end -%>
 <div style = "display:block; clear:both; page-break-after:always;"></div>
 <% unless !chapter.partition.nil? && chapter.partition.name == chapter.name.gsub(/\s+$/, '') -%>
+<% unless !chapter.display_title? %>
 <h1><%= chapter.name %></h1>
+<% end -%>
 <% end -%>
 <% @notes = notes if @notes.nil? -%>
 <% @slugs = [] -%>

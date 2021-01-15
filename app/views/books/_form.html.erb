@@ -1,7 +1,9 @@
 <%= bootstrap_form_for(@book ) do |f| %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-    <%= f.text_field :name %>  <%= f.check_box :show_events %>
+  <%= f.text_field :name %>
+  <%= f.check_box :show_events %>
+  <%= f.check_box :fiction %>
     <%= f.text_field :sub_name %>
     <%= f.text_field :copyright %>
 

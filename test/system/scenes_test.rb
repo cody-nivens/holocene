@@ -3,23 +3,23 @@ require "application_system_test_case"
 class ScenesTest < ApplicationSystemTestCase
   setup do
     @scene = scenes(:scene_1)
-    @book = @scene.book
+    @situated = @scene.situated
     @user = users(:users_1)
     sign_in @user
   end
 
   test "visiting the index" do
-    visit book_scenes_url(:book_id => @book.id)
+    visit polymorphic_url([@situated, 'scenes'])
     assert_selector "h1", text: "Scenes"
   end
 
   test "visiting the scene" do
-    visit book_scene_url(:book_id => @book.id, :id => @scene.id)
+    visit polymorphic_url([@situated, @scene])
     assert_text "Abc"
   end
 
   test "creating a Scene" do
-    visit book_scenes_url(:book_id => @book.id)
+    visit polymorphic_url([@situated, 'scenes'])
     click_on "New Scene"
 
     fill_in "Abc", with: @scene.abc
@@ -38,12 +38,13 @@ class ScenesTest < ApplicationSystemTestCase
 
     click_on "Create Scene"
 
+    
     assert_text "Scene was successfully created"
     click_on "Back"
   end
 
   test "not creating a Scene" do
-    visit book_scenes_url(:book_id => @book.id)
+    visit polymorphic_url([@situated, 'scenes'])
     click_on "New Scene"
 
     fill_in "Abc", with: @scene.abc
@@ -67,7 +68,7 @@ class ScenesTest < ApplicationSystemTestCase
   end
 
   test "updating a Scene" do
-    visit book_scenes_url(:book_id => @book.id)
+    visit polymorphic_url([@situated, 'scenes'])
     click_on "Edit", match: :first
 
     fill_in "Abc", with: @scene.abc
@@ -92,7 +93,7 @@ class ScenesTest < ApplicationSystemTestCase
   end
 
   test "not updating a Scene" do
-    visit book_scenes_url(:book_id => @book.id)
+    visit polymorphic_url([@situated, 'scenes'])
     click_on "Edit", match: :first
 
     fill_in "Abc", with: @scene.abc
@@ -116,7 +117,7 @@ class ScenesTest < ApplicationSystemTestCase
   end
 
   test "destroying a Scene" do
-    visit book_scenes_url(:book_id => @book.id)
+    visit polymorphic_url([@situated, 'scenes'])
     page.accept_confirm do
       click_on "Destroy", match: :first
     end

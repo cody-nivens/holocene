@@ -1,7 +1,8 @@
-<%= bootstrap_form_for [@book, @chapter,@section] do |f| %>
+<%= bootstrap_form_for [@sectioned,@section] do |f| %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <%= f.hidden_field :chapter_id %>
+  <%= f.hidden_field :sectioned_id %>
+  <%= f.hidden_field :sectioned_type %>
   <%= f.text_field :name %>
   <%= f.check_box :display_name %>
   <%= f.text_field :embed %>

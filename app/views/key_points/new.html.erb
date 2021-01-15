@@ -2,4 +2,5 @@
 
 <%= render 'form', key_point: @key_point %>
 
-<%= link_to 'Back', polymorphic_path(@scripted) %>
+<% @footer_content << "#{link_to 'Back', polymorphic_path([@scripted, 'key_points']), :class => "btn btn-default"}" %>
+

@@ -4,21 +4,22 @@ class CharacterValuesTest < ApplicationSystemTestCase
   setup do
     @character_value = character_values(:character_value_1)
     @character = @character_value.character
+    @book = @character.books[0]
     @user = users(:users_1)
     sign_in @user
   end
 
   test "visiting the index" do
-    visit character_values_url(:character_id => @character.id)
+    visit polymorphic_url([@book, @character, 'character_values'])
     assert_selector "h1", text: "Character Values"
   end
 
   test "creating a Character value" do
-    visit character_values_url(:character_id => @character.id)
+    visit polymorphic_url([@book, @character, 'character_values'])
     click_on "New Character Value"
 
-    select "Physical attributes", from: "character_category_id"
-    select "Weight", from: "character_value_character_attribute_id"
+    select "Family", from: "character_category_id"
+    select "Mother", from: "character_value_character_attribute_id"
     fill_in "Value", with: @character_value.value
     click_on "Create Character value"
 
@@ -27,7 +28,7 @@ class CharacterValuesTest < ApplicationSystemTestCase
   end
 
   test "not creating a Character value" do
-    visit character_values_url(:character_id => @character.id)
+    visit polymorphic_url([@book, @character, 'character_values'])
     click_on "New Character Value"
 
     select "Weight", from: "character_value_character_attribute_id"
@@ -39,7 +40,7 @@ class CharacterValuesTest < ApplicationSystemTestCase
   end
 
   test "updating a Character value" do
-    visit character_values_url(:character_id => @character.id)
+    visit polymorphic_url([@book, @character, 'character_values'])
     click_on "Edit", match: :first
 
     select "Weight", from: "character_value_character_attribute_id"
@@ -51,7 +52,7 @@ class CharacterValuesTest < ApplicationSystemTestCase
   end
 
   test "not updating a Character value" do
-    visit character_values_url(:character_id => @character.id)
+    visit polymorphic_url([@book, @character, 'character_values'])
     click_on "Edit", match: :first
 
     select "Weight", from: "character_value_character_attribute_id"
@@ -63,7 +64,7 @@ class CharacterValuesTest < ApplicationSystemTestCase
   end
 
   test "destroying a Character value" do
-    visit character_values_url(:character_id => @character.id)
+    visit polymorphic_url([@book, @character, 'character_values'])
     page.accept_confirm do
       click_on "Destroy", match: :first
     end

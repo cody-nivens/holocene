@@ -1,18 +1,18 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 character_attribute_1:
-  name: height
+  name: Height
   character_category: character_category_1
 
 character_attribute_2:
-  name: weight
+  name: Weight
   character_category: character_category_1
 
 character_attribute_3:
-  name: mother
+  name: Mother
   character_category: character_category_2
   
 character_attribute_4:
-  name: relation_with_mother
+  name: Relation with mother
   character_category: character_category_2
   related: character_attribute_3

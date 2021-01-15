@@ -1,0 +1,56 @@
+<div style = "display:block; clear:both; page-break-after:always;"></div>
+
+
+<h2>
+  <%= key_point.hook %>
+</h2>
+
+<p>
+  <strong>Inciting incident:</strong>
+  <%= key_point.inciting_incident %>
+</p>
+
+<p>
+  <strong>Key element:</strong>
+  <%= key_point.key_element %>
+</p>
+
+<p>
+  <strong>First plot point:</strong>
+  <%= key_point.first_plot_point %>
+  <%= render partial: 'key_points/scenes.html', :locals => {selector: 1, :key_point => key_point, pdf: true} %>
+</p>
+
+<p>
+  <strong>First pinch point:</strong>
+  <%= key_point.first_pinch_point %>
+  <%= render partial: 'key_points/scenes.html', :locals => {selector: 2, key_point: key_point, pdf: true} %>
+</p>
+
+<p>
+  <strong>Midpoint:</strong>
+  <%= key_point.midpoint %>
+  <%= render partial: 'key_points/scenes.html', :locals => {selector: 3, key_point: key_point, pdf: true} %>
+</p>
+
+<p>
+  <strong>Second pinch point:</strong>
+  <%= key_point.second_pinch_point %>
+  <%= render partial: 'key_points/scenes.html', :locals => {selector: 4, key_point: key_point, pdf: true} %>
+</p>
+
+<p>
+  <strong>Third plot point:</strong>
+  <%= key_point.third_plot_point %>
+  <%= render partial: 'key_points/scenes.html', :locals => {selector: 5, key_point: key_point, pdf: true} %>
+</p>
+
+<p>
+  <strong>Climax:</strong>
+  <%= key_point.climax %>
+  <%= render partial: 'key_points/scenes.html', :locals => {selector: 6, key_point: key_point, pdf: true} %>
+</p>
+
+<%# key_point.scenes.order(:selector).order(:position).each do |scene| %>
+  <%#= render partial: 'scenes/show.html', locals: {scene: scene } %>
+<%# end %>

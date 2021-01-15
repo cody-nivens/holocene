@@ -1,6 +1,6 @@
 class Author < ApplicationRecord
-    has_and_belongs_to_many :biblioentries
-    has_and_belongs_to_many :books
+    has_and_belongs_to_many :biblioentries, dependent: :nullify
+    has_and_belongs_to_many :books, dependent: :nullify
 
     belongs_to :user
 

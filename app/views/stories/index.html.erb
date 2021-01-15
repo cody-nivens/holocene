@@ -2,25 +2,29 @@
 
 <h1>Stories</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Title</th>
       <th>Summary</th>
-      <th>Book</th>
+      <th colspan="1">KP</th>
+      <th colspan="1">C</th>
+      <th colspan="1">SC</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
-  <tbody>
-    <% @stories.each do |story| %>
-      <tr>
-        <td><%= story.title %></td>
+  <tbody class="sortable">
+    <% @stories.each_with_sortable_id do |story, sortable_id| %>
+      <tr id="<%= sortable_id %>">  <!-- Needs id tag on sorting elements -->
+        <td class="text-nowrap"><%= link_to story.title,    book_story_path(:book_id => @book.id, :id => story.id) %></td>
         <td><%= story.summary %></td>
-        <td><%= story.book.name %></td>
-        <td><%= link_to 'Show', story %></td>
-        <td><%= link_to 'Edit', edit_story_path(story) %></td>
-        <td><%= link_to 'Destroy', story, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= story.key_points.count %></td>
+        <td><%= story.characters.count %></td>
+        <td><%= story.scene_character %></td>
+        <td><%= link_to 'Show',    book_story_path(:book_id => @book.id, :id => story.id) %></td>
+        <td><%= link_to 'Edit',    edit_book_story_path(:book_id => @book.id, :id => story.id) %></td>
+        <td><%= link_to 'Destroy', book_story_path(:book_id => @book.id, :id => story.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +32,13 @@
 
 <br>
 
-<%= link_to 'New Story', new_story_path(:book_id => @book.id) %>
+<% @footer_content << "#{link_to 'New Story', new_book_story_path(:book_id => @book.id), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Scenes', book_scenes_path(:id => @book.id), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Resync Stories', book_resync_stories_path(:id => @book.id), :class => "btn btn-default hide-print" }" %>
+<% @footer_content << "#{link_to 'Back', book_path(@book), :class => "btn btn-default"}" %>
+
+<script>
+$(function() {
+  $('.sortable').railsSortable();
+});
+</script>

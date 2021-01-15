@@ -336,4 +336,12 @@ table td, table td * {
 .color-AFEEEE {
     background-color: #AFEEEE;
     }
-
+@media print {
+  .hide-print {
+    display: none;
+  }
+}
+//simple_form input for rich_text_area hight
+trix-editor.form-control {
+  height: auto;
+}

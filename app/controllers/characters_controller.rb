@@ -1,11 +1,11 @@
 class CharactersController < ApplicationController
   before_action :set_character, only: [:show, :edit, :update, :destroy]
-  before_action :set_book, only: [:index, :new, :edit, :show, :create, :update, :destroy ]
+  before_action :set_object, only: [:index, :new, :add, :list, :edit, :show, :create, :update, :destroy ]
 
   # GET /characters
   # GET /characters.json
   def index
-    @characters = Character.all
+    @characters = @object.characters
   end
 
   # GET /characters/1
@@ -18,6 +18,39 @@ class CharactersController < ApplicationController
     @character = Character.new
   end
 
+  # GET /characters/1/list
+  def list
+  end
+
+  # GET /characters/1/add
+  def add
+    characters_avail = params[:characters_avail]
+    characters_ids = params[:characters_ids]
+
+    unless characters_avail.nil?
+      characters_avail.each do |character_id|
+        next if character_id.blank?
+        character = Character.find(character_id)
+        @object.characters << character unless @object.characters.include?(character)
+        @object.book.characters << character if @object.class.name != 'Book' && @object.class.name != 'Scene' && !@object.book.characters.include?(character)
+        @object.key_point.scripted.book.characters << character if @object.class.name == 'Scene' && !@object.key_point.scripted.book.characters.include?(character)
+      end
+    end
+
+    unless characters_ids.nil?
+      characters_ids.each do |character_id|
+        next if character_id.blank?
+        character = Character.find(character_id)
+        @object.characters.destroy(character) if @object.characters.include?(character)
+      end
+    end
+
+    respond_to do |format|
+       format.html { redirect_to polymorphic_path([ @object, 'characters_list'])}
+    end
+  end
+
+  # POST /characters
   # GET /characters/1/edit
   def edit
   end
@@ -29,8 +62,11 @@ class CharactersController < ApplicationController
 
     respond_to do |format|
       if @character.save
-        @character.books << @book
-        format.html { redirect_to book_character_path(:book_id => @book.id, :id => @character.id), notice: 'Character was successfully created.' }
+        @object.characters << @character
+        @object.key_point.scripted.book.characters << @character if @object.class.name == 'Scene' && !@object.key_point.scripted.book.characters.include?(@character)
+        @object.key_point.scripted.characters << @character if @object.class.name == 'Scene' && !@object.key_point.scripted.characters.include?(@character)
+
+        format.html { redirect_to polymorphic_path([@object, @character]), notice: 'Character was successfully created.' }
         format.json { render :show, status: :created, location: @character }
       else
         format.html { render :new }
@@ -44,7 +80,7 @@ class CharactersController < ApplicationController
   def update
     respond_to do |format|
       if @character.update(character_params)
-        format.html { redirect_to book_character_path(:book_id => @book.id, :id => @character.id), notice: 'Character was successfully updated.' }
+        format.html { redirect_to polymorphic_path([@object, @character]), notice: 'Character was successfully updated.' }
         format.json { render :show, status: :ok, location: @character }
       else
         format.html { render :edit }
@@ -58,7 +94,7 @@ class CharactersController < ApplicationController
   def destroy
     @character.destroy
     respond_to do |format|
-      format.html { redirect_to book_characters_url(:book_id => @book.id), notice: 'Character was successfully destroyed.' }
+      format.html { redirect_to polymorphic_url([@object, 'characters']), notice: 'Character was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,12 +105,15 @@ class CharactersController < ApplicationController
       @character = Character.find(params[:id])
     end
 
-    def set_book
-      @book = Book.find(params[:book_id])
+    def set_object
+    klass = [Scene, Story, Book].detect{|c| params["#{c.name.underscore}_id"]}
+    @object = klass.find(params["#{klass.name.underscore}_id"])
     end
 
     # Only allow a list of trusted parameters through.
     def character_params
-      params.require(:character).permit(:name, :reason_for_name, :nickname, :reason_for_nickname, :race, :occupation_class, :social_class)
+      params.require(:character).permit(:name, :reason_for_name, :nickname, :reason_for_nickname, :race, :occupation_class, 
+                                        :social_class, :first_name, :middle_name, :last_name, :suffix, :birth_year, :death_year,
+                                       :age_at_son, :father_id, :honorific, :grouping, :use_honorific_only)
     end
 end

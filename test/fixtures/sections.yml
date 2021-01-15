@@ -5,16 +5,7 @@ section_1:
   body: 'This [[new_slug]]is a test[[old_slug]]'
   position: 0
   slug: FBz8kjcBbN
-  chapter: chapter_1
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &1 2018-11-15 04:18:23.000000000 Z
-    zone: &2 !ruby/object:ActiveSupport::TimeZone
-      name: Etc/UTC
-    time: *1
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &3 2018-11-15 04:18:23.000000000 Z
-    zone: *2
-    time: *3
+  sectioned: chapter_1 (Chapter)
   holocene_events:
       - holocene_event_5
 section_2:
@@ -23,31 +14,14 @@ section_2:
   body: ''
   position: 1
   slug: HJct7pHDDe
-  chapter: chapter_1
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &4 2018-11-15 04:18:24.000000000 Z
-    zone: *2
-    time: *4
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &5 2018-11-15 04:18:24.000000000 Z
-    zone: *2
-    time: *5
+  sectioned: chapter_1 (Chapter)
 section_3:
   name: 'Domestication of Cows'
   display_name: 
   body: 'This is section 3.'
   position: 0
   slug: FBz8kjcBbN
-  chapter: chapter_3
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &1 2018-11-15 04:18:23.000000000 Z
-    zone: &2 !ruby/object:ActiveSupport::TimeZone
-      name: Etc/UTC
-    time: *1
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &3 2018-11-15 04:18:23.000000000 Z
-    zone: *2
-    time: *3
+  sectioned: chapter_3 (Chapter)
   holocene_events:
       - holocene_event_5
 section_4:
@@ -56,31 +30,14 @@ section_4:
   body: 'This is section 4.'
   position: 1
   slug: HJct7pHDDe
-  chapter: chapter_3
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &4 2018-11-15 04:18:24.000000000 Z
-    zone: *2
-    time: *4
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &5 2018-11-15 04:18:24.000000000 Z
-    zone: *2
-    time: *5
+  sectioned: chapter_3 (Chapter)
 section_5:
   name: 'Domestication of the strawberry'
   display_name: 
   body: 'This is section 5.'
   position: 0
   slug: FBz8kjcBbN
-  chapter: chapter_4
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &1 2018-11-15 04:18:23.000000000 Z
-    zone: &2 !ruby/object:ActiveSupport::TimeZone
-      name: Etc/UTC
-    time: *1
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &3 2018-11-15 04:18:23.000000000 Z
-    zone: *2
-    time: *3
+  sectioned: chapter_4 (Chapter)
   holocene_events:
       - holocene_event_5
 section_6:
@@ -89,46 +46,21 @@ section_6:
   body: 'This is section 6.'
   position: 1
   slug: HJct7pHDDe
-  chapter: chapter_4
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &4 2018-11-15 04:18:24.000000000 Z
-    zone: *2
-    time: *4
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &5 2018-11-15 04:18:24.000000000 Z
-    zone: *2
-    time: *5
+  sectioned: chapter_4 (Chapter)
 section_7:
   name: 'Vinoculture'
   display_name: 
   body: 'This is section 7.'
   position: 1
   slug: HJct7pHDDe
-  chapter: chapter_2
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &4 2018-11-15 04:18:24.000000000 Z
-    zone: *2
-    time: *4
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &5 2018-11-15 04:18:24.000000000 Z
-    zone: *2
-    time: *5
+  sectioned: chapter_2 (Chapter)
 section_8:
   name: 'Domestication of the Animals '
   display_name: 
   body: 'This is section 8.'
   position: 1
   slug: FBz8kjcBbN
-  chapter: chapter_2
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &1 2018-11-15 04:18:23.000000000 Z
-    zone: &2 !ruby/object:ActiveSupport::TimeZone
-      name: Etc/UTC
-    time: *1
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &3 2018-11-15 04:18:23.000000000 Z
-    zone: *2
-    time: *3
+  sectioned: chapter_2 (Chapter)
   holocene_events:
       - holocene_event_5
 section_9:
@@ -137,27 +69,18 @@ section_9:
   body: 'This is section 9.'
   position: 2
   slug: HJct7pHDDe
-  chapter: chapter_2
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &4 2018-11-15 04:18:24.000000000 Z
-    zone: *2
-    time: *4
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &5 2018-11-15 04:18:24.000000000 Z
-    zone: *2
-    time: *5
+  sectioned: chapter_2 (Chapter)
 section_10:
   name: 'Tasty things'
   display_name: 
   body: 'This is section 10.'
   position: 3
   slug: HJct7pHDDe
-  chapter: chapter_2
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &4 2018-11-15 04:18:24.000000000 Z
-    zone: *2
-    time: *4
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &5 2018-11-15 04:18:24.000000000 Z
-    zone: *2
-    time: *5
+  sectioned: chapter_2 (Chapter)
+section_11:
+  name: 'Dark and stormy night'
+  display_name: 
+  body: 'Dark and stormy night.'
+  position: 1
+  slug: HJct7pHDDe
+  sectioned: scene_1 (Scene)

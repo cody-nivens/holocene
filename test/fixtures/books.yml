@@ -2,13 +2,11 @@
 book_1:
   name: Fun Events in History
   body: ''
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &1 2018-11-15 04:18:23.000000000 Z
-    zone: &2 !ruby/object:ActiveSupport::TimeZone
-      name: Etc/UTC
-    time: *1
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &3 2018-11-16 00:05:50.000000000 Z
-    zone: *2
-    time: *3
   user: users_1
+  fiction: 0
+
+book_2:
+  name: The Phantom
+  body: ''
+  user: users_1
+  fiction: 1

@@ -1,6 +1,6 @@
 class AuthorsController < ApplicationController
   before_action :set_author, only: [:show, :edit, :update, :destroy]
-  before_action :set_book, only: [ :show, :index, :create, :new, :edit, :update, :destroy]
+  before_action :set_book, only: [ :show, :index, :add, :list, :create, :new, :edit, :update, :destroy]
 
 
   # GET /books/:book_id/authors(.:format)
@@ -11,6 +11,37 @@ class AuthorsController < ApplicationController
   # GET /books/:book_id/authors/:id(.:format)
   def show
   end
+
+    # GET /authors/1/list
+  def list
+  end
+
+  # GET /authors/1/add
+  def add
+    authors_avail = params[:authors_avail]
+    authors_ids = params[:authors_ids]
+
+    unless authors_avail.nil?
+      authors_avail.each do |author_id|
+        next if author_id.blank?
+        author = Author.find(author_id)
+        @book.authors << author unless @book.authors.include?(author)
+      end
+    end
+
+    unless authors_ids.nil?
+      authors_ids.each do |author_id|
+        next if author_id.blank?
+        author = Author.find(author_id)
+        @book.authors.destroy(author) if @book.authors.include?(author)
+      end
+    end
+
+    respond_to do |format|
+       format.html { redirect_to book_authors_list_path(:book_id => @book.id) }
+    end
+  end
+
 
   # GET /books/:book_id/authors/new(.:format)
   def new

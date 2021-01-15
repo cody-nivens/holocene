@@ -1,37 +1,86 @@
 Rails.application.routes.draw do
 
+  concern :sectioned do |options|
+     resources :chapters, options
+     resources :scenes, options
+  end
+
+  concern :situated do |options|
+     resources :chapters, options
+     resources :stories, options
+  end
+
   concern :scripted do |options|
      resources :chapters, options
      resources :key_points, options
   end
-  resources :stories do
-    resources :key_points
-    resources :chapters
-  end
   resources :signets
   resources :embeds
-  resources :character_values
   resources :character_attributes
   resources :character_categories
 
+  post "/books/:book_id/authors/add", to: "authors#add", as: :book_authors_add
+  get "/books/:book_id/authors/list", to: "authors#list", as: :book_authors_list
+  post "/books/:book_id/characters/add", to: "characters#add", as: :book_characters_add
+  get "/books/:book_id/characters/list", to: "characters#list", as: :book_characters_list
+  post "/scenes/:scene_id/characters/add", to: "characters#add", as: :scene_characters_add
+  get "/scenes/:scene_id/characters/list", to: "characters#list", as: :scene_characters_list
+  get "/stories/:story_id/characters/list", to: "characters#list", as: :story_characters_list
+  post "/stories/:story_id/characters/add", to: "characters#add", as: :story_characters_add
+
+  get "/books/:id/resync_stories", to: "books#resync_stories", as: :book_resync_stories
+  get "/stories/:id/resync_scenes", to: "stories#resync_scenes", as: :story_resync_scenes
+  get "/stories/:story_id/key_points/:id/list", to: "key_points#list", as: :story_key_point_list
+  post "/stories/:story_id/key_points/:id/add", to: "key_points#add", as: :story_key_point_add
+  get "/books/:book_id/key_points/:id/list", to: "key_points#list", as: :book_key_point_list
+  post "/books/:book_id/key_points/:id/add", to: "key_points#add", as: :book_key_point_add
 #  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
   resources :footnotes
+    resources :scenes do
+      resources :characters do
+      resources :character_values
+    end
+    end
   resources :books do
     concerns :scripted, scripted_type: 'Book'
-    resources :key_points
+    resources :key_points do
+      resources :sections
+    end
+    resources :characters do
+      resources :character_values
+    end
     resources :scenes
-    resources :characters
     resources :authors
     resources :glossary_terms
     resources :biblioentries
-  end
-    resources :chapters do
-      concerns :scripted, scripted_type: 'Chapter'
-      resources :asides
-      resources :partitions
-      resources :sections
+    resources :stories
+    resources :key_points do
+      resources :scenes 
     end
+  end
+    resources :stories do
+      concerns :situated, scripted_type: 'Story'
+      resources :scenes 
+      resources :key_points do
+        resources :scenes 
+      end
+      resources :chapters
+      resources :characters do
+        resources :character_values
+      end
+    end
+  resources :chapters do
+    concerns :scripted, scripted_type: 'Chapter'
+    concerns :sectioned, sectioned_type: 'Chapter'
+    resources :scenes 
+    resources :asides
+    resources :partitions
+    resources :sections
+ end
+ resources :scenes do
+    resources :sections
+  end
   resources :epochs
   resources :timelines
   get "welcome/index"
@@ -119,6 +168,7 @@ Rails.application.routes.draw do
   post "/citations/:citation_id/holocene_events", to: "holocene_events#objects", as: :citation_holocene_event
 
   get "/books/:book_id/chapter/:id", to: "chapters#move", as: :move_book_chapter
+
 
   get "/chapters/:chapter_id/signets",               to: "signets#index", as: :chapter_signets
   get "/sections/:section_id/signets",               to: "signets#index", as: :section_signets

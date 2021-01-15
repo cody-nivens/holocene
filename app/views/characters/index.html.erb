@@ -1,39 +1,244 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Characters</h1>
+<h1>Characters for <%= @object.class.name %></h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Reason for name</th>
-      <th>Nickname</th>
-      <th>Reason for nickname</th>
-      <th>Race</th>
-      <th>Occupation class</th>
-      <th>Social class</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<%= tabs do |c| %>
 
-  <tbody>
-    <% @characters.each do |character| %>
-      <tr>
-        <td><%= character.name %></td>
-        <td><%= character.reason_for_name %></td>
-        <td><%= character.nickname %></td>
-        <td><%= character.reason_for_nickname %></td>
-        <td><%= character.race %></td>
-        <td><%= character.occupation_class %></td>
-        <td><%= character.social_class %></td>
-        <td><%= link_to 'Show', book_character_path(:book_id => @book.id, :id => character.id) %></td>
-        <td><%= link_to 'Edit', edit_book_character_path(:book_id => @book.id, :id => character.id) %></td>
-        <td><%= link_to 'Destroy', book_character_path(:book_id => @book.id, :id => character.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% unless @characters.where("last_name like ?", "").empty? %>
+<% c.tab " " do %>
+  <span>
+    <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
 
-<br>
+<% unless @characters.where("last_name like ?", "A%").empty? %>
+<% c.tab "A" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","A%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
 
-<%= link_to 'New Character', new_book_character_path(:book_id => @book.id) %>
+<% unless @characters.where("last_name like ?", "B%").empty? %>
+<% c.tab "B" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","B%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "C%").empty? %>
+<% c.tab "C" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","C%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "D%").empty? %>
+<% c.tab "D" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","D%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "E%").empty? %>
+<% c.tab "E" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","E%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "F%").empty? %>
+<% c.tab "F" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","F%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "G%").empty? %>
+<% c.tab "G" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","G%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "H%").empty? %>
+<% c.tab "H" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","H%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "I%").empty? %>
+<% c.tab "I" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","I%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "J%").empty? %>
+<% c.tab "J" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","J%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "K%").empty? %>
+<% c.tab "K" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","K%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "L%").empty? %>
+<% c.tab "L" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","L%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "M%").empty? %>
+<% c.tab "M" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","M%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "N%").empty? %>
+<% c.tab "N" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","N%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "O%").empty? %>
+<% c.tab "O" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","O%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "P%").empty? %>
+<% c.tab "P" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","P%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "Q%").empty? %>
+<% c.tab "Q" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","Q%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "R%").empty? %>
+<% c.tab "R" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","R%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "S%").empty? %>
+<% c.tab "S" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","S%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "T%").empty? %>
+<% c.tab "T" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","T%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "U%").empty? %>
+<% c.tab "U" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","U%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "V%").empty? %>
+<% c.tab "V" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","V%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "W%").empty? %>
+<% c.tab "W" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","W%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "X%").empty? %>
+<% c.tab "X" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","X%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "Y%").empty? %>
+<% c.tab "Y" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","Y%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+
+<% unless @characters.where("last_name like ?", "Z%").empty? %>
+<% c.tab "Z" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","Z%").order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% end %>
+<% c.tab "*1" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% c.tab "*2" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.order(:birth_year)} %>
+  </span>
+<% end %>
+<% c.tab "*3" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.order(:death_year)} %>
+  </span>
+<% end %>
+
+<% end %>
+
+<% if @object.class.name == 'Book' %>
+<% @footer_content << "#{link_to 'New Character', new_polymorphic_path([@object, 'character']), :class => "btn btn-default" }" %>
+<% end -%>
+<% @footer_content << "#{link_to 'Add Character', polymorphic_path([@object, 'characters_list']), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Back', polymorphic_path(@object), :class => "btn btn-default" }" %>

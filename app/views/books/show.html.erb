@@ -8,10 +8,22 @@
   <%= raw @book.body %>
 </p>
 
-<%#= render 'chapters/index', book_id: @book.id %>
+<p>
+<strong>Stories:</strong>
+<%= @book.stories.count %>
+</p>
 
-<%# @footer_content << "#{link_to 'New Chapter', new_book_chapter_path(@book), :class => "btn btn-default" }" %>
+<p>
+<strong>Characters:</strong>
+<%= @book.characters.count %>
+</p>
+
+<% if @book.is_fiction? %>
+<% @footer_content << "#{link_to 'Stories', book_stories_path(@book), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Characters', polymorphic_path([@book, 'characters' ]), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Key Points', polymorphic_path([@book, 'key_points']), :class => "btn btn-default" }" %>
+<% else %>
 <% @footer_content << "#{link_to 'Chapters, TOC', toc_path(@book), :class => "btn btn-default" }" %>
-<% @scripted = @book %>
-<% @footer_content << "#{link_to 'Chapters, Details', polymorphic_path([@scripted, 'chapters']), :class => "btn btn-default" }" %>
-<% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Chapters, Details', polymorphic_path([@book, 'chapters']), :class => "btn btn-default" }" %>
+<% end %>
+<% @footer_content << "#{link_to 'Back', books_path, :class => "btn btn-default"}" %>

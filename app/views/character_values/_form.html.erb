@@ -1,9 +1,9 @@
-
-<%= simple_form_for(@character_value) do |f| %>
+<%= simple_form_for [@object, @character, @character_value] do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
+    <%= hidden_field "#{@object.class.name.underscore}_id".to_sym, @object.id %>
     <%= hidden_field :character_id, @character.id %>
     <%= f.hidden_field :character_id, value: @character.id %>
 

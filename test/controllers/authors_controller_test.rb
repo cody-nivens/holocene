@@ -2,21 +2,43 @@ require 'test_helper'
 
 class AuthorsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @author = authors(:authors_1)
+    @author_1 = authors(:authors_1)
+    @author = authors(:authors_3)
+    @author_2 = authors(:authors_2)
     @user = users(:users_1)
-    @book = @author.books[0]
+    @book = @author_1.books[0]
     sign_in @user
   end
 
   test "should get index" do
-    get book_authors_url(@book)
+    get book_authors_url(:book_id => @book.id)
     assert_response :success
 
     assert_select "a[text()=?]",'New Author'
     assert_select "a[href=?]", new_book_author_path(@book)
     assert_select "a[text()=?]",'Back'
     assert_select "a[href=?]", book_authors_path(@book)
-    assert_select ".footer>div>a", 2
+    assert_select ".footer>div>a", 3
+  end
+
+    test "should add authors I" do
+    assert_difference('@book.authors.count') do
+      post book_authors_add_url(:book_id => @book.id), params: { authors_ids: [  ], authors_avail: [ @author.id ] }
+    end
+
+    assert_redirected_to polymorphic_path([@book, 'authors_list'])
+  end
+
+  test "should add authors II" do
+    assert_difference('@book.authors.count') do
+      post book_authors_add_url(:book_id => @book.id), params: { authors_ids: [  ], authors_avail: [ @author.id ] }
+    end
+
+    assert_difference('@book.authors.count', -1) do
+      post book_authors_add_url(:book_id => @book.id), params: { authors_ids: [ @author.id ], authors_avail: [ ] }
+    end
+
+    assert_redirected_to polymorphic_path([@book, 'authors_list'])
   end
 
   test "should get new" do
@@ -74,7 +96,7 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not update author" do
-      patch book_author_url(@book,@author), params: { author: { first_name: "", last_name: @author.last_name, user_id: @user.id } }
+    patch book_author_url(:book_id => @book.id,:id => @author.id), params: { author: { first_name: "", last_name: @author.last_name, user_id: @user.id } }
     assert_response :success
   end
 

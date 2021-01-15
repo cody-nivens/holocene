@@ -1,5 +1,5 @@
 
-<%= simple_form_for(@story) do |f| %>
+<%= simple_form_for [ @book, @story ] do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
@@ -9,6 +9,9 @@
 
     <%= f.input :title %>
     <%= f.input :summary %>
+    <%= f.input :scene_character %>
+
+    <%= f.collection_select :character_ids, @book.characters.order("name ASC"), "id", :name, prompt: "Select a character", multiple: true , class: "form-control" %>
   </div>
 
   <div class="form-actions">

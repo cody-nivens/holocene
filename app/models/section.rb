@@ -2,7 +2,12 @@ class Section < ApplicationRecord
     include RailsSortable::Model
     set_sortable :position # Indicate a sort column
 
-    belongs_to :chapter
+    belongs_to :sectioned, polymorphic: true
+
+    #belongs_to :chapter, :optional => true
+    #has_many :chapters, :as => :scripted
+    #has_many :scenes
+
     has_many :footnotes, -> { where("slug != ?","") }, as: :noted
     has_many :signets, as: :sigged
 

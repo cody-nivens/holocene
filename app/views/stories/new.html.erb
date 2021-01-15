@@ -2,4 +2,4 @@
 
 <%= render 'form', story: @story %>
 
-<%= link_to 'Back', stories_path %>
+<% @footer_content << "#{link_to 'Back', book_stories_path(@book), :class => "btn btn-default"}" %>

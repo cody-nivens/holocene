@@ -11,15 +11,6 @@ holocene_event_1:
   url: https://en.wikipedia.org/wiki/domestication_of_the_horse
   body: ''
   slug: CTuywKJhCy
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &1 2018-11-15 04:18:23.000000000 Z
-    zone: &2 !ruby/object:ActiveSupport::TimeZone
-      name: Etc/UTC
-    time: *1
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &3 2018-11-15 04:18:23.000000000 Z
-    zone: *2
-    time: *3
   user: users_1
   timelines:
     - timeline_1
@@ -40,14 +31,6 @@ holocene_event_2:
   url: ''
   body: Dog near to the hearth.<br>
   slug: QYRjmNUWSG
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &4 2018-11-15 04:18:23.000000000 Z
-    zone: *2
-    time: *4
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &5 2018-11-15 19:05:42.000000000 Z
-    zone: *2
-    time: *5
   user: users_1
   timelines: 
     - timeline_1
@@ -70,14 +53,6 @@ holocene_event_3:
 
 '
   slug: RkQjVWKTpK
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &6 2018-11-15 04:18:24.000000000 Z
-    zone: *2
-    time: *6
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &7 2018-11-15 04:18:24.000000000 Z
-    zone: *2
-    time: *7
   user: users_1
   timelines:
     - timeline_1
@@ -98,14 +73,6 @@ holocene_event_4:
   url: ''
   body: ''
   slug: Gc9WnEWgsp
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &8 2018-11-15 04:18:24.000000000 Z
-    zone: *2
-    time: *8
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &9 2018-11-15 04:18:24.000000000 Z
-    zone: *2
-    time: *9
   user: users_1
   timelines:
     - timeline_1
@@ -126,14 +93,6 @@ holocene_event_5:
   url: ''
   body: ''
   slug: 5FdhhVRNUH
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &10 2018-11-15 04:18:24.000000000 Z
-    zone: *2
-    time: *10
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &11 2018-11-15 04:18:24.000000000 Z
-    zone: *2
-    time: *11
   user: users_1
   timelines: 
     - timeline_1
@@ -154,14 +113,6 @@ holocene_event_6:
   url: ''
   body: ''
   slug: jLJmUk7Zqh
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &12 2018-11-15 04:18:24.000000000 Z
-    zone: *2
-    time: *12
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &13 2018-11-15 04:18:24.000000000 Z
-    zone: *2
-    time: *13
   user: users_1
   timelines:
     - timeline_1
@@ -187,14 +138,6 @@ holocene_event_7:
     find food.  Their movement and attempts to find grain caused them to try to grow\nit
     where conditions seemed right creating true agriculture.\n"
   slug: Has9m93rgN
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &14 2018-11-15 04:18:25.000000000 Z
-    zone: *2
-    time: *14
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &15 2018-11-15 04:18:25.000000000 Z
-    zone: *2
-    time: *15
   user: users_1
   timelines:
     - timeline_1
@@ -217,14 +160,6 @@ holocene_event_8:
      The crops were the first to be domesticated: emmer and einkorn wheat, hulled barley, peas, lentils, bitter vetch, chick peas and flax.
     The first cultivation was in the Levant.
   slug: uTJSgyGNng
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &16 2018-11-15 04:18:25.000000000 Z
-    zone: *2
-    time: *16
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &17 2018-11-15 04:18:25.000000000 Z
-    zone: *2
-    time: *17
   user: users_1
   timelines:
     - timeline_1
@@ -243,14 +178,6 @@ holocene_event_9:
   url: ''
   body: ''
   slug: 3T1wsnFBf4
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &18 2018-11-15 04:18:25.000000000 Z
-    zone: *2
-    time: *18
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &19 2018-11-15 04:18:25.000000000 Z
-    zone: *2
-    time: *19
   user: users_1
   timelines:
     - timeline_1
@@ -271,14 +198,6 @@ holocene_event_10:
     This was the largest Geomagnetic storm on the sun.  It took 17 hours to travel to earth on a journey which normally take 3 days.
     There were fires along the telegraph lines and station due to the storm generating power in the wires.
   slug: uZFdQXErKe
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &20 2018-11-15 04:18:25.000000000 Z
-    zone: *2
-    time: *20
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &21 2018-11-15 04:18:25.000000000 Z
-    zone: *2
-    time: *21
   user: users_1
   timelines:
     - timeline_1
@@ -300,14 +219,6 @@ holocene_event_11:
 
     People in London were able to read the new paper at night for 8 days after the event.  It was heard around the world.
   slug: kWVqzWaG5j
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &22 2018-11-15 04:18:25.000000000 Z
-    zone: *2
-    time: *22
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &23 2018-11-15 04:18:25.000000000 Z
-    zone: *2
-    time: *23
   user: users_1
   timelines:
     - timeline_1
@@ -329,14 +240,6 @@ holocene_event_12:
 
 '
   slug: MQADV2dtH0
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &24 2018-11-15 04:18:26.000000000 Z
-    zone: *2
-    time: *24
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &25 2018-11-15 04:18:26.000000000 Z
-    zone: *2
-    time: *25
   user: users_1
   timelines:
     - timeline_1

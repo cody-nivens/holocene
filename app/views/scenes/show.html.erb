@@ -22,7 +22,7 @@
 
 <p>
   <strong>Time:</strong>
-  <%= @scene.time %>
+  <%= @scene.time_to_text %>
 </p>
 
 <p>
@@ -60,5 +60,37 @@
   <%= @scene.over_arching_goal %>
 </p>
 
-<%= link_to 'Edit', edit_book_scene_path(:book_id => @book.id, :id => @scene.id) %> |
-<%= link_to 'Back', :back %>
+<p>
+  <strong>Insert Scene:</strong>
+  <%= (@scene.insert_scene.nil? ? '' : @scene.insert_scene.full_name) %>
+</p>
+
+<p>
+  <strong>Selector:</strong>
+  <%= @scene.selector %>
+</p>
+
+<p>
+  <strong>Characters:</strong>
+  <br/>
+<% @scene.characters.order(:occupation_class).pluck(:occupation_class).uniq.each do |occ_class| %>
+  <%= occ_class %>
+<ul>
+<% @scene.characters.where("occupation_class = ?", occ_class).order(:occupation_class,:last_name,:first_name).each do |character| %>
+  <li><%= link_to("#{character.name}, #{@scene.time.to_i-character.birth_year.to_i}", polymorphic_path([@scene,character])) %></li>
+<% end %>
+</ul>
+<% end %>
+</p>
+
+<% unless @scene.section.nil? %>
+  <%= raw @scene.section.body %>
+<% end %>
+<% @footer_content << "#{link_to 'Edit', edit_polymorphic_path([@situated, @scene]), :class => "btn btn-default" }" %>
+<% if @scene.section.nil? %>
+<% @footer_content << "#{link_to 'New Section',new_polymorphic_path([@scene,'section']), :class => "btn btn-default" }" %>
+<% else %>
+<% @footer_content << "#{link_to 'Edit Section',edit_polymorphic_path([@scene, @scene.section]), :class => "btn btn-default" }" %>
+<% end %>
+<% @footer_content << "#{link_to 'Characters', polymorphic_path([@scene, 'characters' ]), :class => "btn btn-default hide-print" }" %>
+<% @footer_content << "#{link_to 'Back', (@scene.key_point.nil? ? polymorphic_path([@situated, 'scenes']) : polymorphic_path([@situated, @scene.key_point])), :class => "btn btn-default" }" %>

@@ -2,5 +2,5 @@
 
 <%= render 'form', character: @character %>
 
-<%= link_to 'Show', book_character_path(:book_id => @book.id, :id => @character.id) %> |
-<%= link_to 'Back', book_characters_path(:book_id => @book.id) %>
+<% @footer_content << "#{link_to 'Show', polymorphic_path([@object, @character]), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Back', polymorphic_path([@object, 'characters']), :class => "btn btn-default" }" %>

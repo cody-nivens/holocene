@@ -2,4 +2,6 @@
 
 <%= render 'form', character_attribute: @character_attribute %>
 
-<%= link_to 'Back', character_attributes_path(:character_category_id => @character_category.id) %>
+<% @footer_content << "#{link_to 'Back', character_attributes_path(:character_category_id => @character_category.id), :class => "btn btn-default"}" %>
+
+

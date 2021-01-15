@@ -1,0 +1,19 @@
+<% pdf ||= nil %>
+<% key_point.scenes.where(selector: selector).order(:abc).each do |scene| %>
+    <h3><%= (pdf.nil? ? link_to(scene.abc, polymorphic_path([@scripted,key_point, scene])) : scene.abc) %>:<%= scene.time_to_text %></h3>
+    <% unless scene.insert_scene.nil? %>
+   <strong>Insert Scene:</strong> <%= (pdf.nil? ? link_to(scene.insert_scene.abc, polymorphic_path([@scripted,key_point, scene.insert_scene])) : scene.insert_scene.abc) %>:<%= scene.insert_scene.time_to_text %>
+       <%= scene.insert_scene.name %>
+    <br/>
+    <% end %>
+    <% unless scene.characters.empty? %>
+      <ul>
+<% scene.characters.order(:last_name, :first_name).each do |character| %>
+  <li><%= (pdf.nil? ? 
+           link_to("#{character.name}, #{scene.time.to_i-character.birth_year.to_i}", polymorphic_path([@scripted,character])) :
+           character.name) %></li>
+<% end %>
+      </ul>
+    <% end %>
+<%= scene.summary %>
+<% end %>

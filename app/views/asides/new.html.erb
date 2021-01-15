@@ -2,4 +2,4 @@
 
 <%= render 'form', aside: @aside %>
 
-<%= link_to 'Back', :back %>
+<% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>

@@ -4,18 +4,10 @@ chapter_1:
   body: Events caused by Man or happened to Mankind.
   position: 0
   slug: 4tWrCAXQXx
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &1 2018-11-15 04:18:23.000000000 Z
-    zone: &2 !ruby/object:ActiveSupport::TimeZone
-      name: Etc/UTC
-    time: *1
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &3 2018-11-15 17:27:30.000000000 Z
-    zone: *2
-    time: *3
   scripted: book_1 (Book)
   show_events: true
   always_display_events: true
+  display_title: true
   holocene_events:
       - holocene_event_1
 chapter_2:
@@ -23,17 +15,10 @@ chapter_2:
   body: '[[slug55]]'
   position: 3
   slug: tE3vUMrsN3
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &4 2018-11-15 04:18:25.000000000 Z
-    zone: *2
-    time: *4
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &5 2018-11-15 04:18:25.000000000 Z
-    zone: *2
-    time: *5
   scripted: book_1 (Book)
   show_events: true
   always_display_events: true
+  display_title: true
   holocene_events:
       - holocene_event_2
 chapter_3:
@@ -41,32 +26,36 @@ chapter_3:
   body: '[[slug56]]'
   position: 5
   slug: tE3vUMrsN3
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &4 2018-11-15 04:18:25.000000000 Z
-    zone: *2
-    time: *4
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &5 2018-11-15 04:18:25.000000000 Z
-    zone: *2
-    time: *5
   scripted: book_1 (Book)
   show_events: true
   always_display_events: true
+  display_title: true
 chapter_4:
-  name: 'Chapter Four Stuff '
+  name: 'Chapter Five Stuff '
   body: '[[slug56]]'
   position: 7
   slug: tE3vUMrsN3
   holocene_events:
       - holocene_event_2
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &4 2018-11-15 04:18:25.000000000 Z
-    zone: *2
-    time: *4
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &5 2018-11-15 04:18:25.000000000 Z
-    zone: *2
-    time: *5
   scripted: book_1 (Book)
   show_events: true
   always_display_events: true
+  display_title: true
+chapter_5:
+  name: 'Chapter Four Stuff '
+  body: '[[slug56]]'
+  position: 1
+  slug: xx3vUMrsN3
+  scripted: story_1 (Story)
+  show_events: true
+  always_display_events: true
+  display_title: true
+chapter_6:
+  name: 'Chapter Six Stuff '
+  body: '[[slug56]]'
+  position: 2
+  slug: tE3vUMrsN3
+  scripted: story_1 (Story)
+  show_events: true
+  always_display_events: true
+  display_title: true

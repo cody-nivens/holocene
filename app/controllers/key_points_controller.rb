@@ -1,12 +1,44 @@
 class KeyPointsController < ApplicationController
-  before_action :set_key_point, only: [:show, :edit, :update, :destroy]
-  before_action :set_scripted, only: [:index, :new ]
+  before_action :set_key_point, only: [:show, :list, :add, :edit, :update, :destroy]
+  before_action :set_scripted, only: [:index, :list, :add, :new ]
 
 
   # GET /key_points
   # GET /key_points.json
   def index
-    @key_points = @scripted.key_points
+    @key_points = @scripted.key_points.order(:position)
+  end
+
+  def list
+    @selector = (params[:selector].blank? ? 0 : params[:selector])
+  end
+
+  def add
+    scenes_avail = params[:scenes_avail]
+    scenes_ids = params[:scenes_ids]
+    selector = (params[:selector].blank? ? 0 : params[:selector])
+
+    unless scenes_avail.nil?
+      scenes_avail.each do |scene_id|
+        next if scene_id.blank?
+        scene = Scene.find(scene_id)
+        scene.update_attribute("selector", selector)
+        @key_point.scenes << scene unless @key_point.scenes.include?(scene)
+      end
+    end
+
+    unless scenes_ids.nil?
+      scenes_ids.each do |scene_id|
+        next if scene_id.blank?
+        scene = Scene.find(scene_id)
+        scene.update_attribute("selector", 0)
+      end
+    end
+
+
+    respond_to do |format|
+       format.html { redirect_to polymorphic_path([@scripted, 'key_point_list'])}
+    end
   end
 
   # GET /key_points/1
@@ -79,12 +111,12 @@ class KeyPointsController < ApplicationController
     end
 
     def set_scripted
-      @klass = (params[:key_point].nil? || params[:key_point][:scripted_type].empty? ? params[:scripted_type] : params[:key_point][:scripted_type]).capitalize.constantize
+      @klass = [Book, Chapter, Story].detect{|c| params["#{c.name.underscore}_id"]}
       @scripted = @klass.find((params[:key_point].nil? || params[:key_point][:scripted_id].empty? ? params["#{@klass.name.underscore}_id"] : params[:key_point][:scripted_id]))
     end
 
     # Only allow a list of trusted parameters through.
     def key_point_params
-      params.require(:key_point).permit(:hook, :inciting_incident, :key_element, :first_plot_point, :first_pinch_point, :midpoint, :second_pinch_point, :third_plot_point, :climax, :scripted_id, :scripted_type)
+      params.require(:key_point).permit(:hook, :inciting_incident, :key_element, :first_plot_point, :first_pinch_point, :midpoint, :second_pinch_point, :third_plot_point, :climax, :scripted_id, :scripted_type, :selector)
     end
 end

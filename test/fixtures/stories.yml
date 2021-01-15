@@ -1,11 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
+story_1:
+  title: The Beginnings
   summary: MyText
   book: book_1
+  scene_character: A
 
-two:
-  title: MyString
+story_2:
+  title: The Endings
   summary: MyText
-  book: book_1
+  book: book_2
+  scene_character: B

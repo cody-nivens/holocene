@@ -1,13 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Character:</strong>
-  <%= @character_value.character_id %>
-</p>
-
-<p>
   <strong>Character attribute:</strong>
-  <%= @character_value.character_attribute_id %>
+  <%= @character_value.character_attribute.name %>
 </p>
 
 <p>
@@ -15,5 +10,5 @@
   <%= @character_value.value %>
 </p>
 
-<%= link_to 'Edit', edit_character_value_path(@character_value) %> |
-<%= link_to 'Back', character_values_path(:character_id => @character.id) %>
+<% @footer_content << "#{link_to 'Edit', edit_polymorphic_path([@object, @character, @character_value]), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', polymorphic_path([@object, @character, 'character_values']), :class => "btn btn-default"}" %>

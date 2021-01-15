@@ -4,10 +4,11 @@ class Chapter < ApplicationRecord
 
     has_and_belongs_to_many :holocene_events
     has_and_belongs_to_many :timelines
-    has_many :sections
+    has_and_belongs_to_many :characters
+    has_many :sections, :as => :sectioned
     has_many :footnotes, -> { where("slug != ?","") }, as: :noted
     has_many :signets, as: :sigged
-    has_many :scenes
+    has_many :scenes, as: :situated
 
     belongs_to :scripted, polymorphic: true
 
@@ -15,6 +16,10 @@ class Chapter < ApplicationRecord
     has_one :aside
 
     validates :name, presence: true
+
+    def display_title?
+      return self.display_title
+    end
 
     def show_events?
       return self.show_events

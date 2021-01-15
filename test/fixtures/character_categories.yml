@@ -1,7 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 character_category_1:
-  name: physical_attributes
+  name: Physical attributes
 
 character_category_2:
-  name: family
+  name: Family

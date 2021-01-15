@@ -7,6 +7,11 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
+  test "should get resync_stories" do
+    get book_resync_stories_url(@book)
+    assert_redirected_to book_stories_url(@book)
+  end
+
   test "should get index" do
     get books_url
     assert_response :success

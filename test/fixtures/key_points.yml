@@ -10,7 +10,7 @@ key_point_1:
   second_pinch_point: 
   third_plot_point: Landing and transfer of technology to city created at landing site
   climax: Restoration of the Earth 1,000 years in the Future
-  scripted: book_1 (Book)
+  scripted: story_1 (Story)
 
 key_point_2:
   hook: History is not based on the last 2,500 years
@@ -22,4 +22,4 @@ key_point_2:
   second_pinch_point: Climate Change
   third_plot_point: Egypt as home of Watchers
   climax: Egyptians at Baalbak
-  scripted: book_2 (Book)
+  scripted: story_2 (Story)

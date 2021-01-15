@@ -1,4 +1,4 @@
-<%= bootstrap_form_for [@book, scene ] do |form| %>
+<%= bootstrap_form_for [@situated, scene ] do |form| %>
   <% if scene.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(scene.errors.count, "error") %> prohibited this scene from being saved:</h2>
@@ -12,8 +12,14 @@
   <% end %>
     <%= form.error_notification message: form.object.errors[:base].to_sentence if form.object.errors[:base].present? %>
 
-    <%= hidden_field_tag :book_id %>
-    <%= form.hidden_field :book_id %>
+    <%= hidden_field_tag :key_point_id, (@key_point.nil? ? nil : @key_point.id) %>
+    <%= hidden_field_tag :situated_id, @situated.id %>
+    <%= hidden_field_tag :selector, @selector %>
+    <%= hidden_field_tag :situated_type, @situated.class.name %>
+    <%= form.hidden_field :key_point_id, value: (scene.key_point.nil? ? nil : (@key_point.nil? ? scene.key_point.id : @key_point.id)) %>
+    <%= form.hidden_field :situated_id %>
+    <%= form.hidden_field :situated_type %>
+    <%= form.hidden_field :selector, value: (scene.selector.nil? ? @selector.to_i : scene.selector) %>
 
 
   <div class="field">
@@ -38,6 +44,10 @@
 
   <div class="field">
     <%= form.number_field :scene_sequel %>
+  </div>
+
+  <div class="field">
+    <%= form.select :insert_scene_id, Scene.all.order(:abc).collect { |p| [ p.full_name, p.id ] }, { include_blank: true } %>
   </div>
 
   <div class="field">

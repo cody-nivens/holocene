@@ -9,7 +9,7 @@
 <%= raw @footnotes[0]  %>
 <% @slugs += @footnotes[1] -%>
 
-<% unless @section.holocene_events.length == 0 || @section.chapter.show_events? -%>
+<% unless @section.holocene_events.length == 0 || @section.sectioned.show_events? -%>
 <%= render 'holocene_events/index.html', holocene_events: @section.holocene_events.order(:start_year) %>
 <% end -%>
 
@@ -17,14 +17,14 @@
 <%= raw write_footnotes(@slugs) %>
 <% end -%>
 
-<% priv_section = Section.where(chapter_id: @chapter.id, position: @section.position-1) -%>
-<% next_section = Section.where(chapter_id: @chapter.id, position: @section.position+1) -%>
+<% priv_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position - 1) -%>
+<% next_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position + 1) -%>
 
-<% @footer_content << "#{link_to (fa_icon 'pencil'), edit_chapter_section_path(@chapter, @section), :class => "btn icon-ok icon-white"}" %>
-<% @footer_content << "#{link_to '<', chapter_section_path(@chapter, priv_section.first), :class => "btn icon-ok icon-white"}" unless priv_section.length == 0 %>
-<% @footer_content << "#{link_to '>', chapter_section_path(@chapter, next_section.first), :class => "btn icon-ok icon-white"}" unless next_section.length == 0  %>
+<% @footer_content << "#{link_to (fa_icon 'pencil'), edit_polymorphic_path([@sectioned, @section]), :class => "btn icon-ok icon-white"}" %>
+<% @footer_content << "#{link_to '<', polymorphic_path([@sectioned, priv_section.first]), :class => "btn icon-ok icon-white"}" unless priv_section.length == 0 %>
+<% @footer_content << "#{link_to '>', polymorphic_path([@sectioned, next_section.first]), :class => "btn icon-ok icon-white"}" unless next_section.length == 0  %>
 <% @footer_content << "#{link_to (fa_icon 'calendar-o'), section_timeline_path(:section_id => @section.id), :class => "btn icon-ok icon-white"}" %>
 <% @footer_content << "#{link_to (fa_icon 'list'),  section_display_path(:section_id => @section.id), :class => "btn icon-ok icon-white"}" %>
 <% @footer_content << "#{link_to (fa_icon 'map-o'),  geo_map_section_path(@section), :class => "btn icon-ok icon-white"}" %>
 <% @footer_content << "#{link_to 'Footnotes',  section_footnotes_path(@section), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', chapter_path(@chapter), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', polymorphic_path(@sectioned), :class => "btn btn-default"}" %>

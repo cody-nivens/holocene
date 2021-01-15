@@ -10,14 +10,6 @@
   <%= @signet.message %>
 </p>
 
-<% @footer_content << "#{link_to 'Edit', edit_signet_path(@signet), :class => "btn btn-default"}" %>
-<% if @sigged.class.name == "Chapter" %>
-  <% @footer_content << "#{link_to 'Back', chapter_path(@sigged), :class => "btn btn-default"}" %>
-<% elsif @sigged.class.name == "Section" %>
-  <% @footer_content << "#{link_to 'Back', chapter_path(@sigged.chapter), :class => "btn btn-default"}" %>
-<% elsif @sigged.class.name == "Book" %>
-  <% @footer_content << "#{link_to 'Back', book_path(@sigged), :class => "btn btn-default"}" %>
-<% elsif @sigged.class.name == "HoloceneEvent" %>
-  <% @footer_content << "#{link_to 'Back', holocene_event_path(@sigged), :class => "btn btn-default"}" %>
-<% end %>
+<% @footer_content << "#{link_to 'Edit', edit_signet_path("#{@sigged.name.underscore}_id".to_sym => @sigged.id, :id => @signet.id), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', polymorphic_path([@sigged, 'signets']), :class => "btn btn-default"}" %>
 

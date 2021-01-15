@@ -28,6 +28,18 @@ class HoloceneEventsTest < ApplicationSystemTestCase
     click_on "Search"
   end
 
+  test "should get index 3" do
+    visit holocene_events_url params:{ holocene_events_grid: { name: "Dog" } }
+
+    assert_link "New Holocene Event"
+  end
+
+  test "should get index 4" do
+    visit holocene_events_url params:{ holocene_events_grid: { event_type: EventType.first } }
+
+    assert_link "New Holocene Event"
+  end
+
   test "visiting the map" do
     visit holocene_events_url
 

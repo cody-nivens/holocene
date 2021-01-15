@@ -5,11 +5,38 @@
 <%= render 'authors/index.html', authors: @book.authors %>
 <%= @book.body %>
 
+<% @book.key_points.order(:position).each do |key_point| -%>
+    <%= render 'key_points/show.html', book: @book, key_point: key_point, epub: false %>
+<% end -%>
+
 <% @notes = {} -%>
+<% if @book.is_fiction? %>
+<% @stories.order(:position).each do |story| -%>
+  <%= render 'stories/show.html', book: @book, story: story, epub: false %>
+
+  <% story.key_points.order(:position).each do |key_point| -%>
+    <%= render 'key_points/show.html', book: @book, key_point: key_point, epub: false %>
+  <% end -%>
+<% end -%>
+
+<div style = "display:block; clear:both; page-break-after:always;"></div>
+<% @stories.order(:position).each do |story| -%>
+  <% story.key_points.order(:position).each do |key_point| -%>
+    <% Scene.where(key_point_id: key_point.id).order(:selector).each do |scene| %>
+      <% unless scene.section.nil? %>
+        <%= raw scene.section.body %>
+      <% end %>
+    <%#= render 'scenes/show.html', book: @book, scene: scene, epub: false %>
+    <% end -%>
+  <% end -%>
+<% end -%>
+<% else %>
 <% @chapters.each do |chapter| -%>
     <%= render 'chapters/show.html', book: @book, chapter: chapter, epub: false %>
 <% end -%>
 
+<% end -%>
+<% unless @book.is_fiction? %>
 <div style = "display:block; clear:both; page-break-after:always;"></div>
 <h1>Citations</h1>
 
@@ -47,3 +74,4 @@
 <%= render 'glossary_terms/index.html', glossary_terms: @book.glossary_terms.order(:name) %>
 <%= render 'biblioentries/index.html', biblioentries: @book.biblioentries %>
  
+<% end -%>

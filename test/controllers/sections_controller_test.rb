@@ -3,56 +3,74 @@ require 'test_helper'
 class SectionsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @section = sections(:section_1)
-    @chapter = chapters(:chapter_1)
-    @scripted = @chapter.scripted
+    @sectioned_1 = chapters(:chapter_1)
+    @sectioned_2 = scenes(:scene_1)
+    @scripted = @sectioned_1.scripted
     @user = users(:users_1)
     sign_in @user
   end
 
   test "should get index" do
-    get chapter_sections_url( @chapter)
+    get polymorphic_url([@sectioned_1,'sections'])
     assert_response :success
 
     assert_select "a[text()=?]",'New Section'
-    assert_select "a[href=?]", new_chapter_section_path(@chapter)
+    assert_select "a[href=?]", new_polymorphic_path(@sectioned_1)
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", chapter_path(@section.chapter)
+    assert_select "a[href=?]", polymorphic_path(@section.sectioned)
     assert_select ".footer>div>a", 2
   end
 
   test "should get new" do
-    get new_chapter_section_url( @chapter)
+    get new_polymorphic_url([@sectioned_1,'section'])
     assert_response :success
 
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", chapter_sections_path(@section.chapter)
+    assert_select "a[href=?]", polymorphic_path([@section.sectioned, 'sections'])
+    assert_select ".footer>div>a", 1
+  end
+
+  test "should get new 2" do
+    get new_polymorphic_url([@sectioned_1,'section'])
+    assert_response :success
+
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", polymorphic_path([@section.sectioned, 'sections'])
     assert_select ".footer>div>a", 1
   end
 
   test "should create section" do
     assert_difference('Section.count') do
-        post chapter_sections_url( @chapter), params: {:chapter_id => @chapter.id, section: { body: @section.body, name: "#{@section.name}1", position: @section.position, chapter_id: @chapter.id } }
+        post polymorphic_url([@sectioned_1, 'sections']), params: {section: { body: @section.body, name: "#{@section.name}1", position: @section.position, sectioned_id: @sectioned_1.id, :sectioned_type => 'Chapter' } }
     end
 
-    assert_redirected_to chapter_section_url( @chapter, Section.last)
+    assert_redirected_to polymorphic_url([@sectioned_1, Section.last])
+  end
+
+  test "should create section 2" do
+    assert_difference('Section.count') do
+      post polymorphic_url([@sectioned_2, 'sections']), params: {section: { body: @section.body,:sectioned_type => @sectioned_2.class.name, :sectioned_id => @sectioned_2.id,  name: "#{@section.name}1", position: @section.position } }
+    end
+
+    assert_redirected_to polymorphic_url([@sectioned_2, Section.last])
   end
 
   test "should not create section" do
     assert_difference('Section.count', 0) do
-        post chapter_sections_url( @chapter), params: {:chapter_id => @chapter.id, section: { body: @section.body, name: "", position: @section.position, chapter_id: @chapter.id } }
+      post polymorphic_url([@sectioned_1, 'sections']), params: {section: {:sectioned_type => @sectioned_1.class.name, :sectioned_id => @sectioned_1.id,  body: @section.body, name: "", position: @section.position, sectioned_id: @sectioned_1.id } }
     end
 
     assert_response :success
   end
 
   test "should show section" do
-    get chapter_section_url( @chapter,@section)
+    get polymorphic_url([@sectioned_1,@section])
     assert_response :success
 
     assert_select "a[text()=?]",'Footnotes'
     assert_select "a[href=?]", section_footnotes_path(@section)
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", chapter_path(@section.chapter)
+    assert_select "a[href=?]", polymorphic_path(@section.sectioned)
     assert_select ".footer>div>a", 7
   end
 
@@ -91,31 +109,55 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    get edit_chapter_section_url( @chapter,@section)
+    get edit_polymorphic_url([@sectioned_1,@section])
     assert_response :success
 
     assert_select "a[text()=?]",'Show'
-    assert_select "a[href=?]", chapter_section_path(@chapter,@section)
+    assert_select "a[href=?]", polymorphic_path([@sectioned_1,@section])
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", chapter_sections_path(@section.chapter)
+    assert_select "a[href=?]", polymorphic_path(@section.sectioned)
+    assert_select ".footer>div>a", 2
+  end
+
+  test "should get edit 2" do
+    get edit_polymorphic_url([@sectioned_1, @section])
+    assert_response :success
+
+    assert_select "a[text()=?]",'Show'
+    assert_select "a[href=?]", polymorphic_path([@sectioned_1, @section])
+    assert_select "a[text()=?]",'Back'
+    assert_select "a[href=?]", polymorphic_path(@sectioned_1)
     assert_select ".footer>div>a", 2
   end
 
   test "should update section" do
-      patch chapter_section_url( @chapter, @section), params: {:chapter_id => @chapter.id,  section: { body: @section.body, name: @section.name, position: @section.position, chapter_id: @chapter.id } }
-      assert_redirected_to chapter_path(@chapter)
+    patch polymorphic_url([@sectioned_1, @section]), params: { chapter_id: @sectioned_1.id,  section: { body: @section.body, name: @section.name, position: @section.position, :sectioned_type => @sectioned_1.class.name, :sectioned_id => @sectioned_1.id } }
+      assert_redirected_to polymorphic_path([@sectioned_1, @section])
+  end
+
+  test "should update section 2" do
+    patch polymorphic_url([@sectioned_2, @section]), params: { scene_id: @sectioned_2.id, section: { body: @section.body, name: @section.name, position: @section.position, sectioned_type: @sectioned_2.class.name, sectioned_id: @sectioned_2.id } }
+      assert_redirected_to polymorphic_path([@sectioned_2, @section])
   end
 
   test "should not update section" do
-      patch chapter_section_url(@chapter, @section), params: { :chapter_id => @chapter.id, section: { body: @section.body, name: "", position: @section.position, chapter: @section.chapter_id } }
+    patch polymorphic_url([@sectioned_1, @section]), params: { chapter_id: @sectioned_1.id, section: { body: @section.body, name: "", position: @section.position, :sectioned_type => @sectioned_1.class.name, :sectioned_id => @sectioned_1.id } }
       assert_response :success
   end
 
   test "should destroy section" do
     assert_difference('Section.count', -1) do
-      delete chapter_section_url(@chapter, @section)
+      delete polymorphic_url([@sectioned_1, @section])
     end
 
-    assert_redirected_to chapter_sections_url(@chapter)
+    assert_redirected_to polymorphic_url(@sectioned_1)
+  end
+
+  test "should destroy section 2" do
+    assert_difference('Section.count', -1) do
+      delete polymorphic_url([@sectioned_2, @section])
+    end
+
+    assert_redirected_to polymorphic_url(@sectioned_2)
   end
 end

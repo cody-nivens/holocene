@@ -10,7 +10,7 @@ class KeyPointsTest < ApplicationSystemTestCase
 
   test "visiting the index" do
     visit book_key_points_url(@scripted)
-    assert_selector "h1", text: "Key Points"
+    assert_selector "h1", text: "Book: Fun Events in History"
   end
 
   test "creating a Key point" do

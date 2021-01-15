@@ -17,10 +17,16 @@ class ScenesGrid
   #  self.joins(:group).where(:groups => {:name => value})
   #end
 
+  #column(:id, :html => true, :if => proc {|grid| !grid.object.nil? } ) do |event|
+  column(:id, :html => true ) do |event|
+      hidden_field_tag('scene[seen][]', event.id)
+      check_box_tag('scene[checked][]', event.id)
+  end
+
   column(:abc)
   column(:check)
   column(:summary, :html => true) do |he|
-    link_to he.summary, "/scenes/#{he.id}"
+    link_to he.summary, polymorphic_path([he.situated, he])
   end
 
   column(:place)
@@ -32,11 +38,7 @@ class ScenesGrid
   column(:short_term_goal)
   column(:long_term_goal)
   column(:over_arching_goal)
-#  column(:id, :html => true, :if => proc {|grid| !grid.object.nil? } ) do |event|
-#      hidden_field_tag('scene[seen][]', event.id)
-#      check_box_tag('scene[checked][]', event.id)
-#  end
-
+  column(:selector)
 
   #column(:group, order: -> { joins(:group).order(groups: :name) }) do |user|
   #  user.name
@@ -46,10 +48,10 @@ class ScenesGrid
   #end
 
   column(:action2, :header => "", :html => true) do |scene|
-    link_to (fa_icon "edit"), edit_book_scene_path(:book_id => @book.id, :id => scene.id), :title => 'Edit'
+    link_to (fa_icon "edit"), edit_polymorphic_path([@situated, scene]), :title => 'Edit'
   end
   column(:action3, :header => "", :html => true) do |scene|
-    link_to (fa_icon "trash-o"), book_scene_path(:book_id => @book.id, :id => scene.id), method: :delete, data: { confirm: 'Are you sure?' }, :title => 'Destroy'
+    link_to (fa_icon "trash-o"), polymorphic_path([@situated, scene]), method: :delete, data: { confirm: 'Are you sure?' }, :title => 'Destroy'
   end
 
 end

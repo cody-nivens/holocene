@@ -1,8 +1,10 @@
 <div style = "display:block; clear:both; page-break-after:always;"></div>
+<% if @chapter.display_title? %>
 <h2>
 <%= @chapter.name %>
 <% @title = @chapter.name %>
 </h2>
+<% end %>
 
 <% @slugs = [] -%>
 <% @footnotes = process_body(@chapter, @slugs) -%>
@@ -84,6 +86,7 @@
 <% end -%>
 
 <% @footer_content << "#{link_to (fa_icon "pencil"), edit_book_chapter_path(@chapter.scripted, @chapter), :class => "fa btn icon-ok icon-white", :title => "Edit"}" %>
+<% if @chapter.scripted_type == 'Book' %>
 <% @footer_content << "#{link_to (fa_icon "sticky-note-o"), chapter_signets_path(:chapter_id => @chapter.id), :title => "Signets", :class => "btn icon-ok icon-white #{(@chapter.signets.length > 0 ? "#{Signet.color_class(@chapter.signets[0].color)}" : "" )}"}" %>
 <% @footer_content << "#{link_to (fa_icon 'list'),  chapter_display_path(@chapter), :title => "Events", :class => "btn icon-ok icon-white" }" %>
 <% @footer_content << "#{link_to (fa_icon 'calendar-o'), chapter_timeline_path(@chapter), :title => "Timeline", :class => "btn icon-ok icon-white" }" %>
@@ -93,6 +96,9 @@
 <% @footer_content << "#{link_to 'Sections', chapter_sections_path(@chapter), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Footnotes',chapter_footnotes_path(@chapter), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Citations',chapter_citations_path(@chapter), :class => "btn btn-default" }" %>
+<% else %>
+<% @footer_content << "#{link_to 'Scenes', polymorphic_path([@scripted, @chapter, 'scenes']), :class => "btn btn-default" }" %>
+<% end %>
 <% @footer_content << "#{link_to 'Back',     polymorphic_path([@chapter.scripted,'chapters']), :class => "btn btn-default" }" %>
 <% unless @chapter.position == 0 %>
 <% @footer_content << "#{link_to '<', polymorphic_path([@chapter.scripted, set_prev_chapter(@chapter)]), :class => "btn icon-ok icon-white" }" %>

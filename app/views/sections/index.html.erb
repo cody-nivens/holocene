@@ -1,4 +1,4 @@
-<h1>Sections for Chapter <%= @chapter.name %></h1>
+<h1>Sections for Chapter <%= @sectioned.name %></h1>
 
 <table class="table table-striped">
   <tbody class="sortable">  <!-- sortable target -->
@@ -7,16 +7,16 @@
         <td><%= section.name %></td>
         <td><%= (section.display_name ? 'Y' : 'N') %></td>
         <td><%= render :partial => "shared/summary", :locals => { :object => section} %>
-        <td><%= link_to (fa_icon "search-plus"), chapter_section_path(@chapter, section), :title => "Show" %></td>
-        <td><%= link_to (fa_icon "edit"), edit_chapter_section_path(@chapter, section), :title => "Edit" %></td>
-        <td><%= link_to (fa_icon "trash-o"), chapter_section_path(@chapter, section), method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy" %></td>
+        <td><%= link_to (fa_icon "search-plus"), polymorphic_path([@sectioned, section]), :title => "Show" %></td>
+        <td><%= link_to (fa_icon "edit"), edit_polymorphic_path([@sectioned, section]), :title => "Edit" %></td>
+        <td><%= link_to (fa_icon "trash-o"), polymorphic_path([@sectioned, section]), method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<% @footer_content << "#{link_to 'New Section', new_chapter_section_path(@chapter), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', chapter_path(@chapter), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'New Section', new_polymorphic_path(@sectioned), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', polymorphic_path(@sectioned), :class => "btn btn-default"}" %>
 
 <script>
 $(function() {

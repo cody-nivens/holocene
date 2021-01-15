@@ -1,0 +1,23 @@
+<%= form_with url: polymorphic_path([@object, 'characters_add']) do |f| %>
+
+  <%= hidden_field "#{@object.class.name.underscore}_id", value: @object.id %>
+
+  <h1>Characters for <%= @object.class.name %>: <%= @object.name %></h1>
+
+<table class="table">
+  <tr>
+      <td style="width:40%">
+        <%= select_tag :characters_ids, options_from_collection_for_select(@object.characters.order(:last_name, :first_name), :id, :full_name), :prompt => "Select Characters", :multiple => true, :size => 20 %>
+      </td><td style="width:20%">
+          <%= f.submit class: 'btn btn-primary' %>
+      </td><td style="width:40%">
+        <%= select_tag :characters_avail, options_from_collection_for_select((@object.class.name == 'Story' ? @object.book.characters.order(:last_name, :first_name) : Character.all.order(:last_name, :first_name)), :id, :full_name), :prompt => "Select Character", :multiple => true, :size => 20 %>
+      </td>
+  </tr>
+</table>
+
+<% end %>
+
+<% @footer_content << "#{link_to 'New Character', new_polymorphic_path([@object, 'character']), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', polymorphic_path(@object), :class => "btn btn-default" }" %>
+

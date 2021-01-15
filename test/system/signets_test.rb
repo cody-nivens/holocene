@@ -22,6 +22,7 @@ class SignetsTest < ApplicationSystemTestCase
     end
 
     click_on "New Signet"
+
     select Signet.color_name(@signet.color), from: "Color"
     fill_in "Message", with: @signet.message
     click_on "submit"

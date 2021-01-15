@@ -6,15 +6,6 @@ biblioentry_1:
   copyright_holder: Mike Baillie
   publisher: B. T. Batsford Ltd
   releaseinfo: 
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &1 2018-11-15 04:18:23.000000000 Z
-    zone: &2 !ruby/object:ActiveSupport::TimeZone
-      name: Etc/UTC
-    time: *1
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &3 2018-11-15 04:18:23.000000000 Z
-    zone: *2
-    time: *3
   user: users_1
   book: book_1
   authors:
@@ -27,14 +18,6 @@ biblioentry_2:
   publisher: ''
   releaseinfo: "<a href='http://www.fordham.edu/halsall/source/annalescambriae.asp'>Medieval
     Sourcebook: Annales Camriae 447-954 (The Annals of Wales)</a>"
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &4 2018-11-15 04:18:23.000000000 Z
-    zone: *2
-    time: *4
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &5 2018-11-15 04:18:23.000000000 Z
-    zone: *2
-    time: *5
   user: users_1
   book: book_1
 biblioentry_3:
@@ -45,13 +28,5 @@ biblioentry_3:
   publisher: ''
   releaseinfo: "<a href='http://www.ucc.ie/celt/published/t100001A/'>Corpus of Electronic
     Texts: The Annals of Ulster</a>"
-  created_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &6 2018-11-15 04:18:23.000000000 Z
-    zone: *2
-    time: *6
-  updated_at: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &7 2018-11-15 04:18:23.000000000 Z
-    zone: *2
-    time: *7
   user: users_1
   book: book_1
