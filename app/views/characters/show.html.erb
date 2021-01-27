@@ -36,13 +36,7 @@
 </p>
 
 <p>
-  <strong>Birth Year:</strong>
-  <%= @character.birth_year %>
-</p>
-
-<p>
-  <strong>Death Year:</strong>
-  <%= @character.death_year %>
+  <%= @character.birth_year %> - <%= @character.death_year %>
 </p>
 
 <p>
@@ -51,23 +45,7 @@
 </p>
 
 <p>
-  <strong>First Name:</strong>
-  <%= @character.first_name %>
-</p>
-
-<p>
-  <strong>Middle Name:</strong>
-  <%= @character.middle_name %>
-</p>
-
-<p>
-  <strong>Last Name:</strong>
-  <%= @character.last_name %>
-</p>
-
-<p>
-  <strong>Suffix:</strong>
-  <%= @character.suffix %>
+  <%= @character.first_name %> <%= @character.middle_name %> <%= @character.last_name %> <%= @character.suffix %>
 </p>
 
 <p>
@@ -83,6 +61,21 @@
 <p>
   <strong>Social class:</strong>
   <%= @character.social_class %>
+</p>
+
+<p>
+<strong>Scenes:</strong>
+
+<ul>
+  <% @character.scenes.order(:abc).each do |scene| %>
+<li><%= scene.full_name %></li>
+<% end %>
+</ul
+</p>
+
+<p>
+  <strong>Background:</strong>
+  <%= @character.background %>
 </p>
 
 <% @footer_content << "#{link_to 'Edit', edit_polymorphic_path([@object, @character]), :class => "btn btn-default"}" %>

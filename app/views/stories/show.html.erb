@@ -36,12 +36,11 @@
 <% @story.key_points.order(:position).each do |key_point| %>
   <li><%= link_to key_point.hook, polymorphic_path([@story, key_point]) %>
   <ul>
-  <% key_point.scenes.order(:abc).each do |scene| %>
-    <% insert_scene = Scene.where(insert_scene_id: scene.id) %>
-    <% unless insert_scene.empty? %>
-    <% insert_scene.each do |iscene| %>
+  <% key_point.scenes.order(:selector).each do |scene| %>
+    <% insert_scene = scene %>
+    <% Scene.where(insert_scene_id: insert_scene.id).each do |iscene| %>
     <li><%= link_to iscene.abc, polymorphic_path([@story, key_point, iscene]) %> <%= (iscene.section.nil? ? '' : '*') %><%= iscene.time_to_text %> : <%= iscene.name %></li>
-    <% end %>
+    <% insert_scene = iscene %>
     <% end %>
     <% if scene.insert_scene.nil? %>
     <li><%= link_to scene.abc, polymorphic_path([@story, key_point, scene]) %> <%= (scene.section.nil? ? '' : '*') %><%= scene.time_to_text %> : <%= scene.name %></li>

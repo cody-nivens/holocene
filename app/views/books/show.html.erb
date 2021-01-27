@@ -18,6 +18,27 @@
 <%= @book.characters.count %>
 </p>
 
+<p>
+<strong>Scenes:</strong>
+<%= @book.scene_count %>
+</p>
+
+<p>
+<strong>Race:</strong>
+<table>
+  <% counts = {} %>
+  <% items = @book.characters.pluck(:race).sort %>
+  <% items.each do |item| %>
+    <% if counts[item].nil? %>
+      <% counts[item] = 0 %>
+    <% end %>
+    <% counts[item] = counts[item] + 1 %>
+  <% end %>
+  <% items.uniq.each do |item| %>
+    <tr><td><%= item %></td><td><%= counts[item] %></td></tr>
+  <% end %>
+</table>
+
 <% if @book.is_fiction? %>
 <% @footer_content << "#{link_to 'Stories', book_stories_path(@book), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Characters', polymorphic_path([@book, 'characters' ]), :class => "btn btn-default" }" %>

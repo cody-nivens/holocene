@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Character Scenes</h1>
+
+<h3><%= @scene.full_name %></h3>
+<table class='table'>
+  <thead>
+    <tr>
+      <th>Character</th>
+
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @character_scenes.each do |character_scene| %>
+      <tr>
+        <td><%= character_scene.character.full_name %></td>
+
+        <td><%= link_to 'Show', polymorphic_path([@scene,character_scene]) %></td>
+        <td><%= link_to 'Edit', edit_polymorphic_path([@scene, character_scene]) %></td>
+        <td><%= link_to 'Destroy', polymorphic_path([@scene, character_scene]), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Character Scene', new_polymorphic_path([@scene, 'character_scene']) %>

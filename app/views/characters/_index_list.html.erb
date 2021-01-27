@@ -5,13 +5,16 @@
       <th>Birth Year</th>
       <th>Death Year</th>
       <th>Age</th>
+      <th>Age at Son</th>
+      <th>Reign</th>
       <th>Father</th>
       <th>Nickname</th>
       <th>Honorific</th>
       <th>Race</th>
       <th>Occupation class</th>
       <th>Grouping</th>
-      <th colspan="3"></th>
+      <th>#Scenes</th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -22,15 +25,17 @@
         <td><%= character.birth_year %></td>
         <td><%= character.death_year %></td>
         <td><%= character.age %></td>
+        <td><%= character.age_at_son %></td>
+        <td><%= character.reign %></td>
         <td><%= (character.father.nil? ? '' : character.father.name) %></td>
         <td><%= character.nickname %></td>
         <td><%= character.honorific %></td>
         <td><%= character.race %></td>
         <td><%= character.occupation_class %></td>
         <td><%= character.grouping %></td>
+        <td><%= character.scenes.size %></td>
         <td><%= link_to 'Show', polymorphic_path([@object, character]) %></td>
         <td><%= link_to 'Edit', edit_polymorphic_path([@object, character]) %></td>
-        <td><%= link_to 'Destroy', polymorphic_path([@object, character]), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,0 +1,5 @@
+<h1>New Character Scene</h1>
+
+<%= render 'form', character_scene: @character_scene %>
+
+<%= link_to 'Back', polymorphic_path([@character_scene.scene, 'character_scenes']) %>

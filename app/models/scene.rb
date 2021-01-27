@@ -11,7 +11,8 @@ class Scene < ApplicationRecord
   has_rich_text :long_term_goal
   has_rich_text :over_arching_goal
 
-  has_and_belongs_to_many :characters
+  has_many :character_scenes
+  has_many :characters, ->{ order(:last_name) }, :through => :character_scenes
 
   belongs_to :situated, polymorphic: true
 
@@ -33,14 +34,22 @@ class Scene < ApplicationRecord
   end
 
   def time_to_text
-    s = "Year #{self.time.to_i}"
+    s = "#{self.time.to_i}"
     return  s if self.time.to_d.modulo(1) == 0
    s += " + "
-   if self.time.to_d.modulo(1) < 0.083333333
-     s += "#{(self.time.to_d.modulo(1)/0.019230769).to_i} week(s)"
+   if self.time.to_d.modulo(1) < 0.0833
+     s += "#{(self.time.to_d.modulo(1)/0.0192).to_i} week(s)"
    else
-     s += "#{(self.time.to_d.modulo(1)/0.083333333).to_i} month(s)"
+     s += "#{(self.time.to_d.modulo(1)/0.0833).to_i} month(s)"
   end
    return s
+  end
+
+  def min
+    return self.time.to_i
+  end
+
+  def max
+    return self.time.to_i
   end
 end

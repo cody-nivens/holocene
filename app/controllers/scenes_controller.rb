@@ -5,15 +5,29 @@ class ScenesController < ApplicationController
   # GET /scenes
   # GET /scenes.json
   def index
-    if @klass.name == "Book"
-      @grid = ScenesGrid.new(grid_params) do |scope|
-        scope.where("situated_type ='Story' and situated_id in (?)", @situated.stories.ids).page(params[:page])
-      end
+    @scenes = Scene.where("situated_type = ? and situated_id =?", @klass, @situated.id)
+     stories = nil
+    if @situated.class.name == 'Book'
+       stories = @situated.stories.order(:position)
     else
-      @grid = ScenesGrid.new(grid_params) do |scope|
-        scope.where("situated_type =? and situated_id = ?", "#{@klass}", "#{@situated.id}").page(params[:page])
-      end
+      stories = [ @situated ]
     end
+
+    scene_ids = []
+
+    stories.each do |story|
+      story.key_points.order(:position).each do |key_point|
+        key_point.scenes.order(:time,:abc).each do |scene|
+           scenes = Scene.where(insert_scene_id: scene.id)
+           scenes.each do |scene_2|
+             scene_ids << scene_2
+           end
+           scene_ids << scene.id
+       end
+     end
+  end
+
+    @scenes = Scene.where("id in (?)", scene_ids).order(:time, :abc)
   end
 
   # GET /scenes/1
@@ -83,13 +97,6 @@ class ScenesController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-    protected
-
-  def grid_params
-    params.fetch(:scenes_grid, {:order => :abc, :descending => false}).permit!
-  end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.

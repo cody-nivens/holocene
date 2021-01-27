@@ -114,6 +114,6 @@ class CharactersController < ApplicationController
     def character_params
       params.require(:character).permit(:name, :reason_for_name, :nickname, :reason_for_nickname, :race, :occupation_class, 
                                         :social_class, :first_name, :middle_name, :last_name, :suffix, :birth_year, :death_year,
-                                       :age_at_son, :father_id, :honorific, :grouping, :use_honorific_only)
+                                       :age_at_son, :father_id, :honorific, :grouping, :use_honorific_only,:background)
     end
 end

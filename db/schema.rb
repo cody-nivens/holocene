@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_12_150038) do
+ActiveRecord::Schema.define(version: 2021_01_21_184629) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -157,6 +157,15 @@ ActiveRecord::Schema.define(version: 2021_01_12_150038) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "character_scenes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "character_id", null: false
+    t.bigint "scene_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id", "scene_id"], name: "index_scene_character_1"
+    t.index ["scene_id", "character_id"], name: "index_scene_character_2"
+  end
+
   create_table "character_values", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "character_id", null: false
     t.bigint "character_attribute_id", null: false
@@ -188,13 +197,6 @@ ActiveRecord::Schema.define(version: 2021_01_12_150038) do
     t.string "honorific"
     t.string "grouping"
     t.boolean "use_honorific_only", default: false
-  end
-
-  create_table "characters_scenes", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
-    t.bigint "character_id", null: false
-    t.bigint "scene_id", null: false
-    t.index ["character_id", "scene_id"], name: "index_scene_character_1"
-    t.index ["scene_id", "character_id"], name: "index_scene_character_2"
   end
 
   create_table "characters_stories", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -350,7 +352,7 @@ ActiveRecord::Schema.define(version: 2021_01_12_150038) do
   create_table "scenes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "abc"
     t.boolean "check"
-    t.string "time"
+    t.decimal "time", precision: 10, scale: 4
     t.integer "scene_sequel"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

@@ -1,13 +1,20 @@
 class Character < ApplicationRecord
+
   has_many :character_values, dependent: :destroy
   has_and_belongs_to_many :books, dependent: :nullify
   has_and_belongs_to_many :stories, dependent: :nullify
+
+  has_many :character_scenes
+  has_many :scenes, :through => :character_scenes
+
   has_many :signets, as: :sigged
 
   validates_presence_of :first_name
 
 
   belongs_to :father, class_name: 'Character', :optional => true
+
+  has_rich_text :background
 
   VALUES = [
   ["M", 1000],

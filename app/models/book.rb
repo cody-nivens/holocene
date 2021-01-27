@@ -44,4 +44,11 @@ class Book < ApplicationRecord
       return count
     end
 
+    def scene_count
+      count = 0
+      self.stories.each do |story|
+        count += story.scene_count
+      end
+      return count
+    end
 end

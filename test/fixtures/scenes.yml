@@ -26,3 +26,4 @@ scene_3:
   situated: story_1 (Story)
   key_point: key_point_1
   selector: 2
+  insert_scene: scene_2

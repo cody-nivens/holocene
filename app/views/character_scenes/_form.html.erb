@@ -1,0 +1,26 @@
+
+<%= bootstrap_form_for [@scene, @character_scene] do |f| %>
+    <% if @character_scene.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@character_scene.errors.count, "error") %> prohibited this character_scene from being saved:</h2>
+
+      <ul>
+        <% @character_scene.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+      <%= hidden_field_tag :scene_id, @scene.id %>
+  <%= f.hidden_field :scene_id, value: @scene.id %>
+
+   <div class="field" >
+      <%= f.rich_text_area :summary %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -1,0 +1,7 @@
+<h1>Editing Character Scene</h1>
+
+<%= render 'form', character_scene: @character_scene %>
+
+<% @footer_content << "#{link_to 'Show', polymorphic_path([@scene, @character_scene]), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', polymorphic_path(@scene), :class => "btn btn-default"}" %>
+

@@ -1,19 +1,37 @@
 <% pdf ||= nil %>
-<% key_point.scenes.where(selector: selector).order(:abc).each do |scene| %>
+<% key_point.scenes.where(selector: selector).order(:time, :abc).each do |scene| %>
     <h3><%= (pdf.nil? ? link_to(scene.abc, polymorphic_path([@scripted,key_point, scene])) : scene.abc) %>:<%= scene.time_to_text %></h3>
-    <% unless scene.insert_scene.nil? %>
-   <strong>Insert Scene:</strong> <%= (pdf.nil? ? link_to(scene.insert_scene.abc, polymorphic_path([@scripted,key_point, scene.insert_scene])) : scene.insert_scene.abc) %>:<%= scene.insert_scene.time_to_text %>
-       <%= scene.insert_scene.name %>
-    <br/>
+    <ul>
+    <% insert_scene = scene %>
+    <% loop do %>
+      <% scenes = Scene.where(insert_scene_id: insert_scene.id).order(:time,:abc) %>
+      <% break if scenes.empty? %>
+        <% scenes.each do |iscene| %>
+          <li><%= (pdf.nil? ? link_to(iscene.abc, polymorphic_path([@scripted, key_point, iscene])) : iscene.abc) %> <%= (iscene.section.nil? ? '' : '*') %><%= iscene.time_to_text %> : <%= iscene.name %></li>
+          <% insert_scene = iscene %>
+        <% end %>
     <% end %>
+    </ul>
+    <% unless scene.insert_scene.nil? %>
+      <p>
+        <strong>Insert Scene:</strong> <%= (pdf.nil? ? link_to(scene.insert_scene.abc, polymorphic_path([@scripted,key_point, scene.insert_scene])) : scene.insert_scene.abc) %>:<%= scene.insert_scene.time_to_text %>
+        <%= scene.insert_scene.name %>
+      </p>
+    <% end %>
+
     <% unless scene.characters.empty? %>
       <ul>
-<% scene.characters.order(:last_name, :first_name).each do |character| %>
-  <li><%= (pdf.nil? ? 
-           link_to("#{character.name}, #{scene.time.to_i-character.birth_year.to_i}", polymorphic_path([@scripted,character])) :
-           character.name) %></li>
-<% end %>
+        <% scene.character_scenes.joins(:character).order(:last_name).each do |character_scene| %>
+          <li><%= (pdf.nil? ? 
+           link_to("#{character_scene.character.name}, #{scene.time.to_i-character_scene.character.birth_year.to_i}", polymorphic_path([@scripted,character_scene.character])) :
+           character_scene.character.name) %>
+          <%= link_to (fa_icon 'plus'), edit_polymorphic_path([scene, character_scene]) %>
+          <% unless character_scene.summary.nil? %>
+             <%= character_scene.summary %>
+          <% end %>
+          </li>
+       <% end %>
       </ul>
     <% end %>
-<%= scene.summary %>
+  <%= scene.summary %>
 <% end %>

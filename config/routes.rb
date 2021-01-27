@@ -80,6 +80,7 @@ Rails.application.routes.draw do
  end
  resources :scenes do
     resources :sections
+  resources :character_scenes
   end
   resources :epochs
   resources :timelines
