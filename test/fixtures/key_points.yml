@@ -27,6 +27,19 @@ key_point_2:
   position: 1
 
 key_point_3:
+  hook: Sleepy village
+  inciting_incident: Younger Dryas Impact Event
+  key_element: Gobekli Tepe
+  first_plot_point: Progression of the Stars
+  first_pinch_point: Time
+  midpoint: Nabta Playa hosting a school of the stars and mathematics
+  second_pinch_point: Climate Change
+  third_plot_point: Egypt as home of Watchers
+  climax: Egyptians at Baalbak
+  scripted: story_1 (Story)
+  position: 4
+
+key_point_4:
   hook: Jump the pirates
   inciting_incident: Younger Dryas Impact Event
   key_element: Gobekli Tepe
@@ -37,4 +50,17 @@ key_point_3:
   third_plot_point: Egypt as home of Watchers
   climax: Egyptians at Baalbak
   scripted: story_1 (Story)
-  position: 2
+  position: 6
+
+key_point_5:
+  hook: Will you jump the pirates
+  inciting_incident: Younger Dryas Impact Event
+  key_element: Gobekli Tepe
+  first_plot_point: Progression of the Stars
+  first_pinch_point: Time
+  midpoint: Nabta Playa hosting a school of the stars and mathematics
+  second_pinch_point: Climate Change
+  third_plot_point: Egypt as home of Watchers
+  climax: Egyptians at Baalbak
+  scripted: book_1 (Book)
+  position: 8

@@ -1,0 +1,13 @@
+<% unless character_values.empty? %>
+  <strong><%= title %>:</strong>
+<table class="table" style="width: auto;">
+  <tbody>
+    <% character_values.each do |character_value| %>
+      <tr>
+        <td><%= character_value.character_attribute.name %></td>
+        <td><%= character_value.value %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

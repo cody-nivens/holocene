@@ -1,21 +1,22 @@
+<% pdf ||= nil %>
 <p id="notice"><%= notice %></p>
 
-<h1><%= @book.name %></h1>
+<h1><%= book.name %></h1>
 
-<%= render 'authors/index.html', authors: @book.authors %>
-<%= @book.body %>
+<%= render 'authors/index.html', authors: book.authors %>
+<%= book.body %>
 
-<% @book.key_points.order(:position).each do |key_point| -%>
-    <%= render 'key_points/show.html', book: @book, key_point: key_point, epub: false %>
+<% book.key_points.order(:position).each do |key_point| -%>
+    <%= render 'key_points/show.html', book: book, key_point: key_point, epub: false %>
 <% end -%>
 
 <% @notes = {} -%>
-<% if @book.is_fiction? %>
+<% if book.is_fiction? %>
 <% @stories.order(:position).each do |story| -%>
-  <%= render 'stories/show.html', book: @book, story: story, epub: false %>
+  <%= render partial: 'stories/show.html', :locals =>{:pdf => pdf, book: book, story: story, epub: false} %>
 
   <% story.key_points.order(:position).each do |key_point| -%>
-    <%= render 'key_points/show.html', book: @book, key_point: key_point, epub: false %>
+    <%= render 'key_points/show.html', book: book, key_point: key_point, epub: false %>
   <% end -%>
 <% end -%>
 
@@ -31,11 +32,11 @@
 <% end -%>
 <% else %>
 <% @chapters.each do |chapter| -%>
-    <%= render 'chapters/show.html', book: @book, chapter: chapter, epub: false %>
+    <%= render 'chapters/show.html', book: book, chapter: chapter, epub: false %>
 <% end -%>
 
 <% end -%>
-<% unless @book.is_fiction? %>
+<% unless book.is_fiction? %>
 <div style = "display:block; clear:both; page-break-after:always;"></div>
 <h1>Citations</h1>
 
@@ -69,7 +70,7 @@
 <%= raw write_footnotes(@slugs) -%>
 <% end -%>
 
-<%= render 'glossary_terms/index.html', glossary_terms: @book.glossary_terms.order(:name) %>
-<%= render 'biblioentries/index.html', biblioentries: @book.biblioentries %>
+<%= render 'glossary_terms/index.html', glossary_terms: book.glossary_terms.order(:name) %>
+<%= render 'biblioentries/index.html', biblioentries: book.biblioentries %>
  
 <% end -%>

@@ -3,7 +3,8 @@ require "application_system_test_case"
 class KeyPointsTest < ApplicationSystemTestCase
   setup do
     @key_point = key_points(:key_point_1)
-    @scripted = @key_point.scripted
+    @key_point_2 = key_points(:key_point_5)
+    @scripted = books(:book_1)
     @user = users(:users_1)
     sign_in @user
   end

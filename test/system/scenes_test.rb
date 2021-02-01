@@ -69,6 +69,7 @@ class ScenesTest < ApplicationSystemTestCase
 
   test "updating a Scene" do
     visit polymorphic_url([@situated, 'scenes'])
+    click_on "A00003"
     click_on "Edit", match: :first
 
     fill_in "Abc", with: @scene.abc
@@ -94,6 +95,7 @@ class ScenesTest < ApplicationSystemTestCase
 
   test "not updating a Scene" do
     visit polymorphic_url([@situated, 'scenes'])
+    click_on "A00003"
     click_on "Edit", match: :first
 
     fill_in "Abc", with: @scene.abc
@@ -118,6 +120,7 @@ class ScenesTest < ApplicationSystemTestCase
 
   test "destroying a Scene" do
     visit polymorphic_url([@situated, 'scenes'])
+    click_on "A00003"
     page.accept_confirm do
       click_on "Destroy", match: :first
     end

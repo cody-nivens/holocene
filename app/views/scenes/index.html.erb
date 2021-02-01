@@ -5,8 +5,8 @@
 <table class="table">
   <% @scenes.each do |scene| %>
     <%# if scene.insert_scene.nil? %>
-    <tr><td><%= link_to scene.abc, polymorphic_path([@situated, scene]) %> <%= (scene.section.nil? ? '' : '*') %></td>
-      <td><%= scene.time_to_text %></td>
+    <tr><td class="text-nowrap"><%= link_to scene.abc, polymorphic_path([@situated, scene]) %> <%= (scene.section.nil? ? '' : '*') %></td>
+      <td class="text-nowrap"><%= scene.time_to_text %></td>
       <td><%= scene.place %></td>
       <td><%= scene.name %></td>
     </tr>
@@ -14,5 +14,5 @@
 <% end %>
   </table>
 
-<% @footer_content << "#{link_to 'New Scene', new_polymorphic_path([@situated, 'scene']), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', polymorphic_path([@situated, (@klass == "Book" ? 'stories' : 'key_points')]), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'New Scene', new_polymorphic_path([@situated, 'scene']), :class => "btn btn-default hide-print"}" %>
+<% @footer_content << "#{link_to 'Back', polymorphic_path([@situated, (@klass == "Book" ? 'stories' : 'key_points')]), :class => "btn btn-default hide-print"}" %>

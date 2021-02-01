@@ -3,7 +3,7 @@ require "application_system_test_case"
 class SectionsTest < ApplicationSystemTestCase
   setup do
     @section = sections(:section_1)
-    @chapter = @section.chapter
+    @chapter = @section.sectioned
     @user = users(:users_1)
     sign_in @user
   end

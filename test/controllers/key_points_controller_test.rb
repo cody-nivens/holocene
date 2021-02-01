@@ -3,6 +3,8 @@ require 'test_helper'
 class KeyPointsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @key_point = key_points(:key_point_1)
+    @key_point_2 = key_points(:key_point_3)
+    @key_point_4 = key_points(:key_point_4)
     @scripted = @key_point.scripted
     @scene_2 = scenes(:scene_2)
     @scene_3 = scenes(:scene_3)
@@ -69,6 +71,16 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
 
   test "should show key_point" do
     get polymorphic_url([@scripted, @key_point])
+    assert_response :success
+  end
+
+  test "should show key_point 2" do
+    get polymorphic_url([@scripted, @key_point_1])
+    assert_response :success
+  end
+
+  test "should show key_point 3" do
+    get polymorphic_url([@scripted, @key_point_4])
     assert_response :success
   end
 

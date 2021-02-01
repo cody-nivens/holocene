@@ -15,7 +15,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_select "a[text()=?]",'New Section'
-    assert_select "a[href=?]", new_polymorphic_path(@sectioned_1)
+    assert_select "a[href=?]", new_polymorphic_path([@sectioned_1, 'section'])
     assert_select "a[text()=?]",'Back'
     assert_select "a[href=?]", polymorphic_path(@section.sectioned)
     assert_select ".footer>div>a", 2

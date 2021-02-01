@@ -52,7 +52,7 @@ class BooksController < ApplicationController
           disposition: 'attachment',
           header: { right: '[page] of [topage]' }, 
           outline: { outline: false,
-                     outline_depth: 1 },
+                     outline_depth: 2 },
           toc: {
             disable_dotted_lines: true,
             disable_toc_links: true,

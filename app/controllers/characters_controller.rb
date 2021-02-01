@@ -5,7 +5,11 @@ class CharactersController < ApplicationController
   # GET /characters
   # GET /characters.json
   def index
-    @characters = @object.characters
+    if params[:race].blank?
+      @characters = @object.characters
+    else
+      @characters = @object.characters.where("race = ?", params[:race])
+    end
   end
 
   # GET /characters/1

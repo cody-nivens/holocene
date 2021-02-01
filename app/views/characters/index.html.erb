@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Characters for <%= @object.class.name %></h1>
+<h1>Characters for <%= @object.class.name %>: <%= (@object.class.name == 'Scene' ? @object.abc : @object.name) %></h1>
 
 <%= tabs do |c| %>
 

@@ -35,12 +35,12 @@ class Scene < ApplicationRecord
 
   def time_to_text
     s = "#{self.time.to_i}"
-    return  s if self.time.to_d.modulo(1) == 0
-   s += " + "
+    return  "#{s}y " if self.time.to_d.modulo(1) == 0
+   s += "y "
    if self.time.to_d.modulo(1) < 0.0833
-     s += "#{(self.time.to_d.modulo(1)/0.0192).to_i} week(s)"
+     s += "#{(self.time.to_d.modulo(1)/0.0192).to_i}w"
    else
-     s += "#{(self.time.to_d.modulo(1)/0.0833).to_i} month(s)"
+     s += "#{(self.time.to_d.modulo(1)/0.0833).to_i}m"
   end
    return s
   end

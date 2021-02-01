@@ -34,7 +34,7 @@ class CharacterValuesController < ApplicationController
 
     respond_to do |format|
       if @character_value.save
-        format.html { redirect_to polymorphic_path([@object, @character, @character_value]), notice: 'Character value was successfully created.' }
+        format.html { redirect_to polymorphic_path([@object, @character, 'character_values']), notice: 'Character value was successfully created.' }
         format.json { render :show, status: :created, location: @character_value }
       else
         format.html { render :new, character_id: @character.id }
@@ -49,7 +49,7 @@ class CharacterValuesController < ApplicationController
     @character = @character_value.character
     respond_to do |format|
       if @character_value.update(character_value_params)
-        format.html { redirect_to polymorphic_path([@object, @character, @character_value]), notice: 'Character value was successfully updated.' }
+        format.html { redirect_to polymorphic_path([@object, @character, 'character_values']), notice: 'Character value was successfully updated.' }
         format.json { render :show, status: :ok, location: @character_value }
       else
         format.html { render :edit, character_id: @character.id }

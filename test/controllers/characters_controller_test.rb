@@ -17,6 +17,11 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get index 2" do
+    get book_characters_url(:book_id => @book.id, :race => 'White')
+    assert_response :success
+  end
+
   test "should get new" do
     get new_book_character_url(:book_id => @book.id)
     assert_response :success

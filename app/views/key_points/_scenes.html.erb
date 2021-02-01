@@ -1,6 +1,6 @@
 <% pdf ||= nil %>
 <% key_point.scenes.where(selector: selector).order(:time, :abc).each do |scene| %>
-    <h3><%= (pdf.nil? ? link_to(scene.abc, polymorphic_path([@scripted,key_point, scene])) : scene.abc) %>:<%= scene.time_to_text %></h3>
+  <h3><%= (pdf.nil? ? link_to(scene.abc, polymorphic_path([@scripted,key_point, scene])) : scene.abc) %>:<%= scene.time_to_text %>:<%= scene.place.to_plain_text %></h3>
     <ul>
     <% insert_scene = scene %>
     <% loop do %>
@@ -24,14 +24,14 @@
         <% scene.character_scenes.joins(:character).order(:last_name).each do |character_scene| %>
           <li><%= (pdf.nil? ? 
            link_to("#{character_scene.character.name}, #{scene.time.to_i-character_scene.character.birth_year.to_i}", polymorphic_path([@scripted,character_scene.character])) :
-           character_scene.character.name) %>
-          <%= link_to (fa_icon 'plus'), edit_polymorphic_path([scene, character_scene]) %>
+           character_scene.character.name) %>, <%= character_scene.character.occupation_class %>
+         <%= link_to (fa_icon 'plus'), edit_polymorphic_path([scene, character_scene]) %>
           <% unless character_scene.summary.nil? %>
-             <%= character_scene.summary %>
+             <%= character_scene.summary.to_plain_text %>
           <% end %>
           </li>
        <% end %>
       </ul>
     <% end %>
-  <%= scene.summary %>
+  <%= scene.summary.body %>
 <% end %>

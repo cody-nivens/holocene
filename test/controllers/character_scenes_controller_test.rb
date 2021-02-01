@@ -9,31 +9,31 @@ class CharacterScenesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
-  test "should get index" do
-    get polymorphic_url([@scene, 'character_scenes'])
-    assert_response :success
-  end
+#  test "should get index" do
+#    get polymorphic_url([@scene, 'character_scenes'])
+#    assert_response :success
+#  end
 
-  test "should get new" do
-    get new_polymorphic_url([@scene, 'character_scene']), params: { character_id: @character.id}
-    assert_response :success
-  end
+#  test "should get new" do
+#    get new_polymorphic_url([@scene, 'character_scene']), params: { character_id: @character.id}
+#    assert_response :success
+#  end
 
-  test "should create character_scene" do
-    assert_difference('CharacterScene.count') do
-      post polymorphic_url([@scene, 'character_scenes']), params: { character_scene: { :character_id => @character_scene.character.id, :scene_id => @scene.id}}
-    end
+#  test "should create character_scene" do
+#    assert_difference('CharacterScene.count') do
+#      post polymorphic_url([@scene, 'character_scenes']), params: { character_scene: { :character_id => @character_scene.character.id, :scene_id => @scene.id}}
+#    end
 
-    assert_redirected_to polymorphic_url([@scene.situated, @scene.key_point])
-  end
+#    assert_redirected_to polymorphic_url([@scene.situated, @scene.key_point])
+#  end
 
-  test "should not create character_scene" do
-    assert_difference('CharacterScene.count', 0) do
-      post polymorphic_url([@scene, 'character_scenes']), params: { character_scene: { :character_id => nil, :scene_id => @scene.id}}
-    end
+#  test "should not create character_scene" do
+#    assert_difference('CharacterScene.count', 0) do
+#      post polymorphic_url([@scene, 'character_scenes']), params: { character_scene: { :character_id => nil, :scene_id => @scene.id}}
+#    end
 
-    assert_response :success
-  end
+#    assert_response :success
+#  end
 
   test "should show character_scene" do
     get polymorphic_url([@scene, @character_scene])
@@ -60,6 +60,6 @@ class CharacterScenesControllerTest < ActionDispatch::IntegrationTest
       delete polymorphic_url([@scene,@character_scene])
     end
 
-    assert_redirected_to polymorphic_url([@scene, 'character_scenes'])
+    assert_redirected_to polymorphic_url([@scene, 'characters'])
   end
 end

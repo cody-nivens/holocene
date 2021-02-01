@@ -81,7 +81,7 @@
   <% character_scene=CharacterScene.where(character_id: character.id, scene_id: @scene.id) %>
   <%= link_to (fa_icon 'plus'), edit_polymorphic_path([@scene,character_scene[0]] ) %>
           <% unless character_scene[0].summary.nil? %>
-           <%= character_scene[0].summary %>
+           <%= character_scene[0].summary.to_plain_text %>
          <% end %>
 </li>
 <% end %>

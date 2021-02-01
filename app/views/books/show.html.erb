@@ -25,7 +25,7 @@
 
 <p>
 <strong>Race:</strong>
-<table>
+<table class="table">
   <% counts = {} %>
   <% items = @book.characters.pluck(:race).sort %>
   <% items.each do |item| %>
@@ -35,7 +35,7 @@
     <% counts[item] = counts[item] + 1 %>
   <% end %>
   <% items.uniq.each do |item| %>
-    <tr><td><%= item %></td><td><%= counts[item] %></td></tr>
+    <tr><td><%= link_to item, polymorphic_path([@book,'characters'], :race => item) %></td><td><%= counts[item] %></td></tr>
   <% end %>
 </table>
 

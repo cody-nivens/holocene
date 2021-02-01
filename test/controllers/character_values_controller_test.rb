@@ -24,7 +24,7 @@ class CharacterValuesControllerTest < ActionDispatch::IntegrationTest
       post polymorphic_path([@book, @character, 'character_values']), params: { character_value: { character_attribute_id: @character_value.character_attribute_id, character_id: @character_value.character_id, value: @character_value.value } }
     end
 
-    assert_redirected_to polymorphic_path([@book, @character, CharacterValue.last])
+    assert_redirected_to polymorphic_path([@book, @character, 'character_values'])
   end
 
   test "should not create character_value" do
@@ -47,7 +47,7 @@ class CharacterValuesControllerTest < ActionDispatch::IntegrationTest
 
   test "should update character_value" do
     patch polymorphic_url([@book, @character, @character_value]), params: { character_value: { character_attribute_id: @character_value.character_attribute_id, character_id: @character_value.character_id, value: @character_value.value } }
-    assert_redirected_to polymorphic_url([@book, @character, @character_value])
+    assert_redirected_to polymorphic_url([@book, @character, 'character_values'])
   end
 
   test "should not update character_value" do
