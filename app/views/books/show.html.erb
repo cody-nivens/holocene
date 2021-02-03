@@ -35,7 +35,7 @@
     <% counts[item] = counts[item] + 1 %>
   <% end %>
   <% items.uniq.each do |item| %>
-    <tr><td><%= link_to item, polymorphic_path([@book,'characters'], :race => item) %></td><td><%= counts[item] %></td></tr>
+    <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@book,'characters'], :race => item) %></td><td><%= counts[item] %></td></tr>
   <% end %>
 </table>
 
@@ -43,6 +43,7 @@
 <% @footer_content << "#{link_to 'Stories', book_stories_path(@book), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Characters', polymorphic_path([@book, 'characters' ]), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Key Points', polymorphic_path([@book, 'key_points']), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Artifacts', book_artifacts_path(@book), :class => "btn btn-default" }" %>
 <% else %>
 <% @footer_content << "#{link_to 'Chapters, TOC', toc_path(@book), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Chapters, Details', polymorphic_path([@book, 'chapters']), :class => "btn btn-default" }" %>

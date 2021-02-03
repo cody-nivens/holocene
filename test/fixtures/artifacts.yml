@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+artifact_1:
+  name: MyString
+  character: character_1
+  book: book_1
+  artifact_type: artifact_type_1
+
+artifact_2:
+  name: MyString
+  character: character_1
+  book: book_1
+  artifact_type: artifact_type_2

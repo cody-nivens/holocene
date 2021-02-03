@@ -1,12 +1,15 @@
 class Book < ApplicationRecord
     belongs_to :user
 
-    has_many :glossary_terms
-    has_many :biblioentries
-    has_many :stories
+    has_many :glossary_terms, :dependent => :destroy
+    has_many :biblioentries, :dependent => :destroy
+    has_many :stories, :dependent => :destroy
     has_many :chapters, :as => :scripted
     has_many :key_points, :as => :scripted
     has_many :scenes, :as => :situated
+    has_many :artifacts, :dependent => :destroy
+    has_many :artifact_types, :dependent => :destroy
+    has_many :artifact_locations, :as => :located
 
     has_and_belongs_to_many :authors, dependent: :nullify
     has_and_belongs_to_many :characters, dependent: :nullify

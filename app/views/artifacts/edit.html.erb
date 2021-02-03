@@ -1,0 +1,6 @@
+<h1>Editing Artifact</h1>
+
+<%= render 'form', artifact: @artifact %>
+
+<% @footer_content << "#{link_to 'Show', book_artifact_path(@book, @artifact), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', book_artifacts_path(@book), :class => "btn btn-default"}" %>

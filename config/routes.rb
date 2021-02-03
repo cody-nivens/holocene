@@ -10,10 +10,15 @@ Rails.application.routes.draw do
      resources :stories, options
   end
 
+  concern :located do |options|
+    resources :scenes, options
+  end
+
   concern :scripted do |options|
      resources :chapters, options
      resources :key_points, options
   end
+  resources :artifact_locations
   resources :signets
   resources :embeds
   resources :character_attributes
@@ -43,6 +48,8 @@ Rails.application.routes.draw do
     end
     end
   resources :books do
+    resources :artifacts
+    resources :artifact_types
     concerns :scripted, scripted_type: 'Book'
     resources :key_points do
       resources :sections
@@ -79,8 +86,9 @@ Rails.application.routes.draw do
     resources :sections
  end
  resources :scenes do
+    concerns :located, located_type: 'Book'
     resources :sections
-  resources :character_scenes, only: [ :show, :edit, :update, :destroy ]
+    resources :character_scenes, only: [ :show, :edit, :update, :destroy ]
   end
   resources :epochs
   resources :timelines

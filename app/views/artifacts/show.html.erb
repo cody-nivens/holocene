@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @artifact.name %>
+</p>
+
+<p>
+  <strong>Owner/Controller:</strong>
+  <%= @artifact.character.name %>
+</p>
+
+<p>
+  <%= @artifact.summary %>
+</p>
+
+<% @footer_content << "#{link_to 'Edit', edit_book_artifact_path(@book, @artifact), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', book_artifacts_path(@book), :class => "btn btn-default"}" %>
+

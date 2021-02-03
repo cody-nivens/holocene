@@ -27,8 +27,9 @@ $fa-font-path: "font-awesome/fonts" !default;
 @import 'font-awesome';
 @import 'timelineJS/timeline';
 @import 'jquery-jvectormap';
-@import 'trix/dist/trix';
-@import "actiontext";
+@import 'trix/dist/trix.css';
+// @import "actiontext";
+@import "./actiontext.scss";
 
 //@import "timelineJS/fonts/font.pt";
 
@@ -342,6 +343,17 @@ table td, table td * {
   }
 }
 //simple_form input for rich_text_area hight
-trix-editor.form-control {
+.trix-editor.form-control {
   height: auto;
+}
+.trix-editor {
+  &.form-control {
+    min-height: 20em;
+    height: auto;
+  }
+}
+.trix-content {
+  max-height: 40em !important;   //set whatever height you want
+  height: auto;
+  overflow-y: auto;
 }

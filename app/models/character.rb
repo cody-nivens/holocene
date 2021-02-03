@@ -7,10 +7,12 @@ class Character < ApplicationRecord
   has_many :character_scenes
   has_many :scenes, :through => :character_scenes
 
+  has_many :artifacts, dependent: :destroy
+  has_many :artifact_locations, dependent: :destroy, :as => :located
+
   has_many :signets, as: :sigged
 
   validates_presence_of :first_name
-
 
   belongs_to :father, class_name: 'Character', :optional => true
 

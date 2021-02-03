@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_21_184629) do
+ActiveRecord::Schema.define(version: 2021_02_01_150302) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -41,6 +41,36 @@ ActiveRecord::Schema.define(version: 2021_01_21_184629) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "artifact_locations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "artifact_id", null: false
+    t.string "located_type", null: false
+    t.bigint "located_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["artifact_id"], name: "index_artifact_locations_on_artifact_id"
+    t.index ["located_type", "located_id"], name: "index_artifact_locations_on_located_type_and_located_id"
+  end
+
+  create_table "artifact_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.bigint "book_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_artifact_types_on_book_id"
+  end
+
+  create_table "artifacts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.bigint "character_id", null: false
+    t.bigint "book_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "artifact_type_id", null: false
+    t.index ["artifact_type_id"], name: "index_artifacts_on_artifact_type_id"
+    t.index ["book_id"], name: "index_artifacts_on_book_id"
+    t.index ["character_id"], name: "index_artifacts_on_character_id"
   end
 
   create_table "asides", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -455,6 +485,11 @@ ActiveRecord::Schema.define(version: 2021_01_21_184629) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "artifact_locations", "artifacts"
+  add_foreign_key "artifact_types", "books"
+  add_foreign_key "artifacts", "artifact_types"
+  add_foreign_key "artifacts", "books"
+  add_foreign_key "artifacts", "characters"
   add_foreign_key "character_attributes", "character_categories"
   add_foreign_key "character_values", "character_attributes"
   add_foreign_key "character_values", "characters"

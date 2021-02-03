@@ -1,0 +1,2 @@
+module ArtifactLocationsHelper
+end

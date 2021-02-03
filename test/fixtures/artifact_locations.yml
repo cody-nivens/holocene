@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+artifact_location_1:
+  artifact: artifact_1
+  located: scene_1
+  located_type: Scene
+
+artifact_location_2:
+  artifact: artifact_2
+  located: scene_1
+  located_type: Scene

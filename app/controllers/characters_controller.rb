@@ -5,8 +5,10 @@ class CharactersController < ApplicationController
   # GET /characters
   # GET /characters.json
   def index
-    if params[:race].blank?
+    if params[:race].nil?
       @characters = @object.characters
+    elsif params[:race].blank?
+      @characters = @object.characters.where("race = ''")
     else
       @characters = @object.characters.where("race = ?", params[:race])
     end

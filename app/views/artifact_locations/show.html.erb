@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Artifact:</strong>
+  <%= @artifact_location.artifact_id %>
+</p>
+
+<p>
+  <strong>Located:</strong>
+  <%= @artifact_location.located_id %>
+</p>
+
+<%= link_to 'Edit', edit_artifact_location_path(@artifact_location) %> |
+<%= link_to 'Back', artifact_locations_path %>

@@ -1,0 +1,19 @@
+<%= simple_form_for [@book, @artifact] do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= hidden_field :book_id, @book.id %>
+    <%= f.hidden_field :book_id, value: @book.id %>
+
+    <%= f.input :name %>
+    <%= f.association :character, collection: @book.characters.order(:last_name, :first_name) %>
+    <%= f.association :artifact_type %>
+    <%= f.rich_text_area :summary %>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
