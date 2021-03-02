@@ -6,6 +6,7 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
     @key_point_2 = key_points(:key_point_3)
     @key_point_4 = key_points(:key_point_4)
     @scripted = @key_point.scripted
+    @scene = scenes(:scene_1)
     @scene_2 = scenes(:scene_2)
     @scene_3 = scenes(:scene_3)
     @user = users(:users_1)

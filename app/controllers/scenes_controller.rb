@@ -1,11 +1,14 @@
 class ScenesController < ApplicationController
-  before_action :set_scene, only: [:show, :edit, :update, :destroy]
+  before_action :set_scene, only: [:moved, :move, :show, :edit, :update, :destroy]
   before_action :set_situated, only: [ :index, :create, :new, :destroy]
 
   # GET /scenes
   # GET /scenes.json
   def index
+    @toggle = params[:toggle]
+
     @scenes = Scene.where("situated_type = ? and situated_id =?", @klass, @situated.id)
+
      stories = nil
     if @situated.class.name == 'Book'
        stories = @situated.stories.order(:position)
@@ -18,22 +21,46 @@ class ScenesController < ApplicationController
     stories.each do |story|
       story.key_points.order(:position).each do |key_point|
         key_point.scenes.order(:time,:abc).each do |scene|
-           scenes = Scene.where(insert_scene_id: scene.id)
-           scenes.each do |scene_2|
-             scene_ids << scene_2
+          unless @toggle == "on"
+              scenes = Scene.where(insert_scene_id: scene.id)
+              scenes.each do |scene_2|
+                scene_ids << scene_2
+              end
            end
            scene_ids << scene.id
-       end
-     end
-  end
+        end
+      end
+    end
 
-    @scenes = Scene.where("id in (?)", scene_ids).order(:time, :abc)
+    if @toggle == "on"
+      @scenes = Scene.where("id in (?)", scene_ids).order(:abc)
+    else
+      @scenes = Scene.where("id in (?)", scene_ids).order(:time, :abc)
+    end
   end
 
   # GET /scenes/1
   # GET /scenes/1.json
   def show
     @situated = @scene.situated
+  end
+
+  def move 
+    @situated = @scene.situated
+    @key_point = @scene.key_point
+  end
+
+  def moved
+    @situated = @scene.situated
+    @key_point = @scene.key_point
+
+    respond_to do |format|
+      if @scene.update({:key_point_id => params[:new_key_point_id], :selector => params[:new_selector]})
+        format.html { redirect_to polymorphic_path(@scene), notice: 'Scene was successfully moved.' }
+      else
+        format.html { render :move, situated_tyep: @situated.class.name, situated_id: @situated.id }
+      end
+    end
   end
 
   # GET /scenes/new

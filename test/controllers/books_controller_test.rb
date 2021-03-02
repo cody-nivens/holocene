@@ -3,6 +3,7 @@ require 'test_helper'
 class BooksControllerTest < ActionDispatch::IntegrationTest
   setup do
     @book = books(:book_1)
+    @book_2 = books(:book_2)
     @user = users(:users_1)
     sign_in @user
   end
@@ -78,6 +79,11 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
   test "should get epub" do
     get book_epub_url(@book)
+    assert_response :success
+  end
+
+  test "should get epub 2" do
+    get book_epub_url(@book_2)
     assert_response :success
   end
 

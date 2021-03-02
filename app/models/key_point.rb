@@ -8,6 +8,10 @@ class KeyPoint < ApplicationRecord
 
   validates_presence_of :hook
 
+  def name
+    hook[0..99]
+  end
+
   def min
     min = 10000
     self.scenes.order(:selector).each do |scene|

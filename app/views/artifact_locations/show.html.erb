@@ -10,5 +10,5 @@
   <%= @artifact_location.located_id %>
 </p>
 
-<%= link_to 'Edit', edit_artifact_location_path(@artifact_location) %> |
-<%= link_to 'Back', artifact_locations_path %>
+<% @footer_content << "#{link_to 'Edit', edit_artifact_location_path(@artifact_location), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', artifact_locations_path , :class => "btn btn-default"}" %>

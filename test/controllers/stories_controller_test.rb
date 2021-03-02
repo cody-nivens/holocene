@@ -45,6 +45,12 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should show pdf book" do
+    get book_story_url(@book, @story, :format => :pdf)
+    assert_response :success
+  end
+
+
   test "should get edit" do
     get edit_book_story_url(@book, @story)
     assert_response :success

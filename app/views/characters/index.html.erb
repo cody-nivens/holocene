@@ -1,8 +1,28 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Characters for <%= @object.class.name %>: <%= (@object.class.name == 'Scene' ? @object.abc : @object.name) %></h1>
+<h1><%= @title %> for <%= @object.class.name %>: <%= (@object.class.name == 'Scene' ? @object.abc : @object.name) %></h1>
 
 <%= tabs do |c| %>
+
+<% c.tab "Alpha" do %>
+  <span>
+  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.order(:last_name,:first_name)} %>
+  </span>
+<% end %>
+<% c.tab "Occupation Class" do %>
+  <span>
+<p>
+<% @characters.order(:occupation_class).pluck(:occupation_class).uniq.each do |occ_class| %>
+  <%= occ_class %>
+<ul>
+<% @characters.where("occupation_class = ?", occ_class).order(:occupation_class,:last_name,:first_name).each do |character| %>
+  <li><%= link_to character.name, polymorphic_path([@object,character]) %><%= "#{(character.grouping.blank? ? '' : "-  #{character.grouping}")}" %></li>
+<% end %>
+</ul>
+<% end %>
+</p>
+  </span>
+<% end %>
 
 <% unless @characters.where("last_name like ?", "").empty? %>
 <% c.tab " " do %>
@@ -219,17 +239,12 @@
   </span>
 <% end %>
 <% end %>
-<% c.tab "*1" do %>
-  <span>
-  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.order(:last_name,:first_name)} %>
-  </span>
-<% end %>
-<% c.tab "*2" do %>
+<% c.tab "Birth" do %>
   <span>
   <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.order(:birth_year)} %>
   </span>
 <% end %>
-<% c.tab "*3" do %>
+<% c.tab "Death" do %>
   <span>
   <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.order(:death_year)} %>
   </span>

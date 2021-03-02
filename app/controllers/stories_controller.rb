@@ -11,6 +11,25 @@ class StoriesController < ApplicationController
   # GET /stories/1
   # GET /stories/1.json
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.pdf {
+         render pdf: "export",
+          disposition: 'attachment',
+          header: { right: '[page] of [topage]' },
+          outline: { outline: false,
+                     outline_depth: 2 },
+          toc: {
+            disable_dotted_lines: true,
+            disable_toc_links: true,
+            level_indentation: 4,
+            header_text: @story.name,
+            text_size_shrink: 0.5
+          }
+     }
+
+    end
+
   end
 
   def resync_scenes

@@ -2,12 +2,5 @@
 
 <%= render 'form', signet: @signet %>
 
-<%= link_to 'Show', @signet %> |
-<% if @signet.sigged.class.name == "Chapter" %>
-  <%= link_to 'Back', chapter_signets_path(:chapter_id => @sigged.id) %>
-<% elsif @signet.sigged.class.name == "Section" %>
-<%= link_to 'Back', section_signets_path(:section_id => @sigged.id) %>
-<% elsif @signet.sigged.class.name == "Book" %>
-<%= link_to 'Back', book_signets_path(:book_id => @sigged.id) %>
-<% end %>
-
+<% @footer_content << "#{link_to 'Show', @signet, :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', polymorphic_path(@sigged), :class => "btn btn-default"}" %>

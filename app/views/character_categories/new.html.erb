@@ -2,4 +2,4 @@
 
 <%= render 'form', character_category: @character_category %>
 
-<%= link_to 'Back', character_categories_path %>
+<% @footer_content << "#{link_to 'Back', character_categories_path, :class => "btn btn-default"}" %>

@@ -2,6 +2,9 @@
 
 <h1>
   <%= @story.title %>
+  <%= link_to (fa_icon "file-pdf-o"), story_path(@story,:format => :pdf), :title => "PDF" %>
+<%= link_to (fa_icon "file-pdf-o"), story_path(@story,:format => :pdf, :outline => true), :title => "PDF" %>
+
 </h1>
 
 <p>
@@ -29,8 +32,8 @@
 <% @story.key_points.order(:position).each do |key_point| %>
   <li><%= link_to key_point.hook, polymorphic_path([@story, key_point]) %>
   <ul>
-  <% key_point.scenes.order(:selector).each do |scene| %>
-    <li><%= link_to scene.abc, polymorphic_path([@story, key_point, scene]) %> <%= (scene.section.nil? ? '' : '*') %><%= scene.time_to_text %> : <%= scene.name %></li>
+  <% key_point.scenes.order(:selector, :abc).each do |scene| %>
+    <li><%= link_to scene.abc, polymorphic_path([@story, key_point, scene]) %> <%= (scene.section.nil? ? '' : '*') %><%= scene.time_to_text %> : <%= scene.characters.count %> : <%= scene.name %></li>
 <% end %>
   </ul>
   </li>

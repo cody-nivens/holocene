@@ -24,6 +24,9 @@ Rails.application.routes.draw do
   resources :character_attributes
   resources :character_categories
 
+  get "/scenes/:id/move", to: "scenes#move", as: :scene_move
+  post "/scenes/:id/moved", to: "scenes#moved", as: :scene_moved
+
   post "/books/:book_id/authors/add", to: "authors#add", as: :book_authors_add
   get "/books/:book_id/authors/list", to: "authors#list", as: :book_authors_list
   post "/books/:book_id/characters/add", to: "characters#add", as: :book_characters_add

@@ -2,12 +2,23 @@
 
 <h1>Scenes</h1>
 
+<%= form_tag polymorphic_path([@situated,'scenes']), :method => :get, :id => 'my-form' do %>
+  <%= hidden_field_tag :situated_id, @situated.id %>
+  <%= hidden_field_tag :situated_type, @situated.class.name %>
+  <%= check_box_tag :toggle, @toggle, @toggle %>
+
+  <%= submit_tag 'Go' %>
+<% end %>
+
 <table class="table">
   <% @scenes.each do |scene| %>
     <%# if scene.insert_scene.nil? %>
     <tr><td class="text-nowrap"><%= link_to scene.abc, polymorphic_path([@situated, scene]) %> <%= (scene.section.nil? ? '' : '*') %></td>
       <td class="text-nowrap"><%= scene.time_to_text %></td>
       <td><%= scene.place %></td>
+      <td><% scene.characters.order(:last_name, :first_name).each do |character| %>
+        <%= character.name %><br/>
+      <% end %></td>
       <td><%= scene.name %></td>
     </tr>
     <%# end %>
@@ -16,3 +27,9 @@
 
 <% @footer_content << "#{link_to 'New Scene', new_polymorphic_path([@situated, 'scene']), :class => "btn btn-default hide-print"}" %>
 <% @footer_content << "#{link_to 'Back', polymorphic_path([@situated, (@klass == "Book" ? 'stories' : 'key_points')]), :class => "btn btn-default hide-print"}" %>
+
+<script>
+  $(function() {
+    $('#toggle').bootstrapToggle();
+  })
+</script>

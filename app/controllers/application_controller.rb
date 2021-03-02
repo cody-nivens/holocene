@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   before_action :set_footer_content
   helper_method :set_prev_chapter,:set_next_chapter
   helper_method :set_prev_key_point,:set_next_key_point
+  helper_method :set_prev_scene,:set_next_scene
+  helper_method :selector_string, :selector_collection
 
   def home
   end
@@ -17,6 +19,31 @@ class ApplicationController < ActionController::Base
   end
 
   def faq
+  end
+
+  def selector_string(selector)
+    case selector
+    when 1
+      "First Plot Point"
+    when 2
+      "First Pinch Point"
+    when 3
+      "Midpoint"
+    when 4
+      "Second Pinch Point"
+    when 5
+      "Third Plot Point"
+    when 6
+      "Climax"
+    end
+  end
+
+  def selector_collection
+    s = []
+    1.upto(6).each do |i|
+      s << [ selector_string(i), i ]
+    end
+    s
   end
 
   def add_background_events(object)
@@ -56,6 +83,29 @@ class ApplicationController < ActionController::Base
         next_position += 1
       end
       return chapter.scripted.chapters.where(position: next_position)[0]
+    end
+
+    def set_prev_scene(scene)
+      max = (scene.selector - 1) % 7
+      key_point = scene.key_point
+      if max == 0
+        max = 6
+        key_point = set_prev_key_point(scene.key_point)
+        key_point = (key_point.nil? ? scene.key_point : key_point)
+      end
+      prev_scene = Scene.where(key_point_id: key_point.id, selector: max)
+      return prev_scene[0]
+    end
+
+    def set_next_scene(scene)
+      max = (scene.selector + 1) % 7
+      key_point = scene.key_point
+      if max == 0
+        max = 1
+        key_point = set_next_key_point(scene.key_point)
+      end
+      next_scene = Scene.where(key_point_id: key_point.id, selector: max)
+      return next_scene[0]
     end
 
     def set_prev_key_point(key_point)
@@ -173,6 +223,20 @@ TITLE_PAGE
              </body></html>
 COPYRIGHT_PAGE
 
+      if @book.is_fiction?
+   chap_index = 1
+   @book.stories.order(:position).each do |story|
+  @ebook.add_item("text/#{story.name.camelcase}.xhtml").add_content(StringIO.new(<<-CHAP_ONE)).toc_text(story.name).landmark(type: 'story', title: story.name)
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>#{story.name}</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
+</head>
+<body>#{StoriesController.render partial: "stories/show.html", :locals =>{ notes: @notes, book: @book, story: story, epub: true, pdf: true} }
+</body></html>
+CHAP_ONE
+     chap_index += 1
+end
+      else
    chap_index = 1
 @book.chapters.each do |chapter|
   unless chapter.partition.nil?
@@ -269,7 +333,7 @@ GLOSSTERMS
 #{BiblioentriesController.render partial: 'biblioentries/index.html', locals: {biblioentries: @book.biblioentries}}
 </body></html>
 BIBLIOTERMS
-
+      end
 }
 
     epubname = "#{Rails.root}/tmp/example_test.epub"

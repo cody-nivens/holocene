@@ -57,7 +57,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create section" do
     assert_difference('Section.count', 0) do
-      post polymorphic_url([@sectioned_1, 'sections']), params: {section: {:sectioned_type => @sectioned_1.class.name, :sectioned_id => @sectioned_1.id,  body: @section.body, name: "", position: @section.position, sectioned_id: @sectioned_1.id } }
+      post polymorphic_url([@sectioned_1, 'sections']), params: {section: {:sectioned_type => @sectioned_1.class.name, :sectioned_id => @sectioned_1.id,  body: @section.body, name: "", position: @section.position } }
     end
 
     assert_response :success

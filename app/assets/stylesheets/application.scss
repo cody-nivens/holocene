@@ -31,6 +31,8 @@ $fa-font-path: "font-awesome/fonts" !default;
 // @import "actiontext";
 @import "./actiontext.scss";
 
+@import "bootstrap-toggle";
+
 //@import "timelineJS/fonts/font.pt";
 
 div.alwaysbreak { page-break-before: always; }

@@ -1,9 +1,9 @@
 <% pdf ||= nil %>
 
-<h2><%= character.name %></h2>
+<h3><%= character.name %></h3>
 <p>
   <%= character.first_name %> <%= character.middle_name %> <%= character.last_name %> <%= character.suffix %>
-  b. <%= character.birth_year %> - d. <%= character.death_year %>, <%= character.occupation_class %> <%= character.grouping %>
+  b. <%= character.birth_year %> - d. <%= character.death_year %>, <%= character.occupation_class %> - <%= character.grouping %>
 </p>
 
 <% unless character.reason_for_name.blank? %>

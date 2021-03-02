@@ -2,4 +2,4 @@
 
 <%= render 'form', artifact_type: @artifact_type %>
 
-<%= link_to 'Back', book_artifact_types_path(:book_id => @book.id) %>
+<% @footer_content << "#{link_to 'Back', book_artifact_types_path(:book_id => @book.id), :class => "btn btn-default"}" %>

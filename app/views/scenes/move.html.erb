@@ -1,0 +1,39 @@
+<%= form_with url: polymorphic_path([@scene, 'moved']) do |f| %>
+
+  <%= hidden_field "#{@situated.class.name.underscore}_id", value: @situated.id %>
+      <%= hidden_field_tag :key_point_id, (@key_point.nil? ? nil : @key_point.id) %>
+    <%= hidden_field_tag :situated_id, @situated.id %>
+    <%= hidden_field_tag :selector, @selector %>
+    <%= hidden_field_tag :situated_type, @situated.class.name %>
+    <%= f.hidden_field :key_point_id, value: (@scene.key_point.nil? ? nil : (@key_point.nil? ? @scene.key_point.id : @key_point.id)) %>
+    <%= f.hidden_field :situated_id %>
+    <%= f.hidden_field :situated_type %>
+    <%= f.hidden_field :selector, value: (@scene.selector.nil? ? @selector.to_i : @scene.selector) %>
+
+
+    <h1>Move scene <%= @scene.abc %>: <%= @scene.name %> </h1>
+
+    <strong>Existing Key Point:</strong> <%= @key_point.name %><br/>
+    <strong>Selector:</strong> <%= selector_string(@scene.selector) %>
+
+<table class="table">
+  <tr>
+    <td >
+        <%= f.select :new_key_point_id, options_from_collection_for_select(@situated.key_points.order(:position), :id, :name), :prompt => "Select Keypoint", :multiple => false, :size => 1 %>
+      </td>
+  </tr>
+  <tr>
+    <td >
+      <%= f.select :new_selector, options_for_select(selector_collection), :value => @scene.selector, :prompt => "Select Selector", :multiple => false, :size => 1 %>
+      </td>
+  </tr>
+</table>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>
+
+<% @footer_content << "#{link_to 'Back', polymorphic_path(@situated), :class => "btn btn-default" }" %>
+

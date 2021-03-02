@@ -2,4 +2,4 @@
 
 <%= render 'form', artifact_location: @artifact_location %>
 
-<%= link_to 'Back', artifact_locations_path %>
+<% @footer_content << "#{link_to 'Back', artifact_locations_path , :class => "btn btn-default"}" %>

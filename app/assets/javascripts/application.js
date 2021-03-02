@@ -25,3 +25,4 @@
 //= link_tree ../icons
 //= link_tree ../fonts
 //= link_tree ../images
+//= require bootstrap-toggle

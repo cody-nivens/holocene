@@ -29,7 +29,7 @@ class Character < ApplicationRecord
 ]
 
   def name
-    "#{(honorific.blank? ? "#{first_name}" : "#{honorific} ")} #{(last_name.blank? ? (honorific.blank? ? '' : first_name) : last_name)}" + (suffix.blank? ? '' : " #{suffix}")
+    "#{(honorific.blank? ? "#{first_name}" : "#{honorific} ")} #{(middle_name.blank? ? '' : middle_name)}#{(middle_name.blank? ? '' : ' ')}#{(last_name.blank? ? (honorific.blank? ? '' : first_name) : last_name)}" + (suffix.blank? ? '' : " #{suffix}")
   end
 
   def full_name

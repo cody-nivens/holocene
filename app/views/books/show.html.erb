@@ -2,12 +2,16 @@
 <%= link_to (fa_icon "sticky-note-o"), book_signets_path(@book), :title => "Signets" %>
 <%= link_to (fa_icon "book"), book_epub_path(@book), :title => "EPub" %>
 <%= link_to (fa_icon "file-pdf-o"), book_path(@book,:format => :pdf), :title => "PDF" %>
+<%= link_to (fa_icon "file-pdf-o"), book_path(@book,:format => :pdf, :outline => true), :title => "PDF" %>
 </h1>
 
 <p>
   <%= raw @book.body %>
 </p>
 
+<div class="container">
+      <div class="row">
+      <div class="col-md-6">
 <p>
 <strong>Stories:</strong>
 <%= @book.stories.count %>
@@ -23,8 +27,7 @@
 <%= @book.scene_count %>
 </p>
 
-<p>
-<strong>Race:</strong>
+<strong>Ethnicity:</strong>
 <table class="table">
   <% counts = {} %>
   <% items = @book.characters.pluck(:race).sort %>
@@ -35,10 +38,28 @@
     <% counts[item] = counts[item] + 1 %>
   <% end %>
   <% items.uniq.each do |item| %>
-    <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@book,'characters'], :race => item) %></td><td><%= counts[item] %></td></tr>
+    <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@book,'characters'], :ethnicity => item) %></td><td><%= counts[item] %></td></tr>
   <% end %>
 </table>
-
+</div>
+      <div class="col-md-6">
+<strong>Occupation Class:</strong>
+<table class="table">
+  <% counts = {} %>
+  <% items = @book.characters.pluck(:occupation_class).sort %>
+  <% items.each do |item| %>
+    <% if counts[item].nil? %>
+      <% counts[item] = 0 %>
+    <% end %>
+    <% counts[item] = counts[item] + 1 %>
+  <% end %>
+  <% items.uniq.each do |item| %>
+    <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@book,'characters'], :occupation_class => item) %></td><td><%= counts[item] %></td></tr>
+  <% end %>
+</table>
+</div>
+</div>
+</div>
 <% if @book.is_fiction? %>
 <% @footer_content << "#{link_to 'Stories', book_stories_path(@book), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Characters', polymorphic_path([@book, 'characters' ]), :class => "btn btn-default" }" %>

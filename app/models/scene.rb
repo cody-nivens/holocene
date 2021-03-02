@@ -16,7 +16,7 @@ class Scene < ApplicationRecord
 
   belongs_to :situated, polymorphic: true
 
-  belongs_to :key_point, :optional => true
+  belongs_to :key_point #, :optional => true
 
   has_one :section, :as => :sectioned
   belongs_to :insert_scene, class_name: :Scene, :optional => true

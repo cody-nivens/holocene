@@ -5,12 +5,20 @@ class CharactersController < ApplicationController
   # GET /characters
   # GET /characters.json
   def index
-    if params[:race].nil?
+    if params[:ethnicity].nil? && params[:occupation_class].nil?
       @characters = @object.characters
-    elsif params[:race].blank?
-      @characters = @object.characters.where("race = ''")
+      @title = "Characters"
     else
-      @characters = @object.characters.where("race = ?", params[:race])
+    if !params[:occupation_class].blank?
+      @characters = @object.characters.where("occupation_class = ?", params[:occupation_class])
+      @title = "Occupation Class: #{params[:occupation_class]}"
+    elsif !params[:ethnicity].blank?
+      @characters = @object.characters.where("race = ?", params[:ethnicity])
+      @title = "Ethnicity"
+    else
+      @characters = @object.characters.where("race = ''")
+      @title = "Ethnicity"
+    end
     end
   end
 
@@ -22,6 +30,10 @@ class CharactersController < ApplicationController
   # GET /characters/new
   def new
     @character = Character.new
+    @generator = Namey::Generator.new
+    @names =  @generator.name.split(/ /)
+    @character.first_name = @names[0]
+    @character.last_name = @names[1]
   end
 
   # GET /characters/1/list
