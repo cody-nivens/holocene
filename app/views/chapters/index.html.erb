@@ -2,7 +2,7 @@
 
 <% @footer_content << "#{link_to 'New Chapter', new_polymorphic_path([@scripted, Chapter]), :class => "btn btn-default"}" %>
 <% if @situated.class.name == 'Chpater' %>
-<% @footer_content << "#{link_to 'Scenes', polymorphic_path([@situated, 'scenes']), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Scenes', polymorphic_path([@situated, :scenes]), :class => "btn btn-default" }" %>
 <% end %>
 
 <% @footer_content << "#{link_to 'Chapters, TOC', toc_path(@scripted), :class => "btn btn-default" }" %>

@@ -1,4 +1,4 @@
 <%= render 'form', scripted: @scripted, chapter: @chapter, command_label: "Update Chapter"  %>
 
 <% @footer_content << "#{link_to 'Show', polymorphic_path([@scripted, @chapter]), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', polymorphic_path([@scripted, 'chapters']), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', polymorphic_path([@scripted, :chapters]), :class => "btn btn-default"}" %>

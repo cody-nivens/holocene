@@ -1,0 +1,25 @@
+    <% category = CharacterCategory.find_by(name: category)
+    char_attrs = CharacterAttribute.where(name: cat1, character_category_id: category.id)[0]
+    char_attrs2 = CharacterAttribute.where(name: cat2, character_category_id: category.id)[0] %>
+    <% rs = CharacterValue.stats_2(@book.characters,category, char_attrs,char_attrs2) %>
+    <%# debugger %>
+    <% keys_1 = rs[category.name].keys %>
+    <% unless keys_1.empty? %>
+    <table class="table">
+      <% keys_2 = rs[category.name][keys_1[0]].keys %>
+      <tr><th></th>
+        <% keys_2.each do |key| %>
+          <th><%= key %></th>
+        <% end %>
+      </tr>
+        <% keys_1.each do |key| %>
+      <tr>
+          <th><%= key %></th>
+          <% keys_2.each do |key_2| %>
+          <% item = rs[category.name][key][key_2] %>
+          <td><%= link_to (item.blank? ? '' : item), polymorphic_path([@book,:characters], :key1=> key, :key2 => key_2, :cat1 => cat1,  :cat2 => cat2 ) %></td>
+        <% end %>
+      </tr>
+        <% end %>
+    </table>
+        <% end %>

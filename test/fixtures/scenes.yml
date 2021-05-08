@@ -23,7 +23,7 @@ scene_2:
 scene_3:
   abc: A00003
   check: false
-  time: 101.019230769
+  time: 101.0192
   scene_sequel: 1
   situated: story_1 (Story)
   key_point: key_point_1

@@ -1,4 +1,4 @@
-<%= form_with url: polymorphic_path([@scene, 'moved']) do |f| %>
+<%= form_with url: polymorphic_path([@scene, :moved]) do |f| %>
 
   <%= hidden_field "#{@situated.class.name.underscore}_id", value: @situated.id %>
       <%= hidden_field_tag :key_point_id, (@key_point.nil? ? nil : @key_point.id) %>

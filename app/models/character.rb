@@ -1,8 +1,10 @@
 class Character < ApplicationRecord
 
-  has_many :character_values, dependent: :destroy
   has_and_belongs_to_many :books, dependent: :nullify
   has_and_belongs_to_many :stories, dependent: :nullify
+
+  has_many :character_values, dependent: :destroy
+  has_many :character_attributes, :through => :character_values
 
   has_many :character_scenes
   has_many :scenes, :through => :character_scenes
@@ -29,10 +31,18 @@ class Character < ApplicationRecord
 ]
 
   def name
-    "#{(honorific.blank? ? "#{first_name}" : "#{honorific} ")} #{(middle_name.blank? ? '' : middle_name)}#{(middle_name.blank? ? '' : ' ')}#{(last_name.blank? ? (honorific.blank? ? '' : first_name) : last_name)}" + (suffix.blank? ? '' : " #{suffix}")
+    "#{(honorific.blank? ? "#{first_name}" : "#{honorific} ")} #{(middle_name.blank? || !honorific.blank? ? '' : middle_name)}#{(middle_name.blank? ? '' : ' ')}#{(last_name.blank? ? (honorific.blank? ? '' : first_name) : last_name)}" + (suffix.blank? ? '' : " #{suffix}")
+  end
+
+  def select_name
+    "#{(honorific.blank? ? '' : "#{honorific} ")}#{first_name} #{middle_name} #{last_name} #{suffix}:#{occupation_class} - #{grouping}"
   end
 
   def full_name
+    "#{(honorific.blank? ? '' : "#{honorific} ")}#{first_name} #{middle_name} #{last_name} #{suffix}"
+  end
+
+  def self.romanize  full_name
     "#{(honorific.blank? ? '' : "#{honorific} ")}#{first_name} #{middle_name} #{last_name} #{suffix}"
   end
 
@@ -47,6 +57,38 @@ class Character < ApplicationRecord
   end
   return roman
 end
+
+  def self.gen_hair_color
+    case (rand*100).to_i
+    when 1
+      return "Red"
+    when 2..26
+      return "Blond"
+    when 27..67
+      return "Light Brown"
+    when 68..98
+      return "Dark Brown"
+    else
+      return "Black"
+    end
+  end
+
+  def self.gen_eye_color
+    case (rand*100).to_i
+    when 1..2
+      return "Green"
+    when 3..5
+      return "Gray"
+    when 6..10
+      return "Amber"
+    when 11..15
+      return "Hazel"
+    when 16..26
+      return "Blue"
+    else
+      return "Brown"
+    end
+  end
 
   def self.create_character_lineage(names)
     new_names = []

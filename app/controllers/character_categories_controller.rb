@@ -4,7 +4,7 @@ class CharacterCategoriesController < ApplicationController
   # GET /character_categories
   # GET /character_categories.json
   def index
-    @character_categories = CharacterCategory.all
+    @character_categories = CharacterCategory.order(:position)
   end
 
   # GET /character_categories/1

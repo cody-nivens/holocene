@@ -63,6 +63,6 @@ class SignetsControllerTest < ActionDispatch::IntegrationTest
       delete signet_url(:chapter_id => @chapter.id, :id => @signet.id)
     end
 
-    assert_redirected_to polymorphic_url([@chapter, 'signets'])
+    assert_redirected_to polymorphic_url([@chapter, :signets])
   end
 end

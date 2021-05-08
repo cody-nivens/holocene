@@ -24,4 +24,5 @@
 
 <br>
 
-<%= link_to 'New Artifact Type', new_book_artifact_type_path(:book_id => @book.id) %>
+<% @footer_content << "#{link_to 'New Artifact Type', new_polymorphic_path([@book, :artifact_type]), :class => "btn btn-default" }" %>
+

@@ -19,13 +19,24 @@ class Story < ApplicationRecord
 
   def resync_key_points
     index = 0
-    points = self.key_points.order(:position).collect{|x| x.scenes.order(:selector).order(:abc).pluck(:id, :abc, :selector)}
+    points = self.key_points.order(:position).collect{|x| x.scenes.order(:selector, :time,:abc).pluck(:id, :abc, :selector)}
     kps = points.collect{|kp| kp.collect{|y| index += 1;[y[0], "#{self.scene_character}%0.5d00" % index]}}
     kps.each do |updates|
       updates.each do |x|
         scene = Scene.find(x[0])
         scene.update_attribute(:abc, x[1])
       end
+    end
+    results = []
+    self.key_points.each do |kp|
+      kp.scenes.each do |scene|
+        scene.characters.each do |character|
+          results << character unless results.include?(character)
+        end
+      end
+    end
+    results.each do |character|
+      self.characters << character unless self.characters.include?(character)
     end
   end
 

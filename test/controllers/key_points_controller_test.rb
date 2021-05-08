@@ -14,37 +14,37 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get polymorphic_url([@scripted, 'key_points'])
+    get polymorphic_url([@scripted, :key_points])
     assert_response :success
   end
 
   test "should get list" do
-    get polymorphic_url([@scripted, @key_point, 'list']), params: { selector: 1 }
+    get polymorphic_url([@scripted, @key_point, :list]), params: { selector: 1 }
     assert_response :success
   end
 
   test "should add key_points" do
     assert_difference('KeyPoint.count', 0) do
-      post polymorphic_url([@scripted, @key_point, 'add']), params: { scenes_ids: [ ], scenes_avail: [ ],
+      post polymorphic_url([@scripted, @key_point, :add]), params: { scenes_ids: [ ], scenes_avail: [ ],
                                                                      selector: 1, "#{@scripted.class.name.underscore}_id" => @scripted.id }
     end
-    assert_redirected_to polymorphic_url([@scripted, 'key_point_list'])
+    assert_redirected_to polymorphic_url([@scripted, :key_point_list])
   end
 
   test "should add key_points II" do
     assert_difference('@key_point.scenes.where(selector: 1).count') do
-      post polymorphic_url([@scripted, @key_point, 'add']), params: { scenes_ids: [ ], scenes_avail: [ @scene_3.id ],
+      post polymorphic_url([@scripted, @key_point, :add]), params: { scenes_ids: [ ], scenes_avail: [ @scene_3.id ],
                                                                      selector: 1, "#{@scripted.class.name.underscore}_id" => @scripted.id }
     end
-    assert_redirected_to polymorphic_url([@scripted, 'key_point_list'])
+    assert_redirected_to polymorphic_url([@scripted, :key_point_list])
   end
 
   test "should add key_points III" do
     assert_difference('@key_point.scenes.where(selector: 1).count', -1) do
-      post polymorphic_url([@scripted, @key_point, 'add']), params: { scenes_ids: [ @scene_2.id ], scenes_avail: [ ],
+      post polymorphic_url([@scripted, @key_point, :add]), params: { scenes_ids: [ @scene_2.id ], scenes_avail: [ ],
                                                                      selector: 1, "#{@scripted.class.name.underscore}_id" => @scripted.id }
     end
-    assert_redirected_to polymorphic_url([@scripted, 'key_point_list'])
+    assert_redirected_to polymorphic_url([@scripted, :key_point_list])
   end
 
   test "should get new" do
@@ -56,7 +56,7 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create key_point" do
     assert_difference('KeyPoint.count') do
-      post polymorphic_url([@scripted, 'key_points']), params: { key_point: { scripted_id: @scripted.id, scripted_type: @scripted.class.name, climax: @key_point.climax, first_pinch_point: @key_point.first_pinch_point, first_plot_point: @key_point.first_plot_point, hook: @key_point.hook, inciting_incident: @key_point.inciting_incident, key_element: @key_point.key_element, midpoint: @key_point.midpoint, second_pinch_point: @key_point.second_pinch_point, third_plot_point: @key_point.third_plot_point } }
+      post polymorphic_url([@scripted, :key_points]), params: { key_point: { scripted_id: @scripted.id, scripted_type: @scripted.class.name, climax: @key_point.climax, first_pinch_point: @key_point.first_pinch_point, first_plot_point: @key_point.first_plot_point, hook: @key_point.hook, inciting_incident: @key_point.inciting_incident, key_element: @key_point.key_element, midpoint: @key_point.midpoint, second_pinch_point: @key_point.second_pinch_point, third_plot_point: @key_point.third_plot_point } }
     end
 
     assert_redirected_to polymorphic_url([@scripted, KeyPoint.last])
@@ -64,7 +64,7 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create key_point" do
     assert_difference('KeyPoint.count', 0) do
-      post polymorphic_url([@scripted, 'key_points']), params: { key_point: { scripted_id: @scripted.id, scripted_type: @scripted.class.name, climax: @key_point.climax, first_pinch_point: @key_point.first_pinch_point, first_plot_point: @key_point.first_plot_point, hook: "", inciting_incident: @key_point.inciting_incident, key_element: @key_point.key_element, midpoint: @key_point.midpoint, second_pinch_point: @key_point.second_pinch_point, third_plot_point: @key_point.third_plot_point } }
+      post polymorphic_url([@scripted, :key_points]), params: { key_point: { scripted_id: @scripted.id, scripted_type: @scripted.class.name, climax: @key_point.climax, first_pinch_point: @key_point.first_pinch_point, first_plot_point: @key_point.first_plot_point, hook: "", inciting_incident: @key_point.inciting_incident, key_element: @key_point.key_element, midpoint: @key_point.midpoint, second_pinch_point: @key_point.second_pinch_point, third_plot_point: @key_point.third_plot_point } }
     end
 
     assert_response :success
@@ -105,6 +105,6 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
       delete polymorphic_url([@scripted, @key_point])
     end
 
-    assert_redirected_to polymorphic_url([@scripted, 'key_points'])
+    assert_redirected_to polymorphic_url([@scripted, :key_points])
   end
 end

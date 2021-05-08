@@ -14,7 +14,7 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get polymorphic_url([@scripted_1, 'chapters'])
+    get polymorphic_url([@scripted_1, :chapters])
     assert_response :success
 
     assert_select "a[text()=?]",'New Chapter'
@@ -26,7 +26,7 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index 2" do
-    get polymorphic_url([@scripted_2, 'chapters'])
+    get polymorphic_url([@scripted_2, :chapters])
     assert_response :success
 
     assert_select "a[text()=?]",'New Chapter'
@@ -56,7 +56,7 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
         get chapter_demote_url(@chapter_4)
     end
 
-    assert_redirected_to polymorphic_url([@scripted_1, 'chapters'])
+    assert_redirected_to polymorphic_url([@scripted_1, :chapters])
   end
 
   test "should promote chapter" do
@@ -64,12 +64,12 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
       get chapter_section_promote_url(:id => @chapter_2.id,:section_id => @chapter_2.sections[1].id)
     end
 
-    assert_redirected_to polymorphic_url([@scripted_1, 'chapters'])
+    assert_redirected_to polymorphic_url([@scripted_1, :chapters])
   end
 
   test "should not create chapter" do
     assert_difference('Chapter.count', 0) do
-        post polymorphic_url([@scripted_1, 'chapters']), params: {  chapter: { body: @chapter.body, name: "", position: @chapter.position, scripted_id: @chapter.scripted_id, scripted_type: 'Book' } }
+        post polymorphic_url([@scripted_1, :chapters]), params: {  chapter: { body: @chapter.body, name: "", position: @chapter.position, scripted_id: @chapter.scripted_id, scripted_type: 'Book' } }
     end
 
     assert_response :success
@@ -77,7 +77,7 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create chapter" do
     assert_difference('Chapter.count', 1) do
-        post polymorphic_url([@scripted_1, 'chapters']), params: { chapter: { body: @chapter.body, name: "Test", position: @chapter.position, scripted_type: 'Book', scripted_id: @chapter.scripted_id } }
+        post polymorphic_url([@scripted_1, :chapters]), params: { chapter: { body: @chapter.body, name: "Test", position: @chapter.position, scripted_type: 'Book', scripted_id: @chapter.scripted_id } }
     end
 
     assert_redirected_to polymorphic_path([@scripted_1, Chapter.last])
@@ -92,7 +92,7 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[text()=?]",'Citations'
     assert_select "a[href=?]", chapter_citations_path(@chapter)
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", polymorphic_path([@scripted_1, 'chapters'])
+    assert_select "a[href=?]", polymorphic_path([@scripted_1, :chapters])
     assert_select ".footer>div>a", 11
   end
 
@@ -134,7 +134,7 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[text()=?]",'Show'
     assert_select "a[href=?]", polymorphic_path([@scripted_1,@chapter])
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", polymorphic_path([@scripted_1, 'chapters'])
+    assert_select "a[href=?]", polymorphic_path([@scripted_1, :chapters])
     assert_select ".footer>div>a", 2
   end
 
@@ -153,6 +153,6 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
       delete polymorphic_url([@scripted_1, @chapter])
     end
 
-    assert_redirected_to polymorphic_url([@scripted_1, 'chapters'])
+    assert_redirected_to polymorphic_url([@scripted_1, :chapters])
   end
 end

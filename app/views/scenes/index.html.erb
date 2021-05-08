@@ -2,34 +2,51 @@
 
 <h1>Scenes</h1>
 
-<%= form_tag polymorphic_path([@situated,'scenes']), :method => :get, :id => 'my-form' do %>
+<%= form_tag polymorphic_path([@situated,:scenes]), :method => :get, :id => 'my-form' do %>
   <%= hidden_field_tag :situated_id, @situated.id %>
   <%= hidden_field_tag :situated_type, @situated.class.name %>
-  <%= check_box_tag :toggle, @toggle, @toggle %>
+
+  <div class="form-check">
+    <label class="checkbox"> 
+      <%= check_box_tag :toggle, @toggle,@toggle,:class => "checkbox inline" %> Order
+    </label>
+  </div>
+  <div class="form-check">
+    <label class="checkbox"> 
+  <%= check_box_tag :print, @print,@print,:class => "checkbox inline" %> Print
+    </label>
+  </div>
 
   <%= submit_tag 'Go' %>
 <% end %>
 
 <table class="table">
   <% @scenes.each do |scene| %>
-    <%# if scene.insert_scene.nil? %>
-    <tr><td class="text-nowrap"><%= link_to scene.abc, polymorphic_path([@situated, scene]) %> <%= (scene.section.nil? ? '' : '*') %></td>
+    <% if scene.key_point.scripted.publish %>
+    <tr>
+      <% if @print.nil? %>
+        <td class="text-wrap" style="width: 20%"><%= link_to scene.abc, polymorphic_path([@situated, scene]) %> <%= (scene.section.nil? ? '' : '*') %><br/>
+        <% else %>
+        <td class="text-wrap" style="width: 20%"><%= scene.abc %> <%= (scene.section.nil? ? '' : '*') %><br/>
+        <% end %>
+      <%= scene.key_point.name %></td>
       <td class="text-nowrap"><%= scene.time_to_text %></td>
-      <td><%= scene.place %></td>
-      <td><% scene.characters.order(:last_name, :first_name).each do |character| %>
+      <td style="width: 20%"><%= scene.place %></td>
+      <td style="width: 20%"><% scene.characters.order(:last_name, :first_name).each do |character| %>
         <%= character.name %><br/>
       <% end %></td>
-      <td><%= scene.name %></td>
+      <td><%= scene.plain_name %></td>
     </tr>
-    <%# end %>
+    <% end %>
 <% end %>
   </table>
 
-<% @footer_content << "#{link_to 'New Scene', new_polymorphic_path([@situated, 'scene']), :class => "btn btn-default hide-print"}" %>
-<% @footer_content << "#{link_to 'Back', polymorphic_path([@situated, (@klass == "Book" ? 'stories' : 'key_points')]), :class => "btn btn-default hide-print"}" %>
+<% @footer_content << "#{link_to 'New Scene', new_polymorphic_path([@situated, :scene]), :class => "btn btn-default hide-print"}" %>
+<% @footer_content << "#{link_to 'Back', polymorphic_path([@situated, (@klass == "Book" ? :stories : :key_points)]), :class => "btn btn-default hide-print"}" %>
 
 <script>
   $(function() {
     $('#toggle').bootstrapToggle();
+    $('#print').bootstrapToggle();
   })
 </script>

@@ -26,7 +26,7 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
       post book_authors_add_url(:book_id => @book.id), params: { authors_ids: [  ], authors_avail: [ @author.id ] }
     end
 
-    assert_redirected_to polymorphic_path([@book, 'authors_list'])
+    assert_redirected_to polymorphic_path([@book, :authors_list])
   end
 
   test "should add authors II" do
@@ -38,7 +38,7 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
       post book_authors_add_url(:book_id => @book.id), params: { authors_ids: [ @author.id ], authors_avail: [ ] }
     end
 
-    assert_redirected_to polymorphic_path([@book, 'authors_list'])
+    assert_redirected_to polymorphic_path([@book, :authors_list])
   end
 
   test "should get new" do

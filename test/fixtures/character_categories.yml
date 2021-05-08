@@ -1,7 +1,10 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 character_category_1:
-  name: Physical attributes
+  name: Physical Appearance
 
 character_category_2:
   name: Family
+
+character_category_3:
+  name: Gender

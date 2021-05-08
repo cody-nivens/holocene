@@ -60,7 +60,7 @@ class SignetsController < ApplicationController
     @signet.destroy
     respond_to do |format|
       format.html { 
-        redirect_to polymorphic_url([@sigged, 'signets']), notice: 'Signet was successfully destroyed.' 
+        redirect_to polymorphic_url([@sigged, :signets]), notice: 'Signet was successfully destroyed.' 
       }
       format.json { head :no_content }
     end

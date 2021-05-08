@@ -9,9 +9,10 @@
 
     <%= f.input :title %>
     <%= f.input :summary %>
-    <%= f.input :scene_character %>
 
-    <%= f.collection_select :character_ids, @book.characters.order("name ASC"), "id", :name, prompt: "Select a character", multiple: true , class: "form-control" %>
+    <%= f.input :scene_character %>
+    <%= f.label "Publish?" %>
+    <%= f.check_box :publish  %>
   </div>
 
   <div class="form-actions">

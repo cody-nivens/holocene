@@ -32,6 +32,16 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get index 5" do
+    get book_characters_url(:book_id => @book.id),params:{ cat1: "Gender", cat2: "Sex", key1: "Gay",key2: "Male"}
+    assert_response :success
+  end
+
+  test "should get index 6" do
+    get book_characters_url(:book_id => @book.id),params:{ category: "Phyical Appearance", cat1: "Hair color" }
+    assert_response :success
+  end
+
   test "should get new" do
     get new_book_character_url(:book_id => @book.id)
     assert_response :success
@@ -42,7 +52,7 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
       post story_characters_add_url(:story_id => @story.id), params: { characters_ids: [  ], characters_avail: [ @character.id ] }
     end
 
-    assert_redirected_to polymorphic_path([@story, 'characters_list'])
+    assert_redirected_to polymorphic_path([@story, :characters_list])
   end
 
   test "should add characters II" do
@@ -54,13 +64,13 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
       post story_characters_add_url(:story_id => @story.id), params: { characters_ids: [ @character.id ], characters_avail: [ ] }
     end
 
-    assert_redirected_to polymorphic_path([@story, 'characters_list'])
+    assert_redirected_to polymorphic_path([@story, :characters_list])
   end
 
   test "should create character" do
     assert_difference('Character.count') do
       assert_difference('@book.characters.count') do
-        post book_characters_url(:book_id => @book.id), params: { character: { first_name: @character.first_name, nickname: @character.nickname, occupation_class: @character.occupation_class, race: @character.race, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, social_class: @character.social_class } }
+        post book_characters_url(:book_id => @book.id), params: { character: { first_name: @character.first_name, nickname: @character.nickname, occupation_class: @character.occupation_class, race: @character.race, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, social_class: @character.social_class},  gender_gender_value: "Gay", gender_sex_value: "Male"  }
       end
     end
 

@@ -97,9 +97,9 @@
 <% @footer_content << "#{link_to 'Footnotes',chapter_footnotes_path(@chapter), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Citations',chapter_citations_path(@chapter), :class => "btn btn-default" }" %>
 <% else %>
-<% @footer_content << "#{link_to 'Scenes', polymorphic_path([@scripted, @chapter, 'scenes']), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Scenes', polymorphic_path([@scripted, @chapter, :scenes]), :class => "btn btn-default" }" %>
 <% end %>
-<% @footer_content << "#{link_to 'Back',     polymorphic_path([@chapter.scripted,'chapters']), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Back',     polymorphic_path([@chapter.scripted,:chapters]), :class => "btn btn-default" }" %>
 <% unless @chapter.position == 0 %>
 <% @footer_content << "#{link_to '<', polymorphic_path([@chapter.scripted, set_prev_chapter(@chapter)]), :class => "btn icon-ok icon-white" }" %>
 <% end %>

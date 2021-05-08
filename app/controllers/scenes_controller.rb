@@ -6,6 +6,7 @@ class ScenesController < ApplicationController
   # GET /scenes.json
   def index
     @toggle = params[:toggle]
+    @print = params[:print]
 
     @scenes = Scene.where("situated_type = ? and situated_id =?", @klass, @situated.id)
 
@@ -86,7 +87,9 @@ class ScenesController < ApplicationController
   # POST /scenes
   # POST /scenes.json
   def create
+    time = params["t_years"].to_d + params["t"]["month"].to_f/12 + params["t"]["day"].to_f/365
     @scene = Scene.new(scene_params)
+    @scene.time = time
 
     respond_to do |format|
       if @scene.save
@@ -102,6 +105,8 @@ class ScenesController < ApplicationController
   # PATCH/PUT /scenes/1
   # PATCH/PUT /scenes/1.json
   def update
+    time = params["t_years"].to_d + params["t"]["month"].to_f/12 + params["t"]["day"].to_f/365
+    @scene.time = time
     @situated = @scene.situated
     respond_to do |format|
       if @scene.update(scene_params)
@@ -120,7 +125,7 @@ class ScenesController < ApplicationController
     @situated = @scene.situated
     @scene.destroy
     respond_to do |format|
-      format.html { redirect_to polymorphic_url([@situated, 'scenes']), notice: 'Scene was successfully destroyed.' }
+      format.html { redirect_to polymorphic_url([@situated, :scenes]), notice: 'Scene was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

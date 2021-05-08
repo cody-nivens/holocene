@@ -23,7 +23,7 @@ class Scene < ApplicationRecord
 
   has_many :signets, as: :sigged
 
-  validates_presence_of :time
+  #validates_presence_of :time
 
   def full_name
     "#{self.abc}:#{self.summary.to_plain_text[0..99]}"
@@ -33,15 +33,35 @@ class Scene < ApplicationRecord
     "#{self.summary.to_plain_text[0..99]}"
   end
 
-  def time_to_text
-    s = "#{self.time.to_i}"
-    return  "#{s}y " if self.time.to_d.modulo(1) == 0
-   s += "y "
-   if self.time.to_d.modulo(1) < 0.0833
-     s += "#{(self.time.to_d.modulo(1)/0.0192).to_i}w"
-   else
-     s += "#{(self.time.to_d.modulo(1)/0.0833).to_i}m"
+  def plain_name
+    #"#{self.summary.to_plain_text[0..99]}"
+    "#{self.summary.to_plain_text}"
   end
+
+  def time_to_text
+    year = self.time.to_i
+    time = self.time
+    s = "#{year}"
+    return  "#{s}y " if time.to_d.modulo(1) == 0
+    month_slice = 0.0833
+    week_slice =  0.0192
+    day_slice =   0.0027
+
+   s += "y "
+   if self.time.to_d.modulo(1) >= month_slice
+     month = (self.time.to_d.modulo(1)/month_slice).to_i
+     s += "#{month}m "
+   end
+   if self.time.to_d.modulo(1) >= week_slice
+     week = ((self.time - (month.nil? ? 0 : month*month_slice)).to_d.modulo(1)/week_slice).to_i
+     s += "#{week}w " unless week.to_i == 0
+   else
+  end
+
+   if time.to_d.modulo(1) >= day_slice
+     day = ((self.time - (week.nil? ? 0 : week*week_slice) - (month.nil? ? 0 : month*month_slice)).to_d.modulo(1)/day_slice).to_i
+     s += "#{day}d" unless day.to_i == 0
+   end
    return s
   end
 

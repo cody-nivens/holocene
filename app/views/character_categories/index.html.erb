@@ -10,9 +10,9 @@
     </tr>
   </thead>
 
-  <tbody>
-    <% @character_categories.each do |character_category| %>
-      <tr>
+  <tbody class="sortable">  <!-- sortable target -->
+    <% @character_categories.each_with_sortable_id do |character_category, sortable_id| %>
+      <tr  id="<%= sortable_id %>">
         <td><%= character_category.name %></td>
         <td><%= link_to 'Show', character_category %></td>
         <td><%= link_to 'Edit', edit_character_category_path(character_category) %></td>
@@ -22,6 +22,11 @@
   </tbody>
 </table>
 
-<br>
-
 <% @footer_content << "#{link_to 'New Character Category', new_character_category_path, :class => "btn btn-default"}" %>
+
+<script>
+$(function() {
+  $('.sortable').railsSortable();
+});
+</script>
+

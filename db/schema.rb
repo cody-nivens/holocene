@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_01_150302) do
+ActiveRecord::Schema.define(version: 2021_05_04_134016) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -178,6 +178,7 @@ ActiveRecord::Schema.define(version: 2021_02_01_150302) do
     t.integer "related_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "position"
     t.index ["character_category_id"], name: "index_character_attributes_on_character_category_id"
   end
 
@@ -185,6 +186,7 @@ ActiveRecord::Schema.define(version: 2021_02_01_150302) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "position"
   end
 
   create_table "character_scenes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -429,6 +431,7 @@ ActiveRecord::Schema.define(version: 2021_02_01_150302) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "position"
     t.string "scene_character"
+    t.boolean "publish", default: true
   end
 
   create_table "taggings", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|

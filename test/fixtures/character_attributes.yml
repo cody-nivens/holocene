@@ -16,3 +16,19 @@ character_attribute_4:
   name: Relation with mother
   character_category: character_category_2
   related: character_attribute_3
+
+character_attribute_5:
+  name: Gender
+  character_category: character_category_3
+
+character_attribute_6:
+  name: Sex
+  character_category: character_category_3
+
+character_attribute_7:
+  name: Hair color
+  character_category: character_category_1
+
+character_attribute_8:
+  name: Eye color
+  character_category: character_category_1

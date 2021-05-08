@@ -22,6 +22,7 @@
     <%= form.hidden_field :selector, value: (scene.selector.nil? ? @selector.to_i : scene.selector) %>
 
 
+
   <div class="field">
     <%= form.text_field :abc %>
   </div>
@@ -39,7 +40,21 @@
   </div>
 
   <div class="field">
-    <%= form.text_field :time %>
+    <%#= form.text_field :time %>
+      <div class="form-check">
+        <label class="checkbox">
+        <% year = scene.time.to_i %>
+        <% month = (scene.time.nil? ? 0 : (scene.time - year)) %>
+        <% day = (scene.time.nil? ? 0 : (scene.time - year - month*12).to_i) %>
+        <% tmon= (month / 0.0833).to_i %>
+        <%= scene.time %>
+        <%= text_field_tag 't_years', year, size: 5 %> year
+        <%= select("t", "month", %w[1 2 3 4 5 6 7 8 9 10 11 12 ], {include_blank: "Month", selected: tmon}, {}) %> month(s) and 
+          <% options_for_select([["choice1",1],["choice2",2]]) %>
+        <%= select("t", "day", %w[1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31], {include_blank: 'Day', selected: day}, {}) %>
+         day(s).
+    </label>
+  </div>
   </div>
 
   <div class="field">

@@ -11,37 +11,37 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get polymorphic_url([@sectioned_1,'sections'])
+    get polymorphic_url([@sectioned_1,:sections])
     assert_response :success
 
     assert_select "a[text()=?]",'New Section'
-    assert_select "a[href=?]", new_polymorphic_path([@sectioned_1, 'section'])
+    assert_select "a[href=?]", new_polymorphic_path([@sectioned_1, :section])
     assert_select "a[text()=?]",'Back'
     assert_select "a[href=?]", polymorphic_path(@section.sectioned)
     assert_select ".footer>div>a", 2
   end
 
   test "should get new" do
-    get new_polymorphic_url([@sectioned_1,'section'])
+    get new_polymorphic_url([@sectioned_1,:section])
     assert_response :success
 
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", polymorphic_path([@section.sectioned, 'sections'])
+    assert_select "a[href=?]", polymorphic_path([@section.sectioned, :sections])
     assert_select ".footer>div>a", 1
   end
 
   test "should get new 2" do
-    get new_polymorphic_url([@sectioned_1,'section'])
+    get new_polymorphic_url([@sectioned_1,:section])
     assert_response :success
 
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", polymorphic_path([@section.sectioned, 'sections'])
+    assert_select "a[href=?]", polymorphic_path([@section.sectioned, :sections])
     assert_select ".footer>div>a", 1
   end
 
   test "should create section" do
     assert_difference('Section.count') do
-        post polymorphic_url([@sectioned_1, 'sections']), params: {section: { body: @section.body, name: "#{@section.name}1", position: @section.position, sectioned_id: @sectioned_1.id, :sectioned_type => 'Chapter' } }
+        post polymorphic_url([@sectioned_1, :sections]), params: {section: { body: @section.body, name: "#{@section.name}1", position: @section.position, sectioned_id: @sectioned_1.id, :sectioned_type => 'Chapter' } }
     end
 
     assert_redirected_to polymorphic_url([@sectioned_1, Section.last])
@@ -49,7 +49,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create section 2" do
     assert_difference('Section.count') do
-      post polymorphic_url([@sectioned_2, 'sections']), params: {section: { body: @section.body,:sectioned_type => @sectioned_2.class.name, :sectioned_id => @sectioned_2.id,  name: "#{@section.name}1", position: @section.position } }
+      post polymorphic_url([@sectioned_2, :sections]), params: {section: { body: @section.body,:sectioned_type => @sectioned_2.class.name, :sectioned_id => @sectioned_2.id,  name: "#{@section.name}1", position: @section.position } }
     end
 
     assert_redirected_to polymorphic_url([@sectioned_2, Section.last])
@@ -57,7 +57,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create section" do
     assert_difference('Section.count', 0) do
-      post polymorphic_url([@sectioned_1, 'sections']), params: {section: {:sectioned_type => @sectioned_1.class.name, :sectioned_id => @sectioned_1.id,  body: @section.body, name: "", position: @section.position } }
+      post polymorphic_url([@sectioned_1, :sections]), params: {section: {:sectioned_type => @sectioned_1.class.name, :sectioned_id => @sectioned_1.id,  body: @section.body, name: "", position: @section.position } }
     end
 
     assert_response :success

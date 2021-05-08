@@ -34,6 +34,12 @@ class BooksController < ApplicationController
       story.resync_key_points
     end
 
+    @book.stories.each do |story|
+      story.characters.each do |character|
+        @book.characters << character unless @book.characters.include?(character)
+      end
+    end
+
     respond_to do |format|
         format.html { redirect_to book_stories_path(@book), notice: 'Stories were successfully resynced.' }
     end

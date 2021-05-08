@@ -69,7 +69,7 @@
 </table>
 
 <% @footer_content << "#{link_to 'New Chapter', new_polymorphic_path(@book), :class => "btn btn-default" }" %>
-<% @footer_content << "#{link_to 'Chapters, Details', polymorphic_path([@book, 'chapters']), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Chapters, Details', polymorphic_path([@book, :chapters]), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>
 
 <script>

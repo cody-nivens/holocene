@@ -3,8 +3,15 @@
 
   <%= hidden_field "#{@object.class.name.underscore}_id", value: @object.id %>
 
-  Person is <%= text_field_tag 'age', '', size: 5 %> in the year <%= text_field_tag 'year', '', size: 5 %> and lived <%= text_field_tag 'death_age', '', size: 5 %> years.
+  <p>
 
+   Person is <%= text_field_tag 'age', '', size: 5 %> in the year <%= text_field_tag 'year', '', size: 5 %> and lived <%= text_field_tag 'death_age', '', size: 5 %> years.
+</p> 
+
+    <div class="container-fluid">
+    <div class="row">
+    <div class="col-lg-4 bg-success">
+    <span>
   <div class="form-inputs">
     <%= f.text_field :first_name %>
     <%= f.text_field :middle_name %>
@@ -15,6 +22,12 @@
     <%= f.text_field :reason_for_nickname %>
     <%= f.check_box :use_honorific_only %>
     <%= f.text_field :honorific %>
+  </div>
+  </div>
+
+    <div class="col-lg-4 bg-success">
+    <span>
+  <div class="form-inputs">
     <%= f.text_field :race %>
     <%= f.text_field :birth_year %>
     <%= f.text_field :death_year %>
@@ -23,7 +36,41 @@
     <%= f.text_field :social_class %>
     <%= f.text_field :grouping %>
     <%= f.select :father_id, options_from_collection_for_select(@object.characters, :id, :name, (@character.father.nil? ? nil : @character.father.id)), :prompt => "Select Characters", :multiple => false, include_blank: true  %>
+    </span>
+      </div>
+      </div>
+    <div class="row">
+    <div class="col-lg-12 bg-success">
+    <span>
     <%= f.rich_text_area :background %>
+    </span>
+      </div>
+      </div>
+      </div>
+
+    <div class="row">
+<% CharacterCategory.order(:position).each do |category| %>
+    <div class="col-lg-4 bg-warning">
+      <span>
+  <% character_values = character.character_values.joins(:character_attribute).order(:name).where("character_category_id = ?", category.id) %>
+    <% character_attributes = category.character_attributes %>
+  <strong><%= category.name %>:</strong>
+  <table class="table" style="width: auto;">
+    <tbody>
+      <% character_attributes.each do |character_attribute| %>
+      <% character_value = character_values.where(character_attribute_id: character_attribute.id)[0] %>
+        <tr>
+          <td><%= character_attribute.name %></td>
+          <td><%= text_field_tag "#{category.name.underscore}_#{character_attribute.name.underscore}_value".to_sym, (character_value.nil? ? '' :character_value.value) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+      </span>
+  </div>
+<% end %>
+
+  </div>
   </div>
 
   <div class="form-actions">

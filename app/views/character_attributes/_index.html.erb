@@ -9,9 +9,9 @@
      </tr>
    </thead>
  
-   <tbody>
-     <% attributes.each do |character_attribute| %>
-       <tr>
+   <tbody class="sortable">
+     <% attributes.each_with_sortable_id do |character_attribute, sortable_id| %>
+      <tr  id="<%= sortable_id %>">
          <td><%= character_attribute.name %></td>
          <td><%= (character_attribute.related_id.nil? ? "" : CharacterAttribute.find(character_attribute.related_id).name ) %></td>
          <td><%= link_to 'Show', character_attribute %></td>
@@ -22,3 +22,10 @@
    </tbody>
  </table>
 <% end %>
+
+<script>
+$(function() {
+  $('.sortable').railsSortable();
+});
+</script>
+

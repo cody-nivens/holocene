@@ -37,3 +37,16 @@ character_3:
   social_class: Working
   birth_year: 105
   death_year: 179
+
+character_4:
+  first_name: Jack
+  reason_for_name: Dad
+  nickname: TooSmooth
+  reason_for_nickname: Hard to get to listen
+  race: White
+  occupation_class: Working
+  social_class: Working
+  birth_year: 105
+  death_year: 179
+  stories:
+    - story_1

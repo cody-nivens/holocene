@@ -1,4 +1,4 @@
-<%= form_with url: polymorphic_path([@scripted, @key_point, 'add']) do |f| %>
+<%= form_with url: polymorphic_path([@scripted, @key_point, :add]) do |f| %>
 
   <%= f.hidden_field :selector, :value => raw(@selector).to_i %>
   <%= hidden_field "#{@scripted.class.name.underscore}_id", value: @scripted.id %>
@@ -19,6 +19,6 @@
 
 <% end %>
 
-<% @footer_content << "#{link_to 'New Scene', new_polymorphic_path([@scripted, @key_point, 'scene'], selector: @selector.to_i), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', polymorphic_path([@scripted, 'key_points']), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'New Scene', new_polymorphic_path([@scripted, @key_point, :scene], selector: @selector.to_i), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', polymorphic_path([@scripted, :key_points]), :class => "btn btn-default" }" %>
 

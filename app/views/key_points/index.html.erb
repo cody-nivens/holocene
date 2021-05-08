@@ -42,7 +42,7 @@
 <br>
 
 <% @footer_content << "#{link_to 'New Key Point', new_polymorphic_path([@scripted, KeyPoint]), :class => "btn btn-default hide-print" }" %>
-<% @footer_content << "#{link_to 'Scenes', polymorphic_path([@scripted, 'scenes']), :class => "btn btn-default hide-print" }" %>
+<% @footer_content << "#{link_to 'Scenes', polymorphic_path([@scripted, :scenes]), :class => "btn btn-default hide-print" }" %>
 <% @footer_content << "#{link_to 'Back', polymorphic_path(@scripted), :class => "btn btn-default hide-print" }" %>
 
 <script>

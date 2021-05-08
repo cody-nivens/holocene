@@ -26,6 +26,8 @@ Rails.application.routes.draw do
 
   get "/scenes/:id/move", to: "scenes#move", as: :scene_move
   post "/scenes/:id/moved", to: "scenes#moved", as: :scene_moved
+  get "/stories/:story_id/key_points/:id/move", to: "key_points#move", as: :story_key_point_move
+  post "/stories/:story_id/key_points/:id/moved", to: "key_points#moved", as: :story_key_point_moved
 
   post "/books/:book_id/authors/add", to: "authors#add", as: :book_authors_add
   get "/books/:book_id/authors/list", to: "authors#list", as: :book_authors_list

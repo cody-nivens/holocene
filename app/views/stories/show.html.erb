@@ -13,32 +13,104 @@
 
 
 <p>
-<strong>Scene Character:</strong><%= @story.scene_character %>
+<strong>Scene Character:</strong> <%= @story.scene_character %>
 </p>
 
 <p>
-<strong>Characters:</strong><%= @story.characters.count %>
+<strong>Characters:</strong> <%= @story.characters.count %>
 </p>
+
 <p>
-<strong>Key Points:</strong><%= @story.key_points.count %>
+<strong>Publish?:</strong> <%= (@story.publish  ? 'True' : 'False') %>
 </p>
 
 <%= tabs do |c| %>
 
 <% c.tab "Key Points" do %>
   <span>
-<strong>Key Points</strong>
+
 <ul>
 <% @story.key_points.order(:position).each do |key_point| %>
-  <li><%= link_to key_point.hook, polymorphic_path([@story, key_point]) %>
-  <ul>
-  <% key_point.scenes.order(:selector, :abc).each do |scene| %>
-    <li><%= link_to scene.abc, polymorphic_path([@story, key_point, scene]) %> <%= (scene.section.nil? ? '' : '*') %><%= scene.time_to_text %> : <%= scene.characters.count %> : <%= scene.name %></li>
+  <li><%= link_to key_point.hook, polymorphic_path([@story, key_point]) %> - <%= link_to key_point.key_element, polymorphic_path([@story, key_point]) %>
+  <dl>
+  <% key_point.scenes.order(:time, :abc).each do |scene| %>
+    <dt><%= link_to scene.abc, polymorphic_path([@story, key_point, scene]) %> <%= (scene.section.nil? ? '' : '*') %><%= scene.time_to_text %> : <%= scene.characters.count %> : <%= scene.place.to_plain_text %></dt>
+    <dd><%= scene.summary.to_plain_text %></dd>
 <% end %>
   </ul>
   </li>
 <% end %>
 </ul>
+  </span>
+<% end %>
+
+<% c.tab "Gender" do %>
+  <span>
+    <% category = CharacterCategory.find_by(name:'Gender')
+    character_attributes = CharacterAttribute.where(character_category_id: category.id) %>
+    <% rs = CharacterValue.stats_2(@story.characters,category, character_attributes[0],character_attributes[1]) %>
+
+    <% keys_1 = rs[category.name].keys %>
+    <% unless keys_1.empty? %>
+    <table class="table">
+      <% keys_2 = rs[category.name][keys_1[0]].keys %>
+      <tr><th></th>
+        <% keys_2.each do |key| %>
+          <th><%= key %></th>
+        <% end %>
+      </tr>
+
+        <% keys_1.each do |key| %>
+      <tr>
+          <th><%= key %></th>
+          <% keys_2.each do |key_2| %>
+          <% item = rs[category.name][key][key_2] %>
+          <td><%= link_to (item.blank? ? '' : item), polymorphic_path([@story,:characters], :key1=> key, :key2 => key_2, :cat1 => "Gender",  :cat2 =>"Sex" ) %></td>
+        <% end %>
+      </tr>
+        <% end %>
+    </table>
+        <% end %>
+</span>
+<% end %>
+
+
+<% c.tab "Ethnicity" do %>
+  <span>
+<table class="table">
+  <% counts = {} %>
+  <% items = @story.characters.pluck(:race).sort %>
+  <% items.each do |item| %>
+    <% if counts[item].nil? %>
+      <% counts[item] = 0 %>
+    <% end %>
+    <% counts[item] = counts[item] + 1 %>
+  <% end %>
+  <% items.uniq.each do |item| %>
+    <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@story,:characters], :ethnicity => item) %></td><td><%= counts[item] %></td></tr>
+  <% end %>
+</table>
+</span>
+<% end %>
+
+<% c.tab "Occupation Class" do %>
+  <span>
+      <div class="col-md-6">
+<table class="table">
+  <% counts = {} %>
+  <% items = @story.characters.pluck(:occupation_class).sort %>
+  <% items.each do |item| %>
+    <% if counts[item].nil? %>
+      <% counts[item] = 0 %>
+    <% end %>
+    <% counts[item] = counts[item] + 1 %>
+  <% end %>
+  <% items.uniq.each do |item| %>
+    <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@story,:characters], :occupation_class => item) %></td><td><%= counts[item] %></td></tr>
+  <% end %>
+</table>
+      </div>
+
   </span>
 <% end %>
 
@@ -60,7 +132,7 @@
 <% end %>
 
 <% @footer_content << "#{link_to 'Edit', edit_book_story_path(:book_id => @book.id, :id => @story.id), :class => "btn btn-default hide-print" }" %>
-<% @footer_content << "#{link_to 'Characters', polymorphic_path([@story, 'characters' ]), :class => "btn btn-default hide-print" }" %>
-<% @footer_content << "#{link_to 'Key Points', polymorphic_path([@story, 'key_points']), :class => "btn btn-default hide-print" }" %>
+<% @footer_content << "#{link_to 'Characters', polymorphic_path([@story, :characters ]), :class => "btn btn-default hide-print" }" %>
+<% @footer_content << "#{link_to 'Key Points', polymorphic_path([@story, :key_points]), :class => "btn btn-default hide-print" }" %>
 <% @footer_content << "#{link_to 'Resync Scenes', story_resync_scenes_path(:id => @story.id), :class => "btn btn-default hide-print" }" %>
 <% @footer_content << "#{ link_to 'Back', book_stories_path(:book_id => @book.id), :class => "btn btn-default hide-print" }" %>

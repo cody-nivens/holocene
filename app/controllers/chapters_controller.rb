@@ -42,7 +42,7 @@ class ChaptersController < ApplicationController
     @chapter.destroy
 
     respond_to do |format|
-        format.html { redirect_to polymorphic_path([@scripted, 'chapters']), notice: 'Chapter was demoted.' }
+        format.html { redirect_to polymorphic_path([@scripted, :chapters]), notice: 'Chapter was demoted.' }
     end
   end
 
@@ -70,7 +70,7 @@ class ChaptersController < ApplicationController
     @section.destroy
 
     respond_to do |format|
-        format.html { redirect_to polymorphic_path([@scripted, 'chapters']), notice: 'Chapter was successfully created from Section.' }
+        format.html { redirect_to polymorphic_path([@scripted, :chapters]), notice: 'Chapter was successfully created from Section.' }
     end
   end
 
@@ -144,7 +144,7 @@ class ChaptersController < ApplicationController
   def destroy
     @chapter.destroy
     respond_to do |format|
-      format.html { redirect_to polymorphic_path([@scripted, 'chapters']), notice: 'Chapter was successfully destroyed.' }
+      format.html { redirect_to polymorphic_path([@scripted, :chapters]), notice: 'Chapter was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

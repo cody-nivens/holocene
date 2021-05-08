@@ -87,7 +87,7 @@
 <p>
 <strong>Scenes:</strong>
 <ul>
-<% character.scenes.order(:abc).each do |scene| %>
+<% character.scenes.order(:time,:abc).each do |scene| %>
   <li>
     <% if @object.class.name == "Scene" %>
   <%= (pdf.nil? ? link_to(scene.abc, polymorphic_path([@object.situated, scene.key_point, scene])) : scene.abc) %>:

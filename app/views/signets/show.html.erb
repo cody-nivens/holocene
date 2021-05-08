@@ -11,5 +11,5 @@
 </p>
 
 <% @footer_content << "#{link_to 'Edit', edit_signet_path("#{@sigged.name.underscore}_id".to_sym => @sigged.id, :id => @signet.id), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', polymorphic_path([@sigged, 'signets']), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', polymorphic_path([@sigged, :signets]), :class => "btn btn-default"}" %>
 

@@ -27,7 +27,7 @@
 
 <p>
   <strong>Scene/Sequel:</strong>
-  <%= (@scene.scene_sequel ? "Sequel" : "Scene")%>
+  <%= (@scene.scene_sequel == 1 ? "Sequel" : "Scene")%>
 </p>
 
 
@@ -126,14 +126,14 @@
 
 <% @footer_content << "#{link_to 'Edit', edit_polymorphic_path([@situated, @scene]), :class => "btn btn-default" }" %>
 <% if @scene.section.nil? %>
-<% @footer_content << "#{link_to 'New Section',new_polymorphic_path([@scene,'section']), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'New Section',new_polymorphic_path([@scene,:section]), :class => "btn btn-default" }" %>
 <% else %>
 <% @footer_content << "#{link_to 'Edit Section',edit_polymorphic_path([@scene, @scene.section]), :class => "btn btn-default" }" %>
 <% end %>
-<% @footer_content << "#{link_to 'Characters', polymorphic_path([@scene, 'characters' ]), :class => "btn btn-default hide-print" }" %>
-<% @footer_content << "#{link_to 'Move', polymorphic_path([@scene, 'move' ]), :class => "btn btn-default hide-print" }" %>
+<% @footer_content << "#{link_to 'Characters', polymorphic_path([@scene, :characters ]), :class => "btn btn-default hide-print" }" %>
+<% @footer_content << "#{link_to 'Move', polymorphic_path([@scene, :move ]), :class => "btn btn-default hide-print" }" %>
 <% @footer_content << "#{link_to 'Destroy', polymorphic_path([@situated, @scene]), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', (@scene.key_point.nil? ? polymorphic_path([@situated, 'scenes']) : polymorphic_path([@situated, @scene.key_point])), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Back', (@scene.key_point.nil? ? polymorphic_path([@situated, :scenes]) : polymorphic_path([@situated, @scene.key_point])), :class => "btn btn-default" }" %>
 
 <% unless @scene.nil? || @scene.position.to_i == 0 %>
 <% @footer_content << "#{link_to '<', polymorphic_path([@scene.situated, set_prev_scene(@scene)]), :class => "btn icon-ok icon-white" }" %>

@@ -1,5 +1,6 @@
 <% pdf ||= nil %>
 <% key_point.scenes.where(selector: selector).order(:time, :abc).each do |scene| %>
+
   <h3><%= (pdf.nil? ? link_to(scene.abc, polymorphic_path([@scripted,key_point, scene])) : scene.abc) %>:<%= scene.time_to_text %>:<%= scene.place.to_plain_text %></h3>
   <%= scene.summary.body %>
     <ul>
@@ -8,7 +9,9 @@
       <% scenes = Scene.where(insert_scene_id: insert_scene.id).order(:time,:abc) %>
       <% break if scenes.empty? %>
         <% scenes.each do |iscene| %>
+      <% if iscene.key_point.scripted.publish %>
           <li><%= (pdf.nil? ? link_to(iscene.abc, polymorphic_path([@scripted, key_point, iscene])) : iscene.abc) %> <%= (iscene.section.nil? ? '' : '*') %><%= iscene.time_to_text %> : <%= iscene.name %></li>
+    <% end %>
           <% insert_scene = iscene %>
         <% end %>
     <% end %>

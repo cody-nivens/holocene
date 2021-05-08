@@ -3,4 +3,4 @@
 <%= render 'form', scene: @scene %>
 
 <% @footer_content << "#{link_to 'Show', polymorphic_url([@situated, @scene]), :class => "btn btn-default" }" %>
-<% @footer_content << "#{link_to 'Back', polymorphic_url([@situated, 'scenes']), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Back', polymorphic_url([@situated, :scenes]), :class => "btn btn-default" }" %>

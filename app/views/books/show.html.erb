@@ -9,9 +9,6 @@
   <%= raw @book.body %>
 </p>
 
-<div class="container">
-      <div class="row">
-      <div class="col-md-6">
 <p>
 <strong>Stories:</strong>
 <%= @book.stories.count %>
@@ -27,7 +24,10 @@
 <%= @book.scene_count %>
 </p>
 
-<strong>Ethnicity:</strong>
+<%= tabs do |c| %>
+
+<% c.tab "Ethnicity" do %>
+  <span>
 <table class="table">
   <% counts = {} %>
   <% items = @book.characters.pluck(:race).sort %>
@@ -38,12 +38,21 @@
     <% counts[item] = counts[item] + 1 %>
   <% end %>
   <% items.uniq.each do |item| %>
-    <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@book,'characters'], :ethnicity => item) %></td><td><%= counts[item] %></td></tr>
+    <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@book,:characters], :ethnicity => item) %></td><td><%= counts[item] %></td></tr>
   <% end %>
 </table>
-</div>
-      <div class="col-md-6">
-<strong>Occupation Class:</strong>
+</span>
+<% end %>
+<% c.tab "Stats" do %>
+  <span>
+    <%= render :partial => 'character_values/stats.html', :locals =>{:category => 'Physical Appearance', :cat1 => 'Eye color' } %>
+    <%= render :partial => 'character_values/stats.html', :locals =>{:category => 'Physical Appearance', :cat1 => 'Hair color' } %>
+    <%= render :partial => 'character_values/stats2.html', :locals =>{:category => 'Gender', :cat1 => 'Gender', :cat2 => 'Sex'} %>
+    <%= render :partial => 'character_values/stats2.html', :locals =>{:category => 'Physical Appearance', :cat1 => 'Hair color', :cat2 => 'Eye color'} %>
+</span>
+<% end %>
+<% c.tab "Occupation Class" do %>
+  <span>
 <table class="table">
   <% counts = {} %>
   <% items = @book.characters.pluck(:occupation_class).sort %>
@@ -54,19 +63,33 @@
     <% counts[item] = counts[item] + 1 %>
   <% end %>
   <% items.uniq.each do |item| %>
-    <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@book,'characters'], :occupation_class => item) %></td><td><%= counts[item] %></td></tr>
+    <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@book,:characters], :occupation_class => item) %></td><td><%= counts[item] %></td></tr>
   <% end %>
 </table>
-</div>
-</div>
-</div>
+  </span>
+<% end %>
+<% c.tab "Characters" do %>
+  <span>
+    <% @book.characters.order(:occupation_class).pluck(:occupation_class).uniq.each do |occ_class| %>
+  <%= occ_class %>
+<ul>
+<% @book.characters.where("occupation_class = ?", occ_class).order(:occupation_class,:last_name,:first_name).each do |character| %>
+  <li><%= link_to character.name, polymorphic_path([@book,character]) %><%= "#{(character.grouping.blank? ? '' : "-  #{character.grouping}")}" %></li>
+<% end %>
+</ul>
+<% end %>
+
+  </span>
+<% end %>
+<% end %>
+
 <% if @book.is_fiction? %>
 <% @footer_content << "#{link_to 'Stories', book_stories_path(@book), :class => "btn btn-default" }" %>
-<% @footer_content << "#{link_to 'Characters', polymorphic_path([@book, 'characters' ]), :class => "btn btn-default" }" %>
-<% @footer_content << "#{link_to 'Key Points', polymorphic_path([@book, 'key_points']), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Characters', polymorphic_path([@book, :characters ]), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Key Points', polymorphic_path([@book, :key_points]), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Artifacts', book_artifacts_path(@book), :class => "btn btn-default" }" %>
 <% else %>
 <% @footer_content << "#{link_to 'Chapters, TOC', toc_path(@book), :class => "btn btn-default" }" %>
-<% @footer_content << "#{link_to 'Chapters, Details', polymorphic_path([@book, 'chapters']), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Chapters, Details', polymorphic_path([@book, :chapters]), :class => "btn btn-default" }" %>
 <% end %>
 <% @footer_content << "#{link_to 'Back', books_path, :class => "btn btn-default"}" %>

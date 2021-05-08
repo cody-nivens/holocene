@@ -1,12 +1,24 @@
 class KeyPointsController < ApplicationController
-  before_action :set_key_point, only: [:show, :list, :add, :edit, :update, :destroy]
-  before_action :set_scripted, only: [:index, :list, :add, :new ]
+  before_action :set_key_point, only: [:moved, :move, :show, :list, :add, :edit, :update, :destroy]
+  before_action :set_scripted, only: [:moved, :move, :index, :list, :add, :new ]
 
 
   # GET /key_points
   # GET /key_points.json
   def index
     @key_points = @scripted.key_points.order(:position)
+  end
+
+  def moved
+    @key_point.update_attributes({:scripted_id => params["new_#{@scripted.class.name.underscore}_id".to_sym]})
+
+    respond_to do |format|
+       format.html { redirect_to polymorphic_path([@scripted ])}
+    end
+
+  end
+
+  def move
   end
 
   def list
@@ -37,7 +49,7 @@ class KeyPointsController < ApplicationController
 
 
     respond_to do |format|
-       format.html { redirect_to polymorphic_path([@scripted, 'key_point_list'])}
+       format.html { redirect_to polymorphic_path([@scripted, :key_point_list])}
     end
   end
 
@@ -97,7 +109,7 @@ class KeyPointsController < ApplicationController
     @scripted = @key_point.scripted
     @key_point.destroy
     respond_to do |format|
-      format.html { redirect_to polymorphic_url([@scripted, 'key_points']), notice: 'Key point was successfully destroyed.' }
+      format.html { redirect_to polymorphic_url([@scripted, :key_points]), notice: 'Key point was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

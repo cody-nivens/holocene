@@ -1,4 +1,4 @@
-<%= form_with url: polymorphic_path([@book, 'authors_add']) do |f| %>
+<%= form_with url: polymorphic_path([@book, :authors_add]) do |f| %>
 
   <%= hidden_field "#{@book.class.name.underscore}_id", value: @book.id %>
 
@@ -18,6 +18,6 @@
 
 <% end %>
 
-<% @footer_content << "#{link_to 'New Author', new_polymorphic_path([@book, 'author']), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'New Author', new_polymorphic_path([@book, :author]), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Back', polymorphic_path(@book), :class => "btn btn-default" }" %>
 
