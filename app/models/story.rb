@@ -4,7 +4,9 @@ class Story < ApplicationRecord
 
   belongs_to :book
 
-  has_and_belongs_to_many :characters, dependent: :nullify
+  has_many :character_stories
+  has_many :characters, ->{ order(:last_name) }, :through => :character_stories
+
 
   has_many :chapters, :as => :scripted
   has_many :key_points, :as => :scripted
@@ -12,6 +14,23 @@ class Story < ApplicationRecord
   has_many :signets, as: :sigged
 
   validates :title, presence: true
+
+  def timeline_json(toggle)
+    return {:events => Scene.get_scenes(self, toggle).collect{|x| x.slide}}.to_json
+  end
+
+
+  def publish?
+    self.publish
+  end
+
+  def stand_alone?
+    self.stand_alone
+  end
+
+  def print_summary?
+    self.print_summary
+  end
 
   def name
     self.title
@@ -24,7 +43,7 @@ class Story < ApplicationRecord
     kps.each do |updates|
       updates.each do |x|
         scene = Scene.find(x[0])
-        scene.update_attribute(:abc, x[1])
+        scene.update({:abc => x[1]})
       end
     end
     results = []
@@ -39,6 +58,19 @@ class Story < ApplicationRecord
       self.characters << character unless self.characters.include?(character)
     end
   end
+
+    def word_count
+      count = 0
+      return count unless self.publish
+      self.key_points.each do |key_point|
+        key_point.scenes.each do |scene|
+          unless scene.section.nil?
+            count += scene.section.word_count
+          end
+        end
+      end
+      return count
+    end
 
   def scene_count
     count = 0

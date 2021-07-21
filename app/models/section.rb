@@ -20,7 +20,7 @@ class Section < ApplicationRecord
       return self.embed != 0
     end
 
-    def timeline_json
+    def timeline_json(toggle)
         return {:events => self.holocene_events.order(:start_year).collect{|x| x.slide}}.to_json
     end
 

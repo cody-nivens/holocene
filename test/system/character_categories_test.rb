@@ -7,7 +7,7 @@ class CharacterCategoriesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the index" do
+  test "visiting the Character category index" do
     visit character_categories_url
     assert_selector "h1", text: "Character Categories"
   end

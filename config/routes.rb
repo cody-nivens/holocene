@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   post "/scenes/:id/moved", to: "scenes#moved", as: :scene_moved
   get "/stories/:story_id/key_points/:id/move", to: "key_points#move", as: :story_key_point_move
   post "/stories/:story_id/key_points/:id/moved", to: "key_points#moved", as: :story_key_point_moved
+  get "/books/:book_id/key_points/:id/move", to: "key_points#move", as: :book_key_point_move
+  post "/books/:book_id/key_points/:id/moved", to: "key_points#moved", as: :book_key_point_moved
 
   post "/books/:book_id/authors/add", to: "authors#add", as: :book_authors_add
   get "/books/:book_id/authors/list", to: "authors#list", as: :book_authors_list
@@ -37,6 +39,7 @@ Rails.application.routes.draw do
   get "/scenes/:scene_id/characters/list", to: "characters#list", as: :scene_characters_list
   get "/stories/:story_id/characters/list", to: "characters#list", as: :story_characters_list
   post "/stories/:story_id/characters/add", to: "characters#add", as: :story_characters_add
+  get "/stories/:id/timeline", to: "stories#timeline", as: :story_timeline
 
   get "/books/:id/resync_stories", to: "books#resync_stories", as: :book_resync_stories
   get "/stories/:id/resync_scenes", to: "stories#resync_scenes", as: :story_resync_scenes
@@ -44,6 +47,8 @@ Rails.application.routes.draw do
   post "/stories/:story_id/key_points/:id/add", to: "key_points#add", as: :story_key_point_add
   get "/books/:book_id/key_points/:id/list", to: "key_points#list", as: :book_key_point_list
   post "/books/:book_id/key_points/:id/add", to: "key_points#add", as: :book_key_point_add
+  get "/books/:id/timeline", to: "books#timeline", as: :book_timeline
+
 #  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
   resources :footnotes

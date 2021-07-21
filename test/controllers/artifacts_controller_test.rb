@@ -21,7 +21,7 @@ class ArtifactsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create artifact" do
     assert_difference('Artifact.count') do
-      post book_artifacts_url(:book_id => @book.id), params: { artifact: { character_id: @artifact.character_id, name: @artifact.name, book_id: @book.id, artifact_type_id: @artifact_type.id } }
+      post book_artifacts_url(:book_id => @book.id), params: { artifact: { character_id: @artifact.character_id, name: @artifact.name, book_id: @book.id, artifact_type_id: @artifact_type.id, parent_id: nil } }
     end
 
     assert_redirected_to book_artifact_url(@book, Artifact.last)
@@ -29,7 +29,7 @@ class ArtifactsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create artifact" do
     assert_difference('Artifact.count', 0) do
-      post book_artifacts_url(:book_id => @book.id), params: { artifact: { character_id: @artifact.character_id, name: "", book_id: @book.id, artifact_type_id: @artifact_type.id } }
+      post book_artifacts_url(:book_id => @book.id), params: { artifact: { character_id: @artifact.character_id, name: "", book_id: @book.id, artifact_type_id: @artifact_type.id, parent_id: nil } }
     end
 
     assert_response 422
@@ -46,12 +46,12 @@ class ArtifactsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update artifact" do
-    patch book_artifact_url(@book,@artifact), params: { artifact: { character_id: @artifact.character_id, name: @artifact.name, book_id: @book.id, artifact_type_id: @artifact_type.id } }
+    patch book_artifact_url(@book,@artifact), params: { artifact: { character_id: @artifact.character_id, name: @artifact.name, book_id: @book.id, artifact_type_id: @artifact_type.id, parent_id: nil } }
     assert_redirected_to book_artifact_url(@book, @artifact)
   end
 
   test "should not update artifact" do
-    patch book_artifact_url(@book,@artifact), params: { artifact: { character_id: @artifact.character_id, name: "", book_id: @book.id, artifact_type_id: @artifact_type.id } }
+    patch book_artifact_url(@book,@artifact), params: { artifact: { character_id: @artifact.character_id, name: "", book_id: @book.id, artifact_type_id: @artifact_type.id, parent_id: nil } }
     assert_response 422
   end
 

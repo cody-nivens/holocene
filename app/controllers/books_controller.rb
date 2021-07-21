@@ -1,10 +1,17 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:resync_stories,:toc, :epub, :export, :pdf, :show, :edit, :update, :destroy]
+  before_action :set_book, only: [:timeline, :resync_stories,:toc, :epub, :export, :pdf, :show, :edit, :update, :destroy]
 
   # GET /books
   # GET /books.json
   def index
     @books = Book.where(user_id: current_user.id)
+  end
+
+  def timeline
+    @toggle = params[:toggle]
+    @print = params[:print]
+
+    @object = @book
   end
 
   def toc
@@ -27,10 +34,13 @@ class BooksController < ApplicationController
 #      }
 
   def resync_stories
-    index = 65
+    index = 48
     @book.stories.order(:position).each do |story|
-      story.update_attribute(:scene_character, index.chr)
+      story.update({:scene_character => index.chr})
       index += 1
+      if index == 58
+        index = 65
+      end
       story.resync_key_points
     end
 
@@ -49,6 +59,7 @@ class BooksController < ApplicationController
   # GET /books/1.json
   def show
     @chapters = @book.chapters
+    @scripted = @book
     @stories = @book.stories if @book.is_fiction?
 
     respond_to do |format|

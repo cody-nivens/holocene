@@ -9,7 +9,7 @@ class HoloceneEventsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the index" do
+  test "visiting the Holocene event index" do
     visit holocene_events_url
 
     assert_selector "h2", text: "Holocene Events"
@@ -17,7 +17,7 @@ class HoloceneEventsTest < ApplicationSystemTestCase
     assert_no_text "link_to"
   end
 
-  test "visiting the index 2" do
+  test "visiting the Holocene event index 2" do
     visit holocene_events_url
 
     assert_selector "h2", text: "Holocene Events"
@@ -28,13 +28,13 @@ class HoloceneEventsTest < ApplicationSystemTestCase
     click_on "Search"
   end
 
-  test "should get index 3" do
+  test "should get Holocene event index 3" do
     visit holocene_events_url params:{ holocene_events_grid: { name: "Dog" } }
 
     assert_link "New Holocene Event"
   end
 
-  test "should get index 4" do
+  test "should get Holocene event index 4" do
     visit holocene_events_url params:{ holocene_events_grid: { event_type: EventType.first } }
 
     assert_link "New Holocene Event"

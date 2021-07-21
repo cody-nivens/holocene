@@ -5,7 +5,7 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
     @character = characters(:character_1)
     @character_2 = characters(:character_2)
     @book = @character.books[0]
-    @story = @book.stories[0]
+    @story = @book.stories.last
     @key_point = @story.key_points[0]
     @scene = @key_point.scenes[0]
     @user = users(:users_1)
@@ -47,6 +47,12 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get list" do
+    get polymorphic_url([@book,:characters, :list])
+    assert_response :success
+  end
+
+
   test "should add characters I" do
     assert_difference('@story.characters.count') do
       post story_characters_add_url(:story_id => @story.id), params: { characters_ids: [  ], characters_avail: [ @character.id ] }
@@ -74,7 +80,7 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
-    assert_redirected_to book_character_url(:book_id => @book.id, :id => Character.last.id)
+    assert_redirected_to book_characters_url(@book)
   end
 
   test "should create character 2" do
@@ -86,7 +92,7 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
-    assert_redirected_to scene_character_url(:scene_id => @scene.id, :id => Character.last.id)
+    assert_redirected_to scene_characters_url(@scene)
   end
 
   test "should not create character" do
@@ -113,7 +119,7 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update character" do
-    patch book_character_url(:book_id => @book.id, :id => @character.id), params: { character: { first_name: @character.first_name, nickname: @character.nickname, occupation_class: @character.occupation_class, race: @character.race, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, social_class: @character.social_class } }
+    patch book_character_url(:book_id => @book.id, :id => @character.id), params: { gender_sex_value: '---', character: { first_name: @character.first_name, nickname: @character.nickname, occupation_class: @character.occupation_class, race: @character.race, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, social_class: @character.social_class } }
     assert_redirected_to book_character_url(:book_id => @book, :id => @character.id)
   end
 

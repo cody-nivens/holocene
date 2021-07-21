@@ -4,7 +4,7 @@ class EventType < ApplicationRecord
 
     validates :name, presence: true
 
-    def timeline_json
+    def timeline_json(toggle)
         return {:events => self.holocene_events.collect{|x| x.slide}}.to_json
     end
 

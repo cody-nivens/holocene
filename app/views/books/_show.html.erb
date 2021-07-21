@@ -15,7 +15,8 @@
 <% if book.is_fiction? %>
 <% if outline %>
 <% @stories.order(:position).each do |story| -%>
-  <%= render partial: 'stories/show.html', :locals =>{pdf: pdf, book: book, story: story, epub: false} %>
+  <% next unless story.publish %>
+  <%= render partial: 'stories/show.html', :locals =>{pdf: pdf, book: book, story: story, epub: false, outline: outline} %>
 
   <% story.key_points.order(:position).each do |key_point| -%>
     <%= render 'key_points/show.html', book: book, key_point: key_point, epub: false %>
@@ -23,15 +24,9 @@
 <% end -%>
 <% end -%>
 
-<div style = "display:block; clear:both; page-break-after:always;"></div>
 <% @stories.order(:position).each do |story| -%>
-  <% story.key_points.order(:position).each do |key_point| -%>
-    <% Scene.where(key_point_id: key_point.id).order(:selector).each do |scene| %>
-      <% unless scene.section.nil? %>
-        <%= raw scene.section.body %>
-      <% end %>
-    <% end -%>
-  <% end -%>
+  <% next unless story.publish %>
+  <%= render partial: 'stories/show.html', :locals => {pdf: pdf, book: book, story: story, epub: false, outline: outline} %>
 <% end -%>
 <% else %>
 <% @chapters.each do |chapter| -%>

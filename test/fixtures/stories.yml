@@ -3,11 +3,116 @@
 story_1:
   title: The Beginnings
   summary: MyText
-  book: book_1
+  book: book_2
   scene_character: A
+  position: 1
+  publish: true
+  stand_alone: false
 
 story_2:
   title: The Endings
   summary: MyText
   book: book_2
   scene_character: B
+  position: 2
+  publish: true
+  stand_alone: true
+
+story_3:
+  title: The Middles I
+  summary: MyText
+  book: book_3
+  scene_character: C
+  position: 3
+  publish: true
+  stand_alone: false
+
+story_4:
+  title: The Middles II
+  summary: MyText
+  book: book_2
+  scene_character: C
+  position: 4
+  publish: true
+  stand_alone: false
+
+story_5:
+  title: The Middles III
+  summary: MyText
+  book: book_2
+  scene_character: C
+  position: 5
+  publish: true
+  stand_alone: true
+
+story_6:
+  title: The Middles IV
+  summary: MyText
+  book: book_2
+  scene_character: C
+  position: 7
+  publish: true
+  stand_alone: false
+
+story_7:
+  title: The Middles V
+  summary: MyText
+  book: book_2
+  scene_character: C
+  position: 8
+  publish: true
+  stand_alone: false
+
+story_8:
+  title: The Middles VI
+  summary: MyText
+  book: book_2
+  scene_character: C
+  position: 9
+  publish: true
+  stand_alone: false
+
+story_9:
+  title: The Middles VII
+  summary: MyText
+  book: book_2
+  scene_character: C
+  position: 10
+  publish: true
+  stand_alone: false
+
+story_10:
+  title: The Middles VIII
+  summary: MyText
+  book: book_2
+  scene_character: C
+  position: 11
+  publish: true
+  stand_alone: false
+
+story_11:
+  title: The Middles VIX
+  summary: MyText
+  book: book_2
+  scene_character: C
+  position: 12
+  publish: true
+  stand_alone: false
+
+story_12:
+  title: The Middles VX
+  summary: MyText
+  book: book_2
+  scene_character: C
+  position: 13
+  publish: true
+  stand_alone: false
+
+story_13:
+  title: The Middles VXI
+  summary: MyText
+  book: book_2
+  scene_character: C
+  position: 14
+  publish: true
+  stand_alone: false

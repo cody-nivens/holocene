@@ -10,7 +10,7 @@ class FootnotesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the index" do
+  test "visiting the Footnote index" do
     visit chapter_footnotes_url(:chapter_id => @chapter.id)
     assert_selector "h1", text: "Footnotes"
     assert_link "New Footnote"
@@ -82,7 +82,7 @@ class FootnotesTest < ApplicationSystemTestCase
 
     assert_text "Footnote was successfully destroyed"
   end
-  test "visiting the index_2" do
+  test "visiting the Footnote index_2" do
     visit section_footnotes_url(:section_id => @section.id)
     assert_selector "h1", text: "Footnotes"
   end
@@ -146,7 +146,7 @@ class FootnotesTest < ApplicationSystemTestCase
 
     assert_text "Footnote was successfully destroyed"
   end
-  test "visiting the index_3" do
+  test "visiting the Footnote index_3" do
     visit holocene_event_footnotes_url(:holocene_event_id => @holocene_event.id)
     assert_selector "h1", text: "Footnotes"
   end

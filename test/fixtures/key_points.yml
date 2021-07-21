@@ -9,7 +9,6 @@ key_point_1:
   midpoint: Enduring centuries on the ships
   second_pinch_point: 
   third_plot_point: Landing and transfer of technology to city created at landing site
-  climax: Restoration of the Earth 1,000 years in the Future
   scripted: story_1 (Story)
   position: 1
 
@@ -22,9 +21,8 @@ key_point_2:
   midpoint: Nabta Playa hosting a school of the stars and mathematics
   second_pinch_point: Climate Change
   third_plot_point: Egypt as home of Watchers
-  climax: Egyptians at Baalbak
   scripted: story_2 (Story)
-  position: 1
+  position: 2
 
 key_point_3:
   hook: Sleepy village
@@ -49,7 +47,7 @@ key_point_4:
   second_pinch_point: Climate Change
   third_plot_point: Egypt as home of Watchers
   climax: Egyptians at Baalbak
-  scripted: story_1 (Story)
+  scripted: story_3 (Story)
   position: 6
 
 key_point_5:
@@ -64,3 +62,43 @@ key_point_5:
   climax: Egyptians at Baalbak
   scripted: book_1 (Book)
   position: 8
+
+key_point_6:
+  hook: Sometimes we Will jump the pirates
+  inciting_incident: Younger Dryas Impact Event
+  key_element: Gobekli Tepe
+  first_plot_point: Progression of the Stars
+  first_pinch_point: Time
+  midpoint: Nabta Playa hosting a school of the stars and mathematics
+  second_pinch_point: Climate Change
+  third_plot_point: Egypt as home of Watchers
+  climax: Egyptians at Baalbak
+  scripted: book_3 (Book)
+  position: 9
+
+key_point_7:
+  hook: History is not based on the last 2,500 years
+  inciting_incident: Younger Dryas Impact Event
+  key_element: Gobekli Tepe
+  first_plot_point: Progression of the Stars
+  first_pinch_point: Time
+  midpoint: Nabta Playa hosting a school of the stars and mathematics
+  second_pinch_point: Climate Change
+  third_plot_point: Egypt as home of Watchers
+  climax: Egyptians at Baalbak
+  scripted: story_2 (Story)
+  position: 1
+
+key_point_8:
+  hook: History is not based on the last 2,500 years
+  inciting_incident: Younger Dryas Impact Event
+  key_element: Gobekli Tepe
+  first_plot_point: Progression of the Stars
+  first_pinch_point: Time
+  midpoint: Nabta Playa hosting a school of the stars and mathematics
+  second_pinch_point: Climate Change
+  third_plot_point: Egypt as home of Watchers
+  climax: Egyptians at Baalbak
+  scripted: story_5 (Story)
+  position: 1
+

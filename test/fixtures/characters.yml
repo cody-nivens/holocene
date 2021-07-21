@@ -11,7 +11,7 @@ character_1:
   birth_year: 78
   death_year: 108
   books:
-    - book_1
+    - book_2
 
 character_2:
   first_name: Joe
@@ -25,7 +25,7 @@ character_2:
   death_year: 129
   father: character_1
   books:
-    - book_1
+    - book_2
 
 character_3:
   first_name: Jim
@@ -39,7 +39,7 @@ character_3:
   death_year: 179
 
 character_4:
-  first_name: Jack
+  first_name: Joel
   reason_for_name: Dad
   nickname: TooSmooth
   reason_for_nickname: Hard to get to listen
@@ -48,5 +48,3 @@ character_4:
   social_class: Working
   birth_year: 105
   death_year: 179
-  stories:
-    - story_1

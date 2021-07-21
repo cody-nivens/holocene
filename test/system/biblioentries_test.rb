@@ -8,7 +8,7 @@ class BiblioentriesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the index" do
+  test "visiting the Biblioentries index" do
       visit book_biblioentries_url(@book)
     assert_selector "h1", text: "Biblioentries"
     assert_link "New Biblioentry"

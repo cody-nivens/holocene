@@ -2,9 +2,15 @@
 
 <h3><%= character.name %></h3>
 <p>
-  <%= character.first_name %> <%= character.middle_name %> <%= character.last_name %> <%= character.suffix %>
-  b. <%= character.birth_year %> - d. <%= character.death_year %>, <%= character.occupation_class %> - <%= character.grouping %>
+<%= character.first_name %> <%= character.middle_name %> <%= character.last_name %> <%= character.suffix %><br/>
+<% debugger if character.birth_year.nil? %>
+b. <%= character.birth_year %> - d. <%= character.death_year %>, Age: <%= character.death_year - character.birth_year %><br/><%= character.occupation_class %> - <%= character.grouping %>
 </p>
+
+<%= tabs do |c| %>
+
+  <% c.tab "Info" do %>
+  <span>
 
 <% unless character.reason_for_name.blank? %>
 <p>
@@ -77,15 +83,24 @@
 </p>
 <% end %>
 
+</span>
+<% end %>
+
+  <% c.tab "Attributes" do %>
+  <span>
 <% CharacterCategory.all.each do |category| %>
   <%= render :partial => 'character_values/index_list.html', 
     :locals => {:pdf => pdf, :title => category.name,
                 :character_values => character.character_values.joins(:character_attribute).order(:name).where("character_category_id = ?", category.id)} %>
 <% end %>
 
+</span>
+<% end %>
+
+  <% c.tab "Scenes" do %>
+  <span>
 <% unless character.scenes.blank? %>
 <p>
-<strong>Scenes:</strong>
 <ul>
 <% character.scenes.order(:time,:abc).each do |scene| %>
   <li>
@@ -100,4 +115,7 @@
 <% end %>
 </ul
 </p>
+<% end %>
+</span>
+<% end %>
 <% end %>

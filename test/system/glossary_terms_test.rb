@@ -8,7 +8,7 @@ class GlossaryTermsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the index" do
+  test "visiting the Glossary term index" do
     visit book_glossary_terms_url(@book)
     assert_selector "h1", text: "Glossary Terms"
   end

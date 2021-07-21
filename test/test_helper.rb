@@ -41,6 +41,14 @@ class ActiveSupport::TestCase
       find(:css, "#{id}").click.set(with)
     end
 
+    def row_containing_cell_with_text(text, exact = false)
+      find('td,th', text: text, exact: exact).ancestor('tr')
+    end
+
+    def second_row_containing_cell_with_text(text, exact = false)
+      find('td,th:nth-of-type(1)', text: text, exact: exact).ancestor('tr')
+    end
+
     def convert_pdf_to_page(content)
       pdf_io = StringIO.new(content)
       reader = PDF::Reader.new(pdf_io)

@@ -3,7 +3,7 @@
 <h1>
   <%= @story.title %>
   <%= link_to (fa_icon "file-pdf-o"), story_path(@story,:format => :pdf), :title => "PDF" %>
-<%= link_to (fa_icon "file-pdf-o"), story_path(@story,:format => :pdf, :outline => true), :title => "PDF" %>
+<%= link_to (fa_icon "file-pdf-o"), story_path(@story,:format => :pdf, :outline => true), :title => "PDF Outline" %>
 
 </h1>
 
@@ -21,7 +21,15 @@
 </p>
 
 <p>
-<strong>Publish?:</strong> <%= (@story.publish  ? 'True' : 'False') %>
+<strong>Print Summary?:</strong> <%= (@story.print_summary? ? 'True' : 'False') %>
+</p>
+
+<p>
+<strong>Publish?:</strong> <%= (@story.publish? ? 'True' : 'False') %>
+</p>
+
+<p>
+<strong>Stand Alone?:</strong> <%= (@story.stand_alone? ? 'True' : 'False') %>
 </p>
 
 <%= tabs do |c| %>
@@ -31,15 +39,21 @@
 
 <ul>
 <% @story.key_points.order(:position).each do |key_point| %>
-  <li><%= link_to key_point.hook, polymorphic_path([@story, key_point]) %> - <%= link_to key_point.key_element, polymorphic_path([@story, key_point]) %>
+  <li><%= link_to key_point.hook, polymorphic_path([@story, key_point]), id: key_point.anchor %> - <%= link_to key_point.key_element, polymorphic_path([@story, key_point]) %>
   <dl>
-  <% key_point.scenes.order(:time, :abc).each do |scene| %>
-    <dt><%= link_to scene.abc, polymorphic_path([@story, key_point, scene]) %> <%= (scene.section.nil? ? '' : '*') %><%= scene.time_to_text %> : <%= scene.characters.count %> : <%= scene.place.to_plain_text %></dt>
-    <dd><%= scene.summary.to_plain_text %></dd>
+<% 1.upto(6).each do |x| %>
+  <% if key_point.scenes.where(selector: x).length == 0 %>
+    <dt><%= key_point.selector_value(x) %></dt>
+  <% else %>
+    <% key_point.scenes.where(selector: x).order(:time, :abc).each do |scene| %>
+      <dt><%= link_to scene.abc, polymorphic_path([@story, key_point, scene]) %> <%= (scene.section.nil? ? '' : '*') %><%= scene.time_to_text %> : <%= scene.characters.count %> : <%= scene.word_count %> : <%= scene.place.to_plain_text %></dt>
+      <dd><%= scene.summary.to_plain_text %></dd>
+    <% end %>
+  <% end %>
 <% end %>
-  </ul>
+  </dl>
   </li>
-<% end %>
+<% end -%>
 </ul>
   </span>
 <% end %>
@@ -86,7 +100,7 @@
     <% end %>
     <% counts[item] = counts[item] + 1 %>
   <% end %>
-  <% items.uniq.each do |item| %>
+  <% items.uniq.compact.each do |item| %>
     <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@story,:characters], :ethnicity => item) %></td><td><%= counts[item] %></td></tr>
   <% end %>
 </table>
@@ -132,7 +146,10 @@
 <% end %>
 
 <% @footer_content << "#{link_to 'Edit', edit_book_story_path(:book_id => @book.id, :id => @story.id), :class => "btn btn-default hide-print" }" %>
+<% if @story.stand_alone %>
+<% @footer_content << "#{link_to 'Scenes', polymorphic_path([@story, :scenes]), :class => "btn btn-default hide-print" }" %>
+<% end %>
 <% @footer_content << "#{link_to 'Characters', polymorphic_path([@story, :characters ]), :class => "btn btn-default hide-print" }" %>
 <% @footer_content << "#{link_to 'Key Points', polymorphic_path([@story, :key_points]), :class => "btn btn-default hide-print" }" %>
 <% @footer_content << "#{link_to 'Resync Scenes', story_resync_scenes_path(:id => @story.id), :class => "btn btn-default hide-print" }" %>
-<% @footer_content << "#{ link_to 'Back', book_stories_path(:book_id => @book.id), :class => "btn btn-default hide-print" }" %>
+<% @footer_content << "#{ link_to 'Back', book_path(@book), :class => "btn btn-default hide-print" }" %>

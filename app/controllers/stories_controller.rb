@@ -1,5 +1,5 @@
 class StoriesController < ApplicationController
-  before_action :set_story, only: [:resync_scenes, :show, :edit, :update, :destroy]
+  before_action :set_story, only: [:timeline, :resync_scenes, :show, :edit, :update, :destroy]
   before_action :set_book, only: [:index, :new ]
 
   # GET /stories
@@ -29,8 +29,15 @@ class StoriesController < ApplicationController
      }
 
     end
-
   end
+
+  def timeline
+    @toggle = params[:toggle]
+    @print = params[:print]
+
+    @object = @story
+  end
+
 
   def resync_scenes
     @story.resync_key_points
@@ -56,12 +63,6 @@ class StoriesController < ApplicationController
 
     respond_to do |format|
       if @story.save
-        (params[:story][:character_ids].is_a?(Array) ? params[:story][:character_ids] : [ params[:story][:character_ids] ]).each do |character_id|
-          unless character_id.blank?
-            character = Character.find(character_id)
-            @story.characters << character
-          end
-        end
         format.html { redirect_to book_story_path(@book, @story), notice: 'Story was successfully created.' }
         format.json { render :show, status: :created, location: @story }
       else
@@ -76,12 +77,6 @@ class StoriesController < ApplicationController
   def update
     respond_to do |format|
       if @story.update(story_params)
-        (params[:story][:character_ids].is_a?(Array) ? params[:story][:character_ids] : [ params[:story][:character_ids] ]).each do |character_id|
-          unless character_id.blank?
-            character = Character.find(character_id)
-            @story.characters << character
-          end
-        end
         format.html { redirect_to book_story_url(@book, @story), notice: 'Story was successfully updated.' }
         format.json { render :show, status: :ok, location: @story }
       else
@@ -114,6 +109,6 @@ class StoriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def story_params
-      params.require(:story).permit(:title, :summary, :book_id, :scene_character, :publish, :character_ids => [])
+      params.require(:story).permit(:title, :summary, :book_id, :scene_character, :publish, :stand_alone, :print_summary )
     end
 end

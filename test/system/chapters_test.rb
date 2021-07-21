@@ -8,27 +8,27 @@ class ChaptersTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the map" do
-    visit polymorphic_url([@scripted, 'chapters'])
+  test "visiting the Chapters map" do
+    visit polymorphic_url([@scripted, :chapters])
     Capybara.page.find('.fa-map-o', match: :first).click
     assert_no_text "link_to"
     assert_link "Back"
     click_on "Back"
   end
 
-  test "visiting the index" do
-    visit polymorphic_url([@scripted, 'chapters'])
+  test "visiting the Chapters index" do
+    visit polymorphic_url([@scripted, :chapters])
     assert_link "New Chapter"
     assert_no_text "link_to"
   end
 
   test "demoting a chapter" do
-    visit polymorphic_url([@scripted, 'chapters'])
+    visit polymorphic_url([@scripted, :chapters])
     Capybara.page.find('.fa-level-down', match: :first).click
   end
 
   test "promoting a chapter" do
-    visit polymorphic_url([@scripted, 'chapters'])
+    visit polymorphic_url([@scripted, :chapters])
     Capybara.page.find('.fa-level-up', match: :first).click
   end
 
@@ -93,7 +93,7 @@ class ChaptersTest < ApplicationSystemTestCase
   end
 
   test "creating a Chapter" do
-    visit polymorphic_url([@scripted, 'chapters'])
+    visit polymorphic_url([@scripted, :chapters])
     click_on "New Chapter"
 
     fill_in "Name", with: @chapter.name
@@ -115,7 +115,7 @@ class ChaptersTest < ApplicationSystemTestCase
   end
 
   test "should not create a Chapter" do
-    visit polymorphic_url([@scripted, 'chapters'])
+    visit polymorphic_url([@scripted, :chapters])
     click_on "New Chapter"
 
     fill_in "Name", with: ""
@@ -131,7 +131,7 @@ class ChaptersTest < ApplicationSystemTestCase
   end
 
   test "updating a Chapter" do
-    visit polymorphic_url([@scripted, 'chapters'])
+    visit polymorphic_url([@scripted, :chapters])
     within(:xpath, "//a[text()='Cultural Events ']/../../..") do
       Capybara.page.find(:xpath,'(//a[contains(@href,"chapters")][contains(@href,"edit")])[2]').click
     end
@@ -146,7 +146,7 @@ class ChaptersTest < ApplicationSystemTestCase
   end
 
   test "should not update a Chapter" do
-    visit polymorphic_url([@scripted, 'chapters'])
+    visit polymorphic_url([@scripted, :chapters])
     within(:xpath, "//a[text()='Cultural Events ']/../../..") do
       Capybara.page.find(:xpath,'(//a[contains(@href,"chapters")][contains(@href,"edit")])[2]').click
     end
@@ -164,7 +164,7 @@ class ChaptersTest < ApplicationSystemTestCase
   end
 
   test "destroying a Chapter" do
-    visit polymorphic_url([@scripted, 'chapters'])
+    visit polymorphic_url([@scripted, :chapters])
     page.accept_confirm do
       click_on "Destroy", match: :first
     end

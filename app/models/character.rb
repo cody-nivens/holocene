@@ -1,13 +1,15 @@
 class Character < ApplicationRecord
 
   has_and_belongs_to_many :books, dependent: :nullify
-  has_and_belongs_to_many :stories, dependent: :nullify
 
   has_many :character_values, dependent: :destroy
   has_many :character_attributes, :through => :character_values
 
   has_many :character_scenes
   has_many :scenes, :through => :character_scenes
+
+  has_many :character_stories
+  has_many :stories, :through => :character_stories
 
   has_many :artifacts, dependent: :destroy
   has_many :artifact_locations, dependent: :destroy, :as => :located
@@ -42,10 +44,6 @@ class Character < ApplicationRecord
     "#{(honorific.blank? ? '' : "#{honorific} ")}#{first_name} #{middle_name} #{last_name} #{suffix}"
   end
 
-  def self.romanize  full_name
-    "#{(honorific.blank? ? '' : "#{honorific} ")}#{first_name} #{middle_name} #{last_name} #{suffix}"
-  end
-
   def self.romanize n
   roman = ""
 
@@ -59,14 +57,14 @@ class Character < ApplicationRecord
 end
 
   def self.gen_hair_color
-    case (rand*100).to_i
+    case rand(100)
     when 1
       return "Red"
     when 2..26
       return "Blond"
     when 27..67
       return "Light Brown"
-    when 68..98
+    when 68..95
       return "Dark Brown"
     else
       return "Black"
@@ -74,7 +72,7 @@ end
   end
 
   def self.gen_eye_color
-    case (rand*100).to_i
+    case rand(100)
     when 1..2
       return "Green"
     when 3..5

@@ -17,7 +17,7 @@ class ChaptersController < ApplicationController
     position = 0
 
     @prev_chapter.sections.order(:position).each do |section|
-      section.update_attribute(:position, position)
+      section.update({:position => position})
       position += 1
     end
 
@@ -27,7 +27,7 @@ class ChaptersController < ApplicationController
     position += 1
 
     @chapter.citations.each do |citation|
-      citation.update_attribute(:noted_id,@prev_chapter.id) unless @prev_chapter.citations.include?(citation)
+      citation.update({:noted_id => @prev_chapter.id}) unless @prev_chapter.citations.include?(citation)
     end
 
     @chapter.holocene_events.each do |holocene_event|
@@ -54,7 +54,7 @@ class ChaptersController < ApplicationController
     position = 0
 
     @scripted.chapters.where("position > ?",@next_chapter.position).order(:position).each do |chapter|
-      chapter.update_attribute(:position, position)
+      chapter.update({:position => position})
       position += 1
     end
 
@@ -62,8 +62,8 @@ class ChaptersController < ApplicationController
     @new_chapter = Chapter.create({:name => @section.name, :body => @section.body,:position => position, :scripted => @scripted})
 
     @chapter.sections.where("position > ?",@section.position).order(:position).each do |section|
-      section.update_attribute(:position, position)
-      section.update_attribute(:chapter_id, @new_chapter.id)
+      section.update({:position => position})
+      section.update({:chapter_id => @new_chapter.id})
       position += 1
     end
 

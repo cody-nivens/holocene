@@ -6,6 +6,8 @@
   <thead>
     <tr>
       <th class="text-nowrap">Hook</th>
+      <th class="text-nowrap">PN</th>
+      <th class="text-nowrap">PP</th>
       <th class="text-nowrap">Inciting incident</th>
       <th class="text-nowrap">Key element</th>
       <th class="text-nowrap">First plot point</th>
@@ -23,6 +25,8 @@
     <% @key_points.each_with_sortable_id do |key_point, sortable_id| %>
       <tr  id="<%= sortable_id %>">
         <td><%= link_to key_point.hook, polymorphic_path([@scripted, key_point]) %></td>
+        <td><%= (key_point.print_name? ? 'Y' : 'N') %></td>
+        <td><%= (key_point.print_points? ? 'Y' : 'N') %></td>
         <td><%= key_point.inciting_incident %></td>
         <td><%= key_point.key_element %></td>
         <td><%= key_point.first_plot_point %></td>
@@ -43,6 +47,8 @@
 
 <% @footer_content << "#{link_to 'New Key Point', new_polymorphic_path([@scripted, KeyPoint]), :class => "btn btn-default hide-print" }" %>
 <% @footer_content << "#{link_to 'Scenes', polymorphic_path([@scripted, :scenes]), :class => "btn btn-default hide-print" }" %>
+<% @footer_content << "#{link_to 'Timeline', polymorphic_path([@scripted, :timeline]), :class => "btn btn-default hide-print"}" %>
+
 <% @footer_content << "#{link_to 'Back', polymorphic_path(@scripted), :class => "btn btn-default hide-print" }" %>
 
 <script>

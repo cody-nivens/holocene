@@ -1,6 +1,6 @@
 class ScenesController < ApplicationController
   before_action :set_scene, only: [:moved, :move, :show, :edit, :update, :destroy]
-  before_action :set_situated, only: [ :index, :create, :new, :destroy]
+  before_action :set_situated, only: [ :timeline, :index, :create, :new, :destroy]
 
   # GET /scenes
   # GET /scenes.json
@@ -8,36 +8,7 @@ class ScenesController < ApplicationController
     @toggle = params[:toggle]
     @print = params[:print]
 
-    @scenes = Scene.where("situated_type = ? and situated_id =?", @klass, @situated.id)
-
-     stories = nil
-    if @situated.class.name == 'Book'
-       stories = @situated.stories.order(:position)
-    else
-      stories = [ @situated ]
-    end
-
-    scene_ids = []
-
-    stories.each do |story|
-      story.key_points.order(:position).each do |key_point|
-        key_point.scenes.order(:time,:abc).each do |scene|
-          unless @toggle == "on"
-              scenes = Scene.where(insert_scene_id: scene.id)
-              scenes.each do |scene_2|
-                scene_ids << scene_2
-              end
-           end
-           scene_ids << scene.id
-        end
-      end
-    end
-
-    if @toggle == "on"
-      @scenes = Scene.where("id in (?)", scene_ids).order(:abc)
-    else
-      @scenes = Scene.where("id in (?)", scene_ids).order(:time, :abc)
-    end
+    @scenes = Scene.get_scenes(@situated, @toggle)
   end
 
   # GET /scenes/1
@@ -54,12 +25,18 @@ class ScenesController < ApplicationController
   def moved
     @situated = @scene.situated
     @key_point = @scene.key_point
+    @selector = params[:selector]
+    @new_selector = params[:new_selector]
+    title = @key_point.selector_value(@selector)
+    @scene.situated = @key_point.scripted
 
     respond_to do |format|
-      if @scene.update({:key_point_id => params[:new_key_point_id], :selector => params[:new_selector]})
+      if !params[:new_key_point_id].blank? && @scene.update({:key_point_id => params[:new_key_point_id], :selector => @new_selector})
+        @scene.key_point.selector_value_set(@new_selector, title)
+        @scene.key_point.save
         format.html { redirect_to polymorphic_path(@scene), notice: 'Scene was successfully moved.' }
       else
-        format.html { render :move, situated_tyep: @situated.class.name, situated_id: @situated.id }
+        format.html { render :move, situated_tyep: @situated.class.name, situated_id: @situated.id, new_key_point_id: @key_point.id }
       end
     end
   end
@@ -73,7 +50,6 @@ class ScenesController < ApplicationController
     @selector = params[:selector]
     @scene.selector = @selector
     @scene.key_point = @key_point
-
   end
 
   # GET /scenes/1/edit
@@ -108,6 +84,7 @@ class ScenesController < ApplicationController
     time = params["t_years"].to_d + params["t"]["month"].to_f/12 + params["t"]["day"].to_f/365
     @scene.time = time
     @situated = @scene.situated
+
     respond_to do |format|
       if @scene.update(scene_params)
         format.html { redirect_to polymorphic_path([@situated, @scene]), notice: 'Scene was successfully updated.' }

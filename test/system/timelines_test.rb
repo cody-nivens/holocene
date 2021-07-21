@@ -7,7 +7,7 @@ class TimelinesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the index" do
+  test "visiting the Timeline index" do
     visit timelines_url
     assert_selector "h1", text: "Timelines"
     assert_link "New Timeline"

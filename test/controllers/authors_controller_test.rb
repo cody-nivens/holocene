@@ -16,9 +16,8 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
 
     assert_select "a[text()=?]",'New Author'
     assert_select "a[href=?]", new_book_author_path(@book)
-    assert_select "a[text()=?]",'Back'
     assert_select "a[href=?]", book_authors_path(@book)
-    assert_select ".footer>div>a", 3
+    assert_select ".footer>div>a", 2
   end
 
     test "should add authors I" do

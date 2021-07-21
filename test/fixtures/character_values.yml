@@ -21,16 +21,16 @@ character_value_4:
   value: Male
 
 character_value_5:
-  character: character_1
+  character: character_2
   character_attribute: character_attribute_5
   value: Gay
 
 character_value_6:
-  character: character_1
+  character: character_2
   character_attribute: character_attribute_6
   value: Female
 
 character_value_7:
   character: character_1
   character_attribute: character_attribute_7
-  value: Blue
+  value: Brown

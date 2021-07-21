@@ -6,14 +6,14 @@
 <h1>Citations</h1>
 
 <table>
-  <tr><td>
-<table class="table">
   <thead>
     <tr>
       <th colspan="3"></th>
     </tr>
   </thead>
 
+  <tr><td style="width:40%">
+<table class="table">
   <tbody>
     <% @citations.each do |citation| %>
       <tr>
@@ -24,31 +24,12 @@
     <% end %>
   </tbody>
 </table>
-</td><td>
-<table class="table">
-  <tbody>
-      <tr>
-        <td><%#= link_to 'Edit' %></td>
-
-  <div class="form-inputs">
-  </div>
-
+</td><td style="width:20%">
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
-
-      </tr>
-  </tbody>
-</table>
-
-</td><td>
+</td><td style="width:40%">
 <table class="table">
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
   <tbody>
     <% @all_citations.each do |biblioentry| %>
       <tr>

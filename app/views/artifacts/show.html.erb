@@ -10,7 +10,19 @@
   <%= @artifact.character.name %>
 </p>
 
+<% unless @artifact.children.empty? %>
 <p>
+  <strong>Children:</strong>
+  <ul>
+<% @artifact.children.each do |child| %>
+  <li><%= child.name %></li>
+<% end %>
+  </ul>
+</p>
+<% end %>
+
+<p>
+<strong>Summary:</strong><br/>
   <%= @artifact.summary %>
 </p>
 

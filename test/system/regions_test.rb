@@ -7,7 +7,7 @@ class RegionsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the index" do
+  test "visiting the Region index" do
     visit regions_url
     assert_selector "h1", text: "Regions"
     assert_link "New Region"

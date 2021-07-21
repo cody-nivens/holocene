@@ -5,6 +5,16 @@
 </h1>
 
 <p>
+  <h2>Print name:</h2>
+  <%= (@key_point.print_name? ? 'Y' : 'N') %>
+</p>
+
+<p>
+  <h2>Print points:</h2>
+  <%= (@key_point.print_points? ? 'Y' : 'N') %>
+</p>
+
+<p>
   <h2>Inciting incident:</h2>
   <%= @key_point.inciting_incident %>
 </p>
@@ -67,7 +77,7 @@
 
 <% @footer_content << "#{link_to 'Edit', edit_polymorphic_path([@scripted, @key_point]), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Move', polymorphic_path([@scripted, @key_point, :move]), :class => "btn btn-default hide-print" }" %>
-<% @footer_content << "#{link_to 'Back', polymorphic_path([@scripted, :key_points]), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', polymorphic_path([@scripted], anchor: @key_point.anchor), :class => "btn btn-default"}" %>
 
 <% unless @key_point.nil? || @key_point.position.to_i == 0 %>
 <% @footer_content << "#{link_to '<', polymorphic_path([@key_point.scripted, set_prev_key_point(@key_point)]), :class => "btn icon-ok icon-white" }" %>

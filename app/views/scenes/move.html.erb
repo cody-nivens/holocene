@@ -1,7 +1,7 @@
 <%= form_with url: polymorphic_path([@scene, :moved]) do |f| %>
 
   <%= hidden_field "#{@situated.class.name.underscore}_id", value: @situated.id %>
-      <%= hidden_field_tag :key_point_id, (@key_point.nil? ? nil : @key_point.id) %>
+    <%= hidden_field_tag :key_point_id, (@key_point.nil? ? nil : @key_point.id) %>
     <%= hidden_field_tag :situated_id, @situated.id %>
     <%= hidden_field_tag :selector, @selector %>
     <%= hidden_field_tag :situated_type, @situated.class.name %>
@@ -19,7 +19,7 @@
 <table class="table">
   <tr>
     <td >
-        <%= f.select :new_key_point_id, options_from_collection_for_select(@situated.key_points.order(:position), :id, :name), :prompt => "Select Keypoint", :multiple => false, :size => 1 %>
+        <%= f.select :new_key_point_id, options_from_collection_for_select(@scene.key_point.scripted.key_points.order(:position), :id, :name), :prompt => "Select Keypoint", :multiple => false, :size => 1 %>
       </td>
   </tr>
   <tr>

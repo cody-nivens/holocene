@@ -1,45 +1,10 @@
 <p id="notice"><%= notice %></p>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th colspan="1">Min</th>
-      <th colspan="1">Max</th>
-      <th>Story</th>
-      <th>Summary</th>
-      <th colspan="1">SC</th>
-      <th colspan="1">KP</th>
-      <th colspan="1">S</th>
-      <th colspan="1">C</th>
-      <th colspan="1">Pub</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody class="sortable">
-    <% @stories.each_with_sortable_id do |story, sortable_id| %>
-      <tr id="<%= sortable_id %>">  <!-- Needs id tag on sorting elements -->
-        <td><%= story.scene_min %></td>
-        <td><%= story.scene_max %></td>
-        <td class="text-wrap"><%= link_to story.title,    book_story_path(:book_id => @book.id, :id => story.id) %></td>
-        <td><%= story.summary %></td>
-        <td><%= story.scene_character %></td>
-        <td><%= story.key_points.count %></td>
-        <td><%= story.scene_count %></td>
-        <td><%= story.characters.count %></td>
-        <td><%= (story.publish ? 'Y' : 'N') %></td>
-        <td><%= link_to 'Show',    book_story_path(:book_id => @book.id, :id => story.id) %></td>
-        <td><%= link_to 'Edit',    edit_book_story_path(:book_id => @book.id, :id => story.id) %></td>
-        <td><%= link_to 'Destroy', book_story_path(:book_id => @book.id, :id => story.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
+<%= render :partial => 'stories/index.html', :locals => {:stories => @stories, :book => @book } %>
 
 <% @footer_content << "#{link_to 'New Story', new_book_story_path(:book_id => @book.id), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Scenes', book_scenes_path(:id => @book.id), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Timeline', book_timeline_path(:id => @book.id), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Resync Stories', book_resync_stories_path(:id => @book.id), :class => "btn btn-default hide-print" }" %>
 <% @footer_content << "#{link_to 'Back', book_path(@book), :class => "btn btn-default"}" %>
 

@@ -8,11 +8,15 @@
     <%= f.hidden_field :book_id, value: @book.id %>
 
     <%= f.input :title %>
-    <%= f.input :summary %>
-
     <%= f.input :scene_character %>
+    <%= f.label "Print Summary?" %>
+    <%= f.check_box :print_summary %>
     <%= f.label "Publish?" %>
     <%= f.check_box :publish  %>
+    <%= f.label "Stand Alone?" %>
+    <%= f.check_box :stand_alone %>
+
+    <%= f.input :summary %>
   </div>
 
   <div class="form-actions">

@@ -8,11 +8,28 @@ class AuthorsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the index" do
+  test "visiting the Authors index" do
     visit book_authors_url(@book)
     assert_selector "h1", text: "Authors"
     assert_link "New Author"
     assert_no_text "link_to"
+  end
+
+  test "Adding an Author" do
+    visit book_authors_url(@book)
+    assert_selector "h1", text: "Authors"
+    assert_link "New Author"
+    click_on "Add Author"
+    select "M. Kariil", from: "authors_avail"
+    click_on "Save"
+    within "#authors_ids" do
+      assert_text "M. Kariil"
+    end
+    select "M. Kariil", from: "authors_ids"
+    click_on "Save"
+    within "#authors_ids" do
+      assert_no_text "M. Kariil"
+    end
   end
 
   test "creating an Author" do

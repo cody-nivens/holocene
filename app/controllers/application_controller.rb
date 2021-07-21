@@ -5,6 +5,25 @@ class ApplicationController < ActionController::Base
   helper_method :set_prev_key_point,:set_next_key_point
   helper_method :set_prev_scene,:set_next_scene
   helper_method :selector_string, :selector_collection
+  helper_method :store_location,:redirect_back_or_default,:redirect_back_or_default_path
+
+  def store_location
+    session.delete :return_to
+    session[:return_to] ||= request.referer if request.get? && !["user_sessions","sessions"].member?(controller_name)
+  end
+
+  def redirect_back_or_default(default)
+    redirect_to(
+      session[:return_to].present? && session[:return_to] != request.fullpath ?
+        session[:return_to] : default
+    )
+  end
+
+  def redirect_back_or_default_path(default)
+    (session[:return_to].present? && session[:return_to] != request.fullpath ?
+        session[:return_to] : default
+    )
+  end
 
   def home
   end

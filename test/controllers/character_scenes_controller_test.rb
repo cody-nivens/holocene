@@ -35,10 +35,10 @@ class CharacterScenesControllerTest < ActionDispatch::IntegrationTest
 #    assert_response :success
 #  end
 
-  test "should show character_scene" do
-    get polymorphic_url([@scene, @character_scene])
-    assert_response :success
-  end
+#  test "should show character_scene" do
+#    get polymorphic_url([@scene, @character_scene])
+#    assert_response :success
+#  end
 
   test "should get edit" do
     get edit_polymorphic_url([@scene, @character_scene])
@@ -55,11 +55,11 @@ class CharacterScenesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should destroy character_scene" do
-    assert_difference('CharacterScene.count', -1) do
-      delete polymorphic_url([@scene,@character_scene])
-    end
-
-    assert_redirected_to polymorphic_url([@scene, :characters])
-  end
+#  test "should destroy character_scene" do
+#    assert_difference('CharacterScene.count', -1) do
+#      delete polymorphic_url([@scene,@character_scene])
+#    end
+#
+#    assert_redirected_to polymorphic_url([@scene, :characters])
+#  end
 end

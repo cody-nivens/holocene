@@ -7,7 +7,7 @@ class EpochsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the index" do
+  test "visiting the Epoch index" do
     visit epochs_url
     assert_selector "h1", text: "Epochs"
     assert_link "New Epoch"

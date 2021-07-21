@@ -11,7 +11,7 @@ class AsidesTest < ApplicationSystemTestCase
   end
 
 
-  test "visiting the index" do
+  test "visiting the Aside index" do
     visit chapter_asides_url(@chapter)
     assert_selector "h1", text: "Asides"
   end

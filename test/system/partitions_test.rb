@@ -9,7 +9,7 @@ class PartitionsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the index" do
+  test "visiting the Patition index" do
     visit chapter_partitions_url(@chapter)
     assert_selector "h1", text: "Partitions"
   end

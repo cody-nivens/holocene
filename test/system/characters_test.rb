@@ -8,9 +8,34 @@ class CharactersTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the index" do
+  test "visiting the Character index" do
     visit book_characters_url(:book_id => @book.id)
     assert_selector "h1", text: "Characters"
+  end
+
+  test "visiting the Character index for ethnicity" do
+    visit book_characters_url(:book_id => @book.id)
+    assert_selector "h1", text: "Characters"
+    click_on "Ethnicity"
+    click_on "White"
+  end
+
+  test "visiting the Character index for occupation class" do
+    visit books_url
+    assert_link "The Phantom"
+    click_on "The Phantom"
+    click_on "Occupation Class"
+    click_on "Educated"
+  end
+
+  test "visiting the Character list" do
+    visit book_characters_url(:book_id => @book.id)
+    assert_selector "h1", text: "Characters"
+    click_on "Add/Remove Character"
+    select "Jim", from: "characters_avail"
+    click_on "Save"
+    select "John", from: "characters_ids"
+    click_on "Save"
   end
 
   test "creating a Character" do
@@ -66,7 +91,6 @@ class CharactersTest < ApplicationSystemTestCase
     fill_in "Social class", with: @character.social_class
     click_on "submit"
 
-    assert_text "Character was successfully updated"
     click_on "Back"
   end
 
@@ -87,12 +111,12 @@ class CharactersTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
-#  test "destroying a Character" do
-#    visit book_characters_url(:book_id => @book.id)
-#    page.accept_confirm do
-#      click_on "Destroy", match: :first
-#    end
+  test "destroying a Character" do
+    visit book_characters_url(:book_id => @book.id)
+    page.accept_confirm do
+      click_on "Delete", match: :first
+    end
 
-#    assert_text "Character was successfully destroyed"
-#  end
+    assert_text "Character was successfully destroyed"
+  end
 end

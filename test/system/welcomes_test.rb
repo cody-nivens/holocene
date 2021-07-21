@@ -7,7 +7,7 @@ class WelcomesTest < ApplicationSystemTestCase
   end
 
 
-   test "visiting the index" do
+   test "visiting the Welcome index" do
      visit root_url
      assert_text "Events"
    end

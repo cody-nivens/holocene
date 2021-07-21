@@ -26,7 +26,7 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create story" do
     assert_difference('Story.count') do
-      post book_stories_url(:book_id => @book.id), params: { story: { book_id: @story.book.id, summary: @story.summary, title: @story.title, character_ids: [ @character.id ] } }
+      post book_stories_url(:book_id => @book.id), params: { story: { book_id: @story.book.id, summary: @story.summary, title: @story.title } }
     end
 
     assert_redirected_to book_story_url(:book_id => @book.id, :id => Story.last.id)
@@ -34,9 +34,14 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create story" do
     assert_difference('Story.count', 0) do
-      post book_stories_url(:book_id => @book.id), params: { story: { book_id: @story.book.id, summary: @story.summary, title: "", character_ids: [ @character.id ] } }
+      post book_stories_url(:book_id => @book.id), params: { story: { book_id: @story.book.id, summary: @story.summary, title: "" } }
     end
 
+    assert_response :success
+  end
+
+  test "should get timeline" do
+    get story_timeline_url(@story)
     assert_response :success
   end
 
@@ -57,12 +62,12 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update story" do
-    patch book_story_url(@book, @story), params: { story: { book_id: @story.book.id, summary: @story.summary, title: @story.title, character_ids: [ @character.id ] } }
+    patch book_story_url(@book, @story), params: { story: { book_id: @story.book.id, summary: @story.summary, title: @story.title } }
     assert_redirected_to book_story_url(@book, @story)
   end
 
   test "should not update story" do
-    patch book_story_url(@book, @story), params: { story: { book_id: @story.book.id, summary: @story.summary, title: "", character_ids: [ @character.id ] } }
+    patch book_story_url(@book, @story), params: { story: { book_id: @story.book.id, summary: @story.summary, title: "" } }
     assert_response :success
   end
 

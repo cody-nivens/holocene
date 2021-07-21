@@ -10,12 +10,12 @@ class KeyPointsController < ApplicationController
   end
 
   def moved
-    @key_point.update_attributes({:scripted_id => params["new_#{@scripted.class.name.underscore}_id".to_sym]})
+    @key_point.update({:scripted_id => params["new_#{@scripted.class.name.underscore}_id".to_sym]})
 
     respond_to do |format|
-       format.html { redirect_to polymorphic_path([@scripted ])}
+      format.html { redirect_to polymorphic_url(@scripted), notice: "Key Point successfully moved."}
+      format.json { render :show, status: :ok, location: @key_point }
     end
-
   end
 
   def move
@@ -34,8 +34,8 @@ class KeyPointsController < ApplicationController
       scenes_avail.each do |scene_id|
         next if scene_id.blank?
         scene = Scene.find(scene_id)
-        scene.update_attribute("selector", selector)
-        @key_point.scenes << scene unless @key_point.scenes.include?(scene)
+        scene.update({:selector => selector, :key_point_id => @key_point.id})
+        #@key_point.scenes << scene unless @key_point.scenes.include?(scene)
       end
     end
 
@@ -43,13 +43,13 @@ class KeyPointsController < ApplicationController
       scenes_ids.each do |scene_id|
         next if scene_id.blank?
         scene = Scene.find(scene_id)
-        scene.update_attribute("selector", 0)
+        scene.update({:selector  => 0, :key_point_id => nil})
       end
     end
 
 
     respond_to do |format|
-       format.html { redirect_to polymorphic_path([@scripted, :key_point_list])}
+       format.html { redirect_to polymorphic_path([@scripted, :key_point_list], :selector => selector )}
     end
   end
 
@@ -129,6 +129,8 @@ class KeyPointsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def key_point_params
-      params.require(:key_point).permit(:hook, :inciting_incident, :key_element, :first_plot_point, :first_pinch_point, :midpoint, :second_pinch_point, :third_plot_point, :climax, :scripted_id, :scripted_type, :selector)
+      params.require(:key_point).permit(:hook, :inciting_incident, :key_element, :first_plot_point, :first_pinch_point, 
+                                        :midpoint, :second_pinch_point, :third_plot_point, :climax, :scripted_id, 
+                                        :scripted_type, :selector, :print_name, :print_points)
     end
 end

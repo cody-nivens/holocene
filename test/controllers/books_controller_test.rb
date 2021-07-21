@@ -4,13 +4,14 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
   setup do
     @book = books(:book_1)
     @book_2 = books(:book_2)
+    @book_3 = books(:book_3)
     @user = users(:users_1)
     sign_in @user
   end
 
   test "should get resync_stories" do
-    get book_resync_stories_url(@book)
-    assert_redirected_to book_stories_url(@book)
+    get book_resync_stories_url(@book_2)
+    assert_redirected_to book_stories_url(@book_2)
   end
 
   test "should get index" do
@@ -62,14 +63,27 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_select "a[text()=?]",'Chapters, TOC'
-    assert_select "a[href=?]", book_chapters_path(@book)
-    assert_select "a[text()=?]",'Chapters, Details'
-    assert_select "a[href=?]", book_chapters_path(@book)
     assert_select "a[text()=?]",'Back'
     
     # history.back is now used
     # assert_select "a[href=?]", books_path
-    assert_select ".footer>div>a", 3
+    assert_select ".footer>div>a", 2
+  end
+
+  test "should get timeline" do
+    get book_timeline_url(@book)
+    assert_response :success
+  end
+
+  test "should show book 2" do
+    get book_url(@book_2)
+    assert_response :success
+
+    assert_select "a[text()=?]",'Back'
+    
+    # history.back is now used
+    # assert_select "a[href=?]", books_path
+    assert_select ".footer>div>a", 5
   end
 
   test "should show pdf book" do

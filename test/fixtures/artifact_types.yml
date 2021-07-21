@@ -2,8 +2,8 @@
 
 artifact_type_1:
   name: Palladium Bar
-  book: book_1
+  book: book_2
 
 artifact_type_2:
   name: Ship
-  book: book_1
+  book: book_2

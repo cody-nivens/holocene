@@ -7,7 +7,7 @@ class EventTypesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the index" do
+  test "visiting the Event type index" do
     visit event_types_url
     assert_selector "h1", text: "Event Types"
     assert_link "New Event Type"

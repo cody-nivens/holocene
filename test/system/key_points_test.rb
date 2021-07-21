@@ -4,18 +4,76 @@ class KeyPointsTest < ApplicationSystemTestCase
   setup do
     @key_point = key_points(:key_point_1)
     @key_point_2 = key_points(:key_point_5)
-    @scripted = books(:book_1)
+    @scripted = books(:book_2)
+    @story = @key_point.scripted
     @user = users(:users_1)
     sign_in @user
   end
 
-  test "visiting the index" do
-    visit book_key_points_url(@scripted)
-    assert_selector "h1", text: "Book: Fun Events in History"
+  test "visiting the Keypoint index" do
+    #visit polymorphic_url([@story,:key_points])
+    visit books_url
+    assert_text "The Phantom"
+    click_on "The Phantom"
+    assert_text "The Beginnings"
+    click_on "The Beginnings"
+    assert_text "Climate Change"
+    within ".footer" do
+      click_on "Key Points"
+    end
+  end
+
+  test "visiting the Keypoint move" do
+    visit books_url
+    assert_text "The Phantom"
+    click_on "The Phantom"
+    assert_text "The Beginnings"
+    click_on "The Beginnings"
+    assert_text "Climate Change"
+    click_on "Climate Change"
+    assert_text "Move"
+    click_on "Move"
+    select "The Endings", from: "new_story_id"
+    click_on "Save"
+    assert_text "Key Point successfully moved"
+  end
+
+  test "visiting the Keypoint list" do
+    visit books_url
+    assert_text "The Phantom"
+    click_on "The Phantom"
+    assert_text "The Beginnings"
+    click_on "The Beginnings"
+    assert_text "Climate Change"
+    click_on "Climate Change"
+    assert_text "A00001"
+    find(:xpath, ".//a[i[contains(@class, 'fa-plus')]]", match: :first).click
+    assert_text "Missing 9 scene"
+    select "Missing 9 scene", from: "scenes_avail"
+    click_on "Save"
+    within "#scenes_ids" do
+      assert_text "Missing 9 scene"
+    end
+    select "Missing 9 scene", from: "scenes_ids"
+    click_on "Save"
+    within "#scenes_avail" do
+      assert_text "Missing 9 scene"
+    end
+    within "#scenes_ids" do
+      assert_no_text "Missing 9 scene"
+    end
   end
 
   test "creating a Key point" do
-    visit book_key_points_url(@scripted)
+    visit books_url
+    assert_text "The Phantom"
+    click_on "The Phantom"
+    assert_text "The Beginnings"
+    click_on "The Beginnings"
+    assert_text "Climate Change"
+    within ".footer" do
+      click_on "Key Points"
+    end
     click_on "New Key Point"
 
     fill_in "Climax", with: @key_point.climax
@@ -34,7 +92,15 @@ class KeyPointsTest < ApplicationSystemTestCase
   end
 
   test "not creating a Key point" do
-    visit book_key_points_url(@scripted)
+    visit books_url
+    assert_text "The Phantom"
+    click_on "The Phantom"
+    assert_text "The Beginnings"
+    click_on "The Beginnings"
+    assert_text "Climate Change"
+    within ".footer" do
+      click_on "Key Points"
+    end
     click_on "New Key Point"
 
     fill_in "Climax", with: @key_point.climax
@@ -53,7 +119,15 @@ class KeyPointsTest < ApplicationSystemTestCase
   end
 
   test "updating a Key point" do
-    visit book_key_points_url(@scripted)
+    visit books_url
+    assert_text "The Phantom"
+    click_on "The Phantom"
+    assert_text "The Beginnings"
+    click_on "The Beginnings"
+    assert_text "Climate Change"
+    within ".footer" do
+      click_on "Key Points"
+    end
     click_on "Edit", match: :first
 
     fill_in "Climax", with: @key_point.climax
@@ -72,7 +146,15 @@ class KeyPointsTest < ApplicationSystemTestCase
   end
 
   test "not updating a Key point" do
-    visit book_key_points_url(@scripted)
+    visit books_url
+    assert_text "The Phantom"
+    click_on "The Phantom"
+    assert_text "The Beginnings"
+    click_on "The Beginnings"
+    assert_text "Climate Change"
+    within ".footer" do
+      click_on "Key Points"
+    end
     click_on "Edit", match: :first
 
     fill_in "Climax", with: @key_point.climax
@@ -91,7 +173,16 @@ class KeyPointsTest < ApplicationSystemTestCase
   end
 
   test "destroying a Key point" do
-    visit book_key_points_url(@scripted)
+    visit books_url
+    assert_text "The Phantom"
+    click_on "The Phantom"
+    assert_text "The Beginnings"
+    click_on "The Beginnings"
+    assert_text "Climate Change"
+    within ".footer" do
+      click_on "Key Points"
+    end
+
     page.accept_confirm do
       click_on "Destroy", match: :first
     end

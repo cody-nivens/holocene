@@ -7,11 +7,65 @@ class BooksTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the index" do
+  test "visiting the Books index" do
     visit books_url
     assert_selector "h1", text: "Books"
     assert_link "New Book"
     assert_no_text "link_to"
+  end
+
+  test "visiting the Book 'The Phantom'" do
+    visit books_url
+    assert_selector "h1", text: "Books"
+    assert_link "The Phantom"
+    click_on "The Phantom"
+  end
+
+  test "visiting the Book 'The Phantom' Resync Stories" do
+    visit books_url
+    assert_selector "h1", text: "Books"
+    assert_link "The Phantom"
+    click_on "The Phantom"
+    assert_link "All Stories"
+    click_on "All Stories"
+    assert_link "Resync Stories"
+    click_on "Resync Stories"
+    assert_text "Stories were successfully resynced"
+  end
+
+  test "visiting the Book 'The Phantom' Timeline" do
+    visit books_url
+    assert_selector "h1", text: "Books"
+    assert_link "The Phantom"
+    click_on "The Phantom"
+    assert_link "All Stories"
+    click_on "All Stories"
+    assert_link "Timeline"
+    click_on "Timeline"
+  end
+
+  test "visiting the Book 'The Phantom' gender" do
+    visit books_url
+    assert_selector "h1", text: "Books"
+    assert_link "The Phantom"
+    click_on "The Phantom"
+    click_on "Stats"
+    row = row_containing_cell_with_text("Gay")
+    within row do
+      click_on "1"
+    end
+  end
+
+  test "visiting the Book 'The Phantom' hair color" do
+    visit books_url
+    assert_selector "h1", text: "Books"
+    assert_link "The Phantom"
+    click_on "The Phantom"
+    click_on "Stats"
+    row = second_row_containing_cell_with_text("Brown")
+    within row do
+      click_on "1"
+    end
   end
 
   test "visiting the TOC" do
@@ -25,7 +79,7 @@ class BooksTest < ApplicationSystemTestCase
     visit book_url(@book, format: 'pdf')
 
     content = DownloadHelpers::download_content
-    sleep(1)
+    sleep(5)
     body = convert_pdf_to_page(content)
     assert_match /Fun Events in History/,body
   end
@@ -34,6 +88,7 @@ class BooksTest < ApplicationSystemTestCase
     visit book_epub_url(@book)
 
     content = DownloadHelpers::download_content
+    sleep(5)
 #    body = convert_pdf_to_page(content)
 #    assert_match /Fun Events in History/,body
   end

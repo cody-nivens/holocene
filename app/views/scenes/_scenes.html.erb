@@ -1,0 +1,19 @@
+<table class="table">
+  <% scenes.each do |scene| %>
+    <%# debugger if scene.key_point.scripted.stand_alone %>
+    <tr>
+      <% if print.nil? %>
+        <td class="text-wrap" style="width: 20%"><%= link_to scene.abc, polymorphic_path([@situated, scene]) %> <%= (scene.section.nil? ? '' : '*') %><br/>
+        <% else %>
+        <td class="text-wrap" style="width: 20%"><%= scene.abc %> <%= (scene.section.nil? ? '' : '*') %><br/>
+        <% end %>
+      <%= scene.key_point.name %></td>
+      <td class="text-nowrap"><%= scene.time_to_text %></td>
+      <td style="width: 20%"><%= scene.place %></td>
+      <td style="width: 20%"><% scene.characters.order(:last_name, :first_name).each do |character| %>
+        <%= character.name %><br/>
+      <% end %></td>
+      <td><%= scene.plain_name %></td>
+    </tr>
+<% end %>
+  </table>

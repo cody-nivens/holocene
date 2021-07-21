@@ -3,8 +3,10 @@ require 'test_helper'
 class ScenesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @scene = scenes(:scene_1)
+    @key_point = @scene.key_point
     @scene_2 = scenes(:scene_2)
     @book = books(:book_1)
+    @book_2 = books(:book_2)
     @key_point_2 = key_points(:key_point_2)
     @situated = @scene.situated
     @user = users(:users_1)
@@ -22,8 +24,11 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should move scene" do
-    post polymorphic_url([@scene, :moved]), params: { new_key_point_id: @key_point_2.id, new_selector: 3 }
-    assert_redirected_to polymorphic_url(@scene)
+    [[1,2],[2,3],[3,4],[4,5],[5,6],[6,1]].each do |x,y|
+      post polymorphic_url([@scene, :moved]), params: { new_key_point_id: @key_point_2.id, new_selector: y, selector: x }
+      assert_redirected_to polymorphic_url(@scene)
+    assert_response :redirect
+    end
   end
 
   test "should not move scene" do
@@ -36,8 +41,13 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get index II" do
+  test "should get index 3" do
     get polymorphic_url([@book, :scenes])
+    assert_response :success
+  end
+
+  test "should get index 4" do
+    get polymorphic_url([@book_2, :scenes])
     assert_response :success
   end
 
@@ -57,7 +67,7 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create scene" do
     assert_difference('Scene.count', 0) do
-      post polymorphic_url([@situated, :scenes]), params: { scene: { situated_type: @situated.class.name, situated_id: @situated.id, abc: @scene.abc, check: @scene.check, scene_sequel: @scene.scene_sequel, time: "" },
+      post polymorphic_url([@situated, :scenes]), params: { scene: { situated_type: @situated.class.name, situated_id: @situated.id, abc: "", check: @scene.check, scene_sequel: @scene.scene_sequel, time: "" },
                                                              t: { t_years: "", t_month: "", t_day: "" } }
     end
 
@@ -85,11 +95,11 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to polymorphic_url([@situated, @scene])
   end
 
-#  test "should not update scene" do
-#    patch polymorphic_url([@situated, @scene]), params: { scene: { abc: @scene.abc, check: @scene.check, scene_sequel: @scene.scene_sequel, time: "" },
-#                                                             t: { t_years: "", t_month: "", t_day: "" } }
-#    assert_response :success
-#  end
+  test "should not update scene" do
+    patch polymorphic_url([@situated, @scene]), params: { scene: { abc: "", check: @scene.check, scene_sequel: @scene.scene_sequel, time: @scene.time },
+                                                             t: { t_years: "", t_month: "", t_day: "" } }
+    assert_response :success
+  end
 
   test "should destroy scene" do
     assert_difference('Scene.count', -1) do

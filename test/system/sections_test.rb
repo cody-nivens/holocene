@@ -8,7 +8,7 @@ class SectionsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the index" do
+  test "visiting the Section index" do
     visit chapter_sections_url(@chapter)
     assert_selector "h1", text: "Sections"
     assert_link "New Section"

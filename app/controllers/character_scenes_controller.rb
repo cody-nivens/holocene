@@ -26,16 +26,6 @@ class CharacterScenesController < ApplicationController
     end
   end
 
-  # DELETE /character_scenes/1
-  # DELETE /character_scenes/1.json
-  def destroy
-    @character_scene.destroy
-    respond_to do |format|
-      format.html { redirect_to polymorphic_url([@scene,:characters]), notice: 'Character scene was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_character_scene

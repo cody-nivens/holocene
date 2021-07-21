@@ -2,10 +2,12 @@ require "application_system_test_case"
 
 class ArtifactLocationsTest < ApplicationSystemTestCase
   setup do
-    @artifact_location = artifact_locations(:one)
+    @artifact_location = artifact_locations(:artifact_location_1)
+    @user = users(:users_1)
+    sign_in @user
   end
 
-  test "visiting the index" do
+  test "visiting the Artifact location index" do
     visit artifact_locations_url
     assert_selector "h1", text: "Artifact Locations"
   end
@@ -14,9 +16,7 @@ class ArtifactLocationsTest < ApplicationSystemTestCase
     visit artifact_locations_url
     click_on "New Artifact Location"
 
-    fill_in "Artifact", with: @artifact_location.artifact_id
-    fill_in "Located", with: @artifact_location.located_id
-    fill_in "Located type", with: @artifact_location.located_type
+    select "MyString_1", from: 'artifact_location_artifact_id'
     click_on "Create Artifact location"
 
     assert_text "Artifact location was successfully created"
@@ -27,9 +27,7 @@ class ArtifactLocationsTest < ApplicationSystemTestCase
     visit artifact_locations_url
     click_on "Edit", match: :first
 
-    fill_in "Artifact", with: @artifact_location.artifact_id
-    fill_in "Located", with: @artifact_location.located_id
-    fill_in "Located type", with: @artifact_location.located_type
+    select "MyString_1", from: 'artifact_location_artifact_id'
     click_on "Update Artifact location"
 
     assert_text "Artifact location was successfully updated"

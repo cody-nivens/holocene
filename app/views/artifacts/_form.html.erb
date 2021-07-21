@@ -8,6 +8,9 @@
 
     <%= f.input :name %>
     <%= f.association :character, collection: @book.characters.order(:last_name, :first_name) %>
+    <%= label_tag :parent %>
+    <%= select_tag "artifact[parent_id]", options_for_select(Artifact.all.order(:name).collect{|mt| [mt.name, mt.id]}), :include_blank => true %>
+
     <%= f.association :artifact_type %>
     <%= f.rich_text_area :summary %>
 

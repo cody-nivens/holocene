@@ -12,7 +12,7 @@
       <th>Occupation class</th>
       <th>Grouping</th>
       <th>#Scenes</th>
-      <th colspan="2"></th>
+      <th colspan="3"></th>
     </tr>
   </thead>
 
@@ -32,6 +32,7 @@
         <td><%= character.scenes.size %></td>
         <td><%= link_to 'Show', polymorphic_path([@object, character]) %></td>
         <td><%= link_to 'Edit', edit_polymorphic_path([@object, character]) %></td>
+        <td><%= link_to 'Delete', polymorphic_path([@object, character]), :method => :delete %></td>
       </tr>
     <% end %>
   </tbody>

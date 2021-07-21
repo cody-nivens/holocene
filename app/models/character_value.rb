@@ -10,7 +10,6 @@ class CharacterValue < ApplicationRecord
 
       attribute_values = CharacterValue.where(character_attribute_id: character_attribute.id)
       distinct_values = attribute_values.distinct.pluck(:value)
-      absolute_count = CharacterValue.where(character_attribute_id: character_attribute.id)
 
       distinct_values.each do |value|
         stats[category.name][value] = 0
@@ -22,17 +21,32 @@ class CharacterValue < ApplicationRecord
       stats
   end
 
+  def self.stats_a(characters,category,character_attribute,character_attribute_2=nil)
+      stats = {}
+      stats[category] = {}
+
+      attribute_values = CharacterValue.where(character_attribute_id: character_attribute.id)
+      distinct_values = attribute_values.distinct.pluck(:value)
+
+      distinct_values.each do |value|
+        stats[category][value] = 0
+
+        first_count = characters.joins(:character_values).where("character_values.character_attribute_id": character_attribute.id, "character_values.value": value) 
+          
+        stats[category][value] += first_count.length
+      end
+      stats
+  end
+
   def self.stats_2(characters,category,character_attribute,character_attribute_2=nil)
       stats = {}
       stats[category.name] = {}
 
       attribute_values = CharacterValue.where(character_attribute_id: character_attribute.id)
       distinct_values = attribute_values.distinct.pluck(:value)
-      absolute_count = CharacterValue.where(character_attribute_id: character_attribute.id)
 
       attribute_values_2 = CharacterValue.where(character_attribute_id: character_attribute_2.id)
       distinct_values_2 = attribute_values_2.distinct.pluck(:value)
-      absolute_count_2 = CharacterValue.where(character_attribute_id: character_attribute_2.id)
 
       distinct_values.each do |value|
         stats[category.name][value] = {}

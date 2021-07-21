@@ -1,0 +1,25 @@
+<p>
+  <strong>Name:</strong>
+  <%= @object.name %>
+</p>
+
+<%= form_tag polymorphic_path([@story,:timeline]), :method => :get, :id => 'my-form' do %>
+  <%= hidden_field_tag :story_id, @story.id %>
+
+  <div class="form-check">
+    <label class="checkbox">
+      <%= check_box_tag :toggle, @toggle,@toggle,:class => "checkbox inline" %> Order
+    </label>
+  </div>
+  <div class="form-check">
+    <label class="checkbox">
+  <%= check_box_tag :print, @print,@print,:class => "checkbox inline" %> Print
+    </label>
+  </div>
+
+  <%= submit_tag 'Go' %>
+<% end %>
+
+<%= render partial: "timelines/timeline.html", :locals => { object: @object, toggle: @toggle} %>
+
+<% @footer_content << "#{link_to 'Back', polymorphic_path([@story,:key_points]), :class => "btn btn-default"}" %>

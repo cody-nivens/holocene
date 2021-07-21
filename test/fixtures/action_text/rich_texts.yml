@@ -2,3 +2,37 @@
 #   record: name_of_fixture (ClassOfFixture)
 #   name: content
 #   body: <p>In a <i>million</i> stars!</p>
+<% 1.upto(9) do |i| %>
+rich_text_<%= i %>:
+  record: scene_<%= i %> (Scene)
+  name: summary
+  body: Missing <%= i %> scene
+rich_text_cd_<%= i %>:
+  record: scene_<%= i %> (Scene)
+  name: conflict_dilemma
+  body: Missing <%= i %> scene
+rich_text_dd_<%= i %>:
+  record: scene_<%= i %> (Scene)
+  name: disaster_decision
+  body: Missing <%= i %> scene
+rich_text_gr_<%= i %>:
+  record: scene_<%= i %> (Scene)
+  name: goal_reaction
+  body: Missing <%= i %> scene
+rich_text_ltg_<%= i %>:
+  record: scene_<%= i %> (Scene)
+  name: long_term_goal
+  body: Missing <%= i %> scene
+rich_text_oag_<%= i %>:
+  record: scene_<%= i %> (Scene)
+  name: over_arching_goal
+  body: Missing <%= i %> scene
+rich_text_p_<%= i %>:
+  record: scene_<%= i %> (Scene)
+  name: place
+  body: Missing <%= i %> scene
+rich_text_stg_<%= i %>:
+  record: scene_<%= i %> (Scene)
+  name: short_term_goal
+  body: Missing <%= i %> scene
+<% end %>

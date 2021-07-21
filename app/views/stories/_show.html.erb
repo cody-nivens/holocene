@@ -1,16 +1,10 @@
 <div style = "display:block; clear:both; page-break-after:always;"></div>
 <% pdf ||= nil %>
 <% outline ||= nil %>
+<% just_printed_page_break = true %>
 
-<p>
-  <h1><%= story.title %></h1>
-</p>
-
-<p>
-  <%= story.summary %>
-</p>
-
-<% unless outline %>
+<% if outline %>
+    <h1><%= story.name %></h1>
 <p class="first-para">
 <h2>Characters</h2>
 
@@ -18,26 +12,45 @@
   <h2><%= occ_class %></h2>
   <ul>
     <% story.characters.where("occupation_class = ?", occ_class).order(:occupation_class,:last_name,:first_name).each do |character| %>
-      <%= render partial: 'characters/show.html', :locals => {pdf: pdf, character: character} %>
+      <% debugger if character.nil? %>
+      <%= render :partial => 'characters/show.html', :locals => {pdf: pdf, character: character} %>
     <% end %>
     </ul>
   <% end %>
 
 </p>
   <% story.key_points.order(:position).each do |key_point| -%>
-    <%= render 'key_points/show.html', book: story.book, key_point: key_point, outline: outline %>
+    <%= render :partial => 'key_points/show.html', :locals => {book: story.book, key_point: key_point, outline: outline} %>
   <% end -%>
 <% end %>
-<% if outline %>
 
-
-<div style = "display:block; clear:both; page-break-after:always;"></div>
-  <% story.key_points.order(:position).each do |key_point| -%>
-    <% Scene.where(key_point_id: key_point.id).order(:selector).each do |scene| %>
-      <% unless scene.section.nil? %>
-        <%= raw scene.section.body.gsub(/<br>/,'').gsub(/<br style="box-sizing: border-box; color: rgb(51, 51, 51);">/,'') %>
+  <% if story.word_count > 0 %>
+    <% unless outline %>
+      <h1><%= story.name %></h1>
     <% end %>
+    <% if story.print_summary? %>
+      <%= story.summary %>
+    <% end %>
+  <% end %>
+  <% story.key_points.order(:position).each do |key_point| -%>
+  <% if key_point.print_name? %>
+    <div style = "display:block; clear:both; page-break-after:always;"></div>
+    <% just_printed_page_break = true %>
+    <h2><%= key_point.name %></h2>
+  <% end %>
+  <% last_selector = 0 %>
+  <% Scene.where(key_point_id: key_point.id).order(:selector).each do |scene| %>
+    <% unless scene.section.nil? %>
+      <% if key_point.print_points? && scene.selector != last_selector %>
+        <% unless just_printed_page_break %>
+          <div style = "display:block; clear:both; page-break-after:always;"></div>
+        <% end %>
+        <h3><%= key_point.selector_value(scene.selector) %></h3>
+        <% last_selector = scene.selector %>
+      <% end %>
+      <% just_printed_page_break = false %>
+        <br/>
+        <%= raw scene.section.body %>
+      <% end %>
+    <% end -%>
   <% end -%>
-<% end -%>
-<% end -%>
-

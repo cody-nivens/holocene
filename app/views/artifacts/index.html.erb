@@ -8,6 +8,8 @@
       <th>Name</th>
       <th>Owner/Controller</th>
       <th>Type</th>
+      <th>Parent</th>
+      <th>Children</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -18,6 +20,18 @@
         <td><%= link_to artifact.name, book_artifact_url(@book,artifact) %></td>
         <td><%= artifact.character.name %></td>
         <td><%= artifact.artifact_type.name %></td>
+        <td><%= (artifact.parent.nil? ? '' : artifact.parent.name) %></td>
+        <% if artifact.children.empty? %>
+          <td></td>
+        <% else %>
+            <td>
+              <ul>
+          <% artifact.children.each do |child| %>
+            <li><%= child.name %></li>
+          <% end %>
+              </ul>
+            </td>
+      <% end %>
         <td><%= link_to 'Edit', edit_book_artifact_path(@book,artifact) %></td>
         <td><%= link_to 'Destroy', book_artifact_path(@book,artifact), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -27,5 +41,5 @@
 
 <br>
 
-<% @footer_content << "#{link_to 'New', new_book_artifact_path(@book), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'New Artifact', new_book_artifact_path(@book), :class => "btn btn-default"}" %>
 

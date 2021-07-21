@@ -6,7 +6,7 @@ scene_1:
   time: 99.0
   scene_sequel: 1
   situated: story_1 (Story)
-  key_point: key_point_2
+  key_point: key_point_1
   selector: 1
   position: 1
 
@@ -15,8 +15,8 @@ scene_2:
   check: false
   time: 100.5
   scene_sequel: 1
-  situated: story_1 (Story)
-  key_point: key_point_1
+  situated: story_2 (Story)
+  key_point: key_point_2
   selector: 1
   position: 2
 
@@ -30,3 +30,65 @@ scene_3:
   selector: 3
   insert_scene: scene_2
   position: 3
+
+scene_4:
+  abc: B00001
+  check: false
+  time: 100.5
+  scene_sequel: 1
+  situated: story_2 (Story)
+  key_point: key_point_5
+  selector: 1
+  position: 2
+
+scene_5:
+  abc: C00001
+  check: false
+  time: 100.5
+  scene_sequel: 1
+  situated: story_3 (Story)
+  key_point: key_point_6
+  selector: 1
+  position: 2
+
+scene_6:
+  abc: A00004
+  check: false
+  time: 101.5
+  scene_sequel: 1
+  situated: story_2 (Story)
+  key_point: key_point_7
+  insert_scene: scene_2
+  selector: 1
+  position: 2
+
+scene_7:
+  abc: A00007
+  check: false
+  time: 101.5
+  scene_sequel: 1
+  situated: story_2 (Story)
+  key_point: key_point_8
+  selector: 1
+  position: 1
+
+scene_8:
+  abc: A00008
+  check: false
+  time: 100.5
+  scene_sequel: 1
+  situated: story_2 (Story)
+  key_point: key_point_8
+  insert_scene: scene_7
+  selector: 2
+  position: 2
+
+
+scene_9:
+  abc: A00009
+  check: false
+  time: 100.5
+  scene_sequel: 1
+  situated: story_1 (Story)
+  selector: 0
+

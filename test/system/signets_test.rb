@@ -9,7 +9,7 @@ class SignetsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the index" do
+  test "visiting the Signet index" do
     visit signets_url(:chapter_id => @chapter.id)
     assert_selector "h1", text: "Signets"
   end

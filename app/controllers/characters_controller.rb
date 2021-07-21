@@ -6,8 +6,8 @@ class CharactersController < ApplicationController
   # GET /characters.json
   def index
     if params[:ethnicity].nil? && params[:occupation_class].nil? && params[:cat1].nil?
-      @characters = @object.characters
-      @title = "Characters"
+    @characters = @object.characters
+    @title = "Characters"
     else
     if !params[:occupation_class].blank?
       @characters = @object.characters.where("occupation_class = ?", params[:occupation_class])
@@ -53,6 +53,7 @@ class CharactersController < ApplicationController
   # GET /characters/1
   # GET /characters/1.json
   def show
+    store_location
   end
 
   # GET /characters/new
@@ -128,17 +129,17 @@ class CharactersController < ApplicationController
   def create
 
     @character = Character.new(character_params)
-    update_values
 
        #   "#{category.name.underscore}_#{character_attribute.name.underscore}_value".to_sym, value: (character_value.nil? ? '' :character_value.value), hide_label: true 
 
     respond_to do |format|
       if @character.save
+        update_values
         @object.characters << @character
         @object.key_point.scripted.book.characters << @character if @object.class.name == 'Scene' && !@object.key_point.scripted.book.characters.include?(@character)
         @object.key_point.scripted.characters << @character if @object.class.name == 'Scene' && !@object.key_point.scripted.characters.include?(@character)
 
-        format.html { redirect_to polymorphic_path([@object, @character]), notice: 'Character was successfully created.' }
+        format.html { redirect_to polymorphic_path([@object, :characters]), notice: 'Character was successfully created.' }
         format.json { render :show, status: :created, location: @character }
       else
         format.html { render :new }
@@ -154,7 +155,7 @@ class CharactersController < ApplicationController
 
     respond_to do |format|
       if @character.update(character_params)
-        format.html { redirect_to polymorphic_path([@object, @character]), notice: 'Character was successfully updated.' }
+        format.html { redirect_back_or_default polymorphic_path([@object, @character]) }
         format.json { render :show, status: :ok, location: @character }
       else
         format.html { render :edit }
@@ -195,7 +196,7 @@ class CharactersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def attribute_params
       params.permit(:character,
-                    :utf8, :_method, :authenticity_token, :book_id, :age, :year, :death_age, :button, :id,
+                    :utf8, :_method, :authenticity_token, :book_id, :age, :year, :death_age, :button, :id, :story_id,
                                        array_character_attributes
                                        )
     end

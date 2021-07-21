@@ -8,7 +8,7 @@ class CharacterAttributesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the index" do
+  test "visiting the Character attribute index" do
     visit character_attributes_url(:character_category_id => @character_category.id)
     assert_selector "h1", text: "Character Attributes"
   end

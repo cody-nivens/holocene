@@ -32,11 +32,23 @@
 <p>
 <% @characters.order(:occupation_class).pluck(:occupation_class).uniq.each do |occ_class| %>
   <%= occ_class %>
+<table class="table">
+  <tbody>
+    <tr><td>
 <ul>
-<% @characters.where("occupation_class = ?", occ_class).order(:occupation_class,:last_name,:first_name).each do |character| %>
+<% @characters.where("occupation_class = ?", occ_class).order(:last_name,:first_name).each do |character| %>
   <li><%= link_to character.name, polymorphic_path([@object,character]) %><%= "#{(character.grouping.blank? ? '' : "-  #{character.grouping}")}" %></li>
 <% end %>
 </ul>
+      </td><td>
+<ul>
+<% @characters.where("occupation_class = ?", occ_class).order(:grouping,:last_name,:first_name).each do |character| %>
+  <li><%= link_to character.name, polymorphic_path([@object,character]) %><%= "#{(character.grouping.blank? ? '' : "-  #{character.grouping}")}" %></li>
+<% end %>
+</ul>
+      </td></tr>
+  </tbody>
+</table>
 <% end %>
 </p>
   </span>
@@ -273,5 +285,5 @@
 <% if @object.class.name == 'Book' %>
 <% @footer_content << "#{link_to 'New Character', new_polymorphic_path([@object, :character]), :class => "btn btn-default" }" %>
 <% end -%>
-<% @footer_content << "#{link_to 'Add Character', polymorphic_path([@object, :characters_list]), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Add/Remove Characters', polymorphic_path([@object, :characters_list]), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Back', polymorphic_path(@object), :class => "btn btn-default" }" %>

@@ -17,7 +17,7 @@
 <table class="table">
   <tr>
     <td >
-      <%= f.select "new_#{@klass.name.underscore}_id".to_sym, options_from_collection_for_select(@scripted.book.stories.order(:position), :id, :name), :prompt => "Select Story", :multiple => false, :size => 1 %>
+      <%= f.select "new_#{@klass.name.underscore}_id".to_sym, options_from_collection_for_select((@scripted.class.name == 'Book' ? @scripted.stories.order(:position) : @scripted.book.stories.order(:position)), :id, :name), :prompt => "Select Story", :multiple => false, :size => 1 %>
       </td>
   </tr>
 </table>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_04_134016) do
+ActiveRecord::Schema.define(version: 2021_07_14_130404) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 2021_05_04_134016) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "artifact_type_id", null: false
+    t.bigint "parent_id"
     t.index ["artifact_type_id"], name: "index_artifacts_on_artifact_type_id"
     t.index ["book_id"], name: "index_artifacts_on_book_id"
     t.index ["character_id"], name: "index_artifacts_on_character_id"
@@ -198,6 +199,13 @@ ActiveRecord::Schema.define(version: 2021_05_04_134016) do
     t.index ["scene_id", "character_id"], name: "index_scene_character_2"
   end
 
+  create_table "character_stories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "story_id", null: false
+    t.bigint "character_id", null: false
+    t.index ["character_id", "story_id"], name: "index_story_character_2"
+    t.index ["story_id", "character_id"], name: "index_story_character_1"
+  end
+
   create_table "character_values", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "character_id", null: false
     t.bigint "character_attribute_id", null: false
@@ -229,13 +237,6 @@ ActiveRecord::Schema.define(version: 2021_05_04_134016) do
     t.string "honorific"
     t.string "grouping"
     t.boolean "use_honorific_only", default: false
-  end
-
-  create_table "characters_stories", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
-    t.bigint "story_id", null: false
-    t.bigint "character_id", null: false
-    t.index ["character_id", "story_id"], name: "index_story_character_2"
-    t.index ["story_id", "character_id"], name: "index_story_character_1"
   end
 
   create_table "epochs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -351,6 +352,8 @@ ActiveRecord::Schema.define(version: 2021_05_04_134016) do
     t.string "scripted_type"
     t.bigint "scripted_id"
     t.integer "position"
+    t.boolean "print_name", default: false
+    t.boolean "print_points", default: false
     t.index ["scripted_type", "scripted_id"], name: "index_key_points_on_scripted_type_and_scripted_id"
   end
 
@@ -432,6 +435,8 @@ ActiveRecord::Schema.define(version: 2021_05_04_134016) do
     t.integer "position"
     t.string "scene_character"
     t.boolean "publish", default: true
+    t.boolean "stand_alone", default: false
+    t.boolean "print_summary", default: false
   end
 
   create_table "taggings", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
