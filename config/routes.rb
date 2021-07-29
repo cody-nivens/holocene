@@ -18,36 +18,39 @@ Rails.application.routes.draw do
      resources :chapters, options
      resources :key_points, options
   end
-  resources :artifact_locations
   resources :signets
   resources :embeds
   resources :character_attributes
   resources :character_categories
 
-  get "/scenes/:id/move", to: "scenes#move", as: :scene_move
-  post "/scenes/:id/moved", to: "scenes#moved", as: :scene_moved
-  get "/stories/:story_id/key_points/:id/move", to: "key_points#move", as: :story_key_point_move
-  post "/stories/:story_id/key_points/:id/moved", to: "key_points#moved", as: :story_key_point_moved
+  get "books/:id/export", to: "books#export", as: :book_export
+  get "books/:id/epub", to: "books#epub", as: :book_epub
+  get "books/:id/toc", to: "books#toc", as: :toc
   get "/books/:book_id/key_points/:id/move", to: "key_points#move", as: :book_key_point_move
   post "/books/:book_id/key_points/:id/moved", to: "key_points#moved", as: :book_key_point_moved
-
   post "/books/:book_id/authors/add", to: "authors#add", as: :book_authors_add
   get "/books/:book_id/authors/list", to: "authors#list", as: :book_authors_list
   post "/books/:book_id/characters/add", to: "characters#add", as: :book_characters_add
   get "/books/:book_id/characters/list", to: "characters#list", as: :book_characters_list
-  post "/scenes/:scene_id/characters/add", to: "characters#add", as: :scene_characters_add
-  get "/scenes/:scene_id/characters/list", to: "characters#list", as: :scene_characters_list
-  get "/stories/:story_id/characters/list", to: "characters#list", as: :story_characters_list
-  post "/stories/:story_id/characters/add", to: "characters#add", as: :story_characters_add
-  get "/stories/:id/timeline", to: "stories#timeline", as: :story_timeline
-
+  get "/books/:book_id/character/:id/lineage", to: "characters#lineage", as: :book_character_lineage
   get "/books/:id/resync_stories", to: "books#resync_stories", as: :book_resync_stories
-  get "/stories/:id/resync_scenes", to: "stories#resync_scenes", as: :story_resync_scenes
-  get "/stories/:story_id/key_points/:id/list", to: "key_points#list", as: :story_key_point_list
-  post "/stories/:story_id/key_points/:id/add", to: "key_points#add", as: :story_key_point_add
   get "/books/:book_id/key_points/:id/list", to: "key_points#list", as: :book_key_point_list
   post "/books/:book_id/key_points/:id/add", to: "key_points#add", as: :book_key_point_add
   get "/books/:id/timeline", to: "books#timeline", as: :book_timeline
+
+  get "/scenes/:id/move", to: "scenes#move", as: :scene_move
+  post "/scenes/:id/moved", to: "scenes#moved", as: :scene_moved
+  post "/scenes/:scene_id/characters/add", to: "characters#add", as: :scene_characters_add
+  get "/scenes/:scene_id/characters/list", to: "characters#list", as: :scene_characters_list
+
+  get "/stories/:story_id/key_points/:id/move", to: "key_points#move", as: :story_key_point_move
+  post "/stories/:story_id/key_points/:id/moved", to: "key_points#moved", as: :story_key_point_moved
+  get "/stories/:story_id/characters/list", to: "characters#list", as: :story_characters_list
+  post "/stories/:story_id/characters/add", to: "characters#add", as: :story_characters_add
+  get "/stories/:id/timeline", to: "stories#timeline", as: :story_timeline
+  get "/stories/:id/resync_scenes", to: "stories#resync_scenes", as: :story_resync_scenes
+  get "/stories/:story_id/key_points/:id/list", to: "key_points#list", as: :story_key_point_list
+  post "/stories/:story_id/key_points/:id/add", to: "key_points#add", as: :story_key_point_add
 
 #  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
@@ -98,7 +101,7 @@ Rails.application.routes.draw do
  resources :scenes do
     concerns :located, located_type: 'Book'
     resources :sections
-    resources :character_scenes, only: [ :show, :edit, :update, :destroy ]
+    resources :character_scenes, only: [ :edit, :update ]
   end
   resources :epochs
   resources :timelines
@@ -112,9 +115,6 @@ Rails.application.routes.draw do
   #
   get "tagged/(:tag)", to: "holocene_events#tagged", as: :tag
 
-  get "books/:id/export", to: "books#export", as: :book_export
-  get "books/:id/epub", to: "books#epub", as: :book_epub
-  get "books/:id/toc", to: "books#toc", as: :toc
   get "event_types/:id/geo_map", to: "event_types#geo_map", as: :geo_map_event_type
   get "timelines/:id/geo_map", to: "timelines#geo_map", as: :geo_map_timeline
   get "epochs/:id/geo_map", to: "epochs#geo_map", as: :geo_map_epoch

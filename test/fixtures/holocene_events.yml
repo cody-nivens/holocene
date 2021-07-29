@@ -9,7 +9,6 @@ holocene_event_1:
   end_year_mod: 
   region: Global
   url: https://en.wikipedia.org/wiki/domestication_of_the_horse
-  body: ''
   slug: CTuywKJhCy
   user: users_1
   timelines:
@@ -29,7 +28,6 @@ holocene_event_2:
   end_year_mod: 
   region: NearEast
   url: ''
-  body: Dog near to the hearth.<br>
   slug: QYRjmNUWSG
   user: users_1
   timelines: 
@@ -49,9 +47,6 @@ holocene_event_3:
   end_year_mod: 
   region: Global
   url: ''
-  body: 'Western Dog branch replaced by Eastern by 4,400 BC.
-
-'
   slug: RkQjVWKTpK
   user: users_1
   timelines:
@@ -71,7 +66,6 @@ holocene_event_4:
   end_year_mod: 
   region: NearEast
   url: ''
-  body: ''
   slug: Gc9WnEWgsp
   user: users_1
   timelines:
@@ -91,7 +85,6 @@ holocene_event_5:
   end_year_mod: 
   region: NearEast
   url: ''
-  body: ''
   slug: 5FdhhVRNUH
   user: users_1
   timelines: 
@@ -111,7 +104,6 @@ holocene_event_6:
   end_year_mod: 
   region: NearEast
   url: ''
-  body: ''
   slug: jLJmUk7Zqh
   user: users_1
   timelines:
@@ -131,12 +123,6 @@ holocene_event_7:
   end_year_mod: 
   region: Eurasia
   url: ''
-  body: "The first agriculture or selection of plants for food to carry started with
-    wild grains as the groups moved across the landscape.\nThis ended with the Colvis
-    Impact.  The Younger Dryus pushed the growing zones for grain more southward.
-    \ Starvation and the \nabandonment of settlements as the people moved around to
-    find food.  Their movement and attempts to find grain caused them to try to grow\nit
-    where conditions seemed right creating true agriculture.\n"
   slug: Has9m93rgN
   user: users_1
   timelines:
@@ -156,9 +142,6 @@ holocene_event_8:
   end_year_mod: 
   region: NearEast
   url: ''
-  body: |2
-     The crops were the first to be domesticated: emmer and einkorn wheat, hulled barley, peas, lentils, bitter vetch, chick peas and flax.
-    The first cultivation was in the Levant.
   slug: uTJSgyGNng
   user: users_1
   timelines:
@@ -176,7 +159,6 @@ holocene_event_9:
   end_year_mod: 
   region: Global
   url: ''
-  body: ''
   slug: 3T1wsnFBf4
   user: users_1
   timelines:
@@ -194,9 +176,6 @@ holocene_event_10:
   end_year_mod: 
   region: Global
   url: ''
-  body: |
-    This was the largest Geomagnetic storm on the sun.  It took 17 hours to travel to earth on a journey which normally take 3 days.
-    There were fires along the telegraph lines and station due to the storm generating power in the wires.
   slug: uZFdQXErKe
   user: users_1
   timelines:
@@ -214,10 +193,6 @@ holocene_event_11:
   end_year_mod: 
   region: FarEast
   url: ''
-  body: |-
-    The first major Impact Event in recorded history.  It took almost 15 years to find the explosion point due to its remoteness in Siberia.  Recent models show an explosion of an asteroid above the earth with a small Impact Event.  The wide spread destruction was due to the mid-air explosion.
-
-    People in London were able to read the new paper at night for 8 days after the event.  It was heard around the world.
   slug: kWVqzWaG5j
   user: users_1
   timelines:
@@ -235,10 +210,6 @@ holocene_event_12:
   end_year_mod: 
   region: Global
   url: https://en.wikipedia.org/wiki/gr%c3%admsv%c3%b6tn
-  body: 'This eruption caused desruptions to air travel in Europe.  President Obama
-    had to cut short his visit to Ireland due to worries about the ash cloud.
-
-'
   slug: MQADV2dtH0
   user: users_1
   timelines:

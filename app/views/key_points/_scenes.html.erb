@@ -1,8 +1,9 @@
 <% pdf ||= nil %>
 <% key_point.scenes.where(selector: selector).order(:time, :abc).each do |scene| %>
-
-  <h3><%= (pdf.nil? ? link_to(scene.abc, polymorphic_path([@scripted,key_point, scene])) : scene.abc) %>:<%= scene.time_to_text %>:<%= scene.place.to_plain_text %></h3>
-  <%= scene.summary.body %>
+  <h3>
+    <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: @scripted, key_point: key_point, pdf: pdf} %>
+  </h3>
+  <%= raw epub_friendly(scene.summary.body) %>
     <ul>
     <% insert_scene = scene %>
     <% loop do %>

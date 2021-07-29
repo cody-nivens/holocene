@@ -1,27 +1,16 @@
 <p id="notice"><%= notice %></p>
-
 <h1>
-  <%= @key_point.hook %>
+<%= breadcrumb((@scripted.class.name == "Book" ? @scripted : @scripted.book), @scripted, @key_point) %>
 </h1>
 
 <p>
-  <h2>Print name:</h2>
-  <%= (@key_point.print_name? ? 'Y' : 'N') %>
+  <strong>Print name:</strong> <%= (@key_point.print_name? ? 'Y' : 'N') %><br/>
+  <strong>Print points:</strong> <%= (@key_point.print_points? ? 'Y' : 'N') %>
 </p>
 
 <p>
-  <h2>Print points:</h2>
-  <%= (@key_point.print_points? ? 'Y' : 'N') %>
-</p>
-
-<p>
-  <h2>Inciting incident:</h2>
-  <%= @key_point.inciting_incident %>
-</p>
-
-<p>
-  <h2>Key element:</h2>
-  <%= @key_point.key_element %>
+  <strong>Inciting incident:</strong> <%= @key_point.inciting_incident %><br/>
+  <strong>Key element:</strong> <%= @key_point.key_element %>
 </p>
 
 <%= tabs do |c| %>

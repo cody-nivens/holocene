@@ -1,5 +1,5 @@
     <% character_attributes = CharacterAttribute.where(name: cat1) %>
-    <% items = characters.distinct.pluck(category.to_sym).sort %>
+    <% items = characters.distinct.pluck(category.to_sym).map{|x| x || ""}.sort %>
     <% rs = CharacterValue.stats_a(characters,category, character_attributes[0]) %>
     <% keys_1 = rs[category].keys %>
     <table class="table">

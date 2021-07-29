@@ -1,69 +1,52 @@
 ---
 Africa:
   name: Africa
-  body: 
   user: users_1
 Australasia:
   name: Australasia
-  body: 
   user: users_1
 Central America:
   name: Central America
-  body: 
   user: users_1
 Central Asia:
   name: Central Asia
-  body: 
   user: users_1
 East Asia:
   name: East Asia
-  body: 
   user: users_1
 Eurasia:
   name: Eurasia
-  body: 
   user: users_1
 Europe:
   name: Europe
-  body: 
   user: users_1
 FarEast:
   name: Far East
-  body: 
   user: users_1
 Global:
   name: Global
-  body: 
   user: users_1
 Iceland and Arctic Ocean:
   name: Iceland and Arctic Ocean
-  body: 
   user: users_1
 Indian Ocean:
   name: Indian Ocean
-  body: 
   user: users_1
 Middle East:
   name: Middle East
-  body: 
   user: users_1
 NearEast:
   name: Near East
-  body: 
   user: users_1
 North America:
   name: North America
-  body: 
   user: users_1
 South America:
   name: South America
-  body: 
   user: users_1
 Southeast Asia:
   name: Southeast Asia
-  body: 
   user: users_1
 Unknown:
   name: Unknown
-  body: 
   user: users_1

@@ -2,6 +2,8 @@ class Section < ApplicationRecord
     include RailsSortable::Model
     set_sortable :position # Indicate a sort column
 
+    has_rich_text :body
+
     belongs_to :sectioned, polymorphic: true
 
     #belongs_to :chapter, :optional => true
@@ -29,6 +31,6 @@ class Section < ApplicationRecord
     end
 
     def word_count
-      return WordsCounted.count(self.body).token_count + WordsCounted.count(self.name).token_count
+      return WordsCounted.count(self.body.to_plain_text).token_count + WordsCounted.count(self.name).token_count
     end
 end

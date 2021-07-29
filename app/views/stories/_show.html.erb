@@ -50,7 +50,7 @@
       <% end %>
       <% just_printed_page_break = false %>
         <br/>
-        <%= raw scene.section.body %>
+        <%= raw epub_friendly(scene.section.body) %>
       <% end %>
     <% end -%>
   <% end -%>

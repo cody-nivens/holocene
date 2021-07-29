@@ -1,12 +1,6 @@
 class CharacterScenesController < ApplicationController
-  before_action :set_character_scene, only: [:show, :edit, :update, :destroy]
-  before_action :set_scene, only: [:edit, :update, :destroy]
-
-  # GET /character_scenes/1
-  # GET /character_scenes/1.json
-  def show
-    @scene = @character_scene.scene
-  end
+  before_action :set_character_scene, only: [:edit, :update]
+  before_action :set_scene, only: [:edit, :update]
 
   # GET /character_scenes/1/edit
   def edit

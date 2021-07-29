@@ -67,6 +67,7 @@ class ScenesController < ApplicationController
     @scene = Scene.new(scene_params)
     @scene.time = time
 
+
     respond_to do |format|
       if @scene.save
         format.html { redirect_to polymorphic_path([@situated, @scene]), notice: 'Scene was successfully created.' }

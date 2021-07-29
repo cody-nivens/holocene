@@ -19,7 +19,7 @@ class RegionsTest < ApplicationSystemTestCase
     click_on "New Region"
 
     fill_in "Name", with: @region.name
-    page.execute_script("var wysihtml5Editor = $('#region_body').data('wysihtml5').editor;wysihtml5Editor.setValue('Test for Region.')")
+    fill_in_rich_text_area "region_body", with: "Test 1"
 
     click_on "Create Region"
 
@@ -32,7 +32,7 @@ class RegionsTest < ApplicationSystemTestCase
     click_on "New Region"
 
     fill_in "Name", with: ""
-    page.execute_script("var wysihtml5Editor = $('#region_body').data('wysihtml5').editor;wysihtml5Editor.setValue('Test for Region.')")
+    fill_in_rich_text_area "region_body", with: "Test 1"
 
     click_on "Create Region"
 
@@ -49,7 +49,7 @@ class RegionsTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Name", with: @region.name
-    page.execute_script("var wysihtml5Editor = $('#region_body').data('wysihtml5').editor;wysihtml5Editor.setValue('Test for Region.')")
+    fill_in_rich_text_area "region_body", with: "Test 1"
     click_on "Update Region"
 
     assert_text "Region was successfully updated"
@@ -61,7 +61,7 @@ class RegionsTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Name", with: ""
-    page.execute_script("var wysihtml5Editor = $('#region_body').data('wysihtml5').editor;wysihtml5Editor.setValue('Test for Region.')")
+    fill_in_rich_text_area "region_body", with: "Test 1"
     click_on "Update Region"
 
     assert_text "can't be blank"

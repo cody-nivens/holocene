@@ -20,6 +20,24 @@ class CharactersTest < ApplicationSystemTestCase
     click_on "White"
   end
 
+  test "visiting the Character index for blank ethnicity" do
+    visit book_url(:id => @book.id)
+    assert_text "Ethnicity"
+    click_on "Ethnicity"
+    assert_text "White"
+    click_on "<blank>"
+    assert_text "Counsel"
+  end
+
+  test "visiting the Character index for blank occupation_class" do
+    visit book_url(:id => @book.id)
+    assert_text "Occupation Class"
+    click_on "Occupation Class"
+    assert_text "Educated"
+    click_on "<blank>"
+    assert_text "Counsel"
+  end
+
   test "visiting the Character index for occupation class" do
     visit books_url
     assert_link "The Phantom"
@@ -38,22 +56,69 @@ class CharactersTest < ApplicationSystemTestCase
     click_on "Save"
   end
 
+  test "visiting the Character show" do
+    visit book_character_url(:book_id => @book.id, :id => @character.id)
+  end
+
+  test "visiting the Character lineage" do
+    visit book_character_url(:book_id => @book.id, :id => @character.id)
+    assert_text "Lineage"
+    click_on "Lineage"
+  end
+
   test "creating a Character" do
+    count = 0
+    1.upto(100) do |i|
+    count += 1
+    if count == 20
+      putc "!"
+      count = 0
+    end
     visit book_characters_url(:book_id => @book.id)
     click_on "New Character"
 
-    fill_in "First name", with: @character.first_name
-    fill_in "Middle name", with: @character.middle_name
-    fill_in "Last name", with: @character.last_name
+    #fill_in "First name", with: @character.first_name
+    #fill_in "Middle name", with: @character.middle_name
+    #fill_in "Last name", with: @character.last_name
     fill_in "Nickname", with: @character.nickname
     fill_in "Occupation class", with: @character.occupation_class
-    fill_in "Race", with: @character.race
+    #fill_in "Race", with: @character.race
     fill_in "Reason for name", with: @character.reason_for_name
     fill_in "Reason for nickname", with: @character.reason_for_nickname
     fill_in "Social class", with: @character.social_class
+    #fill_in "physical appearance_hair color_value", with: "Blond"
     click_on "submit"
 
     assert_text "Character was successfully created"
+    #click_on "Attributes", match: :first
+    assert_text @character.occupation_class
+    click_on "Back"
+    end
+  end
+
+  test "creating a Character 2" do
+    visit book_characters_url(:book_id => @book.id)
+
+    Character.stubs(:gen_race).returns("Mixed")
+
+    click_on "New Character"
+
+    #fill_in "First name", with: @character.first_name
+    #fill_in "Middle name", with: @character.middle_name
+    #fill_in "Last name", with: @character.last_name
+    fill_in "Nickname", with: @character.nickname
+    fill_in "Occupation class", with: @character.occupation_class
+    #fill_in "Race", with: @character.race
+    fill_in "Reason for name", with: @character.reason_for_name
+    fill_in "Reason for nickname", with: @character.reason_for_nickname
+    fill_in "Social class", with: @character.social_class
+    #fill_in "physical appearance_hair color_value", with: "Blond"
+
+    click_on "submit"
+
+    assert_text "Character was successfully created"
+    #click_on "Attributes", match: :first
+    assert_text @character.occupation_class
     click_on "Back"
   end
 
@@ -89,7 +154,11 @@ class CharactersTest < ApplicationSystemTestCase
     fill_in "Reason for name", with: @character.reason_for_name
     fill_in "Reason for nickname", with: @character.reason_for_nickname
     fill_in "Social class", with: @character.social_class
+    fill_in "gender_gender_value", with: "---"
     click_on "submit"
+    assert_text "Attributes"
+    click_on "Attributes", match: :first
+    assert_no_text "Straight"
 
     click_on "Back"
   end

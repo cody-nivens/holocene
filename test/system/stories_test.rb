@@ -18,6 +18,16 @@ class StoriesTest < ApplicationSystemTestCase
     assert_text "MyText"
   end
 
+  test "generating PDF" do
+    visit book_story_url(book_id: @book, id: @story.id, format: 'pdf')
+
+    content = DownloadHelpers::download_content
+    sleep(20)
+    body = convert_pdf_to_page(content)
+    assert_match /The Beginnings/,body
+  end
+
+
   test "visiting the Story timeline" do
     visit book_stories_url(:book_id => @book.id)
     assert_text "The Endings"

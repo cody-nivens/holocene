@@ -1,11 +1,13 @@
+<% @attributes ||= {} %>
 <%= bootstrap_form_for([@object, @character], layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f| %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <%= hidden_field "#{@object.class.name.underscore}_id", value: @object.id %>
 
   <p>
-
+  <div class="form-inputs">
    Person is <%= text_field_tag 'age', '', size: 5 %> in the year <%= text_field_tag 'year', '', size: 5 %> and lived <%= text_field_tag 'death_age', '', size: 5 %> years.
+  </div>
 </p> 
 
     <div class="container-fluid">
@@ -79,6 +81,11 @@
 <% end %>
 
 <script>
+  $(document).ready(function(){
+      <% @attributes.keys.each do |key| %>
+          $('#<%= key.to_s.gsub(/ /,'_') %>').val('<%= @attributes[key] %>');
+    <% end %>
+    });
     $(document).on("change", "input#death_age", function(e){
         var year = $('#year').val();
         var age = $('#age').val();

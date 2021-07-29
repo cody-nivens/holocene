@@ -21,7 +21,7 @@ class AsidesTest < ApplicationSystemTestCase
     click_on "New Aside"
 
     fill_in "Name", with: @aside.name
-    page.execute_script("var wysihtml5Editor = $('#aside_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@aside.body}')")
+    fill_in_rich_text_area "aside_body", with: "Test 1"
     click_on "Create Aside"
 
     assert_text "Aside was successfully created."
@@ -33,7 +33,7 @@ class AsidesTest < ApplicationSystemTestCase
     click_on "New Aside"
 
     fill_in "Name", with: ""
-    page.execute_script("var wysihtml5Editor = $('#aside_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@aside.body}')")
+    fill_in_rich_text_area "aside_body", with: "Test 1"
     click_on "Create Aside"
 
     assert_text "can't be blank"
@@ -45,7 +45,7 @@ class AsidesTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Name", with: @aside.name
-    page.execute_script("var wysihtml5Editor = $('#aside_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@aside.body}')")
+    fill_in_rich_text_area "aside_body", with: "Test 1"
     click_on "Update Aside"
 
     assert_text "Aside was successfully updated"
@@ -57,7 +57,7 @@ class AsidesTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Name", with: ""
-    page.execute_script("var wysihtml5Editor = $('#aside_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@aside.body}')")
+    fill_in_rich_text_area "aside_body", with: "Test 1"
     click_on "Update Aside"
 
     assert_text "can't be blank"

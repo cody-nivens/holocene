@@ -22,7 +22,7 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", toc_path(@chapter.scripted)
     assert_select "a[text()=?]",'Back'
     #assert_select "a[href=?]", back_path
-    assert_select ".footer>div>a", 3
+    assert_select ".footer>div>a", 4
   end
 
   test "should get index 2" do
@@ -34,7 +34,7 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", toc_path(@chapter_5.scripted)
     assert_select "a[text()=?]",'Back'
     #assert_select "a[href=?]", back_path
-    assert_select ".footer>div>a", 3
+    assert_select ".footer>div>a", 4
   end
 
   test "should get holocene events" do

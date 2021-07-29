@@ -4,7 +4,8 @@
   <div style = "display:block; clear:both; page-break-after:always;"></div>
     <h1><%= chapter.partition.name %></h1>
 
-    <%= raw chapter.partition.body.gsub(/&nbsp;/,'') %>
+    <%#= raw chapter.partition.body.gsub(/&nbsp;/,'') %>
+    <%= raw chapter.partition.body %>
 <% end -%>
 <div style = "display:block; clear:both; page-break-after:always;"></div>
 <% unless !chapter.partition.nil? && chapter.partition.name == chapter.name.gsub(/\s+$/, '') -%>
@@ -21,7 +22,8 @@
     <div id="aside_content">
       <blockquote>
         <h2><%= chapter.aside.name %></h2>
-        <%= raw chapter.aside.body.gsub(/&nbsp;/,'') -%>
+        <%#= raw chapter.aside.body.gsub(/&nbsp;/,'') -%>
+        <%= raw chapter.aside.body -%>
         <hr/>
       </blockquote>
       <%= raw @footnotes[0] -%>

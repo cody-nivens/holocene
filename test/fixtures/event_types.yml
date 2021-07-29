@@ -1,25 +1,19 @@
 ---
 Impact:
   name: Impact
-  body: 
   user: users_1
 Volcanic:
   name: Volcanic
-  body: 
   user: users_1
 Climate:
   name: Climate
-  body: 
   user: users_1
 Epidemic:
   name: Epidemic
-  body: 
   user: users_1
 Cultural:
   name: Cultural
-  body: 
   user: users_1
 Earth:
   name: Earth
-  body: 
   user: users_1

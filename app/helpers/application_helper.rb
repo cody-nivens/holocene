@@ -1,5 +1,22 @@
 module ApplicationHelper
 
+  def breadcrumb(book, story=nil, key_point=nil, scene=nil)
+    str = my_link_to(book.name,book_path(:id => book.id))
+    unless story.nil?
+      str += " | "
+      str += my_link_to(story.name,book_story_path(:book_id => book.id, :id => story.id))
+    end
+    unless key_point.nil?
+      str += " | "
+      str += my_link_to(key_point.hook,story_key_point_path(:story_id => story.id, :id => key_point.id))
+    end
+    return str
+  end
+
+  def epub_friendly(body)
+    return body.to_s.gsub(/<br>/,'<br/>')
+  end
+
   def my_link_to(text, href)
     "<a href='#{href}'>#{text}</a>".html_safe
   end
@@ -52,7 +69,7 @@ module ApplicationHelper
             if my_footnote.length == 0
                 str += "<a href='/#{slug[1].class.name.underscore.pluralize}/#{slug[1].id}/footnotes/#{slug[0]}'>Missing footnote</a>"
             else
-                footnote = (my_footnote[0].biblioentry.nil? ? my_footnote[0].body.gsub(/<br>/,'') :  my_footnote[0].biblioentry.name)
+                footnote = (my_footnote[0].biblioentry.nil? ? my_footnote[0].body :  my_footnote[0].biblioentry.name)
                 str += "<sup id='fn#{index}'>#{index}. [#{footnote}]<a href='#ref#{index}' data-turbolinks='false' title='Jump back to footnote #{index} in the text.'>↩</a></sup><br/>"
             end
         end
@@ -61,7 +78,7 @@ module ApplicationHelper
 
     def process_body(object, slugs, index = 1)
         footnote_slugs = []
-        my_body = object.body.gsub(/&nbsp;/,'')
+        my_body = object.body.to_s.gsub(/&nbsp;/,'')
         unless my_body.nil?
           while my_m = my_body.match(/\[\[([^ ]*)\]\]/)
              my_body.gsub!(/\[\[#{my_m[1]}\]\]/,"<sup><a href=\"#fn#{index}\" data-turbolinks='false' id=\"ref#{index}\">[#{index}]</a></sup>")

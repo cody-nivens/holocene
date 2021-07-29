@@ -2,6 +2,8 @@ class Chapter < ApplicationRecord
     include RailsSortable::Model
     set_sortable :position # Indicate a sort column
 
+    has_rich_text :body
+
     has_and_belongs_to_many :holocene_events
     has_and_belongs_to_many :timelines
     has_and_belongs_to_many :characters
@@ -60,7 +62,7 @@ class Chapter < ApplicationRecord
     end
 
     def word_count
-      count = WordsCounted.count(self.body).token_count + WordsCounted.count(self.name).token_count
+      count = WordsCounted.count(self.body.to_plain_text).token_count + WordsCounted.count(self.name).token_count
       count += self.partition.word_count unless self.partition.nil?
       count += self.aside.word_count unless self.aside.nil?
       self.sections.each do |sect|

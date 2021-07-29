@@ -1,7 +1,6 @@
 ---
 chapter_1:
   name: 'Cultural Events '
-  body: Events caused by Man or happened to Mankind.
   position: 0
   slug: 4tWrCAXQXx
   scripted: book_1 (Book)
@@ -12,7 +11,6 @@ chapter_1:
       - holocene_event_1
 chapter_2:
   name: 'Chapter Two Stuff '
-  body: '[[slug55]]'
   position: 3
   slug: tE3vUMrsN3
   scripted: book_1 (Book)
@@ -23,7 +21,6 @@ chapter_2:
       - holocene_event_2
 chapter_3:
   name: 'Chapter Three Stuff '
-  body: '[[slug56]]'
   position: 5
   slug: tE3vUMrsN3
   scripted: book_1 (Book)
@@ -32,7 +29,6 @@ chapter_3:
   display_title: true
 chapter_4:
   name: 'Chapter Five Stuff '
-  body: '[[slug56]]'
   position: 7
   slug: tE3vUMrsN3
   holocene_events:
@@ -43,7 +39,6 @@ chapter_4:
   display_title: true
 chapter_5:
   name: 'Chapter Four Stuff '
-  body: '[[slug56]]'
   position: 1
   slug: xx3vUMrsN3
   scripted: story_1 (Story)
@@ -52,7 +47,6 @@ chapter_5:
   display_title: true
 chapter_6:
   name: 'Chapter Six Stuff '
-  body: '[[slug56]]'
   position: 2
   slug: tE3vUMrsN3
   scripted: story_1 (Story)

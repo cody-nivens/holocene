@@ -16,3 +16,7 @@ character_scene_3:
   character: :character_4
   scene: scene_8
 
+character_scene_4:
+  character: :character_5
+  scene: scene_1
+

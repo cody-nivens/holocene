@@ -13,36 +13,26 @@ class CitationsTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Citations"
   end
 
-  if 1 == 0
-  test "creating a Citation" do
-    visit citations_index_url(:chapter_id => @chapter.id)
-    click_on "New Citation"
-
-    select "MyString_1", from: 'citation_artifact_id'
-    click_on "Create Citation"
-
-    assert_text "Citation was successfully created"
-    click_on "Back"
-  end
-
   test "updating a Citation" do
     visit citations_index_url(:chapter_id => @chapter.id)
-    click_on "Edit", match: :first
+    assert_text "Medieval"
+    select "Medieval", from: "biblioentries_ids"
 
-    select "MyString_1", from: 'citation_artifact_id'
-    click_on "Update Citation"
+    click_on "Save Citation"
 
-    assert_text "Citation was successfully updated"
+    within "#cit_ids" do
+      assert_text "Medieval"
+    end
+    select "Medieval", from: "cit_ids"
+    click_on "Save Citation"
+    within "#biblioentries_ids" do
+      assert_text "Medieval"
+    end
+    within "#cit_ids" do
+      assert_no_text "Medieval"
+    end
+
     click_on "Back"
   end
 
-  test "destroying a Citation" do
-    visit citations_index_url(:chapter_id => @chapter.id)
-    page.accept_confirm do
-      click_on "Destroy", match: :first
-    end
-
-    assert_text "Citation was successfully destroyed"
-  end
-  end
 end

@@ -36,3 +36,343 @@ rich_text_stg_<%= i %>:
   name: short_term_goal
   body: Missing <%= i %> scene
 <% end %>
+
+rich_text_10:
+  record: section_1 (Section)
+  name: body
+  body: 'This [[new_slug]]is a test[[old_slug]]'
+rich_text_11:
+  record: section_2 (Section)
+  name: body
+  body: ''
+rich_text_12:
+  record: section_3 (Section)
+  name: body
+  body: 'This is section 3.'
+rich_text_13:
+  record: section_4 (Section)
+  name: body
+  body: 'This is section 4.'
+rich_text_14:
+  record: section_5 (Section)
+  name: body
+  body: 'This is section 5.'
+rich_text_15:
+  record: section_6 (Section)
+  name: body
+  body: 'This is section 6.'
+rich_text_16:
+  record: section_7 (Section)
+  name: body
+  body: 'This is section 7.'
+rich_text_17:
+  record: section_8 (Section)
+  name: body
+  body: 'This is section 8.'
+rich_text_18:
+  record: section_9 (Section)
+  name: body
+  body: 'This is section 9.'
+rich_text_19:
+  record: section_20 (Section)
+  name: body
+  body: 'This is section 10.'
+rich_text_20:
+  record: section_21 (Section)
+  name: body
+  body: It was a dark and stormy night. Lightening flashed all around.
+rich_text_21:
+  record: section_22 (Section)
+  name: body
+  body: It was a dark and stormy night. Lightening flashed all around.
+
+<% i = 23 %>
+rich_text_<%= i %>:
+  record: holocene_event_1 (HoloceneEvent)
+  name: body
+  body: ''
+
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: holocene_event_2 (HoloceneEvent)
+  name: body
+  body: Dog near to the hearth.<br/>
+
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: holocene_event_3 (HoloceneEvent)
+  name: body
+  body: 'Western Dog branch replaced by Eastern by 4,400 BC.'
+
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: holocene_event_4 (HoloceneEvent)
+  name: body
+  body: ''
+
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: holocene_event_5 (HoloceneEvent)
+  name: body
+  body: ''
+
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: holocene_event_6 (HoloceneEvent)
+  name: body
+  body: ''
+
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: holocene_event_7 (HoloceneEvent)
+  name: body
+  body: "The first agriculture or selection of plants for food to carry started with
+    wild grains as the groups moved across the landscape.\nThis ended with the Colvis
+    Impact.  The Younger Dryus pushed the growing zones for grain more southward.
+    \ Starvation and the \nabandonment of settlements as the people moved around to
+    find food.  Their movement and attempts to find grain caused them to try to grow\nit
+    where conditions seemed right creating true agriculture.\n"
+
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: holocene_event_8 (HoloceneEvent)
+  name: body
+  body: |-
+    The crops were the first to be domesticated: emmer and einkorn wheat, hulled barley, peas, lentils, bitter vetch, chick peas and flax.
+    The first cultivation was in the Levant.
+
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: holocene_event_9 (HoloceneEvent)
+  name: body
+  body: ''
+
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: holocene_event_10 (HoloceneEvent)
+  name: body
+  body: |-
+    This was the largest Geomagnetic storm on the sun.  It took 17 hours to travel to earth on a journey which normally take 3 days.
+    There were fires along the telegraph lines and station due to the storm generating power in the wires.
+
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: holocene_event_11 (HoloceneEvent)
+  name: body
+  body: |-
+    The first major Impact Event in recorded history.  It took almost 15 years to find the explosion point due to its remoteness in Siberia.  Recent models show an explosion of an asteroid above the earth with a small Impact Event.  The wide spread destruction was due to the mid-air explosion.
+
+    People in London were able to read the new paper at night for 8 days after the event.  It was heard around the world.
+
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: holocene_event_12 (HoloceneEvent)
+  name: body
+  body: 'This eruption caused desruptions to air travel in Europe.  President Obama
+    had to cut short his visit to Ireland due to worries about the ash cloud.'
+
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: aside_1 (Aside)
+  name: body
+  body: Flight of the Bubblebees.
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: aside_2 (Aside)
+  name: body
+  body: Too many fleas.
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: book_1 (Book)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: book_2 (Book)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: book_3 (Book)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: chapter_1 (Chapter)
+  name: body
+  body: Events caused by Man or happened to Mankind.
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: chapter_2 (Chapter)
+  name: body
+  body: '[[slug55]]'
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: chapter_3 (Chapter)
+  name: body
+  body: '[[slug56]]'
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: chapter_4 (Chapter)
+  name: body
+  body: '[[slug56]]'
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: chapter_5 (Chapter)
+  name: body
+  body: '[[slug56]]'
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: chapter_6 (Chapter)
+  name: body
+  body: '[[slug56]]'
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: Impact (EventType)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: Volcanic (EventType)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: Climate (EventType)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: Epidemic (EventType)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: Cultural (EventType)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: Earth (EventType)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: footnote_1 (Footnote)
+  name: body
+  body: MyText 1
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: footnote_2 (Footnote)
+  name: body
+  body: MyText 2
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: footnote_3 (Footnote)
+  name: body
+  body: MyText 3
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: footnote_4 (Footnote)
+  name: body
+  body: Footnote Test 4
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: footnote_5 (Footnote)
+  name: body
+  body: Footnote Test 5
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: partition_1 (Partition)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i %>:
+  record: partition_2 (Partition)
+  name: body
+  body: MyString
+<% i += 1 %>
+rich_text_<%= i%>:
+  record: Africa (Region)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i%>:
+  record: Australasia (Region)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i%>:
+  record: Central America (Region)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i%>:
+  record: Central Asia (Region)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i%>:
+  record: East Asia (Region)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i%>:
+  record: Eurasia (Region)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i%>:
+  record: Europe (Region)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i%>:
+  record: FarEast (Region)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i%>:
+  record: Global (Region)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i%>:
+  record: Iceland and Arctic Ocean (Region)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i%>:
+  record: Indian Ocean (Region)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i%>:
+  record: Middle East (Region)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i%>:
+  record: NearEast (Region)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i%>:
+  record: North America (Region)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i%>:
+  record: South America (Region)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i%>:
+  record: Southeast Asia (Region)
+  name: body
+  body: ''
+<% i += 1 %>
+rich_text_<%= i%>:
+  record: Unknown (Region)
+  name: body
+  body: ''

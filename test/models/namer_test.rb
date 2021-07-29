@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ArtifactLocationTest < ActiveSupport::TestCase
+class NamerTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

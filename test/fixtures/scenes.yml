@@ -25,8 +25,8 @@ scene_3:
   check: false
   time: 101.0192
   scene_sequel: 1
-  situated: story_1 (Story)
-  key_point: key_point_1
+  situated: story_2 (Story)
+  key_point: key_point_2
   selector: 3
   insert_scene: scene_2
   position: 3

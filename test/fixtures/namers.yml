@@ -1,0 +1,404 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+<% i = 1 %>
+namer_<%= i %>:
+  name: Smith
+  white: 70.9
+  black: 23.1
+  asian: 0
+  indian: 0
+  latino_mixed: 2.2
+  latino: 0
+<% i += 1 %>
+namer_<%= i %>:
+  name: Johnson
+  white: 59.0
+  black: 34.6
+  asian: 0
+  indian: 0
+  latino_mixed: 2.6
+  latino: 0
+<% i += 1 %>
+namer_<%= i %>:
+  name: Williams
+  white: 45.8
+  black: 47.7
+  asian: 0
+  indian: 0
+  latino_mixed: 2.8
+  latino: 0
+<% i += 1 %>
+namer_<%= i %>:
+  name: Brown
+  white: 58.0
+  black: 35.6
+  asian: 0.5
+  indian: 0.9
+  latino_mixed: 2.6
+  latino: 2.5
+<% i += 1 %>
+namer_<%= i %>:
+  name: Jones
+  white: 55.2
+  black: 38.5
+  asian: 0.4
+  indian: 1.0
+  latino_mixed: 2.6
+  latino: 2.3
+<% i += 1 %>
+namer_<%= i %>:
+  name: Garcia
+  white: 5.4
+  black: 0.5
+  asian: 1.4
+  indian: 0.5
+  latino_mixed: 0.3
+  latino: 92.0
+<% i += 1 %>
+namer_<%= i %>:
+  name: Miller
+  white: 84.1
+  black: 10.8
+  asian: 0.5
+  indian: 0.7
+  latino_mixed: 1.8
+  latino: 2.2
+<% i += 1 %>
+namer_<%= i %>:
+  name: Davis
+  white: 62.2
+  black: 31.6
+  asian: 0.5
+  indian: 0.8
+  latino_mixed: 2.5
+  latino: 2.4
+<% i += 1 %>
+namer_<%= i %>:
+  name: Rodriguez
+  white: 4.8
+  black: 0.5
+  asian: 0.6
+  indian: 0.2
+  latino_mixed: 0.2
+  latino: 93.8
+<% i += 1 %>
+namer_<%= i %>:
+  name: Martinez
+  white: 5.3
+  black: 0.5
+  asian: 0.6
+  indian: 0.5
+  latino_mixed: 0.2
+  latino: 92.9
+<% i += 1 %>
+namer_<%= i %>:
+  name: Hernandez
+  white: 3.8
+  black: 0.4
+  asian: 0.6
+  indian: 0.2
+  latino_mixed: 0.2
+  latino: 94.9
+<% i += 1 %>
+namer_<%= i %>:
+  name: Lopez
+  white: 4.9
+  black: 0.6
+  asian: 1.0
+  indian: 0.4
+  latino_mixed: 0.3
+  latino: 92.9
+<% i += 1 %>
+namer_<%= i %>:
+  name: Gonzalez
+  white: 4.0
+  black: 0.4
+  asian: 0.4
+  indian: 0.1
+  latino_mixed: 0.1
+  latino: 95.0
+<% i += 1 %>
+namer_<%= i %>:
+  name: Wilson
+  white: 67.4
+  black: 26.0
+  asian: 0.6
+  indian: 1.1
+  latino_mixed: 2.4
+  latino: 2.6
+<% i += 1 %>
+namer_<%= i %>:
+  name: Anderson
+  white: 75.2
+  black: 18.9
+  asian: 0.6
+  indian: 0.7
+  latino_mixed: 2.1
+  latino: 2.4
+<% i += 1 %>
+namer_<%= i %>:
+  name: Thomas
+  white: 52.6
+  black: 38.8
+  asian: 2.4
+  indian: 1.1
+  latino_mixed: 2.6
+  latino: 2.5
+<% i += 1 %>
+namer_<%= i %>:
+  name: Taylor
+  white: 65.4
+  black: 28.4
+  asian: 0.6
+  indian: 0.8
+  latino_mixed: 2.4
+  latino: 2.5
+<% i += 1 %>
+namer_<%= i %>:
+  name: Moore
+  white: 66.4
+  black: 27.7
+  asian: 0.5
+  indian: 0.7
+  latino_mixed: 2.3
+  latino: 2.3
+<% i += 1 %>
+namer_<%= i %>:
+  name: Jackson
+  white: 39.9
+  black: 53.0
+  asian: 0.4
+  indian: 1.1
+  latino_mixed: 3.1
+  latino: 2.5
+<% i += 1 %>
+namer_<%= i %>:
+  name: Michael
+  first_name: true
+  white: 94.363
+  black: 2.142
+  asian: 1.592
+  indian: 0.092
+  latino_mixed: 0.118
+  latino: 1.693
+  gender: "M"
+<% i += 1 %>
+namer_<%= i %>:
+  name: John
+  first_name: true
+  white: 94.384
+  black: 1.729
+  asian: 1.932
+  indian: 0
+  latino_mixed: 0.101
+  latino: 0
+  gender: "M"
+<% i += 1 %>
+namer_<%= i %>:
+  name: David
+  first_name: true
+  white: 92.808
+  black: 1.393
+  asian: 2.393
+  indian: 0
+  latino_mixed: 0
+  latino: 0
+  gender: "M"
+<% i += 1 %>
+namer_<%= i %>:
+  name: Robert
+  first_name: true
+  white: 94.511
+  black: 2.161
+  asian: 0.924
+  indian: 0.128
+  latino_mixed: 0.137
+  latino: 2.138
+  gender: "M"
+<% i += 1 %>
+namer_<%= i %>:
+  name: James
+  first_name: true
+  white: 94.016
+  black: 3.279
+  asian: 1.472
+  indian: 0.116
+  latino_mixed: 0.118
+  latino: 1
+  gender: "M"
+<% i += 1 %>
+namer_<%= i %>:
+  name: William
+  first_name: true
+  white: 94.523
+  black: 2.558
+  asian: 1.3
+  indian: 0.103
+  latino_mixed: 0.119
+  latino: 1.397
+  gender: "M"
+<% i += 1 %>
+namer_<%= i %>:
+  name: Richard
+  first_name: true
+  white: 93.697
+  black: 1.409
+  asian: 1.801
+  indian: 0.079
+  latino_mixed: 0.145
+  latino: 2.869
+  gender: "M"
+<% i += 1 %>
+namer_<%= i %>:
+  name: Thomas
+  first_name: true
+  white: 95.917
+  black: 1.31
+  asian: 1.569
+  indian: 0.113
+  latino_mixed: 0.117
+  latino: 0.974
+  gender: "M"
+<% i += 1 %>
+namer_<%= i %>:
+  name: Mark
+  first_name: true
+  white: 96.338
+  black: 1.175
+  asian: 1.054
+  indian: 0.063
+  latino_mixed: 0.1
+  latino: 1.271
+  gender: "M"
+<% i += 1 %>
+namer_<%= i %>:
+  name: Mary
+  first_name: true
+  white: 92.351
+  black: 3.327
+  asian: 1.526
+  indian: 0.174
+  latino_mixed: 0.114
+  latino: 2.509
+  gender: "F"
+<% i += 1 %>
+namer_<%= i %>:
+  name: Joseph
+  first_name: true
+  white: 92.139
+  black: 2.553
+  asian: 2.12
+  indian: 0.144
+  latino_mixed: 0.108
+  latino: 2.936
+  gender: "M"
+<% i += 1 %>
+namer_<%= i %>:
+  name: Daniel
+  first_name: true
+  white: 90.491
+  black: 1.15
+  asian: 1.859
+  indian: 0.172
+  latino_mixed: 0.139
+  latino: 6.189
+  gender: "M"
+<% i += 1 %>
+namer_<%= i %>:
+  name: Christopher
+  first_name: true
+  white: 94.544
+  black: 1.998
+  asian: 1.401
+  indian: 0.125
+  latino_mixed: 0.144
+  latino: 1.786
+  gender: "M"
+<% i += 1 %>
+namer_<%= i %>:
+  name: Susan
+  first_name: true
+  white: 96.281
+  black: 0.5
+  asian: 1.872
+  indian: 0.082
+  latino_mixed: 0.148
+  latino: 1.117
+  gender: "F"
+<% i += 1 %>
+namer_<%= i %>:
+  name: Jennifer
+  first_name: true
+  white: 94.436
+  black: 1.199
+  asian: 2.216
+  indian: 0.072
+  latino_mixed: 0.134
+  latino: 1.943
+  gender: "F"
+<% i += 1 %>
+namer_<%= i %>:
+  name: Steven
+  first_name: true
+  white: 95.271
+  black: 1.181
+  asian: 2.054
+  indian: 0.074
+  latino_mixed: 0.069
+  latino: 1.351
+  gender: "M"
+<% i += 1 %>
+namer_<%= i %>:
+  name: Jeffrey
+  first_name: true
+  white: 96.739
+  black: 1.022
+  asian: 1.315
+  indian: 0.109
+  latino_mixed: 0.125
+  latino: 0.69
+  gender: "M"
+<% i += 1 %>
+namer_<%= i %>:
+  name: Brian
+  first_name: true
+  white: 96.182
+  black: 1.338
+  asian: 1.59
+  indian: 0.098
+  latino_mixed: 0.076
+  latino: 0.716
+  gender: "M"
+<% i += 1 %>
+namer_<%= i %>:
+  name: Paul
+  first_name: true
+  white: 93.143
+  black: 1.452
+  asian: 3.066
+  indian: 0.109
+  latino_mixed: 0.092
+  latino: 2.138
+  gender: "M"
+<% i += 1 %>
+namer_<%= i %>:
+  name: Patricia
+  first_name: true
+  white: 90.067
+  black: 3.919
+  asian: 0.787
+  indian: 0.136
+  latino_mixed: 0.154
+  latino: 4.937
+  gender: "F"
+<% i += 1 %>
+namer_<%= i %>:
+  name: Charles
+  first_name: true
+  white: 91.379
+  black: 5.547
+  asian: 1.494
+  indian: 0.16
+  latino_mixed: 0.191
+  latino: 1.23
+  gender: "M"
+<% i += 1 %>

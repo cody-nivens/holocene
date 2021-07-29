@@ -2,10 +2,8 @@
 
 aside_1:
   name: Surprise!
-  body: Flight of the Bubblebees.
   chapter: chapter_1
 
 aside_2:
   name: No Dogs
-  body: Too many fleas.
   chapter: chapter_2

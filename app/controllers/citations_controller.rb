@@ -25,14 +25,15 @@ class CitationsController < ApplicationController
     end
     unless params[:biblioentries_ids].blank?
       params[:biblioentries_ids].each do |id|
-        footnote = Footnote.create(slug: "", biblioentry_id: id)
+        biblio = Biblioentry.find(id)
+        footnote = Footnote.create(slug: "", body: biblio.name, biblioentry_id: id)
         footnote.noted = @chapter
         footnote.save
       end
     end
 
     respond_to do |format|
-        format.html { redirect_to chapter_citations_url, notice: 'Citations were successfully updated.' }
+      format.html { redirect_to chapter_citations_url(:chapter_id => @chapter.id), notice: 'Citations were successfully updated.' }
         format.json { render :show, status: :ok, location: @citation }
     end
   end

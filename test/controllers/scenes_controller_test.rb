@@ -9,6 +9,7 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
     @book_2 = books(:book_2)
     @key_point_2 = key_points(:key_point_2)
     @situated = @scene.situated
+    @situated_2 = @scene_2.situated
     @user = users(:users_1)
     sign_in @user
   end
@@ -48,6 +49,11 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
 
   test "should get index 4" do
     get polymorphic_url([@book_2, :scenes])
+    assert_response :success
+  end
+
+  test "should get index 5" do
+    get polymorphic_url([@situated_2, :scenes])
     assert_response :success
   end
 

@@ -2,6 +2,8 @@ class HoloceneEvent < ApplicationRecord
     include SharedMethods
     include Rails.application.routes.url_helpers
 
+    has_rich_text :body
+
   belongs_to :region
   belongs_to :user
 

@@ -9,30 +9,7 @@
     <%= f.check_box :always_display_events %>
     <%= f.check_box :display_title %>
 
-  <div class="jumbotron" >
-      <%= f.text_area :body, as: :wysihtml5, cols: "80", rows: "15", hide_label: true %>
-  </div>
+    <%= f.rich_text_area :body, cols: "80", rows: "15", hide_label: true %>
 
   <%= f.primary "#{command_label}" %>
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('#chapter_body').each(function(i, elem) {
-             $(elem).wysihtml5({
-           toolbar: {
-              "fa": true,
-              "font-styles": true,
-              "emphasis": true,
-              "lists": true,
-              "html": true,
-              "link": true,
-              "image": true,
-              "color":true
-           },
-           parser: function(html) {
-              return html;
-           }
-        });
-    });
-  })
-</script>
 <% end %>

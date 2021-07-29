@@ -1,6 +1,9 @@
 class Book < ApplicationRecord
     belongs_to :user
 
+    has_rich_text :body
+    has_rich_text :publisher
+
     has_many :glossary_terms, :dependent => :destroy
     has_many :biblioentries, :dependent => :destroy
     has_many :stories, :dependent => :destroy
@@ -9,7 +12,6 @@ class Book < ApplicationRecord
     has_many :scenes, :as => :situated
     has_many :artifacts, :dependent => :destroy
     has_many :artifact_types, :dependent => :destroy
-    has_many :artifact_locations, :as => :located
 
     has_and_belongs_to_many :authors, dependent: :nullify
     has_and_belongs_to_many :characters, dependent: :nullify
@@ -32,7 +34,7 @@ class Book < ApplicationRecord
     end
 
     def word_count
-      count = (self.body.nil? ? 0 : WordsCounted.count(self.body).token_count)
+      count = (self.body.nil? ? 0 : WordsCounted.count(self.body.to_plain_text).token_count)
       if self.is_fiction?
         self.stories.each do |story|
           story.key_points.each do |key_point|

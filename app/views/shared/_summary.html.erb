@@ -1,1 +1,1 @@
-<%= ActionView::Base.full_sanitizer.sanitize(object.body[0,100]) %>
+<%= ActionView::Base.full_sanitizer.sanitize(object.body.to_plain_text) %>

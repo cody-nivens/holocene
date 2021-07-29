@@ -26,7 +26,7 @@ class FootnotesTest < ApplicationSystemTestCase
     visit new_chapter_footnote_url(:chapter_id => @chapter.id, :slug => "test_glug_2")
 
     fill_in "Slug", with: @footnote.slug
-    page.execute_script("var wysihtml5Editor = $('#footnote_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@footnote.body}')")
+    fill_in_rich_text_area "footnote_body", with: "Test 1"
     click_on "Create Footnote"
 
     assert_text "Footnote was successfully created"
@@ -52,7 +52,7 @@ class FootnotesTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Slug", with: @footnote.slug
-    page.execute_script("var wysihtml5Editor = $('#footnote_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@footnote.body}')")
+    fill_in_rich_text_area "footnote_body", with: "Test 1"
     click_on "Update Footnote"
 
     assert_text "Footnote was successfully updated"
@@ -91,7 +91,7 @@ class FootnotesTest < ApplicationSystemTestCase
     visit new_section_footnote_url(:section_id => @section.id, :slug => "test_glug_2")
 
     fill_in "Slug", with: @footnote.slug
-    page.execute_script("var wysihtml5Editor = $('#footnote_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@footnote.body}')")
+    fill_in_rich_text_area "footnote_body", with: "Test 1"
     click_on "Create Footnote"
 
     assert_text "Footnote was successfully created"
@@ -117,7 +117,7 @@ class FootnotesTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Slug", with: @footnote.slug
-    page.execute_script("var wysihtml5Editor = $('#footnote_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@footnote.body}')")
+    fill_in_rich_text_area "footnote_body", with: "Test 1"
     click_on "Update Footnote"
 
     assert_text "Footnote was successfully updated"
@@ -155,7 +155,7 @@ class FootnotesTest < ApplicationSystemTestCase
     visit new_holocene_event_footnote_url(:holocene_event_id => @holocene_event.id, :slug => "test_glug_2")
 
     fill_in "Slug", with: @footnote.slug
-    page.execute_script("var wysihtml5Editor = $('#footnote_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@footnote.body}')")
+    fill_in_rich_text_area "footnote_body", with: "Test 1"
     click_on "Create Footnote"
 
     assert_text "Footnote was successfully created"
@@ -181,7 +181,7 @@ class FootnotesTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Slug", with: @footnote.slug
-    page.execute_script("var wysihtml5Editor = $('#footnote_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@footnote.body}')")
+    fill_in_rich_text_area "footnote_body", with: "Test 1"
     click_on "Update Footnote"
 
     assert_text "Footnote was successfully updated"

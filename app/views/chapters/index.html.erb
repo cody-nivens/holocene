@@ -4,6 +4,6 @@
 <% if @situated.class.name == 'Chpater' %>
 <% @footer_content << "#{link_to 'Scenes', polymorphic_path([@situated, :scenes]), :class => "btn btn-default" }" %>
 <% end %>
-
+<% @footer_content << "#{link_to 'Chapters, Details', polymorphic_path([@scripted, :chapters]), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Chapters, TOC', toc_path(@scripted), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Back', polymorphic_path(@scripted), :class => "btn btn-default"}" %>

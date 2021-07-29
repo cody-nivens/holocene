@@ -83,7 +83,7 @@ class HoloceneEventsTest < ApplicationSystemTestCase
     fill_in "Start year", with: @holocene_event.start_year
     fill_in "Start year mod", with: @holocene_event.start_year_mod
     fill_in "Start year uncert", with: @holocene_event.start_year_uncert
-    page.execute_script("var wysihtml5Editor = $('#holocene_event_body').data('wysihtml5').editor;wysihtml5Editor.setValue('Test for Holocene event.')")
+    fill_in_rich_text_area "holocene_event_body", with: "Test 1"
     #find('#holocene_event_event_type_id').find(:xpath, 'option[2]').select_option
     find('#holocene_event_region_id').find(:xpath, 'option[2]').select_option
     click_on "Create Holocene event"
@@ -104,7 +104,7 @@ class HoloceneEventsTest < ApplicationSystemTestCase
     fill_in "Start year", with: @holocene_event.start_year
     fill_in "Start year mod", with: @holocene_event.start_year_mod
     fill_in "Start year uncert", with: @holocene_event.start_year_uncert
-    page.execute_script("var wysihtml5Editor = $('#holocene_event_body').data('wysihtml5').editor;wysihtml5Editor.setValue('Test for Holocene event.')")
+    fill_in_rich_text_area "holocene_event_body", with: "Test 1"
     #find('#holocene_event_event_type_id').find(:xpath, 'option[2]').select_option
     find('#holocene_event_region_id').find(:xpath, 'option[2]').select_option
     click_on "Create Holocene event"
@@ -130,7 +130,7 @@ class HoloceneEventsTest < ApplicationSystemTestCase
     fill_in "Start year", with: @holocene_event.start_year
     fill_in "Start year mod", with: @holocene_event.start_year_mod
     fill_in "Start year uncert", with: @holocene_event.start_year_uncert
-    page.execute_script("var wysihtml5Editor = $('#holocene_event_body').data('wysihtml5').editor;wysihtml5Editor.setValue('Test for Holocene event.')")
+    fill_in_rich_text_area "holocene_event_body", with: "Test 1"
     #find('#holocene_event_event_type_id').find(:xpath, 'option[2]').select_option
     find('#holocene_event_region_id').find(:xpath, 'option[2]').select_option
     click_on "Update Holocene event"
@@ -151,7 +151,7 @@ class HoloceneEventsTest < ApplicationSystemTestCase
     fill_in "Start year", with: @holocene_event.start_year
     fill_in "Start year mod", with: @holocene_event.start_year_mod
     fill_in "Start year uncert", with: @holocene_event.start_year_uncert
-    page.execute_script("var wysihtml5Editor = $('#holocene_event_body').data('wysihtml5').editor;wysihtml5Editor.setValue('Test for Holocene event.')")
+    fill_in_rich_text_area "holocene_event_body", with: "Test 1"
     #find('#holocene_event_event_type_id').find(:xpath, 'option[2]').select_option
     find('#holocene_event_region_id').find(:xpath, 'option[2]').select_option
     click_on "Update Holocene event"

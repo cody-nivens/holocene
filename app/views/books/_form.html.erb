@@ -2,59 +2,14 @@
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <%= f.text_field :name %>
+  <%= f.text_field :sub_name %>
   <%= f.check_box :show_events %>
   <%= f.check_box :fiction %>
-    <%= f.text_field :sub_name %>
-    <%= f.text_field :copyright %>
+  <%= f.text_field :copyright %>
 
-    <%= f.hidden_field :user_id %>
-    <%= f.label :body %>
-  <div class="jumbotron" >
-      <%= f.text_area :body, as: :wysihtml5, cols: "80", rows: "10", hide_label: true %>
-  </div>
-    <%= f.label :publisher %>
-  <div class="jumbotron" >
-      <%= f.text_area :publisher, as: :wysihtml5, cols: "80", rows: "5", hide_label: true %>
-  </div>
-
+  <%= f.hidden_field :user_id %>
+  <%= f.rich_text_area :body, class: "form-control customized-min-height" %>
+  <%= f.rich_text_area :publisher, class: "form-control customized-min-height" %>
 
   <%= f.primary "#{command_label}" %>
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('#book_body').each(function(i, elem) {
-        $(elem).wysihtml5({
-           toolbar: {
-               "fa": true,
-              "font-styles": true,
-              "emphasis": true,
-              "lists": true,
-              "html": true,
-              "link": true,
-              "image": true,
-              "color": true
-           },
-           parser: function(html) {
-              return html;
-           }
-        });
-    });
-    $('#book_publisher').each(function(i, elem) {
-        $(elem).wysihtml5({
-           toolbar: {
-               "fa": true,
-              "font-styles": true,
-              "emphasis": true,
-              "lists": false,
-              "html": true,
-              "link": true,
-              "image": true,
-              "color": true
-           },
-           parser: function(html) {
-              return html;
-           }
-        });
-    });
-  })
-</script>
 <% end %>

@@ -31,33 +31,9 @@
     <%= image_tag @holocene_event.image.variant(resize: "100x100>") %>
     <% end %>
 
-  <div class="jumbotron" >
-      <%= form.text_area :body, as: :wysihtml5, label: false, cols: "80", rows: "15", hide_label: true %>
-  </div>
+      <%= form.rich_text_area :body, label: false, cols: "80", rows: "15", hide_label: true %>
 
     <%= form.text_field :tag_list %>
 
     <%= form.primary "#{command_label}" %>
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('#holocene_event_body').each(function(i, elem) {
-        $(elem).wysihtml5({
-           toolbar: {
-              "fa": true,
-              "style": true,
-              "font-styles": false,
-              "emphasis": true,
-              "lists": true,
-              "html": true,
-              "link": true,
-              "image": true,
-              "color": false
-           },
-           parser: function(html) {
-              return html;
-           }
-        });
-    });
-  })
-</script>
 <% end %>

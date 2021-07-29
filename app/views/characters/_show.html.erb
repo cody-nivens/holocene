@@ -3,8 +3,10 @@
 <h3><%= character.name %></h3>
 <p>
 <%= character.first_name %> <%= character.middle_name %> <%= character.last_name %> <%= character.suffix %><br/>
-<% debugger if character.birth_year.nil? %>
-b. <%= character.birth_year %> - d. <%= character.death_year %>, Age: <%= character.death_year - character.birth_year %><br/><%= character.occupation_class %> - <%= character.grouping %>
+<% unless character.birth_year.nil? %>
+b. <%= character.birth_year %> - d. <%= character.death_year %>, Age: <%= character.death_year - character.birth_year %><br/>
+<% end %>
+<%= character.occupation_class %> - <%= character.grouping %>
 </p>
 
 <%= tabs do |c| %>
@@ -19,35 +21,35 @@ b. <%= character.birth_year %> - d. <%= character.death_year %>, Age: <%= charac
 </p>
 <% end %>
 
-<% unless character..blank? %>
+<% unless character.nickname.blank? %>
 <p>
   <strong>Nickname:</strong>
   <%= character.nickname %>
 </p>
 <% end %>
 
-<% unless character..blank? %>
+<% unless character.reason_for_nickname.blank? %>
 <p>
   <strong>Reason for nickname:</strong>
   <%= character.reason_for_nickname %>
 </p>
 <% end %>
 
-<% unless character..blank? %>
+<% unless character.honorific.blank? %>
 <p>
   <strong>Honorific:</strong>
   <%= character.honorific %>
 </p>
 <% end %>
 
-<% unless character..blank? %>
+<% unless character.race.blank? %>
 <p>
   <strong>Race:</strong>
   <%= character.race %>
 </p>
 <% end %>
 
-<% unless character..blank? %>
+<% unless character.reign.blank? %>
 <p>
   <strong>Reign:</strong>
   <%= character.reign %>

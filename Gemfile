@@ -67,8 +67,13 @@ group :development do
 end
 
 group :test do
+  gem 'mocha'
+
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15', '< 4.0'
+  gem 'minitest'
+  gem 'minitest-rails'
+  gem 'minitest-rails-capybara'
   gem 'selenium-webdriver'
   gem 'pdf-reader'
   gem 'geckodriver-helper'
@@ -82,34 +87,26 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise', '~> 4.7.1'
 gem 'rolify'
-
 gem 'kaminari', '~> 1.2.1'
 gem 'datagrid'
 gem 'nokogiri', '1.10.8'
 gem 'mini_portile2', '~> 2.4.0'
 gem 'acts-as-taggable-on', '~> 6.0'
-gem 'high_voltage', '~> 3.1'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'rails_sortable'
 gem "popper_js"
 gem 'bootstrap-sass'
-gem 'bootstrap-wysihtml5-rails'
 gem 'simple_form'
-#gem 'rails_admin'
 gem 'wicked_pdf'
 gem 'gepub'
-
 gem 'wkhtmltopdf-binary', '0.12.4'
-gem 'redis'
-gem 'hiredis'
 gem "bootstrap_form", ">= 4.0.0"
 gem "font-awesome-rails"
 gem 'font-awesome-sass', '~> 5.5.0'
 gem 'timelineJS-rails'
 #gem "rgeo"
 #gem 'rgeo-activerecord', :git => 'https://github.com/rgeo/rgeo-activerecord'
-gem 'rails-ci-k8s', :git => 'https://github.com/cody-nivens/rails-ci-k8s.git'
 gem 'mini_magick','~> 4.9.4'
 gem 'react-rails'
 gem 'words_counted'

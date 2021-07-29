@@ -19,7 +19,7 @@ class PartitionsTest < ApplicationSystemTestCase
     click_on "New Partition"
 
     fill_in "Name", with: @partition.name
-    page.execute_script("var wysihtml5Editor = $('#partition_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@partition.body}\[\[test99\]\]')")
+    fill_in_rich_text_area "partition_body", with: "Test 1"
 
     click_on "Create Partition"
 
@@ -32,7 +32,7 @@ class PartitionsTest < ApplicationSystemTestCase
     click_on "New Partition"
 
     fill_in "Name", with: ""
-    page.execute_script("var wysihtml5Editor = $('#partition_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@partition.body}\[\[test99\]\]')")
+    fill_in_rich_text_area "partition_body", with: "Test 1"
 
     click_on "Create Partition"
 
@@ -50,7 +50,7 @@ class PartitionsTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Name", with: @partition.name
-    page.execute_script("var wysihtml5Editor = $('#partition_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@partition.body}\[\[test99\]\]')")
+    fill_in_rich_text_area "partition_body", with: "Test 1"
     click_on "Update Partition"
 
     assert_text "Partition was successfully updated"
@@ -62,7 +62,7 @@ class PartitionsTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Name", with: ""
-    page.execute_script("var wysihtml5Editor = $('#partition_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@partition.body}\[\[test99\]\]')")
+    fill_in_rich_text_area "partition_body", with: "Test 1"
     click_on "Update Partition"
     assert_text "can't be blank"
 

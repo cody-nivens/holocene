@@ -5,7 +5,8 @@
 <h1><%= book.name %></h1>
 
 <%= render 'authors/index.html', authors: book.authors %>
-<%= book.body %>
+
+<%= raw epub_friendly(book.body) %>
 
 <% book.key_points.order(:position).each do |key_point| -%>
     <%= render 'key_points/show.html', book: book, key_point: key_point, epub: false %>
@@ -13,62 +14,60 @@
 
 <% @notes = {} -%>
 <% if book.is_fiction? %>
-<% if outline %>
-<% @stories.order(:position).each do |story| -%>
-  <% next unless story.publish %>
-  <%= render partial: 'stories/show.html', :locals =>{pdf: pdf, book: book, story: story, epub: false, outline: outline} %>
+  <% if outline %>
+    <% @stories.order(:position).each do |story| -%>
+      <% next unless story.publish %>
+      <%= render partial: 'stories/show.html', :locals =>{pdf: pdf, book: book, story: story, epub: false, outline: outline} %>
 
-  <% story.key_points.order(:position).each do |key_point| -%>
-    <%= render 'key_points/show.html', book: book, key_point: key_point, epub: false %>
+      <% story.key_points.order(:position).each do |key_point| -%>
+        <%= render 'key_points/show.html', book: book, key_point: key_point, epub: false %>
+      <% end -%>
+    <% end -%>
+  <% end -%>
+  <% @stories.order(:position).each do |story| -%>
+    <% next unless story.publish %>
+    <%= render partial: 'stories/show.html', :locals => {pdf: pdf, book: book, story: story, epub: false, outline: outline} %>
+  <% end -%>
+<% else %>
+  <% @chapters.each do |chapter| -%>
+    <%= render 'chapters/show.html', book: book, chapter: chapter, epub: false %>
   <% end -%>
 <% end -%>
-<% end -%>
-
-<% @stories.order(:position).each do |story| -%>
-  <% next unless story.publish %>
-  <%= render partial: 'stories/show.html', :locals => {pdf: pdf, book: book, story: story, epub: false, outline: outline} %>
-<% end -%>
-<% else %>
-<% @chapters.each do |chapter| -%>
-    <%= render 'chapters/show.html', book: book, chapter: chapter, epub: false %>
-<% end -%>
-
-<% end -%>
 <% unless book.is_fiction? %>
-<div style = "display:block; clear:both; page-break-after:always;"></div>
-<h1>Citations</h1>
+  <div style = "display:block; clear:both; page-break-after:always;"></div>
+  <h1>Citations</h1>
 
-<% @slugs = [] %>
-<% @chapters.each do |chapter| -%>
-<% unless chapter.citations.length == 0 -%>
-<%= raw render "footnotes/citations.html", slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: false %>
-</div>
-<% end -%>
-<% end -%>
-
-<div style = "display:block; clear:both; page-break-after:always;"></div>
-<h1>Chapter Events</h1>
-
-<% @slugs = [] %>
-<% @notes = {} -%>
-<% @footnotes = ["",[],1] %>
-<% @chapters.each do |chapter| -%>
-  <% next if chapter.always_display_events %>
-<% unless chapter.holocene_events.length == 0 -%>
-  <%= raw render "holocene_events/index.html", holocene_events: chapter.holocene_events.order(:start_year), chapter: chapter, links: false, epub: true, slugs: @slugs %>
-</div>
-<% end -%>
-<% chapter.sections.order(:position).each do |section| %>
-  <%= raw render "holocene_events/index.html", holocene_events: section.holocene_events.order(:start_year), chapter: chapter, links: false, title: "#{chapter.name}:#{section.name}", epub: true, slugs: @slugs %>
-</div>
-<% end -%>
-<% end -%>
-<% unless @slugs.length == 0 -%>
-<%# @notes[chapter.id] =  write_footnotes(@slugs) -%>
-<%= raw write_footnotes(@slugs) -%>
+  <% @slugs = [] %>
+  <% @chapters.each do |chapter| -%>
+    <% unless chapter.citations.length == 0 -%>
+    <%= raw render "footnotes/citations.html", slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: false %>
+    </div>
+  <% end -%>
 <% end -%>
 
-<%= render 'glossary_terms/index.html', glossary_terms: book.glossary_terms.order(:name) %>
-<%= render 'biblioentries/index.html', biblioentries: book.biblioentries %>
+  <div style = "display:block; clear:both; page-break-after:always;"></div>
+  <h1>Chapter Events</h1>
+
+  <% @slugs = [] %>
+  <% @notes = {} -%>
+  <% @footnotes = ["",[],1] %>
+  <% @chapters.each do |chapter| -%>
+    <% next if chapter.always_display_events %>
+    <% unless chapter.holocene_events.length == 0 -%>
+      <%= raw render "holocene_events/index.html", holocene_events: chapter.holocene_events.order(:start_year), chapter: chapter, links: false, epub: true, slugs: @slugs %>
+      </div>
+    <% end -%>
+    <% chapter.sections.order(:position).each do |section| %>
+      <%= raw render "holocene_events/index.html", holocene_events: section.holocene_events.order(:start_year), chapter: chapter, links: false, title: "#{chapter.name}:#{section.name}", epub: true, slugs: @slugs %>
+      </div>
+    <% end -%>
+  <% end -%>
+  <% unless @slugs.length == 0 -%>
+    <%# @notes[chapter.id] =  write_footnotes(@slugs) -%>
+    <%= raw write_footnotes(@slugs) -%>
+  <% end -%>
+
+  <%= render 'glossary_terms/index.html', glossary_terms: book.glossary_terms.order(:name) %>
+  <%= render 'biblioentries/index.html', biblioentries: book.biblioentries %>
  
 <% end -%>

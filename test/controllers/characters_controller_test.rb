@@ -42,7 +42,20 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get index 7" do
+    get book_characters_url(:book_id => @book.id, :occupation_class => '')
+    assert_response :success
+  end
+
   test "should get new" do
+    1.upto(1000) do |i|
+    get new_book_character_url(:book_id => @book.id)
+    end
+    assert_response :success
+  end
+
+  test "should get new 2" do
+    Character.stubs(:gen_race).returns("Mixed")
     get new_book_character_url(:book_id => @book.id)
     assert_response :success
   end
@@ -80,7 +93,7 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
-    assert_redirected_to book_characters_url(@book)
+    assert_redirected_to book_character_url(:book_id => @book.id, :id => Character.last.id)
   end
 
   test "should create character 2" do
@@ -92,7 +105,7 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
-    assert_redirected_to scene_characters_url(@scene)
+    assert_redirected_to scene_character_url(:scene_id => @scene.id, :id => Character.last.id)
   end
 
   test "should not create character" do
@@ -105,6 +118,11 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
 
   test "should show character" do
     get book_character_url(:book_id => @book.id, :id => @character.id)
+    assert_response :success
+  end
+
+  test "should show character lineage" do
+    get book_character_lineage_url(:book_id => @book.id, :id => @character.id)
     assert_response :success
   end
 

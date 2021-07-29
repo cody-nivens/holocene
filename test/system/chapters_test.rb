@@ -97,7 +97,7 @@ class ChaptersTest < ApplicationSystemTestCase
     click_on "New Chapter"
 
     fill_in "Name", with: @chapter.name
-    page.execute_script("var wysihtml5Editor = $('#chapter_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@chapter.body}\[\[test99\]\]')")
+    fill_in_rich_text_area "chapter_body", with: "[[test99]]"
 
     click_on "Create Chapter"
 
@@ -106,7 +106,7 @@ class ChaptersTest < ApplicationSystemTestCase
     click_on "Missing footnote"
 
     assert_text "New Footnote"
-    page.execute_script("var wysihtml5Editor = $('#footnote_body').data('wysihtml5').editor;wysihtml5Editor.setValue('Now is the time for men to come to the aid of Man')")
+    fill_in_rich_text_area "footnote_body", with: "Now is the time for men to come to the aid of Man"
     click_on "Create Footnote"
 
     assert_text "Footnote was successfully created"
@@ -137,7 +137,7 @@ class ChaptersTest < ApplicationSystemTestCase
     end
 
     fill_in "Name", with: @chapter.name
-    page.execute_script("var wysihtml5Editor = $('#chapter_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@chapter.body}')")
+    fill_in_rich_text_area "chapter_body", with: @chapter.body
 
     click_on "Update Chapter"
 

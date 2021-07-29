@@ -8,4 +8,5 @@
 
 <% @footer_content << "#{link_to 'Edit', edit_polymorphic_path([@object, @character]), :class => "btn btn-default hide-print"}" %>
 <% @footer_content << "#{link_to 'Attributes', polymorphic_path([@object, @character, :character_values]), :class => "btn btn-default hide-print"}" %>
+<% @footer_content << "#{link_to 'Lineage', polymorphic_path([@object, @character, :lineage]), :class => "btn btn-default hide-print"}" %>
 <% @footer_content << "#{link_to 'Back', redirect_back_or_default_path(polymorphic_path([@object, :characters])), :class => "btn btn-default hide-print"}" %>

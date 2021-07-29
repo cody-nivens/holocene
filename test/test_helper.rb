@@ -4,7 +4,8 @@ ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
 require 'download_helpers'
-
+require 'minitest/unit'
+require 'mocha/minitest'
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
@@ -51,6 +52,7 @@ class ActiveSupport::TestCase
 
     def convert_pdf_to_page(content)
       pdf_io = StringIO.new(content)
+      #debugger
       reader = PDF::Reader.new(pdf_io)
       contents = reader.pages.map(&:to_s).join("\n")
       return contents

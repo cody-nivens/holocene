@@ -1,6 +1,6 @@
 class CharactersController < ApplicationController
-  before_action :set_character, only: [:show, :edit, :update, :destroy]
-  before_action :set_object, only: [:index, :new, :add, :list, :edit, :show, :create, :update, :destroy ]
+  before_action :set_character, only: [:lineage, :show, :edit, :update, :destroy]
+  before_action :set_object, only: [:lineage, :index, :new, :add, :list, :edit, :show, :create, :update, :destroy ]
 
   # GET /characters
   # GET /characters.json
@@ -44,8 +44,14 @@ class CharactersController < ApplicationController
 
       @title = "Stats"
     else
-      @characters = @object.characters.where("race = ''")
-      @title = "Ethnicity"
+      if !params[:ethnicity].nil? && params[:ethnicity].blank?
+        @characters = @object.characters.where(race: nil)
+        @title = "Ethnicity"
+      end
+      if !params[:occupation_class].nil? && params[:occupation_class].blank?
+        @characters = @object.characters.where(occupation_class: nil)
+        @title = "Occupation Class"
+      end
     end
     end
   end
@@ -59,10 +65,20 @@ class CharactersController < ApplicationController
   # GET /characters/new
   def new
     @character = Character.new
-    @generator = Namey::Generator.new
-    @names =  @generator.name.split(/ /)
-    @character.first_name = @names[0]
-    @character.last_name = @names[1]
+    random_person = Namer.random_person
+    @character.first_name = random_person[1]
+    @character.last_name = random_person[0]
+    @character.middle_name = random_person[6]
+    @character.race = random_person[3]
+    @attributes = {
+      "physical appearance_hair color_value": random_person[4],
+      "physical appearance_eye color_value": random_person[5],
+      "gender_gender_value": random_person[7],
+      "gender_sex_value": (random_person[2] == "M" ? "Male" : "Female")
+    }
+  end
+
+  def lineage
   end
 
   # GET /characters/1/list
@@ -139,7 +155,8 @@ class CharactersController < ApplicationController
         @object.key_point.scripted.book.characters << @character if @object.class.name == 'Scene' && !@object.key_point.scripted.book.characters.include?(@character)
         @object.key_point.scripted.characters << @character if @object.class.name == 'Scene' && !@object.key_point.scripted.characters.include?(@character)
 
-        format.html { redirect_to polymorphic_path([@object, :characters]), notice: 'Character was successfully created.' }
+        remove_location
+        format.html { redirect_to polymorphic_path([@object, @character]), notice: 'Character was successfully created.' }
         format.json { render :show, status: :created, location: @character }
       else
         format.html { render :new }
@@ -155,6 +172,7 @@ class CharactersController < ApplicationController
 
     respond_to do |format|
       if @character.update(character_params)
+        remove_location
         format.html { redirect_back_or_default polymorphic_path([@object, @character]) }
         format.json { render :show, status: :ok, location: @character }
       else
@@ -251,6 +269,7 @@ class CharactersController < ApplicationController
  "background_finances_value".to_sym,
  "family_mother_value".to_sym,
  "family_relationship with_value".to_sym,
+ "family_relation with mother_value".to_sym,
  "family_father_value".to_sym,
  "family_siblings_value".to_sym,
  "family_how many_value".to_sym,

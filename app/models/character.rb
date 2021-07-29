@@ -12,7 +12,6 @@ class Character < ApplicationRecord
   has_many :stories, :through => :character_stories
 
   has_many :artifacts, dependent: :destroy
-  has_many :artifact_locations, dependent: :destroy, :as => :located
 
   has_many :signets, as: :sigged
 
@@ -45,50 +44,118 @@ class Character < ApplicationRecord
   end
 
   def self.romanize n
-  roman = ""
+    roman = ""
 
-  VALUES.each do |pair|
-    letter = pair[0]
-    value = pair[1]
-    roman += letter*(n / value)
-    n = n % value
+    VALUES.each do |pair|
+      letter = pair[0]
+      value = pair[1]
+      roman += letter*(n / value)
+      n = n % value
+    end
+    return roman
   end
-  return roman
-end
+
+  def self.gen_race
+    race = ''
+    case rand(100)
+    when 0..60
+      race = "White"
+    when 61..73
+      race = "Black"
+    when 74..80
+      race = "Asian"
+    when 81..82
+      race = "Am Indian"
+    when 83..86
+      race = "Latino Mixed"
+    else
+      race = "Latino"
+    end
+    return race
+  end
 
   def self.gen_hair_color
     case rand(100)
-    when 1
+    when 1..12
       return "Red"
-    when 2..26
+    when 13..34
       return "Blond"
-    when 27..67
+    when 35..64
       return "Light Brown"
-    when 68..95
+    when 65..83
       return "Dark Brown"
     else
       return "Black"
     end
   end
 
-  def self.gen_eye_color
+  def self.gen_eye_color(hair_color)
+    case hair_color
+    when "Blond"
+      return self.gen_blond_eye_color
+    when "Black"
+      return self.gen_black_eye_color
+    when "Light Brown","Dark Brown"
+      return self.gen_brown_eye_color
+    else
+      return self.gen_red_eye_color
+    end
+  end
+
+  def self.gen_black_eye_color
     case rand(100)
-    when 1..2
+    when 1..5
       return "Green"
-    when 3..5
-      return "Gray"
-    when 6..10
-      return "Amber"
-    when 11..15
+    when 6..20
       return "Hazel"
-    when 16..26
+    when 21..40
       return "Blue"
     else
       return "Brown"
     end
   end
 
-  def self.create_character_lineage(names)
+  def self.gen_brown_eye_color
+    case rand(100)
+    when 1..10
+      return "Green"
+    when 11..30
+      return "Hazel"
+    when 31..55
+      return "Blue"
+    else
+      return "Brown"
+    end
+  end
+
+  def self.gen_red_eye_color
+    case rand(100)
+    when 1..20
+      return "Green"
+    when 21..41
+      return "Hazel"
+    when 42..66
+      return "Blue"
+    else
+      return "Brown"
+    end
+  end
+
+  def self.gen_blond_eye_color
+    case rand(100)
+    when 1..13
+      return "Green"
+    when 14..22
+      return "Hazel"
+    when 23..97
+      return "Blue"
+    else
+      return "Brown"
+    end
+  end
+
+  # names - array of first and middle names to use in generating new names
+  def create_lineage(names)
     new_names = []
     i = 0
     names_index = -1
@@ -97,7 +164,7 @@ end
     while i < 25 do
       name = {}
       names_index = (names_index + 1) % names.length 
-      name[:last_name] = "Cummings"
+      name[:last_name] = self.last_name
 
       first_name = names[names_index]
       name[:first_name] = first_name
@@ -115,14 +182,14 @@ end
       title = name_combos[combo_name]
 
       unless title == 1
-        name[:suffix] = romanize title
+        name[:suffix] = Character.romanize title
       end
 
-      name[:age_at_son] = (i == 0 ? 27 : rand(23..35))
+      name[:age_at_son] = rand(23..35)
 
-      name[:birth_year] = (i == 0 ? 78 : new_names[new_names.length - 1][:birth_year] + new_names[new_names.length - 1][:age_at_son])
+      name[:birth_year] = (i == 0 ? self.age_at_son + self.birth_year : new_names[new_names.length - 1][:birth_year] + new_names[new_names.length - 1][:age_at_son])
 
-      death_age = ((200..250).member?(name[:birth_year]) ? 53 : rand(63..72))
+      death_age = rand(63..76)
       name[:death_year] = name[:birth_year] + death_age
       i += 1
 

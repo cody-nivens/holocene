@@ -2,7 +2,6 @@
 section_1:
   name: 'Domestication of the Animals '
   display_name: 
-  body: 'This [[new_slug]]is a test[[old_slug]]'
   position: 0
   slug: FBz8kjcBbN
   sectioned: chapter_1 (Chapter)
@@ -11,14 +10,12 @@ section_1:
 section_2:
   name: 'Agriculture '
   display_name: 
-  body: ''
   position: 1
   slug: HJct7pHDDe
   sectioned: chapter_1 (Chapter)
 section_3:
   name: 'Domestication of Cows'
   display_name: 
-  body: 'This is section 3.'
   position: 0
   slug: FBz8kjcBbN
   sectioned: chapter_3 (Chapter)
@@ -27,14 +24,12 @@ section_3:
 section_4:
   name: 'Horticlure'
   display_name: 
-  body: 'This is section 4.'
   position: 1
   slug: HJct7pHDDe
   sectioned: chapter_3 (Chapter)
 section_5:
   name: 'Domestication of the strawberry'
   display_name: 
-  body: 'This is section 5.'
   position: 0
   slug: FBz8kjcBbN
   sectioned: chapter_4 (Chapter)
@@ -43,21 +38,18 @@ section_5:
 section_6:
   name: 'Aquaculture'
   display_name: 
-  body: 'This is section 6.'
   position: 1
   slug: HJct7pHDDe
   sectioned: chapter_4 (Chapter)
 section_7:
   name: 'Vinoculture'
   display_name: 
-  body: 'This is section 7.'
   position: 1
   slug: HJct7pHDDe
   sectioned: chapter_2 (Chapter)
 section_8:
   name: 'Domestication of the Animals '
   display_name: 
-  body: 'This is section 8.'
   position: 1
   slug: FBz8kjcBbN
   sectioned: chapter_2 (Chapter)
@@ -66,14 +58,12 @@ section_8:
 section_9:
   name: 'Small Plants '
   display_name: 
-  body: 'This is section 9.'
   position: 2
   slug: HJct7pHDDe
   sectioned: chapter_2 (Chapter)
 section_10:
   name: 'Tasty things'
   display_name: 
-  body: 'This is section 10.'
   position: 3
   slug: HJct7pHDDe
   sectioned: chapter_2 (Chapter)
@@ -83,11 +73,9 @@ section_11:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_1 (Scene)
-  body: It was a dark and stormy night. Lightening flashed all around.
 section_12:
   name: 'Dark and stormy night'
   display_name: 
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_2 (Scene)
-  body: It was a dark and stormy night. Lightening flashed all around.

@@ -2,33 +2,56 @@ require 'test_helper'
 
 class CharacterTest < ActiveSupport::TestCase
    test "generating character lineage" do
-     Character.create_character_lineage(["Charles","George"])
+     Character.first.create_lineage(["Charles","George"])
    end
    test "generating character eye color" do
-     srand(67809)
-     assert_equal Character.gen_eye_color, "Brown"
-     srand(67160)
-     assert_equal Character.gen_eye_color, "Blue"
-     srand(999982)
-     assert_equal Character.gen_eye_color, "Amber"
+     srand(49121)
+     assert_equal "Brown", Character.gen_eye_color("Blond")
+     srand(49958)
+     assert_equal "Blue", Character.gen_eye_color("Blond")
      srand(999979)
-     assert_equal Character.gen_eye_color, "Hazel"
-     srand(67830)
-     assert_equal Character.gen_eye_color, "Gray"
+     assert_equal "Hazel", Character.gen_eye_color("Blond")
      srand(64400)
-     assert_equal Character.gen_eye_color, "Green"
+     assert_equal "Green", Character.gen_eye_color("Blond")
+
+     srand(49121)
+     assert_equal "Brown", Character.gen_eye_color("Black")
+     srand(49826)
+     assert_equal "Blue", Character.gen_eye_color("Black")
+     srand(999979)
+     assert_equal "Hazel", Character.gen_eye_color("Black")
+     srand(64400)
+     assert_equal "Green", Character.gen_eye_color("Black")
+
+     srand(49121)
+     assert_equal "Brown", Character.gen_eye_color("Red")
+     srand(49862)
+     assert_equal "Blue", Character.gen_eye_color("Red")
+     srand(49809)
+     assert_equal "Hazel", Character.gen_eye_color("Red")
+     srand(64400)
+     assert_equal "Green", Character.gen_eye_color("Red")
+
+     srand(49121)
+     assert_equal "Brown", Character.gen_eye_color("Brown")
+     srand(9893)
+     assert_equal "Blue", Character.gen_eye_color("Brown")
+     srand(9833)
+     assert_equal "Hazel", Character.gen_eye_color("Brown")
+     srand(999979)
+     assert_equal "Green", Character.gen_eye_color("Brown")
    end
 
    test "generating character hair color" do
      srand(67809)
-     assert_equal Character.gen_hair_color, "Light Brown"
+     assert_equal "Light Brown", Character.gen_hair_color
      srand(67823)
-     assert_equal Character.gen_hair_color, "Dark Brown"
-     srand(64400)
-     assert_equal Character.gen_hair_color, "Blond"
-     srand(59700)
-     assert_equal Character.gen_hair_color, "Red"
+     assert_equal "Dark Brown", Character.gen_hair_color
+     srand(49837)
+     assert_equal "Blond", Character.gen_hair_color
+     srand(49813)
+     assert_equal "Red", Character.gen_hair_color
      srand(99814)
-     assert_equal Character.gen_hair_color, "Black"
+     assert_equal "Black", Character.gen_hair_color
    end
 end

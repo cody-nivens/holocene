@@ -1,12 +1,10 @@
 <p id="notice"><%= notice %></p>
 
 <h1>
-  <%= @story.title %>
-  <%= link_to (fa_icon "file-pdf-o"), story_path(@story,:format => :pdf), :title => "PDF" %>
+<%= breadcrumb(@story.book, @story) %>
+<%= link_to (fa_icon "file-pdf-o"), story_path(@story,:format => :pdf), :title => "PDF" %>
 <%= link_to (fa_icon "file-pdf-o"), story_path(@story,:format => :pdf, :outline => true), :title => "PDF Outline" %>
-
 </h1>
-
 <p>
   <%= @story.summary %>
 </p>
@@ -46,7 +44,9 @@
     <dt><%= key_point.selector_value(x) %></dt>
   <% else %>
     <% key_point.scenes.where(selector: x).order(:time, :abc).each do |scene| %>
-      <dt><%= link_to scene.abc, polymorphic_path([@story, key_point, scene]) %> <%= (scene.section.nil? ? '' : '*') %><%= scene.time_to_text %> : <%= scene.characters.count %> : <%= scene.word_count %> : <%= scene.place.to_plain_text %></dt>
+      <dt>
+        <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: @story, key_point: key_point, pdf: nil} %>
+      </dt>
       <dd><%= scene.summary.to_plain_text %></dd>
     <% end %>
   <% end %>
@@ -93,7 +93,7 @@
   <span>
 <table class="table">
   <% counts = {} %>
-  <% items = @story.characters.pluck(:race).sort %>
+  <% items = @story.characters.pluck(:race).map{|x| x || ""}.sort %>
   <% items.each do |item| %>
     <% if counts[item].nil? %>
       <% counts[item] = 0 %>
@@ -112,7 +112,7 @@
       <div class="col-md-6">
 <table class="table">
   <% counts = {} %>
-  <% items = @story.characters.pluck(:occupation_class).sort %>
+  <% items = @story.characters.pluck(:occupation_class).map{|x| x || ""}.sort %>
   <% items.each do |item| %>
     <% if counts[item].nil? %>
       <% counts[item] = 0 %>

@@ -31,7 +31,7 @@ class EventTypesTest < ApplicationSystemTestCase
     click_on "New Event Type"
 
     fill_in "Name", with: @event_type.name
-    page.execute_script("var wysihtml5Editor = $('#event_type_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@event_type.body}')")
+    fill_in_rich_text_area "event_type_body", with: "Test 1"
     click_on "Create Event type"
 
     assert_text "Event type was successfully created"
@@ -58,7 +58,7 @@ class EventTypesTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Name", with: @event_type.name
-    page.execute_script("var wysihtml5Editor = $('#event_type_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@event_type.body}')")
+    fill_in_rich_text_area "event_type_body", with: "Test 1"
     click_on "Update Event type"
 
     assert_text "Event type was successfully updated"

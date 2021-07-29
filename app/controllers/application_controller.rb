@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
   helper_method :selector_string, :selector_collection
   helper_method :store_location,:redirect_back_or_default,:redirect_back_or_default_path
 
+  def remove_location
+    session.delete :return_to
+  end
+
   def store_location
     session.delete :return_to
     session[:return_to] ||= request.referer if request.get? && !["user_sessions","sessions"].member?(controller_name)
@@ -245,7 +249,8 @@ COPYRIGHT_PAGE
       if @book.is_fiction?
    chap_index = 1
    @book.stories.order(:position).each do |story|
-  @ebook.add_item("text/#{story.name.camelcase}.xhtml").add_content(StringIO.new(<<-CHAP_ONE)).toc_text(story.name).landmark(type: 'story', title: story.name)
+     next unless story.publish?
+     @ebook.add_item("text/#{story.name.downcase.gsub(/ /,'_').gsub(/[-',]/,'')}.xhtml").add_content(StringIO.new(<<-CHAP_ONE)).toc_text(story.name).landmark(type: 'story', title: story.name)
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head><title>#{story.name}</title>
         <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
@@ -266,7 +271,7 @@ end
 </head>
 <body>
     <h1>#{chapter.partition.name}</h1>
-    #{chapter.partition.body.html_safe}
+    #{chapter.partition.body}
 </body></html>
 PARTITION
   end

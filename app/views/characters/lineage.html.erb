@@ -1,0 +1,34 @@
+<%= form_with url: polymorphic_path([@object, @character, :lineage]) do |form| %>
+  <%= hidden_field_tag :situated_id, @object.id %>
+  <%= hidden_field_tag :situated_type, @object.class.name %>
+
+  <h2>Lineage for <%= @character.full_name %></h2>
+
+  <ol>
+    <% last_person = @character %>
+  <% people = Character.where(father: last_person.id) %>
+  <% while people.length > 0 do %>
+   <% person = people[0] %>
+         <li><%= person.full_name %>: <%= person.birth_year %> - <%= person.death_year %></li>
+    <% people = Character.where(father: person.id) %>
+    <%# debugger if person.first_name == "George" && person.middle_name == "Charles" %>
+    <% if people.length == 0 %>
+      <% people = Character.where(father: last_person.id) - [ person ] %>
+      <% person = (people.length > 0 ? people[0] : nil) %>
+    <% end %>
+    <% last_person = person %>
+  <% end %>
+  </ol>
+
+  <% names = @character.create_lineage(["George","John","James"]) %>
+
+  <ol>
+    <% names.each do |name| %>
+      <li><%= name[:first_name] %> <%= name[:middle_name] %> <%= name[:suffix] %> <%= @character.last_name %>: <%= name[:birth_year] %> - <%= name[:death_year] %></li>
+    <% end %>
+  </ol>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+
+<% end %>

@@ -108,7 +108,7 @@ class SectionsTest < ApplicationSystemTestCase
     click_on "New Section"
 
     fill_in "Name", with: @section.name
-    page.execute_script("var wysihtml5Editor = $('#section_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@section.body}')")
+    fill_in_rich_text_area "section_body", with: "Test 1"
 
     click_on "Create Section"
 
@@ -121,7 +121,7 @@ class SectionsTest < ApplicationSystemTestCase
     click_on "New Section"
 
     fill_in "Name", with: ""
-    page.execute_script("var wysihtml5Editor = $('#section_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@section.body}')")
+    fill_in_rich_text_area "section_body", with: "Test 1"
 
     click_on "Create Section"
 
@@ -138,7 +138,7 @@ class SectionsTest < ApplicationSystemTestCase
     Capybara.page.find('.fa-pencil').click
 
     fill_in "Name", with: @section.name
-    page.execute_script("var wysihtml5Editor = $('#section_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@section.body}')")
+    fill_in_rich_text_area "section_body", with: "Test 1"
 
     click_on "Update Section"
 
@@ -151,7 +151,7 @@ class SectionsTest < ApplicationSystemTestCase
     Capybara.page.find('.fa-pencil').click
 
     fill_in "Name", with: ""
-    page.execute_script("var wysihtml5Editor = $('#section_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@section.body}')")
+    fill_in_rich_text_area "section_body", with: "Test 1"
 
     click_on "Update Section"
 

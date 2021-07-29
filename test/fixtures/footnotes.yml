@@ -2,23 +2,18 @@
 ---
 footnote_1:
   slug: footnote_slug
-  body: MyText
   noted: chapter_1 (Chapter)
 footnote_2:
   slug: old_slug
-  body: MyText
   noted: section_1 (Section)
 footnote_3:
   slug: old_slug
-  body: MyText
   noted: holocene_event_1 (HoloceneEvent)
 footnote_4:
   slug: ""
-  body: Footnote Test 4
   noted: chapter_1 (Chapter)
   biblioentry: biblioentry_1
 footnote_5:
   slug: ""
-  body: Footnote Test 5
   noted: chapter_4 (Chapter)
   biblioentry: biblioentry_2

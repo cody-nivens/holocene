@@ -2,6 +2,8 @@ class EventType < ApplicationRecord
 	has_and_belongs_to_many :holocene_events
     belongs_to :user
 
+    has_rich_text :body
+
     validates :name, presence: true
 
     def timeline_json(toggle)

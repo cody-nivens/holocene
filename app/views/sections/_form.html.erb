@@ -7,32 +7,8 @@
   <%= f.check_box :display_name %>
   <%= f.text_field :embed %>
 
-  <div class="jumbotron" >
-      <%= f.text_area :body, as: :wysihtml5, cols: "80", rows: "15", hide_label: true %>
-  </div>
+  <%= f.rich_text_area :body, class: "form-control customized-min-height" %>
 
   <%= f.primary "#{command_label}" %>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('#section_body').each(function(i, elem) {
-        $(elem).wysihtml5({
-           toolbar: {
-               "fa": true,
-              "font-styles": true,
-              "emphasis": true,
-              "lists": true,
-              "html": true,
-              "link": true,
-              "image": true,
-              "color":true 
-           },
-           parser: function(html) {
-              return html;
-           }
-        });
-    });
-  })
-</script>
 
 <% end %>

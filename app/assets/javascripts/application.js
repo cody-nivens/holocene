@@ -19,8 +19,6 @@
 //= require rails_sortable
 //= require popper
 //= require bootstrap
-//= require bootstrap-wysihtml5
-//= require bootstrap-wysihtml5/locales
 //= require timelineJS/timeline
 //= link_tree ../icons
 //= link_tree ../fonts

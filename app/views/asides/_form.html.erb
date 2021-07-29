@@ -4,33 +4,8 @@
     <%= f.text_field :name %>
     <%= f.hidden_field :chapter_id %>
 
-    <div class="jumbotron" >
-      <%= f.text_area :body, as: :wysihtml5, cols: "80", rows: "15", hide_label: true %>
-  </div>
+    <%= f.rich_text_area :body, cols: "80", rows: "15", hide_label: true %>
 
     <%= f.submit %>
-
-  <script type="text/javascript">
-  $(document).ready(function(){
-    $('#aside_body').each(function(i, elem) {
-        $(elem).wysihtml5({
-           toolbar: {
-              "fa": true,
-              "style": true,
-              "font-styles": true,
-              "emphasis": true,
-              "lists": true,
-              "html": true,
-              "link": true,
-              "image": true,
-              "color": true
-           },
-           parser: function(html) {
-              return html;
-           }
-        });
-    });
-  })
-</script>
 
 <% end %>

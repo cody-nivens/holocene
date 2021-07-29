@@ -2,10 +2,8 @@
 
 partition_1:
   name: Timelines
-  body: ''
   chapter: chapter_1
 
 partition_2:
   name: MyString
-  body: MyString
   chapter: chapter_1

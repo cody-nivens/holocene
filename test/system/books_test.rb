@@ -2,7 +2,9 @@ require "application_system_test_case"
 
 class BooksTest < ApplicationSystemTestCase
   setup do
+    DownloadHelpers::clear_downloads
     @book = books(:book_1)
+    @book_2 = books(:book_2)
     @user = users(:users_1)
     sign_in @user
   end
@@ -79,7 +81,7 @@ class BooksTest < ApplicationSystemTestCase
     visit book_url(@book, format: 'pdf')
 
     content = DownloadHelpers::download_content
-    sleep(5)
+    sleep(20)
     body = convert_pdf_to_page(content)
     assert_match /Fun Events in History/,body
   end
@@ -93,15 +95,128 @@ class BooksTest < ApplicationSystemTestCase
 #    assert_match /Fun Events in History/,body
   end
 
+  test "generating EPUB fiction" do
+    visit book_epub_url(@book_2)
+
+    content = DownloadHelpers::download_content
+    sleep(5)
+#    body = convert_pdf_to_page(content)
+#    assert_match /Fun Events in History/,body
+  end
+
   test "creating a Book" do
     visit books_url
     click_on "New Book"
 
     fill_in "Name", with: @book.name
-    page.execute_script("var wysihtml5Editor = $('#book_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@book.body}')")
+    fill_in_rich_text_area "book_body", with: "Test 1"
     click_on "Create Book"
 
     assert_text "Book was successfully created"
+    click_on "Back"
+  end
+
+  test "creating a fictional Book" do
+    visit books_url
+    click_on "New Book"
+
+    fill_in "Name", with: @book.name
+    fill_in_rich_text_area "book_body", with: "Test 1"
+    find(:css, "#book_fiction").set(true)
+    click_on "Create Book"
+
+    assert_text "Book was successfully created"
+    click_on "Back"
+  end
+
+  test "creating a nonfictional Book flow" do
+    visit books_url
+    click_on "New Book"
+
+    fill_in "Name", with: "Test 1"
+    fill_in_rich_text_area "book_body", with: "Test 1"
+    click_on "Create Book"
+    assert_text "Book was successfully created"
+    assert_text "Test 1"
+
+    assert_text "New Chapter"
+    click_on "New Chapter"
+    assert_text "Show events"
+
+    fill_in "Name", with: "Chapter 1"
+    fill_in_rich_text_area "chapter_body", with: "[[test99]]"
+    click_on "Create Chapter"
+
+    assert_text "Chapter was successfully created"
+    assert_text "Chapter 1"
+
+    assert_link "Missing footnote"
+    click_on "Missing footnote"
+
+    assert_text "New Footnote"
+    fill_in_rich_text_area "footnote_body", with: "Now is the time for men to come to the aid of Man"
+    click_on "Create Footnote"
+
+    assert_text "Footnote was successfully created"
+
+    click_on "Back"
+  end
+
+  test "creating a fictional Book flow" do
+    visit books_url
+    click_on "New Book"
+
+    fill_in "Name", with: "Test 1"
+    fill_in_rich_text_area "book_body", with: "Test 1"
+    find(:css, "#book_fiction").set(true)
+    click_on "Create Book"
+
+    assert_text "Book was successfully created"
+    assert_text "Test 1"
+
+    click_on "All Stories"
+    assert_text "New Story"
+    click_on "New Story"
+
+    fill_in "Summary", with: "Chasing Gadout"
+    fill_in "Title", with: "The Impossible Dream"
+    click_on "Create Story"
+    assert_text "Story was successfully created"
+
+    assert_text "Key Points"
+    within(:css, ".footer") do
+      click_on "Key Points"
+    end
+
+    assert_text "New Key Point"
+    click_on "New Key Point"
+
+    fill_in "Hook", with: "Good points"
+    fill_in "Inciting incident", with: "Trying times"
+    fill_in "Key element", with: "Life"
+    fill_in "First plot point", with: "Snoopy chases the Red Baron"
+    click_on "Create Key point"
+    assert_text "Key point was successfully created"
+
+    find(:xpath, ".//a[i[contains(@class, 'fa-plus')]]", match: :first).click
+    assert_text "New Scene"
+    click_on "New Scene"
+
+    assert_text "Abc"
+
+    fill_in "Abc", with: "G00001"
+    fill_in "Scene sequel", with: 0
+    fill_in "Time", with: 103
+
+    fill_in_rich_text_area "scene_summary", with: "Test 2"
+    assert_text "Test 2"
+    take_screenshot
+
+    click_on "Create Scene"
+
+    assert_text "Scene was successfully created"
+    assert_text "Test 2"
+
     click_on "Back"
   end
 
@@ -125,7 +240,7 @@ class BooksTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Name", with: @book.name
-    page.execute_script("var wysihtml5Editor = $('#book_body').data('wysihtml5').editor;wysihtml5Editor.setValue('#{@book.body}')")
+    fill_in_rich_text_area "book_body", with: "Test 1"
     click_on "Update Book"
 
     assert_text "Book was successfully updated"
@@ -135,7 +250,7 @@ class BooksTest < ApplicationSystemTestCase
   test "should not update a Book" do
     visit book_url(@book)
 
-    within(:xpath, "//*[contains(text(),'Fun Events in History ')]") do
+    within(:xpath, "//*[contains(text(),'#{@book.name}')]/..") do
       Capybara.page.find('.fa-pencil').click
     end
 
