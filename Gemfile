@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.0'
+ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
@@ -77,6 +77,7 @@ group :test do
   gem 'selenium-webdriver'
   gem 'pdf-reader'
   gem 'geckodriver-helper'
+  gem 'rails-controller-testing'
 
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'webdrivers'
@@ -113,3 +114,4 @@ gem 'words_counted'
 gem 'rails-bootstrap-tabs', '~> 0.2.2'
 gem 'bootstrap-toggle-rails'
 gem 'namey'
+gem 'acts_as_list'
