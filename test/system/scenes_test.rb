@@ -4,9 +4,14 @@ class ScenesTest < ApplicationSystemTestCase
   setup do
     @scene = scenes(:scene_1)
     @scene_2 = scenes(:scene_2)
-    @key_point = @scene.key_point
+    @scene_3 = scenes(:scene_3)
+    @scene_6 = scenes(:scene_6)
     @situated = @scene.situated
     @situated_2 = @scene_2.situated
+    @situated_3 = @scene_3.situated
+    @situated_6 = @scene_6.situated
+
+    @key_point = @scene.key_point
     @user = users(:users_1)
     sign_in @user
   end
@@ -36,6 +41,41 @@ class ScenesTest < ApplicationSystemTestCase
   test "visiting the scene" do
     visit polymorphic_url([@situated, @scene])
     assert_text "A00001"
+    within ".footer" do
+      assert_no_text "<"
+      assert_no_text ">"
+    end
+    take_screenshot
+  end
+
+  test "visiting the scene 2" do
+    visit polymorphic_url([@situated_2, @scene_2])
+    assert_text "A00002"
+    within ".footer" do
+      assert_text "<"
+      assert_text ">"
+    end
+    take_screenshot
+  end
+
+  test "visiting the scene 3" do
+    visit polymorphic_url([@situated_3, @scene_3])
+    assert_text "A00003"
+    within ".footer" do
+      assert_text "<"
+      assert_no_text ">"
+    end
+    take_screenshot
+  end
+
+  test "visiting the scene 4" do
+    visit polymorphic_url([@situated_6, @scene_6])
+    assert_text "A00004"
+    within ".footer" do
+      assert_no_text "<"
+      assert_text ">"
+    end
+    take_screenshot
   end
 
   test "moving a scene" do

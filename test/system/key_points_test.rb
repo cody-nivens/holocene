@@ -10,6 +10,8 @@ class KeyPointsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+    #take_screenshot
+
   test "visiting the Keypoint index" do
     #visit polymorphic_url([@story,:key_points])
     visit books_url

@@ -68,10 +68,12 @@
 <% @footer_content << "#{link_to 'Move', polymorphic_path([@scripted, @key_point, :move]), :class => "btn btn-default hide-print" }" %>
 <% @footer_content << "#{link_to 'Back', polymorphic_path([@scripted], anchor: @key_point.anchor), :class => "btn btn-default"}" %>
 
-<% unless @key_point.nil? || @key_point.position.to_i == 0 %>
-<% @footer_content << "#{link_to '<', polymorphic_path([@key_point.scripted, set_prev_key_point(@key_point)]), :class => "btn icon-ok icon-white" }" %>
+<% prev_key_point = @key_point.set_prev %>
+<% unless prev_key_point.nil? %>
+  <% @footer_content << "#{link_to '<', polymorphic_path([@key_point.scripted, prev_key_point]), :class => "btn icon-ok icon-white" }" %>
 <% end %>
-<% unless @key_point.position == @key_point.scripted.key_points.length %>
-  <% @footer_content << "#{link_to '>', polymorphic_path([@key_point.scripted, set_next_key_point(@key_point)]), :class => "btn icon-ok icon-white" }" %>
+<% next_key_point = @key_point.set_next %>
+<% unless next_key_point.nil? %>
+  <% @footer_content << "#{link_to '>', polymorphic_path([@key_point.scripted, next_key_point]), :class => "btn icon-ok icon-white" }" %>
 <% end %>
 

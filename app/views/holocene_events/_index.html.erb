@@ -13,9 +13,9 @@
         </tr>
         <% unless he.body.blank? -%>
           <tr>
-            <% @footnotes = process_body(he, @slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
+            <% @footnotes = process_body(he, slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
               <td class="dd-type" colspan="4"><%= raw @footnotes[0] %></td>
-              <%# @slugs += @footnotes[1] -%>
+              <% slugs += @footnotes[1] -%>
            </tr>
         <% end -%>
 <% end -%>

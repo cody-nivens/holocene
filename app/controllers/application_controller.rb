@@ -2,8 +2,6 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :set_footer_content
   helper_method :set_prev_chapter,:set_next_chapter
-  helper_method :set_prev_key_point,:set_next_key_point
-  helper_method :set_prev_scene,:set_next_scene
   helper_method :selector_string, :selector_collection
   helper_method :store_location,:redirect_back_or_default,:redirect_back_or_default_path
 
@@ -91,7 +89,7 @@ class ApplicationController < ActionController::Base
     def set_prev_chapter(chapter)
       return chapter if chapter.position == 0
       prev_position = chapter.position - 1
-      while chapter.scripted.chapters.where(position: prev_position).length == 0 && prev_position > 0
+      while chapter.scripted.chapters.where(position: prev_position).length == 0 && prev_position > 0 do
         prev_position -= 1
       end
       return chapter.scripted.chapters.where(position: prev_position)[0]
@@ -102,53 +100,10 @@ class ApplicationController < ActionController::Base
       return chapter if chapter.position == max
       next_position = chapter.position + 1
       num_of_chapters = chapter.scripted.chapters.length
-      while chapter.scripted.chapters.where(position: next_position).length == 0 && next_position < chapter.scripted.chapters.order(:position).last.position + 1
+      while chapter.scripted.chapters.where(position: next_position).length == 0 && next_position < chapter.scripted.chapters.order(:position).last.position + 1 do
         next_position += 1
       end
       return chapter.scripted.chapters.where(position: next_position)[0]
-    end
-
-    def set_prev_scene(scene)
-      max = (scene.selector - 1) % 7
-      key_point = scene.key_point
-      if max == 0
-        max = 6
-        key_point = set_prev_key_point(scene.key_point)
-        key_point = (key_point.nil? ? scene.key_point : key_point)
-      end
-      prev_scene = Scene.where(key_point_id: key_point.id, selector: max)
-      return prev_scene[0]
-    end
-
-    def set_next_scene(scene)
-      max = (scene.selector + 1) % 7
-      key_point = scene.key_point
-      if max == 0
-        max = 1
-        key_point = set_next_key_point(scene.key_point)
-      end
-      next_scene = Scene.where(key_point_id: key_point.id, selector: max)
-      return next_scene[0]
-    end
-
-    def set_prev_key_point(key_point)
-      return key_point if key_point.position.to_i == 0
-      prev_position = key_point.position.to_i - 1
-      while key_point.scripted.key_points.where(position: prev_position).length == 0 && prev_position > 0
-        prev_position -= 1
-      end
-      return key_point.scripted.key_points.where(position: prev_position)[0]
-    end
-
-    def set_next_key_point(key_point)
-      max = key_point.scripted.key_points.map{|x| x.position}.max
-      return key_point if key_point.position.to_i == max
-      next_position = key_point.position.to_i + 1
-      num_of_key_points = key_point.scripted.key_points.length
-      while key_point.scripted.key_points.where(position: next_position).length == 0 && next_position < key_point.scripted.key_points.order(:position).last.position.to_i + 1
-        next_position += 1
-      end
-      return key_point.scripted.key_points.where(position: next_position)[0]
     end
 
   private

@@ -5,11 +5,15 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
     @scene = scenes(:scene_1)
     @key_point = @scene.key_point
     @scene_2 = scenes(:scene_2)
+    @scene_3 = scenes(:scene_3)
+    @scene_6 = scenes(:scene_6)
     @book = books(:book_1)
     @book_2 = books(:book_2)
     @key_point_2 = key_points(:key_point_2)
     @situated = @scene.situated
     @situated_2 = @scene_2.situated
+    @situated_3 = @scene_3.situated
+    @situated_6 = @scene_6.situated
     @user = users(:users_1)
     sign_in @user
   end
@@ -86,7 +90,17 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show scene 2" do
-    get polymorphic_url([@situated, @scene_2])
+    get polymorphic_url([@situated_2, @scene_2])
+    assert_response :success
+  end
+
+  test "should show scene 3" do
+    get polymorphic_url([@situated_3, @scene_3])
+    assert_response :success
+  end
+
+  test "should show scene 4" do
+    get polymorphic_url([@situated_6, @scene_6])
     assert_response :success
   end
 

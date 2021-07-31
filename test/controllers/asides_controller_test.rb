@@ -12,11 +12,13 @@ class AsidesControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get chapter_asides_url(@chapter)
     assert_response :success
+    assert_template 'asides/index'
   end
 
   test "should get new" do
     get new_chapter_aside_url(@chapter)
     assert_response :success
+    assert_template 'asides/new'
   end
 
   test "should create aside" do
@@ -25,6 +27,7 @@ class AsidesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to polymorphic_url([@chapter_3.scripted, @chapter_3])
+    #assert_template 'asides/show'
   end
 
   test "should not create aside" do
@@ -33,26 +36,31 @@ class AsidesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :success
+    assert_template 'asides/new'
   end
 
   test "should show aside" do
     get chapter_aside_url(@chapter,@aside)
     assert_response :success
+    assert_template 'asides/show'
   end
 
   test "should get edit" do
     get edit_chapter_aside_url(@chapter,@aside)
     assert_response :success
+    assert_template 'asides/edit'
   end
 
   test "should update aside" do
     patch chapter_aside_url(@chapter,@aside), params: { aside: { body: @aside.body, name: @aside.name } }
     assert_redirected_to polymorphic_url([@chapter.scripted, @chapter])
+    #assert_template 'asides/show'
   end
 
   test "should not update aside" do
     patch chapter_aside_url(@chapter,@aside), params: { aside: { body: @aside.body, name: '' } }
     assert_response :success
+    assert_template 'asides/edit'
   end
 
   test "should destroy aside" do
@@ -61,5 +69,6 @@ class AsidesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to polymorphic_url([@chapter.scripted, @chapter])
+    assert_template partial: false
   end
 end

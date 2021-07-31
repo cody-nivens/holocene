@@ -3,10 +3,28 @@ class KeyPoint < ApplicationRecord
   set_sortable :position # Indicate a sort column
 
   belongs_to :scripted, polymorphic: true
+  acts_as_list scope: :scripted
 
-  has_many :scenes
+
+  has_many :scenes, -> { order(position: :asc) }
 
   validates_presence_of :hook
+
+  def section_count
+    count = 0
+    self.scenes.each do |scene|
+      count += (scene.section.nil? ? 0 : 1)
+    end
+    return count
+  end
+
+    def set_prev
+      self.higher_item
+    end
+
+    def set_next
+      self.lower_item
+    end
 
   def print_name?
     self.print_name

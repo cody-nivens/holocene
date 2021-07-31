@@ -60,7 +60,7 @@ scene_6:
   key_point: key_point_7
   insert_scene: scene_2
   selector: 1
-  position: 2
+  position: 1
 
 scene_7:
   abc: A00007
@@ -92,3 +92,13 @@ scene_9:
   situated: story_1 (Story)
   selector: 0
 
+
+#scene_10:
+#  abc: A00010
+#  check: false
+#  time: 99.0
+#  scene_sequel: 1
+#  situated: story_2 (Story)
+#  key_point: key_point_1
+#  selector: 1
+#  position: 2

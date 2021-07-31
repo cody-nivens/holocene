@@ -11,4 +11,9 @@ class WelcomesTest < ApplicationSystemTestCase
      visit root_url
      assert_text "Events"
    end
+
+   test "visiting the Welcome stats" do
+     visit welcome_stats_url
+     assert_text "Events"
+   end
 end

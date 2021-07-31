@@ -5,7 +5,7 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
     @character = characters(:character_1)
     @character_2 = characters(:character_2)
     @book = @character.books[0]
-    @story = @book.stories.last
+    @story = stories(:story_2)
     @key_point = @story.key_points[0]
     @scene = @key_point.scenes[0]
     @user = users(:users_1)

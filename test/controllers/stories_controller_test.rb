@@ -2,7 +2,7 @@ require 'test_helper'
 
 class StoriesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @story = stories(:story_1)
+    @story = stories(:story_2)
     @book = @story.book
     @character = characters(:character_1)
     @user = users(:users_1)

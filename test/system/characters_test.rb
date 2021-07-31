@@ -66,33 +66,33 @@ class CharactersTest < ApplicationSystemTestCase
     click_on "Lineage"
   end
 
-  test "creating a Character" do
+test "creating a Character" do
     count = 0
     1.upto(100) do |i|
-    count += 1
-    if count == 20
-      putc "!"
-      count = 0
-    end
-    visit book_characters_url(:book_id => @book.id)
-    click_on "New Character"
+      count += 1
+      if count == 10
+        putc "!"
+        count = 0
+      end
+      visit book_characters_url(:book_id => @book.id)
+      click_on "New Character"
 
-    #fill_in "First name", with: @character.first_name
-    #fill_in "Middle name", with: @character.middle_name
-    #fill_in "Last name", with: @character.last_name
-    fill_in "Nickname", with: @character.nickname
-    fill_in "Occupation class", with: @character.occupation_class
-    #fill_in "Race", with: @character.race
-    fill_in "Reason for name", with: @character.reason_for_name
-    fill_in "Reason for nickname", with: @character.reason_for_nickname
-    fill_in "Social class", with: @character.social_class
-    #fill_in "physical appearance_hair color_value", with: "Blond"
-    click_on "submit"
+      #fill_in "First name", with: @character.first_name
+      #fill_in "Middle name", with: @character.middle_name
+      #fill_in "Last name", with: @character.last_name
+      fill_in "Nickname", with: @character.nickname
+      fill_in "Occupation class", with: @character.occupation_class
+      #fill_in "Race", with: race
+      fill_in "Reason for name", with: @character.reason_for_name
+      fill_in "Reason for nickname", with: @character.reason_for_nickname
+      fill_in "Social class", with: @character.social_class
+      #fill_in "physical appearance_hair color_value", with: "Blond"
+      click_on "submit"
 
-    assert_text "Character was successfully created"
-    #click_on "Attributes", match: :first
-    assert_text @character.occupation_class
-    click_on "Back"
+      assert_text "Character was successfully created"
+      #click_on "Attributes", match: :first
+      assert_text @character.occupation_class
+      click_on "Back"
     end
   end
 

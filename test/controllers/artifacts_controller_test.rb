@@ -12,11 +12,13 @@ class ArtifactsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get book_artifacts_url(:book_id => @book.id)
     assert_response :success
+    assert_template 'artifacts/index'
   end
 
   test "should get new" do
     get new_book_artifact_url(:book_id => @book.id)
     assert_response :success
+    assert_template 'artifacts/new'
   end
 
   test "should create artifact" do
@@ -25,6 +27,7 @@ class ArtifactsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to book_artifact_url(@book, Artifact.last)
+    #assert_template 'artifacts/show'
   end
 
   test "should not create artifact" do
@@ -33,26 +36,31 @@ class ArtifactsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response 422
+    assert_template 'artifacts/new'
   end
 
   test "should show artifact" do
     get book_artifact_url(@book,@artifact)
     assert_response :success
+    assert_template 'artifacts/show'
   end
 
   test "should get edit" do
     get edit_book_artifact_url(@book,@artifact)
     assert_response :success
+    assert_template 'artifacts/edit'
   end
 
   test "should update artifact" do
     patch book_artifact_url(@book,@artifact), params: { artifact: { character_id: @artifact.character_id, name: @artifact.name, book_id: @book.id, artifact_type_id: @artifact_type.id, parent_id: nil } }
     assert_redirected_to book_artifact_url(@book, @artifact)
+    #assert_template 'artifacts/show'
   end
 
   test "should not update artifact" do
     patch book_artifact_url(@book,@artifact), params: { artifact: { character_id: @artifact.character_id, name: "", book_id: @book.id, artifact_type_id: @artifact_type.id, parent_id: nil } }
     assert_response 422
+    assert_template 'artifacts/edit'
   end
 
   test "should destroy artifact" do
@@ -61,5 +69,6 @@ class ArtifactsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to book_artifacts_url(:book_id => @book.id)
+    #assert_template 'artifacts/index'
   end
 end

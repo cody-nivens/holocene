@@ -4,6 +4,8 @@ class Scene < ApplicationRecord
 
   include RailsSortable::Model
   set_sortable :position # Indicate a sort column
+  belongs_to :key_point, :optional => true
+  acts_as_list scope: :key_point
 
   has_rich_text :summary
   has_rich_text :place
@@ -19,7 +21,6 @@ class Scene < ApplicationRecord
 
   belongs_to :situated, polymorphic: true
 
-  belongs_to :key_point, :optional => true
 
   has_one :section, :as => :sectioned
   belongs_to :insert_scene, class_name: :Scene, :optional => true
@@ -27,6 +28,28 @@ class Scene < ApplicationRecord
   has_many :signets, as: :sigged
 
   validates_presence_of :abc
+
+  def set_prev
+    prev_item = self.higher_item
+    if prev_item.nil?
+      key_point = self.key_point.set_prev
+      return nil if key_point.nil?
+      prev_item = key_point.scenes.order(:position).last
+      return nil if prev_item.nil?
+    end
+    return prev_item
+  end
+
+  def set_next
+    next_item = self.lower_item
+    if next_item.nil?
+      key_point = self.key_point.set_next
+      return nil if key_point.nil?
+      next_item = key_point.scenes.order(:position).first
+      return nil if next_item.nil?
+    end
+    return next_item
+  end
 
   def mk_date
     info = time_to_array

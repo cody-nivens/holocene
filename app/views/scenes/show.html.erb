@@ -139,10 +139,13 @@
 <% @footer_content << "#{link_to 'Destroy', polymorphic_path([@situated, @scene]), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Back', (@scene.key_point.nil? ? polymorphic_path([@situated, :scenes]) : polymorphic_path([@situated, @scene.key_point])), :class => "btn btn-default" }" %>
 
-<% unless @scene.nil? || @scene.position.to_i == 0 %>
-<% @footer_content << "#{link_to '<', polymorphic_path([@scene.situated, set_prev_scene(@scene)]), :class => "btn icon-ok icon-white" }" %>
+<% prev_scene =  @scene.set_prev %>
+<% unless prev_scene.nil? %>
+  <% @footer_content << "#{link_to '<', polymorphic_path([@scene.situated, prev_scene]), :class => "btn icon-ok icon-white" }" %>
 <% end %>
-<% unless @scene.position == @scene.situated.scenes.length %>
-  <% @footer_content << "#{link_to '>', polymorphic_path([@scene.situated, set_next_scene(@scene)]), :class => "btn icon-ok icon-white" }" %>
+<% next_scene =  @scene.set_next %>
+<%# debugger %>
+<% unless next_scene.nil? %>
+  <% @footer_content << "#{link_to '>', polymorphic_path([@scene.situated, next_scene]), :class => "btn icon-ok icon-white" }" %>
 <% end %>
 

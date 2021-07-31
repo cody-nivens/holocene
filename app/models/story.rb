@@ -9,11 +9,19 @@ class Story < ApplicationRecord
 
 
   has_many :chapters, :as => :scripted
-  has_many :key_points, :as => :scripted
+  has_many :key_points, -> { order(position: :asc) }, :as => :scripted
   has_many :scenes, :as => :situated
   has_many :signets, as: :sigged
 
   validates :title, presence: true
+
+  def section_count
+    count = 0
+    self.key_points.each do |key_point|
+      count += key_point.section_count
+    end
+    return count
+  end
 
   def timeline_json(toggle)
     return {:events => Scene.get_scenes(self, toggle).collect{|x| x.slide}}.to_json

@@ -18,6 +18,7 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", new_book_author_path(@book)
     assert_select "a[href=?]", book_authors_path(@book)
     assert_select ".footer>div>a", 2
+    assert_template 'authors/index'
   end
 
     test "should add authors I" do
@@ -26,6 +27,7 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to polymorphic_path([@book, :authors_list])
+    #assert_template 'authors/list'
   end
 
   test "should add authors II" do
@@ -38,6 +40,7 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to polymorphic_path([@book, :authors_list])
+    #assert_template 'authors/list'
   end
 
   test "should get new" do
@@ -47,6 +50,7 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[text()=?]",'Back'
     assert_select "a[href=?]", book_authors_path(@book)
     assert_select ".footer>div>a", 1
+    assert_template 'authors/new'
   end
 
   test "should create author" do
@@ -55,6 +59,7 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to book_author_url(@book,Author.last)
+    #assert_template 'authors/show'
   end
 
   test "should not create author" do
@@ -63,6 +68,7 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :success
+    assert_template 'authors/new'
   end
 
   test "should show author" do
@@ -74,6 +80,7 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[text()=?]",'Back'
     assert_select "a[href=?]", book_authors_path(@book)
     assert_select ".footer>div>a", 2
+    assert_template 'authors/show'
   end
 
   test "should get edit" do
@@ -87,16 +94,19 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[text()=?]",'Back'
     assert_select "a[href=?]", book_authors_path(@book)
     assert_select ".footer>div>a", 2
+    assert_template 'authors/edit'
   end
 
   test "should update author" do
       patch book_author_url(@book,@author), params: { author: { first_name: @author.first_name, last_name: @author.last_name, user_id: @user.id } }
     assert_redirected_to book_author_url(@book, @author)
+    #assert_template 'authors/show'
   end
 
   test "should not update author" do
     patch book_author_url(:book_id => @book.id,:id => @author.id), params: { author: { first_name: "", last_name: @author.last_name, user_id: @user.id } }
     assert_response :success
+    assert_template 'authors/edit'
   end
 
   test "should destroy author" do
@@ -105,5 +115,6 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to book_authors_path(@book)
+    #assert_template 'authors/show'
   end
 end

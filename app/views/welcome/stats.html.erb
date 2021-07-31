@@ -2,7 +2,7 @@
 <%#= react_component("HelloWorld", { greeting: "Hello from react-rails.", info: { name: "react-rails" } }, { class: "hello-world" }) %>
 
 <table class='table'>
-    <tr><td><%= link_to "Holocene Events", holocene_events_path %></td><td><%= HoloceneEvent.count %></td></tr>
+    <tr><td><%= link_to "Holocene Events", holocene_events_path %></td><td><%= HoloceneEvent.where(user_id: current_user.id).count %></td></tr>
 
     <tr><td><%= link_to "Region", regions_path %>&nbsp;<%= Region.count %></td>
     <td><%= link_to "Event Type", event_types_path %>&nbsp;<%= EventType.count %></td></tr>
@@ -31,14 +31,48 @@
  </div> 
     </td></tr>
 
-    <tr><td><%= link_to "Timeline", timelines_path %></td><td><%= Timeline.count %></td></tr>
-    <tr><td><%= link_to "Epoch", epochs_path %></td><td><%= Epoch.count %></td></tr>
-    <tr><td><%= link_to "Book", books_path %></td><td><%= Book.count %></td></tr>
-    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Chapter", chapters_path(Book.first.chapters) %></td><td><%= Chapter.count %></td></tr>
-    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Section", chapter_sections_path(Chapter.first) %></td><td><%= Section.count %></td></tr>
-    <tr><td>Footnotes</td><td><%= Footnote.count %></td></tr>
-    <tr><td>Biblioentries</td><td><%= Biblioentry.count %></td></tr>
-    <tr><td>Authors</td><td><%= Author.count %></td></tr>
+    <tr><td><%= link_to "Timeline", timelines_path %></td><td><%= Timeline.where(user_id: current_user.id).count %></td></tr>
+    <tr><td><%= link_to "Epoch", epochs_path %></td><td><%= Epoch.where(user_id: current_user.id).count %></td></tr>
+    <tr><td><%= link_to "Book", books_path %></td><td><%= Book.where(user_id: current_user.id).count %></td></tr>
+    <% chapter_count = 0 %>
+    <% chapter_section_count = 0 %>
+    <% story_count = 0 %>
+    <% story_section_count = 0 %>
+    <% key_point_count = 0 %>
+    <% scene_count = 0 %>
+    <% footnote_count = 0 %>
+    <% books = Book.where(user_id: current_user.id) %>
+    <% books.each do |book| %>
+      <% if book.is_fiction? %>
+    <% unless book.stories.length == 0 %>
+       <% book.stories.each do |story| %>
+          <% story_section_count += story.section_count %>
+          <% key_point_count += story.key_points.count %>
+          <% scene_count += story.scene_count %>
+          <% story_count += 1 %>
+       <% end %>
+    <% end %>
+      <% else %>
+    <% unless book.chapters.length == 0 %>
+       <% chapter_count += book.chapters.count %>
+       <% book.chapters.each do |chapter| %>
+          <% chapter_section_count += chapter.sections.count %>
+          <% footnote_count += chapter.footnotes.count %>
+       <% end %>
+    <% end %>
+    <% end %>
+    <% end %>
+    <% unless books.length == 0 %>
+    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Chapter", chapters_path(Book.where(user_id: current_user.id).first.chapters) %></td><td><%= chapter_count %></td></tr>
+    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Chapter sections", chapters_path(Book.where(user_id: current_user.id).first.chapters) %></td><td><%= chapter_section_count %></td></tr>
+    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Story", stories_path(Book.where(user_id: current_user.id).first.stories) %></td><td><%= story_count %></td></tr>
+    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Key Point", stories_path(Book.where(user_id: current_user.id).first.stories) %></td><td><%= key_point_count %></td></tr>
+    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Scene", stories_path(Book.where(user_id: current_user.id).first.stories) %></td><td><%= scene_count %></td></tr>
+    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Story sections", stories_path(Book.where(user_id: current_user.id).first.stories) %></td><td><%= story_section_count %></td></tr>
+    <tr><td>Footnotes</td><td><%= footnote_count %></td></tr>
+    <tr><td>Biblioentries</td><td><%= Biblioentry.where(user_id: current_user.id).count %></td></tr>
+    <tr><td>Authors</td><td><%= Author.where(user_id: current_user.id).count %></td></tr>
+    <% end %>
 </table>
 <hr/>
 <%= link_to "Tag Cloud", welcome_index_path %>

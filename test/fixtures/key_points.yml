@@ -35,7 +35,7 @@ key_point_3:
   third_plot_point: Egypt as home of Watchers
   climax: Egyptians at Baalbak
   scripted: story_1 (Story)
-  position: 4
+  position: 2
 
 key_point_4:
   hook: Jump the pirates
@@ -77,7 +77,7 @@ key_point_6:
   position: 9
 
 key_point_7:
-  hook: History is not based on the last 2,500 years
+  hook: Pirates can be jumped
   inciting_incident: Younger Dryas Impact Event
   key_element: Gobekli Tepe
   first_plot_point: Progression of the Stars
@@ -90,7 +90,7 @@ key_point_7:
   position: 1
 
 key_point_8:
-  hook: History is not based on the last 2,500 years
+  hook: The pirates can be jumped over
   inciting_incident: Younger Dryas Impact Event
   key_element: Gobekli Tepe
   first_plot_point: Progression of the Stars
@@ -101,4 +101,17 @@ key_point_8:
   climax: Egyptians at Baalbak
   scripted: story_5 (Story)
   position: 1
+
+key_point_9:
+  hook: The pirates can be jumped over pirates
+  inciting_incident: Younger Dryas Impact Event
+  key_element: Gobekli Tepe
+  first_plot_point: Progression of the Stars
+  first_pinch_point: Time
+  midpoint: Nabta Playa hosting a school of the stars and mathematics
+  second_pinch_point: Climate Change
+  third_plot_point: Egypt as home of Watchers
+  climax: Egyptians at Baalbak
+  scripted: story_1 (Story)
+  position: 3
 
