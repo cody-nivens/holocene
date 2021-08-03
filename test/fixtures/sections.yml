@@ -13,6 +13,8 @@ section_2:
   position: 1
   slug: HJct7pHDDe
   sectioned: chapter_1 (Chapter)
+  holocene_events:
+      - holocene_event_5
 section_3:
   name: 'Domestication of Cows'
   display_name: 

@@ -59,9 +59,17 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to polymorphic_url([@scripted_1, :chapters])
   end
 
+  test "should demote chapter 2" do
+    assert_difference('Chapter.count',-1) do
+        get chapter_demote_url(@chapter)
+    end
+
+    assert_redirected_to polymorphic_url([@scripted_1, :chapters])
+  end
+
   test "should promote chapter" do
     assert_difference('Chapter.count',1) do
-      get chapter_section_promote_url(:id => @chapter_2.id,:section_id => @chapter_2.sections[1].id)
+      get chapter_section_promote_url(:id => @chapter_4.id,:section_id => @chapter_4.sections[1].id)
     end
 
     assert_redirected_to polymorphic_url([@scripted_1, :chapters])
@@ -93,7 +101,7 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", chapter_citations_path(@chapter)
     assert_select "a[text()=?]",'Back'
     assert_select "a[href=?]", polymorphic_path([@scripted_1, :chapters])
-    assert_select ".footer>div>a", 11
+    assert_select ".footer>div>a", 12
   end
 
   test "should map chapter" do

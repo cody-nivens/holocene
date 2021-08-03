@@ -114,7 +114,7 @@ rich_text_<%= i %>:
 rich_text_<%= i %>:
   record: holocene_event_5 (HoloceneEvent)
   name: body
-  body: ''
+  body: 'This is test of footnoting [[slug56]]'
 
 <% i += 1 %>
 rich_text_<%= i %>:
@@ -205,27 +205,27 @@ rich_text_<%= i %>:
 rich_text_<%= i %>:
   record: chapter_2 (Chapter)
   name: body
-  body: '[[slug55]]'
+  body: 'Chapter 2 [[slug55]]'
 <% i += 1 %>
 rich_text_<%= i %>:
   record: chapter_3 (Chapter)
   name: body
-  body: '[[slug56]]'
+  body: 'Chapter 3 [[slug56]]'
 <% i += 1 %>
 rich_text_<%= i %>:
   record: chapter_4 (Chapter)
   name: body
-  body: '[[slug56]]'
+  body: 'Chapter 4 [[slug56]]'
 <% i += 1 %>
 rich_text_<%= i %>:
   record: chapter_5 (Chapter)
   name: body
-  body: '[[slug56]]'
+  body: 'Chapter 5 [[slug56]]'
 <% i += 1 %>
 rich_text_<%= i %>:
   record: chapter_6 (Chapter)
   name: body
-  body: '[[slug56]]'
+  body: 'Chapter 6 [[slug56]]'
 <% i += 1 %>
 rich_text_<%= i %>:
   record: Impact (EventType)

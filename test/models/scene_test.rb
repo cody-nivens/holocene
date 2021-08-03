@@ -1,5 +1,6 @@
 require 'test_helper'
 
+
 class SceneTest < ActiveSupport::TestCase
   test "set_next 1" do
     scene = scenes(:scene_6)

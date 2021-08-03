@@ -59,7 +59,7 @@ class StoriesTest < ApplicationSystemTestCase
   end
 
   test "creating a Story" do
-    visit book_stories_url(:book_id => @book.id)
+    visit book_url(:id => @book.id)
     click_on "New Story"
 
     fill_in "Summary", with: @story.summary

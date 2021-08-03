@@ -1,5 +1,6 @@
 require "test_helper"
 
+
 DOWNLOADS_PATH = File.expand_path(File.join(Rails.root, 'tmp', 'downloads'))
 #if 1 == 0
 Capybara.register_driver :headless_selenium do |app|
