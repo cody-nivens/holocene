@@ -15,7 +15,7 @@
         </tr>
     </thead>
   <tbody>
-    <% @chapters.each_with_sortable_id do |chapter, sortable_id| %>
+    <% @chapters.order(:position).each_with_sortable_id do |chapter, sortable_id| %>
       <tr id="<%= sortable_id %>">
     <% if chapter.partition.nil? %>
       <td><%= link_to (fa_icon "plus"), new_chapter_partition_path(@scripted, chapter), :title => "Partition", :class => "btn icon-ok icon-white"  %>

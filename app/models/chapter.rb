@@ -1,6 +1,7 @@
 class Chapter < ApplicationRecord
     include RailsSortable::Model
     set_sortable :position # Indicate a sort column
+    acts_as_list scope: :scripted
 
     has_rich_text :body
 
@@ -18,6 +19,16 @@ class Chapter < ApplicationRecord
     has_one :aside
 
     validates :name, presence: true
+
+  def set_prev
+    prev_item = self.higher_item
+    return prev_item
+  end
+
+  def set_next
+    next_item = self.lower_item
+    return next_item
+  end
 
     def display_title?
       return self.display_title

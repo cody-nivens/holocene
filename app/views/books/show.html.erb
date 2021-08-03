@@ -1,11 +1,11 @@
-<h1>
+<h2>
 <%= breadcrumb(@book) %>
 <%= link_to (fa_icon "pencil"), edit_book_path(@book)  %>
 <%= link_to (fa_icon "sticky-note-o"), book_signets_path(@book), :title => "Signets" %>
 <%= link_to (fa_icon "book"), book_epub_path(@book), :title => "EPub" %>
 <%= link_to (fa_icon "file-pdf-o"), book_path(@book,:format => :pdf), :title => "PDF" %>
 <%= link_to (fa_icon "file-pdf-o"), book_path(@book,:format => :pdf, :outline => true), :title => "PDF" %>
-</h1>
+</h2>
 
 <p>
   <%= raw @book.body %>
@@ -14,6 +14,7 @@
 <% if @book.is_fiction? %>
   <%= render 'books/fiction' %>
 
+<% @footer_content << "#{link_to 'New Story', new_book_story_path(:book_id => @book.id), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'All Stories', book_stories_path(@book), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Characters', polymorphic_path([@book, :characters ]), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Key Points', polymorphic_path([@book, :key_points]), :class => "btn btn-default" }" %>

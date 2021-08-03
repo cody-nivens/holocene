@@ -1,33 +1,23 @@
 <p id="notice"><%= notice %></p>
 
-<h1>
+<h2>
 <%= breadcrumb(@story.book, @story) %>
 <%= link_to (fa_icon "file-pdf-o"), story_path(@story,:format => :pdf), :title => "PDF" %>
 <%= link_to (fa_icon "file-pdf-o"), story_path(@story,:format => :pdf, :outline => true), :title => "PDF Outline" %>
-</h1>
+</h2>
+
 <p>
   <%= @story.summary %>
 </p>
 
 
 <p>
-<strong>Scene Character:</strong> <%= @story.scene_character %>
-</p>
-
-<p>
-<strong>Characters:</strong> <%= @story.characters.count %>
-</p>
-
-<p>
-<strong>Print Summary?:</strong> <%= (@story.print_summary? ? 'True' : 'False') %>
-</p>
-
-<p>
-<strong>Publish?:</strong> <%= (@story.publish? ? 'True' : 'False') %>
-</p>
-
-<p>
-<strong>Stand Alone?:</strong> <%= (@story.stand_alone? ? 'True' : 'False') %>
+<strong>Scene Character:</strong> <%= @story.scene_character %><br/>
+<strong>Characters:</strong> <%= @story.characters.count %><br/>
+<strong>Print Summary?:</strong> <%= (@story.print_summary? ? 'True' : 'False') %><br/>
+<strong>Publish?:</strong> <%= (@story.publish? ? 'True' : 'False') %><br/>
+<strong>Stand Alone?:</strong> <%= (@story.stand_alone? ? 'True' : 'False') %><br/>
+<strong>Word Count:</strong> <%= number_with_delimiter(@story.word_count, :delimiter => ',') %><br/>
 </p>
 
 <%= tabs do |c| %>

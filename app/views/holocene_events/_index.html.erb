@@ -1,10 +1,10 @@
 <% epub ||= false %>
 <% title ||= "#{(chapter.nil? ? "" : chapter.name)}" %>
 <% unless holocene_events.length == 0 %>
-<h2><%= title %></h2>
-<table class='table w-100'>
+  <h2><%= title %></h2>
+  <table class='table w-100'>
     <tr><th>Name</th><th>Event Type</th><th>Region</th><th>Start Year</th></tr>
-<% holocene_events.each do |he| -%>
+    <% holocene_events.each do |he| -%>
         <tr>
           <td><%= (epub ? he.name : link_to(he.name,holocene_event_path(he))) %></td>
           <td><%= raw event_types_to_s(he.event_types, epub) %></td>
@@ -13,11 +13,10 @@
         </tr>
         <% unless he.body.blank? -%>
           <tr>
-            <% @footnotes = process_body(he, slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
+            <% @footnotes = Footnote.process_body(he, slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
               <td class="dd-type" colspan="4"><%= raw @footnotes[0] %></td>
-              <% slugs += @footnotes[1] -%>
            </tr>
         <% end -%>
-<% end -%>
-</table>
+    <% end -%>
+  </table>
 <% end -%>

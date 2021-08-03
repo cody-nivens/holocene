@@ -59,7 +59,6 @@ class CharactersController < ApplicationController
   # GET /characters/1
   # GET /characters/1.json
   def show
-    store_location
   end
 
   # GET /characters/new
@@ -155,7 +154,6 @@ class CharactersController < ApplicationController
         @object.key_point.scripted.book.characters << @character if @object.class.name == 'Scene' && !@object.key_point.scripted.book.characters.include?(@character)
         @object.key_point.scripted.characters << @character if @object.class.name == 'Scene' && !@object.key_point.scripted.characters.include?(@character)
 
-        remove_location
         format.html { redirect_to polymorphic_path([@object, @character]), notice: 'Character was successfully created.' }
         format.json { render :show, status: :created, location: @character }
       else
@@ -172,8 +170,7 @@ class CharactersController < ApplicationController
 
     respond_to do |format|
       if @character.update(character_params)
-        remove_location
-        format.html { redirect_back_or_default polymorphic_path([@object, @character]) }
+        format.html { redirect_to polymorphic_path([@object, @character]) }
         format.json { render :show, status: :ok, location: @character }
       else
         format.html { render :edit }

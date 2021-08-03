@@ -36,7 +36,7 @@
   <% if @slugs.nil? -%>
       <% @slugs = [] -%>
   <% end -%>
-<% @footnotes = process_body(@holocene_event, @slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
+<% @footnotes = Footnote.process_body(@holocene_event, @slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
   <%= raw @holocene_event.body %>
 </p>
 <% unless @footnotes.nil? -%>

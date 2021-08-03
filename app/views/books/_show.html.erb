@@ -63,8 +63,7 @@
     <% end -%>
   <% end -%>
   <% unless @slugs.length == 0 -%>
-    <%# @notes[chapter.id] =  write_footnotes(@slugs) -%>
-    <%= raw write_footnotes(@slugs) -%>
+    <%= raw Footnote.write_footnotes(@slugs) -%>
   <% end -%>
 
   <%= render 'glossary_terms/index.html', glossary_terms: book.glossary_terms.order(:name) %>

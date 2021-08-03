@@ -1,20 +1,25 @@
 <p>
   <% @title = @section.name %>
   <h2><%= @section.name %></h2>
-  
 </p>
 
 <% @slugs = [] -%>
-<% @footnotes = process_body(@section, @slugs) -%>
+<% @footnotes = Footnote.process_body(@section, @slugs) -%>
 <%= raw @footnotes[0]  %>
 <% @slugs += @footnotes[1] -%>
 
 <% unless @section.holocene_events.length == 0 || @section.sectioned.show_events? -%>
-<%= render 'holocene_events/index.html', holocene_events: @section.holocene_events.order(:start_year) %>
+  <% @section.holocene_events.order(:start_year).each do |he| -%>
+    <% unless he.body.blank? -%>
+      <% @footnotes = Footnote.process_body(he, slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
+      <% @slugs += @footnotes[1] -%>
+    <% end -%>
+  <% end -%>
+  <%= render 'holocene_events/index.html', holocene_events: @section.holocene_events.order(:start_year) %>
 <% end -%>
 
 <% unless @slugs.length == 0 -%>
-<%= raw write_footnotes(@slugs) %>
+<%= raw Footnote.write_footnotes(@slugs) %>
 <% end -%>
 
 <% priv_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position - 1) -%>

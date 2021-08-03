@@ -3,29 +3,6 @@ class ApplicationController < ActionController::Base
   before_action :set_footer_content
   helper_method :set_prev_chapter,:set_next_chapter
   helper_method :selector_string, :selector_collection
-  helper_method :store_location,:redirect_back_or_default,:redirect_back_or_default_path
-
-  def remove_location
-    session.delete :return_to
-  end
-
-  def store_location
-    session.delete :return_to
-    session[:return_to] ||= request.referer if request.get? && !["user_sessions","sessions"].member?(controller_name)
-  end
-
-  def redirect_back_or_default(default)
-    redirect_to(
-      session[:return_to].present? && session[:return_to] != request.fullpath ?
-        session[:return_to] : default
-    )
-  end
-
-  def redirect_back_or_default_path(default)
-    (session[:return_to].present? && session[:return_to] != request.fullpath ?
-        session[:return_to] : default
-    )
-  end
 
   def home
   end
@@ -85,26 +62,6 @@ class ApplicationController < ActionController::Base
     end
     return my_ids
   end
-
-    def set_prev_chapter(chapter)
-      return chapter if chapter.position == 0
-      prev_position = chapter.position - 1
-      while chapter.scripted.chapters.where(position: prev_position).length == 0 && prev_position > 0 do
-        prev_position -= 1
-      end
-      return chapter.scripted.chapters.where(position: prev_position)[0]
-    end
-
-    def set_next_chapter(chapter)
-      max = chapter.scripted.chapters.map{|x| x.position}.max
-      return chapter if chapter.position == max
-      next_position = chapter.position + 1
-      num_of_chapters = chapter.scripted.chapters.length
-      while chapter.scripted.chapters.where(position: next_position).length == 0 && next_position < chapter.scripted.chapters.order(:position).last.position + 1 do
-        next_position += 1
-      end
-      return chapter.scripted.chapters.where(position: next_position)[0]
-    end
 
   private
   def set_footer_content
@@ -268,18 +225,31 @@ str = ""
 @book.chapters.order(:position).each do |chapter|
   next unless chapter.always_display_events
   unless chapter.holocene_events.length == 0
+    chapter.holocene_events.order(:start_year).each do |he|
+      unless he.body.blank?
+        @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? ? 1 : @footnotes[2]))
+        @slugs += @footnotes[1]
+      end
+    end
+
     str += HoloceneEventsController.render :partial => "holocene_events/index.html", locals: {holocene_events: chapter.holocene_events.order(:start_year), chapter: chapter, links: false, epub: true, slugs: @slugs}
   end
   unless chapter.sections.length == 0
     chapter.sections.order(:position).each do |section|
       unless section.holocene_events.length == 0
+        section.holocene_events.order(:start_year).each do |he|
+          unless he.body.blank?
+            @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? || @footnotes.empty? ? 1 : @footnotes[2]))
+            @slugs += @footnotes[1]
+          end
+        end
         str += HoloceneEventsController.render :partial => "holocene_events/index.html", locals: {holocene_events: section.holocene_events.order(:start_year), chapter: chapter, links: false, title: "#{chapter.name}:#{section.name}", epub: true, slugs: @slugs}
       end
     end
   end
 end
 unless @slugs.length == 0
-str += write_footnotes(@slugs)
+  str += Footnote.write_footnotes(@slugs)
 end
 
    @ebook.add_item("text/events.xhtml").add_content(StringIO.new(<<-EVENTS)).toc_text('Chapter Events').landmark(type: 'bodymatter', title: 'Chapter Events')

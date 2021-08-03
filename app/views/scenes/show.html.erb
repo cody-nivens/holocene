@@ -1,93 +1,72 @@
 <p id="notice"><%= notice %></p>
 
-<h1>
+<h2>
 <%= breadcrumb(@scene.key_point.scripted.book, @scene.key_point.scripted, @scene.key_point, @scene) %>
-</h1
+</h2>
 
 <p>
-  <strong>ABC:</strong>
-  <%= @scene.abc %>
+  <strong>Time:</strong> <%= @scene.time_to_text %><br/>
+  <strong>ABC:</strong> <%= @scene.abc %><br/>
+  <strong>Check:</strong> <%= @scene.check %><br/>
+  <strong>Scene/Sequel:</strong> <%= (@scene.scene_sequel == 1 ? "Sequel" : "Scene")%><br/>
+  <strong>Selector:</strong> <%= selector_string(@scene.selector) %><br/>
+  <strong>Place:</strong> <%= @scene.place.to_plain_text %><br/>
+  <strong>Word Count:</strong> <%= number_with_delimiter(@scene.word_count, :delimiter => ',') %><br/>
 </p>
-
-<p>
-  <strong>Check:</strong>
-  <%= @scene.check %>
-</p>
-
 <p>
   <%#= @scene.summary.to_plain_text %>
   <%= @scene.summary %>
 </p>
 
-<p>
-  <strong>Place:</strong>
-  <%= @scene.place.to_plain_text %>
-</p>
-
-<p>
-  <strong>Time:</strong>
-  <%= @scene.time_to_text %>
-</p>
-
-<p>
-  <strong>Scene/Sequel:</strong>
-  <%= (@scene.scene_sequel == 1 ? "Sequel" : "Scene")%>
-</p>
-
-
-  <% unless @scene.goal_reaction.blank? %>
+<% unless @scene.goal_reaction.blank? %>
 <p>
   <strong>Goal/Reaction:</strong>
   <%= @scene.goal_reaction %>
 </p>
 <% end %>
 
-  <% unless @scene.conflict_dilemma.blank? %>
+<% unless @scene.conflict_dilemma.blank? %>
 <p>
   <strong>Conflict/Dilemma:</strong>
   <%= @scene.conflict_dilemma %>
 </p>
 <% end %>
 
-  <% unless @scene.disaster_decision.blank? %>
+<% unless @scene.disaster_decision.blank? %>
 <p>
   <strong>Disaster/Decision:</strong>
   <%= @scene.disaster_decision %>
 </p>
 <% end %>
 
-  <% unless @scene.short_term_goal.blank? %>
+<% unless @scene.short_term_goal.blank? %>
 <p>
   <strong>Short term goal:</strong>
   <%= @scene.short_term_goal %>
 </p>
 <% end %>
 
-  <% unless @scene.long_term_goal.blank? %>
+<% unless @scene.long_term_goal.blank? %>
 <p>
   <strong>Long term goal:</strong>
   <%= @scene.long_term_goal %>
 </p>
 <% end %>
 
-  <% unless @scene.over_arching_goal.blank? %>
+<% unless @scene.over_arching_goal.blank? %>
 <p>
   <strong>Over arching goal:</strong>
   <%= @scene.over_arching_goal %>
 </p>
 <% end %>
 
-  <% unless @scene.insert_scene.blank? %>
+<% unless @scene.insert_scene.blank? %>
 <p>
   <strong>Insert Scene:</strong>
   <%= (@scene.insert_scene.nil? ? '' : @scene.insert_scene.full_name) %>
 </p>
 <% end %>
 
-<p>
-  <strong>Selector:</strong>
-  <%= selector_string(@scene.selector) %>
-</p>
 
 <% unless @scene.characters.length == 0 %>
 <p>
@@ -122,7 +101,7 @@
 <% end %>
 </ul>
 <% end %>
-
+<hr/>
 <% unless @scene.section.nil? %>
   <%= raw @scene.section.body %>
 <% end %>

@@ -7,7 +7,7 @@
 <% end %>
 
 <% @slugs = [] -%>
-<% @footnotes = process_body(@chapter, @slugs) -%>
+<% @footnotes = Footnote.process_body(@chapter, @slugs) -%>
 <% if @chapter.aside.nil? -%>
   <%= raw @footnotes[0] %>
 <% else -%>
@@ -27,6 +27,13 @@
 <% @slugs += @footnotes[1] -%>
 
 <% if @chapter.always_display_events? || (@chapter.holocene_events.length != 0  && (@chapter.show_events? && @chapter.scripted.show_events?)) -%>
+  <% @chapter.holocene_events.order(:start_year).each do |he| -%>
+    <% unless he.body.blank? -%>
+      <% @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
+      <% @slugs += @footnotes[1] -%>
+    <% end -%>
+  <% end -%>
+
 <%= render 'holocene_events/index.html', holocene_events: @chapter.holocene_events.order(:start_year).uniq, chapter: @chapter, epub: false, slugs: @slugs %>
 <% end -%>
 
@@ -59,12 +66,19 @@
 <%= link_to 'Footnotes',  section_footnotes_path(:section_id => section.id), :class => "btn btn-default" %>
 </h2>
   <% end %>
-<% @footnotes = process_body(section, @slugs, @footnotes[2]) -%>
+<% @footnotes = Footnote.process_body(section, @slugs, @footnotes[2]) -%>
 
 <% @slugs += @footnotes[1] -%>
 <%= raw @footnotes[0] %>
 
 <% if @chapter.always_display_events? || (section.holocene_events.length != 0 && (@chapter.show_events? && @chapter.scripted.show_events?)) -%>
+  <% section.holocene_events.order(:start_year).each do |he| -%>
+    <% unless he.body.blank? -%>
+      <% @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
+      <% @slugs += @footnotes[1] -%>
+    <% end -%>
+  <% end -%>
+
 <%= render 'holocene_events/index.html', holocene_events: section.holocene_events.order(:start_year).uniq, chapter: @chapter, epub: false, slugs: @slugs %>
 <% end -%>
   <% if section.embed? %>
@@ -74,7 +88,7 @@
 <% end -%>
 
 <% unless @slugs.length == 0 -%>
-<%= raw write_footnotes(@slugs) %>
+<%= raw Footnote.write_footnotes(@slugs) %>
 <% end -%>
 
 
@@ -100,9 +114,11 @@
 <% @footer_content << "#{link_to 'Scenes', polymorphic_path([@scripted, @chapter, :scenes]), :class => "btn btn-default" }" %>
 <% end %>
 <% @footer_content << "#{link_to 'Back',     polymorphic_path([@chapter.scripted,:chapters]), :class => "btn btn-default" }" %>
-<% unless @chapter.position == 0 %>
-<% @footer_content << "#{link_to '<', polymorphic_path([@chapter.scripted, set_prev_chapter(@chapter)]), :class => "btn icon-ok icon-white" }" %>
+<% prev_chapter = @chapter.set_prev %>
+<% unless prev_chapter.nil? %>
+<% @footer_content << "#{link_to '<', polymorphic_path([@chapter.scripted, prev_chapter]), :class => "btn icon-ok icon-white" }" %>
 <% end %>
-<% unless @chapter.position == @chapter.scripted.chapters.length - 1 || @chapter.position == 0 %>
-  <% @footer_content << "#{link_to '>', polymorphic_path([@chapter.scripted, set_next_chapter(@chapter)]), :class => "btn icon-ok icon-white" }" %>
+<% next_chapter = @chapter.set_next %>
+<% unless next_chapter.nil? %>
+  <% @footer_content << "#{link_to '>', polymorphic_path([@chapter.scripted, next_chapter]), :class => "btn icon-ok icon-white" }" %>
 <% end %>

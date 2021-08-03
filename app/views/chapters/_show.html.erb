@@ -15,7 +15,7 @@
 <% end -%>
 <% @notes = notes if @notes.nil? -%>
 <% @slugs = [] -%>
-<% @footnotes = process_body(chapter, @slugs) -%>
+<% @footnotes = Footnote.process_body(chapter, @slugs) -%>
 <% if chapter.aside.nil? -%>
   <%= raw @footnotes[0] %>
 <% else -%>
@@ -30,6 +30,13 @@
     </div>
 <% end -%>
 <% if chapter.holocene_events.length != 0 && ((chapter.show_events? && chapter.scripted.show_events?) || chapter.always_display_events?) -%>
+    <% chapter.holocene_events.order(:start_year).each do |he| -%>
+      <% unless he.body.blank? -%>
+        <% @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
+        <% @slugs += @footnotes[1] -%>
+      <% end -%>
+    <% end -%>
+
   <%= render 'holocene_events/index.html', slugs: @slugs, holocene_events: chapter.holocene_events.order(:start_year).uniq, chapter: chapter, epub: epub  -%>
 <% end -%>
 <% @slugs += @footnotes[1] -%>
@@ -48,7 +55,7 @@
   <% unless section.embed? %>
     <h2<%= raw s %>><%= section.name %></h2>
   <% end %>
-<% @footnotes = process_body(section, @slugs, @footnotes[2]) -%>
+<% @footnotes = Footnote.process_body(section, @slugs, @footnotes[2]) -%>
 <% @slugs += @footnotes[1] -%>
 <%= raw @footnotes[0]  -%>
   <% if section.embed? %>
@@ -56,12 +63,18 @@
     </div>
   <% end %>
 
-<% if section.holocene_events.length != 0 && ((chapter.show_events? && chapter.scripted.show_events?) || chapter.always_display_events?) -%>
-<%= render 'holocene_events/index.html', slugs: @slugs, holocene_events: section.holocene_events.order(:start_year).uniq, chapter: chapter, epub: epub -%>
-<% end -%>
+  <% if section.holocene_events.length != 0 && ((chapter.show_events? && chapter.scripted.show_events?) || chapter.always_display_events?) -%>
+    <% section.holocene_events.order(:start_year).each do |he| -%>
+      <% unless he.body.blank? -%>
+        <% @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
+        <% @slugs += @footnotes[1] -%>
+      <% end -%>
+    <% end -%>
+
+    <%= render 'holocene_events/index.html', slugs: @slugs, holocene_events: section.holocene_events.order(:start_year).uniq, chapter: chapter, epub: epub -%>
+  <% end -%>
 <% end -%>
 
 <% unless @slugs.length == 0 -%>
-<%# @notes[chapter.id] =  write_footnotes(@slugs) -%>
-<%= raw write_footnotes(@slugs) -%>
+<%= raw Footnote.write_footnotes(@slugs) -%>
 <% end -%>

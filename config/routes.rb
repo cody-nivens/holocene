@@ -51,6 +51,7 @@ Rails.application.routes.draw do
   get "/stories/:id/resync_scenes", to: "stories#resync_scenes", as: :story_resync_scenes
   get "/stories/:story_id/key_points/:id/list", to: "key_points#list", as: :story_key_point_list
   post "/stories/:story_id/key_points/:id/add", to: "key_points#add", as: :story_key_point_add
+  get "/stories/:story_id/character/:id/lineage", to: "characters#lineage", as: :story_character_lineage
 
 #  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users

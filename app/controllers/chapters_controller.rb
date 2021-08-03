@@ -13,8 +13,12 @@ class ChaptersController < ApplicationController
   def demote
     @scripted = @chapter.scripted
 
-    @prev_chapter = set_prev_chapter(@chapter)
+    @prev_chapter = @chapter.set_prev
     position = 0
+
+    if @prev_chapter.nil?
+      @prev_chapter = @chapter
+    end
 
     @prev_chapter.sections.order(:position).each do |section|
       section.update({:position => position})
@@ -50,8 +54,13 @@ class ChaptersController < ApplicationController
     @section = Section.find(params[:section_id])
     @scripted = @chapter.scripted
 
-    @next_chapter = set_next_chapter(@chapter)
+    @next_chapter = @chapter.set_next
     position = 0
+
+    if @next_chapter.nil?
+      @next_chapter = @chapter
+    end
+
 
     @scripted.chapters.where("position > ?",@next_chapter.position).order(:position).each do |chapter|
       chapter.update({:position => position})
