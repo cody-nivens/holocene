@@ -10,12 +10,6 @@ class AsidesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-
-  test "visiting the Aside index" do
-    visit chapter_asides_url(@chapter)
-    assert_selector "h1", text: "Asides"
-  end
-
   test "creating an Aside" do
     visit chapter_asides_url(@chapter_3)
     click_on "New Aside"
@@ -38,38 +32,5 @@ class AsidesTest < ApplicationSystemTestCase
 
     assert_text "can't be blank"
     click_on "Back"
-  end
-
-  test "updating a Aside" do
-    visit chapter_asides_url(@chapter)
-    click_on "Edit", match: :first
-
-    fill_in "Name", with: @aside.name
-    fill_in_rich_text_area "aside_body", with: "Test 1"
-    click_on "Update Aside"
-
-    assert_text "Aside was successfully updated"
-    click_on "Back"
-  end
-
-  test "not updating a Aside" do
-    visit chapter_asides_url(@chapter)
-    click_on "Edit", match: :first
-
-    fill_in "Name", with: ""
-    fill_in_rich_text_area "aside_body", with: "Test 1"
-    click_on "Update Aside"
-
-    assert_text "can't be blank"
-    click_on "Back"
-  end
-
-  test "destroying a Aside" do
-    visit chapter_asides_url(@chapter)
-    page.accept_confirm do
-      click_on "Destroy", match: :first
-    end
-
-    assert_text "Aside was successfully destroyed"
   end
 end

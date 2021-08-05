@@ -4,16 +4,17 @@ class CharactersTest < ApplicationSystemTestCase
   setup do
     @character = characters(:character_1)
     @book = @character.books[0]
+    @story = @book.stories.last
+    @key_point = @story.key_points.last
+    @scene = @key_point.scenes.last
+    @situated = @scene.situated
+
     @user = users(:users_1)
     sign_in @user
   end
 
-  test "visiting the Character index" do
-    visit book_characters_url(:book_id => @book.id)
-    assert_selector "h1", text: "Characters"
-  end
-
-  test "visiting the Character index for ethnicity" do
+  if 1 == 0
+  test "visiting the Character index for ethnicity tab" do
     visit book_characters_url(:book_id => @book.id)
     assert_selector "h1", text: "Characters"
     click_on "Ethnicity"
@@ -38,7 +39,7 @@ class CharactersTest < ApplicationSystemTestCase
     assert_text "Counsel"
   end
 
-  test "visiting the Character index for occupation class" do
+  test "visiting the Character index for occupation class tab" do
     visit books_url
     assert_link "The Phantom"
     click_on "The Phantom"
@@ -46,80 +47,111 @@ class CharactersTest < ApplicationSystemTestCase
     click_on "Educated"
   end
 
-  test "visiting the Character list" do
-    visit book_characters_url(:book_id => @book.id)
-    assert_selector "h1", text: "Characters"
-    click_on "Add/Remove Character"
-    select "Jim", from: "characters_avail"
-    click_on "Save"
-    select "John", from: "characters_ids"
-    click_on "Save"
-  end
+  test "creating a Character for book" do
+    assert_difference('Character.count') do
+      assert_difference('@book.characters.count') do
 
-  test "visiting the Character show" do
-    visit book_character_url(:book_id => @book.id, :id => @character.id)
-  end
+        visit book_characters_url(:book_id => @book.id)
+        click_on "New Character"
 
-  test "visiting the Character lineage" do
-    visit book_character_url(:book_id => @book.id, :id => @character.id)
-    assert_text "Lineage"
-    click_on "Lineage"
-  end
 
-test "creating a Character" do
-    count = 0
-    1.upto(100) do |i|
-      count += 1
-      if count == 10
-        putc "!"
-        count = 0
+        assert_equal "", find_field("Birth year").value
+        assert_equal "", find_field("Death year").value
+        fill_in "age", with: 25
+        fill_in "year", with: 2021
+        fill_in "death_age", with: 89
+        fill_in "Occupation class", with: @character.occupation_class
+        assert_equal "1996", find_field("Birth year").value
+        assert_equal "2085", find_field("Death year").value
+
+        fill_in "Reason for name", with: @character.reason_for_name
+        fill_in "Reason for nickname", with: @character.reason_for_nickname
+        fill_in "Social class", with: @character.social_class
+
+        click_on "submit"
+
+        assert_text "Character was successfully created"
+        #click_on "Attributes", match: :first
+        assert_text @character.occupation_class
+        click_on "Back"
       end
-      visit book_characters_url(:book_id => @book.id)
-      click_on "New Character"
+    end
+  end
+  end
 
-      #fill_in "First name", with: @character.first_name
-      #fill_in "Middle name", with: @character.middle_name
-      #fill_in "Last name", with: @character.last_name
-      fill_in "Nickname", with: @character.nickname
-      fill_in "Occupation class", with: @character.occupation_class
-      #fill_in "Race", with: race
-      fill_in "Reason for name", with: @character.reason_for_name
-      fill_in "Reason for nickname", with: @character.reason_for_nickname
-      fill_in "Social class", with: @character.social_class
-      #fill_in "physical appearance_hair color_value", with: "Blond"
-      click_on "submit"
+  test "creating a Character for story" do
+    assert_difference('Character.count') do
+      assert_difference('@book.characters.count') do
+        assert_difference('@story.characters.count') do
 
-      assert_text "Character was successfully created"
-      #click_on "Attributes", match: :first
-      assert_text @character.occupation_class
-      click_on "Back"
+          visit story_characters_url(:story_id => @story.id)
+          click_on "Add/Remove Characters"
+          assert_text "New Character"
+          click_on "New Character"
+
+
+          assert_equal "", find_field("Birth year").value
+          assert_equal "", find_field("Death year").value
+          fill_in "age", with: 25
+          fill_in "year", with: 2021
+          fill_in "death_age", with: 89
+          fill_in "Occupation class", with: @character.occupation_class
+          assert_equal "1996", find_field("Birth year").value
+          assert_equal "2085", find_field("Death year").value
+
+          fill_in "Reason for name", with: @character.reason_for_name
+          fill_in "Reason for nickname", with: @character.reason_for_nickname
+          fill_in "Social class", with: @character.social_class
+
+          click_on "submit"
+
+          assert_text "Character was successfully created"
+          #click_on "Attributes", match: :first
+          assert_text @character.occupation_class
+          click_on "Back"
+        end
+      end
     end
   end
 
-  test "creating a Character 2" do
-    visit book_characters_url(:book_id => @book.id)
+  if 1 == 0
+  test "creating a Character for scene" do
+    assert_difference('Character.count') do
+      assert_difference('@book.characters.count') do
+        assert_difference('@story.characters.count') do
+          assert_difference('@scene.characters.count') do
 
-    Character.stubs(:gen_race).returns("Mixed")
+            visit polymorphic_url([@situated, @scene])
 
-    click_on "New Character"
+            click_on "Characters"
+            assert_text "Add/Remove Character"
+            click_on "Add/Remove Character"
+            assert_text "New Character"
+            click_on "New Character"
 
-    #fill_in "First name", with: @character.first_name
-    #fill_in "Middle name", with: @character.middle_name
-    #fill_in "Last name", with: @character.last_name
-    fill_in "Nickname", with: @character.nickname
-    fill_in "Occupation class", with: @character.occupation_class
-    #fill_in "Race", with: @character.race
-    fill_in "Reason for name", with: @character.reason_for_name
-    fill_in "Reason for nickname", with: @character.reason_for_nickname
-    fill_in "Social class", with: @character.social_class
-    #fill_in "physical appearance_hair color_value", with: "Blond"
+            assert_equal "", find_field("Birth year").value
+            assert_equal "", find_field("Death year").value
+            fill_in "age", with: 25
+            fill_in "year", with: 2021
+            fill_in "death_age", with: 89
+            fill_in "Occupation class", with: @character.occupation_class
+            assert_equal "1996", find_field("Birth year").value
+            assert_equal "2085", find_field("Death year").value
 
-    click_on "submit"
+            fill_in "Reason for name", with: @character.reason_for_name
+            fill_in "Reason for nickname", with: @character.reason_for_nickname
+            fill_in "Social class", with: @character.social_class
 
-    assert_text "Character was successfully created"
-    #click_on "Attributes", match: :first
-    assert_text @character.occupation_class
-    click_on "Back"
+            click_on "submit"
+
+            assert_text "Character was successfully created"
+            #click_on "Attributes", match: :first
+            assert_text @character.occupation_class
+            click_on "Back"
+          end
+        end
+      end
+    end
   end
 
   test "not creating a Character" do
@@ -140,52 +172,5 @@ test "creating a Character" do
     assert_text "First name\ncan't be blank"
     click_on "Back"
   end
-
-  test "updating a Character" do
-    visit book_characters_url(:book_id => @book.id)
-    click_on "Edit", match: :first
-
-    fill_in "First name", with: @character.first_name
-    fill_in "Middle name", with: @character.middle_name
-    fill_in "Last name", with: @character.last_name
-    fill_in "Nickname", with: @character.nickname
-    fill_in "Occupation class", with: @character.occupation_class
-    fill_in "Race", with: @character.race
-    fill_in "Reason for name", with: @character.reason_for_name
-    fill_in "Reason for nickname", with: @character.reason_for_nickname
-    fill_in "Social class", with: @character.social_class
-    fill_in "gender_gender_value", with: "---"
-    click_on "submit"
-    assert_text "Attributes"
-    click_on "Attributes", match: :first
-    assert_no_text "Straight"
-
-    click_on "Back"
-  end
-
-  test "not updating a Character" do
-    visit book_characters_url(:book_id => @book.id)
-    click_on "Edit", match: :first
-
-    fill_in "First name", with: ""
-    fill_in "Nickname", with: @character.nickname
-    fill_in "Occupation class", with: @character.occupation_class
-    fill_in "Race", with: @character.race
-    fill_in "Reason for name", with: @character.reason_for_name
-    fill_in "Reason for nickname", with: @character.reason_for_nickname
-    fill_in "Social class", with: @character.social_class
-    click_on "submit"
-
-    assert_text "First name\ncan't be blank"
-    click_on "Back"
-  end
-
-  test "destroying a Character" do
-    visit book_characters_url(:book_id => @book.id)
-    page.accept_confirm do
-      click_on "Delete", match: :first
-    end
-
-    assert_text "Character was successfully destroyed"
-  end
+end
 end

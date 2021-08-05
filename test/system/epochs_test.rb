@@ -62,43 +62,4 @@ class EpochsTest < ApplicationSystemTestCase
     assert_text "Epoch was successfully created"
     click_on "Back"
   end
-
-  test "updating a Epoch" do
-    visit epochs_url
-    click_on "Edit", match: :first
-
-    fill_in "End date", with: @epoch.end_date
-    fill_in "Name", with: @epoch.name
-    fill_in "Start date", with: @epoch.start_date
-    click_on "Update Epoch"
-
-    assert_text "Epoch was successfully updated"
-    click_on "Back"
-  end
-
-  test "should not update a Epoch" do
-    visit epochs_url
-    click_on "Edit", match: :first
-
-    fill_in "End date", with: @epoch.end_date
-    fill_in "Name", with: ""
-    fill_in "Start date", with: @epoch.start_date
-    click_on "Update Epoch"
-
-    assert_text "can't be blank"
-
-    fill_in "Name", with: @epoch.name
-    click_on "Update Epoch"
-    assert_text "Epoch was successfully updated"
-    click_on "Back"
-  end
-
-  test "destroying a Epoch" do
-    visit epochs_url
-    page.accept_confirm do
-      click_on "Destroy", match: :first
-    end
-
-    assert_text "Epoch was successfully destroyed"
-  end
 end

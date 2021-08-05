@@ -8,11 +8,6 @@ class CharacterAttributesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the Character attribute index" do
-    visit character_attributes_url(:character_category_id => @character_category.id)
-    assert_selector "h1", text: "Character Attributes"
-  end
-
   test "creating a Character attribute" do
     visit character_attributes_url(:character_category_id => @character_category.id)
     click_on "New Character Attribute"
@@ -34,38 +29,5 @@ class CharacterAttributesTest < ApplicationSystemTestCase
 
     assert_text "Please review the problems below:"
     click_on "Back"
-  end
-
-  test "updating a Character attribute" do
-    visit character_attributes_url(:character_category_id => @character_category.id)
-    click_on "Edit", match: :first
-
-    fill_in "Name", with: @character_attribute.name
-    fill_in "Related", with: @character_attribute.related_id
-    click_on "Update Character attribute"
-
-    assert_text "Character attribute was successfully updated"
-    click_on "Back"
-  end
-
-  test "not updating a Character attribute" do
-    visit character_attributes_url(:character_category_id => @character_category.id)
-    click_on "Edit", match: :first
-
-    fill_in "Name", with: ""
-    fill_in "Related", with: @character_attribute.related_id
-    click_on "Update Character attribute"
-
-    assert_text "Please review the problems below:"
-    click_on "Back"
-  end
-
-  test "destroying a Character attribute" do
-    visit character_attributes_url(:character_category_id => @character_category.id)
-    page.accept_confirm do
-      click_on "Destroy", match: :first
-    end
-
-    assert_text "Character attribute was successfully destroyed"
   end
 end

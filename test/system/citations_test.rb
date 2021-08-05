@@ -8,11 +8,6 @@ class CitationsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the Citation index" do
-    visit citations_index_url(:chapter_id => @chapter.id)
-    assert_selector "h1", text: "Citations"
-  end
-
   test "updating a Citation" do
     visit citations_index_url(:chapter_id => @chapter.id)
     assert_text "Medieval"

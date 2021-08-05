@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   post "/scenes/:id/moved", to: "scenes#moved", as: :scene_moved
   post "/scenes/:scene_id/characters/add", to: "characters#add", as: :scene_characters_add
   get "/scenes/:scene_id/characters/list", to: "characters#list", as: :scene_characters_list
+  get "/scenes/:scene_id/character/:id/lineage", to: "characters#lineage", as: :scene_character_lineage
 
   get "/stories/:story_id/key_points/:id/move", to: "key_points#move", as: :story_key_point_move
   post "/stories/:story_id/key_points/:id/moved", to: "key_points#moved", as: :story_key_point_moved

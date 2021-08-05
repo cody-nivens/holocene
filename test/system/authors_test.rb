@@ -8,13 +8,6 @@ class AuthorsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the Authors index" do
-    visit book_authors_url(@book)
-    assert_selector "h1", text: "Authors"
-    assert_link "New Author"
-    assert_no_text "link_to"
-  end
-
   test "Adding an Author" do
     visit book_authors_url(@book)
     assert_selector "h1", text: "Authors"
@@ -59,43 +52,5 @@ class AuthorsTest < ApplicationSystemTestCase
 
     assert_text "Author was successfully created"
     click_on "Back"
-  end
-
-  test "updating an Author" do
-    visit book_authors_url(@book)
-    click_on "Edit", match: :first
-
-    fill_in "First name", with: @author.first_name
-    fill_in "Last name", with: @author.last_name
-    click_on "Update Author"
-
-    assert_text "Author was successfully updated"
-    click_on "Back"
-  end
-
-  test "should not update an Author" do
-    visit book_authors_url(@book)
-    click_on "Edit", match: :first
-
-    fill_in "First name", with: ""
-    fill_in "Last name", with: @author.last_name
-    click_on "Update Author"
-
-    assert_text "can't be blank"
-
-    fill_in "First name", with: @author.first_name
-    click_on "Update Author"
-
-    assert_text "Author was successfully updated"
-    click_on "Back"
-  end
-
-  test "destroying a Author" do
-    visit book_authors_url(@book)
-    page.accept_confirm do
-      click_on "Destroy", match: :first
-    end
-
-    assert_text "Author was successfully destroyed"
   end
 end

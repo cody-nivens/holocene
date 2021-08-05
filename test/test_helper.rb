@@ -1,5 +1,6 @@
 require 'simplecov'
-SimpleCov.start :rails  unless ENV["NO_COVERAGE"]
+SimpleCov.start :rails
+#SimpleCov.start :rails  unless ENV["NO_COVERAGE"]
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'

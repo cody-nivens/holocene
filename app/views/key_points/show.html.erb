@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 <h2>
-<%= breadcrumb((@scripted.class.name == "Book" ? @scripted : @scripted.book), @scripted, @key_point) %>
+<%= breadcrumb((@scripted.class.name == "Book" ? @scripted : (@scripted.class.name == "Chapter" ? @scripted.scripted : @scripted.book)), @scripted, @key_point) %>
 </h2>
 
 <p>

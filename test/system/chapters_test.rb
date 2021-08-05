@@ -16,12 +16,6 @@ class ChaptersTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
-  test "visiting the Chapters index" do
-    visit polymorphic_url([@scripted, :chapters])
-    assert_link "New Chapter"
-    assert_no_text "link_to"
-  end
-
   test "demoting a chapter" do
     visit polymorphic_url([@scripted, :chapters])
     Capybara.page.find('.fa-level-down', match: :first).click
@@ -30,15 +24,6 @@ class ChaptersTest < ApplicationSystemTestCase
   test "promoting a chapter" do
     visit polymorphic_url([@scripted, :chapters])
     Capybara.page.find('.fa-level-up', match: :first).click
-  end
-
-  test "visiting a chapter" do
-    visit polymorphic_url([@scripted,@chapter])
-    assert_link "Partition"
-    within(".footer") do
-      assert_link "Back"
-      click_on "Back"
-    end
   end
 
   test "visiting the timeline" do
@@ -128,47 +113,5 @@ class ChaptersTest < ApplicationSystemTestCase
     assert_text "Chapter was successfully created"
 
     click_on "Back"
-  end
-
-  test "updating a Chapter" do
-    visit polymorphic_url([@scripted, :chapters])
-    within(:xpath, "//a[text()='Cultural Events ']/../../..") do
-      Capybara.page.find(:xpath,'(//a[contains(@href,"chapters")][contains(@href,"edit")])[2]').click
-    end
-
-    fill_in "Name", with: @chapter.name
-    fill_in_rich_text_area "chapter_body", with: @chapter.body
-
-    click_on "Update Chapter"
-
-    assert_text "Chapter was successfully updated"
-    click_on "Back", match: :first
-  end
-
-  test "should not update a Chapter" do
-    visit polymorphic_url([@scripted, :chapters])
-    within(:xpath, "//a[text()='Cultural Events ']/../../..") do
-      Capybara.page.find(:xpath,'(//a[contains(@href,"chapters")][contains(@href,"edit")])[2]').click
-    end
-
-    fill_in "Name", with: ""
-    click_on "Update"
-
-    assert_text "can't be blank"
-
-    fill_in "Name", with: @chapter.name
-    click_on "Update Chapter"
-
-    assert_text "Chapter was successfully updated"
-    click_on "Back", match: :first
-  end
-
-  test "destroying a Chapter" do
-    visit polymorphic_url([@scripted, :chapters])
-    page.accept_confirm do
-      click_on "Destroy", match: :first
-    end
-
-    assert_text "Chapter was successfully destroyed"
   end
 end

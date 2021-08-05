@@ -83,7 +83,6 @@ scene_8:
   selector: 2
   position: 2
 
-
 scene_9:
   abc: A00009
   check: false
@@ -93,12 +92,12 @@ scene_9:
   selector: 0
 
 
-#scene_10:
-#  abc: A00010
-#  check: false
-#  time: 99.0
-#  scene_sequel: 1
-#  situated: story_2 (Story)
-#  key_point: key_point_1
-#  selector: 1
-#  position: 2
+scene_10:
+  abc: A00010
+  check: false
+  time: 99.0
+  scene_sequel: 1
+  situated: story_1 (Story)
+  key_point: key_point_9
+  selector: 1
+  position: 2

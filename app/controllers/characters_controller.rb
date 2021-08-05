@@ -84,6 +84,17 @@ class CharactersController < ApplicationController
   def list
   end
 
+  def update_character_lists(object,character)
+    object.characters << character unless object.characters.include?(character)
+    case object.class.name
+    when "Story"
+      object.book.characters << character unless object.book.characters.include?(character)
+    when "Scene"
+      object.key_point.scripted.book.characters << character unless object.key_point.scripted.book.characters.include?(character)
+      object.key_point.scripted.characters << character unless object.key_point.scripted.characters.include?(character)
+    end
+  end
+
   # GET /characters/1/add
   def add
     characters_avail = params[:characters_avail]
@@ -93,9 +104,7 @@ class CharactersController < ApplicationController
       characters_avail.each do |character_id|
         next if character_id.blank?
         character = Character.find(character_id)
-        @object.characters << character unless @object.characters.include?(character)
-        @object.book.characters << character if @object.class.name != 'Book' && @object.class.name != 'Scene' && !@object.book.characters.include?(character)
-        @object.key_point.scripted.book.characters << character if @object.class.name == 'Scene' && !@object.key_point.scripted.book.characters.include?(character)
+        update_character_lists(@object,character)
       end
     end
 
@@ -119,23 +128,23 @@ class CharactersController < ApplicationController
 
   def update_values
     CharacterCategory.all.each do |category|
-  character_values = @character.character_values.joins(:character_attribute).order(:name).where("character_category_id = ?", category.id)
-    character_attributes = category.character_attributes
-       character_attributes.each do |character_attribute|
-         character_value = character_values.where(character_attribute_id: character_attribute.id)[0]
-         field_name = "#{category.name.underscore}_#{character_attribute.name.underscore}_value".to_sym
+      character_values = @character.character_values.joins(:character_attribute).order(:name).where("character_category_id = ?", category.id)
+      character_attributes = category.character_attributes
+      character_attributes.each do |character_attribute|
+        character_value = character_values.where(character_attribute_id: character_attribute.id)[0]
+        field_name = "#{category.name.underscore}_#{character_attribute.name.underscore}_value".to_sym
 
-         if !attribute_params[field_name].blank?
-           if attribute_params[field_name] == "---"
-             update_value = CharacterValue.where({:character_attribute_id => character_attribute.id, :character_id => @character.id }).first_or_create
-             update_value.destroy
-           else
-             update_value = CharacterValue.where({:character_attribute_id => character_attribute.id, :character_id => @character.id }).first_or_create
-             update_value.value = attribute_params[field_name]
-             update_value.save
-           end
-         end
-       end
+        if !attribute_params[field_name].blank?
+          if attribute_params[field_name] == "---"
+            update_value = CharacterValue.where({:character_attribute_id => character_attribute.id, :character_id => @character.id }).first_or_create
+            update_value.destroy
+          else
+            update_value = CharacterValue.where({:character_attribute_id => character_attribute.id, :character_id => @character.id }).first_or_create
+            update_value.value = attribute_params[field_name]
+            update_value.save
+          end
+        end
+      end
     end
   end
 
@@ -145,14 +154,10 @@ class CharactersController < ApplicationController
 
     @character = Character.new(character_params)
 
-       #   "#{category.name.underscore}_#{character_attribute.name.underscore}_value".to_sym, value: (character_value.nil? ? '' :character_value.value), hide_label: true 
-
     respond_to do |format|
       if @character.save
         update_values
-        @object.characters << @character
-        @object.key_point.scripted.book.characters << @character if @object.class.name == 'Scene' && !@object.key_point.scripted.book.characters.include?(@character)
-        @object.key_point.scripted.characters << @character if @object.class.name == 'Scene' && !@object.key_point.scripted.characters.include?(@character)
+        update_character_lists(@object,@character)
 
         format.html { redirect_to polymorphic_path([@object, @character]), notice: 'Character was successfully created.' }
         format.json { render :show, status: :created, location: @character }

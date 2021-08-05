@@ -8,13 +8,6 @@ class BiblioentriesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the Biblioentries index" do
-      visit book_biblioentries_url(@book)
-    assert_selector "h1", text: "Biblioentries"
-    assert_link "New Biblioentry"
-    assert_no_text "link_to"
-  end
-
   test "creating a Biblioentry" do
       visit book_biblioentries_url(@book)
     click_on "New Biblioentry"
@@ -47,48 +40,5 @@ class BiblioentriesTest < ApplicationSystemTestCase
     click_on "Create Biblioentry"
     assert_text "Biblioentry was successfully created"
     click_on "Back"
-  end
-
-  test "updating a Biblioentry" do
-    visit book_biblioentries_url(@book)
-    click_on "Edit", match: :first
-
-    fill_in "Copyright holder", with: @biblioentry.copyright_holder
-    fill_in "Copyright year", with: @biblioentry.copyright_year
-    fill_in "Name", with: @biblioentry.name
-    fill_in "Publisher", with: @biblioentry.publisher
-    fill_in "Xreflabel", with: @biblioentry.xreflabel
-    click_on "Update Biblioentry"
-
-    assert_text "Biblioentry was successfully updated"
-    click_on "Back"
-  end
-
-  test "should not update a Biblioentry" do
-      visit book_biblioentries_url(@book)
-    click_on "Edit", match: :first
-
-    fill_in "Copyright holder", with: @biblioentry.copyright_holder
-    fill_in "Copyright year", with: @biblioentry.copyright_year
-    fill_in "Name", with: ""
-    fill_in "Publisher", with: @biblioentry.publisher
-    fill_in "Xreflabel", with: @biblioentry.xreflabel
-    click_on "Update Biblioentry"
-
-    assert_text "can't be blank"
-
-    fill_in "Name", with: @biblioentry.name
-    click_on "Update Biblioentry"
-    assert_text "Biblioentry was successfully updated"
-    click_on "Back"
-  end
-
-  test "destroying a Biblioentry" do
-      visit book_biblioentries_url(@book)
-    page.accept_confirm do
-      click_on "Destroy", match: :first
-    end
-
-    assert_text "Biblioentry was successfully destroyed"
   end
 end

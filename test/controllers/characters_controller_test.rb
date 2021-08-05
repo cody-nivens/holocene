@@ -100,7 +100,21 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Character.count') do
       assert_difference('@book.characters.count') do
         assert_difference('@story.characters.count') do
-          post scene_characters_url(:scene_id => @scene.id), params: { character: { first_name: @character.first_name, nickname: @character.nickname, occupation_class: @character.occupation_class, race: @character.race, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, social_class: @character.social_class } }
+          post story_characters_url(:story_id => @story.id), params: { character: { first_name: @character.first_name, nickname: @character.nickname, occupation_class: @character.occupation_class, race: @character.race, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, social_class: @character.social_class } }
+        end
+      end
+    end
+
+    assert_redirected_to story_character_url(:story_id => @story.id, :id => Character.last.id)
+  end
+
+  test "should create character 3" do
+    assert_difference('Character.count') do
+      assert_difference('@book.characters.count') do
+        assert_difference('@story.characters.count') do
+          assert_difference('@scene.characters.count') do
+            post scene_characters_url(:scene_id => @scene.id), params: { character: { first_name: @character.first_name, nickname: @character.nickname, occupation_class: @character.occupation_class, race: @character.race, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, social_class: @character.social_class } }
+          end
         end
       end
     end
