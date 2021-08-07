@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :metrics, :only => [:index, :show]
   concern :sectioned do |options|
      resources :chapters, options
      resources :scenes, options
@@ -110,6 +111,7 @@ Rails.application.routes.draw do
   get "welcome/index"
   get "welcome/stats"
   get "/stats", to: "welcome#stats"
+  get "/tags", to: "welcome#tags", as: :welcome_tags
   resources :holocene_events
   resources :regions
   resources :event_types

@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Metrics</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Count</th>
+      <th>Date</th>
+      <th>User</th>
+      <th>Metrized</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @metrics.each do |metric| %>
+      <tr>
+        <td><%= metric.count %></td>
+        <td><%= metric.date %></td>
+        <td><%= metric.user_id %></td>
+        <td><%= metric.metrized_id %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

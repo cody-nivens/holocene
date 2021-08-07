@@ -1,0 +1,12 @@
+<!-- erb: paste this in view -->
+<%#= react_component("HelloWorld", { greeting: "Hello from react-rails.", info: { name: "react-rails" } }, { class: "hello-world" }) %>
+
+
+<div id='tag_cloud'>
+  <% tag_cloud HoloceneEvent.where(user_id: current_user.id).tag_counts, %w{s m l} do |tag, css_class| %>
+    <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+  <% end %>
+</div>
+
+<hr/>
+<%= link_to "Stats", welcome_stats_path %>

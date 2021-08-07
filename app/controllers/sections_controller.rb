@@ -34,6 +34,7 @@ class SectionsController < ApplicationController
 
     respond_to do |format|
       if @section.save
+        update_metrics
         format.html { redirect_to polymorphic_path([@sectioned, @section]), notice: 'Section was successfully created.' }
         format.json { render :show, status: :created, location: @section }
       else
@@ -48,6 +49,7 @@ class SectionsController < ApplicationController
   def update
     respond_to do |format|
       if @section.update(section_params)
+        update_metrics
         format.html { redirect_to polymorphic_path([@sectioned,@section]), notice: 'Section was successfully updated.' }
         format.json { render :show, status: :ok, location: @section }
       else
@@ -82,6 +84,16 @@ class SectionsController < ApplicationController
       #end
     end
 
+    def update_metrics
+      metric = Metric.where(user_id: current_user.id, date: Date.today, metrized_id: @section.id, metrized_type: "Section")[0]
+      if metric.nil?
+        metric = Metric.new
+        metric.metrized = @section
+        metric.user_id = current_user.id
+      end
+      metric.count = @section.word_count
+      metric.save
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def section_params

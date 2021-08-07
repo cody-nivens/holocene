@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_25_134516) do
+ActiveRecord::Schema.define(version: 2021_08_06_134006) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -340,6 +340,18 @@ ActiveRecord::Schema.define(version: 2021_07_25_134516) do
     t.index ["scripted_type", "scripted_id"], name: "index_key_points_on_scripted_type_and_scripted_id"
   end
 
+  create_table "metrics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "count"
+    t.datetime "date"
+    t.bigint "user_id", null: false
+    t.string "metrized_type", null: false
+    t.bigint "metrized_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["metrized_type", "metrized_id"], name: "index_metrics_on_metrized_type_and_metrized_id"
+    t.index ["user_id"], name: "index_metrics_on_user_id"
+  end
+
   create_table "namers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.boolean "first_name", default: false
@@ -494,4 +506,5 @@ ActiveRecord::Schema.define(version: 2021_07_25_134516) do
   add_foreign_key "character_attributes", "character_categories"
   add_foreign_key "character_values", "character_attributes"
   add_foreign_key "character_values", "characters"
+  add_foreign_key "metrics", "users"
 end

@@ -1,12 +1,62 @@
-<!-- erb: paste this in view -->
-<%#= react_component("HelloWorld", { greeting: "Hello from react-rails.", info: { name: "react-rails" } }, { class: "hello-world" }) %>
-
-
-<div id='tag_cloud'>
-  <% tag_cloud HoloceneEvent.where(user_id: current_user.id).tag_counts, %w{s m l} do |tag, css_class| %>
-    <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+<% unless @today_mod_sections.empty? %>
+<h2>Today's Modifications</h2>
+<ul>
+  <% @today_mod_sections.order(:updated_at).each do |section| %>
+    <% values = section.set_values %>
+    <li><%= breadcrumb(values[0], values[1], values[2], values[3]) %></li>
   <% end %>
-</div>
+</ul>
+<% end %>
 
+<% unless @today_create_sections.empty? %>
+<h2>Today's Creations</h2>
+<ul>
+  <% @today_create_sections.order(:updated_at).each do |section| %>
+    <% values = section.set_values %>
+    <li><%= breadcrumb(values[0], values[1], values[2], values[3]) %></li>
+  <% end %>
+</ul>
+<% end %>
+
+<% unless @yesterday_mod_sections.empty? %>
+<h2>Yesterday's Modifications</h2>
+<ul>
+  <% @yesterday_mod_sections.order(:updated_at).each do |section| %>
+    <% values = section.set_values %>
+    <li><%= breadcrumb(values[0], values[1], values[2], values[3]) %></li>
+  <% end %>
+</ul>
+<% end %>
+
+<h2>Yesterday's Creations</h2>
+<% unless @yesterday_create_sections.empty? %>
+<ul>
+  <% @yesterday_create_sections.order(:updated_at).each do |section| %>
+    <% values = section.set_values %>
+    <li><%= breadcrumb(values[0], values[1], values[2], values[3]) %></li>
+  <% end %>
+</ul>
+<% end %>
+
+<% unless @last_week_mod_sections.empty? %>
+<h2>Last Week's Modifications</h2>
+<ul>
+  <% @last_week_mod_sections.order(:updated_at).each do |section| %>
+    <% values = section.set_values %>
+    <li><%= breadcrumb(values[0], values[1], values[2], values[3]) %></li>
+  <% end %>
+</ul>
+<% end %>
+
+<h2>Last Week's Creations</h2>
+<% unless @last_week_create_sections.empty? %>
+<ul>
+  <% @last_week_create_sections.order(:updated_at).each do |section| %>
+    <% values = section.set_values %>
+    <li><%= breadcrumb(values[0], values[1], values[2], values[3]) %></li>
+  <% end %>
+</ul>
+<% end %>
 <hr/>
 <%= link_to "Stats", welcome_stats_path %>
+<%= link_to "Tags", welcome_tags_path %>

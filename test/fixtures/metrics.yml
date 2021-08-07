@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+metric_1:
+  count: 1
+  date: <%= Date.yesterday %>
+  user: users_1
+  metrized: section_1 (Section)
+
+metric_2:
+  count: 1
+  date: <%= Date.today %>
+  user: users_1
+  metrized: section_2 (Section)

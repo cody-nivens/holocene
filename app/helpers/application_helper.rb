@@ -4,11 +4,19 @@ module ApplicationHelper
     str = my_link_to(book.name,book_path(:id => book.id))
     unless story.nil?
       str += " | "
+      if story.class.name == "Story"
       str += my_link_to(story.name,book_story_path(:book_id => book.id, :id => story.id))
+      else
+      str += my_link_to(story.name,book_chapter_path(:book_id => book.id, :id => story.id))
+      end
     end
     unless key_point.nil?
       str += " | "
       str += my_link_to(key_point.hook,story_key_point_path(:story_id => story.id, :id => key_point.id))
+    end
+    unless scene.nil?
+      str += " | "
+      str += my_link_to(scene.name,scene_path(:id => scene.id))
     end
     return str
   end
