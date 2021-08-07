@@ -65,7 +65,6 @@ group :development do
   gem 'guard-minitest'
   #gem 'guard-spring'
   gem 'guard-rails'
-  gem 'rails-erd', require: false
 end
 
 group :test do
