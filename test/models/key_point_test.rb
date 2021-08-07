@@ -1,6 +1,11 @@
 require 'test_helper'
 
 class KeyPointTest < ActiveSupport::TestCase
+  test "scene_count" do
+    key_point = key_points(:key_point_1)
+    assert_not_equal 0, key_point.scene_count
+  end
+
   test "set_next 1" do
     key_point = key_points(:key_point_1)
     next_key_point = key_point.set_next
