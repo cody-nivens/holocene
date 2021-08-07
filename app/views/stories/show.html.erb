@@ -11,14 +11,17 @@
 </p>
 
 
-<p>
-<strong>Scene Character:</strong> <%= @story.scene_character %><br/>
-<strong>Characters:</strong> <%= @story.characters.count %><br/>
-<strong>Print Summary?:</strong> <%= (@story.print_summary? ? 'True' : 'False') %><br/>
-<strong>Publish?:</strong> <%= (@story.publish? ? 'True' : 'False') %><br/>
-<strong>Stand Alone?:</strong> <%= (@story.stand_alone? ? 'True' : 'False') %><br/>
-<strong>Word Count:</strong> <%= number_with_delimiter(@story.word_count, :delimiter => ',') %><br/>
-</p>
+<table>
+  <tr><th>Scene Character:</th><td><%= @story.scene_character %></td></tr>
+  <tr><th>Characters:</th><td><%= @story.characters.count %></td></tr>
+  <tr><th>Key Points:</th><td><%= @story.key_points.count %></td></tr>
+  <tr><th>Scenes:</th><td><%= @story.scene_count %></td></tr>
+  <tr><th>Sections:</th><td><%= @story.section_count %></td></tr>
+  <tr><th>Print Summary:</th><td><%= (@story.print_summary? ? fa_icon("check") : '') %></td></tr>
+  <tr><th>Publish:</th><td><%= (@story.publish? ? fa_icon("check") : '') %></td></tr>
+  <tr><th>Stand Alone:</th><td><%= (@story.stand_alone? ? fa_icon("check") : '') %></td></tr>
+  <tr><th>Word Count:</th><td><%= number_with_delimiter(@story.word_count, :delimiter => ',') %></td></tr>
+</table>
 
 <%= tabs do |c| %>
 
@@ -27,7 +30,8 @@
 
 <ul>
 <% @story.key_points.order(:position).each do |key_point| %>
-  <li><%= link_to key_point.hook, polymorphic_path([@story, key_point]), id: key_point.anchor %> - <%= link_to key_point.key_element, polymorphic_path([@story, key_point]) %>
+  <% word_count = key_point.word_count %>
+  <li><%= link_to key_point.hook, polymorphic_path([@story, key_point]), id: key_point.anchor %> - <%= link_to key_point.key_element, polymorphic_path([@story, key_point]) %> <%= (word_count == 0 ? '' : number_with_delimiter(word_count, :delimiter => ',')) %>
   <dl>
 <% 1.upto(6).each do |x| %>
   <% if key_point.scenes.where(selector: x).length == 0 %>

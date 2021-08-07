@@ -25,11 +25,13 @@
 <% priv_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position - 1) -%>
 <% next_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position + 1) -%>
 
-<% @footer_content << "#{link_to (fa_icon 'pencil'), edit_polymorphic_path([@sectioned, @section]), :class => "btn icon-ok icon-white"}" %>
+<% @footer_content << "#{link_to "Edit", edit_polymorphic_path([@sectioned, @section]), :class => "btn icon-ok icon-white"}" %>
 <% @footer_content << "#{link_to '<', polymorphic_path([@sectioned, priv_section.first]), :class => "btn icon-ok icon-white"}" unless priv_section.length == 0 %>
 <% @footer_content << "#{link_to '>', polymorphic_path([@sectioned, next_section.first]), :class => "btn icon-ok icon-white"}" unless next_section.length == 0  %>
-<% @footer_content << "#{link_to (fa_icon 'calendar-o'), section_timeline_path(:section_id => @section.id), :class => "btn icon-ok icon-white"}" %>
-<% @footer_content << "#{link_to (fa_icon 'list'),  section_display_path(:section_id => @section.id), :class => "btn icon-ok icon-white"}" %>
-<% @footer_content << "#{link_to (fa_icon 'map-o'),  geo_map_section_path(@section), :class => "btn icon-ok icon-white"}" %>
+<% if @section.sectioned_type == "Chapter" %>
+<% @footer_content << "#{link_to "Timeline", section_timeline_path(:section_id => @section.id), :class => "btn icon-ok icon-white"}" %>
+<% @footer_content << "#{link_to "Display",  section_display_path(:section_id => @section.id), :class => "btn icon-ok icon-white"}" %>
+<% @footer_content << "#{link_to "Map",  geo_map_section_path(@section), :class => "btn icon-ok icon-white"}" %>
 <% @footer_content << "#{link_to 'Footnotes',  section_footnotes_path(@section), :class => "btn btn-default"}" %>
+<% end -%>
 <% @footer_content << "#{link_to 'Back', polymorphic_path(@sectioned), :class => "btn btn-default"}" %>

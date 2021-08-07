@@ -38,4 +38,7 @@
        <% end %>
       </ul>
     <% end %>
+    <% unless scene.section.nil? %>
+    <%= scene.section.body.to_plain_text[0..100] %>
+  <% end %>
 <% end %>

@@ -3,11 +3,11 @@
 <%= breadcrumb((@scripted.class.name == "Book" ? @scripted : (@scripted.class.name == "Chapter" ? @scripted.scripted : @scripted.book)), @scripted, @key_point) %>
 </h2>
 
-<p>
-  <strong>Print name:</strong> <%= (@key_point.print_name? ? 'Y' : 'N') %><br/>
-  <strong>Print points:</strong> <%= (@key_point.print_points? ? 'Y' : 'N') %><br/>
-  <strong>Word Count:</strong> <%= number_with_delimiter(@key_point.word_count, :delimiter => ',') %><br/>
-</p>
+<table>
+  <tr><th>Print name:</th><td><%= (@key_point.print_name? ? fa_icon("check") : '') %></td></tr>
+  <tr><th>Print points:</th><td><%= (@key_point.print_points? ? fa_icon("check") : '') %></td></tr>
+  <tr><th>Word Count:</th><td><%= number_with_delimiter(@key_point.word_count, :delimiter => ',') %></td></tr>
+</table>
 <p>
   <strong>Inciting incident:</strong> <%= @key_point.inciting_incident %><br/>
 </p>

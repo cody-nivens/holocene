@@ -1,9 +1,9 @@
-<p>
-<strong>Stories:</strong> <%= @book.stories.count %><br/>
-<strong>Characters:</strong> <%= @book.characters.count %><br/>
-<strong>Scenes:</strong> <%= @book.scene_count %><br/>
-<strong>Word Count:</strong> <%= number_with_delimiter(@book.word_count, :delimiter => ',') %><br/>
-</p>
+<table>
+<th>Stories:</th><td class="text-right"><%= @book.stories.count %></td></tr>
+<th>Characters:</th><td class="text-right"><%= @book.characters.count %></td></tr>
+<th>Scenes:</th><td class="text-right"><%= @book.scene_count %></td></tr>
+<th>Word Count:</th><td class="text-right"><%= number_with_delimiter(@book.word_count, :delimiter => ',') %></td></tr>
+</table>
 
 <%= tabs do |c| %>
 

@@ -19,17 +19,17 @@
   <tbody class="sortable">
     <% stories.each_with_sortable_id do |story, sortable_id| %>
       <tr id="<%= sortable_id %>">  <!-- Needs id tag on sorting elements -->
-        <td><%= story.scene_min %></td>
-        <td><%= story.scene_max %></td>
+        <td  class="text-right"><%= story.scene_min %></td>
+        <td  class="text-right"><%= story.scene_max %></td>
         <td class="text-wrap"><%= link_to story.title,    book_story_path(:book_id => book.id, :id => story.id) %></td>
         <td><%= story.summary %></td>
-        <td><%= story.scene_character %></td>
-        <td><%= story.key_points.count %></td>
-        <td><%= story.scene_count %></td>
-        <td><%= story.characters.count %></td>
-        <td><%= (story.publish ? 'Y' : 'N') %></td>
-        <td><%= (story.stand_alone ? 'Y' : 'N') %></td>
-        <td><%= story.word_count %></td>
+        <td  class="text-right"><%= story.scene_character %></td>
+        <td  class="text-right"><%= story.key_points.count %></td>
+        <td  class="text-right"><%= story.scene_count %></td>
+        <td  class="text-right"><%= story.characters.count %></td>
+        <td><%= (story.publish ? fa_icon("check") : '') %></td>
+        <td><%= (story.stand_alone ? fa_icon("check") : '') %></td>
+        <td  class="text-right"><%= number_with_delimiter(story.word_count, :delimiter => ',') %></td>
         <td><%= link_to 'Show',    book_story_path(:book_id => book.id, :id => story.id) %></td>
         <td><%= link_to 'Edit',    edit_book_story_path(:book_id => book.id, :id => story.id) %></td>
         <td><%= link_to 'Destroy', book_story_path(:book_id => book.id, :id => story.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
