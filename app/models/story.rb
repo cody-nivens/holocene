@@ -15,14 +15,6 @@ class Story < ApplicationRecord
 
   validates :title, presence: true
 
-  def section_count
-    count = 0
-    self.key_points.each do |key_point|
-      count += key_point.section_count
-    end
-    return count
-  end
-
   def timeline_json(toggle)
     return {:events => Scene.get_scenes(self, toggle).collect{|x| x.slide}}.to_json
   end
@@ -80,12 +72,18 @@ class Story < ApplicationRecord
       return count
     end
 
+  def section_count
+    count = 0
+    self.key_points.each do |key_point|
+      count += key_point.section_count
+    end
+    return count
+  end
+
   def scene_count
     count = 0
     self.key_points.each do |key_point|
-      key_point.scenes.each do |scene|
-        count += 1
-      end
+      count += key_point.scene_count
     end
     return count
   end

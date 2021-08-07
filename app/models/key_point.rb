@@ -18,6 +18,14 @@ class KeyPoint < ApplicationRecord
     return count
   end
 
+  def scene_count
+    count = 0
+    self.scenes.each do |scene|
+      count += 1
+    end
+    return count
+  end
+
   def word_count
     count = 0
     self.scenes.each do |scene|
