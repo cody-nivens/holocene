@@ -2,9 +2,13 @@ class Scene < ApplicationRecord
   include SharedMethods
   include Rails.application.routes.url_helpers
 
-  include RailsSortable::Model
-  set_sortable :position # Indicate a sort column
+  #acts_as_list scope: :key_point_id
+
+  include RankedModel
+  ranks :position, with_same: :key_point_id
+
   belongs_to :key_point, :optional => true
+  belongs_to :artifact, :optional => true
   acts_as_list scope: :key_point
 
   has_rich_text :summary
@@ -15,6 +19,10 @@ class Scene < ApplicationRecord
   has_rich_text :short_term_goal
   has_rich_text :long_term_goal
   has_rich_text :over_arching_goal
+
+    has_one :action_text_rich_text,
+    class_name: 'ActionText::RichText',
+    as: :record
 
   has_many :character_scenes
   has_many :characters, ->{ order(:last_name) }, :through => :character_scenes
@@ -102,7 +110,7 @@ class Scene < ApplicationRecord
     scene_ids = []
     stories.each do |story|
       story.key_points.order(:position).each do |key_point|
-        key_point.scenes.order(:time,:abc).each do |scene|
+        key_point.scenes.order(:time,:abc,:position).each do |scene|
           unless toggle == "on"
               scenes = self.where(insert_scene_id: scene.id)
               scenes.each do |scene_2|
@@ -127,7 +135,7 @@ class Scene < ApplicationRecord
 
     stories.each do |story|
       story.key_points.order(:position).each do |key_point|
-        key_point.scenes.order(:time,:abc).each do |scene|
+        key_point.scenes.order(:time,:abc,:position).each do |scene|
           unless toggle == "on" 
               scenes = self.where(insert_scene_id: scene.id)
               scenes.each do |scene_2|
@@ -141,7 +149,7 @@ class Scene < ApplicationRecord
     end
 
     end
-    scenes2 = self.where("id in (?)", scene_ids).order(:time, :abc)
+    scenes2 = self.where("id in (?)", scene_ids)
 
     return all_scenes + scenes2
   end
@@ -168,7 +176,7 @@ class Scene < ApplicationRecord
    if time.to_d.modulo(1) >= day_slice
      day = ((self.time - (week.nil? ? 0 : week*week_slice) - (month.nil? ? 0 : month*month_slice)).to_d.modulo(1)/day_slice).to_i
    end
-   return [year, month, day]
+   return [year, month, (day == 0 ? 1 : day)]
   end
 
   def time_to_text
