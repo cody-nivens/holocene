@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Location</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,6 +15,7 @@
     <% @artifact_types.each do |artifact_type| %>
       <tr>
         <td><%= artifact_type.name %></td>
+        <td><%= artifact_type.location %></td>
         <td><%= link_to 'Show', book_artifact_type_path(@book, artifact_type) %></td>
         <td><%= link_to 'Edit', edit_book_artifact_type_path(@book, artifact_type) %></td>
         <td><%= link_to 'Destroy', book_artifact_type_path(@book,artifact_type), method: :delete, data: { confirm: 'Are you sure?' } %></td>

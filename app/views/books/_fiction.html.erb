@@ -1,22 +1,23 @@
-<table>
-<th>Stories:</th><td class="text-right"><%= @book.stories.count %></td></tr>
-<th>Characters:</th><td class="text-right"><%= @book.characters.count %></td></tr>
-<th>Scenes:</th><td class="text-right"><%= @book.scene_count %></td></tr>
-<th>Word Count:</th><td class="text-right"><%= number_with_delimiter(@book.word_count, :delimiter => ',') %></td></tr>
+<table class="table">
+  <tr>
+<th>Stories:</th>
+<td><%= @book.stories.count %></td>
+<th>Characters:</th>
+<td><%= @book.characters.count %></td>
+<th>Scenes:</th>
+<td><%= @book.scene_count %></td>
+<th>Word Count:</th>
+<td><%= number_with_delimiter(@book.word_count, :delimiter => ',') %></td>
+  </tr>
 </table>
 
 <%= tabs do |c| %>
 
 <% c.tab "Stories" do %>
   <span>
-      <%= render :partial => 'stories/index.html', :locals => {:stories => @book.stories.where(publish: true).order(:position), :book => @book } %>
+      <%= render :partial => 'stories/index.html', :locals => {:stories => @book.stories.order(:position), :book => @book } %>
   </span>
 <% end %>
-<%# c.tab "Scenes" do %>
-  <span>
-    <%#= render :partial => "scenes/scenes.html", :locals => { :scenes => @scenes, :links => nil } %>
-  </span>
-<%# end %>
 <% c.tab "Ethnicity" do %>
   <span>
 <table class="table">
@@ -43,7 +44,6 @@
     <%= render :partial => 'character_values/stats.html', :locals =>{:category => 'Physical Appearance', :cat1 => 'Eye color' } %>
     <%= render :partial => 'character_values/stats.html', :locals =>{:category => 'Physical Appearance', :cat1 => 'Hair color' } %>
     <%= render :partial => 'character_values/stats2.html', :locals =>{:category => 'Gender', :cat1 => 'Gender', :cat2 => 'Sex'} %>
-    <%#= render :partial => 'character_values/stats2.html', :locals =>{:category => 'Physical Appearance', :cat1 => 'Hair color', :cat2 => 'Eye color'} %>
 </span>
 <% end %>
 <% c.tab "Occupation Class" do %>

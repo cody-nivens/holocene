@@ -4,6 +4,7 @@ class Section < ApplicationRecord
 
   has_rich_text :body
 
+  belongs_to :user
   belongs_to :sectioned, polymorphic: true
   has_many :metrics, as: :metrized
 
@@ -48,6 +49,6 @@ class Section < ApplicationRecord
        chapter = key_point.scripted
        book = chapter.book
     end
-    return [ book, chapter, key_point, scene]
+    return [ book, chapter, key_point, scene, self]
   end
 end

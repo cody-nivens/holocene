@@ -1,6 +1,6 @@
 class KeyPoint < ApplicationRecord
-  include RailsSortable::Model
-  set_sortable :position # Indicate a sort column
+  include RankedModel
+  ranks :position, with_same: :scripted_id
 
   belongs_to :scripted, polymorphic: true
   acts_as_list scope: :scripted

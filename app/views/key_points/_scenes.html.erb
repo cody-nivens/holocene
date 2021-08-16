@@ -1,44 +1,15 @@
 <% pdf ||= nil %>
-<% key_point.scenes.where(selector: selector).order(:time, :abc).each do |scene| %>
-  <h3>
-    <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: @scripted, key_point: key_point, pdf: pdf} %>
-  </h3>
-  <%= raw epub_friendly(scene.summary.body) %>
-    <ul>
-    <% insert_scene = scene %>
-    <% loop do %>
-      <% scenes = Scene.where(insert_scene_id: insert_scene.id).order(:time,:abc) %>
-      <% break if scenes.empty? %>
-        <% scenes.each do |iscene| %>
-      <% if iscene.key_point.scripted.publish %>
-          <li><%= (pdf.nil? ? link_to(iscene.abc, polymorphic_path([@scripted, key_point, iscene])) : iscene.abc) %> <%= (iscene.section.nil? ? '' : '*') %><%= iscene.time_to_text %> : <%= iscene.name %></li>
-    <% end %>
-          <% insert_scene = iscene %>
+<% scenes = key_point.scenes.where(selector: selector) %>
+<dl>
+<div class="chapter_outer-sortable" style="cursor: grab;">
+  <%= content_tag "div", id: "key_point-#{key_point.id}", data: { id: key_point.id, model_name: key_point.class.name.underscore, update_url: story_key_point_sort_path(story,key_point)} do %>
+    <div class="scene-sortable" style="cursor: grab; min-height: 10px;">
+      <% scenes.rank(:position).each do |scene| %>
+        <%= content_tag "div", id: "scene-#{scene.id}", data: { model_name: scene.class.name.underscore, update_url: scene_sort_path(scene)} do %>
+          <%= render :partial => "scenes/scene.html", :locals => { scene: scene, scripted: @scripted, key_point: key_point, pdf: pdf} %>
         <% end %>
-    <% end %>
-    </ul>
-    <% unless scene.insert_scene.nil? %>
-      <p>
-        <strong>Insert Scene:</strong> <%= (pdf.nil? ? link_to(scene.insert_scene.abc, polymorphic_path([@scripted,key_point, scene.insert_scene])) : scene.insert_scene.abc) %>:<%= scene.insert_scene.time_to_text %>
-        <%= scene.insert_scene.name %>
-      </p>
-    <% end %>
-
-    <% unless scene.characters.empty? %>
-      <ul>
-        <% scene.character_scenes.joins(:character).order(:last_name).each do |character_scene| %>
-          <li><%= (pdf.nil? ? 
-           link_to("#{character_scene.character.name}, #{scene.time.to_i-character_scene.character.birth_year.to_i}", polymorphic_path([@scripted,character_scene.character])) :
-           character_scene.character.name) %>, <%= character_scene.character.occupation_class %><%= (character_scene.character.grouping.blank? ? "" : ", #{character_scene.character.grouping}") %>
-         <%= link_to (fa_icon 'plus'), edit_polymorphic_path([scene, character_scene]) %>
-          <% unless character_scene.summary.nil? %>
-             <%= character_scene.summary.to_plain_text %>
-          <% end %>
-          </li>
-       <% end %>
-      </ul>
-    <% end %>
-    <% unless scene.section.nil? %>
-    <%= scene.section.body.to_plain_text[0..100] %>
+      <% end %>
+    </div>
   <% end %>
-<% end %>
+</div>
+</dl>

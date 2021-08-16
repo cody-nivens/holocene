@@ -4,7 +4,13 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-    @books = Book.where(user_id: current_user.id)
+    @books = Book.where(user_id: current_user.id).order(:position)
+  end
+
+  def sort
+    @book = Book.find(params[:book_id])
+    @book.update(book_params)
+    render body: nil
   end
 
   def timeline
@@ -64,7 +70,7 @@ class BooksController < ApplicationController
   def show
     @chapters = @book.chapters
     @scripted = @book
-    @stories = @book.stories if @book.is_fiction?
+    @stories = @book.stories.where(publish: true) if @book.is_fiction?
 
     respond_to do |format|
       format.html { render :show }
@@ -165,6 +171,6 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.require(:book).permit(:name, :body, :user_id, :show_events, :copyright, :sub_name, :publisher, :fiction)
+      params.require(:book).permit(:name, :body, :user_id, :show_events, :copyright, :sub_name, :publisher, :fiction, :position_position)
     end
 end

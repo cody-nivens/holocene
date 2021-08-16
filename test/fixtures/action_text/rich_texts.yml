@@ -29,7 +29,7 @@ rich_text_oag_<%= i %>:
   body: Missing <%= i %> scene
 rich_text_p_<%= i %>:
   record: scene_<%= i %> (Scene)
-  name: place
+  name: location
   body: Missing <%= i %> scene
 rich_text_stg_<%= i %>:
   record: scene_<%= i %> (Scene)
@@ -44,7 +44,7 @@ rich_text_10:
 rich_text_11:
   record: section_2 (Section)
   name: body
-  body: ''
+  body: 'THis is section 2.'
 rich_text_12:
   record: section_3 (Section)
   name: body
@@ -90,7 +90,7 @@ rich_text_21:
 rich_text_<%= i %>:
   record: holocene_event_1 (HoloceneEvent)
   name: body
-  body: ''
+  body: 'Holocene event 1'
 
 <% i += 1 %>
 rich_text_<%= i %>:
@@ -108,7 +108,7 @@ rich_text_<%= i %>:
 rich_text_<%= i %>:
   record: holocene_event_4 (HoloceneEvent)
   name: body
-  body: ''
+  body: 'Holocene event 4'
 
 <% i += 1 %>
 rich_text_<%= i %>:
@@ -120,7 +120,7 @@ rich_text_<%= i %>:
 rich_text_<%= i %>:
   record: holocene_event_6 (HoloceneEvent)
   name: body
-  body: ''
+  body: 'Holocene event 6'
 
 <% i += 1 %>
 rich_text_<%= i %>:
@@ -145,7 +145,7 @@ rich_text_<%= i %>:
 rich_text_<%= i %>:
   record: holocene_event_9 (HoloceneEvent)
   name: body
-  body: ''
+  body: 'Holocene event 9'
 
 <% i += 1 %>
 rich_text_<%= i %>:
@@ -185,17 +185,17 @@ rich_text_<%= i %>:
 rich_text_<%= i %>:
   record: book_1 (Book)
   name: body
-  body: ''
+  body: 'The consequences of the Holocene Impact Event.'
 <% i += 1 %>
 rich_text_<%= i %>:
   record: book_2 (Book)
   name: body
-  body: ''
+  body: 'A long running family business.'
 <% i += 1 %>
 rich_text_<%= i %>:
   record: book_3 (Book)
   name: body
-  body: ''
+  body: 'The man who started it all.'
 <% i += 1 %>
 rich_text_<%= i %>:
   record: chapter_1 (Chapter)
@@ -230,32 +230,32 @@ rich_text_<%= i %>:
 rich_text_<%= i %>:
   record: Impact (EventType)
   name: body
-  body: ''
+  body: 'Impact event'
 <% i += 1 %>
 rich_text_<%= i %>:
   record: Volcanic (EventType)
   name: body
-  body: ''
+  body: 'Volcanic event'
 <% i += 1 %>
 rich_text_<%= i %>:
   record: Climate (EventType)
   name: body
-  body: ''
+  body: 'Climate event'
 <% i += 1 %>
 rich_text_<%= i %>:
   record: Epidemic (EventType)
   name: body
-  body: ''
+  body: 'Epidemic event'
 <% i += 1 %>
 rich_text_<%= i %>:
   record: Cultural (EventType)
   name: body
-  body: ''
+  body: 'Cultural event'
 <% i += 1 %>
 rich_text_<%= i %>:
   record: Earth (EventType)
   name: body
-  body: ''
+  body: 'Earth event'
 <% i += 1 %>
 rich_text_<%= i %>:
   record: footnote_1 (Footnote)
@@ -285,7 +285,7 @@ rich_text_<%= i %>:
 rich_text_<%= i %>:
   record: partition_1 (Partition)
   name: body
-  body: ''
+  body: 'Partition 1'
 <% i += 1 %>
 rich_text_<%= i %>:
   record: partition_2 (Partition)
@@ -295,84 +295,84 @@ rich_text_<%= i %>:
 rich_text_<%= i%>:
   record: Africa (Region)
   name: body
-  body: ''
+  body: 'Africa region'
 <% i += 1 %>
 rich_text_<%= i%>:
   record: Australasia (Region)
   name: body
-  body: ''
+  body: 'Australasia region'
 <% i += 1 %>
 rich_text_<%= i%>:
   record: Central America (Region)
   name: body
-  body: ''
+  body: 'Central America region'
 <% i += 1 %>
 rich_text_<%= i%>:
   record: Central Asia (Region)
   name: body
-  body: ''
+  body: 'Central Asia region'
 <% i += 1 %>
 rich_text_<%= i%>:
   record: East Asia (Region)
   name: body
-  body: ''
+  body: 'East Asia region'
 <% i += 1 %>
 rich_text_<%= i%>:
   record: Eurasia (Region)
   name: body
-  body: ''
+  body: 'Eurasia region'
 <% i += 1 %>
 rich_text_<%= i%>:
   record: Europe (Region)
   name: body
-  body: ''
+  body: 'Europe region'
 <% i += 1 %>
 rich_text_<%= i%>:
   record: FarEast (Region)
   name: body
-  body: ''
+  body: 'Far East region'
 <% i += 1 %>
 rich_text_<%= i%>:
   record: Global (Region)
   name: body
-  body: ''
+  body: 'Global region'
 <% i += 1 %>
 rich_text_<%= i%>:
   record: Iceland and Arctic Ocean (Region)
   name: body
-  body: ''
+  body: 'Iceland region'
 <% i += 1 %>
 rich_text_<%= i%>:
   record: Indian Ocean (Region)
   name: body
-  body: ''
+  body: 'Indian Ocean region'
 <% i += 1 %>
 rich_text_<%= i%>:
   record: Middle East (Region)
   name: body
-  body: ''
+  body: 'Middle East region'
 <% i += 1 %>
 rich_text_<%= i%>:
   record: NearEast (Region)
   name: body
-  body: ''
+  body: 'Near East region'
 <% i += 1 %>
 rich_text_<%= i%>:
   record: North America (Region)
   name: body
-  body: ''
+  body: 'North America region'
 <% i += 1 %>
 rich_text_<%= i%>:
   record: South America (Region)
   name: body
-  body: ''
+  body: 'South America region'
 <% i += 1 %>
 rich_text_<%= i%>:
   record: Southeast Asia (Region)
   name: body
-  body: ''
+  body: 'Southeast Asia region'
 <% i += 1 %>
 rich_text_<%= i%>:
   record: Unknown (Region)
   name: body
-  body: ''
+  body: 'Unknown region'

@@ -1,47 +1,15 @@
-<p id="notice"><%= notice %></p>
-
-<h1><%= @klass %>: <%= @scripted.name %></h1>
-
-<table class='table'>
-  <thead>
-    <tr>
-      <th class="text-nowrap">Hook</th>
-      <th class="text-nowrap">PN</th>
-      <th class="text-nowrap">PP</th>
-      <th class="text-nowrap">Inciting incident</th>
-      <th class="text-nowrap">Key element</th>
-      <th class="text-nowrap">First plot point</th>
-      <th class="text-nowrap">First pinch point</th>
-      <th class="text-nowrap">Midpoint</th>
-      <th class="text-nowrap">Second pinch point</th>
-      <th class="text-nowrap">Third plot point</th>
-      <th class="text-nowrap">Climax</th>
-      <th colspan="1"></th>
-    </tr>
-  </thead>
-
-  <tbody class="sortable">  <!-- sortable target -->
-
-    <% @key_points.each_with_sortable_id do |key_point, sortable_id| %>
-      <tr  id="<%= sortable_id %>">
-        <td><%= link_to key_point.hook, polymorphic_path([@scripted, key_point]) %></td>
-        <td><%= (key_point.print_name? ? 'Y' : 'N') %></td>
-        <td><%= (key_point.print_points? ? 'Y' : 'N') %></td>
-        <td><%= key_point.inciting_incident %></td>
-        <td><%= key_point.key_element %></td>
-        <td><%= key_point.first_plot_point %></td>
-        <td><%= key_point.first_pinch_point %></td>
-        <td><%= key_point.midpoint %></td>
-        <td><%= key_point.second_pinch_point %></td>
-        <td><%= key_point.third_plot_point %></td>
-        <td><%= key_point.climax %></td>
-        <td><%= link_to 'Show', polymorphic_path([@scripted, key_point]) %>
-        <%= link_to 'Edit', edit_polymorphic_path([@scripted, key_point]) %>
-        <%= link_to 'Destroy', polymorphic_path([@scripted, key_point]), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% pdf ||= nil %>
+<div class="chapter_outer-sortable" style="cursor: grab;">
+  <%= content_tag "div", id: "scripted-#{@scripted.id}", data: { id: @scripted.id, model_name: @scripted.class.name.underscore, update_url: polymorphic_path([@scripted,:sort])} do %>
+    <div class="key_point-sortable" style="cursor: grab; min-height: 10px;">
+      <% @key_points.rank(:position).each do |key_point| %>
+        <%= content_tag "div", id: "key_point-#{key_point.id}", data: { model_name: key_point.class.name.underscore, update_url: polymorphic_path([@scripted,key_point,:sort])} do %>
+          <%= render :partial => "key_points/key_point.html", :locals => { key_point: key_point, scripted: @scripted, pdf: pdf} %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
 
 <br>
 

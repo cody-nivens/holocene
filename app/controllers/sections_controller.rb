@@ -31,6 +31,7 @@ class SectionsController < ApplicationController
   def create
     @section = Section.new(section_params)
     @section.sectioned = @sectioned
+    @section.user = current_user
 
     respond_to do |format|
       if @section.save
@@ -85,11 +86,12 @@ class SectionsController < ApplicationController
     end
 
     def update_metrics
-      metric = Metric.where(user_id: current_user.id, date: Date.today, metrized_id: @section.id, metrized_type: "Section")[0]
+      metric = Metric.where("user_id =? and date between ? and ? and metrized_id = ? and metrized_type = ?", current_user.id, Date.today, Date.today + 1.day, @section.id, "Section")[0]
       if metric.nil?
         metric = Metric.new
         metric.metrized = @section
         metric.user_id = current_user.id
+        metric.date = Date.today.beginning_of_day
       end
       metric.count = @section.word_count
       metric.save
@@ -97,6 +99,6 @@ class SectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def section_params
-      params.require(:section).permit(:name, :body, :position, :sectioned_type, :sectioned_id, :display_name, :embed)
+      params.require(:section).permit(:name, :body, :position, :sectioned_type, :sectioned_id, :display_name, :embed, :user_id)
     end
 end

@@ -9,6 +9,11 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
+  test "should sort books" do
+    put book_sort_url(:book_id => @book_2.id), xhr: true, params: { book: { id: @book_2.id, user_id: @book_2.user_id } }
+    assert_response :success
+  end
+
   test "should get resync_stories" do
     get book_resync_stories_url(@book_2)
     assert_redirected_to book_stories_url(@book_2)
@@ -67,7 +72,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     
     # history.back is now used
     # assert_select "a[href=?]", books_path
-    assert_select ".footer>div>a", 3
+    assert_select ".footer>div>a", 4
   end
 
   test "should get timeline" do
@@ -83,7 +88,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     
     # history.back is now used
     # assert_select "a[href=?]", books_path
-    assert_select ".footer>div>a", 6
+    assert_select ".footer>div>a", 8
   end
 
   test "should show pdf book" do

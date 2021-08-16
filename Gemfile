@@ -79,6 +79,7 @@ group :test do
   gem 'pdf-reader'
   gem 'geckodriver-helper'
   gem 'rails-controller-testing'
+  gem 'launchy'
 
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'webdrivers'
@@ -116,3 +117,5 @@ gem 'rails-bootstrap-tabs', '~> 0.2.2'
 gem 'bootstrap-toggle-rails'
 gem 'namey'
 gem 'acts_as_list'
+gem 'ranked-model'
+

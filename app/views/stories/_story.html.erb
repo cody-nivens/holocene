@@ -1,0 +1,13 @@
+<dt>
+  <%= story.scene_min %>
+  <%= story.scene_max %>
+  <%= link_to story.title, book_story_path(:book_id => story.book.id, :id => story.id) %>
+  <% w_count = story.word_count %>
+  <% unless w_count == 0 %>
+    <%= number_with_delimiter(story.word_count, :delimiter => ',') %>
+  <% end %>
+  <%= link_to (fa_icon "search-plus"), book_story_path(:book_id => story.book.id, :id => story.id), :title => "Show" %>
+  <%= link_to (fa_icon 'edit'), edit_book_story_path(:book_id => story.book.id, :id => story.id), :title => "Edit" %>
+  <%= link_to (fa_icon "trash-o"), book_story_path(:book_id => story.book.id, :id => story.id), method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy" %>
+</dt>
+<dd><%= story.summary %></dd>

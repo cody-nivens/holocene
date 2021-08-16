@@ -1,7 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <h2>
-<%= breadcrumb(@story.book, @story) %>
+<%= raw breadcrumb(@story.book, @story) %>
+<%= link_to "#{(fa_icon "pencil")}".html_safe, edit_story_path(@story), :title => 'Edit' %>
 <%= link_to (fa_icon "file-pdf-o"), story_path(@story,:format => :pdf), :title => "PDF" %>
 <%= link_to (fa_icon "file-pdf-o"), story_path(@story,:format => :pdf, :outline => true), :title => "PDF Outline" %>
 </h2>
@@ -10,44 +11,57 @@
   <%= @story.summary %>
 </p>
 
+<% scene_count   = @story.scene_count %>
+<% section_count = @story.section_count %>
 
-<table>
-  <tr><th>Scene Character:</th><td><%= @story.scene_character %></td></tr>
-  <tr><th>Characters:</th><td><%= @story.characters.count %></td></tr>
-  <tr><th>Key Points:</th><td><%= @story.key_points.count %></td></tr>
-  <tr><th>Scenes:</th><td><%= @story.scene_count %></td></tr>
-  <tr><th>Sections:</th><td><%= @story.section_count %></td></tr>
-  <tr><th>Print Summary:</th><td><%= (@story.print_summary? ? fa_icon("check") : '') %></td></tr>
-  <tr><th>Publish:</th><td><%= (@story.publish? ? fa_icon("check") : '') %></td></tr>
-  <tr><th>Stand Alone:</th><td><%= (@story.stand_alone? ? fa_icon("check") : '') %></td></tr>
-  <tr><th>Word Count:</th><td><%= number_with_delimiter(@story.word_count, :delimiter => ',') %></td></tr>
+<table class="table">
+  <tr>
+<th>Word Count:</th> <td><%= number_with_delimiter(@story.word_count, :delimiter => ',') %></td>
+<th>Scene Character:</th> <td><%= @story.scene_character %></td>
+<th>Characters:</th> <td><%= @story.characters.count %></td>
+<th>Key Points:</th> <td><%= @story.key_points.count %></td>
+  </tr>
+  <tr>
+<th>Scenes:</th>
+<td><%= scene_count %> - <%= section_count %> <%= (scene_count == 0 ? '' : number_with_precision((section_count.to_f/scene_count.to_f)*100.0, precision: 2)) %>%</td>
+<th>Print Summary:</th> <td><%= (@story.print_summary? ? fa_icon("check") : '') %></td>
+<th>Publish:</th> <td><%= (@story.publish? ? fa_icon("check") : '') %></td>
+<th>Stand Alone:</th> <td><%= (@story.stand_alone? ? fa_icon("check") : '') %></td>
+</tr>
 </table>
 
+<% pdf ||= nil %>
 <%= tabs do |c| %>
 
 <% c.tab "Key Points" do %>
   <span>
-
 <ul>
-<% @story.key_points.order(:position).each do |key_point| %>
-  <% word_count = key_point.word_count %>
-  <li><%= link_to key_point.hook, polymorphic_path([@story, key_point]), id: key_point.anchor %> - <%= link_to key_point.key_element, polymorphic_path([@story, key_point]) %> <%= (word_count == 0 ? '' : number_with_delimiter(word_count, :delimiter => ',')) %>
-  <dl>
-<% 1.upto(6).each do |x| %>
-  <% if key_point.scenes.where(selector: x).length == 0 %>
-    <dt><%= key_point.selector_value(x) %></dt>
-  <% else %>
-    <% key_point.scenes.where(selector: x).order(:time, :abc).each do |scene| %>
-      <dt>
-        <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: @story, key_point: key_point, pdf: nil} %>
-      </dt>
-      <dd><%= scene.summary.to_plain_text %></dd>
-    <% end %>
+<div class="chapter_outer-sortable" style="cursor: grab;">
+  <%= content_tag "div", id: "scripted-#{@story.id}", data: { id: @story.id, model_name: @story.class.name.underscore, update_url: polymorphic_path([@story,:sort])} do %>
+    <div class="key_point-sortable" style="cursor: grab; min-height: 10px;">
+      <% @story.key_points.rank(:position).each do |key_point| %>
+        <%= content_tag "div", id: "key_point-#{key_point.id}", data: { model_name: key_point.class.name.underscore, update_url: polymorphic_path([@story,key_point,:sort])} do %>
+          <li><%= link_to key_point.hook, polymorphic_path([@story, key_point]), id: key_point.anchor %> - <%= link_to key_point.key_element, polymorphic_path([@story, key_point]) %> 
+            <dl>
+              <% 1.upto(6).each do |x| %>
+                <% if key_point.scenes.where(selector: x).length == 0 %>
+                  <dt><%= key_point.selector_value(x) %></dt>
+                <% else %>
+                  <% key_point.scenes.where(selector: x).order(:position).each do |scene| %>
+                    <dt>
+                      <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: @story, key_point: key_point, pdf: nil} %>
+                    </dt>
+                    <dd><%= scene.summary.to_plain_text %></dd>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </dl>
+          </li>
+        <% end %>
+      <% end %>
+    </div>
   <% end %>
-<% end %>
-  </dl>
-  </li>
-<% end -%>
+</div>
 </ul>
   </span>
 <% end %>
@@ -139,11 +153,9 @@
 
 <% end %>
 
-<% @footer_content << "#{link_to 'Edit', edit_book_story_path(:book_id => @book.id, :id => @story.id), :class => "btn btn-default hide-print" }" %>
-<% if @story.stand_alone %>
-<% @footer_content << "#{link_to 'Scenes', polymorphic_path([@story, :scenes]), :class => "btn btn-default hide-print" }" %>
-<% end %>
+<% @footer_content << "#{link_to 'New Key Point', new_polymorphic_path([@story, KeyPoint]), :class => "btn btn-default hide-print" }" %>
 <% @footer_content << "#{link_to 'Characters', polymorphic_path([@story, :characters ]), :class => "btn btn-default hide-print" }" %>
-<% @footer_content << "#{link_to 'Key Points', polymorphic_path([@story, :key_points]), :class => "btn btn-default hide-print" }" %>
 <% @footer_content << "#{link_to 'Resync Scenes', story_resync_scenes_path(:id => @story.id), :class => "btn btn-default hide-print" }" %>
+<% @footer_content << "#{link_to 'Scenes', polymorphic_path([@story, :scenes]), :class => "btn btn-default hide-print" }" %>
+<% @footer_content << "#{link_to 'Timeline', polymorphic_path([@story, :timeline]), :class => "btn btn-default hide-print"}" %>
 <% @footer_content << "#{ link_to 'Back', book_path(@book), :class => "btn btn-default hide-print" }" %>

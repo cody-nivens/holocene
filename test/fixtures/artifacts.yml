@@ -3,7 +3,7 @@
 artifact_1:
   name: MyString_1
   character: character_1
-  book: book_2
+  book: book_1
   artifact_type: artifact_type_1
   character: character_1
 

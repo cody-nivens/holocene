@@ -66,6 +66,7 @@ Rails.application.routes.draw do
   resources :books do
     resources :artifacts
     resources :artifact_types
+    put :sort
     concerns :scripted, scripted_type: 'Book'
     resources :key_points do
       resources :sections
@@ -77,15 +78,19 @@ Rails.application.routes.draw do
     resources :authors
     resources :glossary_terms
     resources :biblioentries
-    resources :stories
+    resources :stories do
+      put :sort
+    end
     resources :key_points do
       resources :scenes 
     end
   end
     resources :stories do
       concerns :situated, scripted_type: 'Story'
+      put :sort
       resources :scenes 
       resources :key_points do
+        put :sort
         resources :scenes 
       end
       resources :chapters
@@ -102,6 +107,7 @@ Rails.application.routes.draw do
     resources :sections
  end
  resources :scenes do
+    put :sort
     concerns :located, located_type: 'Book'
     resources :sections
     resources :character_scenes, only: [ :edit, :update ]

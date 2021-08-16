@@ -239,7 +239,7 @@ str = ""
       unless section.holocene_events.length == 0
         section.holocene_events.order(:start_year).each do |he|
           unless he.body.blank?
-            @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? || @footnotes.empty? ? 1 : @footnotes[2]))
+            @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? || @footnotes.empty? || @footnotes[2].nil? ? 1 : @footnotes[2]))
             @slugs += @footnotes[1]
           end
         end

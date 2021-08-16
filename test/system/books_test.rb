@@ -5,16 +5,34 @@ class BooksTest < ApplicationSystemTestCase
     DownloadHelpers::clear_downloads
     @book = books(:book_1)
     @book_2 = books(:book_2)
+    @book_3 = books(:book_3)
     @user = users(:users_1)
     sign_in @user
   end
+
+  test "sort books" do
+    visit books_url
+    assert_text "The Phantom"
+
+    #save_and_open_page
+    #debugger
+    #take_screenshot
+    assert_match %r[#{@book.name}.*#{@book_2.name}.*#{@book_3.name}]m, page.html
+
+    draggable = find(:css, "#book-#{@book_3.id}")
+    droppable = find(:css, "#book-#{@book_2.id}")
+    draggable.drag_to(droppable)
+
+    assert_match %r[#{@book.name}.*#{@book_3.name}.*#{@book_2.name}]m, page.html
+  end
+
 
   test "creating a nonfictional Book flow" do
     visit books_url
     click_on "New Book"
 
     fill_in "Name", with: "Test 1"
-    fill_in_rich_text_area "book_body", with: "Test 1"
+    #fill_in_rich_text_area "book_body", with: "Test 1"
     click_on "Create Book"
     assert_text "Book was successfully created"
     assert_text "Test 1"
@@ -63,11 +81,6 @@ class BooksTest < ApplicationSystemTestCase
     click_on "Create Story"
     assert_text "Story was successfully created"
 
-    assert_text "Key Points"
-    within(:css, ".footer") do
-      click_on "Key Points"
-    end
-
     assert_text "New Key Point"
     click_on "New Key Point"
 
@@ -88,14 +101,14 @@ class BooksTest < ApplicationSystemTestCase
     fill_in "Scene sequel", with: 0
     fill_in "Time", with: 103
 
-    fill_in_rich_text_area "scene_summary", with: "Test 2"
-    assert_text "Test 2"
-    take_screenshot
+    #fill_in_rich_text_area "scene_summary", with: "Test 2"
+    #assert_text "Test 2"
+    #take_screenshot
 
     click_on "Create Scene"
 
     assert_text "Scene was successfully created"
-    assert_text "Test 2"
+    #assert_text "Test 2"
 
     click_on "Back"
   end

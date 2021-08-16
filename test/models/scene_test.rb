@@ -2,6 +2,13 @@ require 'test_helper'
 
 
 class SceneTest < ActiveSupport::TestCase
+  test "should count the scenes" do
+    count_scenes = Scene.all
+    scenes = Scene.get_scenes(books(:book_2),"off")
+    assert_equal 13, count_scenes.length
+    assert_equal 10, scenes.length
+  end
+
   test "set_next 1" do
     scene = scenes(:scene_6)
     next_scene = scene.set_next

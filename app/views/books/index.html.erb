@@ -1,43 +1,19 @@
 <h1>Books</h1>
 
-<table class="table table-striped">
-<thead>
-<tr>
-<th>Name</th>
-<th>Authors</th>
-<th class="text-right">Word Count</th>
-<th class="text-right">Glossary Terms</th>
-<th class="text-right">Bibiloentries</th>
-<th class="text-right">Stories</th>
-<th class="text-right">Characters</th>
-<th class="text-right">Scenes</th>
-<th colspan="4"></th>
-</tr>
-</thead>
-<tbody>
-<% @books.each do |book| %>
-<tr>
-<td><%= link_to "#{(fa_icon "pencil")}".html_safe, edit_book_path(book), :title => 'Edit' %><%= link_to "#{book.name}".html_safe, book_path(book) %></td>
-<% ts = "" -%>
-<% book.authors.each do |author| -%>
-<% ts += "#{author.first_name} #{author.last_name}" -%>
-<% end -%>
-<% ts = fa_icon "plus" if ts.blank? -%>
-<td><%= link_to ts, book_authors_path(book), :title => "Authors" %></td>
-<td class="text-right"><%= number_with_delimiter book.word_count %></td>
-<td class="text-right"><%= link_to number_with_delimiter(book.glossary_terms.count), book_glossary_terms_path(book), :title => "Glossary" %></td>
-<td class="text-right"><%= link_to number_with_delimiter(book.biblioentries.count), book_biblioentries_path(book), :title => "Biblioentries" %></td>
-<td class="text-right"><%= book.stories.count %></td>
-<td class="text-right"><%= book.characters.count %></td>
-<td class="text-right"><%= book.scene_count %></td>
-<td><%= link_to (fa_icon "sticky-note-o"), book_signets_path(book), :title => "Signets" %></td>
-<td><%= link_to (fa_icon "book"), book_epub_path(book), :title => "EPub" %></td>
-<td><%= link_to (fa_icon "file-pdf-o"), book_path(book,:format => :pdf), :title => "PDF" %></td>
-<td><%= link_to (fa_icon "trash-o"), book, method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy" %></td>
-</tr>
-<% end %>
-</tbody>
-</table>
+<% pdf ||= nil %>
+<dl>
+<div class="chapter_outer-sortable" style="cursor: grab;">
+  <%= content_tag "div", id: "user-#{current_user.id}", data: { id: current_user.id, model_name: current_user.class.name.underscore, update_url: polymorphic_path([@books.first,:sort]) } do %>
+    <div class="book-sortable" style="cursor: grab; min-height: 10px;">
+      <% @books.rank(:position).each do |book| %>
+        <%= content_tag "div", id: "book-#{book.id}", data: { model_name: book.class.name.underscore, update_url: polymorphic_path([book,:sort])} do %>
+          <%= render :partial => "books/book.html", :locals => { book: book, pdf: pdf} %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+</dl>
 
 
 <% @footer_content << "#{link_to 'New Book', new_book_path, :class => "btn btn-default"}" %>

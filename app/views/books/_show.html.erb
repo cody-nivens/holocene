@@ -9,30 +9,33 @@
 <%= raw epub_friendly(book.body) %>
 
 <% book.key_points.order(:position).each do |key_point| -%>
-    <%= render 'key_points/show.html', book: book, key_point: key_point, epub: false %>
+    <%= render 'key_points/show.html', story: key_point.scripted, book: book, key_point: key_point, epub: false %>
 <% end -%>
 
 <% @notes = {} -%>
 <% if book.is_fiction? %>
   <% if outline %>
-    <% @stories.order(:position).each do |story| -%>
+    <% @stories.where(publish: true, stand_alone: false).order(:position).each do |story| -%>
       <% next unless story.publish %>
       <%= render partial: 'stories/show.html', :locals =>{pdf: pdf, book: book, story: story, epub: false, outline: outline} %>
-
       <% story.key_points.order(:position).each do |key_point| -%>
-        <%= render 'key_points/show.html', book: book, key_point: key_point, epub: false %>
+        <%= render 'key_points/show.html', story: story, book: book, key_point: key_point, epub: false %>
       <% end -%>
     <% end -%>
   <% end -%>
-  <% @stories.order(:position).each do |story| -%>
-    <% next unless story.publish %>
-    <%= render partial: 'stories/show.html', :locals => {pdf: pdf, book: book, story: story, epub: false, outline: outline} %>
+  <% Scene.get_scenes(book,"off").each do |scene| -%>
+    <% next if scene.section.nil? %>
+    <strong>
+    <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil} %>
+    </strong><br/>
+    <%= scene.section.body %>
   <% end -%>
 <% else %>
   <% @chapters.each do |chapter| -%>
     <%= render 'chapters/show.html', book: book, chapter: chapter, epub: false %>
   <% end -%>
 <% end -%>
+
 <% unless book.is_fiction? %>
   <div style = "display:block; clear:both; page-break-after:always;"></div>
   <h1>Citations</h1>
@@ -43,7 +46,6 @@
     <%= raw render "footnotes/citations.html", slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: false %>
     </div>
   <% end -%>
-<% end -%>
 
   <div style = "display:block; clear:both; page-break-after:always;"></div>
   <h1>Chapter Events</h1>
@@ -69,4 +71,5 @@
   <%= render 'glossary_terms/index.html', glossary_terms: book.glossary_terms.order(:name) %>
   <%= render 'biblioentries/index.html', biblioentries: book.biblioentries %>
  
+<% end -%>
 <% end -%>

@@ -3,11 +3,40 @@ require "application_system_test_case"
 class KeyPointsTest < ApplicationSystemTestCase
   setup do
     @key_point = key_points(:key_point_1)
-    @key_point_2 = key_points(:key_point_5)
+    @key_point_2 = key_points(:key_point_2)
+    @key_point_3 = key_points(:key_point_3)
+    @key_point_9 = key_points(:key_point_9)
     @scripted = books(:book_2)
     @story = @key_point.scripted
     @user = users(:users_1)
     sign_in @user
+  end
+
+  test "sort key points" do
+    visit books_url
+    assert_text "The Phantom"
+    click_on "The Phantom"
+    assert_text "The Beginnings"
+    click_on "The Beginnings"
+    assert_text "Climate Change"
+  
+Timeout.timeout(Capybara.default_max_wait_time) do
+  sleep(0.1) until page.evaluate_script('jQuery.active') == 0 && page.has_css?('.ui-sortable')
+end
+
+    #save_and_open_page
+    #debugger
+    #take_screenshot
+    assert_match %r[#{@key_point.name}.*#{@key_point_3.name}.*#{@key_point_9.name}]m, page.html
+    draggable = find(:css, "#key_point-#{@key_point_3.id}")
+    droppable = find(:css, "#key_point-#{@key_point.id}")
+    
+    draggable.drag_to(droppable)
+    wait_for_ajax
+    #visit current_path
+    #save_and_open_page
+    #debugger
+    assert_match %r[#{@key_point_3.name}.*#{@key_point.name}.*#{@key_point_9.name}]m, page.html
   end
 
   test "creating a Key point" do
@@ -17,9 +46,7 @@ class KeyPointsTest < ApplicationSystemTestCase
     assert_text "The Beginnings"
     click_on "The Beginnings"
     assert_text "Climate Change"
-    within ".footer" do
-      click_on "Key Points"
-    end
+    assert_text "New Key Point"
     click_on "New Key Point"
 
     fill_in "Climax", with: @key_point.climax
@@ -44,9 +71,7 @@ class KeyPointsTest < ApplicationSystemTestCase
     assert_text "The Beginnings"
     click_on "The Beginnings"
     assert_text "Climate Change"
-    within ".footer" do
-      click_on "Key Points"
-    end
+    assert_text "New Key Point"
     click_on "New Key Point"
 
     fill_in "Climax", with: @key_point.climax

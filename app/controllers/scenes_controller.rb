@@ -11,6 +11,13 @@ class ScenesController < ApplicationController
     @scenes = Scene.get_scenes(@situated, @toggle)
   end
 
+   def sort
+    #@list = List.find(params[:list_id])
+    @scene = Scene.find(params[:scene_id])
+    @scene.update(scene_params)
+    render body: nil
+  end
+
   # GET /scenes/1
   # GET /scenes/1.json
   def show
@@ -65,8 +72,7 @@ class ScenesController < ApplicationController
   def create
     time = params["t_years"].to_d + params["t"]["month"].to_f/12 + params["t"]["day"].to_f/365
     @scene = Scene.new(scene_params)
-    @scene.time = time
-
+    @scene.time = time.truncate(4)
 
     respond_to do |format|
       if @scene.save
@@ -83,7 +89,7 @@ class ScenesController < ApplicationController
   # PATCH/PUT /scenes/1.json
   def update
     time = params["t_years"].to_d + params["t"]["month"].to_f/12 + params["t"]["day"].to_f/365
-    @scene.time = time
+    @scene.time = time.truncate(4)
     @situated = @scene.situated
 
     respond_to do |format|
@@ -123,6 +129,6 @@ class ScenesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def scene_params
       params.require(:scene).permit(:abc, :check, :summary, :place, :time, :scene_sequel, :goal_reaction, :conflict_dilemma, :disaster_decision, :short_term_goal, :long_term_goal, :over_arching_goal, :situated_id,
-                                    :situated_type, :selector, :key_point_id, :section_id, :insert_scene_id, :before_flag)
+                                    :situated_type, :selector, :key_point_id, :section_id, :insert_scene_id, :before_flag, :artifact_id, :position_position)
     end
 end

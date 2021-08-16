@@ -18,6 +18,7 @@ class User < ApplicationRecord
   has_many :metric
   has_many :region
   has_many :role
+  has_many :section
   has_many :timeline
 
   def assign_default_role

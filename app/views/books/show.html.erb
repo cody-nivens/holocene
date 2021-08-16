@@ -1,11 +1,21 @@
 <h2>
-<%= breadcrumb(@book) %>
+<%= raw breadcrumb(@book) %>
 <%= link_to (fa_icon "pencil"), edit_book_path(@book)  %>
 <%= link_to (fa_icon "sticky-note-o"), book_signets_path(@book), :title => "Signets" %>
 <%= link_to (fa_icon "book"), book_epub_path(@book), :title => "EPub" %>
 <%= link_to (fa_icon "file-pdf-o"), book_path(@book,:format => :pdf), :title => "PDF" %>
 <%= link_to (fa_icon "file-pdf-o"), book_path(@book,:format => :pdf, :outline => true), :title => "PDF" %>
 </h2>
+<% unless @book.is_fiction? %>
+<table class="table">
+  <tr>
+<th>Chapters:</th>
+<td class="text-right"><%= @book.chapters.count %></td>
+<th>Word Count:</th>
+<td class="text-right"><%= number_with_delimiter(@book.word_count, :delimiter => ',') %></td>
+  </tr>
+</table>
+<% end %>
 
 <p>
   <%= raw @book.body %>
@@ -13,15 +23,16 @@
 
 <% if @book.is_fiction? %>
   <%= render 'books/fiction' %>
-
 <% @footer_content << "#{link_to 'New Story', new_book_story_path(:book_id => @book.id), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'All Stories', book_stories_path(@book), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Characters', polymorphic_path([@book, :characters ]), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Key Points', polymorphic_path([@book, :key_points]), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Scenes', polymorphic_path([@book, :scenes]), :class => "btn btn-default hide-print" }" %>
 <% @footer_content << "#{link_to 'Artifacts', book_artifacts_path(@book), :class => "btn btn-default" }" %>
 <% else %>
   <%= render 'chapters/index' %>
 <% @footer_content << "#{link_to 'New Chapter', new_polymorphic_path([@book,:chapter]), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Chapters, TOC', toc_path(@book), :class => "btn btn-default" }" %>
 <% end %>
+<% @footer_content << "#{link_to "Authors", book_authors_path(@book),  :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Back', books_path, :class => "btn btn-default"}" %>

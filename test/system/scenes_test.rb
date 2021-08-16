@@ -6,6 +6,9 @@ class ScenesTest < ApplicationSystemTestCase
     @scene_2 = scenes(:scene_2)
     @scene_3 = scenes(:scene_3)
     @scene_6 = scenes(:scene_6)
+    @scene_13 = scenes(:scene_13)
+    @scene_11 = scenes(:scene_11)
+
     @situated = @scene.situated
     @situated_2 = @scene_2.situated
     @situated_3 = @scene_3.situated
@@ -16,12 +19,33 @@ class ScenesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test "sort scenes" do
+    visit books_url
+    assert_text "The Phantom"
+    click_on "The Phantom"
+    assert_text "The Beginnings"
+    click_on "The Beginnings"
+    assert_text "Climate Change"
+    click_on "Climate Change"
+
+    #save_and_open_page
+    #debugger
+    #take_screenshot
+    assert_match %r[#{@scene.name}.*#{@scene_11.name}.*#{@scene_13.name}]m, page.html
+
+    draggable = find(:css, "#scene-#{@scene_13.id}")
+    droppable = find(:css, "#scene-#{@scene_11.id}")
+    draggable.drag_to(droppable)
+    assert_match %r[#{@scene.name}.*#{@scene_13.name}.*#{@scene_11.name}]m, page.html
+  end
+
   test "visiting the scene" do
     visit polymorphic_url([@situated, @scene])
     assert_text "A00001"
+    take_screenshot
     within ".footer" do
       assert_no_text "<"
-      assert_no_text ">"
+      assert_text ">"
     end
     take_screenshot
   end
@@ -68,9 +92,9 @@ class ScenesTest < ApplicationSystemTestCase
     fill_in "Scene sequel", with: @scene.scene_sequel
     fill_in "Time", with: @scene.time
 
-    fill_in_rich_text_area "scene_summary", with: "Test 1"
-    assert_text "Test 1"
-    take_screenshot
+    #fill_in_rich_text_area "scene_summary", with: "Test 1"
+    #assert_text "Test 1"
+    #take_screenshot
 
     #fill_in_rich_text_area "scene_conflict_dilemma", with: @scene.conflict_dilemma
     #fill_in_rich_text_area "scene_disaster_decision", with: @scene.disaster_decision

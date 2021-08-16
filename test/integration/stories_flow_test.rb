@@ -24,7 +24,7 @@ class StoriesFlowTest < ActionDispatch::IntegrationTest
     assert_template 'stories/show'
 
     assert_select ".alert", /.*Story was successfully created.*/
-    assert_select "h2>a", "Sammy goes to Washington"
+    assert_select "h2", /Sammy goes to Washington/
 
     story = Story.last
 

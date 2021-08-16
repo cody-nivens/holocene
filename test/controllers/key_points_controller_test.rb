@@ -14,6 +14,11 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
+  test "should sort key_points" do
+    put story_key_point_sort_url(:story_id => @key_point_2.scripted.id, :key_point_id => @key_point_2.id), xhr: true, params: { key_point: { id: @key_point_2.id, scripted_id: @key_point_2.scripted_id } }
+    assert_response :success
+  end
+
   test "should get index" do
     get polymorphic_url([@scripted, :key_points])
     assert_response :success

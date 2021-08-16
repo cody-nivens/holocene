@@ -1,8 +1,9 @@
 require "test_helper"
 
+@@headless = 1
 
 DOWNLOADS_PATH = File.expand_path(File.join(Rails.root, 'tmp', 'downloads'))
-#if 1 == 0
+if @@headless == 1
 Capybara.register_driver :headless_selenium do |app|
   options = Selenium::WebDriver::Chrome::Options.new
 
@@ -10,7 +11,7 @@ Capybara.register_driver :headless_selenium do |app|
   options.add_argument('--no-sandbox')
   options.add_argument('--disable-gpu')
   options.add_argument('--disable-popup-blocking')
-  options.add_argument('--window-size=1366,768')
+  options.add_argument('--window-size=1366,1900')
 
   options.add_preference(:download, directory_upgrade: true,
                                     prompt_for_download: false,
@@ -33,15 +34,14 @@ Capybara.register_driver :headless_selenium do |app|
 
   driver
 end
-#end
+end
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
-#    if 1 == 0
+if @@headless == 1
   driven_by :headless_selenium
-#    end
+else
 
-if 1 == 0
-  driven_by :selenium, using: :chrome, screen_size: [1024, 900], options: {
+  driven_by :selenium, using: :chrome, screen_size: [1366,1900], options: {
       desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(
         'chromeOptions' => {
           'prefs' => {
@@ -60,6 +60,7 @@ end
 
   def before_setup
     super
+    Selenium::WebDriver::Remote::Capabilities.chrome( "goog:loggingPrefs": { browser: 'ALL' } )
     holocene_event = holocene_events(:holocene_event_1)
     file = Rails.root.join('test', 'fixtures', 'files', 'image.jpg')
     holocene_event.image.attach(io: File.open(file), filename: 'image.jpg')
@@ -92,3 +93,27 @@ Capybara.add_selector :rich_text_area do
     end
   end
 end
+module WaitHelpers
+  def wait_for_ajax
+    Timeout.timeout(Capybara.default_max_wait_time) do
+      loop until finished_all_ajax_requests?
+    end
+  end
+
+  def finished_all_ajax_requests?
+    page.evaluate_script('jQuery.active').zero?
+  end
+
+def wait_for_dom(timeout = Capybara.default_max_wait_time)
+  uuid = SecureRandom.uuid
+  page.find("body")
+    #$('body').append("<div id='#{uuid}'></div>");
+  page.evaluate_script <<-EOS
+    $('body').append("<div id='mergle'></div>");
+  EOS
+  page.find("#mergle", visible: false)
+  #page.find("##{uuid}")
+end
+end
+
+include WaitHelpers

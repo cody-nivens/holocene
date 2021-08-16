@@ -1,61 +1,7 @@
-<% unless @today_mod_sections.empty? %>
-<h2>Today's Modifications</h2>
-<ul>
-  <% @today_mod_sections.order(:updated_at).each do |section| %>
-    <% values = section.set_values %>
-    <li><%= breadcrumb(values[0], values[1], values[2], values[3]) %></li>
-  <% end %>
-</ul>
-<% end %>
-
-<% unless @today_create_sections.empty? %>
-<h2>Today's Creations</h2>
-<ul>
-  <% @today_create_sections.order(:updated_at).each do |section| %>
-    <% values = section.set_values %>
-    <li><%= breadcrumb(values[0], values[1], values[2], values[3]) %></li>
-  <% end %>
-</ul>
-<% end %>
-
-<% unless @yesterday_mod_sections.empty? %>
-<h2>Yesterday's Modifications</h2>
-<ul>
-  <% @yesterday_mod_sections.order(:updated_at).each do |section| %>
-    <% values = section.set_values %>
-    <li><%= breadcrumb(values[0], values[1], values[2], values[3]) %></li>
-  <% end %>
-</ul>
-<% end %>
-
-<h2>Yesterday's Creations</h2>
-<% unless @yesterday_create_sections.empty? %>
-<ul>
-  <% @yesterday_create_sections.order(:updated_at).each do |section| %>
-    <% values = section.set_values %>
-    <li><%= breadcrumb(values[0], values[1], values[2], values[3]) %></li>
-  <% end %>
-</ul>
-<% end %>
-
-<% unless @last_week_mod_sections.empty? %>
-<h2>Last Week's Modifications</h2>
-<ul>
-  <% @last_week_mod_sections.order(:updated_at).each do |section| %>
-    <% values = section.set_values %>
-    <li><%= breadcrumb(values[0], values[1], values[2], values[3]) %></li>
-  <% end %>
-</ul>
-<% end %>
-
-<h2>Last Week's Creations</h2>
-<% unless @last_week_create_sections.empty? %>
-<ul>
-  <% @last_week_create_sections.order(:updated_at).each do |section| %>
-    <% values = section.set_values %>
-    <li><%= breadcrumb(values[0], values[1], values[2], values[3]) %></li>
-  <% end %>
-</ul>
+<% items = [@today_mod, @today_create, @yesterday_mod, @yesterday_create, @last_week_mod, @last_week_create] %>
+<% titles = ["Today's Modifications", "Today's Creations","Yesterday's Modifications", "Yesterday's Creations","Last Week's Modifications", "Last Week's Creations"] %>
+  <% items.each_with_index do |item,index| %>
+  <%= render :partial => "metrics/metric", :locals => { objects: item, title: titles[index] } %>
 <% end %>
 <hr/>
 <%= link_to "Stats", welcome_stats_path %>

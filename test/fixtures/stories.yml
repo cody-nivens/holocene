@@ -23,7 +23,7 @@ story_3:
   summary: MyText
   book: book_3
   scene_character: C
-  position: 3
+  position: 1
   publish: true
   stand_alone: false
 

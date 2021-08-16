@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_06_134006) do
+ActiveRecord::Schema.define(version: 2021_08_13_202926) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2021_08_06_134006) do
     t.bigint "book_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "location"
     t.index ["book_id"], name: "index_artifact_types_on_book_id"
   end
 
@@ -116,6 +117,7 @@ ActiveRecord::Schema.define(version: 2021_08_06_134006) do
     t.string "copyright"
     t.boolean "fiction"
     t.string "scene_character"
+    t.integer "position"
   end
 
   create_table "books_characters", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -406,6 +408,7 @@ ActiveRecord::Schema.define(version: 2021_08_06_134006) do
     t.bigint "section_id"
     t.integer "insert_scene_id"
     t.boolean "before_flag", default: false
+    t.bigint "artifact_id"
     t.index ["situated_type", "situated_id"], name: "index_scenes_on_situated_type_and_situated_id"
   end
 
@@ -420,7 +423,9 @@ ActiveRecord::Schema.define(version: 2021_08_06_134006) do
     t.integer "embed", default: 0
     t.string "sectioned_type", null: false
     t.bigint "sectioned_id", null: false
+    t.bigint "user_id", null: false
     t.index ["sectioned_type", "sectioned_id"], name: "index_sections_on_sectioned_type_and_sectioned_id"
+    t.index ["user_id"], name: "index_sections_on_user_id"
   end
 
   create_table "signets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|

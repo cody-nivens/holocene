@@ -1,18 +1,22 @@
 <p id="notice"><%= notice %></p>
 
 <h2>
-<%= breadcrumb(@scene.key_point.scripted.book, @scene.key_point.scripted, @scene.key_point, @scene) %>
+<%= raw breadcrumb(@scene.key_point.scripted.book, @scene.key_point.scripted, @scene.key_point, @scene) %>
+<%= link_to "#{(fa_icon "pencil")}".html_safe, edit_polymorphic_path([@situated, @scene]), :title => 'Edit' %>
 </h2>
 
-<p>
-  <strong>Time:</strong> <%= @scene.time_to_text %><br/>
-  <strong>ABC:</strong> <%= @scene.abc %><br/>
-  <strong>Check:</strong> <%= @scene.check %><br/>
-  <strong>Scene/Sequel:</strong> <%= (@scene.scene_sequel == 1 ? "Sequel" : "Scene")%><br/>
-  <strong>Selector:</strong> <%= selector_string(@scene.selector) %><br/>
-  <strong>Place:</strong> <%= @scene.place.to_plain_text %><br/>
-  <strong>Word Count:</strong> <%= number_with_delimiter(@scene.word_count, :delimiter => ',') %><br/>
-</p>
+<table class="table">
+  <tr>
+  <th>Time:</th><td><%= @scene.time_to_text %></td>
+  <th>ABC:</th><td><%= @scene.abc %></td>
+  <th>Check:</th><td><%= @scene.check %></td>
+  <th>Scene/Sequel:</th><td><%= (@scene.scene_sequel == 1 ? "Sequel" : "Scene")%></td>
+  <th>Selector:</th><td><%= selector_string(@scene.selector) %></td>
+  <th>Location:</th><td><%= (@scene.artifact.nil? ? "Unkown" : @scene.artifact.name) %></td>
+  <th>Place:</th><td><%= @scene.place.to_plain_text %></td>
+  <th>Word Count:</th><td><%= number_with_delimiter(@scene.word_count, :delimiter => ',') %></td>
+  </tr>
+</table>
 <p>
   <%#= @scene.summary.to_plain_text %>
   <%= @scene.summary %>
@@ -107,7 +111,6 @@
 <% end %>
 </p>
 
-<% @footer_content << "#{link_to 'Edit', edit_polymorphic_path([@situated, @scene]), :class => "btn btn-default" }" %>
 <% if @scene.section.nil? %>
 <% @footer_content << "#{link_to 'New Section',new_polymorphic_path([@scene,:section]), :class => "btn btn-default" }" %>
 <% else %>

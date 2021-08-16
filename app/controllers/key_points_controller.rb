@@ -9,6 +9,12 @@ class KeyPointsController < ApplicationController
     @key_points = @scripted.key_points.order(:position)
   end
 
+  def sort
+    @key_point = KeyPoint.find(params[:key_point_id])
+    @key_point.update(key_point_params)
+    render body: nil
+  end
+
   def moved
     @key_point.update({:scripted_id => params["new_#{@scripted.class.name.underscore}_id".to_sym]})
 
@@ -131,6 +137,6 @@ class KeyPointsController < ApplicationController
     def key_point_params
       params.require(:key_point).permit(:hook, :inciting_incident, :key_element, :first_plot_point, :first_pinch_point, 
                                         :midpoint, :second_pinch_point, :third_plot_point, :climax, :scripted_id, 
-                                        :scripted_type, :selector, :print_name, :print_points)
+                                        :scripted_type, :selector, :print_name, :print_points, :position_position)
     end
 end

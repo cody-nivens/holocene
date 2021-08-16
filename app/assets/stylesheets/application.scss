@@ -354,11 +354,14 @@ table td, table td * {
   }
 }
 .trix-content {
-  max-height: 40em !important;   //set whatever height you want
   height: auto;
   overflow-y: auto;
 }
 
 .customized-min-height {
     min-height: 30em;
+}
+
+dd {
+    margin-bottom: 10px;
 }

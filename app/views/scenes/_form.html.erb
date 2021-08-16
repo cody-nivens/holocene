@@ -39,6 +39,11 @@
     <%= form.rich_text_area :place %>
   </div>
 
+
+  <div class="field">
+    <%= form.select :artifact_id, Artifact.joins(:artifact_type).where("artifact_types.location = 1").order('artifacts.name').collect { |p| [ p.name, p.id ] }, { include_blank: true } %>
+  </div>
+
   <div class="field">
     <%#= form.text_field :time %>
       <div class="form-check">

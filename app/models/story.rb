@@ -1,6 +1,6 @@
 class Story < ApplicationRecord
-  include RailsSortable::Model
-  set_sortable :position # Indicate a sort column
+  include RankedModel
+  ranks :position, with_same: :book_id
 
   belongs_to :book
 
@@ -38,7 +38,7 @@ class Story < ApplicationRecord
 
   def resync_key_points
     index = 0
-    points = self.key_points.order(:position).collect{|x| x.scenes.order(:selector, :time,:abc).pluck(:id, :abc, :selector)}
+    points = self.key_points.order(:position).collect{|x| x.scenes.order(selector: :asc, time: :asc, abc: :asc).pluck(:id, :abc, :selector)}
     kps = points.collect{|kp| kp.collect{|y| index += 1;[y[0], "#{self.scene_character}%0.5d00" % index]}}
     kps.each do |updates|
       updates.each do |x|
@@ -61,7 +61,6 @@ class Story < ApplicationRecord
 
     def word_count
       count = 0
-      return count unless self.publish
       self.key_points.each do |key_point|
         key_point.scenes.each do |scene|
           unless scene.section.nil?

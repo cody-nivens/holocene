@@ -22,6 +22,11 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
+  test "should sort scenes" do
+    put scene_sort_url(:scene_id => @scene_2.id), xhr: true, params: { scene: { id: @scene_2.id, key_point_id: @scene_2.key_point_id } }
+    assert_response :success
+  end
+
   test "should get index" do
     get polymorphic_url([@situated, :scenes])
 
@@ -81,7 +86,7 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create scene" do
     assert_difference('Scene.count') do
-      post polymorphic_url([@situated, :scenes]), params: { scene: { key_point_id: @scene.key_point.id, situated_type: @situated.class.name, situated_id: @situated.id, abc: @scene.abc, check: @scene.check, scene_sequel: @scene.scene_sequel, time: @scene.time },
+      post polymorphic_url([@situated, :scenes]), params: { scene: { key_point_id: @scene.key_point.id, situated_type: @situated.class.name, situated_id: @situated.id, abc: @scene.abc, artifact_id: nil, check: @scene.check, scene_sequel: @scene.scene_sequel, time: @scene.time },
                                                              t: { t_years: "", t_month: "", t_day: "" } }
     end
 

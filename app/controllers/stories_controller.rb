@@ -8,6 +8,12 @@ class StoriesController < ApplicationController
     @stories = Story.where(book_id: @book.id).order(:position)
   end
 
+  def sort
+    @story = Story.find(params[:story_id])
+    @story.update(story_params)
+    render body: nil
+  end
+
   # GET /stories/1
   # GET /stories/1.json
   def show
@@ -109,6 +115,6 @@ class StoriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def story_params
-      params.require(:story).permit(:title, :summary, :book_id, :scene_character, :publish, :stand_alone, :print_summary )
+      params.require(:story).permit(:title, :summary, :book_id, :scene_character, :publish, :stand_alone, :print_summary, :position_position )
     end
 end

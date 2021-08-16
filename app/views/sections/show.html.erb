@@ -1,7 +1,8 @@
-<p>
-  <% @title = @section.name %>
-  <h2><%= @section.name %></h2>
-</p>
+<% @title = @section.name %>
+<h2>
+<%= raw breadcrumb(nil, nil, nil, @section.sectioned, @section) %>
+<%= link_to "#{(fa_icon "pencil")}".html_safe, edit_polymorphic_path([@sectioned, @section]), :title => 'Edit' %>
+</h2>
 
 <% @slugs = [] -%>
 <% @footnotes = Footnote.process_body(@section, @slugs) -%>
@@ -25,7 +26,6 @@
 <% priv_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position - 1) -%>
 <% next_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position + 1) -%>
 
-<% @footer_content << "#{link_to "Edit", edit_polymorphic_path([@sectioned, @section]), :class => "btn icon-ok icon-white"}" %>
 <% @footer_content << "#{link_to '<', polymorphic_path([@sectioned, priv_section.first]), :class => "btn icon-ok icon-white"}" unless priv_section.length == 0 %>
 <% @footer_content << "#{link_to '>', polymorphic_path([@sectioned, next_section.first]), :class => "btn icon-ok icon-white"}" unless next_section.length == 0  %>
 <% if @section.sectioned_type == "Chapter" %>

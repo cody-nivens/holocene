@@ -176,11 +176,13 @@ GEM
       activerecord
       kaminari-core (= 1.2.1)
     kaminari-core (1.2.1)
+    launchy (2.5.0)
+      addressable (~> 2.7)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
-    loofah (2.11.0)
+    loofah (2.12.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     lumberjack (1.2.8)
@@ -218,7 +220,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    popper_js (2.9.2)
+    popper_js (2.9.3)
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -264,6 +266,8 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
     rake (13.0.6)
+    ranked-model (0.4.7)
+      activerecord (>= 4.2)
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
@@ -389,6 +393,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   kaminari (~> 1.2.1)
+  launchy
   listen (>= 3.0.5, < 3.2)
   mini_magick (~> 4.9.4)
   mini_portile2 (~> 2.4.0)
@@ -407,6 +412,7 @@ DEPENDENCIES
   rails-bootstrap-tabs (~> 0.2.2)
   rails-controller-testing
   rails_sortable
+  ranked-model
   react-rails
   rolify
   sass-rails (>= 6)
