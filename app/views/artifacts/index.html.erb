@@ -2,39 +2,36 @@
 
 <h1>Artifacts</h1>
 
+<div id='tag_cloud'>
+  <% tag_cloud Artifact.where(book_id: @book.id).tag_counts, %w{s m l} do |tag, css_class| %>
+    <%= link_to tag.name, tag_artifacts_path(book_id: @book.id, tag: tag.name), class: css_class %>
+  <% end %>
+</div>
+
 <table class="table">
   <thead>
     <tr>
       <th>Name</th>
       <th>Owner/Controller</th>
       <th>Type</th>
-      <th>Parent</th>
-      <th>Children</th>
+      <th></th>
       <th colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @artifacts.each do |artifact| %>
+      <% next if !artifact.parent.nil? && artifact.children.empty? %>
       <tr>
-        <td><%= link_to artifact.name, book_artifact_url(@book,artifact) %></td>
-        <td><%= artifact.character.name %></td>
-        <td><%= artifact.artifact_type.name %></td>
-        <td><%= (artifact.parent.nil? ? '' : artifact.parent.name) %></td>
-        <% if artifact.children.empty? %>
-          <td></td>
-        <% else %>
-            <td>
-              <ul>
-          <% artifact.children.each do |child| %>
-            <li><%= child.name %></li>
-          <% end %>
-              </ul>
-            </td>
-      <% end %>
-        <td><%= link_to 'Edit', edit_book_artifact_path(@book,artifact) %></td>
-        <td><%= link_to 'Destroy', book_artifact_path(@book,artifact), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <%= render partial: "artifacts/artifact_index.html", :locals => {book: @book, artifact: artifact, parent: true} %> 
       </tr>
+      <% unless artifact.children.empty? %>
+        <% artifact.children.order(:name).each do |child| %>
+        <tr>
+          <%= render partial: "artifacts/artifact_index.html", :locals => {book: @book, artifact: child, parent: false} %> 
+        </tr>
+        <% end %>
+      <% end %>
     <% end %>
   </tbody>
 </table>

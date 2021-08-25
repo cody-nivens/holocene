@@ -4,7 +4,7 @@ scene_1:
   abc: A00001
   check: false
   artifact: artifact_1
-  time: 99.0
+  date_string: "0099-01-01"
   scene_sequel: 1
   situated: story_1 (Story)
   key_point: key_point_1
@@ -15,7 +15,7 @@ scene_2:
   abc: A00002
   check: false
   artifact: artifact_1
-  time: 100.5
+  date_string: "0100-06-01"
   scene_sequel: 1
   situated: story_2 (Story)
   key_point: key_point_2
@@ -26,8 +26,8 @@ scene_3:
   abc: A00003
   check: false
   artifact: artifact_1
-  time: 101.0192
   scene_sequel: 1
+  date_string: "0101-01-01"
   situated: story_2 (Story)
   key_point: key_point_2
   selector: 3
@@ -38,7 +38,7 @@ scene_4:
   abc: B00001
   check: false
   artifact: artifact_1
-  time: 100.5
+  date_string: "0100-06-01"
   scene_sequel: 1
   situated: story_2 (Story)
   key_point: key_point_5
@@ -49,7 +49,7 @@ scene_5:
   abc: C00001
   check: false
   artifact: artifact_1
-  time: 100.5
+  date_string: "0100-06-01"
   scene_sequel: 1
   situated: story_3 (Story)
   key_point: key_point_6
@@ -60,7 +60,7 @@ scene_6:
   abc: A00004
   check: false
   artifact: artifact_1
-  time: 101.5
+  date_string: "0101-06-01"
   scene_sequel: 1
   situated: story_2 (Story)
   key_point: key_point_7
@@ -72,7 +72,7 @@ scene_7:
   abc: A00007
   check: false
   artifact: artifact_1
-  time: 101.5
+  date_string: "0101-06-01"
   scene_sequel: 1
   situated: story_2 (Story)
   key_point: key_point_8
@@ -83,7 +83,7 @@ scene_8:
   abc: A00008
   check: false
   artifact: artifact_1
-  time: 100.5
+  date_string: "0100-06-01"
   scene_sequel: 1
   situated: story_2 (Story)
   key_point: key_point_8
@@ -95,7 +95,7 @@ scene_9:
   abc: A00009
   check: false
   artifact: artifact_1
-  time: 100.5
+  date_string: "0100-06-01"
   scene_sequel: 1
   situated: story_1 (Story)
   selector: 0
@@ -104,7 +104,7 @@ scene_10:
   abc: A00010
   check: false
   artifact: artifact_1
-  time: 99.0
+  date_string: "0099-01-01"
   scene_sequel: 1
   situated: story_1 (Story)
   key_point: key_point_9
@@ -115,7 +115,7 @@ scene_11:
   abc: A00011
   check: false
   artifact: artifact_1
-  time: 99.0
+  date_string: "0099-01-01"
   scene_sequel: 1
   situated: story_1 (Story)
   key_point: key_point_1
@@ -126,7 +126,7 @@ scene_12:
   abc: A00012
   check: false
   artifact: artifact_1
-  time: 99.1
+  date_string: "0099-02-01"
   scene_sequel: 1
   situated: story_1 (Story)
   key_point: key_point_1
@@ -137,7 +137,7 @@ scene_13:
   abc: A00013
   check: false
   artifact: artifact_1
-  time: 99.1
+  date_string: "0099-02-01"
   scene_sequel: 1
   situated: story_1 (Story)
   key_point: key_point_1

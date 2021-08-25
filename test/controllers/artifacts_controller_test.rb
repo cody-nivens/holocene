@@ -51,6 +51,17 @@ class ArtifactsControllerTest < ActionDispatch::IntegrationTest
     assert_template 'artifacts/edit'
   end
 
+
+  test "should get tagged 1" do
+    get tag_artifacts_url(:book_id => @book.id, :tag => 'Domestication')
+    assert_response :success
+  end
+
+  test "should get tagged 2" do
+    get tag_artifacts_url(book_id: @book.id)
+    assert_response :success
+  end
+
   test "should update artifact" do
     patch book_artifact_url(@book,@artifact), params: { artifact: { character_id: @artifact.character_id, name: @artifact.name, book_id: @book.id, artifact_type_id: @artifact_type.id, parent_id: nil } }
     assert_redirected_to book_artifact_url(@book, @artifact)

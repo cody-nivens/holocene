@@ -63,4 +63,12 @@ class HoloceneEvent < ApplicationRecord
     return [ (self.lat.nil? ? nil : self.location) ]
   end
 
+  def set_values
+    chapter = nil
+    unless self.chapters.nil?
+      chapter = self.chapters.first
+      book = chapter.scripted
+    end
+    return [ book, chapter, self,  nil, nil ]
+  end
 end

@@ -10,9 +10,11 @@
   <%= @artifact.character.name %>
 </p>
 
+<p><strong>Tags:</strong> <%= raw(@artifact.tag_list.map { |t| link_to t, tag_path(t) }.join(', ')) %></p>
+
 <% unless @artifact.children.empty? %>
 <p>
-  <strong>Children:</strong>
+  <strong>Related Artifacts:</strong>
   <ul>
 <% @artifact.children.each do |child| %>
   <li><%= child.name %></li>

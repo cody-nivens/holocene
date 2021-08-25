@@ -2,11 +2,24 @@ require 'test_helper'
 
 
 class SceneTest < ActiveSupport::TestCase
+  test "set value" do
+    scene = scenes(:scene_1)
+    values = scene.set_values
+
+    key_point = key_points(:key_point_1)
+    story = stories(:story_1)
+    book = books(:book_2)
+    assert_equal book, values[0]
+    assert_equal story, values[1]
+    assert_equal key_point, values[2]
+    assert_equal scene, values[3]
+  end
+
   test "should count the scenes" do
     count_scenes = Scene.all
     scenes = Scene.get_scenes(books(:book_2),"off")
     assert_equal 13, count_scenes.length
-    assert_equal 10, scenes.length
+    assert_equal 13, scenes.length
   end
 
   test "set_next 1" do

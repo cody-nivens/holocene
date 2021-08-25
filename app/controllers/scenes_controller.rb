@@ -57,6 +57,7 @@ class ScenesController < ApplicationController
     @selector = params[:selector]
     @scene.selector = @selector
     @scene.key_point = @key_point
+    @scene.date_string = "0001-01-01"
   end
 
   # GET /scenes/1/edit
@@ -70,9 +71,8 @@ class ScenesController < ApplicationController
   # POST /scenes
   # POST /scenes.json
   def create
-    time = params["t_years"].to_d + params["t"]["month"].to_f/12 + params["t"]["day"].to_f/365
     @scene = Scene.new(scene_params)
-    @scene.time = time.truncate(4)
+    @scene.date_string = "%04d" % params["t_years"].to_i + "-%02d" % params["t"]["month"].to_i + "-%02d" % params["t"]["day"].to_i
 
     respond_to do |format|
       if @scene.save
@@ -88,8 +88,7 @@ class ScenesController < ApplicationController
   # PATCH/PUT /scenes/1
   # PATCH/PUT /scenes/1.json
   def update
-    time = params["t_years"].to_d + params["t"]["month"].to_f/12 + params["t"]["day"].to_f/365
-    @scene.time = time.truncate(4)
+    @scene.date_string = "%04d" % params["t_years"].to_i + "-%02d" % params["t"]["month"].to_i + "-%02d" % params["t"]["day"].to_i
     @situated = @scene.situated
 
     respond_to do |format|

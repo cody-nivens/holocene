@@ -16,7 +16,7 @@ class CharacterScenesControllerTest < ActionDispatch::IntegrationTest
 
   test "should update character_scene" do
     patch polymorphic_url([@scene, @character_scene]), params: { character_scene: { :character_id => @character_scene.character.id, :scene_id => @scene.id}}
-    assert_redirected_to polymorphic_url([@scene.situated, @scene.key_point])
+    assert_redirected_to polymorphic_url([@scene.situated, @scene])
   end
 
   test "should not update character_scene" do

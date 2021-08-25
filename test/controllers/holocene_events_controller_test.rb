@@ -87,7 +87,6 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[text()=?]",'Footnotes'
     assert_select "a[href=?]", holocene_event_footnotes_path(@holocene_event)
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", holocene_events_path
     assert_select ".footer>div>a", 4
   end
 

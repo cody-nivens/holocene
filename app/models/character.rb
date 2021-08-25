@@ -36,7 +36,7 @@ class Character < ApplicationRecord
   end
 
   def select_name
-    "#{(honorific.blank? ? '' : "#{honorific} ")}#{first_name} #{middle_name} #{last_name} #{suffix}:#{occupation_class} - #{grouping}"
+    "#{occupation_class} - #{grouping}: #{(honorific.blank? ? '' : "#{honorific} ")}#{first_name} #{middle_name} #{last_name} #{suffix}"
   end
 
   def full_name

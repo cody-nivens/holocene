@@ -2,10 +2,12 @@
   <%= story.scene_min %>
   <%= story.scene_max %>
   <%= link_to story.title, book_story_path(:book_id => story.book.id, :id => story.id) %>
-  <% w_count = story.word_count %>
-  <% unless w_count == 0 %>
-    <%= number_with_delimiter(story.word_count, :delimiter => ',') %>
-  <% end %>
+  <% scene_count = story.scene_count %>
+  <% section_count = story.section_count %>
+  <% word_count = story.word_count %>
+  <%= scene_count %> (<%= section_count %> <%= (scene_count == 0 ? '' : number_with_precision((section_count.to_f/scene_count.to_f)*100.0, precision: 2)) %>%)
+  <%= number_with_delimiter(word_count, :delimiter => ',') %> (<%= (section_count == 0 ? '' : number_with_delimiter(word_count/section_count*scene_count, :delimiter => ',')) %>)
+
   <%= link_to (fa_icon "search-plus"), book_story_path(:book_id => story.book.id, :id => story.id), :title => "Show" %>
   <%= link_to (fa_icon 'edit'), edit_book_story_path(:book_id => story.book.id, :id => story.id), :title => "Edit" %>
   <%= link_to (fa_icon "trash-o"), book_story_path(:book_id => story.book.id, :id => story.id), method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy" %>

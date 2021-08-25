@@ -11,7 +11,7 @@ class CharacterScenesController < ApplicationController
   def update
     respond_to do |format|
       if @character_scene.update(character_scene_params)
-        format.html { redirect_to polymorphic_path([@character_scene.scene.situated, @character_scene.scene.key_point]), notice: 'Character scene was successfully updated.' }
+        format.html { redirect_to polymorphic_path([@character_scene.scene.situated, @character_scene.scene]), notice: 'Character scene was successfully updated.' }
         format.json { render :show, status: :ok, location: @character_scene }
       else
         format.html { render :edit }

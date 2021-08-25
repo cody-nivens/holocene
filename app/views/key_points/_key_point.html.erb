@@ -1,7 +1,8 @@
-<div><%= link_to key_point.hook, polymorphic_path([@scripted, key_point]) %>
- Print Name: <%= (key_point.print_name? ? 'Y' : 'N') %>
- Print Points: <%= (key_point.print_points? ? 'Y' : 'N') %>
+<dt><%= link_to key_point.hook, polymorphic_path([@scripted, key_point]) %></dt>
+<dd>
  <%= key_point.key_element %>
+ PN: <%= (key_point.print_name? ? 'Y' : 'N') %>
+ PP: <%= (key_point.print_points? ? 'Y' : 'N') %>
  <%= link_to 'Show', polymorphic_path([@scripted, key_point]) %>
  <%= link_to 'Edit', edit_polymorphic_path([@scripted, key_point]) %>
- <%= link_to 'Destroy', polymorphic_path([@scripted, key_point]), method: :delete, data: { confirm: 'Are you sure?' } %></div>
+ <%= link_to 'Destroy', polymorphic_path([@scripted, key_point]), method: :delete, data: { confirm: 'Are you sure?' } %></dd>

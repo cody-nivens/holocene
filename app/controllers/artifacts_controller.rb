@@ -1,6 +1,6 @@
 class ArtifactsController < ApplicationController
   before_action :set_artifact, only: %i[ show edit update destroy ]
-  before_action :set_book, only: %i[ index new show edit update destroy ]
+  before_action :set_book, only: %i[ tagged index new show edit update destroy ]
 
   # GET /artifacts or /artifacts.json
   def index
@@ -9,6 +9,14 @@ class ArtifactsController < ApplicationController
 
   # GET /artifacts/1 or /artifacts/1.json
   def show
+  end
+
+  def tagged
+    if params[:tag].present?
+      @artifacts = Artifact.tagged_with(params[:tag])
+    else
+      @artifacts = Artifact.all
+    end
   end
 
   # GET /artifacts/new
@@ -71,6 +79,6 @@ class ArtifactsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def artifact_params
-      params.require(:artifact).permit(:name, :character_id, :book_id, :artifact_type_id, :summary, :parent_id)
+      params.require(:artifact).permit(:name, :character_id, :book_id, :artifact_type_id, :summary, :parent_id, :tag_list)
     end
 end

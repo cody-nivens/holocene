@@ -53,7 +53,6 @@ class TimelinesControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[text()=?]",'Map'
     assert_select "a[href=?]", geo_map_timeline_path(@timeline)
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", timelines_path
     assert_select ".footer>div>a", 5
   end
 

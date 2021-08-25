@@ -6,7 +6,7 @@
 
 <%= render 'authors/index.html', authors: book.authors %>
 
-<%= raw epub_friendly(book.body) %>
+<%= raw epub_friendly(book.body) %><br/>
 
 <% book.key_points.order(:position).each do |key_point| -%>
     <%= render 'key_points/show.html', story: key_point.scripted, book: book, key_point: key_point, epub: false %>
@@ -15,20 +15,27 @@
 <% @notes = {} -%>
 <% if book.is_fiction? %>
   <% if outline %>
-    <% @stories.where(publish: true, stand_alone: false).order(:position).each do |story| -%>
-      <% next unless story.publish %>
-      <%= render partial: 'stories/show.html', :locals =>{pdf: pdf, book: book, story: story, epub: false, outline: outline} %>
-      <% story.key_points.order(:position).each do |key_point| -%>
-        <%= render 'key_points/show.html', story: story, book: book, key_point: key_point, epub: false %>
-      <% end -%>
+    <%# @stories.where(publish: true, stand_alone: false).order(:position).each do |story| -%>
+      <%# next unless story.publish %>
+      <%#= render partial: 'stories/show.html', :locals =>{pdf: pdf, book: book, story: story, epub: false, outline: outline} %>
+      <%# story.key_points.order(:position).each do |key_point| -%>
+        <%#= render 'key_points/show.html', story: story, book: book, key_point: key_point, epub: false %>
+      <%# end -%>
+    <%# end -%>
+    <% Scene.get_scenes(book,"off").each do |scene| -%>
+      <% next if scene.section.nil? %>
+      <strong>
+        <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil} %>
+      </strong><br/><br/>
     <% end -%>
-  <% end -%>
-  <% Scene.get_scenes(book,"off").each do |scene| -%>
-    <% next if scene.section.nil? %>
-    <strong>
-    <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil} %>
-    </strong><br/>
-    <%= scene.section.body %>
+  <% else -%>
+    <% Scene.get_scenes(book,"off").each do |scene| -%>
+      <% next if scene.section.nil? %>
+      <strong>
+        <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil} %>
+      </strong><br/><br/>
+      <%= raw epub_friendly(scene.section.body) %><br/>
+    <% end -%>
   <% end -%>
 <% else %>
   <% @chapters.each do |chapter| -%>

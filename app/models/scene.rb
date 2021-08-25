@@ -1,13 +1,19 @@
 class Scene < ApplicationRecord
   include SharedMethods
   include Rails.application.routes.url_helpers
-
+  ThinkingSphinx::Callbacks.append(
+    self, :behaviours => [:sql]
+  )
+  # if you're using namespaced models:
+  ThinkingSphinx::Callbacks.append(
+    self, 'action_text/rich_text', :behaviours => [:sql]
+  )
   #acts_as_list scope: :key_point_id
 
   include RankedModel
+  belongs_to :key_point, :optional => true
   ranks :position, with_same: :key_point_id
 
-  belongs_to :key_point, :optional => true
   belongs_to :artifact, :optional => true
   acts_as_list scope: :key_point
 
@@ -68,6 +74,15 @@ class Scene < ApplicationRecord
     return { :year => "#{year.to_i}", :month => "#{month.to_i}", :day => "#{day.to_i}"}
   end
 
+  def time_string
+    info = time_to_array
+
+    year = info[0] 
+    month =  info[1]
+    day =  info[2]
+    return "%04d" % year.to_i + "-%02d" % month.to_i + "-%02d" % day.to_i
+  end
+
     #
   # Generate json for TimelineJS
   #
@@ -106,77 +121,62 @@ class Scene < ApplicationRecord
       stories = [ situated ]
     end
 
-
-    scene_ids = []
+    scenes_h  = {}
     stories.each do |story|
-      story.key_points.order(:position).each do |key_point|
-        key_point.scenes.order(:time,:abc,:position).each do |scene|
+      story.key_points.each do |key_point|
+        key_point.scenes.each do |scene|
           unless toggle == "on"
               scenes = self.where(insert_scene_id: scene.id)
               scenes.each do |scene_2|
                 next unless scene_2.key_point.scripted.publish?
-                scene_ids << scene_2
+                if scenes_h["#{scene_2.time_string}"].nil?
+                  scenes_h["#{scene_2.time_string}"] = []
+                end
+                scenes_h["#{scene_2.time_string}"] << scene_2 unless scenes_h["#{scene_2.time_string}"].include?(scene_2)
               end
            end
-           scene_ids << scene.id
+           if scenes_h["#{scene.time_string}"].nil?
+             scenes_h["#{scene.time_string}"] = []
+           end
+           scenes_h["#{scene.time_string}"] << scene unless scenes_h["#{scene.time_string}"].include?(scene)
         end
       end
-    end
-
-    if toggle == "on"
-      all_scenes = self.where("id in (?)", scene_ids).order(:abc)
-    else
-      all_scenes = self.where("id in (?)", scene_ids).order(:time, :abc)
     end
 
     scene_ids = []
+    scenes_h.keys.sort.each do |x|
+      scenes_h[x].each do |scene|
+        scene_ids << scene
+      end
+    end
     if situated.class.name == 'Book'
       stories = situated.stories.where(stand_alone: true, publish: true).order(:position)
 
-    stories.each do |story|
-      story.key_points.order(:position).each do |key_point|
-        key_point.scenes.order(:time,:abc,:position).each do |scene|
-          unless toggle == "on" 
-              scenes = self.where(insert_scene_id: scene.id)
-              scenes.each do |scene_2|
-                next unless scene_2.key_point.scripted.publish?
-                scene_ids << scene_2
-              end
-           end
-           scene_ids << scene.id
+      stories.each do |story|
+        story.key_points.order(:position).each do |key_point|
+          key_point.scenes.order(:date_string,:abc,:position).each do |scene|
+            unless toggle == "on" 
+                scenes = self.where(insert_scene_id: scene.id)
+                scenes.each do |scene_2|
+                  next unless scene_2.key_point.scripted.publish?
+                  scene_ids << scene_2
+                end
+             end
+             scene_ids << scene
+          end
         end
       end
     end
 
-    end
-    scenes2 = self.where("id in (?)", scene_ids)
-
-    return all_scenes + scenes2
+    return scene_ids
   end
 
   def time_to_array
-    year = self.time.to_i
-    time = self.time
-    month = 1
-    week = 1
-    day = 1
-    return  [year,1,1] if time.to_d.modulo(1) == 0
-    month_slice = 0.0833
-    week_slice =  0.0192
-    day_slice =   0.0027
-
-   if self.time.to_d.modulo(1) >= month_slice
-     month = (self.time.to_d.modulo(1)/month_slice).to_i
-   end
-   if self.time.to_d.modulo(1) >= week_slice
-     week = ((self.time - (month.nil? ? 0 : month*month_slice)).to_d.modulo(1)/week_slice).to_i
-   else
-  end
-
-   if time.to_d.modulo(1) >= day_slice
-     day = ((self.time - (week.nil? ? 0 : week*week_slice) - (month.nil? ? 0 : month*month_slice)).to_d.modulo(1)/day_slice).to_i
-   end
-   return [year, month, (day == 0 ? 1 : day)]
+    t_parts = self.date_string.split("-")
+    year = t_parts[0].to_i
+    month = t_parts[1].to_i
+    day = t_parts[2].to_i
+    return  [year,month,day]
   end
 
   def time_to_text
@@ -192,10 +192,23 @@ class Scene < ApplicationRecord
   end
 
   def min
-    return self.time.to_i
+    return self.date_string[0..3].to_i
   end
 
   def max
-    return self.time.to_i
+    return self.date_string[0..3].to_i
   end
+
+  def set_values
+    situated = self.situated
+    story = key_point = book = nil
+    case self.situated_type
+    when "Story"
+       story = self.situated
+       key_point = self.key_point
+       book = story.book
+    end
+    return [ book, story, key_point, self, nil ]
+  end
+
 end

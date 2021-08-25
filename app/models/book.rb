@@ -1,8 +1,11 @@
 class Book < ApplicationRecord
   include RankedModel
-  ranks :position, with_same: :user_id
+  ThinkingSphinx::Callbacks.append(
+    self, :behaviours => [:sql]
+  )
 
   belongs_to :user
+  ranks :position, with_same: :user_id
 
   has_rich_text :body
   has_rich_text :publisher
@@ -36,10 +39,11 @@ class Book < ApplicationRecord
     return self.fiction
   end
 
-  def word_count
+  def word_count(published=false)
     count = (self.body.nil? ? 0 : WordsCounted.count(self.body.to_plain_text).token_count)
     if self.is_fiction?
-      self.stories.each do |story|
+      stories = (published ? self.stories.where(publish: true) : self.stories)
+      stories.each do |story|
         story.key_points.each do |key_point|
           key_point.scenes.each do |scene|
             unless scene.section.nil?
@@ -56,10 +60,19 @@ class Book < ApplicationRecord
     return count
   end
 
-  def scene_count
+  def scene_count(published=false)
+    count = 0
+    stories = (published ? self.stories.where(publish: true) : self.stories)
+    stories.each do |story|
+      count += story.scene_count
+    end
+    return count
+  end
+
+  def section_count
     count = 0
     self.stories.each do |story|
-      count += story.scene_count
+      count += story.section_count
     end
     return count
   end

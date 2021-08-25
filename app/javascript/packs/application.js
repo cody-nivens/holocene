@@ -23,3 +23,5 @@ require("trix")
 require("@rails/actiontext")
 
 require('components/sortable')
+
+import "chartkick/chart.js"

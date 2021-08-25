@@ -1,3 +1,5 @@
+<p id="notice"><%= notice %></p>
+<% @title = @book.name %>
 <h2>
 <%= raw breadcrumb(@book) %>
 <%= link_to (fa_icon "pencil"), edit_book_path(@book)  %>
@@ -29,6 +31,7 @@
 <% @footer_content << "#{link_to 'Key Points', polymorphic_path([@book, :key_points]), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Scenes', polymorphic_path([@book, :scenes]), :class => "btn btn-default hide-print" }" %>
 <% @footer_content << "#{link_to 'Artifacts', book_artifacts_path(@book), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Key Words', book_key_words_path(@book), :class => "btn btn-default" }" %>
 <% else %>
   <%= render 'chapters/index' %>
 <% @footer_content << "#{link_to 'New Chapter', new_polymorphic_path([@book,:chapter]), :class => "btn btn-default" }" %>

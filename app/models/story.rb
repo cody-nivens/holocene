@@ -1,8 +1,10 @@
 class Story < ApplicationRecord
   include RankedModel
-  ranks :position, with_same: :book_id
-
+  ThinkingSphinx::Callbacks.append(
+    self, :behaviours => [:sql]
+  )
   belongs_to :book
+  ranks :position, with_same: :book_id
 
   has_many :character_stories
   has_many :characters, ->{ order(:last_name) }, :through => :character_stories
@@ -38,7 +40,7 @@ class Story < ApplicationRecord
 
   def resync_key_points
     index = 0
-    points = self.key_points.order(:position).collect{|x| x.scenes.order(selector: :asc, time: :asc, abc: :asc).pluck(:id, :abc, :selector)}
+    points = self.key_points.order(:position).collect{|x| x.scenes.order(selector: :asc, date_string: :asc, abc: :asc).pluck(:id, :abc, :selector)}
     kps = points.collect{|kp| kp.collect{|y| index += 1;[y[0], "#{self.scene_character}%0.5d00" % index]}}
     kps.each do |updates|
       updates.each do |x|
@@ -106,4 +108,10 @@ class Story < ApplicationRecord
     end
     return max
   end
+
+  def set_values
+    book = self.book
+    return [ book, self, nil, nil, nil ]
+  end
+
 end

@@ -3,23 +3,20 @@ module ApplicationHelper
   def breadcrumb(book, story=nil, key_point=nil, scene=nil, section=nil, link=nil)
     str = ""
     unless book.nil?
-      str += (story.nil? ? book.name : my_link_to(book.name,book_path(book)))
+      str += (link.nil? && story.nil? ? book.name : my_link_to(book.name,polymorphic_path(book)))
     end
+    book ||= story.book unless story.nil?
     unless story.nil?
       str += " | " unless str.empty?
-      if story.class.name == "Story"
-        str += (key_point.nil? ? story.name : my_link_to(story.name,book_story_path(:book_id => book.id, :id => story.id)))
-      else
-        str += (key_point.nil? ? story.name : my_link_to(story.name,book_chapter_path(:book_id => book.id, :id => story.id)))
-      end
+      str += (link.nil? && key_point.nil? ? story.name : my_link_to(story.name,polymorphic_path([book, story])))
     end
     unless key_point.nil?
       str += " | " unless str.empty?
-      str += (scene.nil? ? key_point.hook : my_link_to(key_point.hook,story_key_point_path(:story_id => story.id, :id => key_point.id)))
+      str += (link.nil? && scene.nil? ? key_point.name : my_link_to(key_point.name,polymorphic_path([story, key_point])))
     end
     unless scene.nil?
       str += " | " unless str.empty?
-      str += (section.nil? ? scene.name : my_link_to(scene.name,scene_path(:id => scene.id)))
+      str += (link.nil? && section.nil? ? scene.name : my_link_to(scene.name,scene_path(:id => scene.id)))
     end
     unless section.nil?
       str += " | " unless str.empty?

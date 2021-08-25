@@ -47,15 +47,14 @@
   <div class="field">
     <%#= form.text_field :time %>
       <div class="form-check">
-        <% year = scene.time.to_i %>
-        <% remainder = (scene.time.nil? ? 0 : (scene.time - year)) %>
-        <% tmon= (remainder / 0.0833).to_i %>
-        <% day = ((remainder - tmon*0.0833)/0.0027).to_i %>
+        <% t_parts = scene.date_string.split("-") %>
+        <% year = t_parts[0].to_i %>
+        <% month = t_parts[1].to_i %>
+        <% day = t_parts[2].to_i %>
 
         <label for='t_years'>Time</label>
         <%= text_field_tag 't_years', year, size: 5 %> year
-        <%= select("t", "month", %w[1 2 3 4 5 6 7 8 9 10 11 12 ], {include_blank: "Month", selected: tmon}, {}) %> month(s) and 
-          <% options_for_select([["choice1",1],["choice2",2]]) %>
+        <%= select("t", "month", %w[1 2 3 4 5 6 7 8 9 10 11 12 ], {include_blank: "Month", selected: month}, {}) %> month(s) and 
         <%= select("t", "day", %w[1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31], {include_blank: 'Day', selected: day}, {}) %>
          day(s).
   </div>

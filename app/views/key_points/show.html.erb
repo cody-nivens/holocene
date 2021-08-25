@@ -1,20 +1,25 @@
 <p id="notice"><%= notice %></p>
+<% @title = @key_point.name %>
 <h2>
-<%= raw breadcrumb((@scripted.class.name == "Book" ? @scripted : (@scripted.class.name == "Chapter" ? @scripted.scripted : @scripted.book)), @scripted, @key_point) %>
-<%= link_to "#{(fa_icon "pencil")}".html_safe, edit_polymorphic_path([@scripted, @key_point]), :title => 'Edit' %>
+  <%= raw breadcrumb((@scripted.class.name == "Book" ? @scripted : (@scripted.class.name == "Chapter" ? @scripted.scripted : @scripted.book)), @scripted, @key_point) %>
+  <%= link_to "#{(fa_icon "pencil")}".html_safe, edit_polymorphic_path([@scripted, @key_point]), :title => 'Edit' %>
 </h2>
 
 <table class="table">
-  <tr><th>Print name:</th>
-  <td><%= (@key_point.print_name? ? fa_icon("check") : '') %></td>
-  <th>Print points:</th>
+  <tr>
+    <th>Print name:</th>
+    <td><%= (@key_point.print_name? ? fa_icon("check") : '') %></td>
+    <th>Print points:</th>
     <td><%= (@key_point.print_points? ? fa_icon("check") : '') %></td>
-  <th>Word Count:</th>
-    <td><%= number_with_delimiter(@key_point.word_count, :delimiter => ',') %></td></tr>
+    <th>Word Count:</th>
+    <td><%= number_with_delimiter(@key_point.word_count, :delimiter => ',') %></td>
+  </tr>
 </table>
+
 <p>
   <strong>Inciting incident:</strong> <%= @key_point.inciting_incident %><br/>
 </p>
+
 <p>
   <strong>Key element:</strong> <%= @key_point.key_element %>
 </p>
@@ -23,52 +28,41 @@
 
 <% c.tab "First Point" do %>
   <span>
-  <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: 1) %>
-  <%= @key_point.first_plot_point %></h3>
-  <%= render partial: 'key_points/scenes', :locals => {selector: 1, key_point: @key_point, story: @scripted} %>
+    <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: 1) %> <%= @key_point.first_plot_point %></h3>
+    <%= render partial: 'key_points/scenes', :locals => {selector: 1, key_point: @key_point, story: @scripted} %>
   </span>
-  <% end %>
-
+<% end %>
 <% c.tab "First Pinch Point" do %>
   <span>
-  <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: 2) %>
-  <%= @key_point.first_pinch_point %></h3>
-  <%= render partial: 'key_points/scenes', :locals => {selector: 2, key_point: @key_point, story: @scripted} %>
+    <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: 2) %> <%= @key_point.first_pinch_point %></h3>
+    <%= render partial: 'key_points/scenes', :locals => {selector: 2, key_point: @key_point, story: @scripted} %>
   </span>
-  <% end %>
-
+<% end %>
 <% c.tab "Midpoint" do %>
   <span>
-  <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: 3) %>
-  <%= @key_point.midpoint %></h3>
-  <%= render partial: 'key_points/scenes', :locals => {selector: 3, key_point: @key_point, story: @scripted} %>
+    <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: 3) %> <%= @key_point.midpoint %></h3>
+    <%= render partial: 'key_points/scenes', :locals => {selector: 3, key_point: @key_point, story: @scripted} %>
   </span>
-  <% end %>
-
+<% end %>
 <% c.tab "Second Pinch Point" do %>
   <span>
-  <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: 4) %>
-  <%= @key_point.second_pinch_point %></h3>
-  <%= render partial: 'key_points/scenes', :locals => {selector: 4, key_point: @key_point, story: @scripted} %>
+    <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: 4) %> <%= @key_point.second_pinch_point %></h3>
+    <%= render partial: 'key_points/scenes', :locals => {selector: 4, key_point: @key_point, story: @scripted} %>
   </span>
-  <% end %>
-
+<% end %>
 <% c.tab "Third Point" do %>
   <span>
-  <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: 5) %>
-  <%= @key_point.third_plot_point %></h3>
-  <%= render partial: 'key_points/scenes', :locals => {selector: 5, key_point: @key_point, story: @scripted} %>
+    <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: 5) %> <%= @key_point.third_plot_point %></h3>
+    <%= render partial: 'key_points/scenes', :locals => {selector: 5, key_point: @key_point, story: @scripted} %>
   </span>
-  <% end %>
-
+<% end %>
 <% c.tab "Climax" do %>
   <span>
-  <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: 6) %>
-  <%= @key_point.climax %></h3>
-  <%= render partial: 'key_points/scenes', :locals => {selector: 6, key_point: @key_point, story: @scripted} %>
+    <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: 6) %> <%= @key_point.climax %></h3>
+    <%= render partial: 'key_points/scenes', :locals => {selector: 6, key_point: @key_point, story: @scripted} %>
   </span>
-  <% end %>
-  <% end %>
+<% end %>
+<% end %>
 
 <% @footer_content << "#{link_to 'Move', polymorphic_path([@scripted, @key_point, :move]), :class => "btn btn-default hide-print" }" %>
 <% @footer_content << "#{link_to 'Back', polymorphic_path([@scripted], anchor: @key_point.anchor), :class => "btn btn-default"}" %>
@@ -81,4 +75,3 @@
 <% unless next_key_point.nil? %>
   <% @footer_content << "#{link_to '>', polymorphic_path([@key_point.scripted, next_key_point]), :class => "btn icon-ok icon-white" }" %>
 <% end %>
-

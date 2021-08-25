@@ -1,5 +1,8 @@
 class Section < ApplicationRecord
   include RailsSortable::Model
+  ThinkingSphinx::Callbacks.append(
+    self, :behaviours => [:sql]
+  )
   set_sortable :position # Indicate a sort column
 
   has_rich_text :body

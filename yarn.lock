@@ -945,7 +945,7 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
-"@rails/actiontext@^6.0.4":
+"@rails/actiontext@^6.0.4-1":
   version "6.1.4"
   resolved "https://registry.yarnpkg.com/@rails/actiontext/-/actiontext-6.1.4.tgz#ed8c7d2b68d66205301f4538ce65d04c48031f6b"
   integrity sha512-KG+VCofmfZAhW1x1xFxMC2sZtvwbx+XX0Y+dzeBFjKU1jZMM0RNytJf5EiuHtD9fL71zz6/nMT7FjwOFenSA7Q==
@@ -1954,6 +1954,25 @@ chalk@^2.0, chalk@^2.0.0, chalk@^2.4.1, chalk@^2.4.2:
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
+chart.js@>=3.0.2, chart.js@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-3.5.1.tgz#73e24d23a4134a70ccdb5e79a917f156b6f3644a"
+  integrity sha512-m5kzt72I1WQ9LILwQC4syla/LD/N413RYv2Dx2nnTkRS9iv/ey1xLTt0DnPc/eWV4zI+BgEgDYBIzbQhZHc/PQ==
+
+chartjs-adapter-date-fns@>=2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/chartjs-adapter-date-fns/-/chartjs-adapter-date-fns-2.0.0.tgz#5e53b2f660b993698f936f509c86dddf9ed44c6b"
+  integrity sha512-rmZINGLe+9IiiEB0kb57vH3UugAtYw33anRiw5kS2Tu87agpetDDoouquycWc9pRsKtQo5j+vLsYHyr8etAvFw==
+
+chartkick@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/chartkick/-/chartkick-4.0.5.tgz#310a60c931e8ceedc39adee2ef8e9d1e474cb0e6"
+  integrity sha512-xKak4Fsgfvp1hj/LykRKkniDMaZASx2A4TdVc/sfsiNFFNf1m+D7PGwP1vgj1UsbsCjOCSfGWWyJpOYxkUCBug==
+  optionalDependencies:
+    chart.js ">=3.0.2"
+    chartjs-adapter-date-fns ">=2.0.0"
+    date-fns ">=2.0.0"
+
 chokidar@^2.1.8:
   version "2.1.8"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.1.8.tgz#804b3a7b6a99358c3c5c61e71d8728f041cff917"
@@ -2542,6 +2561,11 @@ dashdash@^1.12.0:
   integrity sha1-hTz6D3y+L+1d4gMmuN1YEDX24vA=
   dependencies:
     assert-plus "^1.0.0"
+
+date-fns@>=2.0.0:
+  version "2.23.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.23.0.tgz#4e886c941659af0cf7b30fafdd1eaa37e88788a9"
+  integrity sha512-5ycpauovVyAk0kXNZz6ZoB9AYMZB4DObse7P3BPWmyEjXNORTI8EJ6X0uaSAq4sCHzM1uajzrkr6HnsLQpxGXA==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3:
   version "2.6.9"
@@ -4186,7 +4210,14 @@ jquery-ui-dist@^1.12.1:
   resolved "https://registry.yarnpkg.com/jquery-ui-dist/-/jquery-ui-dist-1.12.1.tgz#5c0815d3cc6f90ff5faaf5b268a6e23b4ca904fa"
   integrity sha1-XAgV08xvkP9fqvWyaKbiO0ypBPo=
 
-jquery@^3.6.0:
+jquery.are-you-sure@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/jquery.are-you-sure/-/jquery.are-you-sure-1.9.0.tgz#16aaa2c6080fa214f64027239ae3a34ad6a6265e"
+  integrity sha512-2r0uFx8CyAopjeHGOdvvwpFP921TnW1+v1uJXcAWQYHYGB1tryTDhQY+5u6HsVeMwbWiRTKVZFWnLaFpDvIqZQ==
+  dependencies:
+    jquery ">=1.4.2"
+
+jquery@>=1.4.2, jquery@^3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
   integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
@@ -7319,7 +7350,7 @@ trim-newlines@^1.0.0:
   resolved "https://registry.yarnpkg.com/trim-newlines/-/trim-newlines-1.0.0.tgz#5887966bb582a4503a41eb524f7d35011815a613"
   integrity sha1-WIeWa7WCpFA6QetST301ARgVphM=
 
-trix@^1.3.1:
+trix@^1.2.0:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/trix/-/trix-1.3.1.tgz#ccce8d9e72bf0fe70c8c019ff558c70266f8d857"
   integrity sha512-BbH6mb6gk+AV4f2as38mP6Ucc1LE3OD6XxkZnAgPIduWXYtvg2mI3cZhIZSLqmMh9OITEpOBCCk88IVmyjU7bA==

@@ -1,84 +1,84 @@
 <table class="table">
   <tr>
-<th>Stories:</th>
-<td><%= @book.stories.count %></td>
-<th>Characters:</th>
-<td><%= @book.characters.count %></td>
-<th>Scenes:</th>
-<td><%= @book.scene_count %></td>
-<th>Word Count:</th>
-<td><%= number_with_delimiter(@book.word_count, :delimiter => ',') %></td>
+    <th>Stories(Publishable):</th>
+    <td><%= @book.stories.count %> (<%= @book.stories.where(publish: true).count %>)</td>
+    <th>Characters:</th>
+    <td><%= @book.characters.count %></td>
+    <th>Scenes (published)(sections % scenes):</th>
+    <% scene_count = @book.scene_count %></td>
+    <% pub_scene_count = @book.scene_count(true) %></td>
+    <% section_count = @book.section_count %></td>
+    <% word_count = @book.word_count %>
+    <td><%= scene_count %> (<%= pub_scene_count %>) (<%= section_count %> <%= (pub_scene_count == 0 ? '' : number_with_precision((section_count.to_f/pub_scene_count.to_f)*100.0, precision: 2)) %>%)</td>
+    <th>Word Count (Potential):</th> <td><%= number_with_delimiter(word_count, :delimiter => ',') %> (<%= (section_count == 0 ? '' : number_with_delimiter(word_count/section_count*pub_scene_count, :delimiter => ',')) %>)</td>
   </tr>
 </table>
 
 <%= tabs do |c| %>
-
-<% c.tab "Stories" do %>
-  <span>
-      <%= render :partial => 'stories/index.html', :locals => {:stories => @book.stories.order(:position), :book => @book } %>
-  </span>
-<% end %>
-<% c.tab "Ethnicity" do %>
-  <span>
-<table class="table">
-  <% counts = {} %>
-  <% items = @book.characters.pluck(:race).map{|x| x || ""}.sort %>
-
-  <% items.each do |item| %>
-    <% if counts[item].nil? %>
-      <% counts[item] = 0 %>
+  <% c.tab "Stories" do %>
+    <span>
+        <%= render :partial => 'stories/index.html', :locals => {:stories => @book.stories.order(:position), :book => @book } %>
+    </span>
+  <% end %>
+  <% c.tab "Ethnicity" do %>
+    <span>
+      <table class="table">
+        <% counts = {} %>
+        <% items = @book.characters.pluck(:race).map{|x| x || ""}.sort %>
+        <% items.each do |item| %>
+          <% if counts[item].nil? %>
+            <% counts[item] = 0 %>
+          <% end %>
+          <% counts[item] = counts[item] + 1 %>
+        <% end %>
+        <% items.uniq.each do |item| %>
+          <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@book,:characters], :ethnicity => item) %></td><td><%= counts[item] %></td></tr>
+        <% end %>
+      </table>
+    </span>
+  <% end %>
+  <% c.tab "Stats" do %>
+    <span>
+      <%= render :partial => 'character_values/stats_a.html', :locals =>{:characters => @book.characters, :category => 'race', :cat1 => 'Eye color' } %>
+      <%= render :partial => 'character_values/stats_a.html', :locals =>{:characters => @book.characters, :category => 'race', :cat1 => 'Hair color' } %>
+      <%= render :partial => 'character_values/stats.html', :locals =>{:category => 'Physical Appearance', :cat1 => 'Eye color' } %>
+      <%= render :partial => 'character_values/stats.html', :locals =>{:category => 'Physical Appearance', :cat1 => 'Hair color' } %>
+      <%= render :partial => 'character_values/stats2.html', :locals =>{:category => 'Gender', :cat1 => 'Gender', :cat2 => 'Sex'} %>
+    </span>
+  <% end %>
+  <% c.tab "Occupation Class" do %>
+    <span>
+      <table class="table">
+        <% counts = {} %>
+        <% items = @book.characters.pluck(:occupation_class).map{|x| x || ""}.sort %>
+        <% items.each do |item| %>
+          <% if counts[item].nil? %>
+            <% counts[item] = 0 %>
+          <% end %>
+          <% counts[item] = counts[item] + 1 %>
+        <% end %>
+        <% items.uniq.each do |item| %>
+          <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@book,:characters], :occupation_class => item) %></td><td><%= counts[item] %></td></tr>
+        <% end %>
+      </table>
+    </span>
+  <% end %>
+  <% c.tab "Characters" do %>
+    <span>
+      <% @book.characters.order(:occupation_class).pluck(:occupation_class).map{|x| x || ""}.uniq.each do |occ_class| %>
+        <%= (occ_class == "" ? "<blank>" : occ_class) %>
+        <ul>
+          <% if occ_class == "" %>
+            <% @book.characters.where("occupation_class is null").order(:occupation_class,:last_name,:first_name).each do |character| %>
+              <li><%= link_to character.name, polymorphic_path([@book,character]) %><%= "#{(character.grouping.blank? ? '' : "-  #{character.grouping}")}" %></li>
+            <% end %>
+          <% end %>
+          <% @book.characters.where("occupation_class = ?", occ_class).order(:occupation_class,:last_name,:first_name).each do |character| %>
+            <li><%= link_to character.name, polymorphic_path([@book,character]) %><%= "#{(character.grouping.blank? ? '' : "-  #{character.grouping}")}" %></li>
+          <% end %>
+      </ul>
     <% end %>
-    <% counts[item] = counts[item] + 1 %>
+  
+    </span>
   <% end %>
-  <% items.uniq.each do |item| %>
-    <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@book,:characters], :ethnicity => item) %></td><td><%= counts[item] %></td></tr>
-  <% end %>
-</table>
-</span>
-<% end %>
-<% c.tab "Stats" do %>
-  <span>
-    <%= render :partial => 'character_values/stats_a.html', :locals =>{:characters => @book.characters, :category => 'race', :cat1 => 'Eye color' } %>
-    <%= render :partial => 'character_values/stats_a.html', :locals =>{:characters => @book.characters, :category => 'race', :cat1 => 'Hair color' } %>
-    
-    <%= render :partial => 'character_values/stats.html', :locals =>{:category => 'Physical Appearance', :cat1 => 'Eye color' } %>
-    <%= render :partial => 'character_values/stats.html', :locals =>{:category => 'Physical Appearance', :cat1 => 'Hair color' } %>
-    <%= render :partial => 'character_values/stats2.html', :locals =>{:category => 'Gender', :cat1 => 'Gender', :cat2 => 'Sex'} %>
-</span>
-<% end %>
-<% c.tab "Occupation Class" do %>
-  <span>
-<table class="table">
-  <% counts = {} %>
-  <% items = @book.characters.pluck(:occupation_class).map{|x| x || ""}.sort %>
-  <% items.each do |item| %>
-    <% if counts[item].nil? %>
-      <% counts[item] = 0 %>
-    <% end %>
-    <% counts[item] = counts[item] + 1 %>
-  <% end %>
-  <% items.uniq.each do |item| %>
-    <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@book,:characters], :occupation_class => item) %></td><td><%= counts[item] %></td></tr>
-  <% end %>
-</table>
-  </span>
-<% end %>
-<% c.tab "Characters" do %>
-  <span>
-    <% @book.characters.order(:occupation_class).pluck(:occupation_class).map{|x| x || ""}.uniq.each do |occ_class| %>
-      <%= (occ_class == "" ? "<blank>" : occ_class) %>
-<ul>
-  <% if occ_class == "" %>
-<% @book.characters.where("occupation_class is null").order(:occupation_class,:last_name,:first_name).each do |character| %>
-  <li><%= link_to character.name, polymorphic_path([@book,character]) %><%= "#{(character.grouping.blank? ? '' : "-  #{character.grouping}")}" %></li>
-<% end %>
-  <% end %>
-<% @book.characters.where("occupation_class = ?", occ_class).order(:occupation_class,:last_name,:first_name).each do |character| %>
-  <li><%= link_to character.name, polymorphic_path([@book,character]) %><%= "#{(character.grouping.blank? ? '' : "-  #{character.grouping}")}" %></li>
-<% end %>
-</ul>
-<% end %>
-
-  </span>
-<% end %>
 <% end %>

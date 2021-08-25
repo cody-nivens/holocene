@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%= @title %> for <%= @object.class.name %>: <%= (@object.class.name == 'Scene' ? @object.abc : @object.name) %></h1>
+<h1><%= @title %> for <%= @object.class.name %>: <%= link_to (@object.class.name == 'Scene' ? @object.abc : @object.name), polymorphic_path(@object) %></h1>
 
 <%= tabs do |c| %>
 
@@ -31,19 +31,19 @@
   <span>
 <p>
 <% @characters.order(:occupation_class).pluck(:occupation_class).uniq.each do |occ_class| %>
-  <%= occ_class %>
+    <%= link_to (occ_class.blank? ? '<blank>' : occ_class), polymorphic_path([@object,:characters], :occupation_class => occ_class) %>
 <table class="table">
   <tbody>
     <tr><td>
 <ul>
 <% @characters.where("occupation_class = ?", occ_class).order(:last_name,:first_name).each do |character| %>
-  <li><%= link_to character.name, polymorphic_path([@object,character]) %><%= "#{(character.grouping.blank? ? '' : "-  #{character.grouping}")}" %></li>
+  <li><%= link_to character.name, polymorphic_path([@object,character]) %> - <%= "#{(character.grouping.blank? ? '' : "#{character.grouping}")}" %></li>
 <% end %>
 </ul>
       </td><td>
 <ul>
 <% @characters.where("occupation_class = ?", occ_class).order(:grouping,:last_name,:first_name).each do |character| %>
-  <li><%= link_to character.name, polymorphic_path([@object,character]) %><%= "#{(character.grouping.blank? ? '' : "-  #{character.grouping}")}" %></li>
+  <li><%= "#{(character.grouping.blank? ? '' : "#{character.grouping}")}" %> - <%= link_to character.name, polymorphic_path([@object,character]) %></li>
 <% end %>
 </ul>
       </td></tr>

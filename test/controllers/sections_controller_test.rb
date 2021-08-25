@@ -74,7 +74,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", section_footnotes_path(@section)
     assert_select "a[text()=?]",'Back'
     assert_select "a[href=?]", polymorphic_path(@section.sectioned)
-    assert_select ".footer>div>a", 6
+    assert_select ".footer>div>a", 7
   end
 
   test "should map section" do
@@ -134,7 +134,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update section" do
-    assert_difference('Metric.count', 0) do
+    assert_difference('Metric.count', 1) do
       patch polymorphic_url([@sectioned_1, @section]), params: { chapter_id: @sectioned_1.id,  section: { body: @section.body, name: @section.name, position: @section.position,
                                                                                                           :sectioned_type => @sectioned_1.class.name, :sectioned_id => @sectioned_1.id, user_id: @user.id } }
     end
@@ -143,9 +143,11 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update section 2" do
+    assert_difference('Metric.count', 1) do
     patch polymorphic_url([@sectioned_2, @section]), params: { scene_id: @sectioned_2.id, section: { body: @section.body, name: @section.name, position: @section.position,
                                                                                                      sectioned_type: @sectioned_2.class.name, sectioned_id: @sectioned_2.id, user_id: @user.id } }
-      assert_redirected_to polymorphic_path([@sectioned_2, @section])
+    end
+    assert_redirected_to polymorphic_path([@sectioned_2, @section])
   end
 
   test "should update section 3" do

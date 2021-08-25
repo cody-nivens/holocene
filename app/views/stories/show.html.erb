@@ -1,10 +1,11 @@
 <p id="notice"><%= notice %></p>
+<% @title = @story.name %>
 
 <h2>
-<%= raw breadcrumb(@story.book, @story) %>
-<%= link_to "#{(fa_icon "pencil")}".html_safe, edit_story_path(@story), :title => 'Edit' %>
-<%= link_to (fa_icon "file-pdf-o"), story_path(@story,:format => :pdf), :title => "PDF" %>
-<%= link_to (fa_icon "file-pdf-o"), story_path(@story,:format => :pdf, :outline => true), :title => "PDF Outline" %>
+  <%= raw breadcrumb(@story.book, @story) %>
+  <%= link_to "#{(fa_icon "pencil")}".html_safe, edit_story_path(@story), :title => 'Edit' %>
+  <%= link_to (fa_icon "file-pdf-o"), story_path(@story,:format => :pdf), :title => "PDF" %>
+  <%= link_to (fa_icon "file-pdf-o"), story_path(@story,:format => :pdf, :outline => true), :title => "PDF Outline" %>
 </h2>
 
 <p>
@@ -16,18 +17,19 @@
 
 <table class="table">
   <tr>
-<th>Word Count:</th> <td><%= number_with_delimiter(@story.word_count, :delimiter => ',') %></td>
-<th>Scene Character:</th> <td><%= @story.scene_character %></td>
-<th>Characters:</th> <td><%= @story.characters.count %></td>
-<th>Key Points:</th> <td><%= @story.key_points.count %></td>
+    <% word_count = @story.word_count %>
+    <th>Word Count (Potential):</th> <td><%= number_with_delimiter(word_count, :delimiter => ',') %> (<%= (section_count == 0 ? '' : number_with_delimiter(word_count/section_count*scene_count, :delimiter => ',')) %>)</td>
+    <th>Scene Character:</th> <td><%= @story.scene_character %></td>
+    <th>Characters:</th> <td><%= @story.characters.count %></td>
+    <th>Key Points:</th> <td><%= @story.key_points.count %></td>
   </tr>
   <tr>
-<th>Scenes:</th>
-<td><%= scene_count %> - <%= section_count %> <%= (scene_count == 0 ? '' : number_with_precision((section_count.to_f/scene_count.to_f)*100.0, precision: 2)) %>%</td>
-<th>Print Summary:</th> <td><%= (@story.print_summary? ? fa_icon("check") : '') %></td>
-<th>Publish:</th> <td><%= (@story.publish? ? fa_icon("check") : '') %></td>
-<th>Stand Alone:</th> <td><%= (@story.stand_alone? ? fa_icon("check") : '') %></td>
-</tr>
+    <th>Scenes(section % scenes):</th>
+    <td><%= scene_count %> (<%= section_count %> <%= (scene_count == 0 ? '' : number_with_precision((section_count.to_f/scene_count.to_f)*100.0, precision: 2)) %>%)</td>
+    <th>Print Summary:</th> <td><%= (@story.print_summary? ? fa_icon("check") : '') %></td>
+    <th>Publish:</th> <td><%= (@story.publish? ? fa_icon("check") : '') %></td>
+    <th>Stand Alone:</th> <td><%= (@story.stand_alone? ? fa_icon("check") : '') %></td>
+  </tr>
 </table>
 
 <% pdf ||= nil %>
@@ -35,119 +37,117 @@
 
 <% c.tab "Key Points" do %>
   <span>
-<ul>
-<div class="chapter_outer-sortable" style="cursor: grab;">
-  <%= content_tag "div", id: "scripted-#{@story.id}", data: { id: @story.id, model_name: @story.class.name.underscore, update_url: polymorphic_path([@story,:sort])} do %>
-    <div class="key_point-sortable" style="cursor: grab; min-height: 10px;">
-      <% @story.key_points.rank(:position).each do |key_point| %>
-        <%= content_tag "div", id: "key_point-#{key_point.id}", data: { model_name: key_point.class.name.underscore, update_url: polymorphic_path([@story,key_point,:sort])} do %>
-          <li><%= link_to key_point.hook, polymorphic_path([@story, key_point]), id: key_point.anchor %> - <%= link_to key_point.key_element, polymorphic_path([@story, key_point]) %> 
-            <dl>
-              <% 1.upto(6).each do |x| %>
-                <% if key_point.scenes.where(selector: x).length == 0 %>
-                  <dt><%= key_point.selector_value(x) %></dt>
-                <% else %>
-                  <% key_point.scenes.where(selector: x).order(:position).each do |scene| %>
-                    <dt>
-                      <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: @story, key_point: key_point, pdf: nil} %>
-                    </dt>
-                    <dd><%= scene.summary.to_plain_text %></dd>
-                  <% end %>
-                <% end %>
+    <ul>
+      <div class="chapter_outer-sortable" style="cursor: grab;">
+        <%= content_tag "div", id: "scripted-#{@story.id}", data: { id: @story.id, model_name: @story.class.name.underscore, update_url: polymorphic_path([@story,:sort])} do %>
+          <div class="key_point-sortable" style="cursor: grab; min-height: 10px;">
+            <% @story.key_points.rank(:position).each do |key_point| %>
+              <%= content_tag "div", id: "key_point-#{key_point.id}", data: { model_name: key_point.class.name.underscore, update_url: polymorphic_path([@story,key_point,:sort])} do %>
+                <li><%= link_to key_point.hook, polymorphic_path([@story, key_point]), id: key_point.anchor %> - <%= link_to key_point.key_element, polymorphic_path([@story, key_point]) %> 
+                  <dl>
+                    <% 1.upto(6).each do |x| %>
+                      <% if key_point.scenes.where(selector: x).length == 0 %>
+                        <dt><%= key_point.selector_value(x) %></dt>
+                      <% else %>
+                        <% key_point.scenes.where(selector: x).order(:position).each do |scene| %>
+                          <dt>
+                            <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: @story, key_point: key_point, pdf: nil} %>
+                          </dt>
+                          <dd><%= scene.summary.to_plain_text %></dd>
+                        <% end %>
+                      <% end %>
+                    <% end %>
+                  </dl>
+                </li>
               <% end %>
-            </dl>
-          </li>
+            <% end %>
+          </div>
         <% end %>
-      <% end %>
-    </div>
-  <% end %>
-</div>
-</ul>
+      </div>
+    </ul>
   </span>
 <% end %>
 
 <% c.tab "Gender" do %>
   <span>
-    <% category = CharacterCategory.find_by(name:'Gender')
-    character_attributes = CharacterAttribute.where(character_category_id: category.id) %>
+    <% category = CharacterCategory.find_by(name:'Gender') %>
+    <% character_attributes = CharacterAttribute.where(character_category_id: category.id) %>
     <% rs = CharacterValue.stats_2(@story.characters,category, character_attributes[0],character_attributes[1]) %>
-
     <% keys_1 = rs[category.name].keys %>
     <% unless keys_1.empty? %>
-    <table class="table">
-      <% keys_2 = rs[category.name][keys_1[0]].keys %>
-      <tr><th></th>
-        <% keys_2.each do |key| %>
-          <th><%= key %></th>
-        <% end %>
-      </tr>
+      <table class="table">
+        <% keys_2 = rs[category.name][keys_1[0]].keys %>
+        <tr><th></th>
+          <% keys_2.each do |key| %>
+            <th><%= key %></th>
+          <% end %>
+        </tr>
 
         <% keys_1.each do |key| %>
-      <tr>
-          <th><%= key %></th>
-          <% keys_2.each do |key_2| %>
-          <% item = rs[category.name][key][key_2] %>
-          <td><%= link_to (item.blank? ? '' : item), polymorphic_path([@story,:characters], :key1=> key, :key2 => key_2, :cat1 => "Gender",  :cat2 =>"Sex" ) %></td>
+          <tr>
+            <th><%= key %></th>
+            <% keys_2.each do |key_2| %>
+              <% item = rs[category.name][key][key_2] %>
+              <td><%= link_to (item.blank? ? '' : item), polymorphic_path([@story,:characters], :key1=> key, :key2 => key_2, :cat1 => "Gender",  :cat2 =>"Sex" ) %></td>
+            <% end %>
+          </tr>
         <% end %>
-      </tr>
-        <% end %>
-    </table>
-        <% end %>
-</span>
+      </table>
+    <% end %>
+  </span>
 <% end %>
 
 
 <% c.tab "Ethnicity" do %>
   <span>
-<table class="table">
-  <% counts = {} %>
-  <% items = @story.characters.pluck(:race).map{|x| x || ""}.sort %>
-  <% items.each do |item| %>
-    <% if counts[item].nil? %>
-      <% counts[item] = 0 %>
-    <% end %>
-    <% counts[item] = counts[item] + 1 %>
-  <% end %>
-  <% items.uniq.compact.each do |item| %>
-    <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@story,:characters], :ethnicity => item) %></td><td><%= counts[item] %></td></tr>
-  <% end %>
-</table>
-</span>
+    <table class="table">
+      <% counts = {} %>
+      <% items = @story.characters.pluck(:race).map{|x| x || ""}.sort %>
+      <% items.each do |item| %>
+        <% if counts[item].nil? %>
+          <% counts[item] = 0 %>
+        <% end %>
+        <% counts[item] = counts[item] + 1 %>
+      <% end %>
+      <% items.uniq.compact.each do |item| %>
+        <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@story,:characters], :ethnicity => item) %></td><td><%= counts[item] %></td></tr>
+      <% end %>
+    </table>
+  </span>
 <% end %>
 
 <% c.tab "Occupation Class" do %>
   <span>
-      <div class="col-md-6">
-<table class="table">
-  <% counts = {} %>
-  <% items = @story.characters.pluck(:occupation_class).map{|x| x || ""}.sort %>
-  <% items.each do |item| %>
-    <% if counts[item].nil? %>
-      <% counts[item] = 0 %>
-    <% end %>
-    <% counts[item] = counts[item] + 1 %>
-  <% end %>
-  <% items.uniq.each do |item| %>
-    <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@story,:characters], :occupation_class => item) %></td><td><%= counts[item] %></td></tr>
-  <% end %>
-</table>
-      </div>
-
+    <div class="col-md-6">
+      <table class="table">
+        <% counts = {} %>
+        <% items = @story.characters.pluck(:occupation_class).map{|x| x || ""}.sort %>
+        <% items.each do |item| %>
+          <% if counts[item].nil? %>
+            <% counts[item] = 0 %>
+          <% end %>
+          <% counts[item] = counts[item] + 1 %>
+        <% end %>
+        <% items.uniq.each do |item| %>
+          <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@story,:characters], :occupation_class => item) %></td><td><%= counts[item] %></td></tr>
+        <% end %>
+      </table>
+    </div>
   </span>
 <% end %>
 
 <% c.tab "Characters" do %>
   <span>
-<p>
-<% @story.characters.order(:occupation_class).pluck(:occupation_class).uniq.each do |occ_class| %>
-  <%= occ_class %>
-<ul>
-<% @story.characters.where("occupation_class = ?", occ_class).order(:occupation_class,:last_name,:first_name).each do |character| %>
-  <li><%= link_to character.name, polymorphic_path([@story,character]) %><%= "#{(character.grouping.blank? ? '' : "-  #{character.grouping}")}" %></li>
-<% end %>
-</ul>
-<% end %>
-</p>
+    <p>
+      <% @story.characters.order(:occupation_class).pluck(:occupation_class).uniq.each do |occ_class| %>
+        <%= occ_class %>
+        <ul>
+        <% @story.characters.where("occupation_class = ?", occ_class).order(:occupation_class,:last_name,:first_name).each do |character| %>
+          <li><%= link_to character.name, polymorphic_path([@story,character]) %><%= "#{(character.grouping.blank? ? '' : "-  #{character.grouping}")}" %></li>
+        <% end %>
+        </ul>
+      <% end %>
+    </p>
   </span>
 <% end %>
 
@@ -156,6 +156,7 @@
 <% @footer_content << "#{link_to 'New Key Point', new_polymorphic_path([@story, KeyPoint]), :class => "btn btn-default hide-print" }" %>
 <% @footer_content << "#{link_to 'Characters', polymorphic_path([@story, :characters ]), :class => "btn btn-default hide-print" }" %>
 <% @footer_content << "#{link_to 'Resync Scenes', story_resync_scenes_path(:id => @story.id), :class => "btn btn-default hide-print" }" %>
+<% @footer_content << "#{link_to 'Key Points', polymorphic_path([@story, :key_points]), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Scenes', polymorphic_path([@story, :scenes]), :class => "btn btn-default hide-print" }" %>
 <% @footer_content << "#{link_to 'Timeline', polymorphic_path([@story, :timeline]), :class => "btn btn-default hide-print"}" %>
 <% @footer_content << "#{ link_to 'Back', book_path(@book), :class => "btn btn-default hide-print" }" %>

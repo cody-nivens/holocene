@@ -63,7 +63,9 @@ Rails.application.routes.draw do
       resources :character_values
     end
     end
+  resources :key_words, :except => [ :index, :new, :create ]
   resources :books do
+    resources :key_words
     resources :artifacts
     resources :artifact_types
     put :sort
@@ -123,6 +125,7 @@ Rails.application.routes.draw do
   resources :event_types
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #
+  get "artifacts/:book_id/tagged/(:tag)", to: "artifacts#tagged", as: :tag_artifacts
   get "tagged/(:tag)", to: "holocene_events#tagged", as: :tag
 
   get "event_types/:id/geo_map", to: "event_types#geo_map", as: :geo_map_event_type

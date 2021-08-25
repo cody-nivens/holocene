@@ -1,5 +1,8 @@
 class KeyPoint < ApplicationRecord
   include RankedModel
+  ThinkingSphinx::Callbacks.append(
+    self, :behaviours => [:sql]
+  )
   ranks :position, with_same: :scripted_id
 
   belongs_to :scripted, polymorphic: true
@@ -55,7 +58,7 @@ class KeyPoint < ApplicationRecord
   end
 
   def name
-    hook[0..99]
+    hook[0..39]
   end
 
   def selector_value(selector)
@@ -110,6 +113,17 @@ class KeyPoint < ApplicationRecord
       end
     end
     return max
+  end
+
+  def set_values
+    scripted = self.scripted
+    story = key_point = book = nil
+    case self.scripted_type
+    when "Story"
+       story = self.scripted
+       book = story.book
+    end
+    return [ book, story, self, nil, nil ]
   end
 
 end

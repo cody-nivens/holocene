@@ -69,7 +69,7 @@ body {
 /* Not required for template or sticky footer method. */
 
 body > .container {
-  padding: 15px 15px 0;
+  padding: 15px 15px 0; 
 }
 
 .footer > .container {
@@ -365,3 +365,11 @@ table td, table td * {
 dd {
     margin-bottom: 10px;
 }
+#tag_cloud {
+  width: 400px;
+  line-height: 1.6em;
+  .s { font-size: 0.8em; }
+  .m { font-size: 1.2em; }
+  .l { font-size: 1.8em; }
+}
+

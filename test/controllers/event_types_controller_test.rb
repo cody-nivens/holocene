@@ -57,7 +57,6 @@ class EventTypesControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[text()=?]",'Map'
     assert_select "a[href=?]", geo_map_event_type_path(@event_type)
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", event_types_path
     assert_select ".footer>div>a", 4
   end
 
@@ -68,7 +67,6 @@ class EventTypesControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[text()=?]",'Display'
     assert_select "a[href=?]", event_type_path(@event_type)
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", event_types_path
     assert_select ".footer>div>a", 2
   end
 

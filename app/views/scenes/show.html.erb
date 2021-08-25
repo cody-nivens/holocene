@@ -1,120 +1,122 @@
 <p id="notice"><%= notice %></p>
+<% @title = @scene.name %>
 
 <h2>
-<%= raw breadcrumb(@scene.key_point.scripted.book, @scene.key_point.scripted, @scene.key_point, @scene) %>
-<%= link_to "#{(fa_icon "pencil")}".html_safe, edit_polymorphic_path([@situated, @scene]), :title => 'Edit' %>
+  <%= raw breadcrumb(@scene.key_point.scripted.book, @scene.key_point.scripted, @scene.key_point, @scene) %>
+  <%= link_to "#{(fa_icon "pencil")}".html_safe, edit_polymorphic_path([@situated, @scene]), :title => 'Edit' %>
 </h2>
 
 <table class="table">
   <tr>
-  <th>Time:</th><td><%= @scene.time_to_text %></td>
-  <th>ABC:</th><td><%= @scene.abc %></td>
-  <th>Check:</th><td><%= @scene.check %></td>
-  <th>Scene/Sequel:</th><td><%= (@scene.scene_sequel == 1 ? "Sequel" : "Scene")%></td>
-  <th>Selector:</th><td><%= selector_string(@scene.selector) %></td>
-  <th>Location:</th><td><%= (@scene.artifact.nil? ? "Unkown" : @scene.artifact.name) %></td>
-  <th>Place:</th><td><%= @scene.place.to_plain_text %></td>
-  <th>Word Count:</th><td><%= number_with_delimiter(@scene.word_count, :delimiter => ',') %></td>
+    <th>ABC:</th><td><%= @scene.abc %></td>
+    <th>Location:</th><td><%= (@scene.artifact.nil? ? "Unkown" : @scene.artifact.name) %></td>
+    <th>Place:</th><td><%= @scene.place.to_plain_text %></td>
+    <th>Word Count:</th><td><%= number_with_delimiter(@scene.word_count, :delimiter => ',') %></td>
+  </tr>
+  <tr>
+    <th>Time:</th><td><%= @scene.time_to_text %></td>
+    <th>Check:</th><td><%= @scene.check %></td>
+    <th>Scene/Sequel:</th><td><%= (@scene.scene_sequel == 1 ? "Sequel" : "Scene")%></td>
+    <th>Selector:</th><td><%= selector_string(@scene.selector) %></td>
   </tr>
 </table>
 <p>
-  <%#= @scene.summary.to_plain_text %>
   <%= @scene.summary %>
 </p>
 
 <% unless @scene.goal_reaction.blank? %>
-<p>
-  <strong>Goal/Reaction:</strong>
-  <%= @scene.goal_reaction %>
-</p>
+  <p>
+    <strong>Goal/Reaction:</strong>
+    <%= @scene.goal_reaction %>
+  </p>
 <% end %>
 
 <% unless @scene.conflict_dilemma.blank? %>
-<p>
-  <strong>Conflict/Dilemma:</strong>
-  <%= @scene.conflict_dilemma %>
-</p>
+  <p>
+    <strong>Conflict/Dilemma:</strong>
+    <%= @scene.conflict_dilemma %>
+  </p>
 <% end %>
 
 <% unless @scene.disaster_decision.blank? %>
-<p>
-  <strong>Disaster/Decision:</strong>
-  <%= @scene.disaster_decision %>
-</p>
+  <p>
+    <strong>Disaster/Decision:</strong>
+    <%= @scene.disaster_decision %>
+  </p>
 <% end %>
 
 <% unless @scene.short_term_goal.blank? %>
-<p>
-  <strong>Short term goal:</strong>
-  <%= @scene.short_term_goal %>
-</p>
+  <p>
+    <strong>Short term goal:</strong>
+    <%= @scene.short_term_goal %>
+  </p>
 <% end %>
 
 <% unless @scene.long_term_goal.blank? %>
-<p>
-  <strong>Long term goal:</strong>
-  <%= @scene.long_term_goal %>
-</p>
+  <p>
+    <strong>Long term goal:</strong>
+    <%= @scene.long_term_goal %>
+  </p>
 <% end %>
 
 <% unless @scene.over_arching_goal.blank? %>
-<p>
-  <strong>Over arching goal:</strong>
-  <%= @scene.over_arching_goal %>
-</p>
+  <p>
+    <strong>Over arching goal:</strong>
+    <%= @scene.over_arching_goal %>
+  </p>
 <% end %>
 
 <% unless @scene.insert_scene.blank? %>
-<p>
-  <strong>Insert Scene:</strong>
-  <%= (@scene.insert_scene.nil? ? '' : @scene.insert_scene.full_name) %>
-</p>
+  <p>
+    <strong>Insert Scene:</strong>
+    <%= (@scene.insert_scene.nil? ? '' : @scene.insert_scene.full_name) %>
+  </p>
 <% end %>
 
 
 <% unless @scene.characters.length == 0 %>
-<p>
-  <strong>Characters:</strong>
-  <br/>
-<% @scene.characters.order(:occupation_class).pluck(:occupation_class).uniq.each do |occ_class| %>
-  <%= occ_class %>
-<ul>
-<% @scene.characters.where("occupation_class = ?", occ_class).order(:occupation_class,:last_name,:first_name).each do |character| %>
-  <li><%= link_to("#{character.name}, #{@scene.time.to_i-character.birth_year.to_i}", polymorphic_path([@scene,character])) %><%= "#{(character.grouping.blank? ? '' : "-  #{character.grouping}")}" %>
-  <% character_scene=CharacterScene.where(character_id: character.id, scene_id: @scene.id) %>
-  <%= link_to (fa_icon 'plus'), edit_polymorphic_path([@scene,character_scene[0]] ) %>
-          <% unless character_scene[0].summary.nil? %>
-           <%= character_scene[0].summary.to_plain_text %>
-         <% end %>
-</li>
-<% end %>
-</ul>
-<% end %>
-</p>
+  <p>
+    <strong>Characters:</strong>
+    <br/>
+    <% @scene.characters.order(:occupation_class).pluck(:occupation_class).uniq.each do |occ_class| %>
+      <%= occ_class %>
+      <ul>
+        <% @scene.characters.where("occupation_class = ?", occ_class).order(:occupation_class,:last_name,:first_name).each do |character| %>
+          <li><%= link_to("#{character.name}, #{@scene.date_string[0..3].to_i-character.birth_year.to_i}", polymorphic_path([@scene,character])) %><%= "#{(character.grouping.blank? ? '' : "-  #{character.grouping}")}" %>
+            <% character_scene=CharacterScene.where(character_id: character.id, scene_id: @scene.id) %>
+            <%= link_to (fa_icon 'plus'), edit_polymorphic_path([@scene,character_scene[0]] ) %>
+            <% unless character_scene[0].summary.nil? %>
+             <%= character_scene[0].summary.to_plain_text %>
+           <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </p>
 <% end %>
 
-<% scenes = Scene.where(insert_scene_id: @scene.id).order(:time,:abc) %>
-<% unless scenes.length == 0 %>
+<% scenes = Scene.where(insert_scene_id: @scene.id).order(:date_string,:abc) %>
 <p>
-  <strong>Scenes:</strong>
-  <br/>
-<ul>
-<% scenes.each do |iscene| %>
-    <li><%= link_to(iscene.abc, polymorphic_path([@situated, iscene])) %> <%= (iscene.section.nil? ? '' : '*') %><%= iscene.time_to_text %> : <%= iscene.name %></li>
-    <% insert_scene = iscene %>
-<% end %>
-</ul>
-<% end %>
-<hr/>
-<% unless @scene.section.nil? %>
-  <%= raw @scene.section.body %>
-<% end %>
+  <% unless scenes.length == 0 %>
+    <strong>Scenes:</strong>
+    <br/>
+    <ul>
+      <% scenes.each do |iscene| %>
+        <li><%= link_to(iscene.abc, polymorphic_path([@situated, iscene])) %> <%= (iscene.section.nil? ? '' : '*') %><%= iscene.time_to_text %> : <%= iscene.name %></li>
+        <% insert_scene = iscene %>
+      <% end %>
+    </ul>
+  <% end %>
+  <hr/>
+  <% unless @scene.section.nil? %>
+    <%= raw @scene.section.body %>
+  <% end %>
 </p>
 
 <% if @scene.section.nil? %>
-<% @footer_content << "#{link_to 'New Section',new_polymorphic_path([@scene,:section]), :class => "btn btn-default" }" %>
+  <% @footer_content << "#{link_to 'New Section',new_polymorphic_path([@scene,:section]), :class => "btn btn-default" }" %>
 <% else %>
-<% @footer_content << "#{link_to 'Edit Section',edit_polymorphic_path([@scene, @scene.section]), :class => "btn btn-default" }" %>
+  <% @footer_content << "#{link_to 'Edit Section',edit_polymorphic_path([@scene, @scene.section]), :class => "btn btn-default" }" %>
 <% end %>
 <% @footer_content << "#{link_to 'Characters', polymorphic_path([@scene, :characters ]), :class => "btn btn-default hide-print" }" %>
 <% @footer_content << "#{link_to 'Move', polymorphic_path([@scene, :move ]), :class => "btn btn-default hide-print" }" %>
@@ -126,7 +128,6 @@
   <% @footer_content << "#{link_to '<', polymorphic_path([@scene.situated, prev_scene]), :class => "btn icon-ok icon-white" }" %>
 <% end %>
 <% next_scene =  @scene.set_next %>
-<%# debugger %>
 <% unless next_scene.nil? %>
   <% @footer_content << "#{link_to '>', polymorphic_path([@scene.situated, next_scene]), :class => "btn icon-ok icon-white" }" %>
 <% end %>

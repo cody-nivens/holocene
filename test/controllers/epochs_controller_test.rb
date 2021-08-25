@@ -58,7 +58,6 @@ class EpochsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[text()=?]",'Map'
     assert_select "a[href=?]", geo_map_epoch_path(@epoch)
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", epochs_path
     assert_select ".footer>div>a", 4
   end
 
@@ -71,7 +70,6 @@ class EpochsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[text()=?]",'Display'
     assert_select "a[href=?]", epoch_display_path(@epoch)
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", epochs_path
     assert_select ".footer>div>a", 3
   end
 

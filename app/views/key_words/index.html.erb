@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Key Words</h1>
+
+<table class='table'>
+  <thead>
+    <tr>
+      <th>Key word</th>
+      <th>Location</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @key_words.each do |key_word| %>
+      <tr>
+        <td><%= link_to key_word.key_word, polymorphic_path([@book,key_word]) %></td>
+        <td>
+<ul>
+  <% ThinkingSphinx.search(key_word.key_word).each do |result| %>
+    <% case result.class.name %>
+    <% when 'ActionText::RichText' %>
+      <% values = result.record.set_values %>
+    <% else %>
+      <% values = result.set_values %>
+    <% end %>
+    <% if values[0] == @book %>
+      <li>
+        <%= raw breadcrumb( nil, values[1], values[2], values[3], values[4], true) %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
+        </td>
+        <td><%= link_to (fa_icon "edit"), edit_book_key_word_path(@book,key_word), :title => "Edit" %></td>
+        <td><%= link_to (fa_icon "trash-o"), polymorphic_path([@book,key_word]), method: :delete, data: { confirm: 'Are you sure?' }, :title => "Delete" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<% @footer_content << "#{link_to 'New Key Word', new_book_key_word_path(@book), :class => "btn btn-default"}" %>
+

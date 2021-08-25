@@ -1,11 +1,15 @@
+<% @book ||= (session[:book_id].blank? ? nil : Book.find(session[:book_id])) %>
 <li class="nav-item"> <a href="/books"> <i class="glyphicon glyphicon-tree-conifer"></i> Books</a> </li>
 <% unless @book.nil? %>
+  <li class="nav-item"> <a href="/books/<%= @book.id %>"> <i class="glyphicon glyphicon-tree-conifer"></i><%= @book.name %></a> </li>
+
+<% if @book.fiction? %>
 <li class="nav-item"> <a href="/books/<%= @book.id %>/characters"> <i class="glyphicon glyphicon-tree-conifer"></i> Characters</a> </li>
 <li class="nav-item"> <a href="/books/<%= @book.id %>/artifacts"> <i class="glyphicon glyphicon-tree-conifer"></i> Artifacts</a> </li>
 <li class="nav-item"> <a href="/books/<%= @book.id %>/artifact_types"> <i class="glyphicon glyphicon-tree-conifer"></i> Artifact Types</a> </li>
-<li class="nav-item"> <a href="/books/<%= @book.id %>/authors"> <i class="glyphicon glyphicon-tree-conifer"></i> Authors</a> </li>
-<% end %>
+<li class="nav-item"> <a href="/books/<%= @book.id %>/key_words"> <i class="glyphicon glyphicon-tree-conifer"></i> Key Words</a> </li>
 <li class="nav-item"> <a href="/character_categories"> <i class="glyphicon glyphicon-tree-conifer"></i> Character Categories</a> </li>
+<% else %>
 <li class="nav-item">
  <a class="dropdown-toggle" href="#" id="navbar" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
  Events
@@ -19,3 +23,6 @@
   </ul>
   </div>
 </li>
+<% end %>
+<li class="nav-item"> <a href="/books/<%= @book.id %>/authors"> <i class="glyphicon glyphicon-tree-conifer"></i> Authors</a> </li>
+<% end %>

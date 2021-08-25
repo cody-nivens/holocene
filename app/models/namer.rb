@@ -7,43 +7,56 @@ class Namer < ApplicationRecord
     when "White"
       hair_color = Character.gen_hair_color
       eye_color  = Character.gen_eye_color(hair_color)
+      column_name = "white"
     when "Black"
       hair_color = "Black"
       eye_color = Character.gen_black_eye_color
+      column_name = "black"
     when "Asian"
       hair_color = "Black"
       eye_color = Character.gen_black_eye_color
+      column_name = "asian"
     when "Am Indian"
       hair_color = "Black"
       eye_color = "Brown"
+      column_name = "indian"
     when "Latino Mixed"
       hair_color = "Black"
       eye_color = Character.gen_black_eye_color
-    when "Latino"
+      column_name = "latino_mixed"
+    else
       hair_color = "Black"
       eye_color = Character.gen_black_eye_color
+      column_name = "latino"
     end
 
-    first_name = Namer.find_by_sql("select * from namers where first_name=1 order by rand() limit 1")[0]
+    retry_max = 10
 
+    column_percent = 30
+    first_name = Namer.find_by_sql("select * from namers where first_name=1 and #{column_name} > #{column_percent} order by rand() limit 1")[0]
     retry_name = 0
-    until first_name.check_race(race) || retry_name == 3 do
-      first_name = Namer.find_by_sql("select * from namers where first_name=1 order by rand() limit 1")[0]
+    until !first_name.nil? || retry_name == retry_max do
+      first_name = Namer.find_by_sql("select * from namers where first_name=1 and #{column_name} > #{column_percent} order by rand() limit 1")[0]
       retry_name += 1
+      column_percent -= 5
     end
 
-    middle_name = Namer.find_by_sql("select * from namers where first_name=1 and gender = \"#{first_name.gender}\" order by rand() limit 1")[0]
+    column_percent = 30
+    middle_name = Namer.find_by_sql("select * from namers where first_name=1 and gender = \"#{first_name.gender}\" and #{column_name} > #{column_percent} order by rand() limit 1")[0]
     retry_name = 0
-    until middle_name.check_race(race) || retry_name == 3 do
-      middle_name = Namer.find_by_sql("select * from namers where first_name=1 and gender = \"#{first_name.gender}\" order by rand() limit 1")[0]
+    until !middle_name.nil? || retry_name == retry_max do
+      middle_name = Namer.find_by_sql("select * from namers where first_name=1 and gender = \"#{first_name.gender}\" and #{column_name} > #{column_percent} order by rand() limit 1")[0]
       retry_name += 1
+      column_percent -= 5
     end
 
-    surname = Namer.find_by_sql("select *from namers where first_name=0 order by rand() limit 1")[0]
+    column_percent = 30
+    surname = Namer.find_by_sql("select *from namers where first_name=0 and #{column_name} > #{column_percent} order by rand() limit 1")[0]
     retry_name = 0
-    until surname.check_race(race) || retry_name == 3 do
-      surname = Namer.find_by_sql("select *from namers where first_name=0 order by rand() limit 1")[0]
+    until !surname.nil? || retry_name == retry_max do
+      surname = Namer.find_by_sql("select *from namers where first_name=0 and #{column_name} > #{column_percent} order by rand() limit 1")[0]
       retry_name += 1
+      column_percent -= 5
     end
 
     sexuality = ''
@@ -54,24 +67,5 @@ class Namer < ApplicationRecord
       sexuality = "Gay"
     end
     return [ surname.name, first_name.name, first_name.gender, race, hair_color, eye_color, middle_name.name, sexuality]
-  end
-
-  def check_race(race)
-    case race
-    when "White"
-      return self.white > 0
-    when "Black"
-      return self.black > 0
-    when "Asian"
-      return self.asian > 0
-    when "Am Indian"
-      return self.indian > 0
-    when "Latino Mixed"
-      return self.latino_mixed > 0
-    when "Latino"
-      return self.latino > 0
-    else
-      return false
-    end
   end
 end

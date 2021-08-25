@@ -68,6 +68,7 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
+    session[:book_id] = @book.id
     @chapters = @book.chapters
     @scripted = @book
     @stories = @book.stories.where(publish: true) if @book.is_fiction?

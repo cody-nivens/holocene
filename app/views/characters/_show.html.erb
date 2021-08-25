@@ -2,122 +2,120 @@
 
 <h3><%= character.name %></h3>
 <p>
-<%= character.first_name %> <%= character.middle_name %> <%= character.last_name %> <%= character.suffix %><br/>
-<% unless character.birth_year.nil? %>
-b. <%= character.birth_year %> - d. <%= character.death_year %>, Age: <%= character.death_year - character.birth_year %><br/>
-<% end %>
-<%= character.occupation_class %> - <%= character.grouping %>
+  <%= character.first_name %> <%= character.middle_name %> <%= character.last_name %> <%= character.suffix %><br/>
+  <% unless character.birth_year.nil? %>
+    b. <%= character.birth_year %> - d. <%= character.death_year %>, Age: <%= character.death_year - character.birth_year %><br/>
+  <% end %>
+  <%= character.occupation_class %> - <%= character.grouping %>
 </p>
 
 <%= tabs do |c| %>
-
-  <% c.tab "Info" do %>
+<% c.tab "Info" do %>
   <span>
 
-<% unless character.reason_for_name.blank? %>
-<p>
-  <strong>Reason for name:</strong>
-  <%= character.reason_for_name %>
-</p>
-<% end %>
+  <% unless character.reason_for_name.blank? %>
+    <p>
+      <strong>Reason for name:</strong>
+      <%= character.reason_for_name %>
+    </p>
+  <% end %>
 
-<% unless character.nickname.blank? %>
-<p>
-  <strong>Nickname:</strong>
-  <%= character.nickname %>
-</p>
-<% end %>
+  <% unless character.nickname.blank? %>
+    <p>
+      <strong>Nickname:</strong>
+      <%= character.nickname %>
+    </p>
+  <% end %>
 
-<% unless character.reason_for_nickname.blank? %>
-<p>
-  <strong>Reason for nickname:</strong>
-  <%= character.reason_for_nickname %>
-</p>
-<% end %>
+  <% unless character.reason_for_nickname.blank? %>
+    <p>
+      <strong>Reason for nickname:</strong>
+      <%= character.reason_for_nickname %>
+    </p>
+  <% end %>
 
-<% unless character.honorific.blank? %>
-<p>
-  <strong>Honorific:</strong>
-  <%= character.honorific %>
-</p>
-<% end %>
+  <% unless character.honorific.blank? %>
+    <p>
+      <strong>Honorific:</strong>
+      <%= character.honorific %>
+    </p>
+  <% end %>
 
-<% unless character.race.blank? %>
-<p>
-  <strong>Race:</strong>
-  <%= character.race %>
-</p>
-<% end %>
+  <% unless character.race.blank? %>
+    <p>
+      <strong>Race:</strong>
+      <%= character.race %>
+    </p>
+  <% end %>
 
-<% unless character.reign.blank? %>
-<p>
-  <strong>Reign:</strong>
-  <%= character.reign %>
-</p>
-<% end %>
+  <% unless character.reign.blank? %>
+    <p>
+      <strong>Reign:</strong>
+      <%= character.reign %>
+    </p>
+  <% end %>
 
 
-<% unless character.age_at_son.blank? %>
-<p>
-  <strong>Age at Son:</strong>
-  <%= character.age_at_son %>
-</p>
-<% end %>
+  <% unless character.age_at_son.blank? %>
+    <p>
+      <strong>Age at Son:</strong>
+      <%= character.age_at_son %>
+    </p>
+  <% end %>
 
-<% unless character.father.blank? %>
-<p>
-  <strong>Father:</strong>
-  <%= (character.father.nil? ? '' : character.father.name) %>
-</p>
-<% end %>
+  <% unless character.father.blank? %>
+    <p>
+      <strong>Father:</strong>
+      <%= (character.father.nil? ? '' : character.father.name) %>
+    </p>
+  <% end %>
 
-<% unless character.social_class.blank? %>
-<p>
-  <strong>Social class:</strong>
-  <%= character.social_class %>
-</p>
-<% end %>
+  <% unless character.social_class.blank? %>
+    <p>
+      <strong>Social class:</strong>
+      <%= character.social_class %>
+    </p>
+  <% end %>
 
-<% unless character.background.blank? %>
-<p>
-  <strong>Background:</strong>
-  <%= character.background %>
-</p>
-<% end %>
+  <% unless character.background.blank? %>
+    <p>
+      <strong>Background:</strong>
+      <%= character.background %>
+    </p>
+  <% end %>
 
 </span>
 <% end %>
 
-  <% c.tab "Attributes" do %>
+<% c.tab "Attributes" do %>
   <span>
-<% CharacterCategory.all.each do |category| %>
-  <%= render :partial => 'character_values/index_list.html', 
-    :locals => {:pdf => pdf, :title => category.name,
+    <% CharacterCategory.all.each do |category| %>
+      <%= render :partial => 'character_values/index_list.html', 
+        :locals => {:pdf => pdf, :title => category.name,
                 :character_values => character.character_values.joins(:character_attribute).order(:name).where("character_category_id = ?", category.id)} %>
+    <% end %>
+  </span>
 <% end %>
 
-</span>
-<% end %>
-
-  <% c.tab "Scenes" do %>
+<% c.tab "Scenes" do %>
   <span>
-<% unless character.scenes.blank? %>
-<p>
-<ul>
-<% character.scenes.order(:time,:abc).each do |scene| %>
-  <li>
-    <% if @object.class.name == "Scene" %>
-  <%= (pdf.nil? ? link_to(scene.abc, polymorphic_path([@object.situated, scene.key_point, scene])) : scene.abc) %>:
-<% else %>
-  <%= (pdf.nil? ? link_to(scene.abc, polymorphic_path([@object, scene.key_point, scene])) : scene.abc) %>:
-<% end %>
-<%= (pdf.nil? ?  link_to("#{scene.time.to_i}, #{scene.name}", polymorphic_path([@scripted,scene])) : scene.name) %>
+    <% unless character.scenes.blank? %>
+      <p>
+        <ul>
+          <% character.scenes.order(:date_string,:abc).each do |scene| %>
+            <li>
+              <% if @object.class.name == "Scene" %>
+                <%= (pdf.nil? ? link_to(scene.abc, polymorphic_path([@object.situated, scene.key_point, scene])) : scene.abc) %>:
+              <% else %>
+                <%= (pdf.nil? ? link_to(scene.abc, polymorphic_path([@object, scene.key_point, scene])) : scene.abc) %>:
+              <% end %>
+              <%= (pdf.nil? ?  link_to("#{scene.date_string}, #{scene.name}", polymorphic_path([@scripted,scene])) : scene.name) %>
 
-  </li>
-<% end %>
-</ul
-</p>
-<% end %>
-</span>
+            </li>
+          <% end %>
+        </ul>
+      </p>
+    <% end %>
+  </span>
 <% end %>
 <% end %>

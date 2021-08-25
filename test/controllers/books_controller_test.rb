@@ -88,7 +88,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     
     # history.back is now used
     # assert_select "a[href=?]", books_path
-    assert_select ".footer>div>a", 8
+    assert_select ".footer>div>a", 9
   end
 
   test "should show pdf book" do

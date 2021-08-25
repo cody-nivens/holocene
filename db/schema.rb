@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_13_202926) do
+ActiveRecord::Schema.define(version: 2021_08_24_163917) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -342,6 +342,14 @@ ActiveRecord::Schema.define(version: 2021_08_13_202926) do
     t.index ["scripted_type", "scripted_id"], name: "index_key_points_on_scripted_type_and_scripted_id"
   end
 
+  create_table "key_words", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "key_word"
+    t.bigint "book_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_key_words_on_book_id"
+  end
+
   create_table "metrics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "count"
     t.datetime "date"
@@ -396,7 +404,6 @@ ActiveRecord::Schema.define(version: 2021_08_13_202926) do
   create_table "scenes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "abc"
     t.boolean "check"
-    t.decimal "time", precision: 10, scale: 4
     t.integer "scene_sequel"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -409,6 +416,7 @@ ActiveRecord::Schema.define(version: 2021_08_13_202926) do
     t.integer "insert_scene_id"
     t.boolean "before_flag", default: false
     t.bigint "artifact_id"
+    t.string "date_string"
     t.index ["situated_type", "situated_id"], name: "index_scenes_on_situated_type_and_situated_id"
   end
 
@@ -511,5 +519,6 @@ ActiveRecord::Schema.define(version: 2021_08_13_202926) do
   add_foreign_key "character_attributes", "character_categories"
   add_foreign_key "character_values", "character_attributes"
   add_foreign_key "character_values", "characters"
+  add_foreign_key "key_words", "books"
   add_foreign_key "metrics", "users"
 end

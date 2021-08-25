@@ -1,0 +1,15 @@
+
+<%= simple_form_for [@book, @key_word] do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= hidden_field :book_id, @book.id %>
+    <%= f.hidden_field :book_id, value: @book.id %>
+    <%= f.input :key_word %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

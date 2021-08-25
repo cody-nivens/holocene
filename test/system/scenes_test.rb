@@ -90,7 +90,7 @@ class ScenesTest < ApplicationSystemTestCase
     fill_in "Abc", with: "G00001"
     check "Check" if @scene.check
     fill_in "Scene sequel", with: @scene.scene_sequel
-    fill_in "Time", with: @scene.time
+    fill_in "Time", with: @scene.date_string
 
     #fill_in_rich_text_area "scene_summary", with: "Test 1"
     #assert_text "Test 1"

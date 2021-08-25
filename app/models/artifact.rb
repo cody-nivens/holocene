@@ -9,6 +9,13 @@ class Artifact < ApplicationRecord
 
   has_rich_text :summary
 
+  acts_as_taggable_on :tags
+
   validates :name, presence: true
+
+  def set_values
+    book = self.book
+    return [ book, self, nil, nil, nil ]
+  end
 
 end
