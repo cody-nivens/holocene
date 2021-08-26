@@ -1,1 +1,0 @@
-require 'popper_js'
