@@ -1,0 +1,4 @@
+reindex_job:
+  cron: "*/5 * * * *"
+  class: "ReindexWorker"
+  queue: default

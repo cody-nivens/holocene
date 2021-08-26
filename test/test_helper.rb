@@ -7,6 +7,22 @@ require 'rails/test_help'
 require 'download_helpers'
 require 'minitest/unit'
 require 'mocha/minitest'
+require 'sidekiq/testing'
+
+module SidekiqMinitestSupport
+  def after_teardown
+    Sidekiq::Worker.clear_all
+    super
+  end
+end
+
+class MiniTest::Spec
+  include SidekiqMinitestSupport
+end
+
+class MiniTest::Unit::TestCase
+  include SidekiqMinitestSupport
+end
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.

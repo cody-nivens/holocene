@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   helper_method :set_prev_chapter,:set_next_chapter
   helper_method :selector_string, :selector_collection
 
+  before_action :set_title
+
   def home
   end
 
@@ -64,9 +66,15 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
   def set_footer_content
       @footer_content = []
   end
+
+  def set_title
+    @title = request.controller_class.to_s.gsub(/Controller/,'')
+  end
+
 end
 
 require 'gepub'

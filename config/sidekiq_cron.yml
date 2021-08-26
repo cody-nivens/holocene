@@ -1,0 +1,15 @@
+default: &defaults
+  rake task does stuff:
+    cron: "*/5 * * * *"
+    class: "ReindexWoeker"
+    args:
+      - does:stuff
+
+development:
+  <<: *defaults
+
+staging:
+  <<: *defaults
+
+production:
+  <<: *defaults
