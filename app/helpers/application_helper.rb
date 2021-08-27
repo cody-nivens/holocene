@@ -5,7 +5,12 @@ module ApplicationHelper
     unless book.nil?
       str += (link.nil? && story.nil? ? book.name : my_link_to(book.name,polymorphic_path(book)))
     end
+  case story.class.name
+  when "Story"
     book ||= story.book unless story.nil?
+  when "Chapter"
+    book ||= story.scripted unless story.nil?
+  end
     unless story.nil?
       str += " | " unless str.empty?
       str += (link.nil? && key_point.nil? ? story.name : my_link_to(story.name,polymorphic_path([book, story])))
@@ -23,6 +28,15 @@ module ApplicationHelper
       str += (link.nil? ? section.name : my_link_to(section.name,polymorphic_path([(scene.nil? ? story : scene), section])))
     end
     return str
+  end
+
+  def surpress_first(crumb)
+    values = crumb.split(/\|/)
+    value = values.shift
+    if values.length == 0
+      return value
+    end
+    return values.join("|")
   end
 
   def epub_friendly(body)
