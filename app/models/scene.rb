@@ -211,4 +211,9 @@ class Scene < ApplicationRecord
     return [ book, story, key_point, self, nil ]
   end
 
+  def book
+    story = self.situated
+    book = story.book
+    return book
+  end
 end

@@ -207,4 +207,7 @@ class Character < ApplicationRecord
     (self.father.nil? ? '' : self.death_year - self.father.death_year)
   end
 
+  def set_values
+    return [  self.books[0], self, nil, nil, nil ]
+  end
 end

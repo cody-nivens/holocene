@@ -10,6 +10,7 @@ class Book < ApplicationRecord
   has_rich_text :body
   has_rich_text :publisher
 
+  has_many :key_words, :dependent => :destroy
   has_many :glossary_terms, :dependent => :destroy
   has_many :biblioentries, :dependent => :destroy
   has_many :stories, :dependent => :destroy
@@ -75,5 +76,9 @@ class Book < ApplicationRecord
       count += story.section_count
     end
     return count
+  end
+
+  def set_values
+    return [  self, nil, nil, nil, nil ]
   end
 end

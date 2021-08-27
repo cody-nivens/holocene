@@ -82,4 +82,7 @@ class Chapter < ApplicationRecord
       return count
     end
 
+  def set_values
+    return [  self.scripted, self, nil, nil, nil ]
+  end
 end
