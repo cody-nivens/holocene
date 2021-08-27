@@ -1,0 +1,11 @@
+<p>
+<strong>Character:</strong> <%= @character_scene.character.name %>
+</P>
+<p>
+<strong>Scene:</strong> <%= @scene.name %>
+</P>
+<p>
+<%= @character_scene.summary %>
+</p>
+
+<% @footer_content << "#{link_to 'Back', book_key_words_path(:book_id => @scene.book.id), :class => "btn btn-default"}" %>
