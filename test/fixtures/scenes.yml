@@ -98,6 +98,7 @@ scene_9:
   date_string: "0100-06-01"
   scene_sequel: 1
   situated: story_1 (Story)
+  key_point: key_point_1
   selector: 0
 
 scene_10:

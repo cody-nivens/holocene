@@ -28,7 +28,7 @@ class ChaptersTest < ApplicationSystemTestCase
 
   test "visiting the timeline" do
     visit chapter_timeline_url(@chapter)
-    assert_text " DOMESTICATION OF HORSES"
+    assert_text "HUNTER/GATHERER AGRICULTURE"
   end
 
   test "visiting display" do

@@ -125,6 +125,8 @@ holocene_event_7:
   url: ''
   slug: Has9m93rgN
   user: users_1
+  chapters:
+    - chapter_1
   timelines:
     - timeline_1
   event_types:

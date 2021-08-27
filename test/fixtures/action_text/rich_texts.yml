@@ -6,7 +6,7 @@
 rich_text_<%= i %>:
   record: scene_<%= i %> (Scene)
   name: summary
-  body: Missing <%= i %> scene
+  body: Missing stormy <%= i %> scene
 rich_text_cd_<%= i %>:
   record: scene_<%= i %> (Scene)
   name: conflict_dilemma
@@ -74,15 +74,15 @@ rich_text_18:
   name: body
   body: 'This is section 9.'
 rich_text_19:
-  record: section_20 (Section)
+  record: section_10 (Section)
   name: body
   body: 'This is section 10.'
 rich_text_20:
-  record: section_21 (Section)
+  record: section_11 (Section)
   name: body
   body: It was a dark and stormy night. Lightening flashed all around.
 rich_text_21:
-  record: section_22 (Section)
+  record: section_12 (Section)
   name: body
   body: It was a dark and stormy night. Lightening flashed all around.
 
@@ -190,7 +190,7 @@ rich_text_<%= i %>:
 rich_text_<%= i %>:
   record: book_2 (Book)
   name: body
-  body: 'A long running family business.'
+  body: 'A long and stormy running family business.'
 <% i += 1 %>
 rich_text_<%= i %>:
   record: book_3 (Book)
