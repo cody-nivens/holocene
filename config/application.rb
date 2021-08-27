@@ -9,7 +9,8 @@ Bundler.require(*Rails.groups)
 module Holocene
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
+    config.load_defaults 6.0
+
 
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
     config.assets.paths << Rails.root.join("app", "assets", "icons")
