@@ -104,16 +104,15 @@ module WaitHelpers
     page.evaluate_script('jQuery.active').zero?
   end
 
-def wait_for_dom(timeout = Capybara.default_max_wait_time)
-  uuid = SecureRandom.uuid
-  page.find("body")
+  def wait_for_dom(timeout = Capybara.default_max_wait_time)
+    uuid = SecureRandom.uuid
+    page.find("body")
     #$('body').append("<div id='#{uuid}'></div>");
-  page.evaluate_script <<-EOS
-    $('body').append("<div id='mergle'></div>");
-  EOS
-  page.find("#mergle", visible: false)
-  #page.find("##{uuid}")
+    page.evaluate_script <<-EOS
+      $('body').append("<div id='mergle'></div>");
+    EOS
+    page.find("#mergle", visible: false)
+    #page.find("##{uuid}")
+  end
 end
-end
-
 include WaitHelpers
