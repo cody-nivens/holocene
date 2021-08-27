@@ -51,7 +51,7 @@
                       <% else %>
                         <% key_point.scenes.where(selector: x).order(:position).each do |scene| %>
                           <dt>
-                            <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: @story, key_point: key_point, pdf: nil} %>
+                            <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: @story, key_point: key_point, pdf: nil, print_name: true} %>
                           </dt>
                           <dd><%= scene.summary.to_plain_text %></dd>
                         <% end %>
