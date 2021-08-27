@@ -72,7 +72,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     
     # history.back is now used
     # assert_select "a[href=?]", books_path
-    assert_select ".footer>div>a", 4
+    assert_select ".footer>div>a", 5
   end
 
   test "should get timeline" do
