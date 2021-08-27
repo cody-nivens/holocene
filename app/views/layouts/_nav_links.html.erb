@@ -1,4 +1,4 @@
-<% @book ||= (session[:book_id].blank? ? nil : Book.find(session[:book_id])) %>
+<% @book ||= (session[:book_id].blank? ? nil : Book.find_by_id(session[:book_id])) %>
 <li class="nav-item"> <a href="/books"> <i class="glyphicon glyphicon-tree-conifer"></i> Books</a> </li>
 <% unless @book.nil? %>
   <li class="nav-item"> <a href="/books/<%= @book.id %>"> <i class="glyphicon glyphicon-tree-conifer"></i><%= @book.name %></a> </li>
