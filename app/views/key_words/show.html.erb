@@ -6,20 +6,7 @@
 </p>
 
 <p>
-<ul>
-<% ThinkingSphinx.search(@key_word.key_word).each do |result| %>
-  <li>
-    <% case result.class.name %>
-    <% when 'ActionText::RichText' %>
-      <% values = result.record.set_values %>
-      <%= raw breadcrumb( nil, values[1], values[2], values[3], values[4], true) %>
-    <% else %>
-      <% values = result.set_values %>
-      <%= raw breadcrumb( nil, values[1], values[2], values[3], values[4], true) %>
-    <% end %>
-  </li>
-<% end %>
-</ul>
+<%= render partial: 'key_words/key_words', :locals => {book: @key_word.book, key_word: @key_word} %>
 </p>
 
 <% @footer_content << "#{link_to 'Edit', edit_key_word_path(@key_word), :class => "btn btn-default"}" %>

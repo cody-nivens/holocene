@@ -16,6 +16,18 @@ module SidekiqMinitestSupport
   end
 end
 
+module SphinxHelpers
+  def index
+    ThinkingSphinx::Test.index
+    # Wait for Sphinx to finish loading in the new index files.
+    sleep 0.25 until index_finished?
+  end
+
+  def index_finished?
+    Dir[Rails.root.join(ThinkingSphinx::Test.config.indices_location, '*.{new,tmp}*')].empty?
+  end
+end
+
 class MiniTest::Spec
   include SidekiqMinitestSupport
 end
@@ -32,6 +44,7 @@ class ActiveSupport::TestCase
   set_fixture_class "taggings" => ActsAsTaggableOn::Tagging
   # Add more helper methods to be used by all tests here...
   include ApplicationHelper
+  include SphinxHelpers
   include Devise::Test::IntegrationHelpers
 
     def self.prepare

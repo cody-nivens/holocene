@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 key_word_1:
-  key_word: putsch
-  book: book_2
+  key_word: agriculture
+  book: book_1
 
 key_word_2:
-  key_word: climate
+  key_word: stormy
   book: book_2

@@ -5,7 +5,7 @@ class KeyWordsController < ApplicationController
 
   # GET /key_words or /key_words.json
   def index
-    @key_words = KeyWord.where(book_id: @book.id)
+    @key_words = KeyWord.where(book_id: @book.id).order(:key_word)
   end
 
   # GET /key_words/1 or /key_words/1.json

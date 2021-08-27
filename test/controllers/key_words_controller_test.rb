@@ -3,14 +3,27 @@ require 'test_helper'
 class KeyWordsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @key_word = key_words(:key_word_1)
+    @key_word_2 = key_words(:key_word_2)
     @book = @key_word.book
+    @book_2 = @key_word_2.book
     @user = users(:users_1)
     sign_in @user
   end
 
-  test "should get index" do
-    get book_key_words_url(@book)
-    assert_response :success
+  test "should get index 1" do
+    ThinkingSphinx::Test.run do
+      index
+      get book_key_words_url(@book)
+      assert_response :success
+    end
+  end
+
+  test "should get index 2" do
+    ThinkingSphinx::Test.run do
+      index
+      get book_key_words_url(@book_2)
+      assert_response :success
+    end
   end
 
   test "should get new" do
@@ -19,11 +32,14 @@ class KeyWordsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create key_word" do
-    assert_difference('KeyWord.count') do
-      post book_key_words_url(@book), params: { key_word: { book_id: @key_word.book_id, key_word: @key_word.key_word } }
-    end
+    ThinkingSphinx::Test.run do
+      index
+      assert_difference('KeyWord.count') do
+        post book_key_words_url(@book), params: { key_word: { book_id: @key_word.book_id, key_word: @key_word.key_word } }
+      end
 
-    assert_redirected_to key_word_url(KeyWord.last)
+      assert_redirected_to key_word_url(KeyWord.last)
+    end
   end
 
   test "should not create key_word" do
@@ -34,9 +50,20 @@ class KeyWordsControllerTest < ActionDispatch::IntegrationTest
     assert_response 422
   end
 
-  test "should show key_word" do
-    get key_word_url(@key_word)
-    assert_response :success
+  test "should show key_word 1" do
+    ThinkingSphinx::Test.run do
+      index
+      get key_word_url(@key_word)
+      assert_response :success
+    end
+  end
+
+  test "should show key_word 2" do
+    ThinkingSphinx::Test.run do
+      index
+      get key_word_url(@key_word_2)
+      assert_response :success
+    end
   end
 
   test "should get edit" do
@@ -45,8 +72,11 @@ class KeyWordsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update key_word" do
-    patch book_key_word_url(@book,@key_word), params: { key_word: { book_id: @key_word.book_id, key_word: @key_word.key_word } }
-    assert_redirected_to key_word_url(@key_word)
+    ThinkingSphinx::Test.run do
+      index
+      patch book_key_word_url(@book,@key_word), params: { key_word: { book_id: @key_word.book_id, key_word: @key_word.key_word } }
+      assert_redirected_to key_word_url(@key_word)
+    end
   end
 
   test "should not update key_word" do

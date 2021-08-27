@@ -1,3 +1,4 @@
 
 test:
   sql_range_step: 10000000
+  mysql41: 9307
