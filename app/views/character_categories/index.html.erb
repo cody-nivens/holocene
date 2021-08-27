@@ -23,6 +23,9 @@
 </table>
 
 <% @footer_content << "#{link_to 'New Character Category', new_character_category_path, :class => "btn btn-default"}" %>
+<% unless @book.nil? %>
+  <% @footer_content << "#{link_to 'Back', book_path(@book), :class => "btn btn-default" }" %>
+<% end %>
 
 <script>
 $(function() {
