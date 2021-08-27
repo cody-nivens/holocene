@@ -5,6 +5,16 @@ class ApplicationController < ActionController::Base
   helper_method :selector_string, :selector_collection
 
   before_action :set_title
+  before_action :set_book_from_session
+
+  def set_book_from_session
+    if session[:book_id].nil?
+      book = nil
+    else
+      book = Book.find_by_id(session[:book_id])
+    end
+    @book = book
+  end
 
   def home
   end
