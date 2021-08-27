@@ -13,9 +13,9 @@ class SectionTest < ActiveSupport::TestCase
 
     assert_equal book, values[0]
     assert_equal chapter, values[1]
-    assert_nil   values[2]
+    assert_equal section, values[2]
     assert_nil   values[3]
-    assert_equal section, values[4]
+    assert_nil   values[4]
 
     section = sections(:section_11)
     values = section.set_values

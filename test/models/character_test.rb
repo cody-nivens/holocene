@@ -1,6 +1,16 @@
 require 'test_helper'
 
 class CharacterTest < ActiveSupport::TestCase
+  test "set value" do
+    character = characters(:character_1)
+    values = character.set_values
+
+    book = books(:book_2)
+
+    assert_equal book, values[0]
+    assert_equal character, values[1]
+  end
+
    test "generating character lineage" do
      Character.first.create_lineage(["Charles","George"])
    end
