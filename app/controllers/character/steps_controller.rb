@@ -6,6 +6,14 @@ class Character::StepsController < ApplicationController
 
     def set_attributes(step)
     case step
+    when "characteristics"
+      case @object.class.name
+      when "Scene"
+        @year = @object.date_string.to_date.year
+      else
+        @year = 0
+      end  
+      @character.sex = rand(2)
     when "identity"
       values = Namer.random_name(@character.race,@character.sex)
       @character.first_name = values[0]
@@ -23,9 +31,17 @@ class Character::StepsController < ApplicationController
         hair_color = "Black"
         eye_color = Character.gen_black_eye_color
       end
+      sexuality = ''
+      case rand(100)
+      when 0..95
+        sexuality = "Straight"
+      else
+        sexuality = "Gay"
+      end
       @attributes = {
         "physical appearance_hair color_value": hair_color,
-        "physical appearance_eye color_value": eye_color
+        "physical appearance_eye color_value": eye_color,
+        "gender_gender_value": sexuality
         }
     end
   end
@@ -46,14 +62,9 @@ class Character::StepsController < ApplicationController
         field_name = "#{category.name.underscore}_#{character_attribute.name.underscore}_value".to_sym
 
         if !attribute_params[field_name].blank?
-          if attribute_params[field_name] == "---"
-            update_value = CharacterValue.where({:character_attribute_id => character_attribute.id, :character_id => @character.id }).first_or_create
-            update_value.destroy
-          else
-            update_value = CharacterValue.where({:character_attribute_id => character_attribute.id, :character_id => @character.id }).first_or_create
-            update_value.value = attribute_params[field_name]
-            update_value.save
-          end
+          update_value = CharacterValue.where({:character_attribute_id => character_attribute.id, :character_id => @character.id }).first_or_create
+          update_value.value = attribute_params[field_name]
+          update_value.save
         end
       end
     end

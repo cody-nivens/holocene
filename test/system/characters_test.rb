@@ -13,7 +13,6 @@ class CharactersTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  if 1 == 0
   test "visiting the Character index for ethnicity tab" do
     visit book_characters_url(:book_id => @book.id)
     assert_selector "h1", text: "Characters"
@@ -54,29 +53,35 @@ class CharactersTest < ApplicationSystemTestCase
         visit book_characters_url(:book_id => @book.id)
         click_on "New Character"
 
+          assert_text "Race"
 
-        assert_equal "", find_field("Birth year").value
-        assert_equal "", find_field("Death year").value
-        fill_in "age", with: 25
-        fill_in "year", with: 2021
-        fill_in "death_age", with: 89
-        fill_in "Occupation class", with: @character.occupation_class
-        assert_equal "1996", find_field("Birth year").value
-        assert_equal "2085", find_field("Death year").value
+          assert_equal "", find_field("Birth year").value
+          assert_equal "", find_field("Death year").value
+          fill_in "age", with: 25
+          fill_in "year", with: 2021
+          fill_in "death_age", with: 89
+          fill_in "character_race", with: "White"
+          assert_equal "1996", find_field("Birth year").value
+          assert_equal "2085", find_field("Death year").value
+          click_on "Next Step"
 
-        fill_in "Reason for name", with: @character.reason_for_name
-        fill_in "Reason for nickname", with: @character.reason_for_nickname
-        fill_in "Social class", with: @character.social_class
+          assert_text "First name"
+          fill_in "Reason for name", with: @character.reason_for_name
+          fill_in "Reason for nickname", with: @character.reason_for_nickname
+          click_on "Next Step"
 
-        click_on "submit"
+          assert_text "Occupation class"
 
-        assert_text "Character was successfully created"
-        #click_on "Attributes", match: :first
-        assert_text @character.occupation_class
-        click_on "Back"
+          fill_in "Occupation class", with: @character.occupation_class
+          fill_in "Social class", with: @character.social_class
+          fill_in "Grouping", with: "Argo"
+          click_on "Next Step"
+
+          #click_on "Attributes", match: :first
+          assert_text @character.occupation_class
+          click_on "Back"
       end
     end
-  end
   end
 
   test "creating a Character for story" do
@@ -121,7 +126,6 @@ class CharactersTest < ApplicationSystemTestCase
     end
   end
 
-  if 1 == 0
   test "creating a Character for scene" do
     assert_difference('Character.count') do
       assert_difference('@book.characters.count') do
@@ -136,48 +140,36 @@ class CharactersTest < ApplicationSystemTestCase
             assert_text "New Character"
             click_on "New Character"
 
-            assert_equal "", find_field("Birth year").value
-            assert_equal "", find_field("Death year").value
-            fill_in "age", with: 25
-            fill_in "year", with: 2021
-            fill_in "death_age", with: 89
-            fill_in "Occupation class", with: @character.occupation_class
-            assert_equal "1996", find_field("Birth year").value
-            assert_equal "2085", find_field("Death year").value
+          assert_text "Race"
 
-            fill_in "Reason for name", with: @character.reason_for_name
-            fill_in "Reason for nickname", with: @character.reason_for_nickname
-            fill_in "Social class", with: @character.social_class
+          assert_equal "", find_field("Birth year").value
+          assert_equal "", find_field("Death year").value
+          fill_in "age", with: 25
+          fill_in "year", with: 2021
+          fill_in "death_age", with: 89
+          fill_in "character_race", with: "White"
+          assert_equal "1996", find_field("Birth year").value
+          assert_equal "2085", find_field("Death year").value
+          click_on "Next Step"
 
-            click_on "submit"
+          assert_text "First name"
+          fill_in "Reason for name", with: @character.reason_for_name
+          fill_in "Reason for nickname", with: @character.reason_for_nickname
+          click_on "Next Step"
 
-            assert_text "Character was successfully created"
-            #click_on "Attributes", match: :first
-            assert_text @character.occupation_class
-            click_on "Back"
+          assert_text "Occupation class"
+
+          fill_in "Occupation class", with: @character.occupation_class
+          fill_in "Social class", with: @character.social_class
+          fill_in "Grouping", with: "Argo"
+          click_on "Next Step"
+
+          #click_on "Attributes", match: :first
+          assert_text @character.occupation_class
+          click_on "Back"
           end
         end
       end
     end
   end
-
-  test "not creating a Character" do
-    visit book_characters_url(:book_id => @book.id)
-    click_on "New Character"
-
-    fill_in "First name", with: ""
-    fill_in "Middle name", with: ""
-    fill_in "Last name", with: ""
-    fill_in "Nickname", with: @character.nickname
-    fill_in "Occupation class", with: @character.occupation_class
-    fill_in "Race", with: @character.race
-    fill_in "Reason for name", with: @character.reason_for_name
-    fill_in "Reason for nickname", with: @character.reason_for_nickname
-    fill_in "Social class", with: @character.social_class
-    click_on "submit"
-
-    assert_text "First name\ncan't be blank"
-    click_on "Back"
-  end
-end
 end

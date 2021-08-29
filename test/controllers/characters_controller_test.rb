@@ -33,7 +33,7 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index 5" do
-    get book_characters_url(:book_id => @book.id),params:{ cat1: "Gender", cat2: "Sex", key1: "Gay",key2: "Male"}
+    get book_characters_url(:book_id => @book.id),params:{ cat1: "Gender", cat2: "sex", key1: "Gay",key2: "Male"}
     assert_response :success
   end
 
