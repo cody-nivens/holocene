@@ -2,6 +2,10 @@ require 'sidekiq/web'
 require 'sidekiq/cron/web'
 
 Rails.application.routes.draw do
+  namespace :character do
+    get 'steps/show'
+    get 'steps/update'
+  end
   mount Sidekiq::Web => '/sidekiq'
 
   resources :metrics, :only => [:index, :show]
@@ -62,11 +66,12 @@ Rails.application.routes.draw do
 #  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
   resources :footnotes
-    resources :scenes do
-      resources :characters do
+  resources :scenes do
+    resources :characters do
       resources :character_values
+      resources :steps, only: [:show, :update], controller: 'character/steps'
     end
-    end
+  end
   resources :key_words, :except => [ :index, :new, :create ]
   resources :books do
     resources :key_words
@@ -79,6 +84,7 @@ Rails.application.routes.draw do
     end
     resources :characters do
       resources :character_values
+      resources :steps, only: [:show, :update], controller: 'character/steps'
     end
     resources :scenes
     resources :authors
@@ -91,19 +97,20 @@ Rails.application.routes.draw do
       resources :scenes 
     end
   end
-    resources :stories do
-      concerns :situated, scripted_type: 'Story'
+  resources :stories do
+    concerns :situated, scripted_type: 'Story'
+    put :sort
+    resources :scenes 
+    resources :key_points do
       put :sort
       resources :scenes 
-      resources :key_points do
-        put :sort
-        resources :scenes 
-      end
-      resources :chapters
-      resources :characters do
-        resources :character_values
-      end
     end
+    resources :chapters
+    resources :characters do
+      resources :character_values
+      resources :steps, only: [:show, :update], controller: 'character/steps'
+    end
+  end
   resources :chapters do
     concerns :scripted, scripted_type: 'Chapter'
     concerns :sectioned, sectioned_type: 'Chapter'

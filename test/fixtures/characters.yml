@@ -11,6 +11,7 @@ character_1:
   birth_year: 78
   death_year: 108
   age_at_son: 23
+  sex: 0
   books:
     - book_2
 
@@ -26,6 +27,7 @@ character_2:
   death_year: 129
   age_at_son: 23
   father: character_1
+  sex: 0
   books:
     - book_2
 
@@ -39,6 +41,7 @@ character_3:
   social_class: Working
   birth_year: 105
   death_year: 179
+  sex: 0
   age_at_son: 23
 
 character_4:
@@ -51,9 +54,26 @@ character_4:
   social_class: Working
   birth_year: 105
   death_year: 179
+  sex: 0
   age_at_son: 23
 
 character_5:
   first_name: Counsel
+  sex: 2
+  books:
+    - book_2
+
+character_6:
+  first_name: Jill
+  reason_for_name: Dad
+  nickname: TooSmooth
+  reason_for_nickname: Went up the hill
+  race: White
+  occupation_class: Working
+  social_class: Working
+  birth_year: 105
+  death_year: 179
+  sex: 1
+  age_at_son: 23
   books:
     - book_2

@@ -15,9 +15,8 @@ class Character < ApplicationRecord
 
   has_many :signets, as: :sigged
 
-  validates_presence_of :first_name
-
   belongs_to :father, class_name: 'Character', :optional => true
+  belongs_to :mother, class_name: 'Character', :optional => true
 
   has_rich_text :background
 
@@ -28,8 +27,23 @@ class Character < ApplicationRecord
   ["L", 50],
   ["X", 10],
   ["V", 5],
-  ["I", 1],
-]
+  ["I", 1] ]
+
+  cattr_accessor :form_steps do
+    %w(characteristics identity attributes)
+  end
+
+  attr_accessor :form_step
+
+  validates :race, :birth_year, :death_year, presence: true, if: -> { required_for_step?(:characteristics) }
+  validates :first_name, presence: true, if: -> { required_for_step?(:identity) }
+  validates :occupation_class,:social_class,  presence: true, if: -> { required_for_step?(:attributes) }
+
+  def required_for_step?(my_step)
+    return true if form_step.nil?
+    return true if self.form_steps.index(my_step.to_s) <= self.form_steps.index(form_step)
+  end
+
 
   def name
     "#{(honorific.blank? ? "#{first_name}" : "#{honorific} ")} #{(middle_name.blank? || !honorific.blank? ? '' : middle_name)}#{(middle_name.blank? ? '' : ' ')}#{(last_name.blank? ? (honorific.blank? ? '' : first_name) : last_name)}" + (suffix.blank? ? '' : " #{suffix}")
@@ -209,5 +223,16 @@ class Character < ApplicationRecord
 
   def set_values
     return [  self.books[0], self, nil, nil, nil ]
+  end
+
+  def sex_to_text
+    case self.sex
+    when 0
+      return "Male"
+    when 1
+      return "Female"
+    when 2
+      return ""
+    end
   end
 end

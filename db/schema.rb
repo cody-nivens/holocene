@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_24_163917) do
+ActiveRecord::Schema.define(version: 2021_08_28_161318) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -225,6 +225,9 @@ ActiveRecord::Schema.define(version: 2021_08_24_163917) do
     t.string "honorific"
     t.string "grouping"
     t.boolean "use_honorific_only", default: false
+    t.bigint "mother_id"
+    t.integer "sex", default: 0
+    t.index ["mother_id"], name: "index_characters_on_mother_id"
   end
 
   create_table "epochs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|

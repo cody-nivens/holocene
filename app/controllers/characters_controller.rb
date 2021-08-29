@@ -1,6 +1,6 @@
 class CharactersController < ApplicationController
   before_action :set_character, only: [:lineage, :show, :edit, :update, :destroy]
-  before_action :set_object, only: [:lineage, :index, :new, :add, :list, :edit, :show, :create, :update, :destroy ]
+  before_action :set_object, only: [:lineage, :index, :add, :list, :edit, :show, :create, :update, :destroy ]
 
   # GET /characters
   # GET /characters.json
@@ -59,22 +59,6 @@ class CharactersController < ApplicationController
   # GET /characters/1
   # GET /characters/1.json
   def show
-  end
-
-  # GET /characters/new
-  def new
-    @character = Character.new
-    random_person = Namer.random_person
-    @character.first_name = random_person[1]
-    @character.last_name = random_person[0]
-    @character.middle_name = random_person[6]
-    @character.race = random_person[3]
-    @attributes = {
-      "physical appearance_hair color_value": random_person[4],
-      "physical appearance_eye color_value": random_person[5],
-      "gender_gender_value": random_person[7],
-      "gender_sex_value": (random_person[2] == "M" ? "Male" : "Female")
-    }
   end
 
   def lineage
@@ -152,27 +136,26 @@ class CharactersController < ApplicationController
   # POST /characters.json
   def create
 
-    @character = Character.new(character_params)
+    @character = Character.new
 
-    respond_to do |format|
-      if @character.save
-        update_values
-        update_character_lists(@object,@character)
+    @character.save(validate: false)
 
-        format.html { redirect_to polymorphic_path([@object, @character]), notice: 'Character was successfully created.' }
-        format.json { render :show, status: :created, location: @character }
-      else
-        format.html { render :new }
-        format.json { render json: @character.errors, status: :unprocessable_entity }
-      end
+    update_character_lists(@object,@character)
+    case @object.class.name
+    when "Book"
+      redirect_to book_character_step_path(@object, @character, Character.form_steps.first)
+    when "Scene"
+      redirect_to scene_character_step_path(@object, @character, Character.form_steps.first)
+    when "Story"
+      redirect_to story_character_step_path(@object, @character, Character.form_steps.first)
     end
+
   end
 
   # PATCH/PUT /characters/1
   # PATCH/PUT /characters/1.json
   def update
     update_values
-
     respond_to do |format|
       if @character.update(character_params)
         format.html { redirect_to polymorphic_path([@object, @character]) }
@@ -209,7 +192,7 @@ class CharactersController < ApplicationController
     def character_params
       params.require(:character).permit(:name, :reason_for_name, :nickname, :reason_for_nickname, :race, :occupation_class, 
                                         :social_class, :first_name, :middle_name, :last_name, :suffix, :birth_year, :death_year,
-                                       :age_at_son, :father_id, :honorific, :grouping, :use_honorific_only,:background
+                                       :age_at_son, :father_id, :honorific, :grouping, :use_honorific_only,:background,:mother_id,:sex
                                        )
     end
 
@@ -312,8 +295,7 @@ class CharactersController < ApplicationController
  "traits_anybody know_value".to_sym,
  "traits_char tell them_value".to_sym,
  "traits_how find out_value".to_sym,
- "gender_gender_value".to_sym,
-   "gender_sex_value".to_sym
+ "gender_gender_value".to_sym
      ]
     end
 end

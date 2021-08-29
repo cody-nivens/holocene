@@ -18,6 +18,6 @@
 
 <% end %>
 
-<% @footer_content << "#{link_to 'New Character', new_polymorphic_path([@object, :character]), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'New Character', polymorphic_path([@object, :characters]), method: :post, :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Back', polymorphic_path(@object), :class => "btn btn-default" }" %>
 

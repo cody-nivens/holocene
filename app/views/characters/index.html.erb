@@ -283,7 +283,7 @@
 <% end %>
 
 <% if @object.class.name == 'Book' %>
-<% @footer_content << "#{link_to 'New Character', new_polymorphic_path([@object, :character]), :class => "btn btn-default" }" %>
+  <% @footer_content << "#{link_to 'New Character', new_polymorphic_path([@object, :character]),method: :post, :class => "btn btn-default" }" %>
 <% end -%>
 <% @footer_content << "#{link_to 'Add/Remove Characters', polymorphic_path([@object, :characters_list]), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Back', polymorphic_path(@object), :class => "btn btn-default" }" %>
