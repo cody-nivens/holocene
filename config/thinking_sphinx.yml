@@ -1,4 +1,10 @@
+development:
+  html_strip: true
+  min_infix_len: 1
+
 
 test:
   sql_range_step: 10000000
   mysql41: 9307
+  html_strip: true
+  min_infix_len: 1
