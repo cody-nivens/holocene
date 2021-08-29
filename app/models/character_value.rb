@@ -45,8 +45,9 @@ class CharacterValue < ApplicationRecord
       attribute_values = CharacterValue.where(character_attribute_id: character_attribute.id)
       distinct_values = attribute_values.distinct.pluck(:value)
 
-      attribute_values_2 = CharacterValue.where(character_attribute_id: character_attribute_2.id)
-      distinct_values_2 = attribute_values_2.distinct.pluck(:value)
+      attribute_values_2 = characters
+
+      distinct_values_2 = attribute_values_2.distinct.pluck(character_attribute_2.to_sym).compact.sort.uniq
 
       distinct_values.each do |value|
         stats[category.name][value] = {}
@@ -55,12 +56,9 @@ class CharacterValue < ApplicationRecord
             stats[category.name][value][value_2] = 0
           end
 
-          first_count = CharacterValue.where(character_attribute_id: character_attribute.id, value: value) 
-          count_2 = CharacterValue.where(character_attribute_id: character_attribute_2.id, value: value_2)
-          
-          intersect = characters.pluck(:id).intersection(first_count.pluck(:character_id)).intersection(count_2.pluck(:character_id))
+          abc = characters.where("#{character_attribute_2} = ?", value_2).joins(:character_values).where("character_values.character_attribute_id = ? and value = ?", character_attribute.id, value)
 
-          stats[category.name][value][value_2] += intersect.length
+          stats[category.name][value][value_2] = abc.length
         end
       end
       stats

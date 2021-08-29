@@ -1,0 +1,24 @@
+<% category = CharacterCategory.find_by(name: category) %>
+<% character_attributes = CharacterAttribute.where(character_category_id: category.id, name: value_attribute) %>
+<% rs = CharacterValue.stats_2(object.characters,category, character_attributes[0],attribute) %>
+<% keys_1 = rs[category.name].keys %>
+<% unless keys_1.empty? %>
+  <table class="table">
+    <% keys_2 = rs[category.name][keys_1[0]].keys %>
+    <tr><th></th>
+      <% keys_2.each do |key| %>
+        <th><%= (attribute == 'sex' ? Character.sex_to_text(key) : key) %></th>
+      <% end %>
+    </tr>
+
+     <% keys_1.each do |key| %>
+       <tr>
+         <th><%= key %></th>
+         <% keys_2.each do |key_2| %>
+          <% item = rs[category.name][key][key_2] %>
+          <td><%= link_to (item.blank? ? '' : item), polymorphic_path([object,:characters], :key1=> key, :key2 => key_2, :cat1 => category.name,  :cat2 => attribute ) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
