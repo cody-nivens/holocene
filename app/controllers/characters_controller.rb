@@ -22,16 +22,16 @@ class CharactersController < ApplicationController
       key_1 = params[:key1]
       key_2 = params[:key2]
       cat_1 = CharacterAttribute.where(name: cat_text_1)[0]
-      cat_2 = CharacterAttribute.where(name: cat_text_2)[0]
+      cat_2 = cat_text_2
 
       first_count = CharacterValue.where(character_attribute_id: cat_1.id, value: key_1)
-      count_2 = CharacterValue.where(character_attribute_id: cat_2.id, value: key_2)
+      #count_2 = Character.where("#{cat_2} =?",Character.text_to_sex(key_2))
 
-      intersect = @object.characters.pluck(:id).intersection(first_count.pluck(:character_id)).intersection(count_2.pluck(:character_id))
+      intersect = @object.characters.where("#{cat_2} = ?",(key_2 == 'sex' ? Character.text_to_sex(key_2) : key_2)).pluck(:id).intersection(first_count.pluck(:character_id))
 
       @characters = @object.characters.where(id: intersect)
 
-      @title = "Gender and Sexulaity"
+      @title = "Gender and Sexuality"
     elsif !params[:cat1].blank?
       cat_text_1 = params[:cat1]
 
