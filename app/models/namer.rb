@@ -1,6 +1,8 @@
 class Namer < ApplicationRecord
   def self.random_person
     race = Character.gen_race
+    sex = rand(2)
+    gender = (sex == 0 ? "M" : "F")
 
     case race
     when "White"
@@ -32,19 +34,20 @@ class Namer < ApplicationRecord
     retry_max = 10
 
     column_percent = 30
-    first_name = Namer.find_by_sql("select * from namers where first_name=1 and #{column_name} > #{column_percent} order by rand() limit 1")[0]
+    first_name = Namer.find_by_sql("select * from namers where first_name=1 and gender = \"#{gender}\" and #{column_name} > #{column_percent} order by rand() limit 1")[0]
     retry_name = 0
     until !first_name.nil? || retry_name == retry_max do
-      first_name = Namer.find_by_sql("select * from namers where first_name=1 and #{column_name} > #{column_percent} order by rand() limit 1")[0]
+      first_name = Namer.find_by_sql("select * from namers where first_name=1 and gender = \"#{gender}\" and #{column_name} > #{column_percent} order by rand() limit 1")[0]
       retry_name += 1
       column_percent -= 5
     end
 
     column_percent = 30
-    middle_name = Namer.find_by_sql("select * from namers where first_name=1 and gender = \"#{first_name.gender}\" and #{column_name} > #{column_percent} order by rand() limit 1")[0]
+    middle_name = Namer.find_by_sql("select * from namers where first_name=1 and gender = \"#{gender}\" and #{column_name} > #{column_percent} order by rand() limit 1")[0]
     retry_name = 0
     until !middle_name.nil? || retry_name == retry_max do
-      middle_name = Namer.find_by_sql("select * from namers where first_name=1 and gender = \"#{first_name.gender}\" and #{column_name} > #{column_percent} order by rand() limit 1")[0]
+      middle_name = Namer.find_by_sql("select * from namers where first_name=1 and gender = \"#{gender}\" and #{column_name} > #{column_percent} order by rand() limit 1")[0]
+      middle_name = nil if (middle_name.nil? ? false : middle_name.name == first_name.name)
       retry_name += 1
       column_percent -= 5
     end
@@ -65,7 +68,7 @@ class Namer < ApplicationRecord
     else
       sexuality = "Gay"
     end
-    return [ surname.name, first_name.name, first_name.gender, race, hair_color, eye_color, middle_name.name, sexuality]
+    return [ surname.name, first_name.name, gender, race, hair_color, eye_color, middle_name.name, sexuality]
   end
 
   def self.random_name(race,sex)
@@ -88,19 +91,20 @@ class Namer < ApplicationRecord
     retry_max = 10
 
     column_percent = 30
-    first_name = Namer.find_by_sql("select * from namers where first_name=1 and #{column_name} > #{column_percent} order by rand() limit 1")[0]
+    first_name = Namer.find_by_sql("select * from namers where first_name=1 and gender = \"#{gender}\" and #{column_name} > #{column_percent} order by rand() limit 1")[0]
     retry_name = 0
     until !first_name.nil? || retry_name == retry_max do
-      first_name = Namer.find_by_sql("select * from namers where first_name=1 and #{column_name} > #{column_percent} order by rand() limit 1")[0]
+      first_name = Namer.find_by_sql("select * from namers where first_name=1 and gender = \"#{gender}\" and #{column_name} > #{column_percent} order by rand() limit 1")[0]
       retry_name += 1
       column_percent -= 5
     end
 
     column_percent = 30
-    middle_name = Namer.find_by_sql("select * from namers where first_name=1 and gender = \"#{gender}\" and #{column_name} > #{column_percent} order by rand() limit 1")[0]
+    middle_name = Namer.find_by_sql("select * from namers where id != #{first_name.id} and first_name=1 and gender = \"#{gender}\" and #{column_name} > #{column_percent} order by rand() limit 1")[0]
     retry_name = 0
     until !middle_name.nil? || retry_name == retry_max do
-      middle_name = Namer.find_by_sql("select * from namers where first_name=1 and gender = \"#{gender}\" and #{column_name} > #{column_percent} order by rand() limit 1")[0]
+      middle_name = Namer.find_by_sql("select * from namers where id != #{first_name.id} and first_name=1 and gender = \"#{gender}\" and #{column_name} > #{column_percent} order by rand() limit 1")[0]
+      middle_name = nil if (middle_name.nil? ? false : middle_name.name == first_name.name)
       retry_name += 1
       column_percent -= 5
     end
@@ -114,6 +118,7 @@ class Namer < ApplicationRecord
       column_percent -= 5
     end
 
-    return [ first_name.name, middle_name.name, surname.name ]
+    #debugger if first_name.nil? || middle_name.nil? || surname.nil?
+    return [ first_name.name, (middle_name.nil? ? nil : middle_name.name), surname.name ]
   end
 end
