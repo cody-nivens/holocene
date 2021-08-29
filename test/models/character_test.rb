@@ -1,6 +1,12 @@
 require 'test_helper'
 
 class CharacterTest < ActiveSupport::TestCase
+  test "text to sex" do
+    assert_equal 0,Character.text_to_sex('Male')
+    assert_equal 1,Character.text_to_sex('Female')
+    assert_equal 2,Character.text_to_sex('')
+  end
+
   test "set value" do
     character = characters(:character_1)
     values = character.set_values

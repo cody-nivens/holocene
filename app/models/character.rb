@@ -225,14 +225,25 @@ class Character < ApplicationRecord
     return [  self.books[0], self, nil, nil, nil ]
   end
 
-  def sex_to_text
-    case self.sex
+  def self.sex_to_text(sex)
+    case sex
     when 0
       return "Male"
     when 1
       return "Female"
     when 2
       return ""
+    end
+  end
+
+  def self.text_to_sex(sex)
+    case sex
+    when "Male"
+      return 0
+    when "Female"
+      return 1
+    else
+      return 2
     end
   end
 end

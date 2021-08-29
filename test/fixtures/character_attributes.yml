@@ -21,10 +21,6 @@ character_attribute_5:
   name: Gender
   character_category: character_category_3
 
-character_attribute_6:
-  name: Sex
-  character_category: character_category_3
-
 character_attribute_7:
   name: Hair color
   character_category: character_category_1

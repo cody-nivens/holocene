@@ -24,7 +24,7 @@
         <td><%= character.death_year %></td>
         <td><%= character.age %></td>
         <td><%= character.age_at_son %></td>
-        <td><%= character.sex_to_text %></td>
+        <td><%= Character.sex_to_text(character.sex) %></td>
         <td><%= (character.father.nil? ? '' : character.father.name) %></td>
         <td><%= character.race %></td>
         <td><%= character.occupation_class %></td>
