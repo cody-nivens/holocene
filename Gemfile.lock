@@ -441,6 +441,7 @@ DEPENDENCIES
   nokogiri (= 1.10.8)
   pdf-reader
   popper_js
+  pry
   puma (~> 4.3.8)
   rack (>= 2.2.3)
   rails (~> 6.0.3, >= 6.0.3.2)

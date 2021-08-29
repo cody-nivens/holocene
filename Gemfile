@@ -70,6 +70,7 @@ group :development do
   gem 'guard-minitest'
   #gem 'guard-spring'
   gem 'guard-rails'
+  gem 'pry'
 end
 
 group :test do
