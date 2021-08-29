@@ -36,6 +36,11 @@ class ScenesTest < ApplicationSystemTestCase
     draggable = find(:css, "#scene-#{@scene_13.id}")
     droppable = find(:css, "#scene-#{@scene_11.id}")
     draggable.drag_to(droppable)
+    wait_for_ajax
+
+    assert_match %r[#{@scene.name}.*#{@scene_13.name}.*#{@scene_11.name}]m, page.html
+    visit current_path
+
     assert_match %r[#{@scene.name}.*#{@scene_13.name}.*#{@scene_11.name}]m, page.html
   end
 

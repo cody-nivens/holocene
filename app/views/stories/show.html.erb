@@ -70,30 +70,8 @@
 
 <% c.tab "Gender" do %>
   <span>
-    <% category = CharacterCategory.find_by(name:'Gender') %>
-    <% character_attributes = CharacterAttribute.where(character_category_id: category.id) %>
-    <% rs = CharacterValue.stats_2(@story.characters,category, character_attributes[0],character_attributes[1]) %>
-    <% keys_1 = rs[category.name].keys %>
-    <% unless keys_1.empty? %>
-      <table class="table">
-        <% keys_2 = rs[category.name][keys_1[0]].keys %>
-        <tr><th></th>
-          <% keys_2.each do |key| %>
-            <th><%= key %></th>
-          <% end %>
-        </tr>
-
-        <% keys_1.each do |key| %>
-          <tr>
-            <th><%= key %></th>
-            <% keys_2.each do |key_2| %>
-              <% item = rs[category.name][key][key_2] %>
-              <td><%= link_to (item.blank? ? '' : item), polymorphic_path([@story,:characters], :key1=> key, :key2 => key_2, :cat1 => "Gender",  :cat2 =>"Sex" ) %></td>
-            <% end %>
-          </tr>
-        <% end %>
-      </table>
-    <% end %>
+    <%= render partial: 'shared/stats2.html', :locals => {:category => 'Gender', :value_attribute => 'Gender', :attribute => 'sex', :object => @story} %>
+    <%= render partial: 'shared/stats2.html', :locals => {:category => 'Gender', :value_attribute => 'Gender', :attribute => 'occupation_class', :object => @story} %>
   </span>
 <% end %>
 

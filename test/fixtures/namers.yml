@@ -362,7 +362,7 @@ namer_<%= i %>:
   name: Brian
   first_name: true
   white: 96.182
-  black: 1.338
+  black: 5.338
   asian: 1.59
   indian: 0.098
   latino_mixed: 0.076

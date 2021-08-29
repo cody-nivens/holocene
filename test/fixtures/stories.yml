@@ -32,7 +32,7 @@ story_4:
   summary: MyText
   book: book_2
   scene_character: C
-  position: 4
+  position: 3
   publish: true
   stand_alone: false
 
@@ -41,7 +41,7 @@ story_5:
   summary: MyText
   book: book_2
   scene_character: C
-  position: 5
+  position: 4
   publish: true
   stand_alone: true
 
@@ -50,7 +50,7 @@ story_6:
   summary: MyText
   book: book_2
   scene_character: C
-  position: 7
+  position: 5
   publish: true
   stand_alone: false
 
@@ -59,7 +59,7 @@ story_7:
   summary: MyText
   book: book_2
   scene_character: C
-  position: 8
+  position: 6
   publish: true
   stand_alone: false
 
@@ -68,7 +68,7 @@ story_8:
   summary: MyText
   book: book_2
   scene_character: C
-  position: 9
+  position: 7
   publish: true
   stand_alone: false
 
@@ -77,7 +77,7 @@ story_9:
   summary: MyText
   book: book_2
   scene_character: C
-  position: 10
+  position: 8
   publish: true
   stand_alone: false
 
@@ -86,33 +86,42 @@ story_10:
   summary: MyText
   book: book_2
   scene_character: C
-  position: 11
+  position: 9
   publish: true
   stand_alone: false
 
 story_11:
-  title: The Middles VIX
+  title: The Middles IX
   summary: MyText
   book: book_2
   scene_character: C
-  position: 12
+  position: 10
   publish: true
   stand_alone: false
 
 story_12:
-  title: The Middles VX
+  title: The Middles X
   summary: MyText
   book: book_2
   scene_character: C
-  position: 13
+  position: 11
   publish: true
   stand_alone: false
 
-story_13:
-  title: The Middles VXI
+story_14:
+  title: The Beginnings 2
+  summary: The scorpian king stung.
+  book: book_3
+  scene_character: A
+  position: 1
+  publish: true
+  stand_alone: false
+
+story_15:
+  title: The Middles XI
   summary: MyText
-  book: book_2
+  book: book_3
   scene_character: C
-  position: 14
+  position: 3
   publish: true
   stand_alone: false

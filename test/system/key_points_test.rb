@@ -20,22 +20,18 @@ class KeyPointsTest < ApplicationSystemTestCase
     click_on "The Beginnings"
     assert_text "Climate Change"
   
-Timeout.timeout(Capybara.default_max_wait_time) do
-  sleep(0.1) until page.evaluate_script('jQuery.active') == 0 && page.has_css?('.ui-sortable')
-end
+    Timeout.timeout(Capybara.default_max_wait_time) do
+      sleep(0.1) until page.evaluate_script('jQuery.active') == 0 && page.has_css?('.ui-sortable')
+    end
 
-    #save_and_open_page
-    #debugger
-    #take_screenshot
     assert_match %r[#{@key_point.name}.*#{@key_point_3.name}.*#{@key_point_9.name}]m, page.html
     draggable = find(:css, "#key_point-#{@key_point_3.id}")
     droppable = find(:css, "#key_point-#{@key_point.id}")
     
     draggable.drag_to(droppable)
     wait_for_ajax
-    #visit current_path
-    #save_and_open_page
-    #debugger
+    assert_match %r[#{@key_point_3.name}.*#{@key_point.name}.*#{@key_point_9.name}]m, page.html
+    visit current_path
     assert_match %r[#{@key_point_3.name}.*#{@key_point.name}.*#{@key_point_9.name}]m, page.html
   end
 

@@ -22,6 +22,10 @@ class BooksTest < ApplicationSystemTestCase
     draggable = find(:css, "#book-#{@book_3.id}")
     droppable = find(:css, "#book-#{@book_2.id}")
     draggable.drag_to(droppable)
+    wait_for_ajax
+
+    assert_match %r[#{@book.name}.*#{@book_3.name}.*#{@book_2.name}]m, page.html
+    visit current_path
 
     assert_match %r[#{@book.name}.*#{@book_3.name}.*#{@book_2.name}]m, page.html
   end
