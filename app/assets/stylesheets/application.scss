@@ -372,4 +372,15 @@ dd {
   .m { font-size: 1.2em; }
   .l { font-size: 1.8em; }
 }
-
+.Progress {
+    background-color: var(--color-neutral-muted,var(--color-auto-gray-2));
+    border-radius: 6px;
+    display: inline-flex;
+    height: 8px;
+    outline: 1px solid transparent;
+    overflow: hidden;
+    width: 60px;
+}
+.Progress-item {
+    outline: 2px solid transparent;
+}

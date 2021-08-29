@@ -1,0 +1,5 @@
+<span data-view-component="true" class="Progress">
+  <% items.each do |item| %>
+    <span itemprop="keywords" aria-label="<%= item[:label] %>" style="background-color: #<%= item[:color] %>;width: <%= item[:width] %>%;" data-view-component="true" class="Progress-item"></span>
+  <% end %>
+</span>
