@@ -68,7 +68,7 @@ class Namer < ApplicationRecord
     else
       sexuality = "Gay"
     end
-    return [ surname.name, first_name.name, gender, race, hair_color, eye_color, middle_name.name, sexuality]
+    return [ surname.name, first_name.name, gender, race, hair_color, eye_color, (middle_name.nil? ? nil : middle_name.name), sexuality]
   end
 
   def self.random_name(race,sex)
