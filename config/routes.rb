@@ -46,6 +46,8 @@ Rails.application.routes.draw do
   get "/books/:book_id/key_points/:id/list", to: "key_points#list", as: :book_key_point_list
   post "/books/:book_id/key_points/:id/add", to: "key_points#add", as: :book_key_point_add
   get "/books/:id/timeline", to: "books#timeline", as: :book_timeline
+  get "/books/:id/sync_scenes", to: "books#sync_scenes", as: :book_sync_scenes
+  get "/books/:id/scenes_list", to: "books#scenes_list", as: :book_scenes_list
 
   get "/scenes/:id/move", to: "scenes#move", as: :scene_move
   post "/scenes/:id/moved", to: "scenes#moved", as: :scene_moved

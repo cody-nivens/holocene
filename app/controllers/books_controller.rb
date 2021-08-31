@@ -1,10 +1,27 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:timeline, :resync_stories,:toc, :epub, :export, :pdf, :show, :edit, :update, :destroy]
+  before_action :set_book, only: [ :sync_scenes, :timeline, :resync_stories,:toc, :epub, :export, :pdf, :show, :edit, :update, :destroy]
 
   # GET /books
   # GET /books.json
   def index
     @books = Book.where(user_id: current_user.id).order(:position)
+  end
+
+  def sync_scenes
+    @toggle ||= params[:toggle]
+
+    @scenes = Scene.get_scenes(@book, @toggle)
+    @years =  @scenes.keys.sort
+  end
+
+  def scenes_list
+    @year = params[:year]
+    @book = Book.find(params[:id])
+    @scenes = Scene.get_scenes(@book, @toggle,@year)
+
+     respond_to do |format|
+        format.js
+      end
   end
 
   def sort
