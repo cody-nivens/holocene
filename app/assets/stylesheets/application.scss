@@ -65,7 +65,7 @@ html {
 body > .outer-container > .container {
   padding: 15px 15px 0;
   position: relative;
-  width: 100%;
+  width: 1170px;
   min-height: 100%;
 }
 
@@ -73,6 +73,7 @@ body > .outer-container {
   position: relative;
   width: 100%;
   min-height: 100%;
+  overflow-x: hidden;
 }
 
 body > .outer-container > .container > .footer {
