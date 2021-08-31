@@ -16,11 +16,15 @@
   </head>
 
   <body>
-    <%= render "application/header" %>
+    <div class="outer-container">
+      <%= render "application/header" %>
+      <%= render 'layouts/messages' %>
     <div class="container">
-        <%= render 'layouts/messages' %>
-         <%= yield %>
-    </div>
+      <div id="content-wrap">
+        <%= yield %>
+      </div>
     <%= render "application/footer" %>
+    </div>
+    </div>
   </body>
 </html>
