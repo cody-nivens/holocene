@@ -11,7 +11,7 @@ class Character::StepsController < ApplicationController
       when "Scene"
         @year = @object.date_string.to_date.year
       else
-        @year = 0
+        @year = ''
       end  
       @character.sex = rand(2)
     when "identity"
