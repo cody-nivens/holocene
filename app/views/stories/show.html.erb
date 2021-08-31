@@ -14,6 +14,8 @@
 
 <% scene_count   = @story.scene_count %>
 <% section_count = @story.section_count %>
+<% pub_scene_count = @story.scene_count %></td>
+<% word_count = @story.word_count %>
 
 <table class="table">
   <tr>
@@ -25,7 +27,13 @@
   </tr>
   <tr>
     <th>Scenes(section % scenes):</th>
-    <td><%= scene_count %> (<%= section_count %> <%= (scene_count == 0 ? '' : number_with_precision((section_count.to_f/scene_count.to_f)*100.0, precision: 2)) %>%)</td>
+    <td><%= scene_count %>
+  <% ss_ratio = (pub_scene_count == 0 ? 0 : section_count.to_f/pub_scene_count.to_f) %>
+  <% items =[
+{:label => "Completed", :color => "090", :width => 100.0*ss_ratio},
+{:label => "Waiting", :color => "ededed", :width => 100.0 - 100.0*ss_ratio}] %>
+<%= render partial: 'shared/progress_bar', :locals => { items: items } %>
+  (<%= section_count %> <%= (scene_count == 0 ? '' : number_with_precision((section_count.to_f/scene_count.to_f)*100.0, precision: 2)) %>%)</td>
     <th>Print Summary:</th> <td><%= (@story.print_summary? ? fa_icon("check") : '') %></td>
     <th>Publish:</th> <td><%= (@story.publish? ? fa_icon("check") : '') %></td>
     <th>Stand Alone:</th> <td><%= (@story.stand_alone? ? fa_icon("check") : '') %></td>

@@ -13,7 +13,8 @@
 
 <% @slugs = [] -%>
 <% @footnotes = Footnote.process_body(@section, @slugs) -%>
-<%= raw @footnotes[0]  %>
+<% values = @section.set_values %>
+<%= raw highlight(@footnotes[0],Regexp.new(KeyWord.where(book_id: values[0].id).collect{|x| x.key_word}.join("|"))) %>
 <% @slugs += @footnotes[1] -%>
 
 <% unless @section.holocene_events.length == 0 || @section.sectioned.show_events? -%>

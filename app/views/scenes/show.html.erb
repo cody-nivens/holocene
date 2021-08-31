@@ -109,7 +109,9 @@
   <% end %>
   <hr/>
   <% unless @scene.section.nil? %>
-    <%= raw @scene.section.body %>
+    <% values = @scene.set_values %>
+    <% text = @scene.section.body %>
+    <%= raw highlight(text.to_s,Regexp.new(KeyWord.where(book_id: values[0].id).collect{|x| x.key_word}.join("|"))) %>
   <% end %>
 </p>
 
