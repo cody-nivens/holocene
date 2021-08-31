@@ -252,7 +252,6 @@ kind
 four
 head
 far
-black
 long
 both
 little
@@ -300,7 +299,6 @@ much
 name
 five
 once
-white
 least
 president
 learn
