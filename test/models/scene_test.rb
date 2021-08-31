@@ -19,7 +19,7 @@ class SceneTest < ActiveSupport::TestCase
     count_scenes = Scene.all
     scenes = Scene.get_scenes(books(:book_2),"off")
     assert_equal 13, count_scenes.length
-    assert_equal 14, scenes.length
+    assert_equal 2, scenes.keys.length
   end
 
   test "set_next 1" do
