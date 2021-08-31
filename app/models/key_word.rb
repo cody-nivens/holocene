@@ -5,9 +5,12 @@ class KeyWord < ApplicationRecord
 
 def convert_thinking_sphinx
   results = ThinkingSphinx.search(self.key_word)
-  items = results.collect{|x| (x.class.name == "ActionText::RichText" ? [x.record.class.name,x.record.set_values] : [x.class.name,x.set_values])}
+
+  items = results.collect{|x| (x.class.name == "ActionText::RichText" ? [x.record.class.name,(x.record.nil? ? [nil,nil,nil,nil,nil] : x.record.set_values)] : [x.class.name,x.set_values])}
   search_results = {}
   items.each do |item|
+    next if item[1][0].nil?
+
     clazz = item[0].constantize
     if search_results[item[0]].nil?
       search_results[item[0]] = {}

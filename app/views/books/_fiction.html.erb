@@ -9,7 +9,13 @@
     <% pub_scene_count = @book.scene_count(true) %></td>
     <% section_count = @book.section_count %></td>
     <% word_count = @book.word_count %>
-    <td><%= scene_count %> (<%= pub_scene_count %>) (<%= section_count %> <%= (pub_scene_count == 0 ? '' : number_with_precision((section_count.to_f/pub_scene_count.to_f)*100.0, precision: 2)) %>%)</td>
+    <td><%= scene_count %> (<%= pub_scene_count %>)
+  <% ss_ratio = (pub_scene_count == 0 ? 0 : section_count.to_f/pub_scene_count.to_f) %>
+  <% items =[
+{:label => "Completed", :color => "090", :width => 100.0*ss_ratio},
+{:label => "Waiting", :color => "ededed", :width => 100.0 - 100.0*ss_ratio}] %>
+<%= render partial: 'shared/progress_bar', :locals => { items: items } %>
+    (<%= section_count %> <%= (pub_scene_count == 0 ? '' : number_with_precision((section_count.to_f/pub_scene_count.to_f)*100.0, precision: 2)) %>%)</td>
     <th>Word Count (Potential):</th> <td><%= number_with_delimiter(word_count, :delimiter => ',') %> (<%= (section_count == 0 ? '' : number_with_delimiter(word_count/section_count*pub_scene_count, :delimiter => ',')) %>)</td>
   </tr>
 </table>

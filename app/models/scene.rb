@@ -74,16 +74,6 @@ class Scene < ApplicationRecord
     return { :year => "#{year.to_i}", :month => "#{month.to_i}", :day => "#{day.to_i}"}
   end
 
-  def time_string
-    info = time_to_array
-
-    year = info[0] 
-    month =  info[1]
-    day =  info[2]
-    return "%04d" % year.to_i + "-%02d" % month.to_i + "-%02d" % day.to_i
-  end
-
-    #
   # Generate json for TimelineJS
   #
   def slide
@@ -113,7 +103,7 @@ class Scene < ApplicationRecord
       return count
     end
 
-  def self.get_scenes(situated, toggle)
+  def self.get_scenes(situated, toggle, scene_year=nil)
     stories = nil
     if situated.class.name == 'Book'
       stories = situated.stories.where(stand_alone: false, publish: true).order(:position)
@@ -124,51 +114,45 @@ class Scene < ApplicationRecord
     scenes_h  = {}
     stories.each do |story|
       story.key_points.each do |key_point|
-        key_point.scenes.each do |scene|
-          unless toggle == "on"
-              scenes = self.where(insert_scene_id: scene.id)
-              scenes.each do |scene_2|
-                next unless scene_2.key_point.scripted.publish?
-                if scenes_h["#{scene_2.time_string}"].nil?
-                  scenes_h["#{scene_2.time_string}"] = []
-                end
-                scenes_h["#{scene_2.time_string}"] << scene_2 unless scenes_h["#{scene_2.time_string}"].include?(scene_2)
-              end
+        key_point.scenes.order(:selector,:position).each do |scene|
+          date = scene.date_string.to_date
+          next if !scene_year.nil? && date.year != scene_year.to_i
+
+          year = date.year
+          month = date.month
+          day = date.day
+
+           if scenes_h[year].nil?
+             scenes_h[year] = {}
            end
-           if scenes_h["#{scene.time_string}"].nil?
-             scenes_h["#{scene.time_string}"] = []
+           if scenes_h[year][month].nil?
+             scenes_h[year][month] = {}
            end
-           scenes_h["#{scene.time_string}"] << scene unless scenes_h["#{scene.time_string}"].include?(scene)
+           if scenes_h[year][month][day].nil?
+             scenes_h[year][month][day] = []
+           end
+
+           scenes_h[year][month][day] << scene unless scenes_h[year][month][day].include?(scene)
         end
       end
     end
 
-    scene_ids = []
-    scenes_h.keys.sort.each do |x|
-      scenes_h[x].each do |scene|
-        scene_ids << scene
-      end
-    end
-    if situated.class.name == 'Book'
-      stories = situated.stories.where(stand_alone: true, publish: true).order(:position)
+    return scenes_h
+  end
 
-      stories.each do |story|
-        story.key_points.order(:position).each do |key_point|
-          key_point.scenes.order(:date_string,:abc,:position).each do |scene|
-            unless toggle == "on" 
-                scenes = self.where(insert_scene_id: scene.id)
-                scenes.each do |scene_2|
-                  next unless scene_2.key_point.scripted.publish?
-                  scene_ids << scene_2
-                end
-             end
-             scene_ids << scene
-          end
-        end
-      end
+  def self.get_scenes_to_array(situated, toggle, scene_year=nil)
+    scenes = self.get_scenes(situated,toggle,scene_year)
+    items = []
+    scenes.keys.sort.each do |year|
+    scenes[year].keys.sort.each do |month|
+    scenes[year][month].keys.sort.each do |day|
+    scenes[year][month][day].each do |scene|
+      items << scene unless items.include?(scene)
     end
-
-    return scene_ids
+    end
+    end
+    end
+    return items
   end
 
   def time_to_array

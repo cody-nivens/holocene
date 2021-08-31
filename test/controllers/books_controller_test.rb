@@ -75,8 +75,18 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_select ".footer>div>a", 5
   end
 
+  test "should show sync scenes" do
+    get book_sync_scenes_url(@book_2)
+    assert_response :success
+  end
+
+  test "should get scenes list" do
+    get book_scenes_list_url(@book_2), params: { year: 100}, xhr: true
+    assert_response :success
+  end
+
   test "should get timeline" do
-    get book_timeline_url(@book)
+    get book_timeline_url(@book_2)
     assert_response :success
   end
 
@@ -88,7 +98,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     
     # history.back is now used
     # assert_select "a[href=?]", books_path
-    assert_select ".footer>div>a", 9
+    assert_select ".footer>div>a", 10
   end
 
   test "should show pdf book" do

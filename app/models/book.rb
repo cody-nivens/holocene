@@ -29,7 +29,7 @@ class Book < ApplicationRecord
   has_many :signets, as: :sigged
 
   def timeline_json(toggle)
-    return {:events => Scene.get_scenes(self, toggle).collect{|x| x.slide}}.to_json
+    return {:events => Scene.get_scenes_to_array(self, toggle).collect{|x| x.slide}}.to_json
   end
 
   def show_events?
