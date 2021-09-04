@@ -3,19 +3,16 @@
     <th>Stories(Publishable):</th>
     <td><%= @book.stories.count %> (<%= @book.stories.where(publish: true).count %>)</td>
     <th>Characters:</th>
-    <td><%= @book.characters.count %></td>
+    <td><%= @book.characters.count %></td></tr>
+  <tr>
     <th>Scenes (published)(sections % scenes):</th>
-    <% scene_count = @book.scene_count %></td>
-    <% pub_scene_count = @book.scene_count(true) %></td>
-    <% section_count = @book.section_count %></td>
+    <% pub_scene_count = @book.scene_count(true) %>
+    <% scene_count = @book.scene_count %>
+    <% section_count = @book.section_count %>
     <% word_count = @book.word_count %>
-    <td><%= scene_count %> (<%= pub_scene_count %>)
-  <% ss_ratio = (pub_scene_count == 0 ? 0 : section_count.to_f/pub_scene_count.to_f) %>
-  <% items =[
-{:label => "Completed", :color => "090", :width => 100.0*ss_ratio},
-{:label => "Waiting", :color => "ededed", :width => 100.0 - 100.0*ss_ratio}] %>
-<%= render partial: 'shared/progress_bar', :locals => { items: items } %>
-    (<%= section_count %> <%= (pub_scene_count == 0 ? '' : number_with_precision((section_count.to_f/pub_scene_count.to_f)*100.0, precision: 2)) %>%)</td>
+    <td>
+      <%= render :partial => 'scenes/progress_bar.html', :locals => { :object => @book } %>
+    </td>
     <th>Word Count (Potential):</th> <td><%= number_with_delimiter(word_count, :delimiter => ',') %> (<%= (section_count == 0 ? '' : number_with_delimiter(word_count/section_count*pub_scene_count, :delimiter => ',')) %>)</td>
   </tr>
 </table>
@@ -26,69 +23,29 @@
         <%= render :partial => 'stories/index.html', :locals => {:stories => @book.stories.order(:position), :book => @book } %>
     </span>
   <% end %>
-  <% c.tab "Ethnicity" do %>
+
+  <% c.tab "Gender" do %>
     <span>
-      <table class="table">
-        <% counts = {} %>
-        <% items = @book.characters.pluck(:race).map{|x| x || ""}.sort %>
-        <% items.each do |item| %>
-          <% if counts[item].nil? %>
-            <% counts[item] = 0 %>
-          <% end %>
-          <% counts[item] = counts[item] + 1 %>
-        <% end %>
-        <% items.uniq.each do |item| %>
-          <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@book,:characters], :ethnicity => item) %></td><td><%= counts[item] %></td></tr>
-        <% end %>
-      </table>
-    </span>
-  <% end %>
-  <% c.tab "Stats" do %>
-    <span>
-      <%= render :partial => 'character_values/stats_a.html', :locals =>{:characters => @book.characters, :category => 'race', :cat1 => 'Eye color' } %>
-      <%= render :partial => 'character_values/stats_a.html', :locals =>{:characters => @book.characters, :category => 'race', :cat1 => 'Hair color' } %>
-      <%= render :partial => 'character_values/stats.html', :locals =>{:category => 'Physical Appearance', :cat1 => 'Eye color' } %>
-      <%= render :partial => 'character_values/stats.html', :locals =>{:category => 'Physical Appearance', :cat1 => 'Hair color' } %>
       <%= render partial: 'shared/stats2.html', :locals => {:category => 'Gender', :value_attribute => 'Gender', :attribute => 'sex', :object => @book} %>
       <%= render partial: 'shared/stats2.html', :locals => {:category => 'Gender', :value_attribute => 'Gender', :attribute => 'occupation_class', :object => @book} %>
-      <%= render partial: 'shared/stats2.html', :locals => {:category => 'Physical Appearance', :value_attribute => 'Eye color', :attribute => 'sex', :object => @book} %>
-      <%= render partial: 'shared/stats2.html', :locals => {:category => 'Physical Appearance', :value_attribute => 'Hair color', :attribute => 'sex', :object => @book} %>
-
     </span>
   <% end %>
+
+  <% c.tab "Ethnicity" do %>
+    <span>
+      <%= render partial: 'characters/attribute_count.html', :locals => { :object => @book, :field => :ethnicity } %>
+    </span>
+  <% end %>
+
   <% c.tab "Occupation Class" do %>
     <span>
-      <table class="table">
-        <% counts = {} %>
-        <% items = @book.characters.pluck(:occupation_class).map{|x| x || ""}.sort %>
-        <% items.each do |item| %>
-          <% if counts[item].nil? %>
-            <% counts[item] = 0 %>
-          <% end %>
-          <% counts[item] = counts[item] + 1 %>
-        <% end %>
-        <% items.uniq.each do |item| %>
-          <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@book,:characters], :occupation_class => item) %></td><td><%= counts[item] %></td></tr>
-        <% end %>
-      </table>
+      <%= render partial: 'characters/attribute_count.html', :locals => { :object => @book, :field => :occupation_class } %>
     </span>
   <% end %>
+
   <% c.tab "Characters" do %>
     <span>
-      <% @book.characters.order(:occupation_class).pluck(:occupation_class).map{|x| x || ""}.uniq.each do |occ_class| %>
-        <%= (occ_class == "" ? "<blank>" : occ_class) %>
-        <ul>
-          <% if occ_class == "" %>
-            <% @book.characters.where("occupation_class is null").order(:occupation_class,:last_name,:first_name).each do |character| %>
-              <li><%= link_to character.name, polymorphic_path([@book,character]) %><%= "#{(character.grouping.blank? ? '' : "-  #{character.grouping}")}" %></li>
-            <% end %>
-          <% end %>
-          <% @book.characters.where("occupation_class = ?", occ_class).order(:occupation_class,:last_name,:first_name).each do |character| %>
-            <li><%= link_to character.name, polymorphic_path([@book,character]) %><%= "#{(character.grouping.blank? ? '' : "-  #{character.grouping}")}" %></li>
-          <% end %>
-      </ul>
-    <% end %>
-  
+      <%= render partial: 'characters/characters_occ_ul.html', :locals => { :object => @book } %> 
     </span>
   <% end %>
 <% end %>

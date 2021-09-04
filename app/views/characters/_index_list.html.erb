@@ -5,7 +5,6 @@
       <th>Birth Year</th>
       <th>Death Year</th>
       <th>Age</th>
-      <th>Age at Son</th>
       <th>Sex</th>
       <th>Father</th>
       <th>Ethnicity</th>
@@ -19,14 +18,13 @@
   <tbody>
     <% characters.each do |character| %>
       <tr>
-        <td><%= link_to character.full_name, polymorphic_path([@object, character]) %></td>
+        <td><%= link_to character.full_last_first, polymorphic_path([@object, character]) %></td>
         <td><%= character.birth_year %></td>
         <td><%= character.death_year %></td>
         <td><%= character.age %></td>
-        <td><%= character.age_at_son %></td>
         <td><%= Character.sex_to_text(character.sex) %></td>
         <td><%= (character.father.nil? ? '' : character.father.name) %></td>
-        <td><%= character.race %></td>
+        <td><%= character.ethnicity %></td>
         <td><%= character.occupation_class %></td>
         <td><%= character.grouping %></td>
         <td><%= character.scenes.size %></td>

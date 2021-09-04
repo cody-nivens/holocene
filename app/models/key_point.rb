@@ -61,6 +61,24 @@ class KeyPoint < ApplicationRecord
     hook[0..39]
   end
 
+  def self.selector_title(selector)
+    case selector
+    when 1
+      return "First Point"
+    when 2
+      return "First Pinch Point"
+    when 3
+      return "Midpoint"
+    when 4
+      return "Second Pinch Point"
+    when 5
+      return "Third Point"
+    else
+      return "Climax"
+    end
+  end
+
+
   def selector_value(selector)
     case selector.to_i
     when 1

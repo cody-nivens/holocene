@@ -17,6 +17,11 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get index xhr" do
+    get book_characters_url(:book_id => @book.id, :last_name => 'A', :format => 'js'), xhr: true
+    assert_response :success
+  end
+
   test "should get index 2" do
     get book_characters_url(:book_id => @book.id, :ethnicity => 'White')
     assert_response :success
@@ -44,6 +49,11 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
 
   test "should get index 7" do
     get book_characters_url(:book_id => @book.id, :occupation_class => '')
+    assert_response :success
+  end
+
+  test "should get index 8" do
+    get book_characters_url(:book_id => @book.id),params:{ attrib1: "occupation_class", attrib2: "sex", key1: "Autocrat",key2: "Male"}
     assert_response :success
   end
 
@@ -122,17 +132,17 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update character 1" do
-    patch book_character_url(:book_id => @book.id, :id => @character.id), params: { gender_gender_value: '---', character: { first_name: @character.first_name, nickname: @character.nickname, occupation_class: @character.occupation_class, race: @character.race, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, social_class: @character.social_class } }
+    patch book_character_url(:book_id => @book.id, :id => @character.id), params: { gender_gender_value: '---', character: { first_name: @character.first_name, nickname: @character.nickname, occupation_class: @character.occupation_class, ethnicity: @character.ethnicity, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, social_class: @character.social_class } }
     assert_redirected_to book_character_url(:book_id => @book, :id => @character.id)
   end
 
   test "should update character 2" do
-    patch book_character_url(:book_id => @book.id, :id => @character.id), params: { gender_gender_value: 'Gay', character: { first_name: @character.first_name, nickname: @character.nickname, occupation_class: @character.occupation_class, race: @character.race, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, social_class: @character.social_class } }
+    patch book_character_url(:book_id => @book.id, :id => @character.id), params: { gender_gender_value: 'Gay', character: { first_name: @character.first_name, nickname: @character.nickname, occupation_class: @character.occupation_class, ethnicity: @character.ethnicity, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, social_class: @character.social_class } }
     assert_redirected_to book_character_url(:book_id => @book, :id => @character.id)
   end
 
   test "should not update character" do
-    patch book_character_url(:book_id => @book.id, :id => @character.id), params: { character: { first_name: "", nickname: @character.nickname, occupation_class: @character.occupation_class, race: @character.race, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, social_class: @character.social_class } }
+    patch book_character_url(:book_id => @book.id, :id => @character.id), params: { character: { first_name: "", nickname: @character.nickname, occupation_class: @character.occupation_class, ethnicity: @character.ethnicity, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, social_class: @character.social_class } }
     assert_response :success
   end
 

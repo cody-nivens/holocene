@@ -2,18 +2,23 @@
   <strong><%= date %></strong>
   <ul>
     <% scenes.keys.sort.each do |year| %>
-    <% scenes[year].keys.sort.each do |month| %>
-    <% scenes[year][month].keys.sort.each do |day| %>
-    <% scenes[year][month][day].each do |scene| %>
-      <li>
-        <%= scene.time_to_text %>
-        <% values = scene.set_values %>
-        <%= raw surpress_first(breadcrumb( values[0], values[1], values[2], values[3], values[4], true)) %>
-        <%#= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, inline_date: true} %>
-      </li>
-    <% end %>
-    <% end %>
-    <% end %>
+      <% scenes[year].keys.sort.each do |month| %>
+        <% scenes[year][month].keys.sort.each do |day| %>
+          <% scenes[year][month][day].each do |scene| %>
+            <% next if !no_section.nil? && !scene.section.nil? %>
+            <li><%= (scene.section.nil? ? '*' : ' ') %>
+              <%= scene.time_to_text %>
+              <% values = scene.set_values %>
+              <% if print.nil? %>
+                <%= raw surpress_first(breadcrumb( values[0], values[1], values[2], values[3], values[4], true)) %>
+              <% else %>
+                <%= values.compact.collect{|x| x.name}.join("|") %>
+              <% end %>
+              <%#= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, inline_date: true} %>
+            </li>
+          <% end %>
+        <% end %>
+      <% end %>
     <% end %>
   </ul>
 <% end %>

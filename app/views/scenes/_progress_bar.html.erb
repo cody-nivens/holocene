@@ -1,0 +1,10 @@
+<% pub_scene_count = object.scene_count(true) %>
+<% scene_count = object.scene_count %>
+<%= scene_count %><%= (object.class.name == 'Book' ? " (#{pub_scene_count})" : '') %>
+<% section_count = object.section_count %>
+<% ss_ratio = (pub_scene_count == 0 ? 0 : section_count.to_f/pub_scene_count.to_f) %>
+<% items =[
+{:label => "Completed", :color => "090", :width => 100.0*ss_ratio},
+{:label => "Waiting", :color => "ededed", :width => 100.0 - 100.0*ss_ratio}] %>
+<%= render partial: 'shared/progress_bar', :locals => { items: items } %>
+(<%= section_count %> <%= (pub_scene_count == 0 ? '' : number_with_precision((section_count.to_f/pub_scene_count.to_f)*100.0, precision: 2)) %>%)

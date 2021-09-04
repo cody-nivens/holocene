@@ -1,5 +1,6 @@
 class Book < ApplicationRecord
   include RankedModel
+
   ThinkingSphinx::Callbacks.append(
     self, :behaviours => [:sql]
   )

@@ -1,0 +1,11 @@
+<% @title = "Stats" %>
+<%= render partial: 'characters/attribute_count.html', :locals => { :object => object, :field => :ethnicity } %>
+<%= render partial: 'character_values/stats_a.html', :locals =>{:characters => object.characters, :category => 'ethnicity', :cat1 => 'Eye color' } %>
+<%= render partial: 'character_values/stats_a.html', :locals =>{:characters => object.characters, :category => 'ethnicity', :cat1 => 'Hair color' } %>
+<%= render partial: 'character_values/stats.html', :locals =>{:category => 'Physical Appearance', :cat1 => 'Eye color' } %>
+<%= render partial: 'character_values/stats.html', :locals =>{:category => 'Physical Appearance', :cat1 => 'Hair color' } %>
+<%= render partial: 'shared/stats2.html', :locals => {:category => 'Gender', :value_attribute => 'Gender', :attribute => 'sex', :object => object} %>
+<%= render partial: 'shared/stats2.html', :locals => {:category => 'Gender', :value_attribute => 'Gender', :attribute => 'occupation_class', :object => object} %>
+<%= render partial: 'shared/stats2.html', :locals => {:category => 'Physical Appearance', :value_attribute => 'Eye color', :attribute => 'sex', :object => object} %>
+<%= render partial: 'shared/stats2.html', :locals => {:category => 'Physical Appearance', :value_attribute => 'Hair color', :attribute => 'sex', :object => object} %>
+<%= render partial: 'characters/stats.html', :locals =>{:characters => object.characters, :character_attribute => 'occupation_class', :character_attribute_2 => 'sex', :object => object } %>

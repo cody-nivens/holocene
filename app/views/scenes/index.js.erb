@@ -1,0 +1,2 @@
+$('#scenes-list').html("<%= escape_javascript( render :partial => "scenes/scenes.html", :locals => { scenes: @scenes, print: @print, no_section: @no_section, only_section: @only_section }) %>");
+

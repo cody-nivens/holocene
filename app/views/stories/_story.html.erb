@@ -1,20 +1,31 @@
-<dt>
-  <%= story.scene_min %>
-  <%= story.scene_max %>
   <% scene_count = story.scene_count %>
   <% section_count = story.section_count %>
   <% word_count = story.word_count %>
   <% wss_ratio = (section_count == 0 ? 0 : word_count/section_count*scene_count) %>
   <% ss_ratio = (scene_count == 0 ? 0 : section_count.to_f/scene_count.to_f) %>
-  <% items =[
-{:label => "Completed", :color => "090", :width => 100.0*ss_ratio},
-{:label => "Waiting", :color => "ededed", :width => 100.0 - 100.0*ss_ratio}] %>
-<%= render partial: 'shared/progress_bar', :locals => { items: items } %>
-  <%= scene_count %> (<%= section_count %> <%= (scene_count == 0 ? '' : number_with_precision((section_count.to_f/scene_count.to_f)*100.0, precision: 2)) %>%)
-  <%= number_with_delimiter(word_count, :delimiter => ',') %> (<%= number_with_delimiter(wss_ratio, :delimiter => ',') %>)
-  <%= link_to story.title, book_story_path(:book_id => story.book.id, :id => story.id) %>
-  <%= link_to (fa_icon "search-plus"), book_story_path(:book_id => story.book.id, :id => story.id), :title => "Show" %>
-  <%= link_to (fa_icon 'edit'), edit_book_story_path(:book_id => story.book.id, :id => story.id), :title => "Edit" %>
-  <%= link_to (fa_icon "trash-o"), book_story_path(:book_id => story.book.id, :id => story.id), method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy" %>
+  <% items =[ {:label => "Completed", :color => "090", :width => 100.0*ss_ratio}, {:label => "Waiting", :color => "ededed", :width => 100.0 - 100.0*ss_ratio}] %>
+<dt>
+  <div class="narrow">
+    <%= story.scene_min %>
+  </div>
+  <div class="narrow">
+    <%= story.scene_max %>
+  </div>
+  <div class="title">
+    <%= link_to story.title, book_story_path(:book_id => story.book.id, :id => story.id) %>
+    <%= link_to (fa_icon "search-plus"), book_story_path(:book_id => story.book.id, :id => story.id), :title => "Show" %>
+    <%= link_to (fa_icon 'edit'), edit_book_story_path(:book_id => story.book.id, :id => story.id), :title => "Edit" %>
+    <%= link_to (fa_icon "trash-o"), book_story_path(:book_id => story.book.id, :id => story.id), method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy" %>
+  </div>
+  <div class="progress_bar">
+    <%= render partial: 'shared/progress_bar', :locals => { items: items } %>
+  </div>
+  <div class="medium">
+    <%= scene_count %> (<%= section_count %> <%= (scene_count == 0 ? '' : number_with_precision((section_count.to_f/scene_count.to_f)*100.0, precision: 2)) %>%)
+  </div>
+  <div class="medium">
+    <%= number_with_delimiter(word_count, :delimiter => ',') %> (<%= number_with_delimiter(wss_ratio, :delimiter => ',') %>)
+  </div>
+  <div style="clear:both"></div>
 </dt>
 <dd><%= story.summary %></dd>

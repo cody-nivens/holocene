@@ -7,7 +7,7 @@ class Story < ApplicationRecord
   ranks :position, with_same: :book_id
 
   has_many :character_stories
-  has_many :characters, ->{ order(:last_name) }, :through => :character_stories
+  has_many :characters, :through => :character_stories
 
 
   has_many :chapters, :as => :scripted
@@ -81,7 +81,7 @@ class Story < ApplicationRecord
     return count
   end
 
-  def scene_count
+  def scene_count(pub=false)
     count = 0
     self.key_points.each do |key_point|
       count += key_point.scene_count

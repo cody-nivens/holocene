@@ -70,4 +70,11 @@ class CharacterTest < ActiveSupport::TestCase
      srand(99814)
      assert_equal "Black", Character.gen_hair_color
    end
+
+   test "stats" do
+     book = books(:book_2)
+     stats = Character.stats(book.characters,"occupation_class","sex")
+
+     assert_equal 2,stats.keys.length
+   end
 end

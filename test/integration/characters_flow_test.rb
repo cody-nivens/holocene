@@ -13,7 +13,7 @@ class CharactersFlowTest < ActionDispatch::IntegrationTest
   end
 
   test "create character flow" do
-    ["White","Black","Asian","Latino","Latino Mixed","Am Indian"].each do |race|
+    ["White","Black","Asian","Latino","Latino Mixed","Am Indian"].each do |ethnicity|
 
     post book_characters_url(:book_id => @book.id)
     @character = Character.last
@@ -22,7 +22,7 @@ class CharactersFlowTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     patch book_character_step_url(:book_id => @book.id),
-      params: { :book_id=>@book.id, :age=>"55", :year=>"105", :death_age=>"89", :character=>{:race=>race, :birth_year=>"50", :death_year=>"139"}, :commit=>"Next Step", :character_id=>@character.id, :id=>"charcteristics"}
+      params: { :book_id=>@book.id, :age=>"55", :year=>"105", :death_age=>"89", :character=>{:ethnicity=>ethnicity, :birth_year=>"50", :death_year=>"139"}, :commit=>"Next Step", :character_id=>@character.id, :id=>"charcteristics"}
 
     assert_redirected_to book_character_step_path(:book_id => @book.id,:character_id => @character, :id =>"identity")
     follow_redirect!
@@ -78,7 +78,7 @@ class CharactersFlowTest < ActionDispatch::IntegrationTest
 #          debugger if @scene.nil?
 #          post scene_characters_url(:scene_id => @scene.id), params: { 
 #            character: { first_name: @character.first_name, nickname: @character.nickname, occupation_class: @character.occupation_class, 
-#                         race: @character.race, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, 
+#                         ethnicity: @character.ethnicity, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, 
 #                         social_class: @character.social_class } }
 #        end
 #      end

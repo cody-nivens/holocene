@@ -5,7 +5,7 @@ character_1:
   reason_for_name: Mom
   nickname: Slim
   reason_for_nickname: Skinny
-  race: White
+  ethnicity: White
   occupation_class: Educated
   social_class: Alt-Punk
   birth_year: 78
@@ -20,7 +20,7 @@ character_2:
   reason_for_name: Dad
   nickname: Yojoe
   reason_for_nickname: Hard to get to listen
-  race: White
+  ethnicity: White
   occupation_class: Working
   social_class: Working
   birth_year: 98
@@ -36,7 +36,7 @@ character_3:
   reason_for_name: Dad
   nickname: Tojoe
   reason_for_nickname: Hard to get to listen
-  race: White
+  ethnicity: White
   occupation_class: Working
   social_class: Working
   birth_year: 105
@@ -49,7 +49,7 @@ character_4:
   reason_for_name: Dad
   nickname: TooSmooth
   reason_for_nickname: Hard to get to listen
-  race: White
+  ethnicity: White
   occupation_class: Working
   social_class: Working
   birth_year: 105
@@ -68,7 +68,7 @@ character_6:
   reason_for_name: Dad
   nickname: TooSmooth
   reason_for_nickname: Went up the hill
-  race: White
+  ethnicity: White
   occupation_class: Working
   social_class: Working
   birth_year: 105

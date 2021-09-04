@@ -78,7 +78,7 @@
   <p>
     <strong>Characters:</strong>
     <br/>
-    <% @scene.characters.order(:occupation_class).pluck(:occupation_class).uniq.each do |occ_class| %>
+    <% @scene.characters.order(:occupation_class).pluck(:occupation_class).uniq.compact.sort.each do |occ_class| %>
       <%= occ_class %>
       <ul>
         <% @scene.characters.where("occupation_class = ?", occ_class).order(:occupation_class,:last_name,:first_name).each do |character| %>

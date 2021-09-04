@@ -1,0 +1,3 @@
+<h2>Stats for Story <%= link_to @story.name, book_story_path(@book,@story) %></h2>
+<%= render partial: 'shared/stats.html', :locals => { :object => @story } %>
+<% @footer_content << "#{ link_to 'Back', polymorphic_path([@book,@story]), :class => "btn btn-default hide-print" }" %>

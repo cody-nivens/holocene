@@ -13,14 +13,16 @@ class Character::StepsController < ApplicationController
       else
         @year = ''
       end  
-      @character.sex = rand(2)
     when "identity"
-      values = Namer.random_name(@character.race,@character.sex)
-      @character.first_name = values[0]
-      @character.middle_name = values[1]
-      @character.last_name = values[2]
+      if @character.first_name.nil?
+        values = Namer.random_name(@character.ethnicity,@character.sex)
+        @character.first_name = values[0] if @character.first_name.nil?
+        @character.middle_name = values[1] if @character.middle_name.nil?
+        @character.last_name = values[2] if @character.last_name.nil?
+      end
     when "attributes"
-      case @character.race
+      if @character.character_values.length == 0
+      case @character.ethnicity
       when "White"
         hair_color = Character.gen_hair_color
         eye_color  = Character.gen_eye_color(hair_color)
@@ -31,18 +33,13 @@ class Character::StepsController < ApplicationController
         hair_color = "Black"
         eye_color = Character.gen_black_eye_color
       end
-      sexuality = ''
-      case rand(100)
-      when 0..95
-        sexuality = "Straight"
-      else
-        sexuality = "Gay"
-      end
+      sexuality = Character.gen_sexuality
       @attributes = {
         "physical appearance_hair color_value": hair_color,
         "physical appearance_eye color_value": eye_color,
         "gender_gender_value": sexuality
         }
+    end
     end
   end
 
@@ -105,7 +102,7 @@ class Character::StepsController < ApplicationController
                              [ :first_name, :middle_name, :last_name, :suffix, :reason_for_name,
                                :nickname, :reason_for_nickname, :use_honorific_only, :honorific]
                            when "characteristics"
-                             [:race,:birth_year,:death_year,:sex]
+                             [:ethnicity,:birth_year,:death_year,:sex]
                            when "attributes"
                              [:occupation_class,:social_class,:grouping,:father_id,:mother_id]
                            end

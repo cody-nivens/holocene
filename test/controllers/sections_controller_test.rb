@@ -45,7 +45,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
-    assert_redirected_to polymorphic_url([@sectioned_1, Section.last])
+    assert_redirected_to polymorphic_url(@sectioned_1)
   end
 
   test "should create section 2" do
@@ -55,7 +55,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
-    assert_redirected_to polymorphic_url([@sectioned_2, Section.last])
+    assert_redirected_to polymorphic_url(@sectioned_2)
   end
 
   test "should not create section" do
@@ -139,7 +139,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
                                                                                                           :sectioned_type => @sectioned_1.class.name, :sectioned_id => @sectioned_1.id, user_id: @user.id } }
     end
 
-    assert_redirected_to polymorphic_path([@sectioned_1, @section])
+    assert_redirected_to polymorphic_path(@sectioned_1)
   end
 
   test "should update section 2" do
@@ -147,7 +147,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     patch polymorphic_url([@sectioned_2, @section]), params: { scene_id: @sectioned_2.id, section: { body: @section.body, name: @section.name, position: @section.position,
                                                                                                      sectioned_type: @sectioned_2.class.name, sectioned_id: @sectioned_2.id, user_id: @user.id } }
     end
-    assert_redirected_to polymorphic_path([@sectioned_2, @section])
+    assert_redirected_to polymorphic_path(@sectioned_2)
   end
 
   test "should update section 3" do
@@ -156,7 +156,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
                                                                                                             :sectioned_type => @sectioned_1.class.name, :sectioned_id => @sectioned_1.id, user_id: @user.id } }
     end
 
-    assert_redirected_to polymorphic_path([@sectioned_1, @section_2])
+    assert_redirected_to polymorphic_path(@sectioned_1)
   end
 
   test "should not update section" do

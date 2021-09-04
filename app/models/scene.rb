@@ -1,6 +1,8 @@
 class Scene < ApplicationRecord
   include SharedMethods
   include Rails.application.routes.url_helpers
+  include RankedModel
+
   ThinkingSphinx::Callbacks.append(
     self, :behaviours => [:sql]
   )
@@ -8,14 +10,13 @@ class Scene < ApplicationRecord
   ThinkingSphinx::Callbacks.append(
     self, 'action_text/rich_text', :behaviours => [:sql]
   )
-  #acts_as_list scope: :key_point_id
 
-  include RankedModel
+
   belongs_to :key_point, :optional => true
+  acts_as_list scope: :key_point
   ranks :position, with_same: :key_point_id
 
   belongs_to :artifact, :optional => true
-  acts_as_list scope: :key_point
 
   has_rich_text :summary
   has_rich_text :place
@@ -31,7 +32,7 @@ class Scene < ApplicationRecord
     as: :record
 
   has_many :character_scenes
-  has_many :characters, ->{ order(:last_name) }, :through => :character_scenes
+  has_many :characters, :through => :character_scenes
 
   belongs_to :situated, polymorphic: true
 

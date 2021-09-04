@@ -47,16 +47,6 @@ body {
 html {
   position: relative;
 }
-.xfooter {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
-  background-color: #f5f5f5;
-}
-
 
 /* Custom page CSS
 -------------------------------------------------- */
@@ -67,13 +57,20 @@ body > .outer-container > .container {
   position: relative;
   width: 1170px;
   min-height: 100%;
+  overflow-x: auto;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
 }
 
 body > .outer-container {
   position: relative;
   width: 100%;
   min-height: 100%;
-  overflow-x: hidden;
+  overflow-x: auto;
 }
 
 body > .outer-container > .container > .footer {
@@ -81,7 +78,7 @@ body > .outer-container > .container > .footer {
   padding-left: 15px; */
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 1170px;
   height: 50px;
   line-height: 50px; /* Vertically center the text there */
   background-color: #f5f5f5;
@@ -97,9 +94,6 @@ body > .outer-container > .container > .footer {
   margin-bottom: 60px;
 }
 
-.field {
-    width: 100px;
-}
 dd {
     display: block;
     margin-left: 40px;
@@ -407,4 +401,28 @@ dd {
 }
 .Progress-item {
     outline: 2px solid transparent;
+}
+.equal-spacing {
+  display:flex;
+  flex-direction:row;
+  justify-content:space-around
+}
+dt > div.narrow {
+    width: 2em;
+    float: left;
+    text-align: right;
+}
+dt > div.medium {
+    width: 10em;
+    float: left;
+    text-align: right;
+}
+dt > div.title {
+    width: 30em;
+    float: left;
+    padding-left: 0.5em;
+}
+dt > div.progress_bar {
+    width: 5em;
+    float: left;
 }

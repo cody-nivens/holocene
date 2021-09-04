@@ -1,10 +1,10 @@
 class Namer < ApplicationRecord
   def self.random_person
-    race = Character.gen_race
+    ethnicity = Character.gen_ethnicity
     sex = rand(2)
     gender = (sex == 0 ? "M" : "F")
 
-    case race
+    case ethnicity
     when "White"
       hair_color = Character.gen_hair_color
       eye_color  = Character.gen_eye_color(hair_color)
@@ -68,12 +68,12 @@ class Namer < ApplicationRecord
     else
       sexuality = "Gay"
     end
-    return [ surname.name, first_name.name, gender, race, hair_color, eye_color, (middle_name.nil? ? nil : middle_name.name), sexuality]
+    return [ surname.name, first_name.name, gender, ethnicity, hair_color, eye_color, (middle_name.nil? ? nil : middle_name.name), sexuality]
   end
 
-  def self.random_name(race,sex)
+  def self.random_name(ethnicity,sex)
     gender = (sex == 0 ? "M" : "F")
-    case race
+    case ethnicity
     when "White"
       column_name = "white"
     when "Black"

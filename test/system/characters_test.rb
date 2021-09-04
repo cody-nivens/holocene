@@ -22,8 +22,10 @@ class CharactersTest < ApplicationSystemTestCase
 
   test "visiting the Character index for blank ethnicity" do
     visit book_url(:id => @book.id)
-    assert_text "Ethnicity"
-    click_on "Ethnicity"
+    assert_text "Stats"
+    click_on "Stats"
+    #assert_text "Ethnicity"
+    #click_on "Ethnicity"
     assert_text "White"
     click_on "<blank>"
     assert_text "Counsel"

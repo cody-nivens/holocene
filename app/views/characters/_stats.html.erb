@@ -1,0 +1,23 @@
+<% rs = Character.stats(characters, character_attribute, character_attribute_2) %>
+<% keys_1 = rs.keys %>
+<% unless keys_1.empty? %>
+  <table class="table">
+    <% keys_2 = rs[keys_1[0]].keys %>
+    <tr><th></th>
+      <% keys_2.each do |key| %>
+        <th><%= (character_attribute_2 == 'sex' ? Character.sex_to_text(key) : key) %></th>
+      <% end %>
+    </tr>
+
+     <% keys_1.each do |key| %>
+       <tr>
+         <th><%= key %></th>
+         <% keys_2.each do |key_2| %>
+          <% item = rs[key][key_2] %>
+          <td><%= link_to (item.blank? ? '' : item), polymorphic_path([object,:characters], :key1=> key, :key2 => key_2, :attrib1 => character_attribute,  :attrib2 => character_attribute_2 ) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+

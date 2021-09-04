@@ -32,7 +32,12 @@ Rails.application.routes.draw do
   resources :character_attributes
   resources :character_categories
 
+  get '/books/:book_id/characters', to: 'characters#index', :format => :js, constraints: lambda { |request| request.xhr? }
+  get '/books/:book_id/scenes', to: 'scenes#index', :format => :js, constraints: lambda { |request| request.xhr? }
+  get '/books/:book_id/scenes_list', to: 'books#scenes_list', :format => :js, constraints: lambda { |request| request.xhr? }
+
   get "books/:id/export", to: "books#export", as: :book_export
+  get "books/:id/stats", to: "books#stats", as: :book_stats
   get "books/:id/epub", to: "books#epub", as: :book_epub
   get "books/:id/toc", to: "books#toc", as: :toc
   get "/books/:book_id/key_points/:id/move", to: "key_points#move", as: :book_key_point_move
@@ -55,6 +60,7 @@ Rails.application.routes.draw do
   get "/scenes/:scene_id/characters/list", to: "characters#list", as: :scene_characters_list
   get "/scenes/:scene_id/character/:id/lineage", to: "characters#lineage", as: :scene_character_lineage
 
+  get "stories/:id/stats", to: "stories#stats", as: :story_stats
   get "/stories/:story_id/key_points/:id/move", to: "key_points#move", as: :story_key_point_move
   post "/stories/:story_id/key_points/:id/moved", to: "key_points#moved", as: :story_key_point_moved
   get "/stories/:story_id/characters/list", to: "characters#list", as: :story_characters_list
@@ -64,6 +70,7 @@ Rails.application.routes.draw do
   get "/stories/:story_id/key_points/:id/list", to: "key_points#list", as: :story_key_point_list
   post "/stories/:story_id/key_points/:id/add", to: "key_points#add", as: :story_key_point_add
   get "/stories/:story_id/character/:id/lineage", to: "characters#lineage", as: :story_character_lineage
+
 
 #  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users

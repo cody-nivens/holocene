@@ -26,43 +26,14 @@
 </p>
 
 <%= tabs do |c| %>
-
-<% c.tab "First Point" do %>
-  <span>
-    <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: 1) %> <%= @key_point.first_plot_point %></h3>
-    <%= render partial: 'key_points/scenes', :locals => {selector: 1, key_point: @key_point, story: @scripted} %>
-  </span>
-<% end %>
-<% c.tab "First Pinch Point" do %>
-  <span>
-    <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: 2) %> <%= @key_point.first_pinch_point %></h3>
-    <%= render partial: 'key_points/scenes', :locals => {selector: 2, key_point: @key_point, story: @scripted} %>
-  </span>
-<% end %>
-<% c.tab "Midpoint" do %>
-  <span>
-    <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: 3) %> <%= @key_point.midpoint %></h3>
-    <%= render partial: 'key_points/scenes', :locals => {selector: 3, key_point: @key_point, story: @scripted} %>
-  </span>
-<% end %>
-<% c.tab "Second Pinch Point" do %>
-  <span>
-    <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: 4) %> <%= @key_point.second_pinch_point %></h3>
-    <%= render partial: 'key_points/scenes', :locals => {selector: 4, key_point: @key_point, story: @scripted} %>
-  </span>
-<% end %>
-<% c.tab "Third Point" do %>
-  <span>
-    <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: 5) %> <%= @key_point.third_plot_point %></h3>
-    <%= render partial: 'key_points/scenes', :locals => {selector: 5, key_point: @key_point, story: @scripted} %>
-  </span>
-<% end %>
-<% c.tab "Climax" do %>
-  <span>
-    <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: 6) %> <%= @key_point.climax %></h3>
-    <%= render partial: 'key_points/scenes', :locals => {selector: 6, key_point: @key_point, story: @scripted} %>
-  </span>
-<% end %>
+  <% 1.upto(6).each do |selector| %>
+    <% c.tab KeyPoint.selector_title(selector) do %>
+      <span>
+        <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: 1) %> <%= @key_point.selector_value(selector) %></h3>
+        <%= render partial: 'key_points/scenes', :locals => {selector: selector, key_point: @key_point, story: @scripted} %>
+      </span>
+    <% end %>
+  <% end %>
 <% end %>
 
 <% @footer_content << "#{link_to 'Move', polymorphic_path([@scripted, @key_point, :move]), :class => "btn btn-default hide-print" }" %>

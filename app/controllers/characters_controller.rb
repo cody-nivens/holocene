@@ -5,15 +5,19 @@ class CharactersController < ApplicationController
   # GET /characters
   # GET /characters.json
   def index
-    if params[:ethnicity].nil? && params[:occupation_class].nil? && params[:cat1].nil?
-    @characters = @object.characters
-    @title = "Characters"
+    if params[:ethnicity].nil? && params[:occupation_class].nil? && params[:cat1].nil? && params[:attrib1].nil? || !params[:last_name].nil?
+      if !params[:last_name].blank?
+        @characters = @object.characters.where("last_name like ?","#{params[:last_name]}%").order(:last_name,:first_name)
+      else
+        @characters = @object.characters.order(:last_name,:first_name)
+      end
+      @title = "Characters"
     else
     if !params[:occupation_class].blank?
       @characters = @object.characters.where("occupation_class = ?", params[:occupation_class])
       @title = "Occupation Class: #{params[:occupation_class]}"
     elsif !params[:ethnicity].blank?
-      @characters = @object.characters.where("race = ?", params[:ethnicity])
+      @characters = @object.characters.where("ethnicity = ?", params[:ethnicity])
       @title = "Ethnicity"
     elsif !params[:cat1].blank? && !params[:cat2].blank?
       cat_text_1 = params[:cat1]
@@ -31,7 +35,19 @@ class CharactersController < ApplicationController
 
       @characters = @object.characters.where(id: intersect)
 
-      @title = "Gender and Sexuality"
+    elsif !params[:attrib1].blank? && !params[:attrib2].blank?
+      attrib_1 = params[:attrib1]
+      attrib_2 = params[:attrib2]
+
+      key_1 = params[:key1]
+      key_2 = params[:key2]
+
+      first_count = @object.characters.where("#{attrib_1} = ?", key_1)
+
+      intersect = @object.characters.where("#{attrib_2} = ?",(key_2 == 'sex' ? Character.text_to_sex(key_2) : key_2)).pluck(:id).intersection(first_count.pluck(:id))
+
+      @characters = @object.characters.where(id: intersect)
+
     elsif !params[:cat1].blank?
       cat_text_1 = params[:cat1]
 
@@ -45,7 +61,7 @@ class CharactersController < ApplicationController
       @title = "Stats"
     else
       if !params[:ethnicity].nil? && params[:ethnicity].blank?
-        @characters = @object.characters.where(race: nil)
+        @characters = @object.characters.where(ethnicity: nil)
         @title = "Ethnicity"
       end
       if !params[:occupation_class].nil? && params[:occupation_class].blank?
@@ -54,6 +70,11 @@ class CharactersController < ApplicationController
       end
     end
     end
+    respond_to do |format|
+      format.js {}
+      format.html {}
+    end
+
   end
 
   # GET /characters/1
@@ -137,6 +158,7 @@ class CharactersController < ApplicationController
   def create
 
     @character = Character.new
+    @character.sex = rand(2)
 
     @character.save(validate: false)
 
@@ -190,7 +212,7 @@ class CharactersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def character_params
-      params.require(:character).permit(:name, :reason_for_name, :nickname, :reason_for_nickname, :race, :occupation_class, 
+      params.require(:character).permit(:name, :reason_for_name, :nickname, :reason_for_nickname, :ethnicity, :occupation_class, 
                                         :social_class, :first_name, :middle_name, :last_name, :suffix, :birth_year, :death_year,
                                        :age_at_son, :father_id, :honorific, :grouping, :use_honorific_only,:background,:mother_id,:sex
                                        )

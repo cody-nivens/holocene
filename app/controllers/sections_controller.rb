@@ -36,7 +36,7 @@ class SectionsController < ApplicationController
     respond_to do |format|
       if @section.save
         update_metrics
-        format.html { redirect_to polymorphic_path([@sectioned, @section]), notice: 'Section was successfully created.' }
+        format.html { redirect_to polymorphic_path(@sectioned), notice: 'Section was successfully created.' }
         format.json { render :show, status: :created, location: @section }
       else
         format.html { render :new }
@@ -51,7 +51,7 @@ class SectionsController < ApplicationController
     respond_to do |format|
       if @section.update(section_params)
         update_metrics
-        format.html { redirect_to polymorphic_path([@sectioned,@section]), notice: 'Section was successfully updated.' }
+        format.html { redirect_to polymorphic_path(@sectioned), notice: 'Section was successfully updated.' }
         format.json { render :show, status: :ok, location: @section }
       else
         format.html { render :edit }

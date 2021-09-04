@@ -7,10 +7,10 @@ class NamerTest < ActiveSupport::TestCase
     end
   end
   test "the random name" do
-    ["White","Black","Asian","Latino","Latino Mixed","Am Indian"].each do |race|
+    ["White","Black","Asian","Latino","Latino Mixed","Am Indian"].each do |ethnicity|
       1.upto(1000) do 
-        random_person = Namer.random_name(race,0)
-        random_person = Namer.random_name(race,1)
+        random_person = Namer.random_name(ethnicity,0)
+        random_person = Namer.random_name(ethnicity,1)
       end
     end
   end

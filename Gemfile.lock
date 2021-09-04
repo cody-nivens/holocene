@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/radar/by_star
+  revision: f3412a7ffb015df7ced6aa662a53a53e081611a0
+  specs:
+    by_star (4.0.0)
+      activesupport (>= 3.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -66,7 +73,7 @@ GEM
     afm (0.2.2)
     archive-zip (0.12.0)
       io-like (~> 0.3.0)
-    autoprefixer-rails (10.3.1.0)
+    autoprefixer-rails (10.3.3.0)
       execjs (~> 2)
     babel-source (5.8.35)
     babel-transpiler (0.7.0)
@@ -124,7 +131,7 @@ GEM
     et-orbi (1.2.4)
       tzinfo
     execjs (2.8.1)
-    ffi (1.15.3)
+    ffi (1.15.4)
     font-awesome-rails (4.7.0.7)
       railties (>= 3.2, < 7)
     font-awesome-sass (5.5.0.1)
@@ -407,6 +414,7 @@ DEPENDENCIES
   bootstrap-toggle-rails
   bootstrap_form (>= 4.0.0)
   builder
+  by_star!
   byebug
   capybara (>= 2.15, < 4.0)
   chartkick

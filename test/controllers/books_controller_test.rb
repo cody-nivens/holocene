@@ -75,6 +75,11 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_select ".footer>div>a", 5
   end
 
+  test "should show stats" do
+    get book_stats_url(@book_2)
+    assert_response :success
+  end
+
   test "should show sync scenes" do
     get book_sync_scenes_url(@book_2)
     assert_response :success
@@ -98,7 +103,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     
     # history.back is now used
     # assert_select "a[href=?]", books_path
-    assert_select ".footer>div>a", 10
+    assert_select ".footer>div>a", 11
   end
 
   test "should show pdf book" do

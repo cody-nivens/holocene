@@ -1,10 +1,11 @@
 <% @title = "Progress" %>
-<% items = [@today_mod, @today_create, @yesterday_mod, @yesterday_create, @last_week_mod, @last_week_create] %>
-<% titles = ["Today's Modifications", "Today's Creations","Yesterday's Modifications", "Yesterday's Creations","Last Week's Modifications", "Last Week's Creations"] %>
+<% items = [@today_mod, @today_create, @yesterday_mod, @yesterday_create, @last_fortnight_mod, @last_fortnight_create] %>
+<% titles = ["Today's Modifications", "Today's Creations","Yesterday's Modifications", "Yesterday's Creations","Last Fortnight's Modifications", "Last Fortnight's Creations"] %>
 <% data = [{:name => "Added", :data => @dates_counts.collect{|key,x| [key.to_date,x[1]]}}, {:name => "Created", :data => @dates_counts.collect{|key,x| [key.to_date,x[0]]}}] %>
 <%= column_chart data, stacked: true %>
 <%= tabs do |c| %>
   <% items.each_with_index do |item,index| %>
+    <% next if item.empty? %>
     <% c.tab titles[index] do %>
       <span>
         <%= render :partial => "metrics/metric.html", :locals => { objects: item, title: titles[index] } %>

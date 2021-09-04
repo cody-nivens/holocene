@@ -1,1 +1,1 @@
-$("#year-options").html("<%= escape_javascript(render partial: 'books/scenes_list.html', locals: { scenes: @scenes, date: @year } ) %>");
+$("#year-options").html("<%= escape_javascript(render partial: 'books/scenes_list.html', locals: { scenes: @scenes, date: @year, print: @print, no_section: @no_section } ) %>");

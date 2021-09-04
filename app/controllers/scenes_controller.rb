@@ -7,8 +7,16 @@ class ScenesController < ApplicationController
   def index
     @toggle = params[:toggle]
     @print = params[:print]
+    @no_section = params[:no_section]
+    @only_section = params[:only_section]
 
     @scenes = Scene.get_scenes(@situated, @toggle)
+
+    respond_to do |format|
+      format.html { }
+      format.json { }
+      format.js { }
+    end
   end
 
    def sort
@@ -36,6 +44,7 @@ class ScenesController < ApplicationController
     @new_selector = params[:new_selector]
     title = @key_point.selector_value(@selector)
     @scene.situated = @key_point.scripted
+    @scene.save
 
     respond_to do |format|
       if !params[:new_key_point_id].blank? && @scene.update({:key_point_id => params[:new_key_point_id], :selector => @new_selector})

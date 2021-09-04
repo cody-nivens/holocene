@@ -1,11 +1,14 @@
 class StoriesController < ApplicationController
-  before_action :set_story, only: [:timeline, :resync_scenes, :show, :edit, :update, :destroy]
+  before_action :set_story, only: [:stats, :timeline, :resync_scenes, :show, :edit, :update, :destroy]
   before_action :set_book, only: [:index, :new ]
 
   # GET /stories
   # GET /stories.json
   def index
     @stories = Story.where(book_id: @book.id).order(:position)
+  end
+
+  def stats
   end
 
   def sort

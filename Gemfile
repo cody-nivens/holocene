@@ -128,3 +128,4 @@ gem "chartkick"
 gem 'jdbc-mysql',      '~> 5.1.35', :platform => :jruby
 gem 'thinking-sphinx', '~> 5.3'
 gem 'wicked'
+gem 'by_star', git: "git://github.com/radar/by_star"

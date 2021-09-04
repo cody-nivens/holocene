@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [ :sync_scenes, :timeline, :resync_stories,:toc, :epub, :export, :pdf, :show, :edit, :update, :destroy]
+  before_action :set_book, only: [ :stats, :sync_scenes, :timeline, :resync_stories,:toc, :epub, :export, :pdf, :show, :edit, :update, :destroy]
 
   # GET /books
   # GET /books.json
@@ -7,8 +7,12 @@ class BooksController < ApplicationController
     @books = Book.where(user_id: current_user.id).order(:position)
   end
 
+  def stats
+  end
+
   def sync_scenes
-    @toggle ||= params[:toggle]
+    @toggle = params[:toggle]
+    @print = params[:print]
 
     @scenes = Scene.get_scenes(@book, @toggle)
     @years =  @scenes.keys.sort
@@ -16,8 +20,11 @@ class BooksController < ApplicationController
 
   def scenes_list
     @year = params[:year]
-    @book = Book.find(params[:id])
+    @book = Book.find(params[:book_id])
     @scenes = Scene.get_scenes(@book, @toggle,@year)
+    @toggle = params[:toggle]
+    @print = params[:print]
+    @no_section = params[:no_section]
 
      respond_to do |format|
         format.js

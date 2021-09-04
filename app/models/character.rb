@@ -35,7 +35,7 @@ class Character < ApplicationRecord
 
   attr_accessor :form_step
 
-  validates :race, :birth_year, :death_year, presence: true, if: -> { required_for_step?(:characteristics) }
+  validates :ethnicity, :birth_year, :death_year, presence: true, if: -> { required_for_step?(:characteristics) }
   validates :first_name, presence: true, if: -> { required_for_step?(:identity) }
   validates :occupation_class,:social_class,  presence: true, if: -> { required_for_step?(:attributes) }
 
@@ -57,6 +57,10 @@ class Character < ApplicationRecord
     "#{(honorific.blank? ? '' : "#{honorific} ")}#{first_name} #{middle_name} #{last_name} #{suffix}"
   end
 
+  def full_last_first
+    "#{(last_name.blank? ? '' : last_name)}#{(suffix.blank? ? '' : " #{suffix}")}#{(last_name.blank? ? '' : ", ")}#{first_name} #{middle_name}"
+  end
+
   def self.romanize n
     roman = ""
 
@@ -69,23 +73,23 @@ class Character < ApplicationRecord
     return roman
   end
 
-  def self.gen_race
-    race = ''
+  def self.gen_ethnicity
+    ethnicity = ''
     case rand(100)
     when 0..60
-      race = "White"
+      ethnicity = "White"
     when 61..73
-      race = "Black"
+      ethnicity = "Black"
     when 74..80
-      race = "Asian"
+      ethnicity = "Asian"
     when 81..82
-      race = "Am Indian"
+      ethnicity = "Am Indian"
     when 83..86
-      race = "Latino Mixed"
+      ethnicity = "Latino Mixed"
     else
-      race = "Latino"
+      ethnicity = "Latino"
     end
-    return race
+    return ethnicity
   end
 
   def self.gen_hair_color
@@ -168,6 +172,18 @@ class Character < ApplicationRecord
     end
   end
 
+  def self.gen_sexuality
+    sexuality = ''
+    case rand(100)
+    when 0..64
+      sexuality = "Straight"
+    when 65..95
+      sexuality = "Bisexual"
+    else
+      sexuality = "Gay"
+    end
+  end
+
   # names - array of first and middle names to use in generating new names
   def create_lineage(names)
     new_names = []
@@ -245,5 +261,27 @@ class Character < ApplicationRecord
     else
       return 2
     end
+  end
+
+  def self.stats(characters,character_attribute,character_attribute_2)
+      stats = {}
+      stats = {}
+
+      distinct_values = characters.pluck(character_attribute.to_sym).compact.sort.uniq
+      distinct_values_2 = characters.pluck(character_attribute_2.to_sym).compact.sort.uniq
+
+      distinct_values.each do |value|
+        stats[value] = {}
+        distinct_values_2.each do |value_2|
+          if stats[value][value_2].nil?
+            stats[value][value_2] = 0
+          end
+
+          abc = characters.where("#{character_attribute} = ? and #{character_attribute_2} = ?", value, value_2)
+
+          stats[value][value_2] = abc.length
+        end
+      end
+      stats
   end
 end
