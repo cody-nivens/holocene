@@ -1,0 +1,22 @@
+<h2>Itinerary</h2>
+
+<% unless @cities.empty? %>
+<table class='table'>
+  <thead>
+    <th>Name</th>
+    <th>Lat</th>
+    <th>Lng</th>
+    <th>Distance</th>
+  </thead>
+  <tbody>
+    <% old = nil %>
+    <% @cities.each do |city| %>
+      <tr><td><%= city.name %></td>
+          <td><%= city.lat %></td>
+          <td><%= city.lng %></td>
+          <td><%= "%d" % (old.nil? ? '' : old.distance(city)).to_i %></td></tr>
+      <% old = city %>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

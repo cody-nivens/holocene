@@ -1,0 +1,133 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+city_1:
+   name: Tokyo
+   name_ascii: Tokyo
+   lat: 35.6897
+   lng: 139.6922
+   country: Japan
+   iso2: JP
+   iso3: JPN
+   admin_name: Tōkyō
+   capital: primary
+   population: 37977000
+   simple_map_id: 1392685764
+city_2:
+   name: Jakarta
+   name_ascii: Jakarta
+   lat:  6.2146
+   lng: 106.8451
+   country: Indonesia
+   iso2: ID
+   iso3: IDN
+   admin_name: Jakarta
+   capital: primary
+   population: 34540000
+   simple_map_id: 1360771077
+city_3:
+   name: Delhi
+   name_ascii: Delhi
+   lat: 28.6600
+   lng: 77.2300
+   country: India
+   iso2: IN
+   iso3: IND
+   admin_name: Delhi
+   capital: admin
+   population: 29617000
+   simple_map_id: 1356872604
+city_4:
+   name: Mumbai
+   name_ascii: Mumbai
+   lat: 18.9667
+   lng: 72.8333
+   country: India
+   iso2: IN
+   iso3: IND
+   admin_name: Mahārāshtra
+   capital: admin
+   population: 23355000
+   simple_map_id: 1356226629
+city_5:
+   name: Manila
+   name_ascii: Manila
+   lat: 14.6000
+   lng: 120.9833
+   country: Philippines
+   iso2: PH
+   iso3: PHL
+   admin_name: Manila
+   capital: primary
+   population: 23088000
+   simple_map_id: 1608618140
+city_6:
+   name: Shanghai
+   name_ascii: Shanghai
+   lat: 31.1667
+   lng: 121.4667
+   country: China
+   iso2: CN
+   iso3: CHN
+   admin_name: Shanghai
+   capital: admin
+   population: 22120000
+   simple_map_id: 1156073548
+city_7:
+   name: São Paulo
+   name_ascii: Sao Paulo
+   lat:  23.5504
+   lng:  46.6339
+   country: Brazil
+   iso2: BR
+   iso3: BRA
+   admin_name: São Paulo
+   capital: admin
+   population: 22046000
+   simple_map_id: 1076532519
+city_8:
+   name: Seoul
+   name_ascii: Seoul
+   lat: 37.5600
+   lng: 126.9900
+   country: Korea, South
+   iso2: KR
+   iso3: KOR
+   admin_name: Seoul
+   capital: primary
+   population: 21794000
+   simple_map_id: 1410836482
+city_9:
+   name: Mexico City
+   name_ascii: Mexico City
+   lat: 19.4333
+   lng:  99.1333
+   country: Mexico
+   iso2: MX
+   iso3: MEX
+   admin_name: Ciudad de México
+   capital: primary
+   population: 20996000
+   simple_map_id: 1484247881
+city_10:
+   name: Guangzhou
+   name_ascii: Guangzhou
+   lat: 23.1288
+   lng: 113.2590
+   country: China
+   iso2: CN
+   iso3: CHN
+   admin_name: Guangdong
+   capital: admin
+   population: 20902000
+   simple_map_id: 1156237133
+city_11:
+   name: Beijing
+   name_ascii: Beijing
+   lat: 39.9050
+   lng: 116.3914
+   country: China
+   iso2: CN
+   iso3: CHN
+   admin_name: Beijing
+   capital: primary
+   population: 19433000
+   simple_map_id: 1156228865

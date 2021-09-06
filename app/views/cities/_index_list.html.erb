@@ -1,0 +1,38 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Lat</th>
+      <th>Lng</th>
+      <th>Country</th>
+      <th>Iso2</th>
+      <th>Iso3</th>
+      <th>Admin name</th>
+      <th>Capital</th>
+      <th>Population</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% cities.each do |city| %>
+      <tr>
+        <td><%= city.name %></td>
+        <td><%= city.lat %></td>
+        <td><%= city.lng %></td>
+        <td><%= city.country %></td>
+        <td><%= city.iso2 %></td>
+        <td><%= city.iso3 %></td>
+        <td><%= city.admin_name %></td>
+        <td><%= city.capital %></td>
+        <td><%= city.population %></td>
+        <td><%= link_to 'Show', city %></td>
+        <td><%= link_to 'Edit', edit_city_path(city) %></td>
+        <td><%= link_to 'Destroy', city, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%== pagy_nav(pagy) %>
+
