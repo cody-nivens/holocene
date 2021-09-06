@@ -15,6 +15,7 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[text()=?]",'New Holocene Event'
     assert_select "a[href=?]", new_holocene_event_path
     assert_select ".footer>div>a", 1
+    assert_template 'holocene_event_grid/_table'
   end
 
   test "should get index 2" do
@@ -24,6 +25,7 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[text()=?]",'New Holocene Event'
     assert_select "a[href=?]", new_holocene_event_path
     assert_select ".footer>div>a", 1
+    assert_template 'holocene_event_grid/_table'
   end
 
   test "should get index 3" do
@@ -33,6 +35,7 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[text()=?]",'New Holocene Event'
     assert_select "a[href=?]", new_holocene_event_path
     assert_select ".footer>div>a", 1
+    assert_template 'holocene_event_grid/_table'
   end
 
   test "should show holocene_event timeline" do
