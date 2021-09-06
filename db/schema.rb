@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_02_124647) do
+ActiveRecord::Schema.define(version: 2021_09_05_184930) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -228,6 +228,22 @@ ActiveRecord::Schema.define(version: 2021_09_02_124647) do
     t.bigint "mother_id"
     t.integer "sex", default: 0
     t.index ["mother_id"], name: "index_characters_on_mother_id"
+  end
+
+  create_table "cities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "name_ascii"
+    t.decimal "lat", precision: 10, scale: 4
+    t.decimal "lng", precision: 10, scale: 4
+    t.string "country"
+    t.string "iso2"
+    t.string "iso3"
+    t.string "admin_name"
+    t.string "capital"
+    t.bigint "population"
+    t.bigint "simple_map_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "epochs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
