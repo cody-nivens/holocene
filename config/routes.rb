@@ -2,6 +2,13 @@ require 'sidekiq/web'
 require 'sidekiq/cron/web'
 
 Rails.application.routes.draw do
+  get '/cities/index', to: 'cities#index', :format => :js, constraints: lambda { |request| request.xhr? }
+  get '/cities/index', to: 'cities#index'
+  post '/cities/itinerary', to: 'cities#itinerary'
+  get '/characters/attributes', to: 'characters#attributes', :format => :js, constraints: lambda { |request| request.xhr? }
+  get '/characters/attribute_values', to: 'characters#attribute_values', :format => :js, constraints: lambda { |request| request.xhr? }
+
+  resources :cities
   namespace :character do
     get 'steps/show'
     get 'steps/update'
@@ -36,10 +43,10 @@ Rails.application.routes.draw do
   get '/books/:book_id/scenes', to: 'scenes#index', :format => :js, constraints: lambda { |request| request.xhr? }
   get '/books/:book_id/scenes_list', to: 'books#scenes_list', :format => :js, constraints: lambda { |request| request.xhr? }
 
-  get "books/:id/export", to: "books#export", as: :book_export
-  get "books/:id/stats", to: "books#stats", as: :book_stats
-  get "books/:id/epub", to: "books#epub", as: :book_epub
-  get "books/:id/toc", to: "books#toc", as: :toc
+  get "/books/:id/export", to: "books#export", as: :book_export
+  get "/books/:id/stats", to: "books#stats", as: :book_stats
+  get "/books/:id/epub", to: "books#epub", as: :book_epub
+  get "/books/:id/toc", to: "books#toc", as: :toc
   get "/books/:book_id/key_points/:id/move", to: "key_points#move", as: :book_key_point_move
   post "/books/:book_id/key_points/:id/moved", to: "key_points#moved", as: :book_key_point_moved
   post "/books/:book_id/authors/add", to: "authors#add", as: :book_authors_add
@@ -60,7 +67,7 @@ Rails.application.routes.draw do
   get "/scenes/:scene_id/characters/list", to: "characters#list", as: :scene_characters_list
   get "/scenes/:scene_id/character/:id/lineage", to: "characters#lineage", as: :scene_character_lineage
 
-  get "stories/:id/stats", to: "stories#stats", as: :story_stats
+  get "/stories/:id/stats", to: "stories#stats", as: :story_stats
   get "/stories/:story_id/key_points/:id/move", to: "key_points#move", as: :story_key_point_move
   post "/stories/:story_id/key_points/:id/moved", to: "key_points#moved", as: :story_key_point_moved
   get "/stories/:story_id/characters/list", to: "characters#list", as: :story_characters_list
@@ -72,7 +79,6 @@ Rails.application.routes.draw do
   get "/stories/:story_id/character/:id/lineage", to: "characters#lineage", as: :story_character_lineage
 
 
-#  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users
   resources :footnotes
   resources :scenes do

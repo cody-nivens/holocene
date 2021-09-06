@@ -1,3 +1,4 @@
+<% pagy ||= nil %>
 <table class="table">
   <thead>
     <tr>
@@ -35,3 +36,6 @@
     <% end %>
   </tbody>
 </table>
+<% unless pagy.nil? %>
+<%== pagy_nav(pagy) %>
+<% end %>

@@ -1,87 +1,32 @@
-<p id="notice"><%= notice %></p>
+<h2>Characters for <%= @object.class.name %>: <%= @object.name %></h2>
+<%= datagrid_form_for @grid, :method => :get, :url => polymorphic_path([@object,:characters]) %>
 
-<h1><%= @title %> for <%= @object.class.name %>: <%= link_to (@object.class.name == 'Scene' ? @object.abc : @object.name), polymorphic_path(@object) %></h1>
-
-<%= tabs do |c| %>
-
-<% c.tab "Alpha" do %>
-  <span>
-  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.order(:last_name,:first_name)} %>
-  </span>
-<% end %>
-<% c.tab "By Letter" do %>
-  <span>
-    <div class="equal-spacing">
-  <% ["", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"].each do |alpha| %>
-    <%= link_to (alpha == "" ? '<>' : alpha), polymorphic_path([@object,:characters], "#{@object.class.name.underscore}_id".to_sym => @object.id, :last_name => alpha, :format => :js), :remote => true  %>
-  <% end %>
-    </div>
-  <div id="characters-list">
-    <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.where("last_name like ?","").order(:last_name,:first_name)} %>
-  </div>
-  </span>
-<% end %>
-<% c.tab "Ethnicity" do %>
-  <span>
-    <table class="table">
-  <% counts = {} %>
-  <% items = @characters.pluck(:ethnicity).map{|x| x || ""}.sort %>
-  <% items.each do |item| %>
-    <% if counts[item].nil? %>
-      <% counts[item] = 0 %>
-    <% end %>
-    <% counts[item] = counts[item] + 1 %>
-  <% end %>
-  <% items.uniq.each do |item| %>
-    <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([@object,:characters], :ethnicity => item) %></td><td><%= counts[item] %></td></tr>
-  <% end %>
-</table>
-
-  </span>
-<% end %>
-<% c.tab "Occupation Class" do %>
-  <span>
-<p>
-<% @characters.order(:occupation_class).pluck(:occupation_class).uniq.each do |occ_class| %>
-    <%= link_to (occ_class.blank? ? '<blank>' : occ_class), polymorphic_path([@object,:characters], :occupation_class => occ_class) %>
-<table class="table">
-  <tbody>
-    <tr><td>
-<ul>
-<% @characters.where("occupation_class = ?", occ_class).order(:last_name,:first_name).each do |character| %>
-  <li><%= link_to character.name, polymorphic_path([@object,character]) %> - <%= "#{(character.grouping.blank? ? '' : "#{character.grouping}")}" %></li>
-<% end %>
-</ul>
-      </td><td>
-<ul>
-<% @characters.where("occupation_class = ?", occ_class).order(:grouping,:last_name,:first_name).each do |character| %>
-  <li><%= "#{(character.grouping.blank? ? '' : "#{character.grouping}")}" %> - <%= link_to character.name, polymorphic_path([@object,character]) %></li>
-<% end %>
-</ul>
-      </td></tr>
-  </tbody>
-</table>
-<% end %>
-</p>
-  </span>
-<% end %>
-
-<% c.tab "Birth" do %>
-  <span>
-  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.order(:birth_year)} %>
-  </span>
-<% end %>
-<% c.tab "Death" do %>
-  <span>
-  <%= render :partial => 'characters/index_list', :locals => {:characters => @characters.order(:death_year)} %>
-  </span>
-<% end %>
-
-<% end %>
+<div id='character-grid'>
+  <%= render partial: 'characters/index_grid.html', locals: { grid: @grid }  %>
+</div>
 
 <% if @object.class.name == 'Book' %>
   <% @footer_content << "#{link_to 'New Character', polymorphic_path([@object, :characters]),method: :post, :class => "btn btn-default" }" %>
 <% else %>
-<% @footer_content << "#{link_to 'Add/Remove Characters', polymorphic_path([@object, :characters_list]), :class => "btn btn-default" }" %>
+  <% @footer_content << "#{link_to 'Add/Remove Characters', polymorphic_path([@object, :characters_list]), :class => "btn btn-default" }" %>
 <% end -%>
 <% @footer_content << "#{link_to 'Back', polymorphic_path(@object), :class => "btn btn-default" }" %>
+
+<script type="text/javascript">
+jQuery(function($) {
+  $("#characters_grid_category").change(function() {
+  $.ajax({
+    url: '/characters/attributes',
+    type: "GET",
+    data: {category_id: $('#characters_grid_category option:selected').val() },
+  })
+});
+  $("#characters_grid_attribute").change(function() {
+  $.ajax({
+    url: '/characters/attribute_values',
+    type: "GET",
+    data: {attribute_id: $('#characters_grid_attribute option:selected').val() },
+  })
+});
+})
+</script>

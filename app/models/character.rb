@@ -35,9 +35,9 @@ class Character < ApplicationRecord
 
   attr_accessor :form_step
 
-  validates :ethnicity, :birth_year, :death_year, presence: true, if: -> { required_for_step?(:characteristics) }
+  #validates :ethnicity, :birth_year, :death_year, presence: true, if: -> { required_for_step?(:characteristics) }
   validates :first_name, presence: true, if: -> { required_for_step?(:identity) }
-  validates :occupation_class,:social_class,  presence: true, if: -> { required_for_step?(:attributes) }
+  #validates :occupation_class,:social_class,  presence: true, if: -> { required_for_step?(:attributes) }
 
   def required_for_step?(my_step)
     return true if form_step.nil?

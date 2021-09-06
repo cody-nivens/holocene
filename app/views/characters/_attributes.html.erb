@@ -1,0 +1,5 @@
+<select class="attribute enum_filter" name="characters_grid[attribute]" id="characters_grid_attribute"><option value=""></option>
+  <% attributes.each do |attribute| %>
+    <option value="<%= attribute.id %>"><%= attribute.name %></option>
+  <% end %>
+</select>

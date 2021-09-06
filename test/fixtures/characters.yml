@@ -2,6 +2,7 @@
 
 character_1:
   first_name: John
+  last_name: Smith
   reason_for_name: Mom
   nickname: Slim
   reason_for_nickname: Skinny
@@ -33,6 +34,7 @@ character_2:
 
 character_3:
   first_name: Jim
+  last_name: Jones
   reason_for_name: Dad
   nickname: Tojoe
   reason_for_nickname: Hard to get to listen

@@ -5,76 +5,56 @@ class CharactersController < ApplicationController
   # GET /characters
   # GET /characters.json
   def index
-    if params[:ethnicity].nil? && params[:occupation_class].nil? && params[:cat1].nil? && params[:attrib1].nil? || !params[:last_name].nil?
-      if !params[:last_name].blank?
-        @characters = @object.characters.where("last_name like ?","#{params[:last_name]}%").order(:last_name,:first_name)
+    #@grid = CharactersGrid.new(grid_params) do |scope|
+    #   scope.page(params[:page])
+    #end
+
+    category = grid_params[:category]
+    attribute = grid_params[:attribute]
+    value = grid_params[:value]
+
+    my_params = grid_params.except(:category,:attribute,:value)
+
+    @grid = CharactersGrid.new(my_params) do |scope|
+      if !attribute.blank?
+        if value.blank?
+          my_scope = scope.joins(:character_values).where("character_values.character_attribute_id = ?", attribute.to_i).page(params[:page])
+        else
+          my_scope = scope.joins(:character_values).where("character_values.character_attribute_id = ? and character_values.value = ?", attribute.to_i,value).page(params[:page])
+        end
       else
-        @characters = @object.characters.order(:last_name,:first_name)
+        my_scope = scope
       end
-      @title = "Characters"
-    else
-    if !params[:occupation_class].blank?
-      @characters = @object.characters.where("occupation_class = ?", params[:occupation_class])
-      @title = "Occupation Class: #{params[:occupation_class]}"
-    elsif !params[:ethnicity].blank?
-      @characters = @object.characters.where("ethnicity = ?", params[:ethnicity])
-      @title = "Ethnicity"
-    elsif !params[:cat1].blank? && !params[:cat2].blank?
-      cat_text_1 = params[:cat1]
-      cat_text_2 = params[:cat2]
-
-      key_1 = params[:key1]
-      key_2 = params[:key2]
-      cat_1 = CharacterAttribute.where(name: cat_text_1)[0]
-      cat_2 = cat_text_2
-
-      first_count = CharacterValue.where(character_attribute_id: cat_1.id, value: key_1)
-      #count_2 = Character.where("#{cat_2} =?",Character.text_to_sex(key_2))
-
-      intersect = @object.characters.where("#{cat_2} = ?",(key_2 == 'sex' ? Character.text_to_sex(key_2) : key_2)).pluck(:id).intersection(first_count.pluck(:character_id))
-
-      @characters = @object.characters.where(id: intersect)
-
-    elsif !params[:attrib1].blank? && !params[:attrib2].blank?
-      attrib_1 = params[:attrib1]
-      attrib_2 = params[:attrib2]
-
-      key_1 = params[:key1]
-      key_2 = params[:key2]
-
-      first_count = @object.characters.where("#{attrib_1} = ?", key_1)
-
-      intersect = @object.characters.where("#{attrib_2} = ?",(key_2 == 'sex' ? Character.text_to_sex(key_2) : key_2)).pluck(:id).intersection(first_count.pluck(:id))
-
-      @characters = @object.characters.where(id: intersect)
-
-    elsif !params[:cat1].blank?
-      cat_text_1 = params[:cat1]
-
-      key_1 = params[:key1]
-      cat_1 = CharacterAttribute.where(name: cat_text_1)[0]
-
-      first_count = CharacterValue.where(character_attribute_id: cat_1.id, value: key_1)
-
-      @characters = @object.characters.where(id: first_count.pluck(:character_id))
-
-      @title = "Stats"
-    else
-      if !params[:ethnicity].nil? && params[:ethnicity].blank?
-        @characters = @object.characters.where(ethnicity: nil)
-        @title = "Ethnicity"
+      case @object.class.name
+      when "Book"
+        my_scope = my_scope.joins(:books_characters).where("books_characters.book_id = ?", @object.id).distinct
+      when "Story"
+        my_scope = my_scope.joins(:character_stories).where("character_stories.story_id = ?", @object.id).distinct
+      when "Scene"
+        my_scope = my_scope.joins(:character_scenes).where("character_scenes.scene_id = ?", @object.id).distinct
       end
-      if !params[:occupation_class].nil? && params[:occupation_class].blank?
-        @characters = @object.characters.where(occupation_class: nil)
-        @title = "Occupation Class"
-      end
-    end
+      my_scope.page(params[:page])
     end
     respond_to do |format|
       format.js {}
       format.html {}
     end
+  end
 
+  def attributes
+    @attributes = CharacterAttribute.where(character_category_id: params[:category_id])
+
+    respond_to do |format|
+      format.js {}
+    end
+  end
+
+  def attribute_values
+    @values = CharacterValue.where(character_attribute_id: params[:attribute_id]).pluck(:value).sort.uniq
+
+    respond_to do |format|
+      format.js {}
+    end
   end
 
   # GET /characters/1
@@ -208,6 +188,10 @@ class CharactersController < ApplicationController
     def set_object
     klass = [Scene, Story, Book].detect{|c| params["#{c.name.underscore}_id"]}
     @object = klass.find(params["#{klass.name.underscore}_id"])
+    end
+
+    def grid_params
+      params.fetch(:characters_grid, {:order => :last_name, :descending => false }).permit!
     end
 
     # Only allow a list of trusted parameters through.

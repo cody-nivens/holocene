@@ -15,45 +15,76 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get book_characters_url(:book_id => @book.id)
     assert_response :success
+    assert_template 'datagrid/_table'
   end
 
-  test "should get index xhr" do
-    get book_characters_url(:book_id => @book.id, :last_name => 'A', :format => 'js'), xhr: true
+  test "should get index 1" do
+    get book_characters_url(:book_id => @book.id,:characters_grid=>{:last_name=>"A" })
     assert_response :success
   end
 
   test "should get index 2" do
-    get book_characters_url(:book_id => @book.id, :ethnicity => 'White')
+    get book_characters_url(:book_id => @book.id, :characters_grid => {  :ethnicity => 'White'})
     assert_response :success
+    assert_template 'datagrid/_table'
   end
 
   test "should get index 3" do
-    get book_characters_url(:book_id => @book.id, :ethnicity => '')
+    get book_characters_url(:book_id => @book.id, :characters_grid => {  :ethnicity => ''})
     assert_response :success
+    assert_template 'datagrid/_table'
   end
 
   test "should get index 4" do
-    get book_characters_url(:book_id => @book.id, :occupation_class => 'Ship Staff')
+    get book_characters_url(:book_id => @book.id, :characters_grid => {  :occupation_class => 'Ship Staff'})
     assert_response :success
+    assert_template 'datagrid/_table'
   end
 
   test "should get index 5" do
     get book_characters_url(:book_id => @book.id),params:{ cat1: "Gender", cat2: "sex", key1: "Gay",key2: "Male"}
     assert_response :success
+    assert_template 'datagrid/_table'
   end
 
   test "should get index 6" do
     get book_characters_url(:book_id => @book.id),params:{ category: "Phyical Appearance", cat1: "Hair color" }
     assert_response :success
+    assert_template 'datagrid/_table'
   end
 
   test "should get index 7" do
     get book_characters_url(:book_id => @book.id, :occupation_class => '')
     assert_response :success
+    assert_template 'datagrid/_table'
   end
 
   test "should get index 8" do
     get book_characters_url(:book_id => @book.id),params:{ attrib1: "occupation_class", attrib2: "sex", key1: "Autocrat",key2: "Male"}
+    assert_response :success
+    assert_template 'datagrid/_table'
+  end
+
+  test "should get attributes" do
+    get characters_attributes_url(:book_id => @book.id,:characters_grid=>{:category=>character_categories(:character_category_1).id }), xhr: true
+    assert_response :success
+  end
+
+  test "should get values" do
+    category = character_categories(:character_category_1)
+    get characters_attribute_values_url(:book_id => @book.id,:characters_grid=>{:category=> category.id, :attribute => CharacterAttribute.where(character_category_id: category.id).first.id }), xhr: true
+    assert_response :success
+  end
+
+  test "should get index without values" do
+    category = character_categories(:character_category_1)
+    get book_characters_url(:book_id => @book.id,:characters_grid=>{:category=> category.id, :attribute => CharacterAttribute.where(character_category_id: category.id).first.id }), xhr: true
+    assert_response :success
+  end
+
+  test "should get index with values" do
+    category = character_categories(:character_category_1)
+    get book_characters_url(:book_id => @book.id,:characters_grid=>{:category=> category.id, :attribute => CharacterAttribute.where(character_category_id: category.id).first.id, :value => "five ten" }), xhr: true
     assert_response :success
   end
 

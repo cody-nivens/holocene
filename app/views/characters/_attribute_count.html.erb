@@ -8,6 +8,6 @@
     <% counts[item] = counts[item] + 1 %>
   <% end %>
   <% items.uniq.compact.each do |item| %>
-    <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([object,:characters], field => item) %></td><td><%= counts[item] %></td></tr>
+    <tr><td><%= link_to (item.blank? ? '<blank>' : item), polymorphic_path([object,:characters], :characters_grid => { field => (item.blank? ? '' : item) }) %></td><td><%= counts[item] %></td></tr>
   <% end %>
 </table>

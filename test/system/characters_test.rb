@@ -13,11 +13,38 @@ class CharactersTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "visiting the Character index for ethnicity tab" do
-    visit book_characters_url(:book_id => @book.id)
-    assert_selector "h1", text: "Characters"
-    click_on "Ethnicity"
-    click_on "White"
+  test "visiting the Character index searching using first name" do
+    visit book_url(:id => @book.id)
+    within ".footer" do
+      assert_text "Characters"
+      click_on "Characters"
+    end
+
+    assert_text "Last Name LIKE"
+    assert_text "Jill"
+    assert_text "Joe"
+
+    fill_in "First Name LIKE", with: "ji"
+    click_on "Search"
+    assert_text "Jill"
+    assert_no_text "Joe"
+  end
+
+  test "visiting the Character index searching using last name" do
+    visit book_url(:id => @book.id)
+    within ".footer" do
+      assert_text "Characters"
+      click_on "Characters"
+    end
+
+    assert_text "Last Name LIKE"
+    assert_text "Jill"
+    assert_text "Joe"
+
+    fill_in "Last Name LIKE", with: "smi"
+    click_on "Search"
+    assert_text "John"
+    assert_no_text "Joe"
   end
 
   test "visiting the Character index for blank ethnicity" do
