@@ -1,4 +1,5 @@
 module ApplicationHelper
+  include Pagy::Frontend
 
   def breadcrumb(book, story=nil, key_point=nil, scene=nil, section=nil, link=nil)
     str = ""

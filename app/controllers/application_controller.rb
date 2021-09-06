@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include Pagy::Backend
+
   before_action :authenticate_user!
   before_action :set_footer_content
   helper_method :set_prev_chapter,:set_next_chapter
