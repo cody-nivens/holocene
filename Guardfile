@@ -23,6 +23,9 @@ guard :minitest, spring: "bin/rails test", all_on_start: false, env: { 'NO_COVER
   watch(%r{^app/views/([^/]*?)/.*\.html\.erb$}) do |matches|
     resource_tests(matches[1])
   end
+  watch(%r{^app/grids/(.*?)_grid\.rb$}) do |matches|
+    resource_tests(matches[1])
+  end
   watch(%r{^app/helpers/(.*?)_helper\.rb$}) do |matches|
       integration_tests(matches[1])
   end
