@@ -1,0 +1,41 @@
+<%#
+Local variables:
+* grid - instance of Datagrid
+* assets - Array of database Entities
+* options - passed options Hash
+%>
+<%= form_for :city, options.merge({ :url => {:controller => 'cities', :action => "itinerary" }}) do |f| -%>
+  <%= f.submit "Create Itinerary", :id => "datagrid_select", :class => "datagrid-submit" %>
+  <% unless @list_items.nil? -%>
+    <%= f.collection_select :other_id, @list_items, :id, :name, {include_blank: ''} %>
+  <% end -%>
+  <% if grid.html_columns(*options[:columns]).any? %>
+    <%= content_tag :table, options[:html] do %>
+      <thead>
+        <%= datagrid_header(grid, options) %>
+      </thead>
+      <tbody>
+        <% if assets.any? %>
+          <%= datagrid_rows(grid, assets, options) %>
+        <% else %>
+          <tr><td class="noresults" colspan="100%"><%= I18n.t('datagrid.no_results').html_safe %></td></tr>
+        <% end %>
+      </tbody>
+    <% end %>
+  <% else %>
+    <% if grid.html_columns(*options[:columns]).any? %>
+      <%= content_tag :table, options[:html] do %>
+        <thead>
+          <%= datagrid_header(grid, options) %>
+        </thead>
+        <tbody>
+          <% if assets.any? %>
+            <%= datagrid_rows(grid, assets, options) %>
+          <% else %>
+            <tr><td class="noresults" colspan="100%"><%= I18n.t('datagrid.no_results').html_safe %></td></tr>
+          <% end %>
+        </tbody>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
