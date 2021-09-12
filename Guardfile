@@ -1,10 +1,6 @@
-guard :rails, port: 3000, host: '0.0.0.0' do
-  watch('Gemfile.lock')
-  watch(%r{^(config|lib)/(?!test.sphinx.conf).*})
-end
-
 # Defines the matching rules for Guard.
-guard :minitest, spring: "bin/rails test", all_on_start: false, env: { 'NO_COVERAGE' => 'true' } do
+guard :minitest, autorun: false, spring: "bin/rails test", all_on_start: false, env: { 'NO_COVERAGE' => 'true' } do
+#guard :minitest, autorun: false, spring: "bin/rails test", all_on_start: false do
   watch(%r{^test/(.*)\/?(.*)_test\.rb$})
   watch(%r{^lib/(.*/)?([^/]+)\.rb$})     { |m| "test/#{m[1]}test_#{m[2]}.rb" }
   watch(%r{^test/test_helper\.rb$})      { 'test' }
