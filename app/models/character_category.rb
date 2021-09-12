@@ -1,6 +1,6 @@
 class CharacterCategory < ApplicationRecord
-  include RailsSortable::Model
-  set_sortable :position # Indicate a sort column
+  include RankedModel
+  ranks :position
 
   has_many :character_attributes, dependent: :destroy
 

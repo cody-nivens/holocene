@@ -23,7 +23,11 @@ class HoloceneEventsGrid < BaseGrid
       et = EventType.find(id)
       res << et.holocene_events unless et.holocene_events.nil?
     end
-    self.where("id in (?)",res[0].ids) unless res.length == 0
+    if res.length == 0
+      self.where("id is null")
+    else
+      self.where("id in (?)",res[0].ids)
+    end
   end
 
   column(:id, :html => true, :if => proc {|grid| !grid.object.nil? } ) do |event|

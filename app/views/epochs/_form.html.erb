@@ -1,4 +1,4 @@
-<%= bootstrap_form_for(epoch, local: true) do |form| %>
+<%= bootstrap_form_for(epoch, local: true) do |f| %>
   <% if epoch.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(epoch.errors.count, "error") %> prohibited this epoch from being saved:</h2>
@@ -11,12 +11,12 @@
     </div>
   <% end %>
 
-    <%= form.hidden_field :user_id %>
-    <%= form.text_field :name %>
+    <%= f.hidden_field :user_id %>
+    <%= f.text_field :name %>
 
-    <%= form.text_field :start_date %>
+    <%= f.text_field :start_date %>
 
-    <%= form.text_field :end_date %>
+    <%= f.text_field :end_date %>
 
-    <%= form.primary "#{command_label}" %>
+    <%= f.primary "#{command_label}" %>
 <% end %>

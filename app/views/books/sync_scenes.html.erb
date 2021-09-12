@@ -1,10 +1,5 @@
 <% @title = "Sync Scenes" %>
-<% options = [] %>
-<% @years.each do |year| %>
-  <% options << [year,year] %>
-<% end %>
-
-<%= form_with :url => book_scenes_list_path, :local => false, :method => :get,  :id => 'my-form', :format => :js do |form| %>
+<%= form_with :url => book_scenes_list_path, :local => false, :method => :get,  :id => 'my-form', :format => :js, :class => "form-inline" do |form| %>
   <%= hidden_field_tag :book_id, @book.id %>
 
   <div class="form-check">
@@ -24,7 +19,7 @@
   </div>
 
 <div class="field">
-  <%= select_tag('year', options_for_select(options), prompt: "Please select an year:", class: "form-control",onchange: "javascript:this.form.commit.click();") %>
+  <%= select_tag('year', options_for_select(@year_options), prompt: "Please select an year:", class: "form-control",onchange: "javascript:this.form.commit.click();") %>
 </div>
 
 

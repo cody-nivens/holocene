@@ -8,6 +8,8 @@ section_1:
   user: user_1
   holocene_events:
       - holocene_event_5
+      - holocene_event_6
+      - holocene_event_12
 section_2:
   name: 'Agriculture '
   display_name: 
@@ -92,4 +94,18 @@ section_12:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_2 (Scene)
+  user: user_1
+section_13:
+  name: 'Another dark and stormy night'
+  display_name: 
+  position: 1
+  slug: HJct7pHDDe
+  sectioned: scene_2 (Scene)
+  user: user_1
+section_14:
+  name: 'Just another dark and stormy night'
+  display_name: 
+  position: 1
+  slug: HJct7pHDDe
+  sectioned: scene_14 (Scene)
   user: user_1

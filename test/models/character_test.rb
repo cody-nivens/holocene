@@ -1,6 +1,21 @@
 require 'test_helper'
 
 class CharacterTest < ActiveSupport::TestCase
+
+  test "name" do
+    Character.all.each do |character|
+      assert_not_nil character.name
+      assert_not_nil character.full_name
+      assert_not_nil character.full_last_first
+    end
+  end
+
+  test "gen sexuality" do
+    1.upto(100).each do |i|
+      Character.gen_sexuality
+    end
+  end
+
   test "text to sex" do
     assert_equal 0,Character.text_to_sex('Male')
     assert_equal 1,Character.text_to_sex('Female')

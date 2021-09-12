@@ -1,4 +1,4 @@
-<%= bootstrap_form_for(holocene_event, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-8") do |form| %>
+<%= bootstrap_form_for(holocene_event, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-8") do |f| %>
   <% if holocene_event.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(holocene_event.errors.count, "error") %> prohibited this holocene_event from being saved:</h2>
@@ -11,29 +11,29 @@
     </div>
   <% end %>
 
-    <%= form.hidden_field :user_id %>
-    <%= form.text_field :name %>
+    <%= f.hidden_field :user_id %>
+    <%= f.text_field :name %>
 
-    <%= form.number_field :start_year %>
-    <%= form.number_field :start_year_uncert %>
-    <%= form.number_field :start_year_mod %>
+    <%= f.number_field :start_year %>
+    <%= f.number_field :start_year_uncert %>
+    <%= f.number_field :start_year_mod %>
 
-    <%= form.number_field :end_year %>
-    <%= form.number_field :end_year_uncert %>
-    <%= form.number_field :end_year_mod %>
+    <%= f.number_field :end_year %>
+    <%= f.number_field :end_year_uncert %>
+    <%= f.number_field :end_year_mod %>
 
-    <%= form.collection_check_boxes :event_type_ids, EventType.all.order(:name), :id, :name, multiple: true %>
-    <%= form.collection_select :region_id, Region.all.order(:name), :id, :name %>
+    <%= f.collection_check_boxes :event_type_ids, EventType.all.order(:name), :id, :name, multiple: true %>
+    <%= f.collection_select :region_id, Region.all.order(:name), :id, :name %>
 
-    <%= form.text_field :url %>
-    <%= form.file_field :image, multiple: false, direct_upload: true %>
+    <%= f.text_field :url %>
+    <%= f.file_field :image, multiple: false, direct_upload: true %>
     <% unless @holocene_event.id.nil? || !@holocene_event.image.attached? %>
     <%= image_tag @holocene_event.image.variant(resize: "100x100>") %>
     <% end %>
 
-      <%= form.rich_text_area :body, label: false, cols: "80", rows: "15", hide_label: true %>
+      <%= f.rich_text_area :body, label: false, cols: "80", rows: "15", hide_label: true %>
 
-    <%= form.text_field :tag_list %>
+    <%= f.text_field :tag_list %>
 
-    <%= form.primary "#{command_label}" %>
+    <%= f.primary "#{command_label}" %>
 <% end %>

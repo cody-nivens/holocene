@@ -43,6 +43,19 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
     #assert_template 'authors/list'
   end
 
+  test "should add authors III" do
+    assert_difference('@book.authors.count') do
+      post book_authors_add_url(:book_id => @book.id), params: { authors_ids: [  ], authors_avail: [ @author.id ] }
+    end
+
+    assert_difference('@book.authors.count', 0) do
+      post book_authors_add_url(:book_id => @book.id), params: { authors_ids: [  ], authors_avail: [ @author.id ] }
+    end
+
+    assert_redirected_to polymorphic_path([@book, :authors_list])
+    #assert_template 'authors/list'
+  end
+
   test "should get new" do
     get new_book_author_url(@book)
     assert_response :success

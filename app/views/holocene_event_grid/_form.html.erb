@@ -2,7 +2,7 @@
   <% grid.filters.each do |filter| %>
     <div class="datagrid-filter filter">
       <%= f.datagrid_label filter %>
-      <%= f.datagrid_filter filter %>
+      <%= f.datagrid_filter filter, (filter.options[:input_options].nil? ? {} : filter.options[:input_options]) %>
     </div>
   <% end %>
   <div class="datagrid-actions">

@@ -79,3 +79,40 @@ character_6:
   age_at_son: 23
   books:
     - book_2
+
+character_7:
+  first_name: Maurice
+  last_name: Green
+  suffix: V
+  honorific: Sir
+  reason_for_name: Dad
+  nickname: TooSmooth
+  reason_for_nickname: Went up the hill
+  ethnicity: White
+  occupation_class: Working
+  social_class: Working
+  birth_year: 105
+  death_year: 179
+  sex: 1
+  age_at_son: 23
+  stories:
+    - story_2
+
+character_8:
+  first_name: Allen
+  middle_name: John
+  last_name: Goodall
+  honorific: Master
+  use_honorific_only: 1
+  reason_for_name: Dad
+  nickname: TooSmooth
+  reason_for_nickname: Went up the hill
+  ethnicity: White
+  occupation_class: Working
+  social_class: Working
+  birth_year: 105
+  death_year: 179
+  sex: 1
+  age_at_son: 23
+  books:
+    - book_2

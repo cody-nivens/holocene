@@ -1,17 +1,26 @@
 class CitiesController < ApplicationController
   before_action :set_city, only: %i[ show edit update destroy ]
+  before_action :set_tour, only: %i[ index add_city ]
 
   # GET /cities or /cities.json
   def index
-    @grid = CitiesGrid.new(grid_params) do |scope|
-       scope.page(params[:page])
+    @command = "Add City"
+
+    unless params[:cities_grid].blank?
+      params[:cities_grid].delete(:activated)
+      params[:cities_grid].delete(:seen)
+      params[:cities_grid].delete(:tour_id)
     end
+
+    @grid = CitiesGrid.new(grid_params.merge({:tour => @tour}))
+    @pagy, @records = pagy(@grid.assets)
   end
 
   def itinerary
     @cities = []
-    if !params[:city].nil? && params[:city][:activated].empty?
+    if !params[:city].nil? && !params[:city][:activated].empty?
       params[:city][:activated].each do |he_id|
+        next if he_id.blank?
         he = City.find(he_id)
         @cities << he
       end
@@ -20,6 +29,39 @@ class CitiesController < ApplicationController
 
   def cities_list
   end
+
+  def add_city
+    @command = "Add Cities"
+    @grid = CitiesGrid.new(grid_params.merge({:tour => @tour}))
+    @pagy, @records = pagy(@grid.assets)
+    respond_to do |format|
+        format.html { render :index }
+    end
+  end
+
+    def tours
+      @tour = Tour.find(params[:city][:tour_id])
+
+      params[:city][:activated].each do |he_id|
+          case params[:commit]
+          when "Add Cities"
+            city = City.find(he_id)
+            itinerary = Itinerary.create({name: city.name, city_id: city.id, tour_id: @tour.id})
+            @tour.itineraries << itinerary
+          else
+          #when "Delete Cities"
+          end
+      end
+      respond_to do |format|
+        format.html {
+          redirect_to story_tour_path(@tour.story,@tour),
+                                :notice => "Tour was successfully updated"
+        }
+        format.json { render :show, status: :created, location: @city }
+      end
+  end
+
+
 
   # GET /cities/1 or /cities/1.json
   def show
@@ -36,6 +78,7 @@ class CitiesController < ApplicationController
 
   # POST /cities or /cities.json
   def create
+
     @city = City.new(city_params)
 
     respond_to do |format|
@@ -51,6 +94,7 @@ class CitiesController < ApplicationController
 
   # PATCH/PUT /cities/1 or /cities/1.json
   def update
+
     respond_to do |format|
       if @city.update(city_params)
         format.html { redirect_to @city, notice: "City was successfully updated." }
@@ -77,12 +121,21 @@ class CitiesController < ApplicationController
       @city = City.find(params[:id])
     end
 
-  def grid_params
-    params.fetch(:cities_grid, {:order => :name, :descending => false}).permit!
-  end
+    def set_tour
+      @tour = nil
+      if params[:tour_id].blank? && !params[:cities_grid].blank? && !params[:cities_grid][:tour_id].blank?
+        @tour = Tour.find(params[:cities_grid][:tour_id])
+      elsif !params[:tour_id].blank?
+        @tour = Tour.find(params[:tour_id])
+      end
+    end
+
+    def grid_params
+      params.fetch(:cities_grid, {:order => :name, :descending => false}).permit!
+    end
 
     # Only allow a list of trusted parameters through.
     def city_params
-      params.require(:city).permit(:name, :name_ascii, :lat, :lng, :country, :iso2, :iso3, :admin_name, :capital, :population, :simple_map_id)
+      params.require(:city).permit(:name, :name_ascii, :lat, :lng, :country, :iso2, :iso3, :admin_name, :capital, :population, :simple_map_id, :tour_id)
     end
 end

@@ -26,4 +26,8 @@ class SectionTest < ActiveSupport::TestCase
     assert_equal section, values[4]
   end
 
+  test "word counts" do
+    section = sections(:section_13)
+    assert_equal 5,section.word_count
+  end
 end

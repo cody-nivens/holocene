@@ -1,3 +1,5 @@
+Character.has_many :character_values
+
 class CharactersGrid < BaseGrid
 
   scope do
@@ -25,30 +27,32 @@ class CharactersGrid < BaseGrid
     link_to he.last_name, polymorphic_path([@object,he])
   end
 
-    column(:first_name)
-    column(:middle_name)
-    column(:suffix)
-    column(:honorific)
-    column(:use_honorific_only)
-    column(:sex, :html => true) do |value|
-      Character.sex_to_text(value.sex)
-    end
-    #column(:reason_for_name)
-    #column(:nickname)
-    #column(:reason_for_nickname)
-    column(:ethnicity,:order=>'ethnicity asc, last_name asc, first_name asc',:order_desc=>'ethnicity desc, last_name desc, first_name desc')
+  column(:first_name, :html => true,:order=>'first_name asc, first_name asc, suffix asc',:order_desc=>'first_name desc, first_name desc, suffix desc') do |he|
+    link_to he.first_name, polymorphic_path([@object,he])
+  end
+  column(:middle_name)
+  column(:suffix)
+  column(:honorific)
+  column(:use_honorific_only)
+  column(:sex, :html => true) do |value|
+    Character.sex_to_text(value.sex)
+  end
+  #column(:reason_for_name)
+  #column(:nickname)
+  #column(:reason_for_nickname)
+  column(:ethnicity,:order=>'ethnicity asc, last_name asc, first_name asc',:order_desc=>'ethnicity desc, last_name desc, first_name desc')
 
-    column(:occupation_class,:order=>'occupation_class asc, last_name asc, first_name asc',:order_desc=>'occupation_class desc, last_name desc, first_name desc')
-    column(:grouping,:order=>'occupation_class asc, last_name asc, first_name asc',:order_desc=>'occupation_class desc, last_name desc, first_name desc')
-    column(:social_class)
-    #column(:created_at)
-    #column(:updated_at)
-    column(:birth_year)
-    column(:death_year)
+  column(:occupation_class,:order=>'occupation_class asc, last_name asc, first_name asc',:order_desc=>'occupation_class desc, last_name desc, first_name desc')
+  column(:grouping,:order=>'occupation_class asc, last_name asc, first_name asc',:order_desc=>'occupation_class desc, last_name desc, first_name desc')
+  #column(:social_class)
+  #column(:created_at)
+  #column(:updated_at)
+  column(:birth_year)
+  column(:death_year)
 
-    #column(:father_id)
-    #column(:age_at_son)
-    #column(:mother_id)
+  #column(:father_id)
+  #column(:age_at_son)
+  #column(:mother_id)
  
   column(:gender, :header => "Gender", :html => true) do |character|
     character_values = character.character_values.where(character_attribute_id: CharacterAttribute.all.joins(:character_category).where("character_categories.name = ? and character_attributes.name= ?","Gender","Gender")[0].id)

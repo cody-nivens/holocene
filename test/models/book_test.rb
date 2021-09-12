@@ -7,4 +7,16 @@ class BookTest < ActiveSupport::TestCase
 
     assert_equal book, values[0]
   end
+
+  test "word count I" do
+    book = books(:book_2)
+    count = book.word_count
+    assert_not_equal 0, count
+  end
+
+  test "word count II" do
+    book = books(:book_4)
+    count = book.word_count
+    assert_equal 0, count
+  end
 end

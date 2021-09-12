@@ -9,6 +9,21 @@ class HoloceneEventsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test "searching a Holocene event" do
+    [["Impact",1],["Volcanic",1],["Climate",1],["Cultural",8],["Epidemic",0],["Earth",1]].each do |item|
+      event_type = item[0]
+      count = item[1]
+      visit holocene_events_url
+      select event_type, from: "Event Type"
+      click_on "Search"
+      if count == 0
+        assert_selector 'table.datagrid > tbody > tr', count: 1, text: "――"
+      else
+        assert_selector 'table.datagrid > tbody > tr', count: count
+      end
+    end
+  end
+
   test "creating a Holocene event" do
     visit holocene_events_url
     click_on "New Holocene Event"

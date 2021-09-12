@@ -30,11 +30,14 @@ class CharactersController < ApplicationController
         my_scope = my_scope.joins(:books_characters).where("books_characters.book_id = ?", @object.id).distinct
       when "Story"
         my_scope = my_scope.joins(:character_stories).where("character_stories.story_id = ?", @object.id).distinct
-      when "Scene"
+      else
+      #when "Scene"
         my_scope = my_scope.joins(:character_scenes).where("character_scenes.scene_id = ?", @object.id).distinct
       end
-      my_scope.page(params[:page])
     end
+
+    @pagy, @records = pagy(@grid.assets)
+
     respond_to do |format|
       format.js {}
       format.html {}
@@ -67,17 +70,6 @@ class CharactersController < ApplicationController
 
   # GET /characters/1/list
   def list
-  end
-
-  def update_character_lists(object,character)
-    object.characters << character unless object.characters.include?(character)
-    case object.class.name
-    when "Story"
-      object.book.characters << character unless object.book.characters.include?(character)
-    when "Scene"
-      object.key_point.scripted.book.characters << character unless object.key_point.scripted.book.characters.include?(character)
-      object.key_point.scripted.characters << character unless object.key_point.scripted.characters.include?(character)
-    end
   end
 
   # GET /characters/1/add
@@ -148,7 +140,8 @@ class CharactersController < ApplicationController
       redirect_to book_character_step_path(@object, @character, Character.form_steps.first)
     when "Scene"
       redirect_to scene_character_step_path(@object, @character, Character.form_steps.first)
-    when "Story"
+    else
+    #when "Story"
       redirect_to story_character_step_path(@object, @character, Character.form_steps.first)
     end
 
@@ -180,6 +173,18 @@ class CharactersController < ApplicationController
   end
 
   private
+  def update_character_lists(object,character)
+    object.characters << character unless object.characters.include?(character)
+    case object.class.name
+    when "Story"
+      object.book.characters << character unless object.book.characters.include?(character)
+    when "Scene"
+      object.key_point.scripted.book.characters << character unless object.key_point.scripted.book.characters.include?(character)
+      object.key_point.scripted.characters << character unless object.key_point.scripted.characters.include?(character)
+    else
+    end
+  end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_character
       @character = Character.find(params[:id])

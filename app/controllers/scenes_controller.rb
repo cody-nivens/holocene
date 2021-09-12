@@ -10,7 +10,16 @@ class ScenesController < ApplicationController
     @no_section = params[:no_section]
     @only_section = params[:only_section]
 
+    @year = params[:year]
     @scenes = Scene.get_scenes(@situated, @toggle)
+    @years =  @scenes.keys.sort
+    @year = @years[0] if @year.nil?
+    @scenes = { @year.to_i => @scenes[@year.to_i] } unless @year.nil?
+
+    @year_options = [] 
+    @years.each do |year| 
+      @year_options << [year,year]
+    end 
 
     respond_to do |format|
       format.html { }

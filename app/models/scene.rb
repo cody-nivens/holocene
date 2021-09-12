@@ -10,13 +10,14 @@ class Scene < ApplicationRecord
   ThinkingSphinx::Callbacks.append(
     self, 'action_text/rich_text', :behaviours => [:sql]
   )
-
-
+  
   belongs_to :key_point, :optional => true
   acts_as_list scope: :key_point
   ranks :position, with_same: :key_point_id
 
   belongs_to :artifact, :optional => true
+  belongs_to :situated, polymorphic: true
+  belongs_to :insert_scene, class_name: :Scene, :optional => true
 
   has_rich_text :summary
   has_rich_text :place
@@ -27,20 +28,15 @@ class Scene < ApplicationRecord
   has_rich_text :long_term_goal
   has_rich_text :over_arching_goal
 
-    has_one :action_text_rich_text,
+  has_one :action_text_rich_text,
     class_name: 'ActionText::RichText',
     as: :record
 
   has_many :character_scenes
   has_many :characters, :through => :character_scenes
-
-  belongs_to :situated, polymorphic: true
-
-
   has_one :section, :as => :sectioned
-  belongs_to :insert_scene, class_name: :Scene, :optional => true
-
   has_many :signets, as: :sigged
+  has_many :tours
 
   validates_presence_of :abc
 
@@ -145,13 +141,13 @@ class Scene < ApplicationRecord
     scenes = self.get_scenes(situated,toggle,scene_year)
     items = []
     scenes.keys.sort.each do |year|
-    scenes[year].keys.sort.each do |month|
-    scenes[year][month].keys.sort.each do |day|
-    scenes[year][month][day].each do |scene|
-      items << scene unless items.include?(scene)
-    end
-    end
-    end
+      scenes[year].keys.sort.each do |month|
+        scenes[year][month].keys.sort.each do |day|
+          scenes[year][month][day].each do |scene|
+            items << scene unless items.include?(scene)
+          end
+        end
+      end
     end
     return items
   end

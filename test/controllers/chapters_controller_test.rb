@@ -130,6 +130,11 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should show chapter timeline 2" do
+      get chapter_timeline_url(:chapter_id => @chapter.id), params: { toggle: "on" }
+    assert_response :success
+  end
+
   test "should show chapter display" do
     get chapter_display_url(chapters(:chapter_3))
     assert_response :success

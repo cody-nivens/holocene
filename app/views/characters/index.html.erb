@@ -2,7 +2,7 @@
 <%= datagrid_form_for @grid, :method => :get, :url => polymorphic_path([@object,:characters]) %>
 
 <div id='character-grid'>
-  <%= render partial: 'characters/index_grid.html', locals: { grid: @grid }  %>
+  <%= render partial: 'characters/index_grid.html', locals: { grid: @grid, pagy: @pagy, records: @records }  %>
 </div>
 
 <% if @object.class.name == 'Book' %>

@@ -3,16 +3,22 @@ book_1:
   name: Fun Events in History
   user: users_1
   fiction: 0
-  position: 0
+  position: 1
 
 book_2:
   name: The Phantom
   user: users_1
   fiction: 1
-  position: 1
+  position: 2
 
 book_3:
   name: The Scorpion King
   user: users_1
   fiction: 1
-  position: 2
+  position: 3
+
+book_4:
+  name: The Sopwith Camel
+  user: users_1
+  fiction: 1
+  position: 4

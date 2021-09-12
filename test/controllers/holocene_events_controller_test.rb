@@ -3,6 +3,7 @@ require 'test_helper'
 class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @holocene_event = holocene_events(:holocene_event_1)
+    @chapter = chapters(:chapter_1)
     @timeline = timelines(:timeline_1)
     @user = users(:users_1)
     sign_in @user
@@ -95,6 +96,18 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
 
   test "should map holocene_event" do
     get geo_map_holocene_event_url(@holocene_event)
+    assert_response :success
+  end
+
+  test "should get add_event I" do
+    get chapter_add_event_url(@chapter)
+    assert_response :success
+  end
+
+  test "should get add_event II" do
+    user = users(:users_2)
+    sign_in user
+    get chapter_add_event_url(@chapter)
     assert_response :success
   end
 

@@ -7,6 +7,13 @@ class CharacterCategoriesController < ApplicationController
     @character_categories = CharacterCategory.order(:position)
   end
 
+  def sort
+    #@list = List.find(params[:list_id])
+    @character_category = CharacterCategory.find(params[:character_category_id])
+    @character_category.update(character_category_params)
+    render body: nil
+  end
+
   # GET /character_categories/1
   # GET /character_categories/1.json
   def show
@@ -70,6 +77,6 @@ class CharacterCategoriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def character_category_params
-      params.require(:character_category).permit(:name)
+      params.require(:character_category).permit(:name, :position_position)
     end
 end

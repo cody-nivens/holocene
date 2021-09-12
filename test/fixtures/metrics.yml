@@ -38,3 +38,8 @@ metric_8:
   date: <%= Date.yesterday.beginning_of_day %>
   user: users_1
   metrized: section_12 (Section)
+metric_9:
+  count: 1
+  date: <%= Date.today.beginning_of_day %>
+  user: users_1
+  metrized: section_3 (Section)

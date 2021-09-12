@@ -35,7 +35,7 @@ chapter_4:
       - holocene_event_2
   scripted: book_1 (Book)
   show_events: true
-  always_display_events: true
+  always_display_events: false
   display_title: true
 chapter_5:
   name: 'Chapter Five Stuff '

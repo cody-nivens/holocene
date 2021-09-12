@@ -1,8 +1,7 @@
 <h1>Cities</h1>
 <%= datagrid_form_for @grid, :method => :get, :url => cities_path, :partials => 'city_grid' %>
-
-<%= paginate(@grid.assets) %>
-<%= datagrid_table @grid, :partials => 'city_grid' %>
-<%= paginate(@grid.assets) %>
+<%== pagy_info(@pagy) %>
+<%= datagrid_table @grid, @records, :partials => 'city_grid' %>
+<%== pagy_nav(@pagy) %>
 
 <% @footer_content << "#{link_to 'New City', new_city_path, :class => "btn btn-default"}" %>

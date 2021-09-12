@@ -19,6 +19,16 @@ class ScenesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test 'visiting the scenes' do
+    visit '/'
+    click_link 'Books'
+    click_link 'The Phantom'
+    click_link 'Scenes'
+    select '100', from: 'year'
+    click_button 'Go'
+    click_link 'Back'
+  end
+
   test "sort scenes" do
     visit books_url
     assert_text "The Phantom"

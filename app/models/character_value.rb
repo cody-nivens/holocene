@@ -52,12 +52,7 @@ class CharacterValue < ApplicationRecord
       distinct_values.each do |value|
         stats[category.name][value] = {}
         distinct_values_2.each do |value_2|
-          if stats[category.name][value][value_2].nil?
-            stats[category.name][value][value_2] = 0
-          end
-
           abc = characters.where("#{character_attribute_2} = ?", value_2).joins(:character_values).where("character_values.character_attribute_id = ? and value = ?", character_attribute.id, value)
-
           stats[category.name][value][value_2] = abc.length
         end
       end

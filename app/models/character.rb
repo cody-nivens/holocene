@@ -2,7 +2,7 @@ class Character < ApplicationRecord
 
   has_and_belongs_to_many :books, dependent: :nullify
 
-  has_many :character_values, dependent: :destroy
+  has_many :character_values
   has_many :character_attributes, :through => :character_values
 
   has_many :character_scenes
@@ -229,10 +229,6 @@ class Character < ApplicationRecord
     return new_names
   end
 
-  def age
-    (self.death_year.nil? ? '' : self.death_year.to_i - self.birth_year.to_i)
-  end
-
   def reign 
     (self.father.nil? ? '' : self.death_year - self.father.death_year)
   end
@@ -247,7 +243,7 @@ class Character < ApplicationRecord
       return "Male"
     when 1
       return "Female"
-    when 2
+    else
       return ""
     end
   end
@@ -273,12 +269,7 @@ class Character < ApplicationRecord
       distinct_values.each do |value|
         stats[value] = {}
         distinct_values_2.each do |value_2|
-          if stats[value][value_2].nil?
-            stats[value][value_2] = 0
-          end
-
           abc = characters.where("#{character_attribute} = ? and #{character_attribute_2} = ?", value, value_2)
-
           stats[value][value_2] = abc.length
         end
       end

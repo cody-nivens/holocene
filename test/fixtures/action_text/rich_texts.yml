@@ -376,3 +376,8 @@ rich_text_<%= i%>:
   record: Unknown (Region)
   name: body
   body: 'Unknown region'
+<% i += 1 %>
+rich_text_<%= i%>:
+  record: section_14 (Section)
+  name: body
+  body: 'Just another dark and story night waiting for a mystery to pop up.'

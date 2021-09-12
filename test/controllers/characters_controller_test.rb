@@ -4,6 +4,7 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @character = characters(:character_1)
     @character_2 = characters(:character_2)
+    @character_7 = characters(:character_7)
     @book = @character.books[0]
     @story = stories(:story_2)
     @key_point = @story.key_points[0]
@@ -103,11 +104,19 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
 
   test "should add characters II" do
     assert_difference('@story.characters.count') do
-      post story_characters_add_url(:story_id => @story.id), params: { characters_ids: [  ], characters_avail: [ @character.id ] }
+      post story_characters_add_url(:story_id => @story.id), params: { characters_ids: [  ], characters_avail: [ @character.id, @character_7.id ] }
     end
 
     assert_difference('@story.characters.count', -1) do
       post story_characters_add_url(:story_id => @story.id), params: { characters_ids: [ @character.id ], characters_avail: [ ] }
+    end
+
+    assert_redirected_to polymorphic_path([@story, :characters_list])
+  end
+
+  test "should add characters III" do
+    assert_difference('@story.characters.count', 0) do
+      post story_characters_add_url(:story_id => @story.id), params: { }
     end
 
     assert_redirected_to polymorphic_path([@story, :characters_list])

@@ -24,7 +24,7 @@ story_3:
   book: book_3
   scene_character: C
   position: 1
-  publish: true
+  publish: false
   stand_alone: false
 
 story_4:
@@ -105,7 +105,7 @@ story_12:
   book: book_2
   scene_character: C
   position: 11
-  publish: true
+  publish: false
   stand_alone: false
 
 story_14:

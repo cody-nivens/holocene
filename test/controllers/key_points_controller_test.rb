@@ -29,6 +29,11 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get list 2" do
+    get polymorphic_url([@scripted, @key_point, :list])
+    assert_response :success
+  end
+
   test "should add key_points" do
     assert_difference('KeyPoint.count', 0) do
       post polymorphic_url([@scripted, @key_point, :add]), params: { scenes_ids: [ ], scenes_avail: [ ],
@@ -51,6 +56,13 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
                                                                      selector: 1, "#{@scripted.class.name.underscore}_id" => @scripted.id }
     end
     assert_redirected_to polymorphic_url([@scripted, :key_point_list], :selector => 1)
+  end
+
+  test "should add key_points IV" do
+    assert_difference('@key_point.scenes.where(selector: 1).count',0) do
+      post polymorphic_url([@scripted, @key_point_2, :add]), params: { "#{@scripted.class.name.underscore}_id" => @scripted.id }
+    end
+    assert_redirected_to polymorphic_url([@scripted, :key_point_list], :selector => 0)
   end
 
   test "should get new" do

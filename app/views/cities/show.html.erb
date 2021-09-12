@@ -55,5 +55,9 @@
   <%= @city.simple_map_id %>
 </p>
 
-<%= link_to 'Edit', edit_city_path(@city) %> |
-<%= link_to 'Back', cities_path %>
+<% @object = @city %>
+<%= render 'shared/map' %>
+
+<% @footer_content << "#{link_to 'Edit', edit_city_path(@city), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', cities_path, :class => "btn btn-default"}" %>
+

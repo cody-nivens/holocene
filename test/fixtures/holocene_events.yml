@@ -22,7 +22,7 @@ holocene_event_2:
   name: 'Dog buried inside of human dwellings '
   start_year: -12700
   end_year: 
-  start_year_uncert: 
+  start_year_uncert: 100
   start_year_mod: 
   end_year_uncert: 
   end_year_mod: 
@@ -131,8 +131,6 @@ holocene_event_7:
     - timeline_1
   event_types:
     - Cultural
-  lat: 1.0
-  lng: -1.0
 
 holocene_event_8:
   name: 'The eight Neolithic founder crops '

@@ -1,4 +1,4 @@
-<%= bootstrap_form_for(region, local: true) do |form| %>
+<%= bootstrap_form_for(region, local: true) do |f| %>
   <% if region.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(region.errors.count, "error") %> prohibited this region from being saved:</h2>
@@ -11,10 +11,10 @@
     </div>
   <% end %>
 
-      <%= form.hidden_field :user_id %>
-    <%= form.text_field :name %>
+      <%= f.hidden_field :user_id %>
+    <%= f.text_field :name %>
 
-    <%= form.rich_text_area :body, cols: "80", rows: "15", hide_label: true %>
+    <%= f.rich_text_area :body, cols: "80", rows: "15", hide_label: true %>
 
-  <%= form.primary "#{command_label}" %>
+  <%= f.primary "#{command_label}" %>
 <% end %>

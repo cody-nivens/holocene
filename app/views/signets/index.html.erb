@@ -13,9 +13,10 @@
 
   <tbody>
       <tr>
-        <td colspan=3><%= @sigged.name %></td>
+        <td colspan=3><%= (@sigged.nil? ? '' : @sigged.name) %></td>
       </tr>
-    <% @sigged.signets.each do |signet| %>
+
+    <% @signets.each do |signet| %>
       <tr>
         <td class="<%= Signet.color_class(signet.color) %>"><%= Signet.color_name(signet.color) %></td>
         <td class="color-<%= Signet.color(signet.color) %>"><%= signet.message %></td>

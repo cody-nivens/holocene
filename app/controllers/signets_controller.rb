@@ -74,7 +74,7 @@ class SignetsController < ApplicationController
 
     def set_sigged
       klass = [Chapter, HoloceneEvent, Section, Book].detect{|c| params["#{c.name.underscore}_id"]}
-      @sigged = klass.find(params["#{klass.name.underscore}_id"])
+      @sigged = (klass.nil? ? nil : klass.find(params["#{klass.name.underscore}_id"]))
     end
 
     # Only allow a list of trusted parameters through.

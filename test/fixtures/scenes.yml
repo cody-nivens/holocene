@@ -144,3 +144,14 @@ scene_13:
   key_point: key_point_1
   selector: 1
   position: 3
+
+scene_14:
+  abc: C00014
+  check: false
+  artifact: artifact_1
+  date_string: "0099-02-01"
+  scene_sequel: 1
+  situated: story_12 (Story)
+  key_point: key_point_10
+  selector: 1
+  position: 3

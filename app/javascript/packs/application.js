@@ -19,9 +19,25 @@
 // Support component names relative to this directory:
 var componentRequireContext = require.context("components", true)
 
+require("jquery")
 require("trix")
 require("@rails/actiontext")
 
 require('components/sortable')
 
 import "chartkick/chart.js"
+
+//import "bootstrap"
+//import '../stylesheets/application'
+
+document.addEventListener("turbolinks:load", function() {
+  //$('[data-toggle="tooltip"]').tooltip();
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl, {
+  boundary: document.body // or document.querySelector('#boundary')
+})
+ });
+//jQuery(document).ready(function () {
+//  jQuery('[data-toggle="tooltip"]').tooltip();
+//});

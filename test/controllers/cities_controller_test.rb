@@ -4,6 +4,7 @@ class CitiesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @city = cities(:city_1)
     @user = users(:users_1)
+    @tour = tours(:tour_1)
     sign_in @user
   end
 
@@ -11,6 +12,32 @@ class CitiesControllerTest < ActionDispatch::IntegrationTest
     get cities_url
     assert_response :success
     assert_template 'city_grid/_table'
+  end
+
+  test "should get index 2" do
+    get cities_url, params: { cities_grid: { tour_id: @tour.id  } }
+    assert_response :success
+    assert_template 'city_grid/_table'
+  end
+
+  test "should get itinerary" do
+    post cities_itinerary_path, params: { city: { activated: [ cities(:city_1).id, cities(:city_2).id, cities(:city_3).id ] } }
+    assert_response :success
+  end
+
+  test "should get itinerary 2" do
+    post cities_itinerary_path, params: { city: {  } }
+    assert_response :success
+  end
+
+  test "should get add_city" do
+    get tour_add_city_url(@tour), params: { city: { activated: [ cities(:city_1).id, cities(:city_2).id, cities(:city_3).id ] } }
+    assert_response :success
+  end
+
+  test "should get add_city 2" do
+    get tour_add_city_url(@tour), params: { city: { activated: [  ] } }
+    assert_response :success
   end
 
   test "should get new" do

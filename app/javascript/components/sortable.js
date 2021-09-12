@@ -63,6 +63,31 @@ $(document).on('turbolinks:load', function () {
     }
   })
 
+  $('.character_category-sortable').sortable({
+    axis        : "y",
+    cursor      : "grabbing",
+    placeholder : "ui-state-highlight",
+    connectWith : '.character_category-sortable',
+
+    update: function(_, ui){
+      if (ui.sender) return
+
+      let item      = ui.item
+      let itemData  = item.data()
+      let params    = { _method: 'put' }
+
+      params[itemData.modelName] = { position_position: item.index()}
+
+      $.ajax({
+        type     : 'POST',
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').last().attr('content'))},
+        url      : itemData.updateUrl,
+        dataType : 'json',
+        data     : params
+      })
+    }
+  })
+
   $('.story-sortable').sortable({
     axis        : "y",
     cursor      : "grabbing",

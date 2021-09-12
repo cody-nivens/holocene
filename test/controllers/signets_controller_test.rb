@@ -17,6 +17,11 @@ class SignetsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get index 2" do
+    get signets_url
+    assert_response :success
+  end
+
   test "should get new" do
     get new_chapter_signet_url(:chapter_id => @chapter.id)
     assert_response :success

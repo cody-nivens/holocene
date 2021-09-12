@@ -10,27 +10,6 @@ class BooksController < ApplicationController
   def stats
   end
 
-  def sync_scenes
-    @toggle = params[:toggle]
-    @print = params[:print]
-
-    @scenes = Scene.get_scenes(@book, @toggle)
-    @years =  @scenes.keys.sort
-  end
-
-  def scenes_list
-    @year = params[:year]
-    @book = Book.find(params[:book_id])
-    @scenes = Scene.get_scenes(@book, @toggle,@year)
-    @toggle = params[:toggle]
-    @print = params[:print]
-    @no_section = params[:no_section]
-
-     respond_to do |format|
-        format.js
-      end
-  end
-
   def sort
     @book = Book.find(params[:book_id])
     @book.update(book_params)

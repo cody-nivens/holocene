@@ -1,9 +1,9 @@
 require "test_helper"
 
-@@headless = 1
+ 
 
 DOWNLOADS_PATH = File.expand_path(File.join(Rails.root, 'tmp', 'downloads'))
-if @@headless == 1
+if !ENV["NO_HEADLESS"]
 Capybara.register_driver :headless_selenium do |app|
   options = Selenium::WebDriver::Chrome::Options.new
 
@@ -37,10 +37,7 @@ end
 end
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
-if @@headless == 1
-  driven_by :headless_selenium
-else
-
+if ENV["NO_HEADLESS"]
   driven_by :selenium, using: :chrome, screen_size: [1366,1900], options: {
       desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(
         'chromeOptions' => {
@@ -52,6 +49,8 @@ else
         }
       )
     }
+else
+  driven_by :headless_selenium
 end
 
   def remove_uploaded_files

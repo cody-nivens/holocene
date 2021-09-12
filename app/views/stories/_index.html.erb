@@ -1,5 +1,4 @@
 <% pdf ||= nil %>
-
 <dl>
   <div class="chapter_outer-sortable" style="cursor: grab;">
     <%= content_tag "div", id: "book-#{@book.id}", data: { id: @book.id, model_name: @book.class.name.underscore, update_url: book_sort_path(@book)} do %>
@@ -13,4 +12,3 @@
     <% end %>
   </div>
 </dl>
-

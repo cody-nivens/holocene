@@ -13,7 +13,7 @@ class CharacterScenesTest < ApplicationSystemTestCase
     find(:xpath, ".//a[i[contains(@class, 'fa-plus')]]", match: :first).click
 
     fill_in_rich_text_area "character_scene_summary", with: "Test 1"
-    click_on "submit"
+    click_on "Update Character scene"
 
     assert_text "Character scene was successfully updated"
     click_on "Back"
@@ -26,7 +26,7 @@ class CharacterScenesTest < ApplicationSystemTestCase
     CharacterScene.any_instance.stubs(:update).returns(false)
 
     fill_in_rich_text_area "character_scene_summary", with: "Test 1"
-    click_on "submit"
+    click_on "Update Character scene"
 
     page.assert_current_path scene_character_scene_path(:scene_id => @scene.id, :id => @character_scene.id)
     assert_no_text "Character scene was successfully updated"

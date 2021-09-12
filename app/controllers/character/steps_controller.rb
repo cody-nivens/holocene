@@ -16,11 +16,14 @@ class Character::StepsController < ApplicationController
     when "identity"
       if @character.first_name.nil?
         values = Namer.random_name(@character.ethnicity,@character.sex)
-        @character.first_name = values[0] if @character.first_name.nil?
-        @character.middle_name = values[1] if @character.middle_name.nil?
-        @character.last_name = values[2] if @character.last_name.nil?
+        if @character.first_name.nil?
+          @character.first_name = values[0]
+          @character.middle_name = values[1]
+          @character.last_name = values[2]
+        end
       end
-    when "attributes"
+    else
+    #when "attributes"
       if @character.character_values.length == 0
       case @character.ethnicity
       when "White"
@@ -84,7 +87,8 @@ class Character::StepsController < ApplicationController
       book_character_path(:book_id => @object.id,:id => @character.id)
     when "Scene"
       scene_character_path(:scene_id => @object.id,:id => @character.id)
-    when "Story"
+    else
+    #when "Story"
       story_character_path(:story_id => @object.id,:id => @character.id)
     end
   end
@@ -103,7 +107,8 @@ class Character::StepsController < ApplicationController
                                :nickname, :reason_for_nickname, :use_honorific_only, :honorific]
                            when "characteristics"
                              [:ethnicity,:birth_year,:death_year,:sex]
-                           when "attributes"
+                           else
+                           #when "attributes"
                              [:occupation_class,:social_class,:grouping,:father_id,:mother_id]
                            end
 

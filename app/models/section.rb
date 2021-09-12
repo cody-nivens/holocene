@@ -47,7 +47,8 @@ class Section < ApplicationRecord
        chapter = self.sectioned
        book = self.sectioned.scripted
        return [ book, chapter, self, nil, nil]
-    when "Scene"
+    else
+    #when "Scene"
        scene = self.sectioned
        key_point = scene.key_point
        chapter = key_point.scripted

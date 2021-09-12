@@ -1,4 +1,4 @@
-<%= bootstrap_form_for [ @scripted, key_point ] do |form| %>
+<%= bootstrap_form_for [ @scripted, key_point ] do |f| %>
   <% if key_point.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(key_point.errors.count, "error") %> prohibited this key_point from being saved:</h2>
@@ -13,55 +13,55 @@
 
     <%= hidden_field_tag :scripted_id, @scripted.id %>
     <%= hidden_field_tag :scripted_type, @klass.name %>
-    <%= form.hidden_field :scripted_id, value: @scripted.id %>
-    <%= form.hidden_field :scripted_type, value: @klass.name %>
+    <%= f.hidden_field :scripted_id, value: @scripted.id %>
+    <%= f.hidden_field :scripted_type, value: @klass.name %>
 
 
   <div class="field">
-    <%= form.text_area :hook %>
+    <%= f.text_area :hook %>
   </div>
 
   <div class="field">
-      <%= form.check_box :print_name %>
+      <%= f.check_box :print_name %>
   </div>
 
   <div class="field">
-      <%= form.check_box :print_points %>
+      <%= f.check_box :print_points %>
   </div>
 
   <div class="field">
-    <%= form.text_field :inciting_incident %>
+    <%= f.text_field :inciting_incident %>
   </div>
 
   <div class="field">
-    <%= form.text_field :key_element %>
+    <%= f.text_field :key_element %>
   </div>
 
   <div class="field">
-    <%= form.text_field :first_plot_point %>
+    <%= f.text_field :first_plot_point %>
   </div>
 
   <div class="field">
-    <%= form.text_field :first_pinch_point %>
+    <%= f.text_field :first_pinch_point %>
   </div>
 
   <div class="field">
-    <%= form.text_field :midpoint %>
+    <%= f.text_field :midpoint %>
   </div>
 
   <div class="field">
-    <%= form.text_field :second_pinch_point %>
+    <%= f.text_field :second_pinch_point %>
   </div>
 
   <div class="field">
-    <%= form.text_field :third_plot_point %>
+    <%= f.text_field :third_plot_point %>
   </div>
 
   <div class="field">
-    <%= form.text_field :climax %>
+    <%= f.text_field :climax %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= f.submit nil, class: 'btn' %>
   </div>
 <% end %>

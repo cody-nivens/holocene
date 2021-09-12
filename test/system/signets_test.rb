@@ -20,7 +20,7 @@ class SignetsTest < ApplicationSystemTestCase
 
     select Signet.color_name(@signet.color), from: "Color"
     fill_in "Message", with: @signet.message
-    click_on "submit"
+    click_on "Create Signet"
 
     assert_text "Signet was successfully created"
     click_on "Back"
@@ -36,7 +36,7 @@ class SignetsTest < ApplicationSystemTestCase
     click_on "New Signet"
     select Signet.color_name(@signet.color), from: "Color"
     fill_in "Message", with: ""
-    click_on "submit"
+    click_on "Create Signet"
 
     assert_text "Message must have content"
     click_on "Back"

@@ -2,9 +2,12 @@
 
 character_category_1:
   name: Physical Appearance
+  position: 1
 
 character_category_2:
   name: Family
+  position: 2
 
 character_category_3:
   name: Gender
+  position: 3
