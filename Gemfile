@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.4'
+ruby '3.0.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
@@ -44,7 +44,8 @@ gem 'builder'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'sidekiq', '~>6.1.1'
 gem 'sidekiq-client-cli'
-gem "sidekiq-cron", "~> 1.1"
+#gem "sidekiq-cron", "~> 1.1"
+gem "sidekiq-scheduler"
 
 #gem 'whenever', :require => false
 
@@ -55,6 +56,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'dotenv-rails'
   gem 'dotenv'
+  gem 'heavens_door'
 end
 
 group :development do
@@ -99,7 +101,7 @@ gem 'kaminari', '~> 1.2.1'
 gem 'datagrid'
 gem 'nokogiri', '1.10.8'
 gem 'mini_portile2', '~> 2.4.0'
-gem 'acts-as-taggable-on', '~> 6.0'
+gem 'acts-as-taggable-on'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'rails_sortable'
@@ -117,7 +119,7 @@ gem 'timelineJS-rails'
 #gem 'rgeo-activerecord', :git => 'https://github.com/rgeo/rgeo-activerecord'
 gem 'mini_magick','~> 4.9.4'
 gem 'react-rails'
-gem 'words_counted'
+gem 'words_counted', git: 'https://github.com/werthen/words_counted'
 gem 'rails-bootstrap-tabs', '~> 0.2.2'
 gem 'bootstrap-toggle-rails'
 gem 'namey'
@@ -130,3 +132,4 @@ gem 'wicked'
 gem 'by_star', git: "git://github.com/radar/by_star"
 gem "pagy"
 gem 'country_select', '~> 6.0'
+gem 'rexml'
