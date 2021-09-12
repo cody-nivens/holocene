@@ -1,3 +1,5 @@
+require 'sidekiq-scheduler'
+
 class ReindexWorker
   include Sidekiq::Worker
 
