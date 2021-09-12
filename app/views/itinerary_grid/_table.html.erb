@@ -1,0 +1,53 @@
+<%#
+Local variables:
+* grid - instance of Datagrid
+* assets - Array of database Entities
+* options - passed options Hash
+%>
+<% if !@tour.nil? %>
+  <%= form_for :itinerary, options.merge({ :url => {controller: 'itineraries', story_id: @tour.story.id, tour_id: @tour.id, action: 'index'} }) do |f| -%>
+    <%= f.hidden_field :tour_id, value: @tour.id %>
+    <%= f.hidden_field :tour_type, value: @tour.class.name %>
+    <%= f.submit "#{@command}", :id => "datagrid_select", :class => "datagrid-submit#{(@command.nil? ? " hidden" : '')}" %>
+    <% if grid.html_columns(*options[:columns]).any? %>
+      <%= content_tag :table, options[:html] do %>
+        <thead>
+          <%= datagrid_header(grid, options) %>
+        </thead>
+        <tbody>
+          <% if assets.any? %>
+            <%= datagrid_rows(grid, assets, **options) %>
+          <% else %>
+            <tr><td class="noresults" colspan="100%"><%= I18n.t('datagrid.no_results').html_safe %></td></tr>
+          <% end %>
+        </tbody>
+      <% end %>
+    <% else -%>
+      <%= I18n.t("datagrid.table.no_columns").html_safe %>
+    <% end %>
+  <% end %>
+<% else %>
+  <% if grid.html_columns(*options[:columns]).any? %>
+    <%= content_tag :table, options[:html] do %>
+      <thead>
+        <%= datagrid_header(grid, options) %>
+      </thead>
+      <tbody>
+        <% if assets.any? %>
+          <%= datagrid_rows(grid, assets, **options) %>
+        <% else %>
+          <tr><td class="noresults" colspan="100%"><%= I18n.t('datagrid.no_results').html_safe %></td></tr>
+        <% end %>
+      </tbody>
+    <% end %>
+  <% end %>
+<% end %>
+<script>
+$('#itinerary_tour_id').change(function() {
+    if ($(this).val() == "") {
+        $('#datagrid_select').val("Delete Events");
+    } else {
+        $('#datagrid_select').val("Move Events");
+    }
+});
+</script>

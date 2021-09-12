@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+itinerary_1:
+  name: Sushi is Rice
+  tour: tour_1
+  city: city_1
+  position: 1
+  stay: 1
+
+itinerary_2:
+  name: Way Too Many People
+  tour: tour_2
+  city: city_2
+  position: 1
+  stay: 1
