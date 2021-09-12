@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Tours for <%= @story.name %></h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Story</th>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tours.each do |tour| %>
+      <tr>
+        <td><%= tour.story.name %></td>
+        <td><%= tour.name %></td>
+        <td><%= link_to 'Show', story_tour_path(@story,tour) %></td>
+        <td><%= link_to 'Edit', edit_story_tour_path(@story,tour) %></td>
+        <td><%= link_to 'Destroy', story_tour_path(@story,tour), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<% @footer_content << "#{link_to 'New Tour', new_story_tour_path(@story), :class => "btn btn-default"}" %>
+<% @footer_content << "#{ link_to 'Back', polymorphic_path([@story.book,@story]), :class => "btn btn-default hide-print" }" %>

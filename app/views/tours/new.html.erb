@@ -1,0 +1,5 @@
+<h1>New Tour</h1>
+
+<%= render 'form', tour: @tour %>
+
+<% @footer_content << "#{ link_to 'Back', story_tours_path(@story), :class => "btn btn-default hide-print" }" %>

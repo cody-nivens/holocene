@@ -1,0 +1,31 @@
+
+<%= bootstrap_form_for [@story, @tour] do |f| %>
+  <% if @tour.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tour.errors.count, "error") %> prohibited this scene from being saved:</h2>
+
+      <ul>
+        <% @tour.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+    <%= hidden_field_tag :story_id, @story.id %>
+    <%= f.hidden_field :story_id %>
+
+
+  <div class="field">
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.rich_text_area :summary %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, class: 'btn' %>
+  </div>
+<% end %>
