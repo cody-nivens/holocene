@@ -1,12 +1,16 @@
 require 'sidekiq/web'
-require 'sidekiq/cron/web'
+require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
   get '/cities/index', to: 'cities#index', :format => :js, constraints: lambda { |request| request.xhr? }
   get '/cities/index', to: 'cities#index'
-  post '/cities/itinerary', to: 'cities#itinerary'
+  post '/cities/itinerary', to: 'cities#itinerary', as: :cities_itinerary
   get '/characters/attributes', to: 'characters#attributes', :format => :js, constraints: lambda { |request| request.xhr? }
   get '/characters/attribute_values', to: 'characters#attribute_values', :format => :js, constraints: lambda { |request| request.xhr? }
+  get "/tours/add_city/:tour_id", to: "cities#add_city", as: :tour_add_city
+  get "/tours/:tour_id/cities", to: "cities#index", as: :tour_citites
+  post "/tours/:tour_id/tours", to: "cities#tours", as: :tour_tours
+  get "/stories/:story_id/tours/:id/geo_map", to: "tours#geo_map", as: :geo_map_story_tour
 
   resources :cities
   namespace :character do
@@ -37,11 +41,12 @@ Rails.application.routes.draw do
   resources :signets
   resources :embeds
   resources :character_attributes
-  resources :character_categories
+  resources :character_categories do
+    put :sort
+  end
 
   get '/books/:book_id/characters', to: 'characters#index', :format => :js, constraints: lambda { |request| request.xhr? }
   get '/books/:book_id/scenes', to: 'scenes#index', :format => :js, constraints: lambda { |request| request.xhr? }
-  get '/books/:book_id/scenes_list', to: 'books#scenes_list', :format => :js, constraints: lambda { |request| request.xhr? }
 
   get "/books/:id/export", to: "books#export", as: :book_export
   get "/books/:id/stats", to: "books#stats", as: :book_stats
@@ -58,8 +63,6 @@ Rails.application.routes.draw do
   get "/books/:book_id/key_points/:id/list", to: "key_points#list", as: :book_key_point_list
   post "/books/:book_id/key_points/:id/add", to: "key_points#add", as: :book_key_point_add
   get "/books/:id/timeline", to: "books#timeline", as: :book_timeline
-  get "/books/:id/sync_scenes", to: "books#sync_scenes", as: :book_sync_scenes
-  get "/books/:id/scenes_list", to: "books#scenes_list", as: :book_scenes_list
 
   get "/scenes/:id/move", to: "scenes#move", as: :scene_move
   post "/scenes/:id/moved", to: "scenes#moved", as: :scene_moved
@@ -115,6 +118,9 @@ Rails.application.routes.draw do
   resources :stories do
     concerns :situated, scripted_type: 'Story'
     put :sort
+    resources :tours do
+      resources :itineraries
+    end
     resources :scenes 
     resources :key_points do
       put :sort
@@ -142,8 +148,8 @@ Rails.application.routes.draw do
   end
   resources :epochs
   resources :timelines
-  get "welcome/index"
-  get "welcome/stats"
+  get "/welcome/index"
+  get "/welcome/stats"
   get "/stats", to: "welcome#stats"
   get "/tags", to: "welcome#tags", as: :welcome_tags
   resources :holocene_events
@@ -151,15 +157,15 @@ Rails.application.routes.draw do
   resources :event_types
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #
-  get "artifacts/:book_id/tagged/(:tag)", to: "artifacts#tagged", as: :tag_artifacts
-  get "tagged/(:tag)", to: "holocene_events#tagged", as: :tag
+  get "/artifacts/:book_id/tagged/(:tag)", to: "artifacts#tagged", as: :tag_artifacts
+  get "/tagged/(:tag)", to: "holocene_events#tagged", as: :tag
 
-  get "event_types/:id/geo_map", to: "event_types#geo_map", as: :geo_map_event_type
-  get "timelines/:id/geo_map", to: "timelines#geo_map", as: :geo_map_timeline
-  get "epochs/:id/geo_map", to: "epochs#geo_map", as: :geo_map_epoch
-  get "chapters/:id/geo_map", to: "chapters#geo_map", as: :geo_map_chapter
-  get "sections/:id/geo_map", to: "sections#geo_map", as: :geo_map_section
-  get "holocene_events/:id/geo_map", to: "holocene_events#geo_map", as: :geo_map_holocene_event
+  get "/event_types/:id/geo_map", to: "event_types#geo_map", as: :geo_map_event_type
+  get "/timelines/:id/geo_map", to: "timelines#geo_map", as: :geo_map_timeline
+  get "/epochs/:id/geo_map", to: "epochs#geo_map", as: :geo_map_epoch
+  get "/chapters/:id/geo_map", to: "chapters#geo_map", as: :geo_map_chapter
+  get "/sections/:id/geo_map", to: "sections#geo_map", as: :geo_map_section
+  get "/holocene_events/:id/geo_map", to: "holocene_events#geo_map", as: :geo_map_holocene_event
 
   get 'citations/index'
   get "/timelines/display/:timeline_id", to: "holocene_events#display", as: :timeline_display

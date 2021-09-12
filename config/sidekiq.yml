@@ -3,3 +3,4 @@
     cron: "*/5 * * * *"
     class: "ReindexWorker"
     queue: default
+
