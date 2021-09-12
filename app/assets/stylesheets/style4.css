@@ -24,12 +24,12 @@ a, a:hover, a:focus {
 }
 
 .navbar {
-    padding: 15px 10px;
+    padding: rem-calc(15) rem-calc(10);
     background: #fff;
     border: none;
     border-radius: 0;
-    margin-bottom: 40px; 
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: rem-calc(40); 
+    box-shadow: rem-calc(1) rem-calc(1) rem-calc(3) rgba(0, 0, 0, 0.1);
 }
 
 .navbar-btn {
@@ -40,9 +40,9 @@ a, a:hover, a:focus {
 
 .line {
     width: 100%;
-    height: 1px;
-    border-bottom: 1px dashed #ddd;
-    margin: 40px 0;
+    height: rem-calc(1);
+    border-bottom: rem-calc(1) dashed #ddd;
+    margin: rem-calc(40) 0;
 }
 
 i, span {
@@ -58,16 +58,16 @@ i, span {
 }
 
 #sidebar {
-    min-width: 250px;
-    max-width: 250px;
+    min-width: rem-calc(250);
+    max-width: rem-calc(250);
     background: #7386D5;
     color: #fff;
     transition: all 0.3s;
 }
 
 #sidebar.active {
-    min-width: 80px;
-    max-width: 80px;
+    min-width: rem-calc(80);
+    max-width: rem-calc(80);
     text-align: center;
 }
 
@@ -84,7 +84,7 @@ i, span {
 }
 
 #sidebar.active ul li a {
-    padding: 20px 10px;
+    padding: rem-calc(20) rem-calc(10);
     text-align: center;
     font-size: 0.85em;
 }
@@ -93,16 +93,16 @@ i, span {
     margin-right:  0;
     display: block;
     font-size: 1.8em;
-    margin-bottom: 5px;
+    margin-bottom: rem-calc(5);
 }
 
 #sidebar.active ul ul a {
-    padding: 10px !important;
+    padding: rem-calc(10) !important;
 }
 
 #sidebar.active a[aria-expanded="false"]::before, #sidebar.active a[aria-expanded="true"]::before {
     top: auto;
-    bottom: 5px;
+    bottom: rem-calc(5);
     right: 50%;
     -webkit-transform: translateX(50%);
     -ms-transform: translateX(50%);
@@ -110,7 +110,7 @@ i, span {
 }
 
 #sidebar .sidebar-header {
-    padding: 20px;
+    padding: rem-calc(20);
     background: #6d7fcc;
 }
 
@@ -120,12 +120,12 @@ i, span {
 }
 
 #sidebar ul.components {
-    padding: 20px 0;
-    border-bottom: 1px solid #47748b;
+    padding: rem-calc(20) 0;
+    border-bottom: rem-calc(1) solid #47748b;
 }
 
 #sidebar ul li a {
-    padding: 10px;
+    padding: rem-calc(10);
     font-size: 1.1em;
     display: block;
 }
@@ -134,7 +134,7 @@ i, span {
     background: #fff;
 }
 #sidebar ul li a i {
-    margin-right: 10px;
+    margin-right: rem-calc(10);
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
@@ -151,7 +151,7 @@ a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
     content: '\e259';
     display: block;
     position: absolute;
-    right: 20px;
+    right: rem-calc(20);
     font-family: 'Glyphicons Halflings';
     font-size: 0.6em;
 }
@@ -162,20 +162,20 @@ a[aria-expanded="true"]::before {
 
 ul ul a {
     font-size: 0.9em !important;
-    padding-left: 30px !important;
+    padding-left: rem-calc(30) !important;
     background: #6d7fcc;
 }
 
 ul.CTAs {
-    padding: 20px;
+    padding: rem-calc(20);
 }
 
 ul.CTAs a {
     text-align: center;
     font-size: 0.9em !important;
     display: block;
-    border-radius: 5px;
-    margin-bottom: 5px;
+    border-radius: rem-calc(5);
+    margin-bottom: rem-calc(5);
 }
 
 a.download {
@@ -194,8 +194,8 @@ a.article, a.article:hover {
     CONTENT STYLE
 ----------------------------------------------------- */
 #content {
-    /* padding: 20px; */
-    padding-left: 20px;
+    /* padding: rem-calc(20); */
+    padding-left: rem-calc(20);
     min-height: 100vh;
     transition: all 0.3s;
 }
@@ -204,16 +204,16 @@ a.article, a.article:hover {
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
-@media (max-width: 768px) {
+@media (max-width: rem-calc(768)) {
     #sidebar {
-        min-width: 80px;
-        max-width: 80px;
+        min-width: rem-calc(80);
+        max-width: rem-calc(80);
         text-align: center;
-        margin-left: -80px !important ;
+        margin-left: rem-calc(-80) !important ;
     }
     a[aria-expanded="false"]::before, a[aria-expanded="true"]::before {
         top: auto;
-        bottom: 5px;
+        bottom: rem-calc(5);
         right: 50%;
         -webkit-transform: translateX(50%);
         -ms-transform: translateX(50%);
@@ -232,7 +232,7 @@ a.article, a.article:hover {
     }
 
     #sidebar ul li a {
-        padding: 20px 10px;
+        padding: rem-calc(20) rem-calc(10);
     }
 
     #sidebar ul li a span {
@@ -244,7 +244,7 @@ a.article, a.article:hover {
     }
 
     #sidebar ul ul a {
-        padding: 10px !important;
+        padding: rem-calc(10) !important;
     }
 
     #sidebar ul li a i {
