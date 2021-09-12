@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_05_184930) do
+ActiveRecord::Schema.define(version: 2021_09_09_133029) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -227,7 +227,6 @@ ActiveRecord::Schema.define(version: 2021_09_05_184930) do
     t.boolean "use_honorific_only", default: false
     t.bigint "mother_id"
     t.integer "sex", default: 0
-    t.index ["mother_id"], name: "index_characters_on_mother_id"
   end
 
   create_table "cities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -339,6 +338,18 @@ ActiveRecord::Schema.define(version: 2021_09_05_184930) do
     t.bigint "timeline_id", null: false
     t.index ["holocene_event_id", "timeline_id"], name: "index_timeline_holocene_event_2"
     t.index ["timeline_id", "holocene_event_id"], name: "index_timeline_holocene_event_1"
+  end
+
+  create_table "itineraries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.bigint "tour_id", null: false
+    t.bigint "city_id", null: false
+    t.integer "position"
+    t.integer "stay", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["city_id"], name: "index_itineraries_on_city_id"
+    t.index ["tour_id"], name: "index_itineraries_on_tour_id"
   end
 
   create_table "key_points", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -510,6 +521,14 @@ ActiveRecord::Schema.define(version: 2021_09_05_184930) do
     t.integer "user_id"
   end
 
+  create_table "tours", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.bigint "story_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["story_id"], name: "index_tours_on_story_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -531,13 +550,4 @@ ActiveRecord::Schema.define(version: 2021_09_05_184930) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "artifact_types", "books"
-  add_foreign_key "artifacts", "artifact_types"
-  add_foreign_key "artifacts", "books"
-  add_foreign_key "artifacts", "characters"
-  add_foreign_key "character_attributes", "character_categories"
-  add_foreign_key "character_values", "character_attributes"
-  add_foreign_key "character_values", "characters"
-  add_foreign_key "key_words", "books"
-  add_foreign_key "metrics", "users"
 end
