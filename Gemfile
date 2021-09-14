@@ -66,12 +66,14 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'simplecov', require: false, group: :test
+  #gem 'guard-spring'
   gem 'guard'
   gem 'guard-minitest'
-  #gem 'guard-spring'
+  gem 'rails_best_practices'
   gem 'guard-rails'
   gem 'pry'
+  gem "better_errors"
+  gem "binding_of_caller"
 end
 
 group :test do
@@ -87,6 +89,7 @@ group :test do
   gem 'geckodriver-helper'
   gem 'rails-controller-testing'
   gem 'launchy'
+  gem 'simplecov', require: false, group: :test
 
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'webdrivers'
