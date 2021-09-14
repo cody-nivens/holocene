@@ -25,15 +25,15 @@
       <%= HoloceneEvent.tagged_with(glossary_term.name.gsub(/ /,'')).count %>
       </td>
       <td>
-        <%= (glossary_term.see.nil? ? '' : glossary_term.see.name) %><br/>
-        <%= (glossary_term.seealso.nil? ? '' : glossary_term.seealso.name) %><br/>
-    <%= (glossary_term.acronym.nil? ? '' : glossary_term.acronym.name) %>
+        <%= (glossary_term.see.nil? ? '' : glossary_term.see_name) %><br/>
+        <%= (glossary_term.seealso.nil? ? '' : glossary_term.seealso_name) %><br/>
+    <%= (glossary_term.acronym.nil? ? '' : glossary_term.acronym_name) %>
     </td>
 
       <td>
-          <%= link_to (fa_icon "search-plus"), book_glossary_term_url(@book,glossary_term), :title => 'Show' %><br/>
-          <%= link_to (fa_icon "edit"), edit_book_glossary_term_path(@book,glossary_term), :title => 'Edit' %><br/>
-          <%= link_to (fa_icon "trash-o"), book_glossary_term_url(@book,glossary_term), method: :delete, data: { confirm: 'Are you sure?' }, :title => 'Destroy' %>
+          <%= link_to (fa_icon "search-plus"), glossary_term_url(glossary_term), :title => 'Show' %><br/>
+          <%= link_to (fa_icon "edit"), edit_glossary_term_path(glossary_term), :title => 'Edit' %><br/>
+          <%= link_to (fa_icon "trash-o"), glossary_term_url(glossary_term), method: :delete, data: { confirm: 'Are you sure?' }, :title => 'Destroy' %>
     </td>
       </tr>
     <% end %>

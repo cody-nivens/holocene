@@ -2,7 +2,7 @@ require 'simplecov'
 unless ENV["NO_COVERAGE"]
   SimpleCov.start :rails do
     enable_coverage :branch
-    primary_coverage :branch 
+    primary_coverage :branch
     add_group "Grids", "app/grids"
   end
 end

@@ -1,5 +1,5 @@
 <h1>Editing Key Point</h1>
 
-<%= render 'form', key_point: @key_point %>
+<%= render 'form', key_point: @key_point, scripted: @scripted, klass: @klass %>
 
-<% @footer_content << "#{link_to 'Back', polymorphic_path([@scripted, @key_point]), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', key_point_path(@key_point), :class => "btn btn-default"}" %>

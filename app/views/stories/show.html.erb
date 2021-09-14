@@ -44,8 +44,8 @@
         <%= content_tag "div", id: "scripted-#{@story.id}", data: { id: @story.id, model_name: @story.class.name.underscore, update_url: polymorphic_path([@story,:sort])} do %>
           <div class="key_point-sortable" style="cursor: grab; min-height: 10px;">
             <% @story.key_points.rank(:position).each do |key_point| %>
-              <%= content_tag "div", id: "key_point-#{key_point.id}", data: { model_name: key_point.class.name.underscore, update_url: polymorphic_path([@story,key_point,:sort])} do %>
-                <li><%= link_to key_point.hook, polymorphic_path([@story, key_point]), id: key_point.anchor %> - <%= link_to key_point.key_element, polymorphic_path([@story, key_point]) %> 
+              <%= content_tag "div", id: "key_point-#{key_point.id}", data: { model_name: key_point.class.name.underscore, update_url: key_point_sort_path(key_point)} do %>
+                <li><%= link_to key_point.hook, key_point_path(key_point), id: key_point.anchor %> - <%= link_to key_point.key_element, key_point_path(key_point) %>
                   <dl>
                     <% 1.upto(6).each do |x| %>
                       <% if key_point.scenes.where(selector: x).length == 0 %>

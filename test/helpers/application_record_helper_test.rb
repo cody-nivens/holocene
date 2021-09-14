@@ -37,7 +37,7 @@ class ApplicationRecordsHelperTest < ActionView::TestCase
     values = section.set_values
     string = breadcrumb(values[0], values[1], values[2], values[3], values[4])
     string2 = (link_to book.name, book_path(book)).gsub(/"/,"'")
-    string3 = (link_to chapter.name, book_chapter_path(book,chapter)).gsub(/"/,"'")
+    string3 = (link_to chapter.name, chapter_path(chapter)).gsub(/"/,"'")
     assert Regexp.new(string2) =~ string
     assert Regexp.new(string3) =~ string
     assert Regexp.new(section.name) =~ string
@@ -62,7 +62,7 @@ class ApplicationRecordsHelperTest < ActionView::TestCase
     values = key_point.set_values
     string = breadcrumb(values[0], values[1], values[2], values[3], values[4])
     string2 = (link_to book.name, book_path(book)).gsub(/"/,"'")
-    string3 = (link_to story.name, book_story_path(book,story)).gsub(/"/,"'")
+    string3 = (link_to story.name, story_path(story)).gsub(/"/,"'")
     assert Regexp.new(string2) =~ string
     assert Regexp.new(string3) =~ string
     assert Regexp.new(key_point.name) =~ string
@@ -77,8 +77,8 @@ class ApplicationRecordsHelperTest < ActionView::TestCase
     values = scene.set_values
     string = breadcrumb(values[0], values[1], values[2], values[3], values[4])
     string2 = (link_to book.name, book_path(book)).gsub(/"/,"'")
-    string3 = (link_to story.name, book_story_path(book,story)).gsub(/"/,"'")
-    string4 = (link_to key_point.name, story_key_point_path(story,key_point)).gsub(/"/,"'")
+    string3 = (link_to story.name, story_path(story)).gsub(/"/,"'")
+    string4 = (link_to key_point.name, key_point_path(key_point)).gsub(/"/,"'")
     assert Regexp.new(string2) =~ string
     assert Regexp.new(string3) =~ string
     assert Regexp.new(string4) =~ string
@@ -95,8 +95,8 @@ class ApplicationRecordsHelperTest < ActionView::TestCase
     values = section.set_values
     string = breadcrumb(values[0], values[1], values[2], values[3], values[4])
     string2 = (link_to book.name, book_path(book)).gsub(/"/,"'")
-    string3 = (link_to story.name, book_story_path(book,story)).gsub(/"/,"'")
-    string4 = (link_to key_point.name, story_key_point_path(story,key_point)).gsub(/"/,"'")
+    string3 = (link_to story.name, story_path(story)).gsub(/"/,"'")
+    string4 = (link_to key_point.name, key_point_path(key_point)).gsub(/"/,"'")
     string5 = (link_to scene.name, scene_path(scene)).gsub(/"/,"'")
     assert Regexp.new(string2) =~ string
     assert Regexp.new(string3) =~ string

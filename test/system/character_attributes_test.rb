@@ -9,7 +9,7 @@ class CharacterAttributesTest < ApplicationSystemTestCase
   end
 
   test "creating a Character attribute" do
-    visit character_attributes_url(:character_category_id => @character_category.id)
+    visit character_category_character_attributes_url(@character_category)
     click_on "New Character Attribute"
 
     fill_in "Name", with: @character_attribute.name
@@ -21,13 +21,13 @@ class CharacterAttributesTest < ApplicationSystemTestCase
   end
 
   test "not creating a Character attribute" do
-    visit character_attributes_url(:character_category_id => @character_category.id)
+    visit character_category_character_attributes_url(@character_category)
     click_on "New Character Attribute"
 
     fill_in "Name", with: ""
     click_on "Create Character attribute"
 
-    assert_text "Please review the problems below:"
+    assert_text "Name\ncan't be blank"
     click_on "Back"
   end
 end

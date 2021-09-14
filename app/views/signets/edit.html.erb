@@ -1,6 +1,6 @@
 <h1>Editing Signet</h1>
 
-<%= render 'form', signet: @signet %>
+<%= render 'form', signet: @signet, sigged: @sigged %>
 
 <% @footer_content << "#{link_to 'Show', @signet, :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Back', polymorphic_path(@sigged), :class => "btn btn-default"}" %>

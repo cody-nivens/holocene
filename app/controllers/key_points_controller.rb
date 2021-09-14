@@ -85,7 +85,7 @@ class KeyPointsController < ApplicationController
 
     respond_to do |format|
       if @key_point.save
-        format.html { redirect_to polymorphic_url([@scripted, @key_point]), notice: 'Key point was successfully created.' }
+        format.html { redirect_to key_point_url(@key_point), notice: 'Key point was successfully created.' }
         format.json { render :show, status: :created, location: @key_point }
       else
         format.html { render :new }
@@ -100,7 +100,7 @@ class KeyPointsController < ApplicationController
     @scripted = @key_point.scripted
     respond_to do |format|
       if @key_point.update(key_point_params)
-        format.html { redirect_to polymorphic_url([@scripted, @key_point]), notice: 'Key point was successfully updated.' }
+        format.html { redirect_to key_point_url(@key_point), notice: 'Key point was successfully updated.' }
         format.json { render :show, status: :ok, location: @key_point }
       else
         format.html { render :edit }
@@ -135,8 +135,8 @@ class KeyPointsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def key_point_params
-      params.require(:key_point).permit(:hook, :inciting_incident, :key_element, :first_plot_point, :first_pinch_point, 
-                                        :midpoint, :second_pinch_point, :third_plot_point, :climax, :scripted_id, 
+      params.require(:key_point).permit(:hook, :inciting_incident, :key_element, :first_plot_point, :first_pinch_point,
+                                        :midpoint, :second_pinch_point, :third_plot_point, :climax, :scripted_id,
                                         :scripted_type, :selector, :print_name, :print_points, :position_position)
     end
 end

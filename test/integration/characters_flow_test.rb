@@ -38,7 +38,7 @@ class CharactersFlowTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     patch book_character_step_url(:book_id => @book.id),
-      params: { :book_id=>@book.id, :age=>"55", :year=>"105", :death_age=>"89", 
+      params: { :book_id=>@book.id, :age=>"55", :year=>"105", :death_age=>"89",
   :character=>{"occupation_class"=>"Autocrat", "social_class"=>"High", "grouping"=>"Argo", "father_id"=>"", "mother_id"=>""},
   "physical appearance_age_value"=>"", "physical appearance_age appearance_value"=>"", "physical appearance_eye color_value"=>"Blue", "physical appearance_glasses contacts_value"=>"", "physical appearance_hair color_value"=>"Blond",
   "physical appearance_hair style_value"=>"", "physical appearance_weight_value"=>"", "physical appearance_height_value"=>"", "physical appearance_type of body_value"=>"", "physical appearance_skin tone_value"=>"",
@@ -76,9 +76,9 @@ class CharactersFlowTest < ActionDispatch::IntegrationTest
 #      assert_difference('@book.characters.count') do
 #        assert_difference('@story.characters.count') do
 #          debugger if @scene.nil?
-#          post scene_characters_url(:scene_id => @scene.id), params: { 
-#            character: { first_name: @character.first_name, nickname: @character.nickname, occupation_class: @character.occupation_class, 
-#                         ethnicity: @character.ethnicity, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, 
+#          post scene_characters_url(:scene_id => @scene.id), params: {
+#            character: { first_name: @character.first_name, nickname: @character.nickname, occupation_class: @character.occupation_class,
+#                         ethnicity: @character.ethnicity, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname,
 #                         social_class: @character.social_class } }
 #        end
 #      end

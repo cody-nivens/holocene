@@ -69,7 +69,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
     assert_select "a[text()=?]",'Chapters, TOC'
     assert_select "a[text()=?]",'Back'
-    
+
     # history.back is now used
     # assert_select "a[href=?]", books_path
     assert_select ".footer>div>a", 5
@@ -108,7 +108,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_select "a[text()=?]",'Back'
-    
+
     # history.back is now used
     # assert_select "a[href=?]", books_path
     assert_select ".footer>div>a", 10

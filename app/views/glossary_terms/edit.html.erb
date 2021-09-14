@@ -1,7 +1,7 @@
 <h1>Editing Glossary Term</h1>
 
-<%= render 'form', glossary_term: @glossary_term %>
+<%= render 'form', glossary_term: @glossary_term, book: @book %>
 
-<% @footer_content << "#{link_to 'Show',book_glossary_term_path(@book,@glossary_term) , :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Show', glossary_term_path(@glossary_term) , :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Back', book_glossary_terms_path(@book), :class => "btn btn-default"}" %>
 

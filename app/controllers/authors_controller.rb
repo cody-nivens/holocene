@@ -1,11 +1,11 @@
 class AuthorsController < ApplicationController
-  before_action :set_author, only: [:show, :edit, :update, :destroy]
-  before_action :set_book, only: [ :show, :index, :add, :list, :create, :new, :edit, :update, :destroy]
+  before_action :set_author, only: [ :show, :edit, :update, :destroy]
+  before_action :set_object, only: [ :index, :show, :add, :list, :new, :edit, :update, :create, :destroy ]
 
 
   # GET /books/:book_id/authors(.:format)
   def index
-      @authors = @book.authors.order(:last_name)
+      @authors = @object.authors.order(:last_name)
   end
 
   # GET /books/:book_id/authors/:id(.:format)
@@ -25,7 +25,7 @@ class AuthorsController < ApplicationController
       authors_avail.each do |author_id|
         next if author_id.blank?
         author = Author.find(author_id)
-        @book.authors << author unless @book.authors.include?(author)
+        @object.authors << author unless @object.authors.include?(author)
       end
     end
 
@@ -33,12 +33,12 @@ class AuthorsController < ApplicationController
       authors_ids.each do |author_id|
         next if author_id.blank?
         author = Author.find(author_id)
-        @book.authors.destroy(author) if @book.authors.include?(author)
+        @object.authors.destroy(author) if @object.authors.include?(author)
       end
     end
 
     respond_to do |format|
-       format.html { redirect_to book_authors_list_path(:book_id => @book.id) }
+       format.html { redirect_to book_authors_list_path(:book_id => @object.id) }
     end
   end
 
@@ -47,10 +47,9 @@ class AuthorsController < ApplicationController
   def new
     @author = Author.new
     @author.user_id = current_user.id
-    @author.books << @book
   end
 
-  # GET /books/:book_id/authors/:id/edit(.:format) 
+  # GET /books/:book_id/authors/:id/edit(.:format)
   def edit
   end
 
@@ -60,7 +59,8 @@ class AuthorsController < ApplicationController
 
     respond_to do |format|
       if @author.save
-        format.html { redirect_to book_author_path(@book,@author), notice: 'Author was successfully created.' }
+        @object.authors << @author
+        format.html { redirect_to polymorphic_path([@object, @author]), notice: 'Author was successfully created.' }
         format.json { render :show, status: :created, location: @author }
       else
         format.html { render :new }
@@ -73,7 +73,7 @@ class AuthorsController < ApplicationController
   def update
     respond_to do |format|
       if @author.update(author_params)
-        format.html { redirect_to book_author_path(@book,@author), notice: 'Author was successfully updated.' }
+        format.html { redirect_to polymorphic_path([@object, @author]), notice: 'Author was successfully updated.' }
         format.json { render :show, status: :ok, location: @author }
       else
         format.html { render :edit }
@@ -82,11 +82,11 @@ class AuthorsController < ApplicationController
     end
   end
 
-  # DELETE /books/:book_id/authors/:id(.:format) 
+  # DELETE /books/:book_id/authors/:id(.:format)
   def destroy
     @author.destroy
     respond_to do |format|
-      format.html { redirect_to book_authors_url(@book), notice: 'Author was successfully destroyed.' }
+      format.html { redirect_to polymorphic_url([@object, :authors]), notice: 'Author was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -97,8 +97,9 @@ class AuthorsController < ApplicationController
       @author = Author.find(params[:id])
     end
 
-    def set_book
-      @book = Book.find(params[:book_id])
+    def set_object
+      klass = [Biblioentry, Book].detect{|c| params["#{c.name.underscore}_id"]}
+      @object = klass.find(params["#{klass.name.underscore}_id"])
     end
 
 

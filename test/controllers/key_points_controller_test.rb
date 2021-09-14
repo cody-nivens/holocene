@@ -15,7 +15,7 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should sort key_points" do
-    put story_key_point_sort_url(:story_id => @key_point_2.scripted.id, :key_point_id => @key_point_2.id), xhr: true, params: { key_point: { id: @key_point_2.id, scripted_id: @key_point_2.scripted_id } }
+    put key_point_sort_url(@key_point_2), xhr: true, params: { key_point: { id: @key_point_2.id, scripted_id: @key_point_2.scripted_id } }
     assert_response :success
   end
 
@@ -77,7 +77,7 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
       post polymorphic_url([@scripted, :key_points]), params: { key_point: { scripted_id: @scripted.id, scripted_type: @scripted.class.name, climax: @key_point.climax, first_pinch_point: @key_point.first_pinch_point, first_plot_point: @key_point.first_plot_point, hook: @key_point.hook, inciting_incident: @key_point.inciting_incident, key_element: @key_point.key_element, midpoint: @key_point.midpoint, second_pinch_point: @key_point.second_pinch_point, third_plot_point: @key_point.third_plot_point } }
     end
 
-    assert_redirected_to polymorphic_url([@scripted, KeyPoint.last])
+    assert_redirected_to key_point_url(KeyPoint.last)
   end
 
   test "should not create key_point" do
@@ -89,43 +89,47 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show key_point" do
-    get polymorphic_url([@scripted, @key_point])
+    get key_point_url(@key_point)
     assert_response :success
   end
 
   test "should show key_point 2" do
-    get polymorphic_url([@scripted, @key_point_1])
+    get key_point_url(@key_point_2)
     assert_response :success
   end
 
   test "should show key_point 3" do
-    get polymorphic_url([@scripted, @key_point_4])
+    get key_point_url(@key_point_4)
     assert_response :success
   end
 
   test "should moved key_point" do
-    post polymorphic_url([@scripted, @key_point_4, :moved]), params: { new_story_id: @scripted_4 }
-    assert_redirected_to polymorphic_url(@scripted)
+    if @scripted_2.class.name == "Book"
+      post book_key_point_moved_url(:book_id => @scripted_2.id, :id => @key_point_4.id), params: { new_story_id: @scripted_2.id }
+    else
+      post story_key_point_moved_url(:story_id => @scripted_2.id, :id => @key_point_4.id), params: { new_story_id: @scripted_2.id }
+    end
+    assert_redirected_to polymorphic_url(@scripted_2)
   end
 
   test "should get edit" do
-    get edit_polymorphic_url([@scripted, @key_point])
+    get edit_key_point_url(@key_point)
     assert_response :success
   end
 
   test "should update key_point" do
-    patch polymorphic_url([@scripted, @key_point]), params: { key_point: { climax: "Climax", first_pinch_point: @key_point.first_pinch_point, first_plot_point: @key_point.first_plot_point, hook: @key_point.hook, inciting_incident: @key_point.inciting_incident, key_element: @key_point.key_element, midpoint: @key_point.midpoint, second_pinch_point: @key_point.second_pinch_point, third_plot_point: @key_point.third_plot_point } }
-    assert_redirected_to polymorphic_url([@scripted, @key_point])
+    patch key_point_url(@key_point), params: { key_point: { climax: "Climax", first_pinch_point: @key_point.first_pinch_point, first_plot_point: @key_point.first_plot_point, hook: @key_point.hook, inciting_incident: @key_point.inciting_incident, key_element: @key_point.key_element, midpoint: @key_point.midpoint, second_pinch_point: @key_point.second_pinch_point, third_plot_point: @key_point.third_plot_point } }
+    assert_redirected_to key_point_url(@key_point)
   end
 
   test "should not update key_point" do
-    patch polymorphic_url([@scripted, @key_point]), params: { key_point: { climax: "Climax", first_pinch_point: @key_point.first_pinch_point, first_plot_point: @key_point.first_plot_point, hook: "", inciting_incident: @key_point.inciting_incident, key_element: @key_point.key_element, midpoint: @key_point.midpoint, second_pinch_point: @key_point.second_pinch_point, third_plot_point: @key_point.third_plot_point } }
+    patch key_point_url(@key_point), params: { key_point: { climax: "Climax", first_pinch_point: @key_point.first_pinch_point, first_plot_point: @key_point.first_plot_point, hook: "", inciting_incident: @key_point.inciting_incident, key_element: @key_point.key_element, midpoint: @key_point.midpoint, second_pinch_point: @key_point.second_pinch_point, third_plot_point: @key_point.third_plot_point } }
     assert_response :success
   end
 
   test "should destroy key_point" do
     assert_difference('KeyPoint.count', -1) do
-      delete polymorphic_url([@scripted, @key_point])
+      delete key_point_url(@key_point)
     end
 
     assert_redirected_to polymorphic_url([@scripted, :key_points])

@@ -3,11 +3,11 @@
 <% if inline_date %>
 <%= scene.time_to_text %>
 <% end %>
-<%= (scene.section.nil? ? '*' : ' ') %> <%= (pdf.nil? ? link_to(scene.abc, polymorphic_path([scripted,key_point, scene])) : scene.abc) %>
+<%= (scene.section.nil? ? '*' : ' ') %> <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene)) : scene.abc) %>
 <% unless inline_date %>
 <%= scene.time_to_text %>
 <% end %>
-: <%= scene.characters.count %> : <%= scene.word_count %> : <%= (scene.artifact.nil? ? "Unknown" : scene.artifact.name) %><%= (scene.place.empty? ? '' : " - #{scene.place.to_plain_text}") %>
+: <%= scene.characters.count %> : <%= scene.word_count %> : <%= (scene.artifact.nil? ? "Unknown" : scene.artifact_name) %><%= (scene.place.empty? ? '' : " - #{scene.place.to_plain_text}") %>
 <% unless print_name %>
   <br/> <%= scene.name %>
 <% end %>

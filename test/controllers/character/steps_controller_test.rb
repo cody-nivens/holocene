@@ -15,8 +15,8 @@ class Character::StepsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     patch book_character_step_url(:book_id => @book.id),
-      params: { :book_id=>@book.id, :age=>"55", :year=>"105", :death_age=>"89", 
-                :character=>{:ethnicity=>"White", :birth_year=>"50", :death_year=>"139", :sex => 0}, :commit=>"Next Step", 
+      params: { :book_id=>@book.id, :age=>"55", :year=>"105", :death_age=>"89",
+                :character=>{:ethnicity=>"White", :birth_year=>"50", :death_year=>"139", :sex => 0}, :commit=>"Next Step",
                 :character_id=>@character.id, :id=>"charcteristics"}
 
     assert_redirected_to book_character_step_path(:book_id => @book.id,:character_id => @character, :id =>"identity")
@@ -27,8 +27,8 @@ class Character::StepsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Male",Character.sex_to_text(@character.sex)
 
     patch book_character_step_url(:book_id => @book.id, :character_id => @character.id, :id => 'identity'),
-      params: { :character=>{:first_name=>"Reynaldo", :middle_name=>"Michael", :last_name=>"James-Lopez", 
-                :suffix=>"", :reason_for_name=>"", :nickname=>"", :reason_for_nickname=>"", 
+      params: { :character=>{:first_name=>"Reynaldo", :middle_name=>"Michael", :last_name=>"James-Lopez",
+                :suffix=>"", :reason_for_name=>"", :nickname=>"", :reason_for_nickname=>"",
                 :use_honorific_only=>"0", :honorific=>""}, :commit=>"Next Step"}
 
     assert_redirected_to book_character_step_path(:book_id => @book.id,:character_id => @character, :id =>"attributes")
@@ -64,8 +64,8 @@ class Character::StepsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     patch book_character_step_url(:book_id => @book.id),
-      params: { :book_id=>@book.id, :age=>"55", :year=>"105", :death_age=>"89", 
-                :character=>{:ethnicity=>"White", :birth_year=>"50", :death_year=>"139", :sex => 0}, :commit=>"Next Step", 
+      params: { :book_id=>@book.id, :age=>"55", :year=>"105", :death_age=>"89",
+                :character=>{:ethnicity=>"White", :birth_year=>"50", :death_year=>"139", :sex => 0}, :commit=>"Next Step",
                 :character_id=>@character.id, :id=>"charcteristics"}
 
     assert_redirected_to book_character_step_path(:book_id => @book.id,:character_id => @character, :id =>"identity")
@@ -76,8 +76,8 @@ class Character::StepsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Male",Character.sex_to_text(@character.sex)
 
     patch book_character_step_url(:book_id => @book.id, :character_id => @character.id, :id => 'identity'),
-      params: { :character=>{:first_name=>"James", :middle_name=>"", :last_name=>"", 
-                :suffix=>"", :reason_for_name=>"", :nickname=>"", :reason_for_nickname=>"", 
+      params: { :character=>{:first_name=>"James", :middle_name=>"", :last_name=>"",
+                :suffix=>"", :reason_for_name=>"", :nickname=>"", :reason_for_nickname=>"",
                 :use_honorific_only=>"0", :honorific=>""}, :commit=>"Next Step"}
     assert_redirected_to book_character_step_path(:book_id => @book.id,:character_id => @character, :id =>"attributes")
     follow_redirect!

@@ -12,11 +12,11 @@ class Character::StepsController < ApplicationController
         @year = @object.date_string.to_date.year
       else
         @year = ''
-      end  
+      end
     when "identity"
-      if @character.first_name.nil?
+      if !@character.first_name?
         values = Namer.random_name(@character.ethnicity,@character.sex)
-        if @character.first_name.nil?
+        if !@character.first_name?
           @character.first_name = values[0]
           @character.middle_name = values[1]
           @character.last_name = values[2]
@@ -25,24 +25,24 @@ class Character::StepsController < ApplicationController
     else
     #when "attributes"
       if @character.character_values.length == 0
-      case @character.ethnicity
-      when "White"
-        hair_color = Character.gen_hair_color
-        eye_color  = Character.gen_eye_color(hair_color)
-      when "Am Indian"
-        hair_color = "Black"
-        eye_color = "Brown"
-      else
-        hair_color = "Black"
-        eye_color = Character.gen_black_eye_color
+        case @character.ethnicity
+        when "White"
+          hair_color = Character.gen_hair_color
+          eye_color  = Character.gen_eye_color(hair_color)
+        when "Am Indian"
+          hair_color = "Black"
+          eye_color = "Brown"
+        else
+          hair_color = "Black"
+          eye_color = Character.gen_black_eye_color
+        end
+        sexuality = Character.gen_sexuality
+        @attributes = {
+          "physical appearance_hair color_value": hair_color,
+          "physical appearance_eye color_value": eye_color,
+          "gender_gender_value": sexuality
+          }
       end
-      sexuality = Character.gen_sexuality
-      @attributes = {
-        "physical appearance_hair color_value": hair_color,
-        "physical appearance_eye color_value": eye_color,
-        "gender_gender_value": sexuality
-        }
-    end
     end
   end
 

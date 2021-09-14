@@ -6,8 +6,8 @@
   <% @key_words.each do |key_word| %>
     <% c.tab key_word.key_word do %>
       <span>
-        <div><%= link_to key_word.key_word, polymorphic_path([@book,key_word]) %><%= link_to (fa_icon "edit"), edit_book_key_word_path(@book,key_word), :title => "Edit" %>
-          <%= link_to (fa_icon "trash-o"), polymorphic_path([@book,key_word]), method: :delete, data: { confirm: 'Are you sure?' }, :title => "Delete" %>
+        <div><%= link_to key_word.key_word, key_word_path(key_word) %><%= link_to (fa_icon "edit"), edit_key_word_path(key_word), :title => "Edit" %>
+          <%= link_to (fa_icon "trash-o"), key_word_path(key_word), method: :delete, data: { confirm: 'Are you sure?' }, :title => "Delete" %>
           <%= render partial: 'key_words/key_words', :locals => {book: @book, key_word: key_word} %></div>
       </span>
     <% end %>
@@ -15,5 +15,5 @@
 <% end %>
 <br/>
 
-<% @footer_content << "#{link_to 'New Key Word', new_book_key_word_path(@book), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'New Key Word', new_polymorphic_path([@book,:key_word]), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Back', book_path(@book), :class => "btn btn-default" }" %>

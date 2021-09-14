@@ -24,7 +24,7 @@ class BiblioentriesTest < ApplicationSystemTestCase
   end
 
   test "should not create a Biblioentry" do
-      visit book_biblioentries_url(@book)
+    visit book_biblioentries_url(@book)
     click_on "New Biblioentry"
 
     fill_in "Copyright holder", with: @biblioentry.copyright_holder

@@ -3,6 +3,8 @@ class Partition < ApplicationRecord
 
     has_rich_text :body
 
+    delegate :name, :to => :chapter, :prefix => true
+
     validates :name, presence: true
 
     def word_count

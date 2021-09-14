@@ -55,7 +55,7 @@ class ScenesTest < ApplicationSystemTestCase
   end
 
   test "visiting the scene" do
-    visit polymorphic_url([@situated, @scene])
+    visit scene_url(@scene)
     assert_text "A00001"
     take_screenshot
     within ".footer" do
@@ -66,7 +66,7 @@ class ScenesTest < ApplicationSystemTestCase
   end
 
   test "visiting the scene 2" do
-    visit polymorphic_url([@situated_2, @scene_2])
+    visit scene_url(@scene_2)
     assert_text "A00002"
     within ".footer" do
       assert_text "<"
@@ -76,7 +76,7 @@ class ScenesTest < ApplicationSystemTestCase
   end
 
   test "visiting the scene 3" do
-    visit polymorphic_url([@situated_3, @scene_3])
+    visit scene_url(@scene_3)
     assert_text "A00003"
     within ".footer" do
       assert_text "<"
@@ -86,7 +86,7 @@ class ScenesTest < ApplicationSystemTestCase
   end
 
   test "visiting the scene 4" do
-    visit polymorphic_url([@situated_6, @scene_6])
+    visit scene_url(@scene_6)
     assert_text "A00004"
     within ".footer" do
       assert_no_text "<"
@@ -96,7 +96,7 @@ class ScenesTest < ApplicationSystemTestCase
   end
 
   test "creating a Scene" do
-    visit polymorphic_url([@situated, @key_point ])
+    visit key_point_url(@key_point)
     find(:xpath, ".//a[i[contains(@class, 'fa-plus')]]", match: :first).click
     click_on "New Scene"
 
@@ -120,13 +120,13 @@ class ScenesTest < ApplicationSystemTestCase
     #fill_in_rich_text_area "scene_short_term_goal", with: @scene.short_term_goal
 
     click_on "Create Scene"
-    
+
     assert_text "Scene was successfully created"
     click_on "Back"
   end
 
   test "not creating a Scene" do
-    visit polymorphic_url([@situated, @key_point ])
+    visit key_point_url(@key_point)
     find(:xpath, ".//a[i[contains(@class, 'fa-plus')]]", match: :first).click
     click_on "New Scene"
 

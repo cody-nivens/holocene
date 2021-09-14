@@ -16,6 +16,7 @@ class KeyWordsController < ApplicationController
   # GET /key_words/new
   def new
     @key_word = KeyWord.new
+    @key_word.book = @book
   end
 
   # GET /key_words/1/edit
@@ -57,7 +58,7 @@ class KeyWordsController < ApplicationController
     @book = @key_word.book
     @key_word.destroy
     respond_to do |format|
-      format.html { redirect_to book_key_words_url(:book_id => @book.id), notice: "Key word was successfully destroyed." }
+      format.html { redirect_to polymorphic_url([@book, :key_words]), notice: "Key word was successfully destroyed." }
       format.json { head :no_content }
     end
   end

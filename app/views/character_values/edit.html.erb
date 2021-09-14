@@ -1,6 +1,6 @@
 <h1>Editing Character Value</h1>
 
-<%= render 'form', character_value: @character_value %>
+<%= render 'form', character_value: @character_value, character_category: @character_category, character: @character %>
 
-<% @footer_content << "#{link_to 'Show', polymorphic_path([@object, @character, @character_value]), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', polymorphic_path([@object, @character, :character_values]), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Show', character_value_path(@character_value), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', polymorphic_path([@character, :character_values]), :class => "btn btn-default"}" %>

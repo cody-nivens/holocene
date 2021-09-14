@@ -16,7 +16,7 @@
         <li><%= link_to "#{region.name} #{region.holocene_events.count}", region_path(region), :html =>{:role => "menu"} %></li>
     <% end -%>
   </ul>
- </div> 
+ </div>
         </td>
 
     <td>
@@ -28,7 +28,7 @@
         <li><%= link_to "#{event_type.name} #{event_type.holocene_events.count}", event_type_path(event_type), :html => {:role => 'menu'} %></li>
     <% end -%>
   </ul>
- </div> 
+ </div>
     </td></tr>
 
     <tr><td><%= link_to "Timeline", timelines_path %></td><td><%= Timeline.where(user_id: current_user.id).count %></td></tr>

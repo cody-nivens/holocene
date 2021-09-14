@@ -12,22 +12,22 @@
   <% end %>
   <% c.tab "Ethnicity/Eye Color" do %>
     <span>
-      <%= render partial: 'character_values/stats_a.html', :locals =>{:characters => object.characters, :category => 'ethnicity', :cat1 => 'Eye color' } %>
+      <%= render partial: 'character_values/stats_a.html', :locals =>{:characters => object.characters, :category => 'ethnicity', :cat1 => 'Eye color', book: book } %>
     </span>
   <% end %>
   <% c.tab "Ethnicity/Hair Color" do %>
     <span>
-      <%= render partial: 'character_values/stats_a.html', :locals =>{:characters => object.characters, :category => 'ethnicity', :cat1 => 'Hair color' } %>
+      <%= render partial: 'character_values/stats_a.html', :locals =>{:characters => object.characters, :category => 'ethnicity', :cat1 => 'Hair color', book: book } %>
     </span>
   <% end %>
   <% c.tab "Eye Color" do %>
     <span>
-      <%= render partial: 'character_values/stats.html', :locals =>{:category => 'Physical Appearance', :cat1 => 'Eye color' } %>
+      <%= render partial: 'character_values/stats.html', :locals =>{:category => 'Physical Appearance', :cat1 => 'Eye color', book: book } %>
     </span>
   <% end %>
   <% c.tab "Hair Color" do %>
     <span>
-      <%= render partial: 'character_values/stats.html', :locals =>{:category => 'Physical Appearance', :cat1 => 'Hair color' } %>
+      <%= render partial: 'character_values/stats.html', :locals =>{:category => 'Physical Appearance', :cat1 => 'Hair color', book: book } %>
     </span>
   <% end %>
   <% c.tab "Gender/Sex" do %>

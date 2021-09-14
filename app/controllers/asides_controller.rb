@@ -29,12 +29,12 @@ class AsidesController < ApplicationController
   # POST /asides.json
   def create
     @aside = Aside.new(aside_params)
-    @aside.chapter_id = @chapter.id
+    @aside.chapter = @chapter
     @scripted = @chapter.scripted
 
     respond_to do |format|
       if @aside.save
-        format.html { redirect_to polymorphic_path([@scripted, @chapter]), notice: 'Aside was successfully created.' }
+        format.html { redirect_to chapter_path(@chapter), notice: 'Aside was successfully created.' }
         format.json { render :show, status: :created, location: @aside }
       else
         format.html { render :new }
@@ -49,7 +49,7 @@ class AsidesController < ApplicationController
     @scripted = @chapter.scripted
     respond_to do |format|
       if @aside.update(aside_params)
-        format.html { redirect_to polymorphic_path([@scripted, @chapter]), notice: 'Aside was successfully updated.' }
+        format.html { redirect_to chapter_path(@chapter), notice: 'Aside was successfully updated.' }
         format.json { render :show, status: :ok, location: @aside }
       else
         format.html { render :edit }
@@ -64,7 +64,7 @@ class AsidesController < ApplicationController
     @scripted = @chapter.scripted
     @aside.destroy
     respond_to do |format|
-      format.html { redirect_to polymorphic_path([@scripted, @chapter]), notice: 'Aside was successfully destroyed.' }
+      format.html { redirect_to chapter_path(@chapter), notice: 'Aside was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

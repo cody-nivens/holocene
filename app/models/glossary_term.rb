@@ -9,5 +9,9 @@ class GlossaryTerm < ApplicationRecord
 
     has_many :glossary_terms
 
+    delegate :name, :to => :see, :prefix => true
+    delegate :name, :to => :seealso, :prefix => true
+    delegate :name, :to => :acronym, :prefix => true
+
     validates :name, presence: true
 end

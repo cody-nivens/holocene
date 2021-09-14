@@ -53,7 +53,7 @@ class CharactersGrid < BaseGrid
   #column(:father_id)
   #column(:age_at_son)
   #column(:mother_id)
- 
+
   column(:gender, :header => "Gender", :html => true) do |character|
     character_values = character.character_values.where(character_attribute_id: CharacterAttribute.all.joins(:character_category).where("character_categories.name = ? and character_attributes.name= ?","Gender","Gender")[0].id)
     unless character_values.empty?
@@ -61,9 +61,9 @@ class CharactersGrid < BaseGrid
     end
   end
   column(:action2, :header => "", :html => true) do |character|
-    link_to (fa_icon "edit"), edit_book_character_path(@object,character), :title => 'Edit'
+    link_to (fa_icon "edit"), edit_character_path(character), :title => 'Edit'
   end
   column(:action3, :header => "", :html => true) do |character|
-    link_to (fa_icon "trash-o"), book_character_path(@object,character), method: :delete, data: { confirm: 'Are you sure?' }, :title => 'Destroy'
+    link_to (fa_icon "trash-o"), polymorphic_path([@object,character]), method: :delete, data: { confirm: 'Are you sure?' }, :title => 'Destroy'
   end
 end

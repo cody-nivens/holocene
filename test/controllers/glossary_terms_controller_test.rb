@@ -32,7 +32,7 @@ class GlossaryTermsControllerTest < ActionDispatch::IntegrationTest
         post book_glossary_terms_url(@book), params: { glossary_term: { acronym_id: @glossary_term.acronym_id, body: @glossary_term.body, name: @glossary_term.name, see_id: @glossary_term.see_id, seealso_id: @glossary_term.seealso_id, user_id: @user.id, book_id: @book.id } }
     end
 
-    assert_redirected_to book_glossary_term_url(@book,GlossaryTerm.last)
+    assert_redirected_to glossary_term_url(GlossaryTerm.last)
   end
 
   test "should not create glossary_term" do
@@ -44,42 +44,42 @@ class GlossaryTermsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show glossary_term" do
-    get book_glossary_term_url(@book,@glossary_term)
+    get glossary_term_url(@glossary_term)
     assert_response :success
 
     assert_select "a[text()=?]",'Edit'
-    assert_select "a[href=?]", edit_book_glossary_term_path(@book,@glossary_term)
+    assert_select "a[href=?]", edit_glossary_term_path(@glossary_term)
     assert_select "a[text()=?]",'Back'
-    
+
     # history.back is now used
     # assert_select "a[href=?]", book_glossary_terms_path(@book)
     assert_select ".footer>div>a", 2
   end
 
   test "should get edit" do
-    get edit_book_glossary_term_url(@book,@glossary_term)
+    get edit_glossary_term_url(@glossary_term)
     assert_response :success
 
     assert_select "a[text()=?]",'Show'
-    assert_select "a[href=?]", book_glossary_term_path(@book,@glossary_term)
+    assert_select "a[href=?]", glossary_term_path(@glossary_term)
     assert_select "a[text()=?]",'Back'
     assert_select "a[href=?]", book_glossary_terms_path(@book)
     assert_select ".footer>div>a", 2
   end
 
   test "should update glossary_term" do
-    patch book_glossary_term_url(@book,@glossary_term), params: { glossary_term: { acronym_id: @glossary_term.acronym_id, body: @glossary_term.body, name: @glossary_term.name, see_id: @glossary_term.see_id, seealso_id: @glossary_term.seealso_id } }
-    assert_redirected_to book_glossary_term_url(@book,@glossary_term)
+    patch glossary_term_url(@glossary_term), params: { glossary_term: { acronym_id: @glossary_term.acronym_id, body: @glossary_term.body, name: @glossary_term.name, see_id: @glossary_term.see_id, seealso_id: @glossary_term.seealso_id } }
+    assert_redirected_to glossary_term_url(@glossary_term)
   end
 
   test "should not update glossary_term" do
-    patch book_glossary_term_url(@book,@glossary_term), params: { glossary_term: { acronym_id: @glossary_term.acronym_id, body: @glossary_term.body, name: '', see_id: @glossary_term.see_id, seealso_id: @glossary_term.seealso_id } }
+    patch glossary_term_url(@glossary_term), params: { glossary_term: { acronym_id: @glossary_term.acronym_id, body: @glossary_term.body, name: '', see_id: @glossary_term.see_id, seealso_id: @glossary_term.seealso_id } }
     assert_response :success
   end
 
   test "should destroy glossary_term" do
     assert_difference('GlossaryTerm.count', -1) do
-      delete book_glossary_term_url(@book,@glossary_term)
+      delete glossary_term_url(@glossary_term)
     end
 
     assert_redirected_to book_glossary_terms_url(@book)

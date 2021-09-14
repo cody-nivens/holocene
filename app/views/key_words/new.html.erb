@@ -1,5 +1,5 @@
 <h1>New Key Word</h1>
 
-<%= render 'form', key_word: @key_word %>
+<%= render 'form', key_word: @key_word, book: @book %>
 
 <%= link_to 'Back', book_key_words_path(:book_id => @book.id) %>

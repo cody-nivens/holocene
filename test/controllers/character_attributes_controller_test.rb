@@ -9,22 +9,22 @@ class CharacterAttributesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get character_attributes_url(:character_category_id => @character_category.id)
+    get character_category_character_attributes_url(@character_category)
     assert_response :success
   end
 
   test "should get JSON index" do
-    get character_attributes_url(:character_category_id => @character_category.id), xhr: true
+    get character_category_character_attributes_url(@character_category), xhr: true
   end
 
   test "should get new" do
-    get new_character_attribute_url(:character_category_id => @character_category.id)
+    get new_character_category_character_attribute_url(@character_category)
     assert_response :success
   end
 
   test "should create character_attribute" do
     assert_difference('CharacterAttribute.count') do
-      post character_attributes_url, params: { character_attribute: { character_category_id: @character_attribute.character_category_id, name: @character_attribute.name, related_id: @character_attribute.related_id } }
+      post character_category_character_attributes_url(@character_category), params: { character_attribute: { character_category_id: @character_attribute.character_category_id, name: @character_attribute.name, related_id: @character_attribute.related_id } }
     end
 
     assert_redirected_to character_attribute_url(CharacterAttribute.last)
@@ -32,7 +32,7 @@ class CharacterAttributesControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create character_attribute" do
     assert_difference('CharacterAttribute.count',0) do
-      post character_attributes_url, params: { character_attribute: { character_category_id: @character_attribute.character_category_id, name: "", related_id: @character_attribute.related_id } }
+      post character_category_character_attributes_url(@character_category), params: { character_attribute: { character_category_id: @character_attribute.character_category_id, name: "", related_id: @character_attribute.related_id } }
     end
 
     assert_response :success
@@ -63,6 +63,6 @@ class CharacterAttributesControllerTest < ActionDispatch::IntegrationTest
       delete character_attribute_url(@character_attribute)
     end
 
-    assert_redirected_to character_attributes_url(:character_category_id => @character_category.id)
+    assert_redirected_to character_category_character_attributes_url(@character_category)
   end
 end

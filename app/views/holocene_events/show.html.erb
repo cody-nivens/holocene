@@ -12,14 +12,14 @@
   <strong>Event type:</strong>
   <%= raw event_types_to_s(@holocene_event.event_types, false) %>
   <strong>Region:</strong>
-  <%= link_to @holocene_event.region.name, region_path(@holocene_event.region) %>
+  <%= link_to @holocene_event.region_name, region_path(@holocene_event.region) %>
 </p>
 
 <p>
   <strong>URL:</strong>
   <%= my_link_to @holocene_event.url, @holocene_event.url %>
   <strong>Image:</strong>
-  
+
   <% if @holocene_event.image.attached? %>
       <%= image_tag(url_for(@holocene_event.image), :alt => @holocene_event.image.filename.to_s) %>
   <% end %>

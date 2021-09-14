@@ -26,7 +26,7 @@ class AsidesControllerTest < ActionDispatch::IntegrationTest
       post chapter_asides_url(@chapter_3), params: { aside: { body: @aside.body, name: @aside.name }, chapter_id: @chapter_3.id }
     end
 
-    assert_redirected_to polymorphic_url([@chapter_3.scripted, @chapter_3])
+    assert_redirected_to chapter_url(@chapter_3)
     #assert_template 'asides/show'
   end
 
@@ -53,7 +53,7 @@ class AsidesControllerTest < ActionDispatch::IntegrationTest
 
   test "should update aside" do
     patch chapter_aside_url(@chapter,@aside), params: { aside: { body: @aside.body, name: @aside.name } }
-    assert_redirected_to polymorphic_url([@chapter.scripted, @chapter])
+    assert_redirected_to chapter_url(@chapter)
     #assert_template 'asides/show'
   end
 
@@ -68,7 +68,7 @@ class AsidesControllerTest < ActionDispatch::IntegrationTest
       delete chapter_aside_url(@chapter,@aside)
     end
 
-    assert_redirected_to polymorphic_url([@chapter.scripted, @chapter])
+    assert_redirected_to chapter_url(@chapter)
     assert_template partial: false
   end
 end

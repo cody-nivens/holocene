@@ -4,7 +4,7 @@ module ApplicationHelper
   def breadcrumb(book, story=nil, key_point=nil, scene=nil, section=nil, link=nil)
     str = ""
     unless book.nil?
-      str += (link.nil? && story.nil? ? book.name : my_link_to(book.name,polymorphic_path(book)))
+      str += (link.nil? && story.nil? ? book.name : my_link_to(book.name,book_path(book)))
     end
   case story.class.name
   when "Story"
@@ -14,11 +14,11 @@ module ApplicationHelper
   end
     unless story.nil?
       str += " | " unless str.empty?
-      str += (link.nil? && key_point.nil? ? story.name : my_link_to(story.name,polymorphic_path([book, story])))
+      str += (link.nil? && key_point.nil? ? story.name : my_link_to(story.name,polymorphic_path(story)))
     end
     unless key_point.nil?
       str += " | " unless str.empty?
-      str += (link.nil? && scene.nil? ? key_point.name : my_link_to(key_point.name,polymorphic_path([story, key_point])))
+      str += (link.nil? && scene.nil? ? key_point.name : my_link_to(key_point.name,key_point_path(key_point)))
     end
     unless scene.nil?
       str += " | " unless str.empty?
@@ -26,7 +26,7 @@ module ApplicationHelper
     end
     unless section.nil?
       str += " | " unless str.empty?
-      str += (link.nil? ? section.name : my_link_to(section.name,polymorphic_path([(scene.nil? ? story : scene), section])))
+      str += (link.nil? ? section.name : my_link_to(section.name,section_path(section)))
     end
     return str
   end
@@ -53,7 +53,7 @@ module ApplicationHelper
         authors.each do |author|
             s += "#{author.first_name} #{author.last_name}, "
         end
-        
+
         return s.chomp(", ")
     end
 

@@ -1,13 +1,11 @@
-
-<%= simple_form_for [@book,@artifact_type] do |f| %>
-  <%= f.error_notification %>
+<%= bootstrap_form_for artifact_type, :url => {:controller => :artifact_types, :action => (artifact_type.id.nil? ? :create : :update)} do |f| %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
-    <%= hidden_field :book_id, @book.id %>
-    <%= f.hidden_field :book_id, value: @book.id %>
+    <%= hidden_field :book_id, book.id %>
+    <%= f.hidden_field :book_id, value: book.id %>
 
-    <%= f.input :name %>
+    <%= f.text_field :name %>
   </div>
 
   <div class="form-inputs">

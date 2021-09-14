@@ -10,17 +10,17 @@ class CharacterScenesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    get edit_polymorphic_url([@scene, @character_scene])
+    get edit_character_scene_url(@character_scene)
     assert_response :success
   end
 
   test "should update character_scene" do
-    patch polymorphic_url([@scene, @character_scene]), params: { character_scene: { :character_id => @character_scene.character.id, :scene_id => @scene.id}}
-    assert_redirected_to polymorphic_url([@scene.situated, @scene])
+    patch character_scene_url(@character_scene), params: { character_scene: { :character_id => @character_scene.character.id, :scene_id => @scene.id}}
+    assert_redirected_to scene_url(@scene)
   end
 
   test "should not update character_scene" do
-    patch polymorphic_url([@scene, @character_scene]), params: { character_scene: { :character_id => nil, :scene_id => @scene.id}}
+    patch character_scene_url(@character_scene), params: { character_scene: { :character_id => nil, :scene_id => @scene.id}}
     assert_response :success
   end
 end

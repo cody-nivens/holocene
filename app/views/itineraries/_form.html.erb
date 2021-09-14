@@ -1,11 +1,11 @@
 
-<%= bootstrap_form_for [@story,@tour,@itinerary] do |f| %>
-  <% if @itinerary.errors.any? %>
+<%= bootstrap_form_for itinerary, :url => {:controller => :itineraries, :action => (itinerary.id.nil? ? :create : :update)} do |f| %>
+  <% if itinerary.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@itinerary.errors.count, "error") %> prohibited this scene from being saved:</h2>
+      <h2><%= pluralize(itinerary.errors.count, "error") %> prohibited this scene from being saved:</h2>
 
       <ul>
-        <% @itinerary.errors.full_messages.each do |message| %>
+        <% itinerary.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -13,24 +13,22 @@
   <% end %>
 
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-    <%= hidden_field_tag :story_id, @story.id %>
-    <%= hidden_field_tag :tour_id, @tour.id %>
     <%= f.hidden_field :tour_id %>
 
   <div class="field">
-    <%= f.text_field :name %> 
+    <%= f.text_field :name %>
   </div>
 
   <div class="field">
-    <%= f.select :city_id, @cities.order(:name).collect { |p| [ p.name, p.id ] }, { include_blank: true } %>
+    <%= f.select :city_id, cities.order(:name).collect { |p| [ p.name, p.id ] }, { include_blank: true } %>
   </div>
 
   <div class="field">
-    <%= f.rich_text_area :summary %> 
+    <%= f.rich_text_area :summary %>
   </div>
 
   <div class="field">
-    <%= f.text_field :stay %> 
+    <%= f.text_field :stay %>
   </div>
 
   <div class="form-actions">

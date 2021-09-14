@@ -7,9 +7,9 @@
         <td><%= section.name %></td>
         <td><%= (section.display_name ? 'Y' : 'N') %></td>
         <td><%= render :partial => "shared/summary", :locals => { :object => section} %>
-        <td><%= link_to (fa_icon "search-plus"), polymorphic_path([@sectioned, section]), :title => "Show" %></td>
-        <td><%= link_to (fa_icon "edit"), edit_polymorphic_path([@sectioned, section]), :title => "Edit" %></td>
-        <td><%= link_to (fa_icon "trash-o"), polymorphic_path([@sectioned, section]), method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy" %></td>
+        <td><%= link_to (fa_icon "search-plus"), section_path(section), :title => "Show" %></td>
+        <td><%= link_to (fa_icon "edit"), edit_section_path(section), :title => "Edit" %></td>
+        <td><%= link_to (fa_icon "trash-o"), section_path(section), method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy" %></td>
       </tr>
     <% end %>
   </tbody>

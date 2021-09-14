@@ -1,11 +1,11 @@
 metric_1:
   count: 1
-  date: <%= Time.now.last_week.to_date %>
+  date: <%= Date.today.beginning_of_day %>
   user: users_1
   metrized: section_1 (Section)
 metric_2:
   count: 1
-  date: <%= Date.today.beginning_of_day %>
+  date: <%= Date.today - 2.days %>
   user: users_1
   metrized: section_2 (Section)
 metric_3:

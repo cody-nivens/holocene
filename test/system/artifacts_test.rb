@@ -30,7 +30,7 @@ class ArtifactsTest < ApplicationSystemTestCase
     select "Ship", from: 'artifact_artifact_type_id'
     click_on "Create Artifact"
 
-    assert_text "Name can't be blank"
+    assert_text "Name\ncan't be blank"
     click_on "Back"
   end
 end

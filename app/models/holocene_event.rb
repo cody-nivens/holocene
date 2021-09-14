@@ -23,6 +23,8 @@ class HoloceneEvent < ApplicationRecord
 
   acts_as_taggable_on :tags
 
+  delegate :name, :to => :region, :prefix => true
+
   validates :name, presence: true
 
   #

@@ -17,7 +17,7 @@
       <tr><th><%= item %></th>
         <% keys_1.each do |key| %>
           <% item = rs[category][key] %>
-          <td><%= link_to (item.blank? ? '' : item), polymorphic_path([@book,:characters], :key1=> key, :cat1 => cat1   ) %></td>
+          <td><%= link_to (item.blank? ? '' : item), polymorphic_path([book,:characters], :key1=> key, :cat1 => cat1   ) %></td>
         <% end %>
       </tr>
         <% end %>

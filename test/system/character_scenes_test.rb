@@ -28,7 +28,7 @@ class CharacterScenesTest < ApplicationSystemTestCase
     fill_in_rich_text_area "character_scene_summary", with: "Test 1"
     click_on "Update Character scene"
 
-    page.assert_current_path scene_character_scene_path(:scene_id => @scene.id, :id => @character_scene.id)
+    page.assert_current_path character_scene_path(@character_scene)
     assert_no_text "Character scene was successfully updated"
     click_on "Back"
   end

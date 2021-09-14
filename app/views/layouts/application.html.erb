@@ -17,13 +17,13 @@
 
   <body>
     <div class="outer-container">
-      <%= render "application/header" %>
-      <%= render 'layouts/messages' %>
+      <%= render partial: "application/header" %>
+      <%= render partial: 'layouts/messages' %>
     <div class="container">
       <div id="content-wrap">
         <%= yield %>
       </div>
-    <%= render "application/footer" %>
+      <%= render partial: "application/footer", locals: { footer_content: @footer_content } %>
     </div>
     </div>
   </body>

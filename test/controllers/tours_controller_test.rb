@@ -19,7 +19,7 @@ class ToursControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should map tour" do
-    get geo_map_story_tour_url(@story,@tour)
+    get geo_map_tour_url(@tour)
     assert_response :success
   end
 
@@ -29,7 +29,7 @@ class ToursControllerTest < ActionDispatch::IntegrationTest
       post story_tours_url(@story), params: { tour: { name: @tour.name, story_id: @tour.story_id } }
     end
 
-    assert_redirected_to story_tour_url(@story,Tour.last)
+    assert_redirected_to tour_url(Tour.last)
   end
 
   test "should not create tour" do
@@ -41,28 +41,28 @@ class ToursControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show tour" do
-    get story_tour_url(@story,@tour)
+    get tour_url(@tour)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_story_tour_url(@story,@tour)
+    get edit_tour_url(@tour)
     assert_response :success
   end
 
   test "should update tour" do
-    patch story_tour_url(@story,@tour), params: { tour: { name: @tour.name, story_id: @tour.story_id } }
-    assert_redirected_to story_tour_url(@story,@tour)
+    patch tour_url(@tour), params: { tour: { name: @tour.name, story_id: @tour.story_id } }
+    assert_redirected_to tour_url(@tour)
   end
 
   test "should not update tour" do
-    patch story_tour_url(@story,@tour), params: { tour: { name: '', story_id: @tour.story_id } }
+    patch tour_url(@tour), params: { tour: { name: '', story_id: @tour.story_id } }
     assert_response 422
   end
 
   test "should destroy tour" do
     assert_difference('Tour.count', -1) do
-      delete story_tour_url(@story,@tour)
+      delete tour_url(@tour)
     end
 
     assert_redirected_to story_tours_url(@story)

@@ -56,7 +56,7 @@ class StoriesTest < ApplicationSystemTestCase
     fill_in "Title", with: ""
     click_on "Create Story"
 
-    assert_text "Title can't be blank"
+    assert_text "Title\ncan't be blank"
     click_on "Back"
   end
 end

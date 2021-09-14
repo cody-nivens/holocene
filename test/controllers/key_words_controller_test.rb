@@ -21,13 +21,13 @@ class KeyWordsControllerTest < ActionDispatch::IntegrationTest
   test "should get index 2" do
     ThinkingSphinx::Test.run do
       index
-      get book_key_words_url(@book_2)
+      get polymorphic_url([@book_2, :key_words])
       assert_response :success
     end
   end
 
   test "should get new" do
-    get new_book_key_word_url(@book)
+    get new_polymorphic_url([@book,:key_word])
     assert_response :success
   end
 
@@ -35,7 +35,7 @@ class KeyWordsControllerTest < ActionDispatch::IntegrationTest
     ThinkingSphinx::Test.run do
       index
       assert_difference('KeyWord.count') do
-        post book_key_words_url(@book), params: { key_word: { book_id: @key_word.book_id, key_word: @key_word.key_word } }
+        post polymorphic_url([@book, :key_words]), params: { key_word: { book_id: @key_word.book_id, key_word: @key_word.key_word } }
       end
 
       assert_redirected_to key_word_url(KeyWord.last)
@@ -67,26 +67,26 @@ class KeyWordsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    get edit_book_key_word_url(@book,@key_word)
+    get edit_key_word_url(@key_word)
     assert_response :success
   end
 
   test "should update key_word" do
     ThinkingSphinx::Test.run do
       index
-      patch book_key_word_url(@book,@key_word), params: { key_word: { book_id: @key_word.book_id, key_word: @key_word.key_word } }
+      patch key_word_url(@key_word), params: { key_word: { book_id: @key_word.book_id, key_word: @key_word.key_word } }
       assert_redirected_to key_word_url(@key_word)
     end
   end
 
   test "should not update key_word" do
-    patch book_key_word_url(@book,@key_word), params: { key_word: { book_id: @key_word.book_id, key_word: ''} }
+    patch key_word_url(@key_word), params: { key_word: { book_id: @key_word.book_id, key_word: ''} }
     assert_response 422
   end
 
   test "should destroy key_word" do
     assert_difference('KeyWord.count', -1) do
-      delete book_key_word_url(@book,@key_word)
+      delete key_word_url(@key_word)
     end
 
     assert_redirected_to book_key_words_url(@book)

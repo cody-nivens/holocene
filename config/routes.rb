@@ -2,15 +2,21 @@ require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
+  get '/characters/attributes', to: 'characters#attributes', :format => :js, constraints: lambda { |request| request.xhr? }
+  get '/characters/attribute_values', to: 'characters#attribute_values', :format => :js, constraints: lambda { |request| request.xhr? }
   get '/cities/index', to: 'cities#index', :format => :js, constraints: lambda { |request| request.xhr? }
   get '/cities/index', to: 'cities#index'
   post '/cities/itinerary', to: 'cities#itinerary', as: :cities_itinerary
-  get '/characters/attributes', to: 'characters#attributes', :format => :js, constraints: lambda { |request| request.xhr? }
-  get '/characters/attribute_values', to: 'characters#attribute_values', :format => :js, constraints: lambda { |request| request.xhr? }
   get "/tours/add_city/:tour_id", to: "cities#add_city", as: :tour_add_city
   get "/tours/:tour_id/cities", to: "cities#index", as: :tour_citites
   post "/tours/:tour_id/tours", to: "cities#tours", as: :tour_tours
-  get "/stories/:story_id/tours/:id/geo_map", to: "tours#geo_map", as: :geo_map_story_tour
+  get "/tours/:id/geo_map", to: "tours#geo_map", as: :geo_map_tour
+  get "/books/:book_id/key_points/:id/list", to: "key_points#list", as: :book_key_point_list
+  post "/books/:book_id/key_points/:id/add", to: "key_points#add", as: :book_key_point_add
+  get "/stories/:story_id/key_points/:id/list", to: "key_points#list", as: :story_key_point_list
+  post "/stories/:story_id/key_points/:id/add", to: "key_points#add", as: :story_key_point_add
+  post "/books/:book_id/key_points/:id/moved", to: "key_points#moved", as: :book_key_point_moved
+  post "/scenes/:id/moved", to: "scenes#moved", as: :scene_moved
 
   resources :cities
   namespace :character do
@@ -40,8 +46,8 @@ Rails.application.routes.draw do
   end
   resources :signets
   resources :embeds
-  resources :character_attributes
-  resources :character_categories do
+  resources :character_categories, :shallow => true  do
+    resources :character_attributes
     put :sort
   end
 
@@ -53,45 +59,33 @@ Rails.application.routes.draw do
   get "/books/:id/epub", to: "books#epub", as: :book_epub
   get "/books/:id/toc", to: "books#toc", as: :toc
   get "/books/:book_id/key_points/:id/move", to: "key_points#move", as: :book_key_point_move
-  post "/books/:book_id/key_points/:id/moved", to: "key_points#moved", as: :book_key_point_moved
   post "/books/:book_id/authors/add", to: "authors#add", as: :book_authors_add
   get "/books/:book_id/authors/list", to: "authors#list", as: :book_authors_list
   post "/books/:book_id/characters/add", to: "characters#add", as: :book_characters_add
   get "/books/:book_id/characters/list", to: "characters#list", as: :book_characters_list
   get "/books/:book_id/character/:id/lineage", to: "characters#lineage", as: :book_character_lineage
   get "/books/:id/resync_stories", to: "books#resync_stories", as: :book_resync_stories
-  get "/books/:book_id/key_points/:id/list", to: "key_points#list", as: :book_key_point_list
-  post "/books/:book_id/key_points/:id/add", to: "key_points#add", as: :book_key_point_add
   get "/books/:id/timeline", to: "books#timeline", as: :book_timeline
 
   get "/scenes/:id/move", to: "scenes#move", as: :scene_move
-  post "/scenes/:id/moved", to: "scenes#moved", as: :scene_moved
   post "/scenes/:scene_id/characters/add", to: "characters#add", as: :scene_characters_add
   get "/scenes/:scene_id/characters/list", to: "characters#list", as: :scene_characters_list
   get "/scenes/:scene_id/character/:id/lineage", to: "characters#lineage", as: :scene_character_lineage
 
   get "/stories/:id/stats", to: "stories#stats", as: :story_stats
-  get "/stories/:story_id/key_points/:id/move", to: "key_points#move", as: :story_key_point_move
-  post "/stories/:story_id/key_points/:id/moved", to: "key_points#moved", as: :story_key_point_moved
+  get "/key_points/:id/move", to: "key_points#move", as: :story_key_point_move
+  post "/key_points/:id/moved", to: "key_points#moved", as: :story_key_point_moved
   get "/stories/:story_id/characters/list", to: "characters#list", as: :story_characters_list
   post "/stories/:story_id/characters/add", to: "characters#add", as: :story_characters_add
   get "/stories/:id/timeline", to: "stories#timeline", as: :story_timeline
   get "/stories/:id/resync_scenes", to: "stories#resync_scenes", as: :story_resync_scenes
-  get "/stories/:story_id/key_points/:id/list", to: "key_points#list", as: :story_key_point_list
-  post "/stories/:story_id/key_points/:id/add", to: "key_points#add", as: :story_key_point_add
   get "/stories/:story_id/character/:id/lineage", to: "characters#lineage", as: :story_character_lineage
 
 
   devise_for :users
   resources :footnotes
-  resources :scenes do
-    resources :characters do
-      resources :character_values
-      resources :steps, only: [:show, :update], controller: 'character/steps'
-    end
-  end
   resources :key_words, :except => [ :index, :new, :create ]
-  resources :books do
+  resources :books, :shallow => true do
     resources :key_words
     resources :artifacts
     resources :artifact_types
@@ -99,10 +93,7 @@ Rails.application.routes.draw do
     concerns :scripted, scripted_type: 'Book'
     resources :key_points do
       resources :sections
-    end
-    resources :characters do
-      resources :character_values
-      resources :steps, only: [:show, :update], controller: 'character/steps'
+      resources :scenes
     end
     resources :scenes
     resources :authors
@@ -111,36 +102,52 @@ Rails.application.routes.draw do
     resources :stories do
       put :sort
     end
-    resources :key_points do
-      resources :scenes 
+  end
+  resources :biblioentries do
+    resources :authors
+  end
+  resources :books do
+    resources :authors
+    resources :characters, except: [ :new ] do
+      resources :steps, only: [:show, :update], controller: 'character/steps'
     end
   end
-  resources :stories do
+  resources :characters, :shallow => true  do
+    resources :character_values
+  end
+  resources :stories, :shallow => true do
     concerns :situated, scripted_type: 'Story'
     put :sort
     resources :tours do
       resources :itineraries
     end
-    resources :scenes 
+    resources :scenes
+    resources :characters
     resources :key_points do
       put :sort
-      resources :scenes 
+      resources :scenes
     end
     resources :chapters
-    resources :characters do
-      resources :character_values
+  end
+  resources :scenes do
+    resources :characters, except: [ :new ] do
+      resources :steps, only: [:show, :update], controller: 'character/steps'
+    end
+  end
+  resources :stories do
+    resources :characters, except: [ :new ] do
       resources :steps, only: [:show, :update], controller: 'character/steps'
     end
   end
   resources :chapters do
     concerns :scripted, scripted_type: 'Chapter'
     concerns :sectioned, sectioned_type: 'Chapter'
-    resources :scenes 
+    resources :scenes
     resources :asides
     resources :partitions
     resources :sections
  end
- resources :scenes do
+ resources :scenes, :shallow => true do
     put :sort
     concerns :located, located_type: 'Book'
     resources :sections
@@ -157,6 +164,7 @@ Rails.application.routes.draw do
   resources :event_types
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #
+
   get "/artifacts/:book_id/tagged/(:tag)", to: "artifacts#tagged", as: :tag_artifacts
   get "/tagged/(:tag)", to: "holocene_events#tagged", as: :tag
 

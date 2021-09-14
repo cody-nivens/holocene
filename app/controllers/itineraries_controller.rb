@@ -1,7 +1,6 @@
 class ItinerariesController < ApplicationController
   before_action :set_itinerary, only: %i[ show edit update destroy ]
-  before_action :set_tour, only: %i[ index new create show edit update destroy ]
-  before_action :set_story, only: %i[ index new create show edit update destroy ]
+  before_action :set_tour, only: %i[ index new ]
 
   # GET /itineraries or /itineraries.json
   def index
@@ -19,30 +18,33 @@ class ItinerariesController < ApplicationController
 
   # GET /itineraries/1 or /itineraries/1.json
   def show
+    @tour = @itinerary.tour
   end
 
   # GET /itineraries/new
   def new
     @itinerary = Itinerary.new
-    @itinerary.tour = @tour
     @cities = City.all.order(:name)
+    @itinerary.tour = @tour
   end
 
   # GET /itineraries/1/edit
   def edit
     @cities = City.all.order(:name)
+    @tour = @itinerary.tour
   end
 
   # POST /itineraries or /itineraries.json
   def create
     @itinerary = Itinerary.new(itinerary_params)
+    @tour = @itinerary.tour
 
     respond_to do |format|
       if @itinerary.save
-        format.html { redirect_to story_tour_itinerary_path(@story,@tour,@itinerary), notice: "Itinerary was successfully created." }
+        format.html { redirect_to itinerary_path(@itinerary), notice: "Itinerary was successfully created." }
         format.json { render :show, status: :created, location: @itinerary }
       else
-        format.html { 
+        format.html {
           @cities = City.all.order(:name)
           render :new, status: :unprocessable_entity
         }
@@ -53,9 +55,10 @@ class ItinerariesController < ApplicationController
 
   # PATCH/PUT /itineraries/1 or /itineraries/1.json
   def update
+    @tour = @itinerary.tour
     respond_to do |format|
       if @itinerary.update(itinerary_params)
-        format.html { redirect_to story_tour_itinerary_path(@story,@tour,@itinerary), notice: "Itinerary was successfully updated." }
+        format.html { redirect_to itinerary_path(@itinerary), notice: "Itinerary was successfully updated." }
         format.json { render :show, status: :ok, location: @itinerary }
       else
         format.html {
@@ -69,9 +72,10 @@ class ItinerariesController < ApplicationController
 
   # DELETE /itineraries/1 or /itineraries/1.json
   def destroy
+    @tour = @itinerary.tour
     @itinerary.destroy
     respond_to do |format|
-      format.html { redirect_to story_tour_itineraries_url(@story,@tour), notice: "Itinerary was successfully destroyed." }
+      format.html { redirect_to tour_itineraries_url(@tour), notice: "Itinerary was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -84,10 +88,6 @@ class ItinerariesController < ApplicationController
 
     def set_tour
       @tour = Tour.find(params[:tour_id])
-    end
-
-    def set_story
-      @story = Story.find(params[:story_id])
     end
 
     def itinerary_grid_params

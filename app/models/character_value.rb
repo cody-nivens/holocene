@@ -1,6 +1,7 @@
 class CharacterValue < ApplicationRecord
   belongs_to :character
   belongs_to :character_attribute
+  delegate :name, :to => :character_attribute, :prefix => true
 
   validates_presence_of :value
 
@@ -31,8 +32,8 @@ class CharacterValue < ApplicationRecord
       distinct_values.each do |value|
         stats[category][value] = 0
 
-        first_count = characters.joins(:character_values).where("character_values.character_attribute_id": character_attribute.id, "character_values.value": value) 
-          
+        first_count = characters.joins(:character_values).where("character_values.character_attribute_id": character_attribute.id, "character_values.value": value)
+
         stats[category][value] += first_count.length
       end
       stats

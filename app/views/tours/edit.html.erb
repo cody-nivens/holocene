@@ -1,6 +1,6 @@
 <h1>Editing Tour</h1>
 
-<%= render 'form', tour: @tour %>
+<%= render 'form', tour: @tour, story: @story %>
 
-<% @footer_content << "#{ link_to 'Show', story_tour_url(@story,@tour), :class => "btn btn-default hide-print" }" %>
+<% @footer_content << "#{ link_to 'Show', tour_url(@tour), :class => "btn btn-default hide-print" }" %>
 <% @footer_content << "#{ link_to 'Back', story_tours_url(@story), :class => "btn btn-default hide-print" }" %>

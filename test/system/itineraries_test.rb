@@ -11,12 +11,12 @@ class ItinerariesTest < ApplicationSystemTestCase
   end
 
   test "visiting the index" do
-    visit story_tour_itineraries_url(@story,@tour)
+    visit tour_itineraries_url(@tour)
     assert_selector "h1", text: "Itineraries"
   end
 
   test "creating an Itinerary" do
-    visit story_tour_itineraries_url(@story,@tour)
+    visit tour_itineraries_url(@tour)
     click_on "New Itinerary"
 
     fill_in "Name", with: @itinerary.name
@@ -29,7 +29,7 @@ class ItinerariesTest < ApplicationSystemTestCase
   end
 
   test "updating an Itinerary" do
-    visit story_tour_itineraries_url(@story,@tour)
+    visit tour_itineraries_url(@tour)
     click_on "Edit", match: :first
 
     fill_in "Name", with: @itinerary.name
@@ -42,7 +42,7 @@ class ItinerariesTest < ApplicationSystemTestCase
   end
 
   test "destroying an Itinerary" do
-    visit story_tour_itineraries_url(@story,@tour)
+    visit tour_itineraries_url(@tour)
     page.accept_confirm do
       click_on "Destroy", match: :first
     end

@@ -142,117 +142,117 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
 
   test "should add holocene_event to chapter" do
       @chapter = chapters(:chapter_3)
-      post chapter_holocene_event_url(@chapter), params: { 
+      post chapter_holocene_event_url(@chapter), params: {
           commit: "Add Events",
-          holocene_event: { 
-              object_id: @chapter.id, 
-              object_type: "Chapter", 
+          holocene_event: {
+              object_id: @chapter.id,
+              object_type: "Chapter",
               activated: [ @holocene_event.id ],
               seen: [],
-              body: @holocene_event.body, 
-              end_year: @holocene_event.end_year, 
-              end_year_mod: @holocene_event.end_year_mod, 
-              end_year_uncert: @holocene_event.end_year_uncert, 
-              event_types: @holocene_event.event_types, 
-              name: @holocene_event.name, 
-              region: @holocene_event.region, 
-              start_year: @holocene_event.start_year, 
-              start_year_mod: @holocene_event.start_year_mod, 
-              start_year_uncert: @holocene_event.start_year_uncert, 
+              body: @holocene_event.body,
+              end_year: @holocene_event.end_year,
+              end_year_mod: @holocene_event.end_year_mod,
+              end_year_uncert: @holocene_event.end_year_uncert,
+              event_types: @holocene_event.event_types,
+              name: @holocene_event.name,
+              region: @holocene_event.region,
+              start_year: @holocene_event.start_year,
+              start_year_mod: @holocene_event.start_year_mod,
+              start_year_uncert: @holocene_event.start_year_uncert,
               user_id: @user.id } }
       assert_redirected_to show_chapter_url(@chapter)
   end
 
   test "should add holocene_event to section" do
       @section = sections(:section_1)
-      post section_holocene_event_url(@section), params: { 
+      post section_holocene_event_url(@section), params: {
           commit: "Add Events",
-          holocene_event: { 
-              object_id: @section.id, 
-              object_type: "Section", 
+          holocene_event: {
+              object_id: @section.id,
+              object_type: "Section",
               activated: [ @holocene_event.id ],
               seen: [],
-              body: @holocene_event.body, 
-              end_year: @holocene_event.end_year, 
-              end_year_mod: @holocene_event.end_year_mod, 
-              end_year_uncert: @holocene_event.end_year_uncert, 
-              event_types: @holocene_event.event_types, 
-              name: @holocene_event.name, 
-              region: @holocene_event.region, 
-              start_year: @holocene_event.start_year, 
-              start_year_mod: @holocene_event.start_year_mod, 
-              start_year_uncert: @holocene_event.start_year_uncert, 
+              body: @holocene_event.body,
+              end_year: @holocene_event.end_year,
+              end_year_mod: @holocene_event.end_year_mod,
+              end_year_uncert: @holocene_event.end_year_uncert,
+              event_types: @holocene_event.event_types,
+              name: @holocene_event.name,
+              region: @holocene_event.region,
+              start_year: @holocene_event.start_year,
+              start_year_mod: @holocene_event.start_year_mod,
+              start_year_uncert: @holocene_event.start_year_uncert,
               user_id: @user.id } }
       assert_redirected_to show_section_url(@section)
   end
 
   test "should add holocene_event to timeline" do
       @timeline = timelines(:timeline_1)
-      post timeline_holocene_event_url(@timeline), params: { 
+      post timeline_holocene_event_url(@timeline), params: {
           commit: "Add Events",
-          holocene_event: { 
-              object_id: @timeline.id, 
-              object_type: "Timeline", 
+          holocene_event: {
+              object_id: @timeline.id,
+              object_type: "Timeline",
               activated: [ @holocene_event.id ],
               seen: [],
-              body: @holocene_event.body, 
-              end_year: @holocene_event.end_year, 
-              end_year_mod: @holocene_event.end_year_mod, 
-              end_year_uncert: @holocene_event.end_year_uncert, 
-              event_types: @holocene_event.event_types, 
-              name: @holocene_event.name, 
-              region: @holocene_event.region, 
-              start_year: @holocene_event.start_year, 
-              start_year_mod: @holocene_event.start_year_mod, 
-              start_year_uncert: @holocene_event.start_year_uncert, 
+              body: @holocene_event.body,
+              end_year: @holocene_event.end_year,
+              end_year_mod: @holocene_event.end_year_mod,
+              end_year_uncert: @holocene_event.end_year_uncert,
+              event_types: @holocene_event.event_types,
+              name: @holocene_event.name,
+              region: @holocene_event.region,
+              start_year: @holocene_event.start_year,
+              start_year_mod: @holocene_event.start_year_mod,
+              start_year_uncert: @holocene_event.start_year_uncert,
               user_id: @user.id } }
       assert_redirected_to show_timeline_url(@timeline)
   end
 
   test "should delete holocene_event" do
       @chapter = chapters(:chapter_1)
-      post chapter_holocene_event_url(@chapter), params: { 
+      post chapter_holocene_event_url(@chapter), params: {
           commit: "Delete Events",
-          holocene_event: { 
-              object_id: @chapter.id, 
-              object_type: "Chapter", 
+          holocene_event: {
+              object_id: @chapter.id,
+              object_type: "Chapter",
               activated: [ @holocene_event.id ],
               seen: [],
               other_id: "",
-              body: @holocene_event.body, 
-              end_year: @holocene_event.end_year, 
-              end_year_mod: @holocene_event.end_year_mod, 
-              end_year_uncert: @holocene_event.end_year_uncert, 
-              event_types: @holocene_event.event_types, 
-              name: @holocene_event.name, 
-              region: @holocene_event.region, 
-              start_year: @holocene_event.start_year, 
-              start_year_mod: @holocene_event.start_year_mod, 
-              start_year_uncert: @holocene_event.start_year_uncert, 
+              body: @holocene_event.body,
+              end_year: @holocene_event.end_year,
+              end_year_mod: @holocene_event.end_year_mod,
+              end_year_uncert: @holocene_event.end_year_uncert,
+              event_types: @holocene_event.event_types,
+              name: @holocene_event.name,
+              region: @holocene_event.region,
+              start_year: @holocene_event.start_year,
+              start_year_mod: @holocene_event.start_year_mod,
+              start_year_uncert: @holocene_event.start_year_uncert,
               user_id: @user.id } }
       assert_redirected_to show_chapter_url(@chapter)
   end
 
   test "should move chapter holocene_event" do
       @chapter = chapters(:chapter_1)
-      post chapter_holocene_event_url(@chapter), params: { 
+      post chapter_holocene_event_url(@chapter), params: {
           commit: "Move Events",
-          holocene_event: { 
-              object_id: @chapter.id, 
-              object_type: "Chapter", 
+          holocene_event: {
+              object_id: @chapter.id,
+              object_type: "Chapter",
               activated: [ @holocene_event.id ],
               seen: [],
               other_id: @chapter.sections.last.id,
-              body: @holocene_event.body, 
-              end_year: @holocene_event.end_year, 
-              end_year_mod: @holocene_event.end_year_mod, 
-              end_year_uncert: @holocene_event.end_year_uncert, 
-              event_types: @holocene_event.event_types, 
-              name: @holocene_event.name, 
-              region: @holocene_event.region, 
-              start_year: @holocene_event.start_year, 
-              start_year_mod: @holocene_event.start_year_mod, 
-              start_year_uncert: @holocene_event.start_year_uncert, 
+              body: @holocene_event.body,
+              end_year: @holocene_event.end_year,
+              end_year_mod: @holocene_event.end_year_mod,
+              end_year_uncert: @holocene_event.end_year_uncert,
+              event_types: @holocene_event.event_types,
+              name: @holocene_event.name,
+              region: @holocene_event.region,
+              start_year: @holocene_event.start_year,
+              start_year_mod: @holocene_event.start_year_mod,
+              start_year_uncert: @holocene_event.start_year_uncert,
               user_id: @user.id } }
       assert_redirected_to show_chapter_url(@chapter)
   end
@@ -260,25 +260,25 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
   test "should move section holocene_event another section" do
       @chapter = chapters(:chapter_1)
       @section = @chapter.sections[0]
-      post section_holocene_event_url(:section_id => @section.id ), params: { 
+      post section_holocene_event_url(:section_id => @section.id ), params: {
           commit: "Move Events",
-          
-          holocene_event: { 
-              object_id: @section.id, 
-              object_type: "Section", 
+
+          holocene_event: {
+              object_id: @section.id,
+              object_type: "Section",
               activated: [ @holocene_event.id ],
               seen: [],
               other_id: @chapter.sections.last.id,
-              body: @holocene_event.body, 
-              end_year: @holocene_event.end_year, 
-              end_year_mod: @holocene_event.end_year_mod, 
-              end_year_uncert: @holocene_event.end_year_uncert, 
-              event_types: @holocene_event.event_types, 
-              name: @holocene_event.name, 
-              region: @holocene_event.region, 
-              start_year: @holocene_event.start_year, 
-              start_year_mod: @holocene_event.start_year_mod, 
-              start_year_uncert: @holocene_event.start_year_uncert, 
+              body: @holocene_event.body,
+              end_year: @holocene_event.end_year,
+              end_year_mod: @holocene_event.end_year_mod,
+              end_year_uncert: @holocene_event.end_year_uncert,
+              event_types: @holocene_event.event_types,
+              name: @holocene_event.name,
+              region: @holocene_event.region,
+              start_year: @holocene_event.start_year,
+              start_year_mod: @holocene_event.start_year_mod,
+              start_year_uncert: @holocene_event.start_year_uncert,
               user_id: @user.id } }
       assert_redirected_to show_section_url(@section)
   end
@@ -286,25 +286,25 @@ class HoloceneEventsControllerTest < ActionDispatch::IntegrationTest
   test "should move section holocene_event to chapter" do
       @chapter = chapters(:chapter_1)
       @section = @chapter.sections[0]
-      post section_holocene_event_url(:section_id => @section.id ), params: { 
+      post section_holocene_event_url(:section_id => @section.id ), params: {
           commit: "Delete Events",
-          
-          holocene_event: { 
-              object_id: @section.id, 
-              object_type: "Section", 
+
+          holocene_event: {
+              object_id: @section.id,
+              object_type: "Section",
               activated: [ @holocene_event.id ],
               seen: [],
               other_id: "",
-              body: @holocene_event.body, 
-              end_year: @holocene_event.end_year, 
-              end_year_mod: @holocene_event.end_year_mod, 
-              end_year_uncert: @holocene_event.end_year_uncert, 
-              event_types: @holocene_event.event_types, 
-              name: @holocene_event.name, 
-              region: @holocene_event.region, 
-              start_year: @holocene_event.start_year, 
-              start_year_mod: @holocene_event.start_year_mod, 
-              start_year_uncert: @holocene_event.start_year_uncert, 
+              body: @holocene_event.body,
+              end_year: @holocene_event.end_year,
+              end_year_mod: @holocene_event.end_year_mod,
+              end_year_uncert: @holocene_event.end_year_uncert,
+              event_types: @holocene_event.event_types,
+              name: @holocene_event.name,
+              region: @holocene_event.region,
+              start_year: @holocene_event.start_year,
+              start_year_mod: @holocene_event.start_year_mod,
+              start_year_uncert: @holocene_event.start_year_uncert,
               user_id: @user.id } }
       assert_redirected_to show_section_url(@section)
   end

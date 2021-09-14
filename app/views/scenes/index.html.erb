@@ -2,35 +2,35 @@
 
 <h1>Scenes for <%= @situated.name %></h1>
 
-<%= form_with model: Scene.new, :url => (@situated.class.name == "Book" ? book_scenes_path : polymorphic_path([@situated,:scenes])), :method => :get,  :id => 'my-form', :remote => true, :format => :js, :class => "form-inline" do %>
+<%= form_with model: Scene.new, :url => (@situated.class.name == "Book" ? book_scenes_path(@situated) : polymorphic_path([@situated,:scenes])), :method => :get,  :id => 'my-form', :remote => true, :format => :js, :class => "form-inline" do %>
   <%= hidden_field_tag :situated_id, @situated.id %>
   <%= hidden_field_tag :situated_type, @situated.class.name %>
 
   <div class="row">
     <div class="col-md-2">
       <div class="form-check">
-        <label class="checkbox"> 
+        <label class="checkbox">
           <%= check_box_tag :toggle, @toggle,@toggle,:class => "checkbox inline" %> Detail
         </label>
       </div>
     </div>
     <div class="col-md-2">
   <div class="form-check">
-    <label class="checkbox"> 
+    <label class="checkbox">
   <%= check_box_tag :print, @print,@print,:class => "checkbox inline" %> Print
     </label>
   </div>
     </div>
     <div class="col-md-2">
   <div class="form-check">
-    <label class="checkbox"> 
+    <label class="checkbox">
   <%= check_box_tag :no_section, @no_section,@no_section,:class => "checkbox inline" %> No Section
     </label>
   </div>
     </div>
     <div class="col-md-2">
   <div class="form-check">
-    <label class="checkbox"> 
+    <label class="checkbox">
   <%= check_box_tag :only_section, @only_section,@only_section,:class => "checkbox inline" %> Only Section
     </label>
   </div>
@@ -49,7 +49,7 @@
 <% end %>
 
 <div id="scenes-list">
-  <%= render :partial => "scenes/scenes.html", :locals => { scenes: @scenes, print: @print, no_section: @no_section, only_section: @only_section, years: @years, date: @year } %>
+  <%= render :partial => "scenes/scenes.html", :locals => { scenes: @scenes, print: @print, no_section: @no_section, only_section: @only_section, years: @years, date: @year, scripted: @scripted } %>
 </div>
 
 <% @footer_content << "#{link_to 'Timeline', polymorphic_path([@situated, :timeline]), :class => "btn btn-default hide-print"}" %>

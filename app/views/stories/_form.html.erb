@@ -1,14 +1,12 @@
-
-<%= simple_form_for [ @book, @story ] do |f| %>
-  <%= f.error_notification %>
+<%= bootstrap_form_for [ story ] do |f| %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
-    <%= hidden_field :book_id, @book.id %>
-    <%= f.hidden_field :book_id, value: @book.id %>
+    <%= hidden_field :book_id, book.id %>
+    <%= f.hidden_field :book_id, value: book.id %>
 
-    <%= f.input :title %>
-    <%= f.input :scene_character %>
+    <%= f.text_field :title %>
+    <%= f.text_field :scene_character %>
     <%= f.label "Print Summary?" %>
     <%= f.check_box :print_summary %>
     <%= f.label "Publish?" %>
@@ -16,7 +14,7 @@
     <%= f.label "Stand Alone?" %>
     <%= f.check_box :stand_alone %>
 
-    <%= f.input :summary %>
+    <%= f.text_field :summary %>
   </div>
 
   <div class="form-actions">

@@ -4,7 +4,7 @@ class ArtifactsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @artifact = artifacts(:artifact_1)
     @artifact_type = artifact_types(:artifact_type_1)
-    @book = @artifact_type.book
+    @book = @artifact.book
     @user = users(:users_1)
     sign_in @user
   end
@@ -26,7 +26,7 @@ class ArtifactsControllerTest < ActionDispatch::IntegrationTest
       post book_artifacts_url(:book_id => @book.id), params: { artifact: { character_id: @artifact.character_id, name: @artifact.name, book_id: @book.id, artifact_type_id: @artifact_type.id, parent_id: nil } }
     end
 
-    assert_redirected_to book_artifact_url(@book, Artifact.last)
+    assert_redirected_to artifact_url( Artifact.last)
     #assert_template 'artifacts/show'
   end
 
@@ -40,13 +40,13 @@ class ArtifactsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show artifact" do
-    get book_artifact_url(@book,@artifact)
+    get artifact_url(@artifact)
     assert_response :success
     assert_template 'artifacts/show'
   end
 
   test "should get edit" do
-    get edit_book_artifact_url(@book,@artifact)
+    get edit_artifact_url(@artifact)
     assert_response :success
     assert_template 'artifacts/edit'
   end
@@ -63,20 +63,20 @@ class ArtifactsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update artifact" do
-    patch book_artifact_url(@book,@artifact), params: { artifact: { character_id: @artifact.character_id, name: @artifact.name, book_id: @book.id, artifact_type_id: @artifact_type.id, parent_id: nil } }
-    assert_redirected_to book_artifact_url(@book, @artifact)
+    patch artifact_url(@artifact), params: { artifact: { character_id: @artifact.character_id, name: @artifact.name, book_id: @book.id, artifact_type_id: @artifact_type.id, parent_id: nil } }
+    assert_redirected_to artifact_url( @artifact)
     #assert_template 'artifacts/show'
   end
 
   test "should not update artifact" do
-    patch book_artifact_url(@book,@artifact), params: { artifact: { character_id: @artifact.character_id, name: "", book_id: @book.id, artifact_type_id: @artifact_type.id, parent_id: nil } }
+    patch artifact_url(@artifact), params: { artifact: { character_id: @artifact.character_id, name: "", book_id: @book.id, artifact_type_id: @artifact_type.id, parent_id: nil } }
     assert_response 422
     assert_template 'artifacts/edit'
   end
 
   test "should destroy artifact" do
     assert_difference('Artifact.count', -1) do
-      delete book_artifact_url(@book,@artifact)
+      delete artifact_url(@artifact)
     end
 
     assert_redirected_to book_artifacts_url(:book_id => @book.id)

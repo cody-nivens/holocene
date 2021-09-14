@@ -1,18 +1,18 @@
 <table class="table">
   <tr>
     <th>Stories(Publishable):</th>
-    <td><%= @book.stories.count %> (<%= @book.stories.where(publish: true).count %>)</td>
+    <td><%= book.stories.count %> (<%= book.stories.where(publish: true).count %>)</td>
     <th>Characters:</th>
-    <td><%= @book.characters.count %></td></tr>
+    <td><%= book.characters.count %></td></tr>
   <tr>
     <th>Scenes (published)(sections % scenes):</th>
-    <% pub_scene_count = @book.scene_count(true) %>
-    <% scene_count = @book.scene_count %>
-    <% section_count = @book.section_count %>
-    <% word_count = @book.word_count %>
-    <% pub_word_count = @book.word_count(true) %>
+    <% pub_scene_count = book.scene_count(true) %>
+    <% scene_count = book.scene_count %>
+    <% section_count = book.section_count %>
+    <% word_count = book.word_count %>
+    <% pub_word_count = book.word_count(true) %>
     <td>
-      <%= render :partial => 'scenes/progress_bar.html', :locals => { :object => @book } %>
+      <%= render :partial => 'scenes/progress_bar.html', :locals => { :object => book } %>
     </td>
     <th>Word Count | Published (Potential):</th> <td><%= number_with_delimiter(word_count, :delimiter => ',') %> | <%= number_with_delimiter(pub_word_count, :delimiter => ',') %> (<%= (section_count == 0 ? '' : number_with_delimiter(word_count/section_count*pub_scene_count, :delimiter => ',')) %>)</td>
   </tr>
@@ -21,32 +21,32 @@
 <%= tabs do |c| %>
   <% c.tab "Stories" do %>
     <span>
-        <%= render :partial => 'stories/index.html', :locals => {:stories => @book.stories.order(:position), :book => @book } %>
+        <%= render :partial => 'stories/index.html', :locals => {:stories => book.stories.order(:position), :book => book } %>
     </span>
   <% end %>
 
   <% c.tab "Gender" do %>
     <span>
-      <%= render partial: 'shared/stats2.html', :locals => {:category => 'Gender', :value_attribute => 'Gender', :attribute => 'sex', :object => @book} %>
-      <%= render partial: 'shared/stats2.html', :locals => {:category => 'Gender', :value_attribute => 'Gender', :attribute => 'occupation_class', :object => @book} %>
+      <%= render partial: 'shared/stats2.html', :locals => {:category => 'Gender', :value_attribute => 'Gender', :attribute => 'sex', :object => book} %>
+      <%= render partial: 'shared/stats2.html', :locals => {:category => 'Gender', :value_attribute => 'Gender', :attribute => 'occupation_class', :object => book} %>
     </span>
   <% end %>
 
   <% c.tab "Ethnicity" do %>
     <span>
-      <%= render partial: 'characters/attribute_count.html', :locals => { :object => @book, :field => :ethnicity } %>
+      <%= render partial: 'characters/attribute_count.html', :locals => { :object => book, :field => :ethnicity } %>
     </span>
   <% end %>
 
   <% c.tab "Occupation Class" do %>
     <span>
-      <%= render partial: 'characters/attribute_count.html', :locals => { :object => @book, :field => :occupation_class } %>
+      <%= render partial: 'characters/attribute_count.html', :locals => { :object => book, :field => :occupation_class } %>
     </span>
   <% end %>
 
   <% c.tab "Characters" do %>
     <span>
-      <%= render partial: 'characters/characters_occ_ul.html', :locals => { :object => @book } %> 
+      <%= render partial: 'characters/characters_occ_ul.html', :locals => { :object => book } %>
     </span>
   <% end %>
 <% end %>

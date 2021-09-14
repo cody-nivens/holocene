@@ -32,7 +32,7 @@ class ChaptersTest < ApplicationSystemTestCase
   end
 
   test "visiting display" do
-    visit polymorphic_url([@scripted, @chapter])
+    visit chapter_url(@chapter)
 
     within(:css, ".footer") do
       Capybara.page.find('.fa-list').click

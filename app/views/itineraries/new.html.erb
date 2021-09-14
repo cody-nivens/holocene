@@ -1,6 +1,6 @@
 <h1>New Itinerary</h1>
 
-<%= render 'form', itinerary: @itinerary %>
+<%= render 'form', itinerary: @itinerary, cities: @cities %>
 
-<% @footer_content << "#{ link_to 'Back', story_tour_path(@story,@tour), :class => "btn btn-default hide-print" }" %>
+<% @footer_content << "#{ link_to 'Back', tour_path(@tour), :class => "btn btn-default hide-print" }" %>
 

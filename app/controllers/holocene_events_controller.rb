@@ -52,7 +52,7 @@ class HoloceneEventsController < ApplicationController
     end
     respond_to do |format|
         format.html { render :display }
-    end 
+    end
   end
 
   # GET /holocene_events/new

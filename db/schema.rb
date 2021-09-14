@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_09_133029) do
+ActiveRecord::Schema.define(version: 2021_09_12_195519) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_133029) do
     t.index ["artifact_type_id"], name: "index_artifacts_on_artifact_type_id"
     t.index ["book_id"], name: "index_artifacts_on_book_id"
     t.index ["character_id"], name: "index_artifacts_on_character_id"
+    t.index ["parent_id"], name: "index_artifacts_on_parent_id"
   end
 
   create_table "asides", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_133029) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "chapter_id"
+    t.index ["chapter_id"], name: "index_asides_on_chapter_id"
   end
 
   create_table "authors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -78,6 +80,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_133029) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.index ["user_id"], name: "index_authors_on_user_id"
   end
 
   create_table "authors_biblioentries", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -105,6 +108,8 @@ ActiveRecord::Schema.define(version: 2021_09_09_133029) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.integer "book_id"
+    t.index ["book_id"], name: "index_biblioentries_on_book_id"
+    t.index ["user_id"], name: "index_biblioentries_on_user_id"
   end
 
   create_table "books", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -118,6 +123,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_133029) do
     t.boolean "fiction"
     t.string "scene_character"
     t.integer "position"
+    t.index ["user_id"], name: "index_books_on_user_id"
   end
 
   create_table "books_characters", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -169,6 +175,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_133029) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "position"
     t.index ["character_category_id"], name: "index_character_attributes_on_character_category_id"
+    t.index ["related_id"], name: "index_character_attributes_on_related_id"
   end
 
   create_table "character_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -227,6 +234,8 @@ ActiveRecord::Schema.define(version: 2021_09_09_133029) do
     t.boolean "use_honorific_only", default: false
     t.bigint "mother_id"
     t.integer "sex", default: 0
+    t.index ["father_id"], name: "index_characters_on_father_id"
+    t.index ["mother_id"], name: "index_characters_on_mother_id"
   end
 
   create_table "cities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -253,6 +262,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_133029) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.index ["user_id"], name: "index_epochs_on_user_id"
   end
 
   create_table "epochs_timelines", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -267,6 +277,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_133029) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.index ["user_id"], name: "index_event_types_on_user_id"
   end
 
   create_table "event_types_holocene_events", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -305,6 +316,11 @@ ActiveRecord::Schema.define(version: 2021_09_09_133029) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "term"
+    t.index ["acronym_id"], name: "index_glossary_terms_on_acronym_id"
+    t.index ["book_id"], name: "index_glossary_terms_on_book_id"
+    t.index ["see_id"], name: "index_glossary_terms_on_see_id"
+    t.index ["seealso_id"], name: "index_glossary_terms_on_seealso_id"
+    t.index ["user_id"], name: "index_glossary_terms_on_user_id"
   end
 
   create_table "holocene_events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -324,6 +340,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_133029) do
     t.decimal "lat", precision: 10, scale: 6
     t.decimal "lng", precision: 10, scale: 6
     t.index ["region_id"], name: "index_holocene_events_on_region_id"
+    t.index ["user_id"], name: "index_holocene_events_on_user_id"
   end
 
   create_table "holocene_events_sections", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -411,6 +428,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_133029) do
     t.integer "chapter_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["chapter_id"], name: "index_partitions_on_chapter_id"
   end
 
   create_table "regions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -418,6 +436,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_133029) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.index ["user_id"], name: "index_regions_on_user_id"
   end
 
   create_table "roles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -447,6 +466,10 @@ ActiveRecord::Schema.define(version: 2021_09_09_133029) do
     t.boolean "before_flag", default: false
     t.bigint "artifact_id"
     t.string "date_string"
+    t.index ["artifact_id"], name: "index_scenes_on_artifact_id"
+    t.index ["insert_scene_id"], name: "index_scenes_on_insert_scene_id"
+    t.index ["key_point_id"], name: "index_scenes_on_key_point_id"
+    t.index ["section_id"], name: "index_scenes_on_section_id"
     t.index ["situated_type", "situated_id"], name: "index_scenes_on_situated_type_and_situated_id"
   end
 
@@ -462,6 +485,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_133029) do
     t.string "sectioned_type", null: false
     t.bigint "sectioned_id", null: false
     t.bigint "user_id", null: false
+    t.index ["chapter_id"], name: "index_sections_on_chapter_id"
     t.index ["sectioned_type", "sectioned_id"], name: "index_sections_on_sectioned_type_and_sectioned_id"
     t.index ["user_id"], name: "index_sections_on_user_id"
   end
@@ -473,6 +497,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_133029) do
     t.integer "sigged_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["sigged_id", "sigged_type"], name: "index_signets_on_sigged_id_and_sigged_type"
   end
 
   create_table "stories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -486,6 +511,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_133029) do
     t.boolean "publish", default: true
     t.boolean "stand_alone", default: false
     t.boolean "print_summary", default: false
+    t.index ["book_id"], name: "index_stories_on_book_id"
   end
 
   create_table "taggings", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -519,6 +545,7 @@ ActiveRecord::Schema.define(version: 2021_09_09_133029) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.index ["user_id"], name: "index_timelines_on_user_id"
   end
 
   create_table "tours", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|

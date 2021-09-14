@@ -1,6 +1,6 @@
 class ArtifactTypesController < ApplicationController
   before_action :set_artifact_type, only: %i[ show edit update destroy ]
-  before_action :set_book, only: %i[ index new show edit update destroy ]
+  before_action :set_book, only: %i[ index new ]
 
 
   # GET /artifact_types or /artifact_types.json
@@ -10,6 +10,7 @@ class ArtifactTypesController < ApplicationController
 
   # GET /artifact_types/1 or /artifact_types/1.json
   def show
+    @book = @artifact_type.book
   end
 
   # GET /artifact_types/new
@@ -20,6 +21,7 @@ class ArtifactTypesController < ApplicationController
 
   # GET /artifact_types/1/edit
   def edit
+    @book = @artifact_type.book
   end
 
   # POST /artifact_types or /artifact_types.json
@@ -29,7 +31,7 @@ class ArtifactTypesController < ApplicationController
 
     respond_to do |format|
       if @artifact_type.save
-        format.html { redirect_to book_artifact_type_url(@book,@artifact_type), notice: "Artifact type was successfully created." }
+        format.html { redirect_to artifact_type_url(@artifact_type), notice: "Artifact type was successfully created." }
         format.json { render :show, status: :created, location: @artifact_type }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,9 +42,10 @@ class ArtifactTypesController < ApplicationController
 
   # PATCH/PUT /artifact_types/1 or /artifact_types/1.json
   def update
+    @book = @artifact_type.book
     respond_to do |format|
       if @artifact_type.update(artifact_type_params)
-        format.html { redirect_to book_artifact_type_url(@book,@artifact_type), notice: "Artifact type was successfully updated." }
+        format.html { redirect_to artifact_type_url(@artifact_type), notice: "Artifact type was successfully updated." }
         format.json { render :show, status: :ok, location: @artifact_type }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,6 +56,7 @@ class ArtifactTypesController < ApplicationController
 
   # DELETE /artifact_types/1 or /artifact_types/1.json
   def destroy
+    @book = @artifact_type.book
     @artifact_type.destroy
     respond_to do |format|
       format.html { redirect_to book_artifact_types_url(@book), notice: "Artifact type was successfully destroyed." }

@@ -13,13 +13,13 @@
 <%= link_to 'Add City', url_for(:controller => "cities", :action => "add_city",
 "#{@tour.class.name.underscore}_id".to_sym => @tour.id), :class => "btn btn-secondary" %>
 
-<%= datagrid_form_for @grid, :method => :get, :url => story_tour_itineraries_path(@tour.story,@tour), :partials => 'itinerary_grid' %>
+<%= datagrid_form_for @grid, :method => :get, :url => tour_itineraries_path(@tour), :partials => 'itinerary_grid' %>
 <%== pagy_info(@pagy) %>
 <%= datagrid_table @grid, @records, :partials => 'itinerary_grid' %>
 <%== pagy_nav(@pagy) %>
 
 
-<% @footer_content << "#{ link_to 'Edit', edit_story_tour_path(@story,@tour), :class => "btn btn-default hide-print" }" %>
-<% @footer_content << "#{ link_to 'Itinerary', story_tour_itineraries_path(@story,@tour), :class => "btn btn-default hide-print" }" %>
-<% @footer_content << "#{link_to 'Map', geo_map_story_tour_path(@story,@tour), :class => "btn btn-default"}" %>`
+<% @footer_content << "#{ link_to 'Edit', edit_tour_path(@tour), :class => "btn btn-default hide-print" }" %>
+<% @footer_content << "#{ link_to 'Itinerary', tour_itineraries_path(@tour), :class => "btn btn-default hide-print" }" %>
+<% @footer_content << "#{link_to 'Map', geo_map_tour_path(@tour), :class => "btn btn-default"}" %>`
 <% @footer_content << "#{ link_to 'Back', story_tours_path(@story), :class => "btn btn-default hide-print" }" %>

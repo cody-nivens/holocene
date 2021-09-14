@@ -7,13 +7,13 @@
 
 <p>
   <strong>Character category:</strong>
-  <%= @character_attribute.character_category.name %>
+  <%= @character_attribute.character_category_name %>
 </p>
 
 <p>
   <strong>Related:</strong>
-  <%= (@character_attribute.related_id.nil? ? "" : CharacterAttribute.find(@character_attribute.related_id).name.humanize) %>
+  <%= @character_attribute.related_name %>
 </p>
 
 <% @footer_content << "#{link_to 'Edit', edit_character_attribute_path(@character_attribute), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', character_attributes_path(:character_category_id => @character_category.id), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', character_category_character_attributes_path(@character_category), :class => "btn btn-default"}" %>

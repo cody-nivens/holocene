@@ -3,13 +3,13 @@
 
 <h2>
   <%= raw breadcrumb(@scene.key_point.scripted.book, @scene.key_point.scripted, @scene.key_point, @scene) %>
-  <%= link_to "#{(fa_icon "pencil")}".html_safe, edit_polymorphic_path([@situated, @scene]), :title => 'Edit' %>
+  <%= link_to "#{(fa_icon "pencil")}".html_safe, edit_scene_path(@scene), :title => 'Edit' %>
 </h2>
 
 <table class="table">
   <tr>
     <th>ABC:</th><td><%= @scene.abc %></td>
-    <th>Location:</th><td><%= (@scene.artifact.nil? ? "Unkown" : @scene.artifact.name) %></td>
+    <th>Location:</th><td><%= (@scene.artifact.nil? ? "Unkown" : @scene.artifact_name) %></td>
     <th>Place:</th><td><%= @scene.place.to_plain_text %></td>
     <th>Word Count:</th><td><%= number_with_delimiter(@scene.word_count, :delimiter => ',') %></td>
   </tr>
@@ -82,9 +82,9 @@
       <%= occ_class %>
       <ul>
         <% @scene.characters.where("occupation_class = ?", occ_class).order(:occupation_class,:last_name,:first_name).each do |character| %>
-          <li><%= link_to("#{character.name}, #{@scene.date_string[0..3].to_i-character.birth_year.to_i}", polymorphic_path([@scene,character])) %><%= "#{(character.grouping.blank? ? '' : "-  #{character.grouping}")}" %>
+          <li><%= link_to("#{character.name}, #{@scene.date_string[0..3].to_i-character.birth_year.to_i}", character_path(character)) %><%= "#{(!character.grouping? ? '' : "-  #{character.grouping}")}" %>
             <% character_scene=CharacterScene.where(character_id: character.id, scene_id: @scene.id) %>
-            <%= link_to (fa_icon 'plus'), edit_polymorphic_path([@scene,character_scene[0]] ) %>
+            <%= link_to (fa_icon 'plus'), edit_character_scene_path(character_scene[0]) %>
             <% unless character_scene[0].summary.nil? %>
              <%= character_scene[0].summary.to_plain_text %>
            <% end %>
@@ -102,7 +102,7 @@
     <br/>
     <ul>
       <% scenes.each do |iscene| %>
-        <li><%= link_to(iscene.abc, polymorphic_path([@situated, iscene])) %> <%= (iscene.section.nil? ? '' : '*') %><%= iscene.time_to_text %> : <%= iscene.name %></li>
+        <li><%= link_to(iscene.abc, scene_path(iscene)) %> <%= (iscene.section.nil? ? '' : '*') %><%= iscene.time_to_text %> : <%= iscene.name %></li>
         <% insert_scene = iscene %>
       <% end %>
     </ul>
@@ -118,19 +118,19 @@
 <% if @scene.section.nil? %>
   <% @footer_content << "#{link_to 'New Section',new_polymorphic_path([@scene,:section]), :class => "btn btn-default" }" %>
 <% else %>
-  <% @footer_content << "#{link_to 'Edit Section',edit_polymorphic_path([@scene, @scene.section]), :class => "btn btn-default" }" %>
+  <% @footer_content << "#{link_to 'Edit Section',edit_section_path(@scene.section), :class => "btn btn-default" }" %>
 <% end %>
 <% @footer_content << "#{link_to 'Characters', polymorphic_path([@scene, :characters ]), :class => "btn btn-default hide-print" }" %>
 <% @footer_content << "#{link_to 'Move', polymorphic_path([@scene, :move ]), :class => "btn btn-default hide-print" }" %>
-<% @footer_content << "#{link_to 'Destroy', polymorphic_path([@situated, @scene]), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', (@scene.key_point.nil? ? polymorphic_path([@situated, :scenes]) : polymorphic_path([@situated, @scene.key_point])), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Destroy', scene_path(@scene), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', (@scene.key_point.nil? ? polymorphic_path([@situated, :scenes]) : key_point_path(@scene.key_point)), :class => "btn btn-default" }" %>
 
 <% prev_scene =  @scene.set_prev %>
 <% unless prev_scene.nil? %>
-  <% @footer_content << "#{link_to '<', polymorphic_path([@scene.situated, prev_scene]), :class => "btn icon-ok icon-white" }" %>
+  <% @footer_content << "#{link_to '<', scene_path(prev_scene), :class => "btn icon-ok icon-white" }" %>
 <% end %>
 <% next_scene =  @scene.set_next %>
 <% unless next_scene.nil? %>
-  <% @footer_content << "#{link_to '>', polymorphic_path([@scene.situated, next_scene]), :class => "btn icon-ok icon-white" }" %>
+  <% @footer_content << "#{link_to '>', scene_path(next_scene), :class => "btn icon-ok icon-white" }" %>
 <% end %>
 

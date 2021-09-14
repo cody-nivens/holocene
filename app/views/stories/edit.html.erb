@@ -1,6 +1,6 @@
 <h1>Editing Story</h1>
 
-<%= render 'form', story: @story %>
+<%= render 'form', story: @story, book: @book %>
 
-<% @footer_content << "#{link_to 'Show', book_story_path(@book, @story), :class => "btn btn-default" }" %>
-<% @footer_content << "#{link_to 'Back', polymorphic_path([@book,@story]), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Show', story_path(@story), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Back', story_path(@story), :class => "btn btn-default" }" %>

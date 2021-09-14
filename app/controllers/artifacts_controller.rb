@@ -1,6 +1,6 @@
 class ArtifactsController < ApplicationController
   before_action :set_artifact, only: %i[ show edit update destroy ]
-  before_action :set_book, only: %i[ tagged index new show edit update destroy ]
+  before_action :set_book, only: %i[ tagged index new ]
 
   # GET /artifacts or /artifacts.json
   def index
@@ -9,6 +9,7 @@ class ArtifactsController < ApplicationController
 
   # GET /artifacts/1 or /artifacts/1.json
   def show
+    @book = @artifact.book
   end
 
   def tagged
@@ -27,6 +28,7 @@ class ArtifactsController < ApplicationController
 
   # GET /artifacts/1/edit
   def edit
+    @book = @artifact.book
   end
 
   # POST /artifacts or /artifacts.json
@@ -36,7 +38,7 @@ class ArtifactsController < ApplicationController
 
     respond_to do |format|
       if @artifact.save
-        format.html { redirect_to book_artifact_path(@book,@artifact), notice: "Artifact was successfully created." }
+        format.html { redirect_to artifact_path(@artifact), notice: "Artifact was successfully created." }
         format.json { render :show, status: :created, location: @artifact }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -47,9 +49,10 @@ class ArtifactsController < ApplicationController
 
   # PATCH/PUT /artifacts/1 or /artifacts/1.json
   def update
+    @book = @artifact.book
     respond_to do |format|
       if @artifact.update(artifact_params)
-        format.html { redirect_to book_artifact_path(@book,@artifact), notice: "Artifact was successfully updated." }
+        format.html { redirect_to artifact_path(@artifact), notice: "Artifact was successfully updated." }
         format.json { render :show, status: :ok, location: @artifact }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -60,6 +63,7 @@ class ArtifactsController < ApplicationController
 
   # DELETE /artifacts/1 or /artifacts/1.json
   def destroy
+    @book = @artifact.book
     @artifact.destroy
     respond_to do |format|
       format.html { redirect_to book_artifacts_path(@book), notice: "Artifact was successfully destroyed." }

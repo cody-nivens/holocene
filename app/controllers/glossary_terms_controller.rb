@@ -1,6 +1,6 @@
 class GlossaryTermsController < ApplicationController
   before_action :set_glossary_term, only: [:show, :edit, :update, :destroy]
-  before_action :set_book, only: [:index, :show, :edit, :update, :destroy, :new ]
+  before_action :set_book, only: [:index, :new ]
 
 
   # GET /glossary_terms
@@ -24,6 +24,7 @@ class GlossaryTermsController < ApplicationController
 
   # GET /glossary_terms/1/edit
   def edit
+    @book = @glossary_term.book
   end
 
   # POST /glossary_terms
@@ -34,7 +35,7 @@ class GlossaryTermsController < ApplicationController
 
     respond_to do |format|
       if @glossary_term.save
-        format.html { redirect_to book_glossary_term_path(@book,@glossary_term), notice: 'Glossary term was successfully created.' }
+        format.html { redirect_to glossary_term_path(@glossary_term), notice: 'Glossary term was successfully created.' }
         format.json { render :show, status: :created, location: @glossary_term }
       else
         format.html { render :new }
@@ -49,7 +50,7 @@ class GlossaryTermsController < ApplicationController
     @book = @glossary_term.book
     respond_to do |format|
       if @glossary_term.update(glossary_term_params)
-        format.html { redirect_to book_glossary_term_url(@book,@glossary_term), notice: 'Glossary term was successfully updated.' }
+        format.html { redirect_to glossary_term_path(@glossary_term), notice: 'Glossary term was successfully updated.' }
         format.json { render :show, status: :ok, location: @glossary_term }
       else
         format.html { render :edit }

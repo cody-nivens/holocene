@@ -1,13 +1,13 @@
-<%= form_with url: polymorphic_path([@book, :authors_add]) do |f| %>
+<%= form_with url: polymorphic_path([@object, :authors_add]) do |f| %>
 
-  <%= hidden_field "#{@book.class.name.underscore}_id", value: @book.id %>
+  <%= hidden_field "#{@object.class.name.underscore}_id", value: @object.id %>
 
 <h1>Authors</h1>
 
 <table class="table">
   <tr>
       <td style="width:40%">
-          <%= select_tag :authors_ids, options_from_collection_for_select(@book.authors, :id, :name_with_initial), :prompt => "Select Authors", :multiple => true, :size => 20 %>
+          <%= select_tag :authors_ids, options_from_collection_for_select(@object.authors, :id, :name_with_initial), :prompt => "Select Authors", :multiple => true, :size => 20 %>
       </td><td style="width:20%">
           <%= f.submit class: 'btn btn-primary' %>
       </td><td style="width:40%">
@@ -18,6 +18,6 @@
 
 <% end %>
 
-<% @footer_content << "#{link_to 'New Author', new_polymorphic_path([@book, :author]), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', polymorphic_path(@book), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'New Author', new_polymorphic_path([@object, :author]), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', polymorphic_path(@object), :class => "btn btn-default" }" %>
 

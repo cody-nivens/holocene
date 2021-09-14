@@ -25,7 +25,7 @@ class ArtifactTypesControllerTest < ActionDispatch::IntegrationTest
       post book_artifact_types_url(@book), params: { artifact_type: { book_id: @artifact_type.book_id, name: @artifact_type.name } }
     end
 
-    assert_redirected_to book_artifact_type_url(@book,ArtifactType.last)
+    assert_redirected_to artifact_type_url(ArtifactType.last)
     #assert_template 'artifact_types/show'
   end
 
@@ -39,32 +39,32 @@ class ArtifactTypesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show artifact_type" do
-    get book_artifact_type_url(@book, @artifact_type)
+    get artifact_type_url(@artifact_type)
     assert_response :success
     assert_template 'artifact_types/show'
   end
 
   test "should get edit" do
-    get edit_book_artifact_type_url(@book,@artifact_type)
+    get edit_artifact_type_url(@artifact_type)
     assert_response :success
     assert_template 'artifact_types/edit'
   end
 
   test "should update artifact_type" do
-    patch book_artifact_type_url(@book, @artifact_type), params: { artifact_type: { book_id: @artifact_type.book_id, name: @artifact_type.name } }
-    assert_redirected_to book_artifact_type_url(@book,@artifact_type)
+    patch artifact_type_url(@artifact_type), params: { artifact_type: { book_id: @artifact_type.book_id, name: @artifact_type.name } }
+    assert_redirected_to artifact_type_url(@artifact_type)
     #assert_template 'artifact_types/show'
   end
 
   test "should not update artifact_type" do
-    patch book_artifact_type_url(@book, @artifact_type), params: { artifact_type: { book_id: @artifact_type.book_id, name: "" } }
+    patch artifact_type_url(@artifact_type), params: { artifact_type: { book_id: @artifact_type.book_id, name: "" } }
     assert_response 422
     assert_template 'artifact_types/edit'
   end
 
   test "should destroy artifact_type" do
     assert_difference('ArtifactType.count', -1) do
-      delete book_artifact_type_url(@book, @artifact_type)
+      delete artifact_type_url(@artifact_type)
     end
 
     assert_redirected_to book_artifact_types_url(@book)

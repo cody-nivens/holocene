@@ -28,9 +28,9 @@ class BooksController < ApplicationController
   end
 
 #      format.pdf {
-#         render pdf: "export", 
+#         render pdf: "export",
 #          disposition: 'attachment',
-#          header: { right: '[page] of [topage]' }, 
+#          header: { right: '[page] of [topage]' },
 #          outline: { outline: false,
 #                     outline_depth: 1 },
 #          toc: {
@@ -79,9 +79,9 @@ class BooksController < ApplicationController
     respond_to do |format|
       format.html { render :show }
       format.pdf {
-         render pdf: "export", 
+         render pdf: "export",
           disposition: 'attachment',
-          header: { right: '[page] of [topage]' }, 
+          header: { right: '[page] of [topage]' },
           outline: { outline: false,
                      outline_depth: 2 },
           toc: {
@@ -92,7 +92,7 @@ class BooksController < ApplicationController
             text_size_shrink: 0.5
           }
      }
-      
+
     end
   end
 
@@ -101,11 +101,11 @@ class BooksController < ApplicationController
     BookEPub.new(@book).build
     tmpfile = "#{Rails.root}/tmp/example_test.epub"
     @chapters = @book.chapters
-    
+
 
     respond_to do |format|
       format.html { send_file tmpfile, filename: 'file.epub', type: 'application/epub', disposition: 'inline'
-                    #redirect_to @book 
+                    #redirect_to @book
                     }
     end
   end

@@ -8,7 +8,12 @@ class Itinerary < ApplicationRecord
   has_rich_text :summary
   has_rich_text :instructions
 
+  delegate :name, :lat, :lng, :admin_name, :country, :to => :city, :prefix => true
+
   after_create :update_position
+
+  delegate :name, :to => :city, :prefix => true
+  delegate :name, :to => :tour, :prefix => true
 
   validates :name, presence: true
   #

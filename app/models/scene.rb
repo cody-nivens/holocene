@@ -10,7 +10,7 @@ class Scene < ApplicationRecord
   ThinkingSphinx::Callbacks.append(
     self, 'action_text/rich_text', :behaviours => [:sql]
   )
-  
+
   belongs_to :key_point, :optional => true
   acts_as_list scope: :key_point
   ranks :position, with_same: :key_point_id
@@ -37,6 +37,10 @@ class Scene < ApplicationRecord
   has_one :section, :as => :sectioned
   has_many :signets, as: :sigged
   has_many :tours
+
+  delegate :abc, :to => :insert_scene, :prefix => true
+  delegate :name, :to => :artifact, :prefix => true
+
 
   validates_presence_of :abc
 
@@ -65,7 +69,7 @@ class Scene < ApplicationRecord
   def mk_date
     info = time_to_array
 
-    year = info[0] 
+    year = info[0]
     month =  info[1]
     day =  info[2]
     return { :year => "#{year.to_i}", :month => "#{month.to_i}", :day => "#{day.to_i}"}

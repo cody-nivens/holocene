@@ -15,3 +15,5 @@ authors_3:
   first_name: Mike
   last_name: Kariil
   user: users_1
+  biblioentries:
+    - biblioentry_1

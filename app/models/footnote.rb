@@ -7,6 +7,8 @@ class Footnote < ApplicationRecord
   validates :slug, presence: true, unless: ->(footnote){footnote.biblioentry_id.present?}
   validates :biblioentry_id, presence: true, unless: ->(footnote){footnote.slug.present?}
 
+  delegate :xreflabel, :name, :to => :biblioentry, :prefix => true
+
   def name
     return self.body.to_plain_text[0..19]
   end

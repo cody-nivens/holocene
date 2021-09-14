@@ -1,6 +1,6 @@
 class ToursController < ApplicationController
   before_action :set_tour, only: %i[ geo_map show edit update destroy ]
-  before_action :set_story, only: %i[ index new create show edit update destroy ]
+  before_action :set_story, only: %i[ index new ]
 
   # GET /tours or /tours.json
   def index
@@ -10,6 +10,7 @@ class ToursController < ApplicationController
   # GET /tours/1 or /tours/1.json
   def show
     @object = @tour
+    @story = @tour.story
 
     @grid = ItinerariesGrid.new(itinerary_grid_params) do |scope|
       scope.joins(:city).where("itineraries.tour_id = ?", @tour.id)
@@ -19,6 +20,7 @@ class ToursController < ApplicationController
 
   def geo_map
       @object = @tour
+    @story = @tour.story
   end
 
   # GET /tours/new
@@ -29,15 +31,17 @@ class ToursController < ApplicationController
 
   # GET /tours/1/edit
   def edit
+    @story = @tour.story
   end
 
   # POST /tours or /tours.json
   def create
     @tour = Tour.new(tour_params)
+    @story = @tour.story
 
     respond_to do |format|
       if @tour.save
-        format.html { redirect_to story_tour_path(@story,@tour), notice: "Tour was successfully created." }
+        format.html { redirect_to tour_path(@tour), notice: "Tour was successfully created." }
         format.json { render :show, status: :created, location: @tour }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -48,9 +52,10 @@ class ToursController < ApplicationController
 
   # PATCH/PUT /tours/1 or /tours/1.json
   def update
+    @story = @tour.story
     respond_to do |format|
       if @tour.update(tour_params)
-        format.html { redirect_to story_tour_path(@story,@tour), notice: "Tour was successfully updated." }
+        format.html { redirect_to tour_path(@tour), notice: "Tour was successfully updated." }
         format.json { render :show, status: :ok, location: @tour }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -61,6 +66,7 @@ class ToursController < ApplicationController
 
   # DELETE /tours/1 or /tours/1.json
   def destroy
+    @story = @tour.story
     @tour.destroy
     respond_to do |format|
       format.html { redirect_to story_tours_url(@story), notice: "Tour was successfully destroyed." }

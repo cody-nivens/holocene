@@ -1,7 +1,6 @@
 class CharacterValuesController < ApplicationController
   before_action :set_character_value, only: [:show, :edit, :update, :destroy]
   before_action :set_character, only: [:index, :new ]
-  before_action :set_object, only: [:index, :new, :show, :edit, :create, :update, :destroy] 
 
   # GET /character_values
   # GET /character_values.json
@@ -19,11 +18,13 @@ class CharacterValuesController < ApplicationController
   def new
     @character_value = CharacterValue.new
     @character_value.character_id = @character.id
+    @character_category = CharacterCategory.first
   end
 
   # GET /character_values/1/edit
   def edit
     @character = @character_value.character
+    @character_category = CharacterCategory.first
   end
 
   # POST /character_values
@@ -34,9 +35,10 @@ class CharacterValuesController < ApplicationController
 
     respond_to do |format|
       if @character_value.save
-        format.html { redirect_to polymorphic_path([@object, @character, :character_values]), notice: 'Character value was successfully created.' }
+        format.html { redirect_to polymorphic_path([@character, :character_values]), notice: 'Character value was successfully created.' }
         format.json { render :show, status: :created, location: @character_value }
       else
+        @character_category = CharacterCategory.first
         format.html { render :new, character_id: @character.id }
         format.json { render json: @character_value.errors, status: :unprocessable_entity }
       end
@@ -49,9 +51,10 @@ class CharacterValuesController < ApplicationController
     @character = @character_value.character
     respond_to do |format|
       if @character_value.update(character_value_params)
-        format.html { redirect_to polymorphic_path([@object, @character, :character_values]), notice: 'Character value was successfully updated.' }
+        format.html { redirect_to polymorphic_path([@character, :character_values]), notice: 'Character value was successfully updated.' }
         format.json { render :show, status: :ok, location: @character_value }
       else
+        @character_category = CharacterCategory.first
         format.html { render :edit, character_id: @character.id }
         format.json { render json: @character_value.errors, status: :unprocessable_entity }
       end
@@ -64,7 +67,7 @@ class CharacterValuesController < ApplicationController
     @character = @character_value.character
     @character_value.destroy
     respond_to do |format|
-      format.html { redirect_to polymorphic_url([@object, @character, :character_values]), notice: 'Character value was successfully destroyed.' }
+      format.html { redirect_to polymorphic_url([@character, :character_values]), notice: 'Character value was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -78,12 +81,6 @@ class CharacterValuesController < ApplicationController
     def set_character
       @character = Character.find(params[:character_id])
     end
-
-    def set_object
-      klass = [Story, Book].detect{|c| params["#{c.name.underscore}_id"]}
-      @object = klass.find(params["#{klass.name.underscore}_id"])
-    end
-
 
     # Only allow a list of trusted parameters through.
     def character_value_params

@@ -21,11 +21,11 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
 
   test "should get resync_scenes" do
     get story_resync_scenes_url(:id => @story.id)
-    assert_redirected_to book_story_url(:book_id => @book.id, :id => @story.id)
+    assert_redirected_to story_url(@story)
   end
 
   test "should get new" do
-    get new_book_story_url(:book_id => @book.id)
+    get new_book_story_url(@book)
     assert_response :success
   end
 
@@ -34,7 +34,7 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
       post book_stories_url(:book_id => @book.id), params: { story: { book_id: @story.book.id, summary: @story.summary, title: @story.title } }
     end
 
-    assert_redirected_to book_story_url(:book_id => @book.id, :id => Story.last.id)
+    assert_redirected_to story_url(Story.last)
   end
 
   test "should not create story" do
@@ -51,34 +51,34 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show story" do
-    get book_story_url(@book, @story)
+    get story_url(@story)
     assert_response :success
   end
 
   test "should show pdf book" do
-    get book_story_url(@book, @story, :format => :pdf)
+    get story_url(@story, :format => :pdf)
     assert_response :success
   end
 
 
   test "should get edit" do
-    get edit_book_story_url(@book, @story)
+    get edit_story_url(@story)
     assert_response :success
   end
 
   test "should update story" do
-    patch book_story_url(@book, @story), params: { story: { book_id: @story.book.id, summary: @story.summary, title: @story.title } }
-    assert_redirected_to book_story_url(@book, @story)
+    patch story_url(@story), params: { story: { book_id: @story.book.id, summary: @story.summary, title: @story.title } }
+    assert_redirected_to story_url(@story)
   end
 
   test "should not update story" do
-    patch book_story_url(@book, @story), params: { story: { book_id: @story.book.id, summary: @story.summary, title: "" } }
+    patch story_url(@story), params: { story: { book_id: @story.book.id, summary: @story.summary, title: "" } }
     assert_response :success
   end
 
   test "should destroy story" do
     assert_difference('Story.count', -1) do
-      delete book_story_url(@book, @story)
+      delete story_url(@story)
     end
 
     assert_redirected_to book_stories_url(:book_id => @book.id)

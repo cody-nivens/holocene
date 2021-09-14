@@ -56,7 +56,7 @@
 </p>
 
 <% @object = @city %>
-<%= render 'shared/map' %>
+<%= render 'shared/map', object: @city %>
 
 <% @footer_content << "#{link_to 'Edit', edit_city_path(@city), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Back', cities_path, :class => "btn btn-default"}" %>

@@ -11,6 +11,9 @@ class Artifact < ApplicationRecord
 
   acts_as_taggable_on :tags
 
+  delegate :name, :to => :character, :prefix => true
+  delegate :name, :to => :artifact_type, :prefix => true
+
   validates :name, presence: true
 
   def set_values

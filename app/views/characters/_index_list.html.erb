@@ -8,6 +8,7 @@
       <th>Age</th>
       <th>Sex</th>
       <th>Father</th>
+      <th>Mother</th>
       <th>Ethnicity</th>
       <th>Occupation class</th>
       <th>Grouping</th>
@@ -19,19 +20,20 @@
   <tbody>
     <% characters.each do |character| %>
       <tr>
-        <td><%= link_to character.full_last_first, polymorphic_path([@object, character]) %></td>
+        <td><%= link_to character.full_last_first, polymorphic_path([object, character]) %></td>
         <td><%= character.birth_year %></td>
         <td><%= character.death_year %></td>
         <td><%= character.age %></td>
         <td><%= Character.sex_to_text(character.sex) %></td>
-        <td><%= (character.father.nil? ? '' : character.father.name) %></td>
+        <td><%= (character.father.nil? ? '' : character.father_name) %></td>
+        <td><%= (character.mother.nil? ? '' : character.mother_name) %></td>
         <td><%= character.ethnicity %></td>
         <td><%= character.occupation_class %></td>
         <td><%= character.grouping %></td>
         <td><%= character.scenes.size %></td>
-        <td><%= link_to 'Show', polymorphic_path([@object, character]) %></td>
-        <td><%= link_to 'Edit', edit_polymorphic_path([@object, character]) %></td>
-        <td><%= link_to 'Delete', polymorphic_path([@object, character]), method: :delete, data: { confirm: "Are you sure?"} %></td>
+        <td><%= link_to 'Show', polymorphic_path([object, character]) %></td>
+        <td><%= link_to 'Edit', edit_polymorphic_path([object, character]) %></td>
+        <td><%= link_to 'Delete', polymorphic_path([object, character]), method: :delete, data: { confirm: "Are you sure?"} %></td>
       </tr>
     <% end %>
   </tbody>

@@ -75,7 +75,7 @@ class Character::StepsTest < ApplicationSystemTestCase
         assert_difference('@story.characters.count') do
           assert_difference('@scene.characters.count') do
 
-            visit polymorphic_url([@situated, @scene])
+            visit scene_url(@scene)
 
             click_on "Characters"
             assert_text "Add/Remove Character"

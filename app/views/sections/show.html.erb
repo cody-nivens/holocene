@@ -24,7 +24,7 @@
       <% @slugs += @footnotes[1] -%>
     <% end -%>
   <% end -%>
-  <%= render 'holocene_events/index.html', holocene_events: @section.holocene_events.order(:start_year) %>
+  <%= render 'holocene_events/index.html', holocene_events: @section.holocene_events.order(:start_year), noted: @noted %>
 <% end -%>
 
 <% unless @slugs.length == 0 -%>
@@ -34,9 +34,9 @@
 <% priv_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position - 1) -%>
 <% next_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position + 1) -%>
 
-<% @footer_content << "#{link_to 'Edit', edit_polymorphic_path([@sectioned,@section]), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to '<', polymorphic_path([@sectioned, priv_section.first]), :class => "btn icon-ok icon-white"}" unless priv_section.length == 0 %>
-<% @footer_content << "#{link_to '>', polymorphic_path([@sectioned, next_section.first]), :class => "btn icon-ok icon-white"}" unless next_section.length == 0  %>
+<% @footer_content << "#{link_to 'Edit', edit_section_path(@section), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to '<', section_path(priv_section.first), :class => "btn icon-ok icon-white"}" unless priv_section.length == 0 %>
+<% @footer_content << "#{link_to '>', section_path(next_section.first), :class => "btn icon-ok icon-white"}" unless next_section.length == 0  %>
 <% if @section.sectioned_type == "Chapter" %>
   <% @footer_content << "#{link_to "Timeline", section_timeline_path(:section_id => @section.id), :class => "btn icon-ok icon-white"}" %>
   <% @footer_content << "#{link_to "Display",  section_display_path(:section_id => @section.id), :class => "btn icon-ok icon-white"}" %>

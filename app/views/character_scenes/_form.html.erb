@@ -1,11 +1,10 @@
-
-<%= bootstrap_form_for [@scene, @character_scene] do |f| %>
-    <% if @character_scene.errors.any? %>
+<%= bootstrap_form_for character_scene, :url => {:controller => :character_scenes, :action => (character_scene.id.nil? ? :create : :update)} do |f| %>
+    <% if character_scene.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@character_scene.errors.count, "error") %> prohibited this character_scene from being saved:</h2>
+      <h2><%= pluralize(character_scene.errors.count, "error") %> prohibited this character_scene from being saved:</h2>
 
       <ul>
-        <% @character_scene.errors.full_messages.each do |message| %>
+        <% character_scene.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -13,8 +12,8 @@
   <% end %>
     <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-      <%= hidden_field_tag :scene_id, @scene.id %>
-  <%= f.hidden_field :scene_id, value: @scene.id %>
+      <%= hidden_field_tag :scene_id, scene.id %>
+  <%= f.hidden_field :scene_id, value: scene.id %>
 
    <div class="field" >
       <%= f.rich_text_area :summary %>

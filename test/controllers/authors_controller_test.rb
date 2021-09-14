@@ -15,8 +15,8 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_select "a[text()=?]",'New Author'
-    assert_select "a[href=?]", new_book_author_path(@book)
-    assert_select "a[href=?]", book_authors_path(@book)
+    assert_select "a[href=?]", new_polymorphic_path([@book, :author])
+    assert_select "a[href=?]", polymorphic_path([@book, :authors_list])
     assert_select ".footer>div>a", 2
     assert_template 'authors/index'
   end
@@ -57,7 +57,7 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
-    get new_book_author_url(@book)
+    get new_polymorphic_url([@book, :author])
     assert_response :success
 
     assert_select "a[text()=?]",'Back'
@@ -71,7 +71,7 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
         post book_authors_path(@book), params: { author: { first_name: @author.first_name, last_name: @author.last_name, user_id: @user.id } }
     end
 
-    assert_redirected_to book_author_url(@book,Author.last)
+    assert_redirected_to polymorphic_url([@book, Author.last])
     #assert_template 'authors/show'
   end
 
@@ -85,49 +85,48 @@ class AuthorsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show author" do
-    get book_author_url(@book,@author)
+    get polymorphic_path([@book, @author])
     assert_response :success
 
     assert_select "a[text()=?]",'Edit'
-    assert_select "a[href=?]", edit_book_author_path(@book,@author)
+    assert_select "a[href=?]", edit_polymorphic_path([@book, @author])
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", book_authors_path(@book)
+    #assert_select "a[href=?]", polymorphic_path([@book, :authors])
     assert_select ".footer>div>a", 2
     assert_template 'authors/show'
   end
 
   test "should get edit" do
-    get edit_book_author_url(@book,@author)
+    get edit_polymorphic_url([@book,@author])
     assert_select "a[text()=?]",'Back'
     assert_response :success
 
 
     assert_select "a[text()=?]",'Show'
-    assert_select "a[href=?]", book_author_path(@book, @author)
+    assert_select "a[href=?]", polymorphic_path([@book, @author])
     assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", book_authors_path(@book)
+    assert_select "a[href=?]", polymorphic_path([@book, :authors])
     assert_select ".footer>div>a", 2
     assert_template 'authors/edit'
   end
 
   test "should update author" do
-      patch book_author_url(@book,@author), params: { author: { first_name: @author.first_name, last_name: @author.last_name, user_id: @user.id } }
-    assert_redirected_to book_author_url(@book, @author)
+    patch polymorphic_url([@book, @author]), params: { author: { first_name: @author.first_name, last_name: @author.last_name, user_id: @user.id } }
+    assert_redirected_to polymorphic_path([@book, @author])
     #assert_template 'authors/show'
   end
 
   test "should not update author" do
-    patch book_author_url(:book_id => @book.id,:id => @author.id), params: { author: { first_name: "", last_name: @author.last_name, user_id: @user.id } }
+    patch polymorphic_url([@book, @author]), params: { author: { first_name: "", last_name: @author.last_name, user_id: @user.id } }
     assert_response :success
     assert_template 'authors/edit'
   end
 
   test "should destroy author" do
     assert_difference('Author.count', -1) do
-      delete book_author_url(@book,@author)
+      delete polymorphic_path([@book, @author])
     end
 
     assert_redirected_to book_authors_path(@book)
-    #assert_template 'authors/show'
   end
 end

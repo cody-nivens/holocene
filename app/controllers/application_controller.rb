@@ -18,9 +18,6 @@ class ApplicationController < ActionController::Base
     @book = book
   end
 
-  def home
-  end
-
   def about
   end
 
@@ -196,13 +193,13 @@ end
    chap_index = 1
 @book.chapters.each do |chapter|
   unless chapter.partition.nil?
-    @ebook.add_item("text/#{chapter.slug}_p.xhtml").add_content(StringIO.new(<<-PARTITION)).toc_text(chapter.partition.name).landmark(type: 'part', title: chapter.partition.name)
+    @ebook.add_item("text/#{chapter.slug}_p.xhtml").add_content(StringIO.new(<<-PARTITION)).toc_text(chapter.partition_name).landmark(type: 'part', title: chapter.partition_name)
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head><title>#{chapter.partition.name}</title>
+<head><title>#{chapter.partition_name}</title>
         <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
 </head>
 <body>
-    <h1>#{chapter.partition.name}</h1>
+    <h1>#{chapter.partition_name}</h1>
     #{chapter.partition.body}
 </body></html>
 PARTITION

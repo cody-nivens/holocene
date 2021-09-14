@@ -14,7 +14,7 @@
             <tr>
               <td class="text-wrap" style="width: 20%">
               <% if print.nil? %>
-                <%= link_to scene.abc, polymorphic_path([@situated, scene]) %> <%= (scene.section.nil? ? '*' : '') %><br/>
+                <%= link_to scene.abc, scene_path(scene) %> <%= (scene.section.nil? ? '*' : '') %><br/>
               <% else %>
                 <%= scene.abc %> <%= (scene.section.nil? ? '*' : '') %><br/>
               <% end %>
@@ -37,7 +37,6 @@
               <% else %>
                 <%= values.compact.collect{|x| x.name}.join("|") %>
               <% end %>
-              <%#= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, inline_date: true} %>
             </li>
           <% end %>
         <% end %>

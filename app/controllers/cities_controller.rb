@@ -27,9 +27,6 @@ class CitiesController < ApplicationController
     end
   end
 
-  def cities_list
-  end
-
   def add_city
     @command = "Add Cities"
     @grid = CitiesGrid.new(grid_params.merge({:tour => @tour}))
@@ -54,7 +51,7 @@ class CitiesController < ApplicationController
       end
       respond_to do |format|
         format.html {
-          redirect_to story_tour_path(@tour.story,@tour),
+          redirect_to tour_path(@tour),
                                 :notice => "Tour was successfully updated"
         }
         format.json { render :show, status: :created, location: @city }

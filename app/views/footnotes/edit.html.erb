@@ -1,6 +1,6 @@
 <h1>Editing Footnote</h1>
 
-<%= render 'form', footnote: @footnote, command_label: "Update Footnote"  %>
+<%= render 'form', footnote: @footnote, command_label: "Update Footnote", noted: @noted  %>
 
 <% @footer_content << "#{link_to 'Show', @footnote, :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>

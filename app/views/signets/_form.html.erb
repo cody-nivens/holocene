@@ -1,4 +1,4 @@
-<%= bootstrap_form_for [@sigged, @signet] do |f| %>
+<%= bootstrap_form_for [sigged, signet] do |f| %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
@@ -14,7 +14,7 @@
 
     <%= f.hidden_field :sigged_type %>
     <%= f.hidden_field :sigged_id %>
-    <%= hidden_field "#{@sigged.class.name.underscore}_id", value: @sigged.id %>
+    <%= hidden_field "#{sigged.class.name.underscore}_id", value: sigged.id %>
   </div>
 
   <div class="form-actions">

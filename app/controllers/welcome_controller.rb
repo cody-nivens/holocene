@@ -37,9 +37,6 @@ class WelcomeController < ApplicationController
   def stats
   end
 
-  def map_test
-  end
-
   def tags
   end
 end

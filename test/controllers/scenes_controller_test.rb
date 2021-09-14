@@ -90,7 +90,7 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
                                                              t: { t_years: "", t_month: "", t_day: "" } }
     end
 
-    assert_redirected_to polymorphic_url([@situated, Scene.last])
+    assert_redirected_to scene_url(Scene.last)
   end
 
   test "should not create scene" do
@@ -103,50 +103,50 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show scene" do
-    get polymorphic_url([@situated, @scene])
+    get scene_url(@scene)
 
     assert_response :success
   end
 
   test "should show scene 2" do
-    get polymorphic_url([@situated_2, @scene_2])
+    get scene_url(@scene_2)
 
     assert_response :success
   end
 
   test "should show scene 3" do
-    get polymorphic_url([@situated_3, @scene_3])
+    get scene_url(@scene_3)
 
     assert_response :success
   end
 
   test "should show scene 4" do
-    get polymorphic_url([@situated_6, @scene_6])
+    get scene_url(@scene_6)
 
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_polymorphic_url([@situated, @scene])
+    get edit_scene_url(@scene)
 
     assert_response :success
   end
 
   test "should update scene" do
-    patch polymorphic_url([@situated, @scene]), params: { scene: { abc: @scene.abc, check: @scene.check, scene_sequel: @scene.scene_sequel, date_string: @scene.date_string },
+    patch scene_url(@scene), params: { scene: { abc: @scene.abc, check: @scene.check, scene_sequel: @scene.scene_sequel, date_string: @scene.date_string },
                                                              t: { t_years: "", t_month: "", t_day: "" } }
-    assert_redirected_to polymorphic_url([@situated, @scene])
+    assert_redirected_to scene_url(@scene)
   end
 
   test "should not update scene" do
-    patch polymorphic_url([@situated, @scene]), params: { scene: { abc: "", check: @scene.check, scene_sequel: @scene.scene_sequel, date_string: @scene.date_string },
+    patch scene_url(@scene), params: { scene: { abc: "", check: @scene.check, scene_sequel: @scene.scene_sequel, date_string: @scene.date_string },
                                                              t: { t_years: "1", t_month: "1", t_day: "1" } }
     assert_response :success
   end
 
   test "should destroy scene" do
     assert_difference('Scene.count', -1) do
-      delete polymorphic_url([@situated, @scene])
+      delete scene_url(@scene)
     end
 
     assert_redirected_to polymorphic_url([@situated, :scenes])

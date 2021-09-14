@@ -1,6 +1,6 @@
 class SectionsController < ApplicationController
   before_action :set_section, only: [:geo_map, :timeline, :grid_params, :show, :edit, :update, :destroy]
-  before_action :set_sectioned, only: [:index, :new, :edit, :create, :update, :destroy]
+  before_action :set_sectioned, only: [:index, :new ]
 
   def index
     @sections = @sectioned.sections.order(:position)
@@ -24,14 +24,15 @@ class SectionsController < ApplicationController
 
   # GET /sections/1/edit
   def edit
+      @sectioned = @section.sectioned
   end
 
   # POST /sections
   # POST /sections.json
   def create
     @section = Section.new(section_params)
-    @section.sectioned = @sectioned
     @section.user = current_user
+    @sectioned = @section.sectioned
 
     respond_to do |format|
       if @section.save
@@ -39,7 +40,7 @@ class SectionsController < ApplicationController
         format.html { redirect_to polymorphic_path(@sectioned), notice: 'Section was successfully created.' }
         format.json { render :show, status: :created, location: @section }
       else
-        format.html { render :new }
+        format.html { render :new, sectioned_type: @sectioned.class.name, sectioned_id: @sectioned.id }
         format.json { render json: @section.errors, status: :unprocessable_entity }
       end
     end
@@ -48,6 +49,7 @@ class SectionsController < ApplicationController
   # PATCH/PUT /sections/1
   # PATCH/PUT /sections/1.json
   def update
+    @sectioned = @section.sectioned
     respond_to do |format|
       if @section.update(section_params)
         update_metrics
@@ -63,6 +65,7 @@ class SectionsController < ApplicationController
   # DELETE /sections/1
   # DELETE /sections/1.json
   def destroy
+    @sectioned = @section.sectioned
     @section.destroy
     respond_to do |format|
       format.html { redirect_to polymorphic_url(@sectioned), notice: 'Section was successfully destroyed.' }
@@ -86,15 +89,7 @@ class SectionsController < ApplicationController
     end
 
     def update_metrics
-      metric = Metric.where("user_id =? and date between ? and ? and metrized_id = ? and metrized_type = ?", current_user.id, Date.today, Date.today + 1.day, @section.id, "Section")[0]
-      if metric.nil?
-        metric = Metric.new
-        metric.metrized = @section
-        metric.user_id = current_user.id
-        metric.date = Date.today.beginning_of_day
-      end
-      metric.count = @section.word_count
-      metric.save
+      Metric.update_count(@section, @section.word_count, current_user)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

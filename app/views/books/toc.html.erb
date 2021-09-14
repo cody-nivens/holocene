@@ -21,9 +21,9 @@
     <% else %>
         <td><%#= link_to (fa_icon "pencil"), chapter_partition_path(@book, chapter,chapter.partition), :title => "Partition"  %>
     <% end %>
-        <%= raw (chapter.partition.nil? ? '' : "#{link_to chapter.partition.name, chapter_partition_path(chapter,chapter.partition)}") %></td>
-        <td><%#= link_to (fa_icon "pencil"), edit_polymorphic_path([@book, chapter]), :title => "Edit"  %>
-        <strong><font size="4"><%= link_to chapter.name, polymorphic_path([@book, chapter]), :title => "Show"  %></font></strong>
+        <%= raw (chapter.partition.nil? ? '' : "#{link_to chapter.partition_name, chapter_partition_path(chapter,chapter.partition)}") %></td>
+        <td><%#= link_to (fa_icon "pencil"), edit_chapter_path(chapter), :title => "Edit"  %>
+        <strong><font size="4"><%= link_to chapter.name, chapter_path(chapter), :title => "Show"  %></font></strong>
     <% if chapter.aside.nil? %>
         <%#= link_to (fa_icon "plus"), new_book_chapter_aside_path(@book, chapter), :title => "Aside" %>
     <% else %>
@@ -44,7 +44,7 @@
         <td align="right"><%= HoloceneEvent.convert_ad(chapter.sections.map{|x| x.holocene_events.maximum('start_year')}.compact.max) %></td>
         <td><%#= link_to (fa_icon "list-alt"), book_chapter_sections_path(chapter.scripted, chapter), :title => "Sections"  %></td>
         <td><%= link_to (fa_icon "level-down"), chapter_demote_path(chapter), data: { confirm: 'Are you sure?' }, :title => "Demote"  %></td>
-        <td><%= link_to (fa_icon "trash-o"), polymorphic_path([@book, chapter]), method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy"  %></td>
+        <td><%= link_to (fa_icon "trash-o"), chapter_path(chapter), method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy"  %></td>
       </tr>
       <!--  <%# chapter.sections.order(:position).each do |section| -%>
           <tr><td></td>
@@ -60,15 +60,11 @@
         <td colspan=6></td>
           </tr>
         <%# end -%> -->
-        </td>
-        
-        </td>
-
     <% end %>
   </tbody>
 </table>
 
-<% @footer_content << "#{link_to 'New Chapter', new_polymorphic_path(@book), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'New Chapter', new_book_path(@book), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Chapters, Details', polymorphic_path([@book, :chapters]), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>
 

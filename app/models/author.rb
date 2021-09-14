@@ -4,7 +4,7 @@ class Author < ApplicationRecord
 
     belongs_to :user
 
-    validates :first_name, presence: true 
+    validates :first_name, presence: true
 
     def name_with_initial
       "#{self.first_name.first}. #{self.last_name}"

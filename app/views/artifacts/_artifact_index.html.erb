@@ -4,8 +4,8 @@
 <% else %>
   <td></td><td>
 <% end %>
-<%= link_to artifact.name, book_artifact_url(book,artifact) %></td>
-<td><%= artifact.character.name %></td>
-<td><%= artifact.artifact_type.name %></td>
-<td><%= link_to (fa_icon 'edit'), edit_book_artifact_path(book,artifact) %>
-    <%= link_to (fa_icon "trash-o"), book_artifact_path(book,artifact), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<%= link_to artifact.name, artifact_url(artifact) %></td>
+<td><%= artifact.character_name %></td>
+<td><%= artifact.artifact_type_name %></td>
+<td><%= link_to (fa_icon 'edit'), edit_artifact_path(artifact) %>
+    <%= link_to (fa_icon "trash-o"), artifact_path(artifact), method: :delete, data: { confirm: 'Are you sure?' } %></td>

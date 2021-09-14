@@ -7,5 +7,11 @@ class CharacterAttribute < ApplicationRecord
 
   has_many :character_values, dependent: :destroy
 
+  delegate :name, :to => :character_category, :prefix => true
   validates_presence_of :name
+
+  def related_name
+    (self.related_id.nil? ? "" : CharacterAttribute.find(self.related_id).name.humanize)
+  end
+
 end

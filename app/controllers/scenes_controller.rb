@@ -1,6 +1,6 @@
 class ScenesController < ApplicationController
   before_action :set_scene, only: [:moved, :move, :show, :edit, :update, :destroy]
-  before_action :set_situated, only: [ :timeline, :index, :create, :new, :destroy]
+  before_action :set_situated, only: [ :timeline, :index, :new ]
 
   # GET /scenes
   # GET /scenes.json
@@ -16,10 +16,10 @@ class ScenesController < ApplicationController
     @year = @years[0] if @year.nil?
     @scenes = { @year.to_i => @scenes[@year.to_i] } unless @year.nil?
 
-    @year_options = [] 
-    @years.each do |year| 
+    @year_options = []
+    @years.each do |year|
       @year_options << [year,year]
-    end 
+    end
 
     respond_to do |format|
       format.html { }
@@ -41,7 +41,7 @@ class ScenesController < ApplicationController
     @situated = @scene.situated
   end
 
-  def move 
+  def move
     @situated = @scene.situated
     @key_point = @scene.key_point
   end
@@ -90,14 +90,15 @@ class ScenesController < ApplicationController
   # POST /scenes.json
   def create
     @scene = Scene.new(scene_params)
+    @situated = @scene.situated
     @scene.date_string = "%04d" % params["t_years"].to_i + "-%02d" % params["t"]["month"].to_i + "-%02d" % params["t"]["day"].to_i
 
     respond_to do |format|
       if @scene.save
-        format.html { redirect_to polymorphic_path([@situated, @scene]), notice: 'Scene was successfully created.' }
+        format.html { redirect_to scene_path(@scene), notice: 'Scene was successfully created.' }
         format.json { render :show, status: :created, location: @scene }
       else
-        format.html { render :new, situated_type: @klass.name, situated_id: @situated.id }
+        format.html { render :new, situated_type: @situated.class.name, situated_id: @situated.id }
         format.json { render json: @scene.errors, status: :unprocessable_entity }
       end
     end
@@ -111,7 +112,7 @@ class ScenesController < ApplicationController
 
     respond_to do |format|
       if @scene.update(scene_params)
-        format.html { redirect_to polymorphic_path([@situated, @scene]), notice: 'Scene was successfully updated.' }
+        format.html { redirect_to scene_path(@scene), notice: 'Scene was successfully updated.' }
         format.json { render :show, status: :ok, location: @scene }
       else
         format.html { render :edit, situated_type: @situated.class.name, situated_id: @situated.id }
@@ -139,7 +140,13 @@ class ScenesController < ApplicationController
 
     def set_situated
       @klass = [Book, Chapter, Story].detect{|c| params["#{c.name.underscore}_id"]}
-      @situated = @klass.find((params[:scene].nil? || params[:scene][:situated_id].empty? ? params["#{@klass.name.underscore}_id"] : params[:scene][:situated_id]))
+      if @klass.nil?
+        key_point = KeyPoint.find(params[:key_point_id])
+        @klass = key_point.scripted_type
+        @situated = key_point.scripted
+      else
+        @situated = @klass.find((params[:scene].nil? || params[:scene][:situated_id].empty? ? params["#{@klass.name.underscore}_id"] : params[:scene][:situated_id]))
+      end
     end
 
 

@@ -24,7 +24,7 @@
 </p>
 
 <% if @book.is_fiction? %>
-  <%= render 'books/fiction' %>
+  <%= render 'books/fiction', book: @book %>
 <% @footer_content << "#{link_to 'New Story', new_book_story_path(:book_id => @book.id), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'All Stories', book_stories_path(@book), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Characters', polymorphic_path([@book, :characters ]), :class => "btn btn-default" }" %>
@@ -36,7 +36,7 @@
 <% @footer_content << "#{link_to 'Key Words', book_key_words_path(@book), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to "Authors", book_authors_path(@book),  :class => "btn btn-default"}" %>
 <% else %>
-  <%= render 'chapters/index' %>
+  <%= render 'chapters/index', chapters: @chapters %>
 <% @footer_content << "#{link_to 'New Chapter', new_polymorphic_path([@book,:chapter]), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Chapters, TOC', toc_path(@book), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Key Words', book_key_words_path(@book), :class => "btn btn-default" }" %>

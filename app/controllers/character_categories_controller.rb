@@ -36,7 +36,7 @@ class CharacterCategoriesController < ApplicationController
     respond_to do |format|
       if @character_category.save
         format.html { redirect_to @character_category, notice: 'Character category was successfully created.' }
-        format.json { render :show, status: :created, location: @character_category }
+        format.json { render :show, status: :created, character_category: @character_category }
       else
         format.html { render :new }
         format.json { render json: @character_category.errors, status: :unprocessable_entity }
@@ -50,7 +50,7 @@ class CharacterCategoriesController < ApplicationController
     respond_to do |format|
       if @character_category.update(character_category_params)
         format.html { redirect_to @character_category, notice: 'Character category was successfully updated.' }
-        format.json { render :show, status: :ok, location: @character_category }
+        format.json { render :show, status: :ok, character_category: @character_category }
       else
         format.html { render :edit }
         format.json { render json: @character_category.errors, status: :unprocessable_entity }

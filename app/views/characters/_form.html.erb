@@ -1,14 +1,14 @@
-<% @attributes ||= {} %>
-<%= bootstrap_form_for([@object, @character], layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f| %>
+<% attributes ||= {} %>
+<%= bootstrap_form_for([object, character], layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f| %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <%= hidden_field "#{@object.class.name.underscore}_id", value: @object.id %>
+  <%= hidden_field "#{object.class.name.underscore}_id", value: object.id %>
 
   <p>
   <div class="form-inputs">
-   Person is <%= text_field_tag 'age', '', size: 5 %> in the year <%= text_field_tag 'year', @year, size: 5 %> and lived <%= text_field_tag 'death_age', '', size: 5 %> years.
+   Person is <%= text_field_tag 'age', '', size: 5 %> in the year <%= text_field_tag 'year', year, size: 5 %> and lived <%= text_field_tag 'death_age', '', size: 5 %> years.
   </div>
-</p> 
+</p>
 
     <div class="container-fluid">
     <div class="row">
@@ -38,12 +38,12 @@
     <%= f.text_field :occupation_class %>
     <%= f.text_field :social_class %>
     <%= f.text_field :grouping %>
-    <%= f.select :father_id, 
-            options_from_collection_for_select(@object.characters.where(sex: 0).order('characters.last_name asc, characters.first_name asc'),
-                  :id, :name, (@character.father.nil? ? nil : @character.father.id)), :prompt => "Select Characters", :multiple => false, include_blank: true  %>
+    <%= f.select :father_id,
+            options_from_collection_for_select(object.characters.where(sex: 0).order('characters.last_name asc, characters.first_name asc'),
+                  :id, :name, (character.father.nil? ? nil : character.father.id)), :prompt => "Select Characters", :multiple => false, include_blank: true  %>
     <%= f.select :mother_id,
-            options_from_collection_for_select(@object.characters.where(sex: 1).order('characters.last_name asc, characters.first_name asc'),
-                  :id, :name, (@character.mother.nil? ? nil : @character.mother.id)), :prompt => "Select Characters", :multiple => false, include_blank: true  %>
+            options_from_collection_for_select(object.characters.where(sex: 1).order('characters.last_name asc, characters.first_name asc'),
+                  :id, :name, (character.mother.nil? ? nil : character.mother.id)), :prompt => "Select Characters", :multiple => false, include_blank: true  %>
       </div>
     </span>
       </div>
@@ -88,8 +88,8 @@
 
 <script>
   $(document).ready(function(){
-      <% @attributes.keys.each do |key| %>
-          $('#<%= key.to_s.gsub(/ /,'_') %>').val('<%= @attributes[key] %>');
+      <% attributes.keys.each do |key| %>
+          $('#<%= key.to_s.gsub(/ /,'_') %>').val('<%= attributes[key] %>');
     <% end %>
     });
     $(document).on("change", "input#death_age", function(e){

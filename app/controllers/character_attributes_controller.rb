@@ -72,7 +72,7 @@ class CharacterAttributesController < ApplicationController
     @character_category = @character_attribute.character_category
     @character_attribute.destroy
     respond_to do |format|
-      format.html { redirect_to character_attributes_url(:character_category_id => @character_category.id), notice: 'Character attribute was successfully destroyed.' }
+      format.html { redirect_to character_category_character_attributes_url(:character_category_id => @character_category.id), notice: 'Character attribute was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

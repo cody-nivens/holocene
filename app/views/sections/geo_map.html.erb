@@ -3,7 +3,7 @@
   <%= @section.name %>
 </p>
 
-<%= render 'shared/map' %>    
+<%= render 'shared/map', object: @object %>
 <% @footer_content << "#{link_to 'Timeline', section_timeline_path(:section_id => @section.id), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Display',  section_display_path(:section_id => @section.id), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Back', polymorphic_path(@object.sectioned), :class => "btn btn-default"}" %>

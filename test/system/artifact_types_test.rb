@@ -26,7 +26,7 @@ class ArtifactTypesTest < ApplicationSystemTestCase
     fill_in "Name", with: ""
     click_on "Create Artifact type"
 
-    assert_text "Name can't be blank"
+    assert_text "Name\ncan't be blank"
     click_on "Back"
   end
 end

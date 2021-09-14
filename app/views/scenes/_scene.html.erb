@@ -1,5 +1,5 @@
 <dt>
-  <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: @scripted, key_point: key_point, pdf: pdf} %>
+  <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: scripted, key_point: key_point, pdf: pdf} %>
 </dt>
 <dd>
   <%= raw epub_friendly(scene.summary.body) %>
@@ -10,7 +10,7 @@
       <% break if scenes.empty? %>
         <% scenes.each do |iscene| %>
           <% if iscene.key_point.scripted.publish %>
-            <li><%= (pdf.nil? ? link_to(iscene.abc, polymorphic_path([@scripted, key_point, iscene])) : iscene.abc) %> <%= (iscene.section.nil? ? '' : '*') %><%= iscene.time_to_text %> : <%= iscene.name %></li>
+            <li><%= (pdf.nil? ? link_to(iscene.abc, scene_path(iscene)) : iscene.abc) %> <%= (iscene.section.nil? ? '' : '*') %><%= iscene.time_to_text %> : <%= iscene.name %></li>
           <% end %>
         <% insert_scene = iscene %>
       <% end %>
@@ -18,7 +18,7 @@
   </ul>
   <% unless scene.insert_scene.nil? %>
     <p>
-      <strong>Insert Scene:</strong> <%= (pdf.nil? ? link_to(scene.insert_scene.abc, polymorphic_path([@scripted,key_point, scene.insert_scene])) : scene.insert_scene.abc) %>:<%= scene.insert_scene.time_to_text %>
+      <strong>Insert Scene:</strong> <%= (pdf.nil? ? link_to(scene.insert_scene_abc, scene_path(scene.insert_scene)) : scene.insert_scene_abc) %>:<%= scene.insert_scene.time_to_text %>
       <%= scene.insert_scene.name %>
     </p>
   <% end %>
@@ -26,10 +26,10 @@
   <% unless scene.characters.empty? %>
     <ul>
       <% scene.character_scenes.joins(:character).order(:occupation_class,:last_name,:first_name).each do |character_scene| %>
-        <li><%= (pdf.nil? ? 
-          link_to("#{character_scene.character.name}, #{scene.date_string[0..3].to_i-character_scene.character.birth_year.to_i}", polymorphic_path([@scripted,character_scene.character])) :
-          character_scene.character.name) %>, <%= character_scene.character.occupation_class %><%= (character_scene.character.grouping.blank? ? "" : ", #{character_scene.character.grouping}") %>
-          <%= link_to (fa_icon 'plus'), edit_polymorphic_path([scene, character_scene]) %>
+        <li><%= (pdf.nil? ?
+          link_to("#{character_scene.character_name}, #{scene.date_string[0..3].to_i-character_scene.character_birth_year.to_i}", polymorphic_path([scripted,character_scene.character])) :
+          character_scene.character_name) %>, <%= character_scene.character_occupation_class %><%= (character_scene.character_grouping.blank? ? "" : ", #{character_scene.character_grouping}") %>
+          <%= link_to (fa_icon 'plus'), edit_character_scene_path(character_scene) %>
           <% unless character_scene.summary.nil? %>
             <%= character_scene.summary.to_plain_text %>
           <% end %>

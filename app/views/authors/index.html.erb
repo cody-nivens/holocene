@@ -18,9 +18,9 @@
         <td><%= author.last_name %></td>
         <td><%= author.books.count %></td>
         <td><%= author.biblioentries.count %></td>
-        <td><%= link_to (fa_icon "search-plus"), book_author_path(@book,author), :title => 'Show' %></td>
-        <td><%= link_to (fa_icon "edit"), edit_book_author_path(@book,author), :title => 'Edit' %></td>
-        <td><%= link_to (fa_icon "trash-o"), book_author_path(@book,author), method: :delete, data: { confirm: 'Are you sure?' }, :title => 'Destroy' %></td>
+        <td><%= link_to (fa_icon "search-plus"), polymorphic_path([@object,author]), :title => 'Show' %></td>
+        <td><%= link_to (fa_icon "edit"), edit_polymorphic_path([@object, author]), :title => 'Edit' %></td>
+        <td><%= link_to (fa_icon "trash-o"), polymorphic_path([@object, author]), method: :delete, data: { confirm: 'Are you sure?' }, :title => 'Destroy' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,5 +28,5 @@
 
 <br>
 
-<% @footer_content << "#{link_to 'New Author', new_polymorphic_path([@book, :author]), :class => "btn btn-default" }" %>
-<% @footer_content << "#{link_to 'Add Author', polymorphic_path([@book, :authors_list]), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'New Author', new_polymorphic_path([@object, :author]), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Add Author', polymorphic_path([@object, :authors_list]), :class => "btn btn-default" }" %>

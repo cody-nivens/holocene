@@ -2,12 +2,12 @@
 
 <p>
   <strong>Tour:</strong>
-  <%= @itinerary.tour.name %>
+  <%= @itinerary.tour_name %>
 </p>
 
 <p>
   <strong>City:</strong>
-  <%= @itinerary.city.name %>
+  <%= @itinerary.city_name %>
 </p>
 
 <p>
@@ -16,7 +16,7 @@
 </p>
 
 <% @object = @itinerary %>
-<%= render 'shared/map' %>
+<%= render 'shared/map', object: @object %>
 
-<% @footer_content << "#{ link_to 'Edit', edit_story_tour_itinerary_path(@story,@tour,@itinerary), :class => "btn btn-default hide-print" }" %>
-<% @footer_content << "#{ link_to 'Back', story_tour_path(@story,@tour), :class => "btn btn-default hide-print" }" %>
+<% @footer_content << "#{ link_to 'Edit', edit_itinerary_path(@itinerary), :class => "btn btn-default hide-print" }" %>
+<% @footer_content << "#{ link_to 'Back', tour_path(@tour), :class => "btn btn-default hide-print" }" %>

@@ -1,6 +1,6 @@
 class ChaptersController < ApplicationController
   before_action :set_chapter, only: [:promote, :demote, :geo_map, :pdf, :holocene_events, :sections, :show, :edit, :update, :destroy]
-  before_action :set_scripted, only: [ :index, :create, :new, :destroy]
+  before_action :set_scripted, only: [ :index, :create, :new ]
 
   def index
        @chapters = @scripted.chapters.order(:position).all
@@ -84,9 +84,9 @@ class ChaptersController < ApplicationController
   end
 
       #format.pdf {
-      #  render pdf: "chapter_#{@chapter.id}", 
+      #  render pdf: "chapter_#{@chapter.id}",
       #    disposition: 'attachment',
-      #    header: { right: '[page] of [topage]' }, 
+      #    header: { right: '[page] of [topage]' },
       #    toc: {
       #      disable_dotted_lines: true,
       #      disable_toc_links: true,
@@ -124,7 +124,7 @@ class ChaptersController < ApplicationController
     respond_to do |format|
       if @chapter.save
         @chapter.reload
-        format.html { redirect_to polymorphic_path([@scripted, @chapter]), notice: 'Chapter was successfully created.' }
+        format.html { redirect_to @chapter, notice: 'Chapter was successfully created.' }
         format.json { render :show, status: :created, location: @chapter }
       else
         format.html { render :new }
@@ -139,7 +139,7 @@ class ChaptersController < ApplicationController
     @scripted = @chapter.scripted
     respond_to do |format|
       if @chapter.update(chapter_params)
-        format.html { redirect_to polymorphic_path([@scripted, @chapter]), notice: 'Chapter was successfully updated.' }
+        format.html { redirect_to @chapter, notice: 'Chapter was successfully updated.' }
         format.json { render :show, status: :ok, location: @chapter }
       else
         format.html { render :edit }
@@ -151,6 +151,7 @@ class ChaptersController < ApplicationController
   # DELETE /chapters/1
   # DELETE /chapters/1.json
   def destroy
+    @scripted = @chapter.scripted
     @chapter.destroy
     respond_to do |format|
       format.html { redirect_to polymorphic_path([@scripted, :chapters]), notice: 'Chapter was successfully destroyed.' }

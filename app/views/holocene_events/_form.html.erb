@@ -27,8 +27,8 @@
 
     <%= f.text_field :url %>
     <%= f.file_field :image, multiple: false, direct_upload: true %>
-    <% unless @holocene_event.id.nil? || !@holocene_event.image.attached? %>
-    <%= image_tag @holocene_event.image.variant(resize: "100x100>") %>
+    <% unless holocene_event.id.nil? || !holocene_event.image.attached? %>
+    <%= image_tag holocene_event.image.variant(resize: "100x100>") %>
     <% end %>
 
       <%= f.rich_text_area :body, label: false, cols: "80", rows: "15", hide_label: true %>

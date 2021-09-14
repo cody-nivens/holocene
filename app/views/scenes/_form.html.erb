@@ -1,4 +1,4 @@
-<%= bootstrap_form_for [@situated, scene ] do |f| %>
+<%= bootstrap_form_for scene, :url => {:controller => :scenes, :action => (scene.id.nil? ? :create : :update)} do |f| %>
   <% if scene.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(scene.errors.count, "error") %> prohibited this scene from being saved:</h2>
@@ -12,14 +12,13 @@
   <% end %>
     <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-    <%= hidden_field_tag :key_point_id, (@key_point.nil? ? nil : @key_point.id) %>
-    <%= hidden_field_tag :situated_id, @situated.id %>
-    <%= hidden_field_tag :selector, @selector %>
-    <%= hidden_field_tag :situated_type, @situated.class.name %>
-    <%= f.hidden_field :key_point_id, value: (scene.key_point.nil? ? nil : (@key_point.nil? ? scene.key_point.id : @key_point.id)) %>
+    <%= hidden_field_tag "#{situated.class.name.underscore}_id", situated.id %>
+    <%= hidden_field_tag :situated_type, situated.class.name %>
+    <%= hidden_field_tag :selector, selector %>
+    <%= f.hidden_field :key_point_id, value: (scene.key_point.nil? ? nil : (key_point.nil? ? scene.key_point.id : key_point.id)) %>
     <%= f.hidden_field :situated_id %>
     <%= f.hidden_field :situated_type %>
-    <%= f.hidden_field :selector, value: (scene.selector.nil? ? @selector.to_i : scene.selector) %>
+    <%= f.hidden_field :selector, value: (scene.selector.nil? ? selector.to_i : scene.selector) %>
 
 
 
@@ -54,7 +53,7 @@
 
         <label for='t_years'>Time</label>
         <%= text_field_tag 't_years', year, size: 5 %> year
-        <%= select("t", "month", %w[1 2 3 4 5 6 7 8 9 10 11 12 ], {include_blank: "Month", selected: month}, {}) %> month(s) and 
+        <%= select("t", "month", %w[1 2 3 4 5 6 7 8 9 10 11 12 ], {include_blank: "Month", selected: month}, {}) %> month(s) and
         <%= select("t", "day", %w[1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31], {include_blank: 'Day', selected: day}, {}) %>
          day(s).
   </div>

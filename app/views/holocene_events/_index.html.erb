@@ -13,8 +13,8 @@
         </tr>
         <% unless he.body.blank? -%>
           <tr>
-            <% @footnotes = Footnote.process_body(he, slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
-              <td class="dd-type" colspan="4"><%= raw @footnotes[0] %></td>
+            <% footnotes = Footnote.process_body(he, slugs, (footnotes.nil? ? 1 : footnotes[2])) -%>
+              <td class="dd-type" colspan="4"><%= raw footnotes[0] %></td>
            </tr>
         <% end -%>
     <% end -%>

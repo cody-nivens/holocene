@@ -135,16 +135,7 @@ class CharactersController < ApplicationController
     @character.save(validate: false)
 
     update_character_lists(@object,@character)
-    case @object.class.name
-    when "Book"
-      redirect_to book_character_step_path(@object, @character, Character.form_steps.first)
-    when "Scene"
-      redirect_to scene_character_step_path(@object, @character, Character.form_steps.first)
-    else
-    #when "Story"
-      redirect_to story_character_step_path(@object, @character, Character.form_steps.first)
-    end
-
+    redirect_to polymorphic_path([@object,@character, :step], :id => Character.form_steps.first)
   end
 
   # PATCH/PUT /characters/1
@@ -191,8 +182,8 @@ class CharactersController < ApplicationController
     end
 
     def set_object
-    klass = [Scene, Story, Book].detect{|c| params["#{c.name.underscore}_id"]}
-    @object = klass.find(params["#{klass.name.underscore}_id"])
+      klass = [Scene, Story, Book].detect{|c| params["#{c.name.underscore}_id"]}
+      @object = klass.find(params["#{klass.name.underscore}_id"])
     end
 
     def grid_params
@@ -201,7 +192,7 @@ class CharactersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def character_params
-      params.require(:character).permit(:name, :reason_for_name, :nickname, :reason_for_nickname, :ethnicity, :occupation_class, 
+      params.require(:character).permit(:name, :reason_for_name, :nickname, :reason_for_nickname, :ethnicity, :occupation_class,
                                         :social_class, :first_name, :middle_name, :last_name, :suffix, :birth_year, :death_year,
                                        :age_at_son, :father_id, :honorific, :grouping, :use_honorific_only,:background,:mother_id,:sex
                                        )

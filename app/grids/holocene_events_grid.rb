@@ -60,7 +60,7 @@ class HoloceneEventsGrid < BaseGrid
       HoloceneEvent.convert_ad(he.end_year)
   end
   #column(:image, :html => true) do |he|
-  #  if he.image.attached? 
+  #  if he.image.attached?
   #    image_tag(he.image.variant(resize: "100x100>"), :alt => he.image.filename.to_s)
   #  end
   #end

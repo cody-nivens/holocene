@@ -17,6 +17,8 @@ class Character < ApplicationRecord
 
   belongs_to :father, class_name: 'Character', :optional => true
   belongs_to :mother, class_name: 'Character', :optional => true
+  delegate :name, :to => :father, :prefix => true
+  delegate :name, :to => :mother, :prefix => true
 
   has_rich_text :background
 
@@ -39,11 +41,62 @@ class Character < ApplicationRecord
   validates :first_name, presence: true, if: -> { required_for_step?(:identity) }
   #validates :occupation_class,:social_class,  presence: true, if: -> { required_for_step?(:attributes) }
 
+  def first_name?
+    !self.first_name.nil?
+  end
+
+  def grouping?
+    !self.grouping.blank?
+  end
+
+  def reason_for_name?
+    !self.reason_for_name.blank?
+  end
+
+  def nickname?
+    !self.nickname.blank?
+  end
+
+  def reason_for_nickname?
+    !self.reason_for_nickname.blank?
+  end
+
+  def honorific?
+    !self.honorific.blank?
+  end
+
+  def ethnicity?
+    !self.ethnicity.blank?
+  end
+
+  def social_class?
+    !self.social_class.blank?
+  end
+
+  def grouping?
+    !self.grouping.blank?
+  end
+
+  def reign?
+    !self.reign.blank?
+  end
+
+  def father?
+    !self.father.nil?
+  end
+
+  def mother?
+    !self.mother.nil?
+  end
+
+  def background?
+    !self.background.nil?
+  end
+
   def required_for_step?(my_step)
     return true if form_step.nil?
     return true if self.form_steps.index(my_step.to_s) <= self.form_steps.index(form_step)
   end
-
 
   def name
     "#{(honorific.blank? ? "#{first_name}" : "#{honorific} ")} #{(middle_name.blank? || !honorific.blank? ? '' : middle_name)}#{(middle_name.blank? ? '' : ' ')}#{(last_name.blank? ? (honorific.blank? ? '' : first_name) : last_name)}" + (suffix.blank? ? '' : " #{suffix}")
@@ -193,7 +246,7 @@ class Character < ApplicationRecord
 
     while i < 25 do
       name = {}
-      names_index = (names_index + 1) % names.length 
+      names_index = (names_index + 1) % names.length
       name[:last_name] = self.last_name
 
       first_name = names[names_index]
@@ -229,7 +282,7 @@ class Character < ApplicationRecord
     return new_names
   end
 
-  def reign 
+  def reign
     (self.father.nil? ? '' : self.death_year - self.father.death_year)
   end
 

@@ -18,9 +18,9 @@
       <tr>
         <td><%= glossary_term.name %></td>
         <td><%= glossary_term.body %></td>
-        <td><%= (glossary_term.see.nil? ? '' : glossary_term.see.name) %></td>
-        <td><%= (glossary_term.seealso.nil? ? '' : glossary_term.seealso.name) %></td>
-        <td><%= (glossary_term.acronym.nil? ? '' : glossary_term.acronym.name) %></td>
+        <td><%= (glossary_term.see.nil? ? '' : glossary_term.see_name) %></td>
+        <td><%= (glossary_term.seealso.nil? ? '' : glossary_term.seealso_name) %></td>
+        <td><%= (glossary_term.acronym.nil? ? '' : glossary_term.acronym_name) %></td>
       </tr>
     <% end %>
   </tbody>

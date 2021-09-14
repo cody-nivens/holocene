@@ -1,6 +1,6 @@
 class BiblioentriesController < ApplicationController
   before_action :set_biblioentry, only: [:show, :edit, :update, :destroy]
-  before_action :set_book, only: [:index, :show, :edit, :update, :destroy, :new ]
+  before_action :set_book, only: [:index, :new ]
 
   # GET /books/:book_id/biblioentries(.:format)
   def index
@@ -31,7 +31,7 @@ class BiblioentriesController < ApplicationController
 
     respond_to do |format|
       if @biblioentry.save
-        format.html { redirect_to book_biblioentry_url(@book, @biblioentry), notice: 'Biblioentry was successfully created.' }
+        format.html { redirect_to biblioentry_url(@biblioentry), notice: 'Biblioentry was successfully created.' }
         format.json { render :show, status: :created, location: @biblioentry }
       else
         format.html { render :new }
@@ -45,7 +45,7 @@ class BiblioentriesController < ApplicationController
     @book = @biblioentry.book
     respond_to do |format|
       if @biblioentry.update(biblioentry_params)
-        format.html { redirect_to book_biblioentry_url(@book, @biblioentry), notice: 'Biblioentry was successfully updated.' }
+        format.html { redirect_to biblioentry_url(@biblioentry), notice: 'Biblioentry was successfully updated.' }
         format.json { render :show, status: :ok, location: @biblioentry }
       else
         format.html { render :edit }
@@ -56,6 +56,7 @@ class BiblioentriesController < ApplicationController
 
   # DELETE /books/:book_id/biblioentries/:id(.:format)
   def destroy
+    @book = @biblioentry.book
     @biblioentry.destroy
     respond_to do |format|
       format.html { redirect_to book_biblioentries_path(@book), notice: 'Biblioentry was successfully destroyed.' }
