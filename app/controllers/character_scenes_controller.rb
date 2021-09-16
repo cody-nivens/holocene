@@ -1,9 +1,5 @@
 class CharacterScenesController < ApplicationController
-  before_action :set_character_scene, only: [:show,:edit, :update]
-
-  def show
-    @scene = @character_scene.scene
-  end
+  before_action :set_character_scene, only: [:edit, :update]
 
   # GET /character_scenes/1/edit
   def edit

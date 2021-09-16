@@ -4,12 +4,18 @@ class CharacterAttributesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @character_attribute = character_attributes(:character_attribute_1)
     @character_category = @character_attribute.character_category
+    @character_category_2 = character_categories(:character_category_2)
     @user = users(:users_1)
     sign_in @user
   end
 
   test "should get index" do
     get character_category_character_attributes_url(@character_category)
+    assert_response :success
+  end
+
+  test "should get index 2" do
+    get character_category_character_attributes_url(@character_category_2)
     assert_response :success
   end
 

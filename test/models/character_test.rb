@@ -8,6 +8,17 @@ class CharacterTest < ActiveSupport::TestCase
       assert_not_nil character.full_name
       assert_not_nil character.full_last_first
     end
+
+    assert_equal "John Smith", characters(:character_1).name
+    assert_equal "Joe", characters(:character_2).name
+    assert_equal "Jim Jones", characters(:character_3).name
+    assert_equal "Joel", characters(:character_4).name
+    assert_equal "Counsel", characters(:character_5).name
+    assert_equal "Jill", characters(:character_6).name
+    assert_equal "Sir Maurice Leonard Green V", characters(:character_7).name
+    assert_equal "Master Goodall", characters(:character_8).name
+    assert_equal "Mark Wilson Sloane III", characters(:character_9).name
+    assert_equal "Brother Larry", characters(:character_10).name
   end
 
   test "gen sexuality" do

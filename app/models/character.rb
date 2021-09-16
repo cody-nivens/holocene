@@ -93,13 +93,58 @@ class Character < ApplicationRecord
     !self.background.nil?
   end
 
+  def use_honorific_only?
+    self.use_honorific_only
+  end
+
+
   def required_for_step?(my_step)
     return true if form_step.nil?
     return true if self.form_steps.index(my_step.to_s) <= self.form_steps.index(form_step)
   end
 
   def name
-    "#{(honorific.blank? ? "#{first_name}" : "#{honorific} ")} #{(middle_name.blank? || !honorific.blank? ? '' : middle_name)}#{(middle_name.blank? ? '' : ' ')}#{(last_name.blank? ? (honorific.blank? ? '' : first_name) : last_name)}" + (suffix.blank? ? '' : " #{suffix}")
+    str = ""
+    if !self.honorific?
+      str += ''
+    else
+      if self.use_honorific_only?
+        str += self.honorific
+      else
+        str += "#{self.honorific}"
+      end
+    end
+
+    str += " " if self.honorific? && !self.use_honorific_only?
+
+    #if !self.honorific? && !self.use_honorific_only?
+    #  str += " #{self.first_name}"
+    #else
+      str += self.first_name unless self.use_honorific_only?
+    #end
+
+    if self.middle_name.blank? || (self.honorific? && self.use_honorific_only)
+      str += ''
+    else
+      str += " #{self.middle_name}"
+    end
+
+    if self.last_name.blank?
+      #if self.honorific.blank?
+        str += ''
+      #else
+      #  str += " #{self.first_name}"
+      #end
+    else
+      str += " #{self.last_name}"
+    end
+
+    if self.suffix.blank?
+      str += ''
+    else
+      str += " #{self.suffix}"
+    end
+    str
   end
 
   def select_name

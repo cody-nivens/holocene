@@ -9,18 +9,18 @@ class CharactersController < ApplicationController
     #   scope.page(params[:page])
     #end
 
-    category = grid_params[:category]
-    attribute = grid_params[:attribute]
-    value = grid_params[:value]
+    @category = grid_params[:category]
+    @attribute = grid_params[:attribute]
+    @value = grid_params[:value]
 
     my_params = grid_params.except(:category,:attribute,:value)
 
     @grid = CharactersGrid.new(my_params) do |scope|
-      if !attribute.blank?
-        if value.blank?
-          my_scope = scope.joins(:character_values).where("character_values.character_attribute_id = ?", attribute.to_i).page(params[:page])
+      if !@attribute.blank?
+        if @value.blank?
+          my_scope = scope.joins(:character_values).where("character_values.character_attribute_id = ?", @attribute.to_i)
         else
-          my_scope = scope.joins(:character_values).where("character_values.character_attribute_id = ? and character_values.value = ?", attribute.to_i,value).page(params[:page])
+          my_scope = scope.joins(:character_values).where("character_values.character_attribute_id = ? and character_values.value = ?", @attribute.to_i,@value)
         end
       else
         my_scope = scope

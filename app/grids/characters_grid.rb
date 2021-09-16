@@ -19,9 +19,9 @@ class CharactersGrid < BaseGrid
   filter(:ethnicity, :enum, :select => proc { Character.all.pluck(:ethnicity).compact.sort.uniq.map {|c| [c, c] }}, :multiple => true)
   filter(:occupation_class, :enum, :select => proc { Character.all.pluck(:occupation_class).compact.sort.uniq.map {|c| [c, c] }}, :multiple => true)
   filter(:grouping, :enum, :select => proc { Character.all.pluck(:grouping).compact.sort.uniq.map {|c| [c, c] }}, :multiple => true)
-  filter(:category, :enum, :select => proc { CharacterCategory.all.order(:name).pluck(:name, :id).compact.sort.uniq.map {|c| [c[0], c[1]] }})
-  filter(:attribute, :enum, :select => proc { CharacterAttribute.where(character_category_id: CharacterCategory.all.order(:name).first).pluck(:name,:id).compact.sort.uniq.map {|c| [c[0], c[1]] }} )
-  filter(:value, :enum, :select => proc { CharacterValue.where(character_attribute_id: CharacterAttribute.all.order(:name).first).pluck(:value,:id).compact.sort.uniq.map {|c| [c[0], c[1]] }} )
+  filter(:category, :enum, :select => proc { CharacterCategory.all.order(:name).pluck(:name, :id).compact.sort.uniq.map {|c| [c[0], c[1]] }}, :default => proc { @category })
+  filter(:attribute, :enum, :select => proc { CharacterAttribute.where(character_category_id: CharacterCategory.all.order(:name).first).pluck(:name,:id).compact.sort.uniq.map {|c| [c[0], c[1]] }}, :default => proc { @attribute })
+  filter(:value, :enum, :select => proc { CharacterValue.where(character_attribute_id: CharacterAttribute.all.order(:name).first).pluck(:value,:id).compact.sort.uniq.map {|c| [c[0], c[1]] }}, :default => proc { @value })
 
   column(:last_name, :html => true,:order=>'last_name asc, first_name asc, suffix asc',:order_desc=>'last_name desc, first_name desc, suffix desc') do |he|
     link_to he.last_name, polymorphic_path([@object,he])
@@ -34,21 +34,21 @@ class CharactersGrid < BaseGrid
   column(:suffix)
   column(:honorific)
   column(:use_honorific_only)
-  column(:sex, :html => true) do |value|
+  column(:sex, :html => true, :order=>'sex asc, last_name asc, first_name asc',:order_desc=>'sex desc, last_name desc, first_name desc') do |value|
     Character.sex_to_text(value.sex)
   end
   #column(:reason_for_name)
   #column(:nickname)
   #column(:reason_for_nickname)
-  column(:ethnicity,:order=>'ethnicity asc, last_name asc, first_name asc',:order_desc=>'ethnicity desc, last_name desc, first_name desc')
+  column(:ethnicity, :order=>'ethnicity asc, last_name asc, first_name asc',:order_desc=>'ethnicity desc, last_name desc, first_name desc')
 
-  column(:occupation_class,:order=>'occupation_class asc, last_name asc, first_name asc',:order_desc=>'occupation_class desc, last_name desc, first_name desc')
-  column(:grouping,:order=>'occupation_class asc, last_name asc, first_name asc',:order_desc=>'occupation_class desc, last_name desc, first_name desc')
+  column(:occupation_class, :order=>'occupation_class asc, last_name asc, first_name asc',:order_desc=>'occupation_class desc, last_name desc, first_name desc')
+  column(:grouping, :order=>'occupation_class asc, last_name asc, first_name asc',:order_desc=>'occupation_class desc, last_name desc, first_name desc')
   #column(:social_class)
   #column(:created_at)
   #column(:updated_at)
-  column(:birth_year)
-  column(:death_year)
+  column(:birth_year, :order=>'birth_year asc, last_name asc, first_name asc',:order_desc=>'birth_year desc, last_name desc, first_name desc')
+  column(:death_year, :order=>'death_year asc, last_name asc, first_name asc',:order_desc=>'death_year desc, last_name desc, first_name desc')
 
   #column(:father_id)
   #column(:age_at_son)

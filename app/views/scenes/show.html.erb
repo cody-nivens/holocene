@@ -82,7 +82,7 @@
       <%= occ_class %>
       <ul>
         <% @scene.characters.where("occupation_class = ?", occ_class).order(:occupation_class,:last_name,:first_name).each do |character| %>
-          <li><%= link_to("#{character.name}, #{@scene.date_string[0..3].to_i-character.birth_year.to_i}", character_path(character)) %><%= "#{(!character.grouping? ? '' : "-  #{character.grouping}")}" %>
+          <li><%= link_to("#{character.name}, #{@scene.date_string[0..3].to_i-character.birth_year.to_i}", polymorphic_path([@scene,character])) %><%= "#{(!character.grouping? ? '' : "-  #{character.grouping}")}" %>
             <% character_scene=CharacterScene.where(character_id: character.id, scene_id: @scene.id) %>
             <%= link_to (fa_icon 'plus'), edit_character_scene_path(character_scene[0]) %>
             <% unless character_scene[0].summary.nil? %>

@@ -82,6 +82,7 @@ character_6:
 
 character_7:
   first_name: Maurice
+  middle_name: Leonard
   last_name: Green
   suffix: V
   honorific: Sir
@@ -116,3 +117,31 @@ character_8:
   age_at_son: 23
   books:
     - book_2
+
+character_9:
+  first_name: Mark
+  middle_name: Wilson
+  last_name: Sloane
+  suffix: III
+  ethnicity: White
+  occupation_class: Autocrat
+  social_class: High
+  birth_year: 105
+  death_year: 179
+  sex: 1
+  age_at_son: 23
+  stories:
+    - story_2
+
+character_10:
+  first_name: Larry
+  honorific: Brother
+  ethnicity: White
+  occupation_class: Autocrat
+  social_class: High
+  birth_year: 105
+  death_year: 179
+  sex: 1
+  age_at_son: 23
+  stories:
+    - story_2
