@@ -102,7 +102,7 @@ gem 'devise', '~> 4.7.1'
 gem 'rolify'
 gem 'kaminari', '~> 1.2.1'
 gem 'datagrid'
-gem 'nokogiri', '1.10.8'
+gem "nokogiri", ">= 1.11.4"
 gem 'mini_portile2', '~> 2.4.0'
 gem 'acts-as-taggable-on'
 gem 'jquery-rails'
