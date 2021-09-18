@@ -151,7 +151,7 @@ GEM
     e2mmap (0.1.0)
     erubi (1.10.0)
     erubis (2.7.0)
-    et-orbi (1.2.4)
+    et-orbi (1.2.5)
       tzinfo
     execjs (2.8.1)
     ffi (1.15.4)
@@ -160,7 +160,7 @@ GEM
     font-awesome-sass (5.5.0.1)
       sassc (>= 1.11)
     formatador (0.3.0)
-    fugit (1.5.1)
+    fugit (1.5.2)
       et-orbi (~> 1.1, >= 1.1.8)
       raabro (~> 1.4)
     geckodriver-helper (0.24.0)
