@@ -74,7 +74,7 @@ class BooksController < ApplicationController
     session[:book_id] = @book.id
     @chapters = @book.chapters
     @scripted = @book
-    @stories = @book.stories.where(publish: true) if @book.is_fiction?
+    @stories = @book.stories.where(publish: true).order(:position) if @book.is_fiction?
 
     respond_to do |format|
       format.html { render :show }

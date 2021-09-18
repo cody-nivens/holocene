@@ -2,5 +2,5 @@
 
 <%= render 'form', signet: @signet, sigged: @sigged %>
 
-<% @footer_content << "#{link_to 'Show', @signet, :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Show', polymorphic_path([@sigged, @signet]), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Back', polymorphic_path(@sigged), :class => "btn btn-default"}" %>

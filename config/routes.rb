@@ -25,7 +25,6 @@ Rails.application.routes.draw do
   end
   mount Sidekiq::Web => '/sidekiq'
 
-  resources :metrics, :only => [:index, :show]
   concern :sectioned do |options|
      resources :chapters, options
      resources :scenes, options
@@ -73,8 +72,8 @@ Rails.application.routes.draw do
   get "/scenes/:scene_id/character/:id/lineage", to: "characters#lineage", as: :scene_character_lineage
 
   get "/stories/:id/stats", to: "stories#stats", as: :story_stats
-  get "/key_points/:id/move", to: "key_points#move", as: :story_key_point_move
-  post "/key_points/:id/moved", to: "key_points#moved", as: :story_key_point_moved
+  get "/stories/:story_id/key_points/:id/move", to: "key_points#move", as: :story_key_point_move
+  post "stories/:story_id//key_points/:id/moved", to: "key_points#moved", as: :story_key_point_moved
   get "/stories/:story_id/characters/list", to: "characters#list", as: :story_characters_list
   post "/stories/:story_id/characters/add", to: "characters#add", as: :story_characters_add
   get "/stories/:id/timeline", to: "stories#timeline", as: :story_timeline
@@ -213,6 +212,10 @@ Rails.application.routes.draw do
   get "/chapters/:chapter_id/footnotes/:slug",               to: "footnotes#new", as: :new_chapter_footnote
   get "/sections/:section_id/footnotes/:slug",               to: "footnotes#new", as: :new_section_footnote
   get "/holocene_events/:holocene_event_id/footnotes/:slug", to: "footnotes#new", as: :new_holocene_event_footnote
+
+  get "/chapters/:chapter_id/footnotes/edit/:id",               to: "footnotes#edit", as: :edit_chapter_footnote
+  get "/sections/:section_id/footnotes/edit/:id",               to: "footnotes#edit", as: :edit_section_footnote
+  get "/holocene_events/:holocene_event_id/footnotes/edit", to: "footnotes#edit", as: :edit_holocene_event_footnote
 
   patch "/chapters/:chapter_id/citations",               to: "citations#update", as: :chapter_citation_update
   patch "/chapters/:chapter_id/footnote/:id",               to: "footnotes#update", as: :chapter_footnote_update

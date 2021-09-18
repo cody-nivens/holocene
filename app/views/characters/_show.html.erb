@@ -12,7 +12,9 @@
 <%= tabs do |c| %>
 <% c.tab "Info" do %>
   <span>
-
+    <div class = "container">
+      <div class="row">
+        <div class="col-md-4">
   <% if character.reason_for_name? %>
     <p>
       <strong>Reason for name:</strong>
@@ -90,17 +92,16 @@
       <%= character.background %>
     </p>
   <% end %>
-
-</span>
-<% end %>
-
-<% c.tab "Attributes" do %>
-  <span>
-    <% CharacterCategory.all.each do |category| %>
-      <%= render :partial => 'character_values/index_list.html',
-        :locals => {:pdf => pdf, :title => category.name, object: object,
-                :character_values => character.character_values.joins(:character_attribute).order(:name).where("character_category_id = ?", category.id)} %>
-    <% end %>
+        </div>
+        <div class="col-md-4">
+          <% CharacterCategory.all.each do |category| %>
+            <%= render :partial => 'character_values/index_list.html',
+                        :locals => {:pdf => pdf, :title => category.name, object: object,
+                                    :character_values => character.character_values.joins(:character_attribute).order(:name).where("character_category_id = ?", category.id)} %>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </span>
 <% end %>
 

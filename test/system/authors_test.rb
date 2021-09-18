@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class AuthorsTest < ApplicationSystemTestCase
   setup do
-    @author = authors(:authors_1)
+    @author = authors(:author_1)
     @book = @author.books[0]
     @user = users(:users_1)
     sign_in @user

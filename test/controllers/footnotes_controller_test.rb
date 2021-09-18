@@ -117,7 +117,7 @@ class FootnotesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_select "a[text()=?]",'Edit'
-    assert_select "a[href=?]", edit_footnote_path(@footnote)
+    assert_select "a[href=?]", edit_polymorphic_path([@chapter,@footnote])
     assert_select "a[text()=?]",'Back'
     #assert_select "a[href=?]", footnotes_path
     assert_select ".footer>div>a", 2
@@ -128,7 +128,7 @@ class FootnotesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_select "a[text()=?]",'Show'
-    assert_select "a[href=?]", footnote_path(@footnote)
+    assert_select "a[href=?]", polymorphic_path([@chapter,@footnote])
     assert_select "a[text()=?]",'Back'
     #assert_select "a[href=?]", footnotes_path
     assert_select ".footer>div>a", 2

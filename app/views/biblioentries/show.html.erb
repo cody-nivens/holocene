@@ -29,10 +29,8 @@
   <%= @biblioentry.publisher %>
 </p>
 <% end -%>
-  <% @footer_content << "#{link_to 'Edit', edit_biblioentry_path(@biblioentry), :class => "btn btn-default"}" %>
-<% unless @biblioentry.footnotes.nil? %>
-  <%= render "footnotes/index", footnotes: @biblioentry.footnotes, noted: @biblioentry %>
-<% end %>
-<% if @biblioentry.footnotes.nil? %>
-  <% @footer_content << "#{link_to 'Back', book_path(@book), :class => "btn btn-default"}" %>
-<% end %>
+
+<%= render "footnotes/index", footnotes: @biblioentry.footnotes, noted: @biblioentry %>
+
+<% @footer_content << "#{link_to 'Edit', edit_biblioentry_path(@biblioentry), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', book_path(@book), :class => "btn btn-default"}" %>

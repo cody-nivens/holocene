@@ -16,11 +16,9 @@ class Character::StepsController < ApplicationController
     when "identity"
       if !@character.first_name?
         values = Namer.random_name(@character.ethnicity,@character.sex)
-        if !@character.first_name?
-          @character.first_name = values[0]
-          @character.middle_name = values[1]
-          @character.last_name = values[2]
-        end
+        @character.first_name = values[0]
+        @character.middle_name = values[1]
+        @character.last_name = values[2]
       end
     else
     #when "attributes"

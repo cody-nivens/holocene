@@ -24,7 +24,7 @@
 </p>
 
 <% if @book.is_fiction? %>
-  <%= render 'books/fiction', book: @book %>
+  <%= render 'books/fiction', book: @book, stories: @stories %>
 <% @footer_content << "#{link_to 'New Story', new_book_story_path(:book_id => @book.id), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'All Stories', book_stories_path(@book), :class => "btn btn-default" }" %>
 <% @footer_content << "#{link_to 'Characters', polymorphic_path([@book, :characters ]), :class => "btn btn-default" }" %>

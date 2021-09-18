@@ -2,4 +2,4 @@
 
 <%= render 'form', city: @city %>
 
-<%= link_to 'Back', cities_path %>
+<% @footer_content << "#{link_to 'Back', cities_path, :class => "btn btn-default" }" %>

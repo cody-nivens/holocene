@@ -14,5 +14,5 @@
 </p>
 <% end %>
 
-<% @footer_content << "#{link_to 'Edit', edit_footnote_path(@footnote), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnotes", :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Edit', edit_polymorphic_path([@noted,@footnote]), :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', polymorphic_path([@noted, :footnotes]), :class => "btn btn-default"}" %>

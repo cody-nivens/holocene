@@ -2,4 +2,4 @@
 
 <%= render 'form', scene: @scene, situated: @situated, selector: @selector, key_point: @key_point %>
 
-<% @footer_content << "#{link_to 'Back', scene_url(@scene), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'Back', scene_path(@scene), :class => "btn btn-default" }" %>

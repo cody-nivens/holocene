@@ -139,7 +139,7 @@ class ScenesController < ApplicationController
     end
 
     def set_situated
-      @klass = [Book, Chapter, Story].detect{|c| params["#{c.name.underscore}_id"]}
+      @klass = [Book, Story].detect{|c| params["#{c.name.underscore}_id"]}
       if @klass.nil?
         key_point = KeyPoint.find(params[:key_point_id])
         @klass = key_point.scripted_type

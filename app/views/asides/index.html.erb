@@ -26,4 +26,5 @@
 
 <br>
 
-<%= link_to 'New Aside', new_chapter_aside_path(@chapter) %>
+
+<% @footer_content << "#{link_to 'New Aside', new_chapter_aside_path(@chapter), :class => "btn btn-default"}" %>

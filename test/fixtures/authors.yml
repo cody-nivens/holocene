@@ -1,17 +1,17 @@
 ---
-authors_1:
+author_1:
   first_name: Erggy
   last_name: Poincycle
   user: users_1
   books:
     - book_1
-authors_2:
+author_2:
   first_name: Mike
   last_name: Baillie
   user: users_1
   books:
     - book_1
-authors_3:
+author_3:
   first_name: Mike
   last_name: Kariil
   user: users_1

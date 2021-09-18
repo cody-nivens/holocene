@@ -5,7 +5,7 @@
     <th>Characters:</th>
     <td><%= book.characters.count %></td></tr>
   <tr>
-    <th>Scenes (published)(sections % scenes):</th>
+    <th>Scenes (Publishable)(Sections % Scenes):</th>
     <% pub_scene_count = book.scene_count(true) %>
     <% scene_count = book.scene_count %>
     <% section_count = book.section_count %>
@@ -14,14 +14,14 @@
     <td>
       <%= render :partial => 'scenes/progress_bar.html', :locals => { :object => book } %>
     </td>
-    <th>Word Count | Published (Potential):</th> <td><%= number_with_delimiter(word_count, :delimiter => ',') %> | <%= number_with_delimiter(pub_word_count, :delimiter => ',') %> (<%= (section_count == 0 ? '' : number_with_delimiter(word_count/section_count*pub_scene_count, :delimiter => ',')) %>)</td>
+    <th>Word Count | Publishable (Potential):</th> <td><%= number_with_delimiter(word_count, :delimiter => ',') %> | <%= number_with_delimiter(pub_word_count, :delimiter => ',') %> (<%= (section_count == 0 ? '' : number_with_delimiter(word_count/section_count*pub_scene_count, :delimiter => ',')) %>)</td>
   </tr>
 </table>
 
 <%= tabs do |c| %>
   <% c.tab "Stories" do %>
     <span>
-        <%= render :partial => 'stories/index.html', :locals => {:stories => book.stories.order(:position), :book => book } %>
+        <%= render :partial => 'stories/index.html', :locals => {:stories => stories, :book => book } %>
     </span>
   <% end %>
 

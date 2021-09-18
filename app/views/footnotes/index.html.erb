@@ -1,3 +1,6 @@
 <h1>Footnotes</h1>
 
 <%= render 'footnotes/index', footnotes: @footnotes, noted: @noted %>
+
+<% @footer_content << "#{link_to 'New Footnote', "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnotes/#{Footnote.random_slug}", :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', polymorphic_path(@noted), :class => "btn btn-default"}" %>

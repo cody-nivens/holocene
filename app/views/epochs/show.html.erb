@@ -16,4 +16,4 @@
 <% @footer_content << "#{link_to 'Edit', edit_epoch_path(@epoch), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Timeline', epoch_timeline_path(@epoch), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Map', geo_map_epoch_path(@epoch), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', epochs_url, :class => "btn btn-default"}" %>

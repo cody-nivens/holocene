@@ -4,4 +4,4 @@
 
 <% @footer_content << "#{link_to 'Show', chapter_aside_path(@chapter, @aside), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Destroy', chapter_aside_path(@chapter,@aside), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', chapter_path(@chapter), :class => "btn btn-default"}" %>

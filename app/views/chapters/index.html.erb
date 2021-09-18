@@ -1,3 +1,5 @@
+<h1>Chapters</h1>
+
 <%= render 'chapters/index', chapters: @chapters %>
 
 <% @footer_content << "#{link_to 'New Chapter', new_polymorphic_path([@scripted, Chapter]), :class => "btn btn-default"}" %>

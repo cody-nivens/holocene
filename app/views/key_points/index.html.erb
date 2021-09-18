@@ -1,4 +1,5 @@
 <% pdf ||= nil %>
+<h1>Key Points</h1>
 <dl>
 <div class="chapter_outer-sortable" style="cursor: grab;">
   <%= content_tag "div", id: "scripted-#{@scripted.id}", data: { id: @scripted.id, model_name: @scripted.class.name.underscore, update_url: polymorphic_path([@scripted,:sort])} do %>
