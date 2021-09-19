@@ -48,7 +48,7 @@ class ChaptersTest < ApplicationSystemTestCase
     assert_link 'Add Event'
     assert_button 'Add Events'
 
-    he = HoloceneEvent.find_by_name('Domestication of Cats')
+    he = HoloceneEvent.find_by(name: 'Domestication of Cats')
     find(:xpath, "//input[@type='checkbox' and @value=#{he.id}]").set(true)
     click_on 'Add Events'
 
@@ -60,7 +60,7 @@ class ChaptersTest < ApplicationSystemTestCase
     end
 
     assert_text 'Domestication of Cats'
-    he = HoloceneEvent.find_by_name('Domestication of Cats')
+    he = HoloceneEvent.find_by(name: 'Domestication of Cats')
     find(:xpath, "//input[@type='checkbox' and @value=#{he.id}]").set(true)
 
     assert_button 'Delete Events'

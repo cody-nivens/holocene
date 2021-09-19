@@ -21,6 +21,6 @@ class ChapterTest < ActiveSupport::TestCase
 
   test 'should see show events flag' do
     chapter = chapters(:chapter_1)
-    assert_equal true, chapter.show_events?
+    assert chapter.show_events?
   end
 end
