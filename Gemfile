@@ -57,6 +57,9 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'dotenv'
   gem 'heavens_door'
+  gem "rubocop", require: false
+  gem "rubocop-rails"
+  gem 'erb_lint', require: false
 end
 
 group :development do
@@ -74,8 +77,6 @@ group :development do
   gem 'pry'
   gem "better_errors"
   gem "binding_of_caller"
-  gem "rubocop", require: false
-  gem 'erb_lint', require: false
 end
 
 group :test do
@@ -138,3 +139,4 @@ gem 'by_star', git: "git://github.com/radar/by_star"
 gem "pagy"
 gem 'country_select', '~> 6.0'
 gem 'rexml'
+gem "better_html"
