@@ -4,7 +4,7 @@ class ItinerariesController < ApplicationController
 
   # GET /itineraries or /itineraries.json
   def index
-    unless params[:itineraries_grid].blank?
+    if params[:itineraries_grid].present?
       params[:itineraries_grid].delete(:activated)
       params[:itineraries_grid].delete(:seen)
       params[:itineraries_grid].delete(:tour_id)

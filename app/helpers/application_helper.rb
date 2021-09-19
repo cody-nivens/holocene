@@ -62,8 +62,8 @@ module ApplicationHelper
       s += "#{author.first_name} #{author.last_name},"
     end
     s += "<em>#{bib.name}</em>,"
-    s += " #{bib.publisher}," unless bib.publisher.blank?
-    s += " #{bib.copyright_year}" unless bib.copyright_year.blank?
+    s += " #{bib.publisher}," if bib.publisher.present?
+    s += " #{bib.copyright_year}" if bib.copyright_year.present?
     s
   end
 

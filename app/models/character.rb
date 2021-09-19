@@ -46,39 +46,39 @@ class Character < ApplicationRecord
   end
 
   def grouping?
-    !grouping.blank?
+    grouping.present?
   end
 
   def reason_for_name?
-    !reason_for_name.blank?
+    reason_for_name.present?
   end
 
   def nickname?
-    !nickname.blank?
+    nickname.present?
   end
 
   def reason_for_nickname?
-    !reason_for_nickname.blank?
+    reason_for_nickname.present?
   end
 
   def honorific?
-    !honorific.blank?
+    honorific.present?
   end
 
   def ethnicity?
-    !ethnicity.blank?
+    ethnicity.present?
   end
 
   def social_class?
-    !social_class.blank?
+    social_class.present?
   end
 
   def grouping?
-    !grouping.blank?
+    grouping.present?
   end
 
   def reign?
-    !reign.blank?
+    reign.present?
   end
 
   def father?
@@ -153,7 +153,7 @@ class Character < ApplicationRecord
   end
 
   def full_last_first
-    "#{last_name.blank? ? '' : last_name}#{suffix.blank? ? '' : " #{suffix}"}#{last_name.blank? ? '' : ', '}#{first_name} #{middle_name}"
+    "#{last_name.presence || ''}#{suffix.blank? ? '' : " #{suffix}"}#{last_name.blank? ? '' : ', '}#{first_name} #{middle_name}"
   end
 
   def self.romanize(n)

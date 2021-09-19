@@ -41,7 +41,7 @@ class Scene < ApplicationRecord
   delegate :abc, to: :insert_scene, prefix: true
   delegate :name, to: :artifact, prefix: true
 
-  validates_presence_of :abc
+  validates :abc, presence: true
 
   def set_prev
     prev_item = higher_item

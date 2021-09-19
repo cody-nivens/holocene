@@ -11,8 +11,8 @@ class ApplicationController < ActionController::Base
 
   def set_book_from_session
     book = if session[:book_id].nil?
-      nil
-    else
+             nil
+           else
       Book.find_by_id(session[:book_id])
            end
     @book = book
@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
 
       case1 = t_events.where('start_year >= ?', start_year).where('start_year <= ?', end_year)
       case2 = t_events.where('start_year >= ?', start_year).where('start_year <= ?',
-end_year).where('end_year is not null')
+                                                                  end_year).where('end_year is not null')
       case3 = t_events.where('end_year is not null').where('end_year >= ?', start_year).where('end_year <= ?', end_year)
       case4 = t_events.where('start_year >= ?', start_year).where('(start_year - start_year_uncert) <= ?', end_year)
       case5 = t_events.where('start_year >= ?', end_year).where('(start_year + start_year_uncert) <= ?', start_year)
@@ -120,8 +120,8 @@ class BookEPub
     end
 
     @ebook.ordered do
-  @ebook.add_item('text/cover.xhtml',
-                  content: StringIO.new(<<-COVER)).landmark(type: 'cover', title: 'cover page')
+      @ebook.add_item('text/cover.xhtml',
+                      content: StringIO.new(<<-COVER)).landmark(type: 'cover', title: 'cover page')
                 <html xmlns="http://www.w3.org/1999/xhtml">
                 <head>
                   <title>#{@book.name}</title>
@@ -133,10 +133,10 @@ class BookEPub
                 <img src="../img/image1.jpg" />
                 </div>
                 </body></html>
-COVER
+                  COVER
 
-      @ebook.add_item('text/title_page.xhtml',
-                      content: StringIO.new(<<-TITLE_PAGE)).landmark(type: 'titlepage', title: 'title page')
+  @ebook.add_item('text/title_page.xhtml',
+                  content: StringIO.new(<<-TITLE_PAGE)).landmark(type: 'titlepage', title: 'title page')
              <html xmlns="http://www.w3.org/1999/xhtml">
              <head>
                   <title>Title Page</title>
@@ -151,10 +151,10 @@ COVER
                  <h2 class="center">#{@book.publisher}</h2>
                </div>
              </body></html>
-TITLE_PAGE
+                      TITLE_PAGE
 
-      @ebook.add_item('text/copyright_page.xhtml',
-                      content: StringIO.new(<<-COPYRIGHT_PAGE)).landmark(type: 'copyright-page', title: 'copyright page')
+  @ebook.add_item('text/copyright_page.xhtml',
+                  content: StringIO.new(<<-COPYRIGHT_PAGE)).landmark(type: 'copyright-page', title: 'copyright page')
              <html xmlns="http://www.w3.org/1999/xhtml">
              <head>
                   <title>Copyright</title>
@@ -168,139 +168,138 @@ TITLE_PAGE
                  responsibility for errors or omissions, or for damages resulting
                  from the use of the information contained herein.</p>
              </body></html>
-COPYRIGHT_PAGE
+                      COPYRIGHT_PAGE
 
-      if @book.is_fiction?
-        chap_index = 1
+  if @book.is_fiction?
+    chap_index = 1
    @book.stories.order(:position).each do |story|
-  next unless story.publish?
+     next unless story.publish?
 
-     @ebook.add_item("text/#{story.name.downcase.gsub(/ /, '_').gsub(/[-',]/, '')}.xhtml").add_content(StringIO.new(<<~CHAP_ONE)).toc_text(story.name).landmark(type: 'story', title: story.name)
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head><title>#{story.name}</title>
-        <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
-</head>
-<body>#{StoriesController.render partial: 'stories/show.html', :locals => { notes: @notes, book: @book, story: story, epub: true, pdf: true }}
-</body></html>
-CHAP_ONE
-     chap_index += 1
+ @ebook.add_item("text/#{story.name.downcase.gsub(/ /, '_').gsub(/[-',]/, '')}.xhtml").add_content(StringIO.new(<<~CHAP_ONE)).toc_text(story.name).landmark(type: 'story', title: story.name)
+       <html xmlns="http://www.w3.org/1999/xhtml">
+       <head><title>#{story.name}</title>
+               <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
+       </head>
+       <body>#{StoriesController.render partial: 'stories/show.html', :locals => { notes: @notes, book: @book, story: story, epub: true, pdf: true }}
+       </body></html>
+     CHAP_ONE
+ chap_index += 1
    end
-      else
-        chap_index = 1
+  else
+    chap_index = 1
    @book.chapters.each do |chapter|
-        unless chapter.partition.nil?
-          @ebook.add_item("text/#{chapter.slug}_p.xhtml").add_content(StringIO.new(<<~PARTITION)).toc_text(chapter.partition_name).landmark(type: 'part', title: chapter.partition_name)
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head><title>#{chapter.partition_name}</title>
-        <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
-</head>
-<body>
-    <h1>#{chapter.partition_name}</h1>
-    #{chapter.partition.body}
-</body></html>
-PARTITION
-        end
-     @notes = []
-     @ebook.add_item("text/#{chapter.slug}.xhtml").add_content(StringIO.new(<<~CHAP_ONE)).toc_text(chapter.name).landmark(type: 'chapter', title: chapter.name)
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head><title>#{chapter.name}</title>
-        <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
-</head>
-<body>#{ChaptersController.render partial: 'chapters/show.html', :locals => { notes: @notes, book: @book, chapter: chapter, epub: true }}
-</body></html>
-CHAP_ONE
-        chap_index += 1
+ unless chapter.partition.nil?
+      @ebook.add_item("text/#{chapter.slug}_p.xhtml").add_content(StringIO.new(<<~PARTITION)).toc_text(chapter.partition_name).landmark(type: 'part', title: chapter.partition_name)
+            <html xmlns="http://www.w3.org/1999/xhtml">
+            <head><title>#{chapter.partition_name}</title>
+                    <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
+            </head>
+            <body>
+                <h1>#{chapter.partition_name}</h1>
+                #{chapter.partition.body}
+            </body></html>
+          PARTITION
+    end
+ @notes = []
+ @ebook.add_item("text/#{chapter.slug}.xhtml").add_content(StringIO.new(<<~CHAP_ONE)).toc_text(chapter.name).landmark(type: 'chapter', title: chapter.name)
+       <html xmlns="http://www.w3.org/1999/xhtml">
+       <head><title>#{chapter.name}</title>
+               <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
+       </head>
+       <body>#{ChaptersController.render partial: 'chapters/show.html', :locals => { notes: @notes, book: @book, chapter: chapter, epub: true }}
+       </body></html>
+     CHAP_ONE
+    chap_index += 1
    end
 
    @slugs = []
    s = ''
    @book.chapters.each do |chapter|
-     unless chapter.citations.length == 0
-       s += FootnotesController.render partial: 'footnotes/citations.html',
-locals: { slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: false, title: nil }
-     end
+ unless chapter.citations.length == 0
+   s += FootnotesController.render partial: 'footnotes/citations.html',
+                                                                              locals: { slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: false, title: nil }
+ end
    end
 
    @ebook.add_item('text/citations.xhtml').add_content(StringIO.new(<<~CITATIONS)).toc_text('Citations').landmark(type: 'bodymatter', title: 'Citations')
-  <html xmlns="http://www.w3.org/1999/xhtml">
-  <head><title>Citations</title>
-        <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
-  </head>
-  <body>
-<h1>Citations</h1>
-#{s}
-</body></html>
-CITATIONS
+       <html xmlns="http://www.w3.org/1999/xhtml">
+       <head><title>Citations</title>
+             <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
+       </head>
+       <body>
+     <h1>Citations</h1>
+     #{s}
+     </body></html>
+   CITATIONS
 
    @slugs = []
    @notes = {}
    @footnotes = []
    str = ''
    @book.chapters.order(:position).each do |chapter|
-     next unless chapter.always_display_events
+ next unless chapter.always_display_events
 
-     unless chapter.holocene_events.length == 0
-       chapter.holocene_events.order(:start_year).each do |he|
-         unless he.body.blank?
-           @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? ? 1 : @footnotes[2]))
-           @slugs += @footnotes[1]
-         end
-       end
-
-       str += HoloceneEventsController.render :partial => 'holocene_events/index.html',
-locals: { holocene_events: chapter.holocene_events.order(:start_year), chapter: chapter, links: false, epub: true, slugs: @slugs }
-     end
-     unless chapter.sections.length == 0
-       chapter.sections.order(:position).each do |section|
-         unless section.holocene_events.length == 0
-           section.holocene_events.order(:start_year).each do |he|
-             unless he.body.blank?
-               @footnotes = Footnote.process_body(he, @slugs,
-(@footnotes.nil? || @footnotes.empty? || @footnotes[2].nil? ? 1 : @footnotes[2]))
-               @slugs += @footnotes[1]
-             end
-           end
-           str += HoloceneEventsController.render :partial => 'holocene_events/index.html',
-locals: { holocene_events: section.holocene_events.order(:start_year), chapter: chapter, links: false, title: "#{chapter.name}:#{section.name}", epub: true, slugs: @slugs }
-         end
-       end
+ unless chapter.holocene_events.length == 0
+   chapter.holocene_events.order(:start_year).each do |he|
+     if he.body.present?
+       @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? ? 1 : @footnotes[2]))
+       @slugs += @footnotes[1]
      end
    end
-   unless @slugs.length == 0
-     str += Footnote.write_footnotes(@slugs)
+
+   str += HoloceneEventsController.render :partial => 'holocene_events/index.html',
+                                                                                            locals: { holocene_events: chapter.holocene_events.order(:start_year), chapter: chapter, links: false, epub: true,
+slugs: @slugs }
+ end
+ next if chapter.sections.length == 0
+        chapter.sections.order(:position).each do |section|
+          unless section.holocene_events.length == 0
+            section.holocene_events.order(:start_year).each do |he|
+              if he.body.present?
+                @footnotes = Footnote.process_body(he, @slugs,
+                                                       (@footnotes.nil? || @footnotes.empty? || @footnotes[2].nil? ? 1 : @footnotes[2]))
+                @slugs += @footnotes[1]
+              end
+            end
+            str += HoloceneEventsController.render :partial => 'holocene_events/index.html',
+                                                                                                         locals: { holocene_events: section.holocene_events.order(:start_year), chapter: chapter, links: false,
+title: "#{chapter.name}:#{section.name}", epub: true, slugs: @slugs }
+          end
+        end
    end
+   str += Footnote.write_footnotes(@slugs) unless @slugs.length == 0
 
    @ebook.add_item('text/events.xhtml').add_content(StringIO.new(<<~EVENTS)).toc_text('Chapter Events').landmark(type: 'bodymatter', title: 'Chapter Events')
-  <html xmlns="http://www.w3.org/1999/xhtml">
-  <head><title>Chapter Events</title>
-        <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
-  </head>
-  <body>
-  <h1>Chapter Events</h1>
-#{str}
-</body></html>
-EVENTS
+       <html xmlns="http://www.w3.org/1999/xhtml">
+       <head><title>Chapter Events</title>
+             <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
+       </head>
+       <body>
+       <h1>Chapter Events</h1>
+     #{str}
+     </body></html>
+   EVENTS
 
    @ebook.add_item('text/glossary.xhtml').add_content(StringIO.new(<<~GLOSSTERMS)).toc_text('Glossary').landmark(type: 'bodymatter', title: 'Glossary')
-  <html xmlns="http://www.w3.org/1999/xhtml">
-  <head><title>Glossary</title>
-        <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
-  </head>
-  <body>
-#{GlossaryTermsController.render partial: 'glossary_terms/index.html', locals: { glossary_terms: @book.glossary_terms.order(:name) }}
-</body></html>
-GLOSSTERMS
+       <html xmlns="http://www.w3.org/1999/xhtml">
+       <head><title>Glossary</title>
+             <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
+       </head>
+       <body>
+     #{GlossaryTermsController.render partial: 'glossary_terms/index.html', locals: { glossary_terms: @book.glossary_terms.order(:name) }}
+     </body></html>
+   GLOSSTERMS
 
    @ebook.add_item('text/bibliography.xhtml').add_content(StringIO.new(<<~BIBLIOTERMS)).toc_text('Bibliography').landmark(type: 'bodymatter', title: 'Bibliography')
-  <html xmlns="http://www.w3.org/1999/xhtml">
-  <head><title>Bibliography</title>
-        <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
-  </head>
-  <body>
-#{BiblioentriesController.render partial: 'biblioentries/index.html', locals: { biblioentries: @book.biblioentries }}
-</body></html>
-BIBLIOTERMS
-      end
+       <html xmlns="http://www.w3.org/1999/xhtml">
+       <head><title>Bibliography</title>
+             <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
+       </head>
+       <body>
+     #{BiblioentriesController.render partial: 'biblioentries/index.html', locals: { biblioentries: @book.biblioentries }}
+     </body></html>
+   BIBLIOTERMS
+  end
     end
 
     epubname = "#{Rails.root}/tmp/example_test.epub"

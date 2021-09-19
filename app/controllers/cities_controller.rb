@@ -6,7 +6,7 @@ class CitiesController < ApplicationController
   def index
     @command = 'Add City'
 
-    unless params[:cities_grid].blank?
+    if params[:cities_grid].present?
       params[:cities_grid].delete(:activated)
       params[:cities_grid].delete(:seen)
       params[:cities_grid].delete(:tour_id)
@@ -116,9 +116,9 @@ class CitiesController < ApplicationController
 
   def set_tour
     @tour = nil
-    if params[:tour_id].blank? && !params[:cities_grid].blank? && !params[:cities_grid][:tour_id].blank?
+    if params[:tour_id].blank? && params[:cities_grid].present? && params[:cities_grid][:tour_id].present?
       @tour = Tour.find(params[:cities_grid][:tour_id])
-    elsif !params[:tour_id].blank?
+    elsif params[:tour_id].present?
       @tour = Tour.find(params[:tour_id])
     end
   end

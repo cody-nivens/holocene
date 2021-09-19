@@ -32,7 +32,7 @@ class HoloceneEvent < ApplicationRecord
   #
   def slide
     slde = { start_date: mk_date(start_year),
-             end_date: mk_date((end_year.blank? ? start_year : end_year)),
+             end_date: mk_date((end_year.presence || start_year)),
              text: mk_text(body, name) }
     if image.attached?
       slde['media'] = { url: cover_url.to_s,

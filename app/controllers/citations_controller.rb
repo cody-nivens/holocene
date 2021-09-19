@@ -19,13 +19,13 @@ class CitationsController < ApplicationController
   # PATCH/PUT /citations/1
   # PATCH/PUT /citations/1.json
   def update
-    unless params[:cit_ids].blank?
+    if params[:cit_ids].present?
       params[:cit_ids].each do |id|
         chit = Footnote.find(id)
         chit.destroy
       end
     end
-    unless params[:biblioentries_ids].blank?
+    if params[:biblioentries_ids].present?
       params[:biblioentries_ids].each do |id|
         biblio = Biblioentry.find(id)
         footnote = Footnote.create(slug: '', body: biblio.name, biblioentry_id: id)

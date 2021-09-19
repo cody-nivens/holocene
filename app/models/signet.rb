@@ -1,7 +1,7 @@
 class Signet < ApplicationRecord
   belongs_to :sigged, polymorphic: true
 
-  validates_length_of :message, minimum: 1, too_short: 'Message must have content'
+  validates :message, length: { minimum: 1, too_short: 'Message must have content' }
 
   @@colors = [%w[HotPink FF69B4],
               %w[Orange FFA500],

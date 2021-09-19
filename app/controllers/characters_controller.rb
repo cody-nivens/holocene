@@ -16,7 +16,7 @@ class CharactersController < ApplicationController
     my_params = grid_params.except(:category, :attribute, :value)
 
     @grid = CharactersGrid.new(my_params) do |scope|
-      if !@attribute.blank?
+      if @attribute.present?
         if @value.blank?
           my_scope = scope.joins(:character_values).where('character_values.character_attribute_id = ?',
                                                           @attribute.to_i)
@@ -114,7 +114,7 @@ class CharactersController < ApplicationController
         character_value = character_values.where(character_attribute_id: character_attribute.id)[0]
         field_name = "#{category.name.underscore}_#{character_attribute.name.underscore}_value".to_sym
 
-        unless attribute_params[field_name].blank?
+        if attribute_params[field_name].present?
           if attribute_params[field_name] == '---'
             update_value = CharacterValue.where({ character_attribute_id: character_attribute.id,
                                                   character_id: @character.id }).first_or_create

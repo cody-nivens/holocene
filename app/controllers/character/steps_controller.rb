@@ -2,8 +2,8 @@ class Character::StepsController < ApplicationController
   before_action :set_object, only: %i[show update finish_wizard_path]
 
   include Wicked::Wizard
-  #steps *Character.form_steps
-  steps  :characteristics, :identity, :attributes
+  # steps *Character.form_steps
+  steps :characteristics, :identity, :attributes
 
   def set_attributes(my_step)
     case my_step
@@ -104,13 +104,13 @@ class Character::StepsController < ApplicationController
   def character_params(my_step)
     permitted_attributes = case my_step
                            when :identity
-                             [:first_name, :middle_name, :last_name, :suffix, :reason_for_name,
-                                :nickname, :reason_for_nickname, :use_honorific_only, :honorific]
+                             %i[first_name middle_name last_name suffix reason_for_name
+                                nickname reason_for_nickname use_honorific_only honorific]
                            when :characteristics
-                             [:ethnicity, :birth_year, :death_year, :sex]
+                             %i[ethnicity birth_year death_year sex]
                            else
                              # when "attributes"
-                             [:occupation_class, :social_class, :grouping, :father_id, :mother_id]
+                             %i[occupation_class social_class grouping father_id mother_id]
                            end
 
     params.require(:character).permit(permitted_attributes).merge(form_step: my_step)

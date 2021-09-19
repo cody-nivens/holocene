@@ -10,7 +10,7 @@ class KeyPoint < ApplicationRecord
 
   has_many :scenes, -> { order(position: :asc) }
 
-  validates_presence_of :hook
+  validates :hook, presence: true
 
   def section_count
     count = 0

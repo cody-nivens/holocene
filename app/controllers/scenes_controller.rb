@@ -38,6 +38,7 @@ class ScenesController < ApplicationController
   # GET /scenes/1
   # GET /scenes/1.json
   def show
+    @title = @scene.name
     @situated = @scene.situated
   end
 
@@ -56,8 +57,8 @@ class ScenesController < ApplicationController
     @scene.save
 
     respond_to do |format|
-      if !params[:new_key_point_id].blank? && @scene.update({ key_point_id: params[:new_key_point_id],
-                                                              selector: @new_selector })
+      if params[:new_key_point_id].present? && @scene.update({ key_point_id: params[:new_key_point_id],
+                                                               selector: @new_selector })
         @scene.key_point.selector_value_set(@new_selector, title)
         @scene.key_point.save
         format.html { redirect_to polymorphic_path(@scene), notice: 'Scene was successfully moved.' }

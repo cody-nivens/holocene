@@ -62,12 +62,12 @@
     <% end %>
     <% end %>
     <% unless books.length == 0 %>
-    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Chapter", chapters_path(Book.where(user_id: current_user.id).first.chapters) %></td><td><%= chapter_count %></td></tr>
-    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Chapter sections", chapters_path(Book.where(user_id: current_user.id).first.chapters) %></td><td><%= chapter_section_count %></td></tr>
-    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Story", stories_path(Book.where(user_id: current_user.id).first.stories) %></td><td><%= story_count %></td></tr>
-    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Key Point", stories_path(Book.where(user_id: current_user.id).first.stories) %></td><td><%= key_point_count %></td></tr>
-    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Scene", stories_path(Book.where(user_id: current_user.id).first.stories) %></td><td><%= scene_count %></td></tr>
-    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to "Story sections", stories_path(Book.where(user_id: current_user.id).first.stories) %></td><td><%= story_section_count %></td></tr>
+    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= "Chapter" %></td><td><%= chapter_count %></td></tr>
+    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= "Chapter sections" %></td><td><%= chapter_section_count %></td></tr>
+    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= "Story" %></td><td><%= story_count %></td></tr>
+    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= "Key Point" %></td><td><%= key_point_count %></td></tr>
+    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= "Scene" %></td><td><%= scene_count %></td></tr>
+    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= "Story sections" %></td><td><%= story_section_count %></td></tr>
     <tr><td>Footnotes</td><td><%= footnote_count %></td></tr>
     <tr><td>Biblioentries</td><td><%= Biblioentry.where(user_id: current_user.id).count %></td></tr>
     <tr><td>Authors</td><td><%= Author.where(user_id: current_user.id).count %></td></tr>

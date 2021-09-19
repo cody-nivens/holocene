@@ -26,13 +26,13 @@ class KeyPointsController < ApplicationController
   def move; end
 
   def list
-    @selector = (params[:selector].blank? ? 0 : params[:selector])
+    @selector = (params[:selector].presence || 0)
   end
 
   def add
     scenes_avail = params[:scenes_avail]
     scenes_ids = params[:scenes_ids]
-    selector = (params[:selector].blank? ? 0 : params[:selector])
+    selector = (params[:selector].presence || 0)
 
     unless scenes_avail.nil?
       scenes_avail.each do |scene_id|
@@ -61,6 +61,7 @@ class KeyPointsController < ApplicationController
   # GET /key_points/1
   # GET /key_points/1.json
   def show
+    @title = @key_point.name
     @scripted = @key_point.scripted
   end
 

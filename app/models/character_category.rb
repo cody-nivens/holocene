@@ -4,5 +4,5 @@ class CharacterCategory < ApplicationRecord
 
   has_many :character_attributes, dependent: :destroy
 
-  validates_presence_of :name
+  validates :name, presence: true
 end

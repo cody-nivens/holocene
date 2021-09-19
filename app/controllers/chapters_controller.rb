@@ -98,6 +98,7 @@ class ChaptersController < ApplicationController
   # GET /chapters/1
   # GET /chapters/1.json
   def show
+    @title = @chapter.name
     @notes = {}
     @sections = @chapter.sections.order(:position)
     respond_to do |format|

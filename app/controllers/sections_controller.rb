@@ -13,6 +13,7 @@ class SectionsController < ApplicationController
   # GET /sections/1
   # GET /sections/1.json
   def show
+    @title = @section.name
     @sectioned = @section.sectioned
   end
 

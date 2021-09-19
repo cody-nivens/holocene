@@ -3,7 +3,7 @@ class CharacterValue < ApplicationRecord
   belongs_to :character_attribute
   delegate :name, to: :character_attribute, prefix: true
 
-  validates_presence_of :value
+  validates :value, presence: true
 
   def self.stats(category, character_attribute, _character_attribute_2 = nil)
     stats = {}

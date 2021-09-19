@@ -69,6 +69,7 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
+    @title = @book.name
     session[:book_id] = @book.id
     @chapters = @book.chapters
     @scripted = @book

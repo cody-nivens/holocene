@@ -1,5 +1,6 @@
 class WelcomeController < ApplicationController
   def index
+    @title = "Progress"
     @today_mod        = Metric.today(:date).where(user_id: current_user.id).order(date: :desc)
     @today_create     = Metric.today.where(user_id: current_user.id).order(created_at: :desc)
 
@@ -30,7 +31,11 @@ class WelcomeController < ApplicationController
     end
   end
 
-  def stats; end
+  def stats
+    @title = "Stats"
+  end
 
-  def tags; end
+  def tags
+    @title = "Tags"
+  end
 end
