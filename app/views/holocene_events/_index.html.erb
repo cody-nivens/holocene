@@ -7,14 +7,14 @@
     <% holocene_events.each do |he| -%>
         <tr>
           <td><%= (epub ? he.name : link_to(he.name,holocene_event_path(he))) %></td>
-          <td><%= raw event_types_to_s(he.event_types, epub) %></td>
+          <td><%== event_types_to_s(he.event_types, epub) %></td>
           <td><%= (epub ? he.region.name : link_to(he.region.name,region_path(he.region))) %></td>
-          <td><%= HoloceneEvent.convert_ad(he.start_year, he.start_year_uncert) %><%= raw (he.end_year.nil?  ? "" : " - #{HoloceneEvent.convert_ad(he.end_year)}") %></td>
+          <td><%= HoloceneEvent.convert_ad(he.start_year, he.start_year_uncert) %><%== (he.end_year.nil?  ? "" : " - #{HoloceneEvent.convert_ad(he.end_year)}") %></td>
         </tr>
         <% unless he.body.blank? -%>
           <tr>
             <% footnotes = Footnote.process_body(he, slugs, (footnotes.nil? ? 1 : footnotes[2])) -%>
-              <td class="dd-type" colspan="4"><%= raw footnotes[0] %></td>
+              <td class="dd-type" colspan="4"><%== footnotes[0] %></td>
            </tr>
         <% end -%>
     <% end -%>

@@ -4,7 +4,7 @@
 <strong><%= @aside.name %></strong>
 </p>
 
-<%= raw @aside.body %>
+<%== @aside.body %>
 
 <% @footer_content << "#{link_to 'Edit', edit_chapter_aside_path(@chapter,@aside), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>

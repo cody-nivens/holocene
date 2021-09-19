@@ -9,7 +9,7 @@ class Timeline < ApplicationRecord
   validates :name, presence: true
 
   def timeline_json(_toggle)
-    { events: holocene_events.order(:start_year).collect { |x| x.slide } }.to_json
+    { events: holocene_events.order(:start_year).collect { |x| x.slide } }
   end
 
   def map_locs

@@ -7,7 +7,7 @@
 
   <script type="text/javascript">
       //var timeline_json = <%#= raw json_items.to_json %>; // replace make_the_json() with the JSON object you created
-      var timeline_json = <%= raw object.timeline_json((toggle == "on" ? true : false)) %>; // replace make_the_json() with the JSON object you created
+      var timeline_json = <%== object.timeline_json((toggle == "on" ? true : false)).to_json %>; // replace make_the_json() with the JSON object you created
           // two arguments: the id of the Timeline container (no '#')
           // and the JSON object or an instance of TL.TimelineConfig created from
           // a suitable JSON object

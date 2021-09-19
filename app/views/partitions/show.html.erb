@@ -5,7 +5,7 @@
 </h1>
 
 <p>
-  <%= raw @partition.body %>
+  <%== @partition.body %>
 </p>
 
 <% @footer_content << "#{link_to 'Edit', edit_chapter_partition_path(@partition.chapter,@partition), :class => "btn btn-default" }" %>

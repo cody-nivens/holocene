@@ -53,7 +53,7 @@
       <strong>
         <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil} %>
       </strong><br/><br/>
-      <%= raw epub_friendly(scene.section.body) %>
+      <%== epub_friendly(scene.section.body) %>
     <% end %>
   <% end -%>
 <% end -%>

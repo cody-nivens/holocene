@@ -9,7 +9,7 @@ class Epoch < ApplicationRecord
   def timeline_json(_toggle)
     { events: HoloceneEvent.where(['start_year >= ? and start_year <= ?', start_date, end_date]).collect do |x|
                 x.slide
-              end }.to_json
+              end }
   end
 
   def map_locs

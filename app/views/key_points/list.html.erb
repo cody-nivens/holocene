@@ -1,6 +1,6 @@
 <%= form_with url: polymorphic_path([@scripted, @key_point, :add]) do |f| %>
 
-  <%= f.hidden_field :selector, :value => raw(@selector).to_i %>
+  <%= f.hidden_field :selector, :value => @selector %>
   <%= hidden_field "#{@scripted.class.name.underscore}_id", value: @scripted.id %>
 
   <h1>Scenes for "<%= @key_point.name %>" in "<%= @scripted.name %>"</h1>

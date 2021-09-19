@@ -3,7 +3,7 @@
 <h1>Artifacts</h1>
 
 <div id='tag_cloud'>
-  <% tag_cloud Artifact.where(book_id: @book.id).tag_counts, %w{s m l} do |tag, css_class| %>
+  <% tag_cloud Artifact.where(book_id: @book.id).tag_counts, %w[s m l] do |tag, css_class| %>
     <%= link_to tag.name, tag_artifacts_path(book_id: @book.id, tag: tag.name), class: css_class %>
   <% end %>
 </div>
@@ -23,12 +23,12 @@
     <% @artifacts.each do |artifact| %>
       <% next if !artifact.parent.nil? && artifact.children.empty? %>
       <tr>
-      <%= render partial: "artifacts/artifact_index.html", :locals => {book: @book, artifact: artifact, parent: true} %>
+      <%= render partial: "artifacts/artifact_index.html", locals: { book: @book, artifact: artifact, parent: true } %>
       </tr>
       <% unless artifact.children.empty? %>
         <% artifact.children.order(:name).each do |child| %>
         <tr>
-          <%= render partial: "artifacts/artifact_index.html", :locals => {book: @book, artifact: child, parent: false} %>
+          <%= render partial: "artifacts/artifact_index.html", locals: { book: @book, artifact: child, parent: false } %>
         </tr>
         <% end %>
       <% end %>
@@ -38,5 +38,5 @@
 
 <br>
 
-<% @footer_content << "#{link_to 'New Artifact', new_book_artifact_path(@book), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', book_path(@book), :class => "btn btn-default" }" %>
+<% @footer_content << "#{link_to 'New Artifact', new_book_artifact_path(@book), class: "btn btn-default"}" %>
+<% @footer_content << "#{link_to 'Back', book_path(@book), class: "btn btn-default" }" %>

@@ -2,8 +2,8 @@
 <% @title = @scene.name %>
 
 <h2>
-  <%= raw breadcrumb(@scene.key_point.scripted.book, @scene.key_point.scripted, @scene.key_point, @scene) %>
-  <%= link_to "#{(fa_icon "pencil")}".html_safe, edit_scene_path(@scene), :title => 'Edit' %>
+  <%== breadcrumb(@scene.key_point.scripted.book, @scene.key_point.scripted, @scene.key_point, @scene) %>
+  <%= link_to (fa_icon "pencil"), edit_scene_path(@scene), :title => 'Edit' %>
 </h2>
 
 <table class="table">
@@ -111,7 +111,7 @@
   <% unless @scene.section.nil? %>
     <% values = @scene.set_values %>
     <% text = @scene.section.body %>
-    <%= raw highlight(text.to_s,Regexp.new(KeyWord.where(book_id: values[0].id).collect{|x| x.key_word}.join("|"))) %>
+    <%== highlight(text.to_s,Regexp.new(KeyWord.where(book_id: values[0].id).collect{|x| x.key_word}.join("|"))) %>
   <% end %>
 </p>
 

@@ -2,8 +2,8 @@
 <% @title = @section.name %>
 
 <h2>
-  <%= raw breadcrumb(nil, nil, nil, @section.sectioned, @section) %>
-  <%= link_to "#{(fa_icon "pencil")}".html_safe, edit_polymorphic_path([@sectioned, @section]), :title => 'Edit' %>
+  <%== breadcrumb(nil, nil, nil, @section.sectioned, @section) %>
+  <%= link_to (fa_icon "pencil"), edit_polymorphic_path([@sectioned, @section]), :title => 'Edit' %>
 </h2>
 <table class="table">
   <tr>
@@ -14,7 +14,7 @@
 <% @slugs = [] -%>
 <% @footnotes = Footnote.process_body(@section, @slugs) -%>
 <% values = @section.set_values %>
-<%= raw highlight(@footnotes[0],Regexp.new(KeyWord.where(book_id: values[0].id).collect{|x| x.key_word}.join("|"))) %>
+<%== highlight(@footnotes[0],Regexp.new(KeyWord.where(book_id: values[0].id).collect{|x| x.key_word}.join("|"))) %>
 <% @slugs += @footnotes[1] -%>
 
 <% unless @section.holocene_events.length == 0 || @section.sectioned.show_events? -%>
@@ -28,7 +28,7 @@
 <% end -%>
 
 <% unless @slugs.length == 0 -%>
-  <%= raw Footnote.write_footnotes(@slugs) %>
+  <%== Footnote.write_footnotes(@slugs) %>
 <% end -%>
 
 <% priv_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position - 1) -%>

@@ -5,6 +5,6 @@
 <dl class="dl-horizontal">
 <% biblioentries.order(:xreflabel).each do |biblioentry| %>
     <dt><%= biblioentry.xreflabel %></dt>
-    <dd><%= raw format_biblioentry(biblioentry) %></dd>
+    <dd><%== format_biblioentry(biblioentry) %></dd>
 <% end %>
 </dl>

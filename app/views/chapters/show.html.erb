@@ -9,15 +9,15 @@
 <% @slugs = [] -%>
 <% @footnotes = Footnote.process_body(@chapter, @slugs) -%>
 <% if @chapter.aside.nil? -%>
-  <%= raw @footnotes[0] %>
+  <%== @footnotes[0] %>
 <% else -%>
     <div id="aside_content">
       <blockquote>
         <h3><%= @chapter.aside_name %></h3>
-        <%= raw @chapter.aside.body %>
+        <%== @chapter.aside.body %>
         <hr/>
       </blockquote>
-      <%= raw @footnotes[0] %>
+      <%== @footnotes[0] %>
     </div>
 <% end -%>
 
@@ -54,7 +54,7 @@
       <% s = " class=\"card-title\"" %>
     <% end %>
     <% unless section.embed? %>
-      <h2<%= raw s %>>
+      <h2<%== s %>>
             <%= section.name %>
             <%= link_to (fa_icon "pencil"), edit_polymorphic_path([@chapter,section]), :class => "btn icon-ok icon-white", :title => "Edit" %>
             <%= link_to (fa_icon "sticky-note-o"), section_signets_path(:section_id => section.id), :title => "Sinets", :class => "btn icon-ok icon-white #{(section.signets.length > 0 ? "#{Signet.color_class(section.signets[0].color)}" : "" )}"  %>
@@ -67,7 +67,7 @@
     <% @footnotes = Footnote.process_body(section, @slugs, @footnotes[2]) -%>
 
     <% @slugs += @footnotes[1] -%>
-    <%= raw @footnotes[0] %>
+    <%== @footnotes[0] %>
 
     <% if @chapter.process_events? %>
       <% if section.holocene_events.length != 0 %>
@@ -87,14 +87,14 @@
 <% end -%>
 
 <% unless @slugs.length == 0 -%>
-  <%= raw Footnote.write_footnotes(@slugs) %>
+  <%== Footnote.write_footnotes(@slugs) %>
 <% end -%>
 
 
 <% unless @chapter.citations.length == 0 -%>
   <div style="clear: both">
     <hr/>
-    <%= raw render "footnotes/citations", slugs: @slugs, footnotes: @chapter.citations, chapter: @chapter, links: true, title: 'Citations' %>
+    <%== render "footnotes/citations", slugs: @slugs, footnotes: @chapter.citations, chapter: @chapter, links: true, title: 'Citations' %>
   </div>
 <% end -%>
 

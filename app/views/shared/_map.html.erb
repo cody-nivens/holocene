@@ -11,7 +11,7 @@
     // $(function(){
     $(document).ready(function(){
 
-    var map_locs = <%= raw object.map_locs.to_json %>
+    var map_locs = <%== object.map_locs.to_json %>
   //@code_start
     $('#world-map').vectorMap({
       map: 'world_mill_en',

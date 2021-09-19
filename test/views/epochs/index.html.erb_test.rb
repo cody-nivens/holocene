@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class EpochesIndexHtmlErbTest < ActionDispatch::IntegrationTest
+class EpochsIndexHtmlErbTest < ActionDispatch::IntegrationTest
   setup do
     @epoch = epochs(:epoch_1)
 

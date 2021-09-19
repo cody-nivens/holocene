@@ -86,11 +86,13 @@
   </div>
 <% end %>
 
+<% str = '' %>
+<% attributes.keys.each do |key| %>
+  <% str += "$('##{key.to_s.gsub(/ /,'_')}').val('#{attributes[key]}');" %>
+<% end %>
 <script>
   $(document).ready(function(){
-      <% attributes.keys.each do |key| %>
-          $('#<%= key.to_s.gsub(/ /,'_') %>').val('<%= attributes[key] %>');
-    <% end %>
+      <%== str %>
     });
     $(document).on("change", "input#death_age", function(e){
         var year = $('#year').val();

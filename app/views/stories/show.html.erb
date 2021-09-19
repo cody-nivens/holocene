@@ -2,8 +2,8 @@
 <% @title = @story.name %>
 
 <h2>
-  <%= raw breadcrumb(@story.book, @story) %>
-  <%= link_to "#{(fa_icon "pencil")}".html_safe, edit_story_path(@story), :title => 'Edit' %>
+  <%== breadcrumb(@story.book, @story) %>
+  <%= link_to (fa_icon "pencil"), edit_story_path(@story), :title => 'Edit' %>
   <%= link_to (fa_icon "file-pdf-o"), story_path(@story,:format => :pdf), :title => "PDF" %>
   <%= link_to (fa_icon "file-pdf-o"), story_path(@story,:format => :pdf, :outline => true), :title => "PDF Outline" %>
 </h2>

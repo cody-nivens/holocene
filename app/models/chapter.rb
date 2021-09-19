@@ -69,7 +69,7 @@ class Chapter < ApplicationRecord
       end
     end
 
-    { events: events.order(:start_year).uniq.collect { |x| x.slide } }.to_json
+    { events: events.order(:start_year).uniq.collect { |x| x.slide } }
   end
 
   def map_locs

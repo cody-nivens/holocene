@@ -1,4 +1,3 @@
-
 require 'test_helper'
 
 DOWNLOADS_PATH = File.expand_path(File.join(Rails.root, 'tmp', 'downloads'))

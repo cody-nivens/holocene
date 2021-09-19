@@ -3,7 +3,7 @@
   <%= @timeline.name %>
 </p>
 
-  <%= raw @timeline.description %>
+  <%== @timeline.description %>
 
 <%= datagrid_form_for @grid, :method => :get, :url => holocene_events_path %>
 

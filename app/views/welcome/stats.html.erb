@@ -1,5 +1,4 @@
-<!-- erb: paste this in view -->
-<%#= react_component("HelloWorld", { greeting: "Hello from react-rails.", info: { name: "react-rails" } }, { class: "hello-world" }) %>
+<h1>Stats</h1>
 
 <table class='table'>
     <tr><td><%= link_to "Holocene Events", holocene_events_path %></td><td><%= HoloceneEvent.where(user_id: current_user.id).count %></td></tr>

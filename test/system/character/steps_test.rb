@@ -32,7 +32,7 @@ class Character
       click_on 'Next Step'
 
       assert_text 'First name'
-      page.has_field?('character_first_name', :with => '')
+      page.has_field?('character_first_name', with: '')
 
       fill_in 'Reason for name', with: @character.reason_for_name
       fill_in 'Reason for nickname', with: @character.reason_for_nickname

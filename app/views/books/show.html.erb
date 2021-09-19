@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 <% @title = @book.name %>
 <h2>
-<%= raw breadcrumb(@book) %>
+<%== breadcrumb(@book) %>
 <%= link_to (fa_icon "pencil"), edit_book_path(@book)  %>
 <%= link_to (fa_icon "sticky-note-o"), book_signets_path(@book), :title => "Signets" %>
 <%= link_to (fa_icon "book"), book_epub_path(@book), :title => "EPub" %>
@@ -20,7 +20,7 @@
 <% end %>
 
 <p>
-  <%= raw @book.body %>
+  <%== @book.body %>
 </p>
 
 <% if @book.is_fiction? %>

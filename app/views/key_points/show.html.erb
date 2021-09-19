@@ -1,9 +1,9 @@
 <p id="notice"><%= notice %></p>
 <% @title = @key_point.name %>
 <h2>
-  <%= raw breadcrumb((@scripted.class.name == "Book" ? @scripted : (@scripted.class.name == "Chapter" ? @scripted.scripted : @scripted.book)), @scripted, @key_point) %>
-  <%= link_to "#{(fa_icon "pencil")}".html_safe, edit_key_point_path(@key_point), :title => 'Edit' %>
-  <%= link_to "#{(fa_icon "trash-o")}".html_safe, key_point_path(@key_point), method: :delete, data: { confirm: 'Are you sure?' }, :title => 'Destroy' %>
+  <%== breadcrumb((@scripted.class.name == "Book" ? @scripted : (@scripted.class.name == "Chapter" ? @scripted.scripted : @scripted.book)), @scripted, @key_point) %>
+  <%== link_to (fa_icon "pencil"), edit_key_point_path(@key_point), :title => 'Edit' %>
+  <%== link_to (fa_icon "trash-o"), key_point_path(@key_point), method: :delete, data: { confirm: 'Are you sure?' }, :title => 'Destroy' %>
 </h2>
 
 <table class="table">

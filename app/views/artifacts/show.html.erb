@@ -10,7 +10,7 @@
   <%= @artifact.character_name %>
 </p>
 
-<p><strong>Tags:</strong> <%= raw(@artifact.tag_list.map { |t| link_to t, tag_path(t) }.join(', ')) %></p>
+<p><strong>Tags:</strong> <%== @artifact.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></p>
 
 <% unless @artifact.children.empty? %>
 <p>

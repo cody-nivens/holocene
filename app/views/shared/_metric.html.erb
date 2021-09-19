@@ -2,7 +2,7 @@
   <ul>
   <% objects.each do |metric| %>
     <% values = metric.metrized.set_values %>
-    <li><%= metric.date.to_date %>: <%= raw breadcrumb(values[0], values[1], values[2], values[3], values[4], true) %></li>
+    <li><%= metric.date.to_date %>: <%== breadcrumb(values[0], values[1], values[2], values[3], values[4], true) %></li>
   <% end %>
   </ul>
 <% end %>

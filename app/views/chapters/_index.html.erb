@@ -11,7 +11,7 @@
             <th>Citations</th>
             <th>Start Year</th>
             <th>End Year</th>
-            <th colspan=3></th>
+            <th colspan="3"></th>
         </tr>
     </thead>
   <tbody>
@@ -22,7 +22,7 @@
     <% else %>
       <td><%= link_to (fa_icon "pencil"), chapter_partition_path(chapter,chapter.partition), :title => "Partition", :class => "btn icon-ok icon-white"  %>
     <% end %>
-        <%= raw (chapter.partition.nil? ? '' : "#{link_to chapter.partition_name, chapter_partition_path(chapter.scripted,chapter,chapter.partition)}") %></td>
+        <%== (chapter.partition.nil? ? '' : "#{link_to chapter.partition_name, chapter_partition_path(chapter.scripted,chapter,chapter.partition)}") %></td>
       <td>
         <strong><font size="4"><%= link_to chapter.name, chapter, :title => "Show"  %></font></strong>
     <% if chapter.aside.nil? %>
@@ -63,7 +63,7 @@
           <td align="right"><%= HoloceneEvent.convert_ad(section.holocene_events.maximum('start_year')) %></td>
         <td><%= link_to (fa_icon "level-up"), chapter_section_promote_path(chapter, section), :title => "Promote"  %></td>
 
-        <td colspan=6></td>
+        <td colspan="6"></td>
           </tr>
         <% end -%>
     <% end %>

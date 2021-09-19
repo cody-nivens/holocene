@@ -4,13 +4,13 @@
 </p>
 
 <p>
-  <strong>Start year:</strong> <%= raw convert_ad(@holocene_event.start_year,@holocene_event.start_year_uncert) %>
+  <strong>Start year:</strong> <%== convert_ad(@holocene_event.start_year,@holocene_event.start_year_uncert) %>
   <strong> - </strong> <%= convert_ad(@holocene_event.end_year) %>
 </p>
 
 <p>
   <strong>Event type:</strong>
-  <%= raw event_types_to_s(@holocene_event.event_types, false) %>
+  <%== event_types_to_s(@holocene_event.event_types, false) %>
   <strong>Region:</strong>
   <%= link_to @holocene_event.region_name, region_path(@holocene_event.region) %>
 </p>
@@ -37,13 +37,13 @@
       <% @slugs = [] -%>
   <% end -%>
 <% @footnotes = Footnote.process_body(@holocene_event, @slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
-  <%= raw @holocene_event.body %>
+  <%== @holocene_event.body %>
 </p>
 <% unless @footnotes.nil? -%>
 <% @slugs += @footnotes[1] -%>
 <% end -%>
 
-<p>Tags: <%= raw(@holocene_event.tag_list.map { |t| link_to t, tag_path(t) }.join(', ')) %></p>
+<p>Tags: <%==(@holocene_event.tag_list.map { |t| link_to t, tag_path(t) }.join(', ')) %></p>
 
 <% @footer_content << "#{link_to 'Edit', edit_holocene_event_path(@holocene_event), :class => "btn btn-default"}" %>
 <% @footer_content << "#{link_to 'Map', geo_map_holocene_event_path(@holocene_event), :class => "btn btn-default"}" %>

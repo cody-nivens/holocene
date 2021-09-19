@@ -7,7 +7,7 @@ class EventType < ApplicationRecord
   validates :name, presence: true
 
   def timeline_json(_toggle)
-    { events: holocene_events.collect { |x| x.slide } }.to_json
+    { events: holocene_events.collect { |x| x.slide } }
   end
 
   def map_locs

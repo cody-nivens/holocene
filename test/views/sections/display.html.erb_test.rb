@@ -15,7 +15,6 @@ class SectionsDisplayHtmlErbTest < ActionDispatch::IntegrationTest
     get section_display_path(@section)
     assert_response :success
 
-
     assert_select 'a[text()=?]', 'Timeline'
     assert_select 'a[href=?]', section_timeline_path(@section)
     assert_select 'a[text()=?]', 'Map'

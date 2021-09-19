@@ -6,7 +6,7 @@
 
 <%= render 'authors/index.html', authors: book.authors %>
 
-<%= raw epub_friendly(book.body) %><br/>
+<%== epub_friendly(book.body) %><br/>
 
 <% book.key_points.order(:position).each do |key_point| -%>
     <%= render 'key_points/show.html', scripted: key_point.scripted, book: book, key_point: key_point, epub: false %>
@@ -38,7 +38,7 @@
       <strong>
         <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil} %>
       </strong><br/><br/>
-      <%= raw epub_friendly(scene.section.body) %><br/>
+      <%== epub_friendly(scene.section.body) %><br/>
     <% end %>
     <% end %>
     <% end %>
@@ -57,7 +57,7 @@
   <% @slugs = [] %>
   <% chapters.each do |chapter| -%>
     <% unless chapter.citations.length == 0 -%>
-    <%= raw render "footnotes/citations.html", slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: false %>
+    <%== render "footnotes/citations.html", slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: false %>
     </div>
   <% end -%>
 
@@ -70,16 +70,16 @@
   <% chapters.each do |chapter| -%>
     <% next if chapter.always_display_events %>
     <% unless chapter.holocene_events.length == 0 -%>
-      <%= raw render "holocene_events/index.html", holocene_events: chapter.holocene_events.order(:start_year), chapter: chapter, links: false, epub: true, slugs: @slugs %>
+      <%== render "holocene_events/index.html", holocene_events: chapter.holocene_events.order(:start_year), chapter: chapter, links: false, epub: true, slugs: @slugs %>
       </div>
     <% end -%>
     <% chapter.sections.order(:position).each do |section| %>
-      <%= raw render "holocene_events/index.html", holocene_events: section.holocene_events.order(:start_year), chapter: chapter, links: false, title: "#{chapter.name}:#{section.name}", epub: true, slugs: @slugs %>
+      <%== render "holocene_events/index.html", holocene_events: section.holocene_events.order(:start_year), chapter: chapter, links: false, title: "#{chapter.name}:#{section.name}", epub: true, slugs: @slugs %>
       </div>
     <% end -%>
   <% end -%>
   <% unless @slugs.length == 0 -%>
-    <%= raw Footnote.write_footnotes(@slugs) -%>
+    <%== Footnote.write_footnotes(@slugs) -%>
   <% end -%>
 
   <%= render 'glossary_terms/index.html', glossary_terms: book.glossary_terms.order(:name) %>

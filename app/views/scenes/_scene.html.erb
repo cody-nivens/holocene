@@ -2,7 +2,7 @@
   <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: scripted, key_point: key_point, pdf: pdf} %>
 </dt>
 <dd>
-  <%= raw epub_friendly(scene.summary.body) %>
+  <%== epub_friendly(scene.summary.body) %>
   <ul>
     <% insert_scene = scene %>
     <% loop do %>
