@@ -59,6 +59,7 @@ group :development, :test do
   gem 'heavens_door'
   gem "rubocop", require: false
   gem "rubocop-rails"
+  gem 'rubocop-minitest', require: false
   gem 'erb_lint', require: false
 end
 
