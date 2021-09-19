@@ -1,4 +1,6 @@
-require "application_system_test_case"
+# frozen_string_literal: true
+
+require 'application_system_test_case'
 
 class ToursTest < ApplicationSystemTestCase
   setup do
@@ -53,7 +55,6 @@ class ToursTest < ApplicationSystemTestCase
     click_link 'Show'
 
     click_link 'Sushi is Rice'
-
   end
 
   test 'search itenerary' do
@@ -85,39 +86,39 @@ class ToursTest < ApplicationSystemTestCase
     click_link 'Back'
   end
 
-  test "visiting the index" do
+  test 'visiting the index' do
     visit story_tours_url(@story)
-    assert_selector "h1", text: "Tours"
+    assert_selector 'h1', text: 'Tours'
   end
 
-  test "creating a Tour" do
+  test 'creating a Tour' do
     visit story_tours_url(@story)
-    click_on "New Tour"
+    click_on 'New Tour'
 
-    fill_in "Name", with: @tour.name
-    click_on "Create Tour"
+    fill_in 'Name', with: @tour.name
+    click_on 'Create Tour'
 
-    assert_text "Tour was successfully created"
-    click_on "Back"
+    assert_text 'Tour was successfully created'
+    click_on 'Back'
   end
 
-  test "updating a Tour" do
+  test 'updating a Tour' do
     visit story_tours_url(@story)
-    click_on "Edit", match: :first
+    click_on 'Edit', match: :first
 
-    fill_in "Name", with: @tour.name
-    click_on "Update Tour"
+    fill_in 'Name', with: @tour.name
+    click_on 'Update Tour'
 
-    assert_text "Tour was successfully updated"
-    click_on "Back"
+    assert_text 'Tour was successfully updated'
+    click_on 'Back'
   end
 
-  test "destroying a Tour" do
+  test 'destroying a Tour' do
     visit story_tours_url(@story)
     page.accept_confirm do
-      click_on "Destroy", match: :first
+      click_on 'Destroy', match: :first
     end
 
-    assert_text "Tour was successfully destroyed"
+    assert_text 'Tour was successfully destroyed'
   end
 end

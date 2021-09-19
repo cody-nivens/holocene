@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class SectionTest < ActiveSupport::TestCase
-  test "set value" do
+  test 'set value' do
     section = sections(:section_1)
     values = section.set_values
 
@@ -26,8 +28,8 @@ class SectionTest < ActiveSupport::TestCase
     assert_equal section, values[4]
   end
 
-  test "word counts" do
+  test 'word counts' do
     section = sections(:section_13)
-    assert_equal 5,section.word_count
+    assert_equal 5, section.word_count
   end
 end

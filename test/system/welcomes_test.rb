@@ -1,4 +1,6 @@
-require "application_system_test_case"
+# frozen_string_literal: true
+
+require 'application_system_test_case'
 
 class WelcomesTest < ApplicationSystemTestCase
   setup do
@@ -6,14 +8,13 @@ class WelcomesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test 'visiting the Welcome index' do
+    visit root_url
+    assert_text 'Events'
+  end
 
-   test "visiting the Welcome index" do
-     visit root_url
-     assert_text "Events"
-   end
-
-   test "visiting the Welcome stats" do
-     visit welcome_stats_url
-     assert_text "Events"
-   end
+  test 'visiting the Welcome stats' do
+    visit welcome_stats_url
+    assert_text 'Events'
+  end
 end

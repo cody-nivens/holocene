@@ -1,1 +1,1 @@
-json.partial! "asides/aside", aside: @aside
+json.partial! 'asides/aside', aside: @aside

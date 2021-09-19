@@ -74,6 +74,8 @@ group :development do
   gem 'pry'
   gem "better_errors"
   gem "binding_of_caller"
+  gem "rubocop", require: false
+  gem 'erb_lint', require: false
 end
 
 group :test do

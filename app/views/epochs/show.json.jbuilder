@@ -1,1 +1,1 @@
-json.partial! "epochs/epoch", epoch: @epoch
+json.partial! 'epochs/epoch', epoch: @epoch

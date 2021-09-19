@@ -1,1 +1,1 @@
-json.partial! "timelines/timeline", timeline: @timeline
+json.partial! 'timelines/timeline', timeline: @timeline

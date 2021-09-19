@@ -7,6 +7,6 @@ class Aside < ApplicationRecord
   validates :name, presence: true
 
   def word_count
-    return WordsCounted.count(self.body.to_plain_text).token_count + WordsCounted.count(self.name).token_count
+    WordsCounted.count(body.to_plain_text).token_count + WordsCounted.count(name).token_count
   end
 end

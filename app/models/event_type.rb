@@ -1,16 +1,16 @@
 class EventType < ApplicationRecord
-	has_and_belongs_to_many :holocene_events
-    belongs_to :user
+  has_and_belongs_to_many :holocene_events
+  belongs_to :user
 
-    has_rich_text :body
+  has_rich_text :body
 
-    validates :name, presence: true
+  validates :name, presence: true
 
-    def timeline_json(toggle)
-        return {:events => self.holocene_events.collect{|x| x.slide}}.to_json
-    end
+  def timeline_json(_toggle)
+    { events: holocene_events.collect { |x| x.slide } }.to_json
+  end
 
-    def map_locs
-        return self.holocene_events.collect{|x| (x.lat.nil? ? nil : x.location) }.compact
-    end
+  def map_locs
+    holocene_events.collect { |x| (x.lat.nil? ? nil : x.location) }.compact
+  end
 end

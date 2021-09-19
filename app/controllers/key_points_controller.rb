@@ -1,7 +1,6 @@
 class KeyPointsController < ApplicationController
-  before_action :set_key_point, only: [:moved, :move, :show, :list, :add, :edit, :update, :destroy]
-  before_action :set_scripted, only: [:moved, :move, :index, :list, :add, :new ]
-
+  before_action :set_key_point, only: %i[moved move show list add edit update destroy]
+  before_action :set_scripted, only: %i[moved move index list add new]
 
   # GET /key_points
   # GET /key_points.json
@@ -16,16 +15,15 @@ class KeyPointsController < ApplicationController
   end
 
   def moved
-    @key_point.update({:scripted_id => params["new_#{@scripted.class.name.underscore}_id".to_sym]})
+    @key_point.update({ scripted_id: params["new_#{@scripted.class.name.underscore}_id".to_sym] })
 
     respond_to do |format|
-      format.html { redirect_to polymorphic_url(@scripted), notice: "Key Point successfully moved."}
+      format.html { redirect_to polymorphic_url(@scripted), notice: 'Key Point successfully moved.' }
       format.json { render :show, status: :ok, location: @key_point }
     end
   end
 
-  def move
-  end
+  def move; end
 
   def list
     @selector = (params[:selector].blank? ? 0 : params[:selector])
@@ -39,23 +37,24 @@ class KeyPointsController < ApplicationController
     unless scenes_avail.nil?
       scenes_avail.each do |scene_id|
         next if scene_id.blank?
+
         scene = Scene.find(scene_id)
-        scene.update({:selector => selector, :key_point_id => @key_point.id})
-        #@key_point.scenes << scene unless @key_point.scenes.include?(scene)
+        scene.update({ selector: selector, key_point_id: @key_point.id })
+        # @key_point.scenes << scene unless @key_point.scenes.include?(scene)
       end
     end
 
     unless scenes_ids.nil?
       scenes_ids.each do |scene_id|
         next if scene_id.blank?
+
         scene = Scene.find(scene_id)
-        scene.update({:selector  => 0, :key_point_id => nil})
+        scene.update({ selector: 0, key_point_id: nil })
       end
     end
 
-
     respond_to do |format|
-       format.html { redirect_to polymorphic_path([@scripted, :key_point_list], :selector => selector )}
+      format.html { redirect_to polymorphic_path([@scripted, :key_point_list], selector: selector) }
     end
   end
 
@@ -115,28 +114,31 @@ class KeyPointsController < ApplicationController
     @scripted = @key_point.scripted
     @key_point.destroy
     respond_to do |format|
-      format.html { redirect_to polymorphic_url([@scripted, :key_points]), notice: 'Key point was successfully destroyed.' }
+      format.html do
+        redirect_to polymorphic_url([@scripted, :key_points]), notice: 'Key point was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_key_point
-      @key_point = KeyPoint.find(params[:id])
-      @scripted = @key_point.scripted
-      @klass = @scripted.class
-    end
 
-    def set_scripted
-      @klass = [Book, Chapter, Story].detect{|c| params["#{c.name.underscore}_id"]}
-      @scripted = @klass.find((params[:key_point].nil? || params[:key_point][:scripted_id].empty? ? params["#{@klass.name.underscore}_id"] : params[:key_point][:scripted_id]))
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_key_point
+    @key_point = KeyPoint.find(params[:id])
+    @scripted = @key_point.scripted
+    @klass = @scripted.class
+  end
 
-    # Only allow a list of trusted parameters through.
-    def key_point_params
-      params.require(:key_point).permit(:hook, :inciting_incident, :key_element, :first_plot_point, :first_pinch_point,
-                                        :midpoint, :second_pinch_point, :third_plot_point, :climax, :scripted_id,
-                                        :scripted_type, :selector, :print_name, :print_points, :position_position)
-    end
+  def set_scripted
+    @klass = [Book, Chapter, Story].detect { |c| params["#{c.name.underscore}_id"] }
+    @scripted = @klass.find((params[:key_point].nil? || params[:key_point][:scripted_id].empty? ? params["#{@klass.name.underscore}_id"] : params[:key_point][:scripted_id]))
+  end
+
+  # Only allow a list of trusted parameters through.
+  def key_point_params
+    params.require(:key_point).permit(:hook, :inciting_incident, :key_element, :first_plot_point, :first_pinch_point,
+                                      :midpoint, :second_pinch_point, :third_plot_point, :climax, :scripted_id,
+                                      :scripted_type, :selector, :print_name, :print_points, :position_position)
+  end
 end

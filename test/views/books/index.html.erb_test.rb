@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class BooksIndexHtmlErbTest < ActionDispatch::IntegrationTest
   setup do
-    @book= books(:book_1)
+    @book = books(:book_1)
 
     @user = users(:users_1)
     sign_in @user
@@ -14,15 +16,15 @@ class BooksIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @books = Book.all
 
-    assert_select "a[text()=?]",'New Book'
-    assert_select "a[href=?]", new_book_path
-    assert_select ".footer>div>a", 1
+    assert_select 'a[text()=?]', 'New Book'
+    assert_select 'a[href=?]', new_book_path
+    assert_select '.footer>div>a', 1
     assert_template 'books/index'
 
-    assert_select 'h1','Books'
+    assert_select 'h1', 'Books'
 
-    ["layouts/_nav_links", "_nav_links", "layouts/_nav_links_for_auth", "_nav_links_for_auth",
-     "application/_header", "_header", "layouts/_messages", "_messages", "application/_footer", "_footer"].each do |partial|
+    ['layouts/_nav_links', '_nav_links', 'layouts/_nav_links_for_auth', '_nav_links_for_auth',
+     'application/_header', '_header', 'layouts/_messages', '_messages', 'application/_footer', '_footer'].each do |partial|
       assert_template partial: partial
     end
   end

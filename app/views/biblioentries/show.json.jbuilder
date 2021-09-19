@@ -1,1 +1,1 @@
-json.partial! "biblioentries/biblioentry", biblioentry: @biblioentry
+json.partial! 'biblioentries/biblioentry', biblioentry: @biblioentry

@@ -1,6 +1,6 @@
 class ArtifactsController < ApplicationController
-  before_action :set_artifact, only: %i[ show edit update destroy ]
-  before_action :set_book, only: %i[ tagged index new ]
+  before_action :set_artifact, only: %i[show edit update destroy]
+  before_action :set_book, only: %i[tagged index new]
 
   # GET /artifacts or /artifacts.json
   def index
@@ -13,11 +13,11 @@ class ArtifactsController < ApplicationController
   end
 
   def tagged
-    if params[:tag].present?
-      @artifacts = Artifact.tagged_with(params[:tag])
-    else
-      @artifacts = Artifact.all
-    end
+    @artifacts = if params[:tag].present?
+                   Artifact.tagged_with(params[:tag])
+                 else
+                   Artifact.all
+                 end
   end
 
   # GET /artifacts/new
@@ -38,7 +38,7 @@ class ArtifactsController < ApplicationController
 
     respond_to do |format|
       if @artifact.save
-        format.html { redirect_to artifact_path(@artifact), notice: "Artifact was successfully created." }
+        format.html { redirect_to artifact_path(@artifact), notice: 'Artifact was successfully created.' }
         format.json { render :show, status: :created, location: @artifact }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class ArtifactsController < ApplicationController
     @book = @artifact.book
     respond_to do |format|
       if @artifact.update(artifact_params)
-        format.html { redirect_to artifact_path(@artifact), notice: "Artifact was successfully updated." }
+        format.html { redirect_to artifact_path(@artifact), notice: 'Artifact was successfully updated.' }
         format.json { render :show, status: :ok, location: @artifact }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -66,23 +66,25 @@ class ArtifactsController < ApplicationController
     @book = @artifact.book
     @artifact.destroy
     respond_to do |format|
-      format.html { redirect_to book_artifacts_path(@book), notice: "Artifact was successfully destroyed." }
+      format.html { redirect_to book_artifacts_path(@book), notice: 'Artifact was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_artifact
-      @artifact = Artifact.find(params[:id])
-    end
 
-    def set_book
-      @book = Book.find(params[:book_id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_artifact
+    @artifact = Artifact.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def artifact_params
-      params.require(:artifact).permit(:name, :character_id, :book_id, :artifact_type_id, :summary, :parent_id, :tag_list)
-    end
+  def set_book
+    @book = Book.find(params[:book_id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def artifact_params
+    params.require(:artifact).permit(:name, :character_id, :book_id, :artifact_type_id, :summary, :parent_id,
+                                     :tag_list)
+  end
 end

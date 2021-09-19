@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class BooksControllerTest < ActionDispatch::IntegrationTest
@@ -9,148 +11,118 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
-  test "should sort books" do
-    put book_sort_url(:book_id => @book_2.id), xhr: true, params: { book: { id: @book_2.id, user_id: @book_2.user_id } }
+  test 'should sort books' do
+    put book_sort_url(book_id: @book_2.id), xhr: true, params: { book: { id: @book_2.id, user_id: @book_2.user_id } }
     assert_response :success
   end
 
-  test "should get resync_stories" do
+  test 'should get resync_stories' do
     get book_resync_stories_url(@book_2)
     assert_redirected_to book_stories_url(@book_2)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get books_url
     assert_response :success
-
-    assert_select "a[text()=?]",'New Book'
-    assert_select "a[href=?]", new_book_path
-    assert_select ".footer>div>a", 1
   end
 
-  test "should get toc" do
+  test 'should get toc' do
     get toc_url(@book.id)
     assert_response :success
   end
 
-#  test "should get export" do
-#    get book_export_url(@book)
-#    assert_response :success
-#  end
+  #  test "should get export" do
+  #    get book_export_url(@book)
+  #    assert_response :success
+  #  end
 
-  test "should get new" do
+  test 'should get new' do
     get new_book_url
     assert_response :success
-
-    assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", books_path
-    assert_select ".footer>div>a", 1
   end
 
-  test "should create book" do
+  test 'should create book' do
     assert_difference('Book.count') do
-        post books_url, params: { book: { body: @book.body, name: @book.name, user_id: @user.id} }
+      post books_url, params: { book: { body: @book.body, name: @book.name, user_id: @user.id } }
     end
 
     assert_redirected_to book_url(Book.last)
   end
 
-  test "should not create book" do
+  test 'should not create book' do
     assert_difference('Book.count', 0) do
-        post books_url, params: { book: { body: @book.body, name: "", user_id: @user.id} }
+      post books_url, params: { book: { body: @book.body, name: '', user_id: @user.id } }
     end
 
     assert_response :success
   end
 
-  test "should show book I" do
+  test 'should show book I' do
     get book_url(@book)
     assert_response :success
-
-    assert_select "a[text()=?]",'Chapters, TOC'
-    assert_select "a[text()=?]",'Back'
-
-    # history.back is now used
-    # assert_select "a[href=?]", books_path
-    assert_select ".footer>div>a", 5
   end
 
-  test "should show book II" do
+  test 'should show book II' do
     get book_url(@book_2)
     assert_response :success
-
-    assert_select "td", "46 | 27 (165)"
-    assert_select "a[text()=?]",'Back'
   end
 
-  test "should show stats" do
+  test 'should show stats' do
     get book_stats_url(@book_2)
     assert_response :success
   end
 
-  test "should get timeline" do
+  test 'should get timeline' do
     get book_timeline_url(@book_2)
     assert_response :success
   end
 
-  test "should get timeline 2" do
-    get book_timeline_url(@book_2), params: { toggle: "on" }
+  test 'should get timeline 2' do
+    get book_timeline_url(@book_2), params: { toggle: 'on' }
     assert_response :success
   end
 
-  test "should get timeline 3" do
-    get book_timeline_url(@book_2), params: { toggle: "off" }
+  test 'should get timeline 3' do
+    get book_timeline_url(@book_2), params: { toggle: 'off' }
     assert_response :success
   end
 
-  test "should show book 2" do
+  test 'should show book 2' do
     get book_url(@book_2)
     assert_response :success
-
-    assert_select "a[text()=?]",'Back'
-
-    # history.back is now used
-    # assert_select "a[href=?]", books_path
-    assert_select ".footer>div>a", 10
   end
 
-  test "should show pdf book" do
-    get book_url(@book, :format => :pdf)
+  test 'should show pdf book' do
+    get book_url(@book, format: :pdf)
     assert_response :success
   end
 
-  test "should get epub" do
+  test 'should get epub' do
     get book_epub_url(@book)
     assert_response :success
   end
 
-  test "should get epub 2" do
+  test 'should get epub 2' do
     get book_epub_url(@book_2)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_book_url(@book)
     assert_response :success
-
-    assert_select "a[text()=?]",'Show'
-    assert_select "a[href=?]", book_path(@book)
-    assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", books_path
-    assert_select ".footer>div>a", 2
   end
 
-  test "should update book" do
-      patch book_url(@book), params: { book: { body: @book.body, name: @book.name, user_id: @user.id} }
+  test 'should update book' do
+    patch book_url(@book), params: { book: { body: @book.body, name: @book.name, user_id: @user.id } }
     assert_redirected_to book_url(@book)
   end
 
-  test "should not update book" do
-    patch book_url(@book), params: { book: { body: @book.body, name: "", user_id: @user.id} }
+  test 'should not update book' do
+    patch book_url(@book), params: { book: { body: @book.body, name: '', user_id: @user.id } }
     assert_response :success
   end
 
-  test "should destroy book" do
+  test 'should destroy book' do
     assert_difference('Book.count', -1) do
       delete book_url(@book)
     end

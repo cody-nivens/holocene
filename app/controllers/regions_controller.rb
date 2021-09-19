@@ -1,5 +1,5 @@
 class RegionsController < ApplicationController
-  before_action :set_region, only: [:show, :edit, :update, :destroy]
+  before_action :set_region, only: %i[show edit update destroy]
 
   # GET /regions
   # GET /regions.json
@@ -11,7 +11,7 @@ class RegionsController < ApplicationController
   # GET /regions/1.json
   def show
     @grid = HoloceneEventsGrid.new(hgrid_params) do |scope|
-        scope.where(:region_id => @region.id).page(params[:page])
+      scope.where(region_id: @region.id).page(params[:page])
     end
   end
 
@@ -22,8 +22,7 @@ class RegionsController < ApplicationController
   end
 
   # GET /regions/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /regions
   # POST /regions.json
@@ -65,21 +64,21 @@ class RegionsController < ApplicationController
     end
   end
 
-    protected
+  protected
 
   def hgrid_params
-    params.fetch(:holocene_events_grid, {:order => :start_year, :descending => false}).permit!
+    params.fetch(:holocene_events_grid, { order: :start_year, descending: false }).permit!
   end
 
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_region
-      @region = Region.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def region_params
-      params.require(:region).permit(:name, :body, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_region
+    @region = Region.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def region_params
+    params.require(:region).permit(:name, :body, :user_id)
+  end
 end

@@ -1,15 +1,15 @@
 class BiblioentriesController < ApplicationController
-  before_action :set_biblioentry, only: [:show, :edit, :update, :destroy]
-  before_action :set_book, only: [:index, :new ]
+  before_action :set_biblioentry, only: %i[show edit update destroy]
+  before_action :set_book, only: %i[index new]
 
   # GET /books/:book_id/biblioentries(.:format)
   def index
-      @biblioentries = @book.biblioentries.order(:name)
+    @biblioentries = @book.biblioentries.order(:name)
   end
 
   # GET /books/:book_id/biblioentries/:id(.:format)
   def show
-      @book = @biblioentry.book
+    @book = @biblioentry.book
   end
 
   # GET /books/:book_id/biblioentries/new(.:format)
@@ -65,18 +65,20 @@ class BiblioentriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_biblioentry
-      @biblioentry = Biblioentry.find(params[:id])
-    end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_book
-      @book = Book.find(params[:book_id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_biblioentry
+    @biblioentry = Biblioentry.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def biblioentry_params
-      params.require(:biblioentry).permit(:name, :xreflabel, :copyright_year, :copyright_holder, :publisher, :user_id, :book_id, :author_ids => [])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_book
+    @book = Book.find(params[:book_id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def biblioentry_params
+    params.require(:biblioentry).permit(:name, :xreflabel, :copyright_year, :copyright_holder, :publisher, :user_id,
+                                        :book_id, author_ids: [])
+  end
 end

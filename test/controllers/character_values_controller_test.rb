@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class CharacterValuesControllerTest < ActionDispatch::IntegrationTest
@@ -9,53 +11,61 @@ class CharacterValuesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
-  test "should get index" do
+  test 'should get index' do
     get polymorphic_url([@character, :character_values])
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_polymorphic_url([@character, :character_value])
     assert_response :success
   end
 
-  test "should create character_value" do
+  test 'should create character_value' do
     assert_difference('CharacterValue.count') do
-      post polymorphic_path([@character, :character_values]), params: { character_value: { character_attribute_id: @character_value.character_attribute_id, character_id: @character_value.character_id, value: @character_value.value } }
+      post polymorphic_path([@character, :character_values]),
+           params: { character_value: { character_attribute_id: @character_value.character_attribute_id,
+                                        character_id: @character_value.character_id, value: @character_value.value } }
     end
 
     assert_redirected_to polymorphic_path([@character, :character_values])
   end
 
-  test "should not create character_value" do
-    assert_difference('CharacterValue.count',0) do
-      post polymorphic_path([@character, :character_values]), params: { character_value: { character_attribute_id: @character_value.character_attribute_id, character_id: @character_value.character_id, value: "" } }
+  test 'should not create character_value' do
+    assert_difference('CharacterValue.count', 0) do
+      post polymorphic_path([@character, :character_values]),
+           params: { character_value: { character_attribute_id: @character_value.character_attribute_id,
+                                        character_id: @character_value.character_id, value: '' } }
     end
 
     assert_response :success
   end
 
-  test "should show character_value" do
+  test 'should show character_value' do
     get character_value_url(@character_value)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_character_value_url(@character_value)
     assert_response :success
   end
 
-  test "should update character_value" do
-    patch character_value_url(@character_value), params: { character_value: { character_attribute_id: @character_value.character_attribute_id, character_id: @character_value.character_id, value: @character_value.value } }
+  test 'should update character_value' do
+    patch character_value_url(@character_value),
+          params: { character_value: { character_attribute_id: @character_value.character_attribute_id,
+                                       character_id: @character_value.character_id, value: @character_value.value } }
     assert_redirected_to polymorphic_url([@character, :character_values])
   end
 
-  test "should not update character_value" do
-    patch character_value_url(@character_value), params: { character_value: { character_attribute_id: @character_value.character_attribute_id, character_id: @character_value.character_id, value: "" } }
+  test 'should not update character_value' do
+    patch character_value_url(@character_value),
+          params: { character_value: { character_attribute_id: @character_value.character_attribute_id,
+                                       character_id: @character_value.character_id, value: '' } }
     assert_response :success
   end
 
-  test "should destroy character_value" do
+  test 'should destroy character_value' do
     assert_difference('CharacterValue.count', -1) do
       delete character_value_url(@character_value)
     end

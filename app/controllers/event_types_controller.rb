@@ -1,22 +1,22 @@
 class EventTypesController < ApplicationController
-  before_action :set_event_type, only: [:geo_map, :show, :edit, :update, :destroy]
+  before_action :set_event_type, only: %i[geo_map show edit update destroy]
 
   # GET /event_types
   # GET /event_types.json
   def index
-      @event_types = EventType.all.order(:name)
+    @event_types = EventType.all.order(:name)
   end
 
   # GET /event_types/1
   # GET /event_types/1.json
   def show
     @grid = HoloceneEventsGrid.new(hgrid_params) do |scope|
-        scope.joins(:event_types).where("event_type_id = ?", "#{@event_type.id}").page(params[:page])
+      scope.joins(:event_types).where('event_type_id = ?', @event_type.id.to_s).page(params[:page])
     end
   end
 
   def geo_map
-      @object = @event_type
+    @object = @event_type
   end
 
   # GET /event_types/new
@@ -26,8 +26,7 @@ class EventTypesController < ApplicationController
   end
 
   # GET /event_types/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /event_types
   # POST /event_types.json
@@ -72,17 +71,18 @@ class EventTypesController < ApplicationController
   protected
 
   def hgrid_params
-    params.fetch(:holocene_events_grid, {:order => :start_year, :descending => false}).permit!
+    params.fetch(:holocene_events_grid, { order: :start_year, descending: false }).permit!
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_event_type
-      @event_type = EventType.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def event_type_params
-      params.require(:event_type).permit(:name, :body, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_event_type
+    @event_type = EventType.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def event_type_params
+    params.require(:event_type).permit(:name, :body, :user_id)
+  end
 end

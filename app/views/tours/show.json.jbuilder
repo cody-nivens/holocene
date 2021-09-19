@@ -1,1 +1,1 @@
-json.partial! "tours/tour", tour: @tour
+json.partial! 'tours/tour', tour: @tour

@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class StoriesIndexHtmlErbTest < ActionDispatch::IntegrationTest
   setup do
-    @story= stories(:story_1)
+    @story = stories(:story_1)
     @book = @story.book
 
     @user = users(:users_1)
@@ -15,17 +17,17 @@ class StoriesIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @stories = Story.all
 
-    assert_select "a[text()=?]",'New Story'
-    assert_select "a[href=?]", new_polymorphic_path([@book, :story])
-    assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", book_path(@book)
-    assert_select ".footer>div>a", 5
+    assert_select 'a[text()=?]', 'New Story'
+    assert_select 'a[href=?]', new_polymorphic_path([@book, :story])
+    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[href=?]', book_path(@book)
+    assert_select '.footer>div>a', 5
     assert_template 'stories/index'
 
-    assert_select 'h1','Stories'
+    assert_select 'h1', 'Stories'
 
-    ["layouts/_nav_links", "_nav_links", "layouts/_nav_links_for_auth", "_nav_links_for_auth",
-     "application/_header", "_header", "layouts/_messages", "_messages", "application/_footer", "_footer"].each do |partial|
+    ['layouts/_nav_links', '_nav_links', 'layouts/_nav_links_for_auth', '_nav_links_for_auth',
+     'application/_header', '_header', 'layouts/_messages', '_messages', 'application/_footer', '_footer'].each do |partial|
       assert_template partial: partial
     end
   end

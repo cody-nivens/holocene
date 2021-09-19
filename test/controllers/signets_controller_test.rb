@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class SignetsControllerTest < ActionDispatch::IntegrationTest
@@ -12,60 +14,72 @@ class SignetsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
-  test "should get index" do
-    get signets_url(:chapter_id => @chapter.id)
+  test 'should get index' do
+    get signets_url(chapter_id: @chapter.id)
     assert_response :success
   end
 
-  test "should get index 2" do
+  test 'should get index 2' do
     get signets_url
     assert_response :success
   end
 
-  test "should get new" do
-    get new_chapter_signet_url(:chapter_id => @chapter.id)
+  test 'should get new' do
+    get new_chapter_signet_url(chapter_id: @chapter.id)
     assert_response :success
   end
 
-  test "should create signet" do
+  test 'should create signet' do
     assert_difference('Signet.count') do
-      post signets_url, params: { chapter_id: @chapter.id, signet: { color: @signet.color, message: @signet.message, sigged_id: @signet.sigged_id, sigged_type: @signet.sigged_type } }
+      post signets_url,
+           params: { chapter_id: @chapter.id,
+                     signet: { color: @signet.color, message: @signet.message, sigged_id: @signet.sigged_id,
+                               sigged_type: @signet.sigged_type } }
     end
 
     assert_redirected_to polymorphic_url([@chapter, Signet.last])
   end
 
-  test "should not create signet" do
-    assert_difference('Signet.count',0) do
-      post signets_url, params: { chapter_id: @chapter.id, signet: { color: @signet.color, message: "", sigged_id: @signet.sigged_id, sigged_type: @signet.sigged_type } }
+  test 'should not create signet' do
+    assert_difference('Signet.count', 0) do
+      post signets_url,
+           params: { chapter_id: @chapter.id,
+                     signet: { color: @signet.color, message: '', sigged_id: @signet.sigged_id,
+                               sigged_type: @signet.sigged_type } }
     end
 
     assert_response :success
   end
 
-  test "should show signet" do
-    get signet_url(:chapter_id => @chapter.id, :id => @signet.id)
+  test 'should show signet' do
+    get signet_url(chapter_id: @chapter.id, id: @signet.id)
     assert_response :success
   end
 
-  test "should get edit" do
-    get edit_signet_url(:chapter_id => @chapter.id, :id => @signet.id)
+  test 'should get edit' do
+    get edit_signet_url(chapter_id: @chapter.id, id: @signet.id)
     assert_response :success
   end
 
-  test "should update signet" do
-    patch signet_url(@signet), params: { chapter_id: @chapter.id, signet: { color: @signet.color, message: @signet.message, sigged_id: @signet.sigged_id, sigged_type: @signet.sigged_type } }
+  test 'should update signet' do
+    patch signet_url(@signet),
+          params: { chapter_id: @chapter.id,
+                    signet: { color: @signet.color, message: @signet.message, sigged_id: @signet.sigged_id,
+                              sigged_type: @signet.sigged_type } }
     assert_redirected_to polymorphic_url([@chapter, @signet])
   end
 
-  test "should not update signet" do
-    patch signet_url(@signet), params: { chapter_id: @chapter.id, signet: { color: @signet.color, message: "", sigged_id: @signet.sigged_id, sigged_type: @signet.sigged_type } }
+  test 'should not update signet' do
+    patch signet_url(@signet),
+          params: { chapter_id: @chapter.id,
+                    signet: { color: @signet.color, message: '', sigged_id: @signet.sigged_id,
+                              sigged_type: @signet.sigged_type } }
     assert_response :success
   end
 
-  test "should destroy signet" do
+  test 'should destroy signet' do
     assert_difference('Signet.count', -1) do
-      delete signet_url(:chapter_id => @chapter.id, :id => @signet.id)
+      delete signet_url(chapter_id: @chapter.id, id: @signet.id)
     end
 
     assert_redirected_to polymorphic_url([@chapter, :signets])

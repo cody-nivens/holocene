@@ -1,8 +1,8 @@
 class Region < ApplicationRecord
-	has_many :holocene_events
-    belongs_to :user
+  has_many :holocene_events
+  belongs_to :user
 
-    has_rich_text :body
+  has_rich_text :body
 
-    validates :name, presence: true
+  validates :name, presence: true
 end

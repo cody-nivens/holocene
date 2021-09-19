@@ -1,5 +1,5 @@
 class CharacterScenesController < ApplicationController
-  before_action :set_character_scene, only: [:edit, :update]
+  before_action :set_character_scene, only: %i[edit update]
 
   # GET /character_scenes/1/edit
   def edit
@@ -12,7 +12,9 @@ class CharacterScenesController < ApplicationController
     @scene = @character_scene.scene
     respond_to do |format|
       if @character_scene.update(character_scene_params)
-        format.html { redirect_to scene_path(@character_scene.scene), notice: 'Character scene was successfully updated.' }
+        format.html do
+          redirect_to scene_path(@character_scene.scene), notice: 'Character scene was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @character_scene }
       else
         format.html { render :edit }
@@ -22,13 +24,14 @@ class CharacterScenesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_character_scene
-      @character_scene = CharacterScene.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def character_scene_params
-      params.require(:character_scene).permit(:character_id, :scene_id, :summary)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_character_scene
+    @character_scene = CharacterScene.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def character_scene_params
+    params.require(:character_scene).permit(:character_id, :scene_id, :summary)
+  end
 end

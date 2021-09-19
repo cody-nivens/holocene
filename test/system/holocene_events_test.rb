@@ -1,4 +1,6 @@
-require "application_system_test_case"
+# frozen_string_literal: true
+
+require 'application_system_test_case'
 
 class HoloceneEventsTest < ApplicationSystemTestCase
   setup do
@@ -9,65 +11,65 @@ class HoloceneEventsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "searching a Holocene event" do
-    [["Impact",1],["Volcanic",1],["Climate",1],["Cultural",8],["Epidemic",0],["Earth",1]].each do |item|
+  test 'searching a Holocene event' do
+    [['Impact', 1], ['Volcanic', 1], ['Climate', 1], ['Cultural', 8], ['Epidemic', 0], ['Earth', 1]].each do |item|
       event_type = item[0]
       count = item[1]
       visit holocene_events_url
-      select event_type, from: "Event Type"
-      click_on "Search"
-      if count == 0
-        assert_selector 'table.datagrid > tbody > tr', count: 1, text: "――"
+      select event_type, from: 'Event Type'
+      click_on 'Search'
+      if count.zero?
+        assert_selector 'table.datagrid > tbody > tr', count: 1, text: '――'
       else
         assert_selector 'table.datagrid > tbody > tr', count: count
       end
     end
   end
 
-  test "creating a Holocene event" do
+  test 'creating a Holocene event' do
     visit holocene_events_url
-    click_on "New Holocene Event"
+    click_on 'New Holocene Event'
 
-    #fill_in "Body", with: @holocene_event.body
-    fill_in "End year", with: @holocene_event.end_year
-    fill_in "End year mod", with: @holocene_event.end_year_mod
-    fill_in "End year uncert", with: @holocene_event.end_year_uncert
-    fill_in "Name", with: @holocene_event.name
-    fill_in "Start year", with: @holocene_event.start_year
-    fill_in "Start year mod", with: @holocene_event.start_year_mod
-    fill_in "Start year uncert", with: @holocene_event.start_year_uncert
-    fill_in_rich_text_area "holocene_event_body", with: "Test 1"
-    #find('#holocene_event_event_type_id').find(:xpath, 'option[2]').select_option
+    # fill_in "Body", with: @holocene_event.body
+    fill_in 'End year', with: @holocene_event.end_year
+    fill_in 'End year mod', with: @holocene_event.end_year_mod
+    fill_in 'End year uncert', with: @holocene_event.end_year_uncert
+    fill_in 'Name', with: @holocene_event.name
+    fill_in 'Start year', with: @holocene_event.start_year
+    fill_in 'Start year mod', with: @holocene_event.start_year_mod
+    fill_in 'Start year uncert', with: @holocene_event.start_year_uncert
+    fill_in_rich_text_area 'holocene_event_body', with: 'Test 1'
+    # find('#holocene_event_event_type_id').find(:xpath, 'option[2]').select_option
     find('#holocene_event_region_id').find(:xpath, 'option[2]').select_option
-    click_on "Create Holocene event"
+    click_on 'Create Holocene event'
 
-    assert_text "Holocene event was successfully created"
-    click_on "Back"
+    assert_text 'Holocene event was successfully created'
+    click_on 'Back'
   end
 
-  test "should not create a Holocene event" do
+  test 'should not create a Holocene event' do
     visit holocene_events_url
-    click_on "New Holocene Event"
+    click_on 'New Holocene Event'
 
-    #fill_in "Body", with: @holocene_event.body
-    fill_in "End year", with: @holocene_event.end_year
-    fill_in "End year mod", with: @holocene_event.end_year_mod
-    fill_in "End year uncert", with: @holocene_event.end_year_uncert
-    fill_in "Name", with: ""
-    fill_in "Start year", with: @holocene_event.start_year
-    fill_in "Start year mod", with: @holocene_event.start_year_mod
-    fill_in "Start year uncert", with: @holocene_event.start_year_uncert
-    fill_in_rich_text_area "holocene_event_body", with: "Test 1"
-    #find('#holocene_event_event_type_id').find(:xpath, 'option[2]').select_option
+    # fill_in "Body", with: @holocene_event.body
+    fill_in 'End year', with: @holocene_event.end_year
+    fill_in 'End year mod', with: @holocene_event.end_year_mod
+    fill_in 'End year uncert', with: @holocene_event.end_year_uncert
+    fill_in 'Name', with: ''
+    fill_in 'Start year', with: @holocene_event.start_year
+    fill_in 'Start year mod', with: @holocene_event.start_year_mod
+    fill_in 'Start year uncert', with: @holocene_event.start_year_uncert
+    fill_in_rich_text_area 'holocene_event_body', with: 'Test 1'
+    # find('#holocene_event_event_type_id').find(:xpath, 'option[2]').select_option
     find('#holocene_event_region_id').find(:xpath, 'option[2]').select_option
-    click_on "Create Holocene event"
+    click_on 'Create Holocene event'
 
     assert_text "can't be blank"
 
-    fill_in "Name", with: @holocene_event.name
-    click_on "Create Holocene event"
+    fill_in 'Name', with: @holocene_event.name
+    click_on 'Create Holocene event'
 
-    assert_text "Holocene event was successfully created"
-    click_on "Back"
+    assert_text 'Holocene event was successfully created'
+    click_on 'Back'
   end
 end

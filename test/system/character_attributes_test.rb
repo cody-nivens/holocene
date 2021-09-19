@@ -1,4 +1,6 @@
-require "application_system_test_case"
+# frozen_string_literal: true
+
+require 'application_system_test_case'
 
 class CharacterAttributesTest < ApplicationSystemTestCase
   setup do
@@ -8,26 +10,26 @@ class CharacterAttributesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "creating a Character attribute" do
+  test 'creating a Character attribute' do
     visit character_category_character_attributes_url(@character_category)
-    click_on "New Character Attribute"
+    click_on 'New Character Attribute'
 
-    fill_in "Name", with: @character_attribute.name
-    fill_in "Related", with: @character_attribute.related_id
-    click_on "Create Character attribute"
+    fill_in 'Name', with: @character_attribute.name
+    fill_in 'Related', with: @character_attribute.related_id
+    click_on 'Create Character attribute'
 
-    assert_text "Character attribute was successfully created"
-    click_on "Back"
+    assert_text 'Character attribute was successfully created'
+    click_on 'Back'
   end
 
-  test "not creating a Character attribute" do
+  test 'not creating a Character attribute' do
     visit character_category_character_attributes_url(@character_category)
-    click_on "New Character Attribute"
+    click_on 'New Character Attribute'
 
-    fill_in "Name", with: ""
-    click_on "Create Character attribute"
+    fill_in 'Name', with: ''
+    click_on 'Create Character attribute'
 
     assert_text "Name\ncan't be blank"
-    click_on "Back"
+    click_on 'Back'
   end
 end

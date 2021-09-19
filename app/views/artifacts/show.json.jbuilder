@@ -1,1 +1,1 @@
-json.partial! "artifacts/artifact", artifact: @artifact
+json.partial! 'artifacts/artifact', artifact: @artifact

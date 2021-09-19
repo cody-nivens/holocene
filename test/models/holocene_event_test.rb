@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class HoloceneEventTest < ActiveSupport::TestCase
-  test "slide should return json" do
-      holocene_event = holocene_events(:holocene_event_1)
-      assert_not_equal "", holocene_event.slide
+  test 'slide should return json' do
+    holocene_event = holocene_events(:holocene_event_1)
+    assert_not_equal '', holocene_event.slide
   end
 
-  test "set value" do
+  test 'set value' do
     holocene_event = holocene_events(:holocene_event_1)
     values = holocene_event.set_values
 

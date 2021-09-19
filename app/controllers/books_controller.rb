@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [ :stats, :sync_scenes, :timeline, :resync_stories,:toc, :epub, :export, :pdf, :show, :edit, :update, :destroy]
+  before_action :set_book,
+                only: %i[stats sync_scenes timeline resync_stories toc epub export pdf show edit update destroy]
 
   # GET /books
   # GET /books.json
@@ -7,8 +8,7 @@ class BooksController < ApplicationController
     @books = Book.where(user_id: current_user.id).order(:position)
   end
 
-  def stats
-  end
+  def stats; end
 
   def sort
     @book = Book.find(params[:book_id])
@@ -27,29 +27,27 @@ class BooksController < ApplicationController
     @chapters = @book.chapters.order(:position).all
   end
 
-#      format.pdf {
-#         render pdf: "export",
-#          disposition: 'attachment',
-#          header: { right: '[page] of [topage]' },
-#          outline: { outline: false,
-#                     outline_depth: 1 },
-#          toc: {
-#            disable_dotted_lines: true,
-#            disable_toc_links: true,
-#            level_indentation: 3,
-#            header_text: @book.name,
-#            text_size_shrink: 0.5
-#          }
-#      }
+  #      format.pdf {
+  #         render pdf: "export",
+  #          disposition: 'attachment',
+  #          header: { right: '[page] of [topage]' },
+  #          outline: { outline: false,
+  #                     outline_depth: 1 },
+  #          toc: {
+  #            disable_dotted_lines: true,
+  #            disable_toc_links: true,
+  #            level_indentation: 3,
+  #            header_text: @book.name,
+  #            text_size_shrink: 0.5
+  #          }
+  #      }
 
   def resync_stories
     index = 48
     @book.stories.order(:position).each do |story|
-      story.update({:scene_character => index.chr})
+      story.update({ scene_character: index.chr })
       index += 1
-      if index == 58
-        index = 65
-      end
+      index = 65 if index == 58
       story.resync_key_points
     end
 
@@ -60,11 +58,11 @@ class BooksController < ApplicationController
     end
 
     Scene.order(:abc).each_with_index do |x, i|
-      x.update({position: i})
+      x.update({ position: i })
     end
 
     respond_to do |format|
-        format.html { redirect_to book_stories_path(@book), notice: 'Stories were successfully resynced.' }
+      format.html { redirect_to book_stories_path(@book), notice: 'Stories were successfully resynced.' }
     end
   end
 
@@ -78,21 +76,20 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       format.html { render :show }
-      format.pdf {
-         render pdf: "export",
-          disposition: 'attachment',
-          header: { right: '[page] of [topage]' },
-          outline: { outline: false,
-                     outline_depth: 2 },
-          toc: {
-            disable_dotted_lines: true,
-            disable_toc_links: true,
-            level_indentation: 4,
-            header_text: @book.name,
-            text_size_shrink: 0.5
-          }
-     }
-
+      format.pdf do
+        render pdf: 'export',
+               disposition: 'attachment',
+               header: { right: '[page] of [topage]' },
+               outline: { outline: false,
+                          outline_depth: 2 },
+               toc: {
+                 disable_dotted_lines: true,
+                 disable_toc_links: true,
+                 level_indentation: 4,
+                 header_text: @book.name,
+                 text_size_shrink: 0.5
+               }
+      end
     end
   end
 
@@ -102,19 +99,19 @@ class BooksController < ApplicationController
     tmpfile = "#{Rails.root}/tmp/example_test.epub"
     @chapters = @book.chapters
 
-
     respond_to do |format|
-      format.html { send_file tmpfile, filename: 'file.epub', type: 'application/epub', disposition: 'inline'
-                    #redirect_to @book
-                    }
+      format.html do
+        send_file tmpfile, filename: 'file.epub', type: 'application/epub', disposition: 'inline'
+        # redirect_to @book
+      end
     end
   end
 
-#  def export
-#    respond_to do |format|
-#      format.html { send_data BookExportXML.new(@book).build, filename: 'file.tmx', type: 'application/xml', disposition: 'attachment' }
-#    end
-#  end
+  #  def export
+  #    respond_to do |format|
+  #      format.html { send_data BookExportXML.new(@book).build, filename: 'file.tmx', type: 'application/xml', disposition: 'attachment' }
+  #    end
+  #  end
 
   # GET /books/new
   def new
@@ -123,8 +120,7 @@ class BooksController < ApplicationController
   end
 
   # GET /books/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /books
   # POST /books.json
@@ -168,13 +164,15 @@ class BooksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_book
-      @book = Book.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def book_params
-      params.require(:book).permit(:name, :body, :user_id, :show_events, :copyright, :sub_name, :publisher, :fiction, :position_position)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_book
+    @book = Book.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def book_params
+    params.require(:book).permit(:name, :body, :user_id, :show_events, :copyright, :sub_name, :publisher, :fiction,
+                                 :position_position)
+  end
 end

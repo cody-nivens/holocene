@@ -1,6 +1,6 @@
 class ScenesController < ApplicationController
-  before_action :set_scene, only: [:moved, :move, :show, :edit, :update, :destroy]
-  before_action :set_situated, only: [ :timeline, :index, :new ]
+  before_action :set_scene, only: %i[moved move show edit update destroy]
+  before_action :set_situated, only: %i[timeline index new]
 
   # GET /scenes
   # GET /scenes.json
@@ -18,18 +18,18 @@ class ScenesController < ApplicationController
 
     @year_options = []
     @years.each do |year|
-      @year_options << [year,year]
+      @year_options << [year, year]
     end
 
     respond_to do |format|
-      format.html { }
-      format.json { }
-      format.js { }
+      format.html {}
+      format.json {}
+      format.js {}
     end
   end
 
-   def sort
-    #@list = List.find(params[:list_id])
+  def sort
+    # @list = List.find(params[:list_id])
     @scene = Scene.find(params[:scene_id])
     @scene.update(scene_params)
     render body: nil
@@ -56,12 +56,15 @@ class ScenesController < ApplicationController
     @scene.save
 
     respond_to do |format|
-      if !params[:new_key_point_id].blank? && @scene.update({:key_point_id => params[:new_key_point_id], :selector => @new_selector})
+      if !params[:new_key_point_id].blank? && @scene.update({ key_point_id: params[:new_key_point_id],
+                                                              selector: @new_selector })
         @scene.key_point.selector_value_set(@new_selector, title)
         @scene.key_point.save
         format.html { redirect_to polymorphic_path(@scene), notice: 'Scene was successfully moved.' }
       else
-        format.html { render :move, situated_tyep: @situated.class.name, situated_id: @situated.id, new_key_point_id: @key_point.id }
+        format.html do
+          render :move, situated_tyep: @situated.class.name, situated_id: @situated.id, new_key_point_id: @key_point.id
+        end
       end
     end
   end
@@ -70,18 +73,18 @@ class ScenesController < ApplicationController
   def new
     @scene = Scene.new
     @scene.situated = @situated
-    @kp_klass = [KeyPoint ].detect{|c| params["#{c.name.underscore}_id"]}
+    @kp_klass = [KeyPoint].detect { |c| params["#{c.name.underscore}_id"] }
     @key_point = (params[:key_point_id].nil? ? nil : @kp_klass.find(params[:key_point_id]))
     @selector = params[:selector]
     @scene.selector = @selector
     @scene.key_point = @key_point
-    @scene.date_string = "0001-01-01"
+    @scene.date_string = '0001-01-01'
   end
 
   # GET /scenes/1/edit
   def edit
     @situated = @scene.situated
-    @kp_klass = [KeyPoint ].detect{|c| params["#{c.name.underscore}_id"]}
+    @kp_klass = [KeyPoint].detect { |c| params["#{c.name.underscore}_id"] }
     @key_point = (params[:key_point_id].nil? ? nil : @kp_klass.find(params[:key_point_id]))
     @selector = params[:selector]
   end
@@ -91,7 +94,7 @@ class ScenesController < ApplicationController
   def create
     @scene = Scene.new(scene_params)
     @situated = @scene.situated
-    @scene.date_string = "%04d" % params["t_years"].to_i + "-%02d" % params["t"]["month"].to_i + "-%02d" % params["t"]["day"].to_i
+    @scene.date_string = '%04d' % params['t_years'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i
 
     respond_to do |format|
       if @scene.save
@@ -107,7 +110,7 @@ class ScenesController < ApplicationController
   # PATCH/PUT /scenes/1
   # PATCH/PUT /scenes/1.json
   def update
-    @scene.date_string = "%04d" % params["t_years"].to_i + "-%02d" % params["t"]["month"].to_i + "-%02d" % params["t"]["day"].to_i
+    @scene.date_string = '%04d' % params['t_years'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i
     @situated = @scene.situated
 
     respond_to do |format|
@@ -133,26 +136,26 @@ class ScenesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_scene
-      @scene = Scene.find(params[:id])
-    end
 
-    def set_situated
-      @klass = [Book, Story].detect{|c| params["#{c.name.underscore}_id"]}
-      if @klass.nil?
-        key_point = KeyPoint.find(params[:key_point_id])
-        @klass = key_point.scripted_type
-        @situated = key_point.scripted
-      else
-        @situated = @klass.find((params[:scene].nil? || params[:scene][:situated_id].empty? ? params["#{@klass.name.underscore}_id"] : params[:scene][:situated_id]))
-      end
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_scene
+    @scene = Scene.find(params[:id])
+  end
 
-
-    # Only allow a list of trusted parameters through.
-    def scene_params
-      params.require(:scene).permit(:abc, :check, :summary, :place, :time, :scene_sequel, :goal_reaction, :conflict_dilemma, :disaster_decision, :short_term_goal, :long_term_goal, :over_arching_goal, :situated_id,
-                                    :situated_type, :selector, :key_point_id, :section_id, :insert_scene_id, :before_flag, :artifact_id, :position_position)
+  def set_situated
+    @klass = [Book, Story].detect { |c| params["#{c.name.underscore}_id"] }
+    if @klass.nil?
+      key_point = KeyPoint.find(params[:key_point_id])
+      @klass = key_point.scripted_type
+      @situated = key_point.scripted
+    else
+      @situated = @klass.find((params[:scene].nil? || params[:scene][:situated_id].empty? ? params["#{@klass.name.underscore}_id"] : params[:scene][:situated_id]))
     end
+  end
+
+  # Only allow a list of trusted parameters through.
+  def scene_params
+    params.require(:scene).permit(:abc, :check, :summary, :place, :time, :scene_sequel, :goal_reaction, :conflict_dilemma, :disaster_decision, :short_term_goal, :long_term_goal, :over_arching_goal, :situated_id,
+                                  :situated_type, :selector, :key_point_id, :section_id, :insert_scene_id, :before_flag, :artifact_id, :position_position)
+  end
 end

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ArtifactTest < ActiveSupport::TestCase
-  test "set value" do
+  test 'set value' do
     artifact = Artifact.first
     values = artifact.set_values
 

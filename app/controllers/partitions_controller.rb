@@ -1,6 +1,6 @@
 class PartitionsController < ApplicationController
-  before_action :set_partition, only: [:show, :edit, :update, :destroy]
-  before_action :set_chapter, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+  before_action :set_partition, only: %i[show edit update destroy]
+  before_action :set_chapter, only: %i[index new create show edit update destroy]
 
   # GET /partitions
   # GET /partitions.json
@@ -11,7 +11,7 @@ class PartitionsController < ApplicationController
   # GET /partitions/1
   # GET /partitions/1.json
   def show
-      @chapter = @chapter
+    @chapter = @chapter
   end
 
   # GET /partitions/new
@@ -21,8 +21,7 @@ class PartitionsController < ApplicationController
   end
 
   # GET /partitions/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /partitions
   # POST /partitions.json
@@ -31,7 +30,9 @@ class PartitionsController < ApplicationController
 
     respond_to do |format|
       if @partition.save
-        format.html { redirect_to chapter_partition_url(@chapter,@partition), notice: 'Partition was successfully created.' }
+        format.html do
+          redirect_to chapter_partition_url(@chapter, @partition), notice: 'Partition was successfully created.'
+        end
         format.json { render :show, status: :created, location: @partition }
       else
         format.html { render :new }
@@ -45,7 +46,9 @@ class PartitionsController < ApplicationController
   def update
     respond_to do |format|
       if @partition.update(partition_params)
-        format.html { redirect_to chapter_partition_url(@chapter,@partition), notice: 'Partition was successfully updated.' }
+        format.html do
+          redirect_to chapter_partition_url(@chapter, @partition), notice: 'Partition was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @partition }
       else
         format.html { render :edit }
@@ -65,17 +68,18 @@ class PartitionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_partition
-      @partition = Partition.find(params[:id])
-    end
 
-    def set_chapter
-      @chapter = Chapter.find(params[:chapter_id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_partition
+    @partition = Partition.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def partition_params
-      params.require(:partition).permit(:name, :body, :chapter_id)
-    end
+  def set_chapter
+    @chapter = Chapter.find(params[:chapter_id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def partition_params
+    params.require(:partition).permit(:name, :body, :chapter_id)
+  end
 end

@@ -22,6 +22,6 @@ class User < ApplicationRecord
   has_many :timeline
 
   def assign_default_role
-    self.add_role(:newuser) if self.roles.blank?
+    add_role(:newuser) if roles.blank?
   end
 end

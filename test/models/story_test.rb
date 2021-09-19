@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class StoryTest < ActiveSupport::TestCase
-  test "set value" do
+  test 'set value' do
     story = stories(:story_1)
     values = story.set_values
 
@@ -10,8 +12,8 @@ class StoryTest < ActiveSupport::TestCase
     assert_equal story, values[1]
   end
 
-   test "scene count" do
-     story = stories(:story_2)
-     assert_not_equal 0, story.scene_count
-   end
+  test 'scene count' do
+    story = stories(:story_2)
+    assert_not_equal 0, story.scene_count
+  end
 end

@@ -1,1 +1,1 @@
-json.partial! "signets/signet", signet: @signet
+json.partial! 'signets/signet', signet: @signet

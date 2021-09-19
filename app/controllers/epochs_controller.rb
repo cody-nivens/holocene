@@ -1,22 +1,22 @@
 class EpochsController < ApplicationController
-  before_action :set_epoch, only: [:geo_map, :show, :edit, :update, :destroy]
+  before_action :set_epoch, only: %i[geo_map show edit update destroy]
 
   # GET /epochs
   # GET /epochs.json
   def index
-      @epochs = Epoch.order(:start_date).all
+    @epochs = Epoch.order(:start_date).all
   end
 
   def geo_map
-      @object = @epoch
+    @object = @epoch
   end
-
 
   # GET /epochs/1
   # GET /epochs/1.json
   def show
-      @grid = HoloceneEventsGrid.new(hgrid_params.merge({:start_year => [ @epoch.start_date,@epoch.end_date]})) do |scope|
-        scope.page(params[:page])
+    @grid = HoloceneEventsGrid.new(hgrid_params.merge({ start_year: [@epoch.start_date,
+                                                                     @epoch.end_date] })) do |scope|
+      scope.page(params[:page])
     end
   end
 
@@ -27,8 +27,7 @@ class EpochsController < ApplicationController
   end
 
   # GET /epochs/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /epochs
   # POST /epochs.json
@@ -73,18 +72,18 @@ class EpochsController < ApplicationController
   protected
 
   def hgrid_params
-    params.fetch(:holocene_events_grid, {:order => :start_year, :descending => false}).permit!
+    params.fetch(:holocene_events_grid, { order: :start_year, descending: false }).permit!
   end
 
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_epoch
-      @epoch = Epoch.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def epoch_params
-      params.require(:epoch).permit(:name, :start_date, :end_date, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_epoch
+    @epoch = Epoch.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def epoch_params
+    params.require(:epoch).permit(:name, :start_date, :end_date, :user_id)
+  end
 end

@@ -1,20 +1,17 @@
 class AuthorsController < ApplicationController
-  before_action :set_author, only: [ :show, :edit, :update, :destroy]
-  before_action :set_object, only: [ :index, :show, :add, :list, :new, :edit, :update, :create, :destroy ]
-
+  before_action :set_author, only: %i[show edit update destroy]
+  before_action :set_object, only: %i[index show add list new edit update create destroy]
 
   # GET /books/:book_id/authors(.:format)
   def index
-      @authors = @object.authors.order(:last_name)
+    @authors = @object.authors.order(:last_name)
   end
 
   # GET /books/:book_id/authors/:id(.:format)
-  def show
-  end
+  def show; end
 
-    # GET /authors/1/list
-  def list
-  end
+  # GET /authors/1/list
+  def list; end
 
   # GET /authors/1/add
   def add
@@ -24,6 +21,7 @@ class AuthorsController < ApplicationController
     unless authors_avail.nil?
       authors_avail.each do |author_id|
         next if author_id.blank?
+
         author = Author.find(author_id)
         @object.authors << author unless @object.authors.include?(author)
       end
@@ -32,16 +30,16 @@ class AuthorsController < ApplicationController
     unless authors_ids.nil?
       authors_ids.each do |author_id|
         next if author_id.blank?
+
         author = Author.find(author_id)
         @object.authors.destroy(author) if @object.authors.include?(author)
       end
     end
 
     respond_to do |format|
-       format.html { redirect_to book_authors_list_path(:book_id => @object.id) }
+      format.html { redirect_to book_authors_list_path(book_id: @object.id) }
     end
   end
-
 
   # GET /books/:book_id/authors/new(.:format)
   def new
@@ -50,8 +48,7 @@ class AuthorsController < ApplicationController
   end
 
   # GET /books/:book_id/authors/:id/edit(.:format)
-  def edit
-  end
+  def edit; end
 
   # POST /books/:book_id/authors(.:format)
   def create
@@ -92,19 +89,19 @@ class AuthorsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_author
-      @author = Author.find(params[:id])
-    end
 
-    def set_object
-      klass = [Biblioentry, Book].detect{|c| params["#{c.name.underscore}_id"]}
-      @object = klass.find(params["#{klass.name.underscore}_id"])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_author
+    @author = Author.find(params[:id])
+  end
 
+  def set_object
+    klass = [Biblioentry, Book].detect { |c| params["#{c.name.underscore}_id"] }
+    @object = klass.find(params["#{klass.name.underscore}_id"])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def author_params
-      params.require(:author).permit(:first_name, :last_name, :user_id, :book_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def author_params
+    params.require(:author).permit(:first_name, :last_name, :user_id, :book_id)
+  end
 end

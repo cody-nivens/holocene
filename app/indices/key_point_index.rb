@@ -1,4 +1,4 @@
-ThinkingSphinx::Index.define :key_point, :with => :active_record do
+ThinkingSphinx::Index.define :key_point, with: :active_record do
   # fields
   indexes hook
   indexes inciting_incident
@@ -10,5 +10,5 @@ ThinkingSphinx::Index.define :key_point, :with => :active_record do
   indexes third_plot_point
   indexes climax
 
-  set_property :stopwords => 'db/stop_words.txt'
+  set_property stopwords: 'db/stop_words.txt'
 end

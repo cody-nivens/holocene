@@ -1,13 +1,14 @@
 class ChaptersController < ApplicationController
-  before_action :set_chapter, only: [:promote, :demote, :geo_map, :pdf, :holocene_events, :sections, :show, :edit, :update, :destroy]
-  before_action :set_scripted, only: [ :index, :create, :new ]
+  before_action :set_chapter,
+                only: %i[promote demote geo_map pdf holocene_events sections show edit update destroy]
+  before_action :set_scripted, only: %i[index create new]
 
   def index
-       @chapters = @scripted.chapters.order(:position).all
+    @chapters = @scripted.chapters.order(:position).all
   end
 
   def geo_map
-      @object = @chapter
+    @object = @chapter
   end
 
   def demote
@@ -16,22 +17,21 @@ class ChaptersController < ApplicationController
     @prev_chapter = @chapter.set_prev
     position = 0
 
-    if @prev_chapter.nil?
-      @prev_chapter = @chapter
-    end
+    @prev_chapter = @chapter if @prev_chapter.nil?
 
     @prev_chapter.sections.order(:position).each do |section|
-      section.update({:position => position})
+      section.update({ position: position })
       position += 1
     end
 
     position = (@prev_chapter.sections.last.nil? ? 0 : @prev_chapter.sections.last.position + 1)
 
-    new_section = Section.create({name: @chapter.name, body: @chapter.body, chapter_id: @prev_chapter.id,position: position})
+    new_section = Section.create({ name: @chapter.name, body: @chapter.body, chapter_id: @prev_chapter.id,
+                                   position: position })
     position += 1
 
     @chapter.citations.each do |citation|
-      citation.update({:noted_id => @prev_chapter.id}) unless @prev_chapter.citations.include?(citation)
+      citation.update({ noted_id: @prev_chapter.id }) unless @prev_chapter.citations.include?(citation)
     end
 
     @chapter.holocene_events.each do |holocene_event|
@@ -39,14 +39,14 @@ class ChaptersController < ApplicationController
     end
 
     @chapter.sections.order(:position).each do |section|
-      section.update({:chapter_id => @prev_chapter.id, :position => position})
+      section.update({ chapter_id: @prev_chapter.id, position: position })
       position += 1
     end
 
     @chapter.destroy
 
     respond_to do |format|
-        format.html { redirect_to polymorphic_path([@scripted, :chapters]), notice: 'Chapter was demoted.' }
+      format.html { redirect_to polymorphic_path([@scripted, :chapters]), notice: 'Chapter was demoted.' }
     end
   end
 
@@ -57,51 +57,51 @@ class ChaptersController < ApplicationController
     @next_chapter = @chapter.set_next
     position = 0
 
-    if @next_chapter.nil?
-      @next_chapter = @chapter
-    end
+    @next_chapter = @chapter if @next_chapter.nil?
 
-
-    @scripted.chapters.where("position > ?",@next_chapter.position).order(:position).each do |chapter|
-      chapter.update({:position => position})
+    @scripted.chapters.where('position > ?', @next_chapter.position).order(:position).each do |chapter|
+      chapter.update({ position: position })
       position += 1
     end
 
     position = @next_chapter.position
-    @new_chapter = Chapter.create({:name => @section.name, :body => @section.body,:position => position, :scripted => @scripted})
+    @new_chapter = Chapter.create({ name: @section.name, body: @section.body, position: position,
+                                    scripted: @scripted })
 
-    @chapter.sections.where("position > ?",@section.position).order(:position).each do |section|
-      section.update({:position => position})
-      section.update({:chapter_id => @new_chapter.id})
+    @chapter.sections.where('position > ?', @section.position).order(:position).each do |section|
+      section.update({ position: position })
+      section.update({ chapter_id: @new_chapter.id })
       position += 1
     end
 
     @section.destroy
 
     respond_to do |format|
-        format.html { redirect_to polymorphic_path([@scripted, :chapters]), notice: 'Chapter was successfully created from Section.' }
+      format.html do
+        redirect_to polymorphic_path([@scripted, :chapters]), notice: 'Chapter was successfully created from Section.'
+      end
     end
   end
 
-      #format.pdf {
-      #  render pdf: "chapter_#{@chapter.id}",
-      #    disposition: 'attachment',
-      #    header: { right: '[page] of [topage]' },
-      #    toc: {
-      #      disable_dotted_lines: true,
-      #      disable_toc_links: true,
-      #      level_indentation: 3,
-      #      header_text: 'Climate and History',
-      #      text_size_shrink: 0.5
-      #    }
-      #}
+  # format.pdf {
+  #  render pdf: "chapter_#{@chapter.id}",
+  #    disposition: 'attachment',
+  #    header: { right: '[page] of [topage]' },
+  #    toc: {
+  #      disable_dotted_lines: true,
+  #      disable_toc_links: true,
+  #      level_indentation: 3,
+  #      header_text: 'Climate and History',
+  #      text_size_shrink: 0.5
+  #    }
+  # }
   # GET /chapters/1
   # GET /chapters/1.json
   def show
     @notes = {}
     @sections = @chapter.sections.order(:position)
     respond_to do |format|
-      format.html { render :show, locals: { epub: false }}
+      format.html { render :show, locals: { epub: false } }
     end
   end
 
@@ -154,24 +154,28 @@ class ChaptersController < ApplicationController
     @scripted = @chapter.scripted
     @chapter.destroy
     respond_to do |format|
-      format.html { redirect_to polymorphic_path([@scripted, :chapters]), notice: 'Chapter was successfully destroyed.' }
+      format.html do
+        redirect_to polymorphic_path([@scripted, :chapters]), notice: 'Chapter was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_chapter
-      @chapter = Chapter.find(params[:id])
-    end
 
-    def set_scripted
-      @klass = (params[:chapter].nil? || params[:chapter][:scripted_type].empty? ? params[:scripted_type] : params[:chapter][:scripted_type]).capitalize.constantize
-      @scripted = @klass.find((params[:chapter].nil? || params[:chapter][:scripted_id].empty? ? params["#{@klass.name.underscore}_id"] : params[:chapter][:scripted_id]))
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_chapter
+    @chapter = Chapter.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def chapter_params
-      params.require(:chapter).permit(:name, :body, :position, :scripted_id, :scripted_type, :position, :aside, :show_events, :always_display_events, :display_title, :scripted_id, :scripted_type)
-    end
+  def set_scripted
+    @klass = (params[:chapter].nil? || params[:chapter][:scripted_type].empty? ? params[:scripted_type] : params[:chapter][:scripted_type]).capitalize.constantize
+    @scripted = @klass.find((params[:chapter].nil? || params[:chapter][:scripted_id].empty? ? params["#{@klass.name.underscore}_id"] : params[:chapter][:scripted_id]))
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def chapter_params
+    params.require(:chapter).permit(:name, :body, :position, :scripted_id, :scripted_type, :position, :aside,
+                                    :show_events, :always_display_events, :display_title, :scripted_id, :scripted_type)
+  end
 end

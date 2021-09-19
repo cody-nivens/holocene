@@ -1,4 +1,6 @@
-require "application_system_test_case"
+# frozen_string_literal: true
+
+require 'application_system_test_case'
 
 class EventTypesTest < ApplicationSystemTestCase
   setup do
@@ -7,30 +9,30 @@ class EventTypesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "creating an Event type" do
+  test 'creating an Event type' do
     visit event_types_url
-    click_on "New Event Type"
+    click_on 'New Event Type'
 
-    fill_in "Name", with: @event_type.name
-    fill_in_rich_text_area "event_type_body", with: "Test 1"
-    click_on "Create Event type"
+    fill_in 'Name', with: @event_type.name
+    fill_in_rich_text_area 'event_type_body', with: 'Test 1'
+    click_on 'Create Event type'
 
-    assert_text "Event type was successfully created"
-    click_on "Back"
+    assert_text 'Event type was successfully created'
+    click_on 'Back'
   end
 
-  test "should not create an Event type" do
+  test 'should not create an Event type' do
     visit event_types_url
-    click_on "New Event Type"
+    click_on 'New Event Type'
 
-    fill_in "Name", with: ""
-    click_on "Create Event type"
+    fill_in 'Name', with: ''
+    click_on 'Create Event type'
 
     assert_text "can't be blank"
 
-    fill_in "Name", with: @event_type.name
-    click_on "Create Event type"
-    assert_text "Event type was successfully created"
-    click_on "Back"
+    fill_in 'Name', with: @event_type.name
+    click_on 'Create Event type'
+    assert_text 'Event type was successfully created'
+    click_on 'Back'
   end
 end

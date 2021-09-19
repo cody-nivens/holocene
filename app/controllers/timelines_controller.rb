@@ -1,30 +1,27 @@
 class TimelinesController < ApplicationController
-  before_action :set_timeline, only: [:geo_map, :show, :edit, :update, :destroy]
-  before_action :set_object, only: [:timeline ]
+  before_action :set_timeline, only: %i[geo_map show edit update destroy]
+  before_action :set_object, only: [:timeline]
 
   # GET /timelines
   # GET /timelines.json
   def index
-      @timelines = Timeline.all.order(:name)
+    @timelines = Timeline.all.order(:name)
   end
 
   # GET /timelines/1
   # GET /timelines/1.json
   def show
     ids = @timeline.holocene_events.pluck(:id)
-    @grid = HoloceneEventsGrid.new(hgrid_params.merge({:id => ids})) do |scope|
-        scope.page(params[:page])
+    @grid = HoloceneEventsGrid.new(hgrid_params.merge({ id: ids })) do |scope|
+      scope.page(params[:page])
     end
-
   end
 
   def geo_map
-      @object = @timeline
+    @object = @timeline
   end
 
-
-  def timeline
-  end
+  def timeline; end
 
   # GET /timelines/new
   def new
@@ -33,8 +30,7 @@ class TimelinesController < ApplicationController
   end
 
   # GET /timelines/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /timelines
   # POST /timelines.json
@@ -79,27 +75,28 @@ class TimelinesController < ApplicationController
   protected
 
   def hgrid_params
-    params.fetch(:holocene_events_grid, {:order => :start_year, :descending => false}).permit!
+    params.fetch(:holocene_events_grid, { order: :start_year, descending: false }).permit!
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_timeline
-      @timeline = Timeline.find(params[:id])
-    end
 
-    def set_object
-      params.each do |name, value|
-        if name =~ /(.+)_id$/
-          @object = $1.classify.constantize.find(value)
-          return
-        end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_timeline
+    @timeline = Timeline.find(params[:id])
+  end
+
+  def set_object
+    params.each do |name, value|
+      if name =~ /(.+)_id$/
+        @object = Regexp.last_match(1).classify.constantize.find(value)
+        return
       end
-      nil
     end
+    nil
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def timeline_params
-      params.require(:timeline).permit(:name, :description, :user_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def timeline_params
+    params.require(:timeline).permit(:name, :description, :user_id)
+  end
 end

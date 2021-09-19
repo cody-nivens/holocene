@@ -1,1 +1,1 @@
-json.partial! "footnotes/footnote", footnote: @footnote
+json.partial! 'footnotes/footnote', footnote: @footnote

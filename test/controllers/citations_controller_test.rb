@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class CitationsControllerTest < ActionDispatch::IntegrationTest
@@ -9,14 +11,14 @@ class CitationsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
-  test "should get index" do
-    get chapter_citations_url(:chapter_id => @chapter.id)
+  test 'should get index' do
+    get chapter_citations_url(chapter_id: @chapter.id)
     assert_response :success
   end
 
-  test "should update citations" do
-    patch chapter_citations_url(:chapter_id => @chapter.id), params: { cit_ids: [ footnotes(:footnote_1).id ], biblioentries_ids: [ biblioentries(:biblioentry_1).id ] }
+  test 'should update citations' do
+    patch chapter_citations_url(chapter_id: @chapter.id),
+          params: { cit_ids: [footnotes(:footnote_1).id], biblioentries_ids: [biblioentries(:biblioentry_1).id] }
     assert_redirected_to chapter_citations_url(@chapter)
   end
-
 end

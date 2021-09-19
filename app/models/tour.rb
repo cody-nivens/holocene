@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tour < ApplicationRecord
   belongs_to :story
 
@@ -11,7 +13,6 @@ class Tour < ApplicationRecord
   # Return location for jvectormap if only item added to map
   #
   def map_locs
-    return self.itineraries.collect{|x| x.location }
+    itineraries.collect(&:location)
   end
-
 end

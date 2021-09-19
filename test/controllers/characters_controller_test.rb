@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class CharactersControllerTest < ActionDispatch::IntegrationTest
@@ -13,184 +15,203 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
-  test "should get index" do
-    get book_characters_url(:book_id => @book.id)
+  test 'should get index' do
+    get book_characters_url(book_id: @book.id)
     assert_response :success
     assert_template 'datagrid/_table'
   end
 
-  test "should get index 1" do
-    get book_characters_url(:book_id => @book.id,:characters_grid=>{:last_name=>"A" })
+  test 'should get index 1' do
+    get book_characters_url(book_id: @book.id, characters_grid: { last_name: 'A' })
     assert_response :success
   end
 
-  test "should get index 2" do
-    get book_characters_url(:book_id => @book.id, :characters_grid => {  :ethnicity => 'White'})
-    assert_response :success
-    assert_template 'datagrid/_table'
-  end
-
-  test "should get index 3" do
-    get book_characters_url(:book_id => @book.id, :characters_grid => {  :ethnicity => ''})
+  test 'should get index 2' do
+    get book_characters_url(book_id: @book.id, characters_grid: { ethnicity: 'White' })
     assert_response :success
     assert_template 'datagrid/_table'
   end
 
-  test "should get index 4" do
-    get book_characters_url(:book_id => @book.id, :characters_grid => {  :occupation_class => 'Ship Staff'})
+  test 'should get index 3' do
+    get book_characters_url(book_id: @book.id, characters_grid: { ethnicity: '' })
     assert_response :success
     assert_template 'datagrid/_table'
   end
 
-  test "should get index 5" do
-    get book_characters_url(:book_id => @book.id),params:{ cat1: "Gender", cat2: "sex", key1: "Gay",key2: "Male"}
+  test 'should get index 4' do
+    get book_characters_url(book_id: @book.id, characters_grid: { occupation_class: 'Ship Staff' })
     assert_response :success
     assert_template 'datagrid/_table'
   end
 
-  test "should get index 6" do
-    get book_characters_url(:book_id => @book.id),params:{ category: "Phyical Appearance", cat1: "Hair color" }
+  test 'should get index 5' do
+    get book_characters_url(book_id: @book.id), params: { cat1: 'Gender', cat2: 'sex', key1: 'Gay', key2: 'Male' }
     assert_response :success
     assert_template 'datagrid/_table'
   end
 
-  test "should get index 7" do
-    get book_characters_url(:book_id => @book.id, :occupation_class => '')
+  test 'should get index 6' do
+    get book_characters_url(book_id: @book.id), params: { category: 'Phyical Appearance', cat1: 'Hair color' }
     assert_response :success
     assert_template 'datagrid/_table'
   end
 
-  test "should get index 8" do
-    get book_characters_url(:book_id => @book.id),params:{ attrib1: "occupation_class", attrib2: "sex", key1: "Autocrat",key2: "Male"}
+  test 'should get index 7' do
+    get book_characters_url(book_id: @book.id, occupation_class: '')
     assert_response :success
     assert_template 'datagrid/_table'
   end
 
-  test "should get attributes" do
-    get characters_attributes_url(:book_id => @book.id,:characters_grid=>{:category=>character_categories(:character_category_1).id }), xhr: true
+  test 'should get index 8' do
+    get book_characters_url(book_id: @book.id),
+        params: { attrib1: 'occupation_class', attrib2: 'sex', key1: 'Autocrat', key2: 'Male' }
+    assert_response :success
+    assert_template 'datagrid/_table'
+  end
+
+  test 'should get attributes' do
+    get characters_attributes_url(book_id: @book.id, characters_grid: { category: character_categories(:character_category_1).id }),
+        xhr: true
     assert_response :success
   end
 
-  test "should get values" do
+  test 'should get values' do
     category = character_categories(:character_category_1)
-    get characters_attribute_values_url(:book_id => @book.id,:characters_grid=>{:category=> category.id, :attribute => CharacterAttribute.where(character_category_id: category.id).first.id }), xhr: true
+    get characters_attribute_values_url(book_id: @book.id, characters_grid: { category: category.id, attribute: CharacterAttribute.where(character_category_id: category.id).first.id }),
+        xhr: true
     assert_response :success
   end
 
-  test "should get index without values" do
+  test 'should get index without values' do
     category = character_categories(:character_category_1)
-    get book_characters_url(:book_id => @book.id,:characters_grid=>{:category=> category.id, :attribute => CharacterAttribute.where(character_category_id: category.id).first.id }), xhr: true
+    get book_characters_url(book_id: @book.id, characters_grid: { category: category.id, attribute: CharacterAttribute.where(character_category_id: category.id).first.id }),
+        xhr: true
     assert_response :success
   end
 
-  test "should get index with values" do
+  test 'should get index with values' do
     category = character_categories(:character_category_1)
-    get book_characters_url(:book_id => @book.id,:characters_grid=>{:category=> category.id, :attribute => CharacterAttribute.where(character_category_id: category.id).first.id, :value => "five ten" }), xhr: true
+    get book_characters_url(book_id: @book.id, characters_grid: { category: category.id, attribute: CharacterAttribute.where(character_category_id: category.id).first.id, value: 'five ten' }),
+        xhr: true
     assert_response :success
   end
 
-  test "should get list" do
-    get polymorphic_url([@book,:characters, :list])
+  test 'should get list' do
+    get polymorphic_url([@book, :characters, :list])
     assert_response :success
   end
 
-  test "should add characters I" do
+  test 'should add characters I' do
     assert_difference('@story.characters.count') do
-      post story_characters_add_url(:story_id => @story.id), params: { characters_ids: [  ], characters_avail: [ @character.id ] }
+      post story_characters_add_url(story_id: @story.id),
+           params: { characters_ids: [], characters_avail: [@character.id] }
     end
 
     assert_redirected_to polymorphic_path([@story, :characters_list])
   end
 
-  test "should add characters II" do
+  test 'should add characters II' do
     assert_difference('@story.characters.count') do
-      post story_characters_add_url(:story_id => @story.id), params: { characters_ids: [  ], characters_avail: [ @character.id, @character_7.id ] }
+      post story_characters_add_url(story_id: @story.id),
+           params: { characters_ids: [], characters_avail: [@character.id, @character_7.id] }
     end
 
     assert_difference('@story.characters.count', -1) do
-      post story_characters_add_url(:story_id => @story.id), params: { characters_ids: [ @character.id ], characters_avail: [ ] }
+      post story_characters_add_url(story_id: @story.id),
+           params: { characters_ids: [@character.id], characters_avail: [] }
     end
 
     assert_redirected_to polymorphic_path([@story, :characters_list])
   end
 
-  test "should add characters III" do
+  test 'should add characters III' do
     assert_difference('@story.characters.count', 0) do
-      post story_characters_add_url(:story_id => @story.id), params: { }
+      post story_characters_add_url(story_id: @story.id), params: {}
     end
 
     assert_redirected_to polymorphic_path([@story, :characters_list])
   end
 
-  test "should create character 1" do
+  test 'should create character 1' do
     assert_difference('Character.count') do
       assert_difference('@book.characters.count') do
-        post book_characters_url(:book_id => @book.id)
-        assert_redirected_to book_character_step_path(:book_id => @book.id,:character_id => Character.last.id, :id =>"characteristics")
+        post book_characters_url(book_id: @book.id)
+        assert_redirected_to book_character_step_path(book_id: @book.id, character_id: Character.last.id,
+                                                      id: 'characteristics')
       end
     end
   end
 
-  test "should create character 2" do
+  test 'should create character 2' do
     assert_difference('Character.count') do
       assert_difference('@story.characters.count') do
-        post story_characters_url(:story_id => @story.id)
-        assert_redirected_to story_character_step_path(:story_id => @story.id,:character_id => Character.last.id, :id =>"characteristics")
+        post story_characters_url(story_id: @story.id)
+        assert_redirected_to story_character_step_path(story_id: @story.id, character_id: Character.last.id,
+                                                       id: 'characteristics')
       end
     end
   end
 
-  test "should create character 3" do
+  test 'should create character 3' do
     assert_difference('Character.count') do
       assert_difference('@story.characters.count') do
         assert_difference('@scene.characters.count') do
-          post scene_characters_url(:scene_id => @scene.id)
-          assert_redirected_to scene_character_step_path(:scene_id => @scene.id,:character_id => Character.last.id, :id =>"characteristics")
+          post scene_characters_url(scene_id: @scene.id)
+          assert_redirected_to scene_character_step_path(scene_id: @scene.id, character_id: Character.last.id,
+                                                         id: 'characteristics')
         end
       end
     end
   end
 
-  test "should show character" do
-    get book_character_url(:book_id => @book.id, :id => @character.id)
+  test 'should show character' do
+    get book_character_url(book_id: @book.id, id: @character.id)
     assert_response :success
   end
 
-  test "should show character lineage" do
-    get book_character_lineage_url(:book_id => @book.id, :id => @character.id)
+  test 'should show character lineage' do
+    get book_character_lineage_url(book_id: @book.id, id: @character.id)
     assert_response :success
   end
 
-  test "should show character 2" do
-    get book_character_url(:book_id => @book.id, :id => @character_2.id)
+  test 'should show character 2' do
+    get book_character_url(book_id: @book.id, id: @character_2.id)
     assert_response :success
   end
 
-  test "should get edit" do
-    get edit_book_character_url(:book_id => @book.id, :id => @character.id)
+  test 'should get edit' do
+    get edit_book_character_url(book_id: @book.id, id: @character.id)
     assert_response :success
   end
 
-  test "should update character 1" do
-    patch book_character_url(:book_id => @book.id, :id => @character.id), params: { gender_gender_value: '---', character: { first_name: @character.first_name, nickname: @character.nickname, occupation_class: @character.occupation_class, ethnicity: @character.ethnicity, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, social_class: @character.social_class } }
-    assert_redirected_to book_character_url(:book_id => @book, :id => @character.id)
+  test 'should update character 1' do
+    patch book_character_url(book_id: @book.id, id: @character.id),
+          params: { gender_gender_value: '---',
+                    character: { first_name: @character.first_name, nickname: @character.nickname,
+                                 occupation_class: @character.occupation_class, ethnicity: @character.ethnicity, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, social_class: @character.social_class } }
+    assert_redirected_to book_character_url(book_id: @book, id: @character.id)
   end
 
-  test "should update character 2" do
-    patch book_character_url(:book_id => @book.id, :id => @character.id), params: { gender_gender_value: 'Gay', character: { first_name: @character.first_name, nickname: @character.nickname, occupation_class: @character.occupation_class, ethnicity: @character.ethnicity, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, social_class: @character.social_class } }
-    assert_redirected_to book_character_url(:book_id => @book, :id => @character.id)
+  test 'should update character 2' do
+    patch book_character_url(book_id: @book.id, id: @character.id),
+          params: { gender_gender_value: 'Gay',
+                    character: { first_name: @character.first_name, nickname: @character.nickname,
+                                 occupation_class: @character.occupation_class, ethnicity: @character.ethnicity, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, social_class: @character.social_class } }
+    assert_redirected_to book_character_url(book_id: @book, id: @character.id)
   end
 
-  test "should not update character" do
-    patch book_character_url(:book_id => @book.id, :id => @character.id), params: { character: { first_name: "", nickname: @character.nickname, occupation_class: @character.occupation_class, ethnicity: @character.ethnicity, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, social_class: @character.social_class } }
+  test 'should not update character' do
+    patch book_character_url(book_id: @book.id, id: @character.id),
+          params: { character: { first_name: '', nickname: @character.nickname, occupation_class: @character.occupation_class,
+                                 ethnicity: @character.ethnicity, reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname, social_class: @character.social_class } }
     assert_response :success
   end
 
-  test "should destroy character" do
+  test 'should destroy character' do
     assert_difference('Character.count', -1) do
-      delete book_character_url(:book_id => @book.id, :id => @character.id)
+      delete book_character_url(book_id: @book.id, id: @character.id)
     end
 
-    assert_redirected_to book_characters_url(:book_id => @book.id)
+    assert_redirected_to book_characters_url(book_id: @book.id)
   end
 end

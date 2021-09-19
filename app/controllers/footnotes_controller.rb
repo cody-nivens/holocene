@@ -1,9 +1,9 @@
 class FootnotesController < ApplicationController
-  before_action :set_footnote, only: [:show, :edit, :update, :destroy]
+  before_action :set_footnote, only: %i[show edit update destroy]
 
   def index
-      @noted = find_notable
-      @footnotes = @noted.footnotes
+    @noted = find_notable
+    @footnotes = @noted.footnotes
   end
 
   # GET /footnotes/1
@@ -15,16 +15,16 @@ class FootnotesController < ApplicationController
   # GET /footnotes/section
   def new
     @noted = find_notable
-    @footnote = Footnote.new(:noted => @noted, :slug=>params[:slug])
+    @footnote = Footnote.new(noted: @noted, slug: params[:slug])
     @footnote.noted = @noted
   end
 
-#  # GET /footnotes/chapter
-#  def chapter
-#    @noted = Chapter.find(params[:chapter_id])
-#    @footnote = Footnote.new(:noted => @noted, :slug=>params[:slug])
-#    @footnote.noted = @noted
-#  end
+  #  # GET /footnotes/chapter
+  #  def chapter
+  #    @noted = Chapter.find(params[:chapter_id])
+  #    @footnote = Footnote.new(:noted => @noted, :slug=>params[:slug])
+  #    @footnote.noted = @noted
+  #  end
 
   # GET /footnotes/1/edit
   def edit
@@ -39,11 +39,11 @@ class FootnotesController < ApplicationController
 
     respond_to do |format|
       if @footnote.save
-        format.html {
-            redirect_to "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnote/#{@footnote.id}",
-                        :only_path => true,
-                        :notice => "Footnote was successfully created"
-        }
+        format.html do
+          redirect_to "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnote/#{@footnote.id}",
+                      only_path: true,
+                      notice: 'Footnote was successfully created'
+        end
         format.json { render :show, status: :created, location: @footnote }
       else
         format.html { render :new }
@@ -58,11 +58,11 @@ class FootnotesController < ApplicationController
     @noted = @footnote.noted
     respond_to do |format|
       if @footnote.update(footnote_params)
-        format.html {
-            redirect_to "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnote/#{@footnote.id}",
-                        :only_path => true,
-                        :notice => "Footnote was successfully updated"
-        }
+        format.html do
+          redirect_to "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnote/#{@footnote.id}",
+                      only_path: true,
+                      notice: 'Footnote was successfully updated'
+        end
         format.json { render :show, status: :ok, location: @footnote }
       else
         format.html { render :edit }
@@ -77,32 +77,31 @@ class FootnotesController < ApplicationController
     @noted = @footnote.noted
     @footnote.destroy
     respond_to do |format|
-        format.html {
-            redirect_to "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnotes",
-                        :only_path => true,
-                        :notice => "Footnote was successfully destroyed"
-        }
+      format.html do
+        redirect_to "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnotes",
+                    only_path: true,
+                    notice: 'Footnote was successfully destroyed'
+      end
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_footnote
-      @footnote = Footnote.find(params[:id])
-    end
 
-    def find_notable
-      params.each do |name, value|
-        if name =~ /(.+)_id$/
-          return $1.classify.constantize.find(value)
-        end
-      end
-      nil
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_footnote
+    @footnote = Footnote.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def footnote_params
-      params.require(:footnote).permit(:slug, :body, :noted_id, :noted_type, :biblioentry_id)
+  def find_notable
+    params.each do |name, value|
+      return Regexp.last_match(1).classify.constantize.find(value) if name =~ /(.+)_id$/
     end
+    nil
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def footnote_params
+    params.require(:footnote).permit(:slug, :body, :noted_id, :noted_type, :biblioentry_id)
+  end
 end

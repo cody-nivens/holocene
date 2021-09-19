@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class CharacterSceneTest < ActiveSupport::TestCase
-  test "set value" do
+  test 'set value' do
     character_scene = CharacterScene.first
     values = character_scene.set_values
 
@@ -15,14 +17,14 @@ class CharacterSceneTest < ActiveSupport::TestCase
     assert_equal scene, values[3]
   end
 
-  test "the name" do
+  test 'the name' do
     character_scene = character_scenes(:character_scene_1)
 
     character = characters(:character_1)
     scene = scenes(:scene_2)
 
-    assert_equal character,character_scene.character
+    assert_equal character, character_scene.character
     assert_equal scene, character_scene.scene
-    assert_equal "#{character.name}-#{scene.name}",character_scene.name
+    assert_equal "#{character.name}-#{scene.name}", character_scene.name
   end
 end

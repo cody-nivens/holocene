@@ -1,1 +1,1 @@
-json.partial! "partitions/partition", partition: @partition
+json.partial! 'partitions/partition', partition: @partition

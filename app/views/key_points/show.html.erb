@@ -29,7 +29,7 @@
   <% 1.upto(6).each do |selector| %>
     <% c.tab KeyPoint.selector_title(selector) do %>
       <span>
-        <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: 1) %> <%= @key_point.selector_value(selector) %></h3>
+        <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: selector) %> <%= @key_point.selector_value(selector) %></h3>
         <%= render partial: 'key_points/scenes', :locals => {selector: selector, key_point: @key_point, story: @scripted, scripted: @scripted} %>
       </span>
     <% end %>

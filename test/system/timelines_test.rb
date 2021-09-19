@@ -1,4 +1,6 @@
-require "application_system_test_case"
+# frozen_string_literal: true
+
+require 'application_system_test_case'
 
 class TimelinesTest < ApplicationSystemTestCase
   setup do
@@ -7,31 +9,31 @@ class TimelinesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "creating a Timeline" do
+  test 'creating a Timeline' do
     visit timelines_url
-    click_on "New Timeline"
+    click_on 'New Timeline'
 
-    fill_in "Description", with: @timeline.description
-    fill_in "Name", with: @timeline.name
-    click_on "Create Timeline"
+    fill_in 'Description', with: @timeline.description
+    fill_in 'Name', with: @timeline.name
+    click_on 'Create Timeline'
 
-    assert_text "Timeline was successfully created"
-    click_on "Back"
+    assert_text 'Timeline was successfully created'
+    click_on 'Back'
   end
 
-  test "should not create a Timeline" do
+  test 'should not create a Timeline' do
     visit timelines_url
-    click_on "New Timeline"
+    click_on 'New Timeline'
 
-    fill_in "Description", with: @timeline.description
-    fill_in "Name", with: ""
-    click_on "Create Timeline"
+    fill_in 'Description', with: @timeline.description
+    fill_in 'Name', with: ''
+    click_on 'Create Timeline'
 
     assert_text "can't be blank"
 
-    fill_in "Name", with: @timeline.name
-    click_on "Create Timeline"
-    assert_text "Timeline was successfully created"
-    click_on "Back"
+    fill_in 'Name', with: @timeline.name
+    click_on 'Create Timeline'
+    assert_text 'Timeline was successfully created'
+    click_on 'Back'
   end
 end

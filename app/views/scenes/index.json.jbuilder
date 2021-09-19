@@ -1,1 +1,1 @@
-json.array! @scenes, partial: "scenes/scene", as: :scene
+json.array! @scenes, partial: 'scenes/scene', as: :scene

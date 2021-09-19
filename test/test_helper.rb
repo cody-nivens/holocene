@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'simplecov'
-unless ENV["NO_COVERAGE"]
+unless ENV['NO_COVERAGE']
   SimpleCov.start :rails do
     enable_coverage :branch
     primary_coverage :branch
-    add_group "Grids", "app/grids"
+    add_group 'Grids', 'app/grids'
   end
 end
 ENV['RAILS_ENV'] ||= 'test'
@@ -33,27 +35,34 @@ module SphinxHelpers
   end
 end
 
-class MiniTest::Spec
-  include SidekiqMinitestSupport
+module MiniTest
+  class Spec
+    include SidekiqMinitestSupport
+  end
 end
 
-class MiniTest::Unit::TestCase
-  include SidekiqMinitestSupport
+module MiniTest
+  class Unit
+    class TestCase
+      include SidekiqMinitestSupport
+    end
+  end
 end
 
-class ActiveSupport::TestCase
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  fixtures :all
+module ActiveSupport
+  class TestCase
+    # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
+    fixtures :all
 
-  set_fixture_class "tags" => ActsAsTaggableOn::Tag
-  set_fixture_class "taggings" => ActsAsTaggableOn::Tagging
-  # Add more helper methods to be used by all tests here...
-  include ApplicationHelper
-  include SphinxHelpers
-  include Devise::Test::IntegrationHelpers
+    set_fixture_class 'tags' => ActsAsTaggableOn::Tag
+    set_fixture_class 'taggings' => ActsAsTaggableOn::Tagging
+    # Add more helper methods to be used by all tests here...
+    include ApplicationHelper
+    include SphinxHelpers
+    include Devise::Test::IntegrationHelpers
 
     def self.prepare
-      DownloadHelpers::clear_downloads
+      DownloadHelpers.clear_downloads
     end
     prepare
 
@@ -74,7 +83,7 @@ class ActiveSupport::TestCase
     end
 
     def fill_in_rich_text_area(id, with:)
-      find(:css, "#{id}").click.set(with)
+      find(:css, id.to_s).click.set(with)
     end
 
     def row_containing_cell_with_text(text)
@@ -87,27 +96,28 @@ class ActiveSupport::TestCase
 
     def convert_pdf_to_page(content)
       pdf_io = StringIO.new(content)
-      #debugger
+      # debugger
       reader = PDF::Reader.new(pdf_io)
-      contents = reader.pages.map(&:to_s).join("\n")
-      return contents
+      reader.pages.map(&:to_s).join("\n")
     end
-          # assert react_component render
-      #
-      # assert_react_component("HelloWorld") do |props|
-      #   assert_equal "Hello world", props[:message]
-      # end
-      def assert_react_component(name)
-        assert_select "div[data-react-class]" do |dom|
-          assert_select "[data-react-class=?]", name
 
-          if block_given?
-            props = JSON.parse(dom.attr("data-react-props"))
-            props.deep_transform_keys! { |key| key.to_s.underscore }
-            props.deep_symbolize_keys!
+    # assert react_component render
+    #
+    # assert_react_component("HelloWorld") do |props|
+    #   assert_equal "Hello world", props[:message]
+    # end
+    def assert_react_component(name)
+      assert_select 'div[data-react-class]' do |dom|
+        assert_select '[data-react-class=?]', name
 
-            yield(props)
-          end
+        if block_given?
+          props = JSON.parse(dom.attr('data-react-props'))
+          props.deep_transform_keys! { |key| key.to_s.underscore }
+          props.deep_symbolize_keys!
+
+          yield(props)
         end
       end
+    end
+  end
 end

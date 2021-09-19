@@ -1,1 +1,1 @@
-json.array! @footnotes, partial: "footnotes/footnote", as: :footnote
+json.array! @footnotes, partial: 'footnotes/footnote', as: :footnote

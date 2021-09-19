@@ -1,4 +1,6 @@
-require "application_system_test_case"
+# frozen_string_literal: true
+
+require 'application_system_test_case'
 
 class ArtifactTypesTest < ApplicationSystemTestCase
   setup do
@@ -8,25 +10,25 @@ class ArtifactTypesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "creating a Artifact type" do
+  test 'creating a Artifact type' do
     visit book_artifact_types_url(@book)
-    click_on "New Artifact Type"
+    click_on 'New Artifact Type'
 
-    fill_in "Name", with: @artifact_type.name
-    click_on "Create Artifact type"
+    fill_in 'Name', with: @artifact_type.name
+    click_on 'Create Artifact type'
 
-    assert_text "Artifact type was successfully created"
-    click_on "Back"
+    assert_text 'Artifact type was successfully created'
+    click_on 'Back'
   end
 
-  test "not creating a Artifact type" do
+  test 'not creating a Artifact type' do
     visit book_artifact_types_url(@book)
-    click_on "New Artifact Type"
+    click_on 'New Artifact Type'
 
-    fill_in "Name", with: ""
-    click_on "Create Artifact type"
+    fill_in 'Name', with: ''
+    click_on 'Create Artifact type'
 
     assert_text "Name\ncan't be blank"
-    click_on "Back"
+    click_on 'Back'
   end
 end

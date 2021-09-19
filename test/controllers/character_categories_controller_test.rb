@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class CharacterCategoriesControllerTest < ActionDispatch::IntegrationTest
@@ -7,22 +9,23 @@ class CharacterCategoriesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
-  test "should get index" do
+  test 'should get index' do
     get character_categories_url
     assert_response :success
   end
 
-  test "should sort character_categories" do
-    put character_category_sort_url(:character_category_id => @character_category.id), xhr: true, params: { character_category: { id: @character_category.id } }
+  test 'should sort character_categories' do
+    put character_category_sort_url(character_category_id: @character_category.id), xhr: true,
+                                                                                    params: { character_category: { id: @character_category.id } }
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_character_category_url
     assert_response :success
   end
 
-  test "should create character_category" do
+  test 'should create character_category' do
     assert_difference('CharacterCategory.count') do
       post character_categories_url, params: { character_category: { name: @character_category.name } }
     end
@@ -30,35 +33,36 @@ class CharacterCategoriesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to character_category_url(CharacterCategory.last)
   end
 
-  test "should not create character_category" do
-    assert_difference('CharacterCategory.count',0) do
-      post character_categories_url, params: { character_category: { name: ""} }
+  test 'should not create character_category' do
+    assert_difference('CharacterCategory.count', 0) do
+      post character_categories_url, params: { character_category: { name: '' } }
     end
 
     assert_response :success
   end
 
-  test "should show character_category" do
+  test 'should show character_category' do
     get character_category_url(@character_category)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_character_category_url(@character_category)
     assert_response :success
   end
 
-  test "should update character_category" do
-    patch character_category_url(@character_category), params: { character_category: { name: @character_category.name } }
+  test 'should update character_category' do
+    patch character_category_url(@character_category),
+          params: { character_category: { name: @character_category.name } }
     assert_redirected_to character_category_url(@character_category)
   end
 
-  test "should not update character_category" do
-    patch character_category_url(@character_category), params: { character_category: { name: "" } }
+  test 'should not update character_category' do
+    patch character_category_url(@character_category), params: { character_category: { name: '' } }
     assert_response :success
   end
 
-  test "should destroy character_category" do
+  test 'should destroy character_category' do
     assert_difference('CharacterCategory.count', -1) do
       delete character_category_url(@character_category)
     end

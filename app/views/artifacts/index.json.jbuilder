@@ -1,1 +1,1 @@
-json.array! @artifacts, partial: "artifacts/artifact", as: :artifact
+json.array! @artifacts, partial: 'artifacts/artifact', as: :artifact

@@ -1,1 +1,1 @@
-json.array! @tours, partial: "tours/tour", as: :tour
+json.array! @tours, partial: 'tours/tour', as: :tour

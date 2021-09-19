@@ -1,7 +1,6 @@
 class AsidesController < ApplicationController
-  before_action :set_aside, only: [:show, :edit, :update, :destroy]
-  before_action :set_chapter, only: [:index, :new, :create, :show, :edit, :update, :destroy]
-
+  before_action :set_aside, only: %i[show edit update destroy]
+  before_action :set_chapter, only: %i[index new create show edit update destroy]
 
   # GET /asides
   # GET /asides.json
@@ -11,8 +10,7 @@ class AsidesController < ApplicationController
 
   # GET /asides/1
   # GET /asides/1.json
-  def show
-  end
+  def show; end
 
   # GET /asides/new
   def new
@@ -22,8 +20,7 @@ class AsidesController < ApplicationController
   end
 
   # GET /asides/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /asides
   # POST /asides.json
@@ -70,17 +67,18 @@ class AsidesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_aside
-      @aside = Aside.find(params[:id])
-    end
 
-    def set_chapter
-      @chapter = Chapter.find(params[:chapter_id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_aside
+    @aside = Aside.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def aside_params
-      params.require(:aside).permit(:name, :body, :chapter_id)
-    end
+  def set_chapter
+    @chapter = Chapter.find(params[:chapter_id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def aside_params
+    params.require(:aside).permit(:name, :body, :chapter_id)
+  end
 end

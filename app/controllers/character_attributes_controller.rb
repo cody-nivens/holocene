@@ -1,6 +1,6 @@
 class CharacterAttributesController < ApplicationController
-  before_action :set_character_attribute, only: [:show, :edit, :update, :destroy]
-  before_action :set_character_category, only: [:index, :new ]
+  before_action :set_character_attribute, only: %i[show edit update destroy]
+  before_action :set_character_category, only: %i[index new]
 
   # GET /character_attributes
   # GET /character_attributes.json
@@ -9,11 +9,11 @@ class CharacterAttributesController < ApplicationController
     @character_attributes = CharacterAttribute.where(character_category_id: @character_category.id)
 
     if request.xhr?
-        respond_to do |format|
-            format.json {
-                render json: {character_attributes: @character_attributes}
-            }
+      respond_to do |format|
+        format.json do
+          render json: { character_attributes: @character_attributes }
         end
+      end
     end
   end
 
@@ -45,7 +45,7 @@ class CharacterAttributesController < ApplicationController
         format.html { redirect_to @character_attribute, notice: 'Character attribute was successfully created.' }
         format.json { render :show, status: :created, location: @character_attribute }
       else
-        format.html { render :new, :character_category_id => @character_category.id }
+        format.html { render :new, character_category_id: @character_category.id }
         format.json { render json: @character_attribute.errors, status: :unprocessable_entity }
       end
     end
@@ -72,23 +72,27 @@ class CharacterAttributesController < ApplicationController
     @character_category = @character_attribute.character_category
     @character_attribute.destroy
     respond_to do |format|
-      format.html { redirect_to character_category_character_attributes_url(:character_category_id => @character_category.id), notice: 'Character attribute was successfully destroyed.' }
+      format.html do
+        redirect_to character_category_character_attributes_url(character_category_id: @character_category.id),
+                    notice: 'Character attribute was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_character_attribute
-      @character_attribute = CharacterAttribute.find(params[:id])
-    end
 
-    def set_character_category
-      @character_category= CharacterCategory.find(params[:character_category_id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_character_attribute
+    @character_attribute = CharacterAttribute.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def character_attribute_params
-      params.require(:character_attribute).permit(:name, :character_category_id, :related_id)
-    end
+  def set_character_category
+    @character_category = CharacterCategory.find(params[:character_category_id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def character_attribute_params
+    params.require(:character_attribute).permit(:name, :character_category_id, :related_id)
+  end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class ScenesControllerTest < ActionDispatch::IntegrationTest
@@ -22,129 +24,131 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
-  test "should sort scenes" do
-    put scene_sort_url(:scene_id => @scene_2.id), xhr: true, params: { scene: { id: @scene_2.id, key_point_id: @scene_2.key_point_id } }
+  test 'should sort scenes' do
+    put scene_sort_url(scene_id: @scene_2.id), xhr: true,
+                                               params: { scene: { id: @scene_2.id, key_point_id: @scene_2.key_point_id } }
     assert_response :success
   end
 
-  test "should get index" do
+  test 'should get index' do
     get polymorphic_url([@situated, :scenes])
 
     assert_response :success
   end
 
-  test "should get move" do
+  test 'should get move' do
     get polymorphic_url([@scene, :move])
 
     assert_response :success
   end
 
-  test "should move scene" do
-    [[1,2],[2,3],[3,4],[4,5],[5,6],[6,1]].each do |x,y|
-      post polymorphic_url([@scene, :moved]), params: { new_key_point_id: @key_point_2.id, new_selector: y, selector: x }
+  test 'should move scene' do
+    [[1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 1]].each do |x, y|
+      post polymorphic_url([@scene, :moved]),
+           params: { new_key_point_id: @key_point_2.id, new_selector: y, selector: x }
 
       assert_response :redirect
       assert_redirected_to polymorphic_url(@scene)
     end
   end
 
-  test "should not move scene" do
+  test 'should not move scene' do
     post polymorphic_url([@scene, :moved]), params: { new_selector: 3 }
 
     assert_response :success
   end
 
-  test "should get index 2" do
-    get polymorphic_url([@situated, :scenes], :toggle => "on")
+  test 'should get index 2' do
+    get polymorphic_url([@situated, :scenes], toggle: 'on')
 
     assert_response :success
   end
 
-  test "should get index 3" do
+  test 'should get index 3' do
     get polymorphic_url([@book, :scenes])
 
     assert_response :success
   end
 
-  test "should get index 4" do
+  test 'should get index 4' do
     get polymorphic_url([@book_2, :scenes])
 
     assert_response :success
   end
 
-  test "should get index 5" do
+  test 'should get index 5' do
     get polymorphic_url([@situated_2, :scenes])
 
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_polymorphic_url([@situated, :scene])
 
     assert_response :success
   end
 
-  test "should create scene" do
+  test 'should create scene' do
     assert_difference('Scene.count') do
       post polymorphic_url([@situated, :scenes]), params: { scene: { key_point_id: @scene.key_point.id, situated_type: @situated.class.name, situated_id: @situated.id, abc: @scene.abc, artifact_id: nil, check: @scene.check, scene_sequel: @scene.scene_sequel, date_string: @scene.date_string },
-                                                             t: { t_years: "", t_month: "", t_day: "" } }
+                                                            t: { t_years: '', t_month: '', t_day: '' } }
     end
 
     assert_redirected_to scene_url(Scene.last)
   end
 
-  test "should not create scene" do
+  test 'should not create scene' do
     assert_difference('Scene.count', 0) do
-      post polymorphic_url([@situated, :scenes]), params: { scene: { situated_type: @situated.class.name, situated_id: @situated.id, abc: "", check: @scene.check, scene_sequel: @scene.scene_sequel, date_string: "" },
-                                                             t: { t_years: "", t_month: "", t_day: "" } }
+      post polymorphic_url([@situated, :scenes]), params: { scene: { situated_type: @situated.class.name, situated_id: @situated.id, abc: '', check: @scene.check, scene_sequel: @scene.scene_sequel, date_string: '' },
+                                                            t: { t_years: '', t_month: '', t_day: '' } }
     end
 
     assert_response :success
   end
 
-  test "should show scene" do
+  test 'should show scene' do
     get scene_url(@scene)
 
     assert_response :success
   end
 
-  test "should show scene 2" do
+  test 'should show scene 2' do
     get scene_url(@scene_2)
 
     assert_response :success
   end
 
-  test "should show scene 3" do
+  test 'should show scene 3' do
     get scene_url(@scene_3)
 
     assert_response :success
   end
 
-  test "should show scene 4" do
+  test 'should show scene 4' do
     get scene_url(@scene_6)
 
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_scene_url(@scene)
 
     assert_response :success
   end
 
-  test "should update scene" do
+  test 'should update scene' do
     patch scene_url(@scene), params: { scene: { abc: @scene.abc, check: @scene.check, scene_sequel: @scene.scene_sequel, date_string: @scene.date_string },
-                                                             t: { t_years: "", t_month: "", t_day: "" } }
+                                       t: { t_years: '', t_month: '', t_day: '' } }
     assert_redirected_to scene_url(@scene)
   end
 
-  test "should not update scene" do
-    patch scene_url(@scene), params: { scene: { abc: "", check: @scene.check, scene_sequel: @scene.scene_sequel, date_string: @scene.date_string },
-                                                             t: { t_years: "1", t_month: "1", t_day: "1" } }
+  test 'should not update scene' do
+    patch scene_url(@scene), params: { scene: { abc: '', check: @scene.check, scene_sequel: @scene.scene_sequel, date_string: @scene.date_string },
+                                       t: { t_years: '1', t_month: '1', t_day: '1' } }
     assert_response :success
   end
 
-  test "should destroy scene" do
+  test 'should destroy scene' do
     assert_difference('Scene.count', -1) do
       delete scene_url(@scene)
     end

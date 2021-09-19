@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class BooksShowHtmlErbTest < ActionDispatch::IntegrationTest
@@ -9,25 +11,28 @@ class BooksShowHtmlErbTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
-  test "should show book I" do
+  test 'should show book I' do
     get book_path(@book)
     assert_response :success
 
-    assert_select "a[href=?]", edit_book_path(@book)
-    assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", books_path
-    assert_select ".footer>div>a", 5
+    assert_select 'a[href=?]', edit_book_path(@book)
+    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[href=?]', books_path
+    assert_select 'a[text()=?]', 'Chapters, TOC'
+    assert_select '.footer>div>a', 5
     assert_template 'books/show'
   end
 
-  test "should show book II" do
+  test 'should show book II' do
     get book_path(@book_2)
     assert_response :success
 
-    assert_select "a[href=?]", edit_book_path(@book_2)
-    assert_select "a[text()=?]",'Back'
-    assert_select "a[href=?]", books_path
-    assert_select ".footer>div>a", 10
+    assert_select 'td', '46 | 27 (165)'
+
+    assert_select 'a[href=?]', edit_book_path(@book_2)
+    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[href=?]', books_path
+    assert_select '.footer>div>a', 10
     assert_template 'books/show'
   end
 end

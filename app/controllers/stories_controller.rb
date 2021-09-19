@@ -1,6 +1,6 @@
 class StoriesController < ApplicationController
-  before_action :set_story, only: [:stats, :timeline, :resync_scenes, :show, :edit, :update, :destroy]
-  before_action :set_book, only: [:index, :new ]
+  before_action :set_story, only: %i[stats timeline resync_scenes show edit update destroy]
+  before_action :set_book, only: %i[index new]
 
   # GET /stories
   # GET /stories.json
@@ -8,8 +8,7 @@ class StoriesController < ApplicationController
     @stories = Story.where(book_id: @book.id).order(:position)
   end
 
-  def stats
-  end
+  def stats; end
 
   def sort
     @story = Story.find(params[:story_id])
@@ -22,21 +21,20 @@ class StoriesController < ApplicationController
   def show
     respond_to do |format|
       format.html { render :show }
-      format.pdf {
-         render pdf: "export",
-          disposition: 'attachment',
-          header: { right: '[page] of [topage]' },
-          outline: { outline: false,
-                     outline_depth: 2 },
-          toc: {
-            disable_dotted_lines: true,
-            disable_toc_links: true,
-            level_indentation: 4,
-            header_text: @story.name,
-            text_size_shrink: 0.5
-          }
-     }
-
+      format.pdf do
+        render pdf: 'export',
+               disposition: 'attachment',
+               header: { right: '[page] of [topage]' },
+               outline: { outline: false,
+                          outline_depth: 2 },
+               toc: {
+                 disable_dotted_lines: true,
+                 disable_toc_links: true,
+                 level_indentation: 4,
+                 header_text: @story.name,
+                 text_size_shrink: 0.5
+               }
+      end
     end
   end
 
@@ -51,7 +49,7 @@ class StoriesController < ApplicationController
     @story.resync_key_points
 
     respond_to do |format|
-        format.html { redirect_to story_path(@story), notice: 'Story was successfully resynced.' }
+      format.html { redirect_to story_path(@story), notice: 'Story was successfully resynced.' }
     end
   end
 
@@ -61,8 +59,7 @@ class StoriesController < ApplicationController
   end
 
   # GET /stories/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /stories
   # POST /stories.json
@@ -75,7 +72,7 @@ class StoriesController < ApplicationController
         format.html { redirect_to story_path(@story), notice: 'Story was successfully created.' }
         format.json { render :show, status: :created, location: @story }
       else
-        format.html { render :new, :book_id => @book.id }
+        format.html { render :new, book_id: @book.id }
         format.json { render json: @story.errors, status: :unprocessable_entity }
       end
     end
@@ -89,7 +86,7 @@ class StoriesController < ApplicationController
         format.html { redirect_to story_url(@story), notice: 'Story was successfully updated.' }
         format.json { render :show, status: :ok, location: @story }
       else
-        format.html { render :edit, :book_id => @book.id }
+        format.html { render :edit, book_id: @book.id }
         format.json { render json: @story.errors, status: :unprocessable_entity }
       end
     end
@@ -100,24 +97,26 @@ class StoriesController < ApplicationController
   def destroy
     @story.destroy
     respond_to do |format|
-      format.html { redirect_to book_stories_url(:book_id => @book.id), notice: 'Story was successfully destroyed.' }
+      format.html { redirect_to book_stories_url(book_id: @book.id), notice: 'Story was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_story
-      @story = Story.find(params[:id])
-      @book = @story.book
-    end
 
-    def set_book
-      @book = Book.find(params[:book_id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_story
+    @story = Story.find(params[:id])
+    @book = @story.book
+  end
 
-    # Only allow a list of trusted parameters through.
-    def story_params
-      params.require(:story).permit(:title, :summary, :book_id, :scene_character, :publish, :stand_alone, :print_summary, :position_position )
-    end
+  def set_book
+    @book = Book.find(params[:book_id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def story_params
+    params.require(:story).permit(:title, :summary, :book_id, :scene_character, :publish, :stand_alone,
+                                  :print_summary, :position_position)
+  end
 end

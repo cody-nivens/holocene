@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class CharacterScenesControllerTest < ActionDispatch::IntegrationTest
@@ -9,18 +11,20 @@ class CharacterScenesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_character_scene_url(@character_scene)
     assert_response :success
   end
 
-  test "should update character_scene" do
-    patch character_scene_url(@character_scene), params: { character_scene: { :character_id => @character_scene.character.id, :scene_id => @scene.id}}
+  test 'should update character_scene' do
+    patch character_scene_url(@character_scene),
+          params: { character_scene: { character_id: @character_scene.character.id, scene_id: @scene.id } }
     assert_redirected_to scene_url(@scene)
   end
 
-  test "should not update character_scene" do
-    patch character_scene_url(@character_scene), params: { character_scene: { :character_id => nil, :scene_id => @scene.id}}
+  test 'should not update character_scene' do
+    patch character_scene_url(@character_scene),
+          params: { character_scene: { character_id: nil, scene_id: @scene.id } }
     assert_response :success
   end
 end

@@ -1,5 +1,5 @@
 class CharacterCategoriesController < ApplicationController
-  before_action :set_character_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_character_category, only: %i[show edit update destroy]
 
   # GET /character_categories
   # GET /character_categories.json
@@ -8,7 +8,7 @@ class CharacterCategoriesController < ApplicationController
   end
 
   def sort
-    #@list = List.find(params[:list_id])
+    # @list = List.find(params[:list_id])
     @character_category = CharacterCategory.find(params[:character_category_id])
     @character_category.update(character_category_params)
     render body: nil
@@ -16,8 +16,7 @@ class CharacterCategoriesController < ApplicationController
 
   # GET /character_categories/1
   # GET /character_categories/1.json
-  def show
-  end
+  def show; end
 
   # GET /character_categories/new
   def new
@@ -25,8 +24,7 @@ class CharacterCategoriesController < ApplicationController
   end
 
   # GET /character_categories/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /character_categories
   # POST /character_categories.json
@@ -70,13 +68,14 @@ class CharacterCategoriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_character_category
-      @character_category = CharacterCategory.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def character_category_params
-      params.require(:character_category).permit(:name, :position_position)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_character_category
+    @character_category = CharacterCategory.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def character_category_params
+    params.require(:character_category).permit(:name, :position_position)
+  end
 end
