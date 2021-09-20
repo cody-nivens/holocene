@@ -2,7 +2,7 @@
 
 Holocene is an application which assoicates writing with events in history.  It started as a project to move a book written in XML and dblatex
 to an interactive data editor with code for creating timeline facades as well and grid tables of events.
-As a book editor, footnotes, citations, glossary and bibliography are available.  When printed as a PDF, the events are listed with the 
+As a book editor, footnotes, citations, glossary and bibliography are available.  When printed as a PDF, the events are listed with the
 section or chapter that they are associated with as well as a timeline using TimelineJS.
 
 ## Getting started
@@ -12,6 +12,28 @@ This is a standard Rails project.
 git clone https://github.com/cody-nivens/holocene.git
 cd holocene
 bundle install
+# Holocene
+# 🚀 Welcome to your new awesome project!
+
+Holocene is an application which assoicates writing with events in history.  It started as a project to move a book written in XML and dblatex
+to an interactive data editor with code for creating timeline facades as well and grid tables of events.
+As a book editor, footnotes, citations, glossary and bibliography are available.  When printed as a PDF, the events are listed with the
+section or chapter that they are associated with as well as a timeline using TimelineJS.
+This project has been created using **webpack-cli**, you can now run
+
+## Getting started
+
+This is a standard Rails project.
+```sh
+git clone https://github.com/cody-nivens/holocene.git
+cd holocene
+bundle install
+rake db:create && rake db:migrate && rake db:seed
+npm run build
+yarn build
+rails s
+```
+
 rake db:create && rake db:migrate && rake db:seed
 rails s
 ```
@@ -42,7 +64,7 @@ Additionally, a user will be installed: palo@alto.com.  The password is '1234568
 
 ## Built with
 
-The main components of this project are the 
+The main components of this project are the
 * *timelineJS-rails* - creates a timeline with the contents of any of the event collections in a book.
 * *datagrid* - displays information in a table format.  Allows for filtering in a complex manner, sorting on any column, the ability to format and manipulate the data in a column.
 * *wicked\_pdf* - allows for the creation of a PDF document.  This code uses the wkhtmltopdf binary.  The Dockerfile uses build images to
