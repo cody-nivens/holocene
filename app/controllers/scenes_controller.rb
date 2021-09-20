@@ -74,8 +74,10 @@ class ScenesController < ApplicationController
   def new
     @scene = Scene.new
     @scene.situated = @situated
+
     @kp_klass = [KeyPoint].detect { |c| params["#{c.name.underscore}_id"] }
     @key_point = (params[:key_point_id].nil? ? nil : @kp_klass.find(params[:key_point_id]))
+
     @selector = params[:selector]
     @scene.selector = @selector
     @scene.key_point = @key_point
@@ -94,6 +96,7 @@ class ScenesController < ApplicationController
   # POST /scenes.json
   def create
     @scene = Scene.new(scene_params)
+    @key_point = @scene.key_point
     @situated = @scene.situated
     @scene.date_string = '%04d' % params['t_years'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i
 
