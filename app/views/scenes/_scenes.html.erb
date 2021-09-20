@@ -22,7 +22,7 @@
               <td class="text-nowrap"><%= scene.time_to_text %></td>
               <td style="width: 20%"><%= scene.place %></td>
               <td style="width: 20%">
-                <% scene.characters.order(:occupation_class,:last_name, :first_name).each do |character| %>
+                <% scene.characters.order(:occupation_class, :last_name, :first_name).each do |character| %>
                   <%= character.name %><br>
                 <% end %>
               </td>
@@ -33,9 +33,9 @@
               <%= scene.time_to_text %>
               <% values = scene.set_values %>
               <% if print.nil? %>
-                <%== surpress_first(breadcrumb( values[0], values[1], values[2], values[3], values[4], true)) %>
+                <%== surpress_first(breadcrumb(values[0], values[1], values[2], values[3], values[4], true)) %>
               <% else %>
-                <%= values.compact.collect{|x| x.name}.join("|") %>
+                <%= values.compact.collect(&:name).join('|') %>
               <% end %>
             </li>
           <% end %>

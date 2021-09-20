@@ -10,9 +10,9 @@
               <%= scene.time_to_text %>
               <% values = scene.set_values %>
               <% if print.nil? %>
-                <%== surpress_first(breadcrumb( values[0], values[1], values[2], values[3], values[4], true)) %>
+                <%== surpress_first(breadcrumb(values[0], values[1], values[2], values[3], values[4], true)) %>
               <% else %>
-                <%= values.compact.collect{|x| x.name}.join("|") %>
+                <%= values.compact.collect(&:name).join('|') %>
               <% end %>
               <%#= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, inline_date: true} %>
             </li>

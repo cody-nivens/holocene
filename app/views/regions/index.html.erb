@@ -16,9 +16,9 @@
         <td><%= region.name %></td>
         <td><%= region.holocene_events.count %></td>
         <td><%= region.body %></td>
-        <td><%= link_to (fa_icon "search-plus"), region, :title => 'Show' %></td>
-        <td><%= link_to (fa_icon "edit"), edit_region_path(region), :title => 'Edit' %></td>
-        <td><%= link_to (fa_icon "trash-o"), region, method: :delete, data: { confirm: 'Are you sure?' }, :title => 'Destroy' %></td>
+        <td><%= link_to (fa_icon 'search-plus'), region, title: 'Show' %></td>
+        <td><%= link_to (fa_icon 'edit'), edit_region_path(region), title: 'Edit' %></td>
+        <td><%= link_to (fa_icon 'trash-o'), region, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
       </tr>
     <% end %>
   </tbody>

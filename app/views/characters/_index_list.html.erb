@@ -33,7 +33,7 @@
         <td><%= character.scenes.size %></td>
         <td><%= link_to 'Show', polymorphic_path([object, character]) %></td>
         <td><%= link_to 'Edit', edit_polymorphic_path([object, character]) %></td>
-        <td><%= link_to 'Delete', polymorphic_path([object, character]), method: :delete, data: { confirm: "Are you sure?"} %></td>
+        <td><%= link_to 'Delete', polymorphic_path([object, character]), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

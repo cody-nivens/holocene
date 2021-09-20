@@ -5,13 +5,13 @@ Local variables:
 * options - passed options Hash
 %>
 <% if !@object.nil? %>
-    <%= form_for :holocene_event, options.merge({ :url => {:controller => 'holocene_events', :action => "objects", :object_type => "#{@object.class.name}",
-                                                           :object_id => @object.id}}) do |f| -%>
+    <%= form_for :holocene_event, options.merge({ url: { controller: 'holocene_events', action: 'objects', object_type: @object.class.name.to_s,
+                                                         object_id: @object.id } }) do |f| -%>
  <%= f.hidden_field :object_id, value: @object.id %>
  <%= f.hidden_field :object_type, value: @object.class.name %>
- <%= f.submit "#{@command}", :id => "datagrid_select", :class => "datagrid-submit" %>
+ <%= f.submit @command.to_s, id: 'datagrid_select', class: 'datagrid-submit' %>
  <% unless @list_items.nil? -%>
- <%= f.collection_select :other_id, @list_items, :id, :name, {include_blank: ''} %>
+ <%= f.collection_select :other_id, @list_items, :id, :name, { include_blank: '' } %>
  <% end -%>
 <% if grid.html_columns(*options[:columns]).any? %>
   <%= content_tag :table, options[:html] do %>
@@ -27,7 +27,7 @@ Local variables:
     </tbody>
   <% end %>
 <% else -%>
-  <%== I18n.t("datagrid.table.no_columns") %>
+  <%== I18n.t('datagrid.table.no_columns') %>
 <% end %>
 <% end %>
 <% else %>

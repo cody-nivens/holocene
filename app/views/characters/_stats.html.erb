@@ -14,10 +14,9 @@
          <th><%= key %></th>
          <% keys_2.each do |key_2| %>
           <% item = rs[key][key_2] %>
-          <td><%= link_to (item.blank? ? '' : item), polymorphic_path([object,:characters], :key1=> key, :key2 => key_2, :attrib1 => character_attribute,  :attrib2 => character_attribute_2 ) %></td>
+          <td><%= link_to (item.presence || ''), polymorphic_path([object, :characters], key1: key, key2: key_2, attrib1: character_attribute, attrib2: character_attribute_2) %></td>
         <% end %>
       </tr>
     <% end %>
   </table>
 <% end %>
-

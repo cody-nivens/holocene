@@ -1,12 +1,12 @@
 <dt>
-  <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: scripted, key_point: key_point, pdf: pdf} %>
+  <%= render partial: 'scenes/scene_title.html', locals: { scene: scene, scripted: scripted, key_point: key_point, pdf: pdf } %>
 </dt>
 <dd>
   <%== epub_friendly(scene.summary.body) %>
   <ul>
     <% insert_scene = scene %>
     <% loop do %>
-      <% scenes = Scene.where(insert_scene_id: insert_scene.id).order(:date_string,:abc) %>
+      <% scenes = Scene.where(insert_scene_id: insert_scene.id).order(:date_string, :abc) %>
       <% break if scenes.empty? %>
         <% scenes.each do |iscene| %>
           <% if iscene.key_point.scripted.publish %>
@@ -25,10 +25,12 @@
 
   <% unless scene.characters.empty? %>
     <ul>
-      <% scene.character_scenes.joins(:character).order(:occupation_class,:last_name,:first_name).each do |character_scene| %>
-        <li><%= (pdf.nil? ?
-          link_to("#{character_scene.character_name}, #{scene.date_string[0..3].to_i-character_scene.character_birth_year.to_i}", polymorphic_path([scripted,character_scene.character])) :
-          character_scene.character_name) %>, <%= character_scene.character_occupation_class %><%= (character_scene.character_grouping.blank? ? "" : ", #{character_scene.character_grouping}") %>
+      <% scene.character_scenes.joins(:character).order(:occupation_class, :last_name, :first_name).each do |character_scene| %>
+        <li><%= (if pdf.nil?
+                   link_to("#{character_scene.character_name}, #{scene.date_string[0..3].to_i - character_scene.character_birth_year.to_i}", polymorphic_path([scripted, character_scene.character]))
+                 else
+                   character_scene.character_name
+                 end) %>, <%= character_scene.character_occupation_class %><%= (character_scene.character_grouping.blank? ? '' : ", #{character_scene.character_grouping}") %>
           <%= link_to (fa_icon 'plus'), edit_character_scene_path(character_scene) %>
           <% unless character_scene.summary.nil? %>
             <%= character_scene.summary.to_plain_text %>

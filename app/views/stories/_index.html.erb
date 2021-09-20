@@ -1,11 +1,11 @@
 <% pdf ||= nil %>
 <dl>
   <div class="chapter_outer-sortable" style="cursor: grab;">
-    <%= content_tag "div", id: "book-#{book.id}", data: { id: book.id, model_name: book.class.name.underscore, update_url: book_sort_path(book)} do %>
+    <%= content_tag 'div', id: "book-#{book.id}", data: { id: book.id, model_name: book.class.name.underscore, update_url: book_sort_path(book) } do %>
       <div class="story-sortable" style="cursor: grab; min-height: 10px;">
         <% stories.rank(:position).each do |story| %>
-          <%= content_tag "div", id: "story-#{story.id}", data: { model_name: story.class.name.underscore, update_url: story_sort_path(story)} do %>
-            <%= render :partial => "stories/story.html", :locals => { story: story, pdf: pdf} %>
+          <%= content_tag 'div', id: "story-#{story.id}", data: { model_name: story.class.name.underscore, update_url: story_sort_path(story) } do %>
+            <%= render partial: 'stories/story.html', locals: { story: story, pdf: pdf } %>
           <% end %>
         <% end %>
       </div>

@@ -2,21 +2,20 @@
   <strong>Name:</strong>
   <%= @object.name %>
 </p>
-<%= form_tag polymorphic_path([@object,:timeline]), :method => :get, :id => 'my-form' do %>
+<%= form_tag polymorphic_path([@object, :timeline]), method: :get, id: 'my-form' do %>
   <%= hidden_field_tag :object_id, @object.id %>
   <%= hidden_field_tag :object_type, @object.class.name %>
 
   <div class="form-check">
     <label class="checkbox">
-      <%= check_box_tag :toggle, @toggle,@toggle,:class => "checkbox inline" %> Order
+      <%= check_box_tag :toggle, @toggle, @toggle, class: 'checkbox inline' %> Order
     </label>
   </div>
 
   <%= submit_tag 'Go' %>
 <% end %>
 
-
-<%= render partial: "timelines/timeline.html", :locals => { object: @object, toggle: @toggle } %>
+<%= render partial: 'timelines/timeline.html', locals: { object: @object, toggle: @toggle } %>
 
 <% @footer_content << (link_to 'Display', timeline_display_path(@object), class: 'btn btn-default').to_s %>
 <% @footer_content << (link_to 'Back', :back, class: 'btn btn-default').to_s %>

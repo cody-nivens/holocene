@@ -3,23 +3,23 @@
   <%= @object.name %>
 </p>
 
-<%= form_tag polymorphic_path([@book,:timeline]), :method => :get, :id => 'my-form' do %>
+<%= form_tag polymorphic_path([@book, :timeline]), method: :get, id: 'my-form' do %>
   <%= hidden_field_tag :book_id, @book.id %>
 
   <div class="form-check">
     <label class="checkbox">
-      <%= check_box_tag :toggle, @toggle,@toggle,:class => "checkbox inline" %> Order
+      <%= check_box_tag :toggle, @toggle, @toggle, class: 'checkbox inline' %> Order
     </label>
   </div>
   <div class="form-check">
     <label class="checkbox">
-  <%= check_box_tag :print, @print,@print,:class => "checkbox inline" %> Print
+  <%= check_box_tag :print, @print, @print, class: 'checkbox inline' %> Print
     </label>
   </div>
 
   <%= submit_tag 'Go' %>
 <% end %>
 
-<%= render partial: "timelines/timeline.html", :locals => { object: @object, toggle: @toggle} %>
+<%= render partial: 'timelines/timeline.html', locals: { object: @object, toggle: @toggle } %>
 
 <% @footer_content << (link_to 'Back', polymorphic_path([@book, :stories]), class: 'btn btn-default').to_s %>

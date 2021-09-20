@@ -10,9 +10,9 @@
 </p>
 
 <%= tabs do |c| %>
-<% c.tab "Info" do %>
+<% c.tab 'Info' do %>
   <span>
-    <div class = "container">
+    <div class="container">
       <div class="row">
         <div class="col-md-4">
   <% if character.reason_for_name? %>
@@ -57,7 +57,6 @@
     </p>
   <% end %>
 
-
   <% if character.age_at_son? %>
     <p>
       <strong>Age at Son:</strong>
@@ -95,9 +94,9 @@
         </div>
         <div class="col-md-4">
           <% CharacterCategory.all.each do |category| %>
-            <%= render :partial => 'character_values/index_list.html',
-                        :locals => {:pdf => pdf, :title => category.name, object: object,
-                                    :character_values => character.character_values.joins(:character_attribute).order(:name).where("character_category_id = ?", category.id)} %>
+            <%= render partial: 'character_values/index_list.html',
+                       locals: { pdf: pdf, title: category.name, object: object,
+                                 character_values: character.character_values.joins(:character_attribute).order(:name).where('character_category_id = ?', category.id) } %>
           <% end %>
         </div>
       </div>
@@ -105,19 +104,19 @@
   </span>
 <% end %>
 
-<% c.tab "Scenes" do %>
+<% c.tab 'Scenes' do %>
   <span>
     <% unless character.scenes.blank? %>
       <p>
         <ul>
-          <% character.scenes.order(:date_string,:abc).each do |scene| %>
+          <% character.scenes.order(:date_string, :abc).each do |scene| %>
             <li>
               <% if object.class.name == "Scene" %>
                 <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene)) : scene.abc) %>:
               <% else %>
                 <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene)) : scene.abc) %>:
               <% end %>
-              <%= (pdf.nil? ?  link_to("#{scene.date_string}, #{scene.name}", polymorphic_path([scripted,scene])) : scene.name) %>
+              <%= (pdf.nil? ? link_to("#{scene.date_string}, #{scene.name}", polymorphic_path([scripted, scene])) : scene.name) %>
 
             </li>
           <% end %>

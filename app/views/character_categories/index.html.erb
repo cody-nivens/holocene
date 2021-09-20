@@ -4,10 +4,10 @@
 
 <ul>
   <div class="chapter_outer-sortable" style="cursor: grab;">
-    <%= content_tag "div"  do %>
+    <%= content_tag 'div'  do %>
       <div class="character_category-sortable" style="cursor: grab; min-height: 10px;">
         <% @character_categories.rank(:position).each do |character_category| %>
-          <%= content_tag "div", id: "character_category-#{character_category.id}", data: { model_name: character_category.class.name.underscore, update_url: character_category_sort_path(character_category)} do %>
+          <%= content_tag 'div', id: "character_category-#{character_category.id}", data: { model_name: character_category.class.name.underscore, update_url: character_category_sort_path(character_category) } do %>
             <li>
               <%= link_to character_category.name, character_category %>
               <%= link_to 'Edit', edit_character_category_path(character_category) %>
@@ -19,7 +19,6 @@
     <% end %>
   </div>
 </ul>
-
 
 <% @footer_content << (link_to 'New Character Category', new_character_category_path, class: 'btn btn-default').to_s %>
 <% unless @book.nil? %>

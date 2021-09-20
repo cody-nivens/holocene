@@ -9,7 +9,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <!-- application.html.erb in Head tag below turbolinks -->
     <%= javascript_pack_tag 'application' %>
@@ -17,13 +17,13 @@
 
   <body>
     <div class="outer-container">
-      <%= render partial: "application/header" %>
+      <%= render partial: 'application/header' %>
       <%= render partial: 'layouts/messages' %>
     <div class="container">
       <div id="content-wrap">
         <%= yield %>
       </div>
-      <%= render partial: "application/footer", locals: { footer_content: @footer_content } %>
+      <%= render partial: 'application/footer', locals: { footer_content: @footer_content } %>
     </div>
     </div>
   </body>

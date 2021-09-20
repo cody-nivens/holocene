@@ -1,4 +1,4 @@
-<tr class="<%= grid.respond_to?(:row_class) ? grid.row_class(asset) : "" %>">
+<tr class="<%= grid.respond_to?(:row_class) ? grid.row_class(asset) : '' %>">
   <% grid.html_columns(*options[:columns]).each do |column| %>
     <td class="<%= datagrid_column_classes(grid, column) %>"><%= datagrid_value(grid, column, asset) %></td>
   <% end %>

@@ -1,10 +1,12 @@
 <div class="order">
   <%== link_to(
-      I18n.t("datagrid.table.order.asc"),
-      datagrid_order_path(grid, column, false),
-      :class => "asc") %>
+         I18n.t('datagrid.table.order.asc'),
+         datagrid_order_path(grid, column, false),
+         class: 'asc'
+       ) %>
   <%== link_to(
-      I18n.t("datagrid.table.order.desc"),
-      datagrid_order_path(grid, column, true),
-      :class => "desc") %>
+         I18n.t('datagrid.table.order.desc'),
+         datagrid_order_path(grid, column, true),
+         class: 'desc'
+       ) %>
 </div>

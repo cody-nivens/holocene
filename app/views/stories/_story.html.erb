@@ -1,9 +1,9 @@
   <% scene_count = story.scene_count %>
   <% section_count = story.section_count %>
   <% word_count = story.word_count %>
-  <% wss_ratio = (section_count == 0 ? 0 : word_count/section_count*scene_count) %>
-  <% ss_ratio = (scene_count == 0 ? 0 : section_count.to_f/scene_count.to_f) %>
-  <% items =[ {:label => "Completed", :color => "090", :width => 100.0*ss_ratio}, {:label => "Waiting", :color => "ededed", :width => 100.0 - 100.0*ss_ratio}] %>
+  <% wss_ratio = (section_count.zero? ? 0 : word_count / section_count * scene_count) %>
+  <% ss_ratio = (scene_count.zero? ? 0 : section_count.to_f / scene_count) %>
+  <% items = [{ label: 'Completed', color: '090', width: 100.0 * ss_ratio }, { label: 'Waiting', color: 'ededed', width: 100.0 - 100.0 * ss_ratio }] %>
 <dt>
   <div class="narrow">
     <%= story.scene_min %>
@@ -13,18 +13,18 @@
   </div>
   <div class="title">
     <%= link_to story.title, story_path(story) %>
-    <%= link_to (fa_icon "search-plus"), story_path(story), :title => "Show" %>
-    <%= link_to (fa_icon 'edit'), edit_story_path(story), :title => "Edit" %>
-    <%= link_to (fa_icon "trash-o"), story_path(story), method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy" %>
+    <%= link_to (fa_icon 'search-plus'), story_path(story), title: 'Show' %>
+    <%= link_to (fa_icon 'edit'), edit_story_path(story), title: 'Edit' %>
+    <%= link_to (fa_icon 'trash-o'), story_path(story), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
   </div>
   <div class="progress_bar">
-    <%= render partial: 'shared/progress_bar', :locals => { items: items } %>
+    <%= render partial: 'shared/progress_bar', locals: { items: items } %>
   </div>
   <div class="medium">
-    <%= scene_count %> (<%= section_count %> <%= (scene_count == 0 ? '' : number_with_precision((section_count.to_f/scene_count.to_f)*100.0, precision: 2)) %>%)
+    <%= scene_count %> (<%= section_count %> <%= (scene_count.zero? ? '' : number_with_precision((section_count.to_f / scene_count) * 100.0, precision: 2)) %>%)
   </div>
   <div class="medium">
-    <%= number_with_delimiter(word_count, :delimiter => ',') %> (<%= number_with_delimiter(wss_ratio, :delimiter => ',') %>)
+    <%= number_with_delimiter(word_count, delimiter: ',') %> (<%= number_with_delimiter(wss_ratio, delimiter: ',') %>)
   </div>
   <div style="clear:both"></div>
 </dt>

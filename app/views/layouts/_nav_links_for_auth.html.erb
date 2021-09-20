@@ -1,8 +1,8 @@
 <% if user_signed_in? %>
 
-<li class="nav-item"><%= link_to "Logged in as #{current_user.email}", edit_user_registration_path, :class => 'nav-link', icon: "user"  %></li>
-<li class="nav-item"><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'nav-link', icon: "user"   %></li>
+<li class="nav-item"><%= link_to "Logged in as #{current_user.email}", edit_user_registration_path, class: 'nav-link', icon: 'user' %></li>
+<li class="nav-item"><%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link', icon: 'user' %></li>
 <% else %>
-<li class="nav-item"><%= link_to "Sign up", new_user_registration_path, :class => 'nav-link', icon: "user"   %></li>
-<li class="nav-item"><%= link_to "Login", new_user_session_path, :class => 'nav-link', icon: "user"   %></li>
+<li class="nav-item"><%= link_to 'Sign up', new_user_registration_path, class: 'nav-link', icon: 'user' %></li>
+<li class="nav-item"><%= link_to 'Login', new_user_session_path, class: 'nav-link', icon: 'user' %></li>
 <% end %>

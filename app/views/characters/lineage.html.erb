@@ -13,14 +13,14 @@
     <% people = Character.where(father: person.id) %>
     <%# debugger if person.first_name == "George" && person.middle_name == "Charles" %>
     <% if people.length == 0 %>
-      <% people = Character.where(father: last_person.id) - [ person ] %>
-      <% person = (people.length > 0 ? people[0] : nil) %>
+      <% people = Character.where(father: last_person.id) - [person] %>
+      <% person = (people.length.positive? ? people[0] : nil) %>
     <% end %>
     <% last_person = person %>
   <% end %>
   </ol>
 
-  <% names = @character.create_lineage(["George","John","James"]) %>
+  <% names = @character.create_lineage(%w[George John James]) %>
 
   <ol>
     <% names.each do |name| %>

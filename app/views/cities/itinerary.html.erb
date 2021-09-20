@@ -14,7 +14,7 @@
       <tr><td><%= city.name %></td>
           <td><%= city.lat %></td>
           <td><%= city.lng %></td>
-          <td><%= "%d" % (old.nil? ? '' : old.distance(city)).to_i %></td></tr>
+          <td><%= '%d' % (old.nil? ? '' : old.distance(city)).to_i %></td></tr>
       <% old = city %>
     <% end %>
   </tbody>

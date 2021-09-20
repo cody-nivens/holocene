@@ -5,10 +5,10 @@ Local variables:
 * options - passed options Hash
 %>
 <% if !@tour.nil? %>
-  <%= form_for :itinerary, options.merge({ :url => {controller: 'itineraries', story_id: @tour.story.id, tour_id: @tour.id, action: 'index'} }) do |f| -%>
+  <%= form_for :itinerary, options.merge({ url: { controller: 'itineraries', story_id: @tour.story.id, tour_id: @tour.id, action: 'index' } }) do |f| -%>
     <%= f.hidden_field :tour_id, value: @tour.id %>
     <%= f.hidden_field :tour_type, value: @tour.class.name %>
-    <%= f.submit "#{@command}", :id => "datagrid_select", :class => "datagrid-submit#{(@command.nil? ? " hidden" : '')}" %>
+    <%= f.submit @command.to_s, id: 'datagrid_select', class: "datagrid-submit#{@command.nil? ? ' hidden' : ''}" %>
     <% if grid.html_columns(*options[:columns]).any? %>
       <%= content_tag :table, options[:html] do %>
         <thead>
@@ -23,7 +23,7 @@ Local variables:
         </tbody>
       <% end %>
     <% else -%>
-      <%== I18n.t("datagrid.table.no_columns") %>
+      <%== I18n.t('datagrid.table.no_columns') %>
     <% end %>
   <% end %>
 <% else %>

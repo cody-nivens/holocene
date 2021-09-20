@@ -9,15 +9,14 @@
     <%= f.hidden_field :scripted_id, value: @scripted.id %>
     <%= f.hidden_field :scripted_type, value: @klass.name %>
 
-
     <h1>Move <%= @key_point.name %> to another story</h1>
 
     <strong>Existing Key Point:</strong> <%= @key_point.name %><br>
 
 <table class="table">
   <tr>
-    <td >
-      <%= f.select "new_#{@klass.name.underscore}_id".to_sym, options_from_collection_for_select((@scripted.class.name == 'Book' ? @scripted.stories.order(:position) : @scripted.book.stories.order(:position)), :id, :name), :prompt => "Select Story", :multiple => false, :size => 1 %>
+    <td>
+      <%= f.select "new_#{@klass.name.underscore}_id".to_sym, options_from_collection_for_select((@scripted.instance_of?(Book) ? @scripted.stories.order(:position) : @scripted.book.stories.order(:position)), :id, :name), prompt: 'Select Story', multiple: false, size: 1 %>
       </td>
   </tr>
 </table>
@@ -29,4 +28,3 @@
 <% end %>
 
 <% @footer_content << (link_to 'Back', polymorphic_path(@scripted), class: 'btn btn-default').to_s %>
-

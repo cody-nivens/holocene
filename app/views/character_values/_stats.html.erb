@@ -1,5 +1,5 @@
     <% category = CharacterCategory.find_by(name: category)
-    character_attributes = CharacterAttribute.where(name: cat1, character_category_id: category.id) %>
+       character_attributes = CharacterAttribute.where(name: cat1, character_category_id: category.id) %>
     <% rs = CharacterValue.stats(category, character_attributes[0]) %>
     <% keys_1 = rs[category.name].keys %>
     <% unless keys_1.empty? %>
@@ -13,7 +13,7 @@
       <tr>
           <th><%= key %></th>
           <% item = rs[category.name][key] %>
-          <td><%= link_to (item.blank? ? '' : item), polymorphic_path([book,:characters], :key1=> key, :cat1 => cat1   ) %></td>
+          <td><%= link_to (item.presence || ''), polymorphic_path([book, :characters], key1: key, cat1: cat1) %></td>
       </tr>
         <% end %>
     </table>

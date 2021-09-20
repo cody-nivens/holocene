@@ -1,12 +1,12 @@
 <h2>Characters for <%= @object.class.name %>: <%= @object.name %></h2>
-<%= datagrid_form_for @grid, :method => :get, :url => polymorphic_path([@object,:characters]) %>
+<%= datagrid_form_for @grid, method: :get, url: polymorphic_path([@object, :characters]) %>
 
 <div id='character-grid'>
-  <%= render partial: 'characters/index_grid.html', locals: { grid: @grid, pagy: @pagy, records: @records }  %>
+  <%= render partial: 'characters/index_grid.html', locals: { grid: @grid, pagy: @pagy, records: @records } %>
 </div>
 
 <% if @object.class.name == 'Book' %>
-  <% @footer_content << (link_to 'New Character', polymorphic_path([@object, :characters]),method: :post, class: 'btn btn-default').to_s %>
+  <% @footer_content << (link_to 'New Character', polymorphic_path([@object, :characters]), method: :post, class: 'btn btn-default').to_s %>
 <% else %>
   <% @footer_content << (link_to 'Add/Remove Characters', polymorphic_path([@object, :characters_list]), class: 'btn btn-default').to_s %>
 <% end -%>

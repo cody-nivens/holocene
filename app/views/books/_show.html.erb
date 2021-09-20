@@ -15,29 +15,29 @@
 <% @notes = {} -%>
 <% if book.is_fiction? %>
   <% if outline %>
-    <% scenes = Scene.get_scenes(book,"off") %>
+    <% scenes = Scene.get_scenes(book, 'off') %>
     <% scenes.keys.sort.each do |year| %>
     <% scenes[year].keys.sort.each do |month| %>
     <% scenes[year][month].keys.sort.each do |day| %>
     <% scenes[year][month][day].each do |scene| %>
       <% next if scene.section.nil? %>
       <strong>
-        <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil} %>
-      </strong><br><br/>
+        <%= render partial: 'scenes/scene_title.html', locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil } %>
+      </strong><br><br>
     <% end %>
     <% end %>
     <% end %>
     <% end %>
   <% else -%>
-    <% scenes = Scene.get_scenes(book,"off") %>
+    <% scenes = Scene.get_scenes(book, 'off') %>
     <% scenes.keys.sort.each do |year| %>
     <% scenes[year].keys.sort.each do |month| %>
     <% scenes[year][month].keys.sort.each do |day| %>
     <% scenes[year][month][day].each do |scene| %>
       <% next if scene.section.nil? %>
       <strong>
-        <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil} %>
-      </strong><br><br/>
+        <%= render partial: 'scenes/scene_title.html', locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil } %>
+      </strong><br><br>
       <%== epub_friendly(scene.section.body) %><br>
     <% end %>
     <% end %>
@@ -51,30 +51,30 @@
 <% end -%>
 
 <% unless book.is_fiction? %>
-  <div style = "display:block; clear:both; page-break-after:always;"></div>
+  <div style="display:block; clear:both; page-break-after:always;"></div>
   <h1>Citations</h1>
 
   <% @slugs = [] %>
   <% chapters.each do |chapter| -%>
     <% unless chapter.citations.length == 0 -%>
-    <%== render "footnotes/citations.html", slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: false %>
+    <%== render 'footnotes/citations.html', slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: false %>
     </div>
   <% end -%>
 
-  <div style = "display:block; clear:both; page-break-after:always;"></div>
+  <div style="display:block; clear:both; page-break-after:always;"></div>
   <h1>Chapter Events</h1>
 
   <% @slugs = [] %>
   <% @notes = {} -%>
-  <% @footnotes = ["",[],1] %>
+  <% @footnotes = ['', [], 1] %>
   <% chapters.each do |chapter| -%>
     <% next if chapter.always_display_events %>
     <% unless chapter.holocene_events.length == 0 -%>
-      <%== render "holocene_events/index.html", holocene_events: chapter.holocene_events.order(:start_year), chapter: chapter, links: false, epub: true, slugs: @slugs %>
+      <%== render 'holocene_events/index.html', holocene_events: chapter.holocene_events.order(:start_year), chapter: chapter, links: false, epub: true, slugs: @slugs %>
       </div>
     <% end -%>
     <% chapter.sections.order(:position).each do |section| %>
-      <%== render "holocene_events/index.html", holocene_events: section.holocene_events.order(:start_year), chapter: chapter, links: false, title: "#{chapter.name}:#{section.name}", epub: true, slugs: @slugs %>
+      <%== render 'holocene_events/index.html', holocene_events: section.holocene_events.order(:start_year), chapter: chapter, links: false, title: "#{chapter.name}:#{section.name}", epub: true, slugs: @slugs %>
       </div>
     <% end -%>
   <% end -%>

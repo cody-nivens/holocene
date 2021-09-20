@@ -16,15 +16,14 @@
       <tr>
         <td><%= aside.name %></td>
         <td><%= aside.body %></td>
-        <td><%= link_to 'Show', chapter_aside_path(@chapter,aside) %></td>
-        <td><%= link_to 'Edit', edit_chapter_aside_path(@chapter,aside) %></td>
-        <td><%= link_to 'Destroy', chapter_aside_path(@chapter,aside), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', chapter_aside_path(@chapter, aside) %></td>
+        <td><%= link_to 'Edit', edit_chapter_aside_path(@chapter, aside) %></td>
+        <td><%= link_to 'Destroy', chapter_aside_path(@chapter, aside), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
 
 <% @footer_content << (link_to 'New Aside', new_chapter_aside_path(@chapter), class: 'btn btn-default').to_s %>

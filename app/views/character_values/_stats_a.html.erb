@@ -1,6 +1,6 @@
     <% character_attributes = CharacterAttribute.where(name: cat1) %>
-    <% items = characters.distinct.pluck(category.to_sym).map{|x| x || ""}.sort %>
-    <% rs = CharacterValue.stats_a(characters,category, character_attributes[0]) %>
+    <% items = characters.distinct.pluck(category.to_sym).map { |x| x || '' }.sort %>
+    <% rs = CharacterValue.stats_a(characters, category, character_attributes[0]) %>
     <% keys_1 = rs[category].keys %>
     <table class="table">
 
@@ -11,13 +11,13 @@
       </tr>
 
   <% items.each do |item| %>
-    <% rs = CharacterValue.stats_a(characters.where(category.to_sym => item),category, character_attributes[0]) %>
+    <% rs = CharacterValue.stats_a(characters.where(category.to_sym => item), category, character_attributes[0]) %>
 
     <%# debugger %>
       <tr><th><%= item %></th>
         <% keys_1.each do |key| %>
           <% item = rs[category][key] %>
-          <td><%= link_to (item.blank? ? '' : item), polymorphic_path([book,:characters], :key1=> key, :cat1 => cat1   ) %></td>
+          <td><%= link_to (item.presence || ''), polymorphic_path([book, :characters], key1: key, cat1: cat1) %></td>
         <% end %>
       </tr>
         <% end %>

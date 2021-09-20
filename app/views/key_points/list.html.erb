@@ -1,6 +1,6 @@
 <%= form_with url: polymorphic_path([@scripted, @key_point, :add]) do |f| %>
 
-  <%= f.hidden_field :selector, :value => @selector %>
+  <%= f.hidden_field :selector, value: @selector %>
   <%= hidden_field "#{@scripted.class.name.underscore}_id", value: @scripted.id %>
 
   <h1>Scenes for "<%= @key_point.name %>" in "<%= @scripted.name %>"</h1>
@@ -8,11 +8,11 @@
 <table class="table">
   <tr>
       <td style="width:40%">
-          <%= select_tag :scenes_ids, options_from_collection_for_select(@key_point.scenes.where(selector: @selector), :id, :name), :prompt => "Select Scene", :multiple => true, :size => 20 %>
+          <%= select_tag :scenes_ids, options_from_collection_for_select(@key_point.scenes.where(selector: @selector), :id, :name), prompt: 'Select Scene', multiple: true, size: 20 %>
       </td><td style="width:20%">
           <%= f.submit class: 'btn btn-primary' %>
       </td><td style="width:40%">
-          <%= select_tag :scenes_avail, options_from_collection_for_select(@scripted.scenes.where(selector: 0), :id, :name), :prompt => "Select Scene", :multiple => true, :size => 20 %>
+          <%= select_tag :scenes_avail, options_from_collection_for_select(@scripted.scenes.where(selector: 0), :id, :name), prompt: 'Select Scene', multiple: true, size: 20 %>
       </td>
   </tr>
 </table>
@@ -21,4 +21,3 @@
 
 <% @footer_content << (link_to 'New Scene', new_key_point_scene_path(@key_point, selector: @selector.to_i), class: 'btn btn-default').to_s %>
 <% @footer_content << (link_to 'Back', polymorphic_path([@scripted, :key_points]), class: 'btn btn-default').to_s %>
-

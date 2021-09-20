@@ -1,13 +1,13 @@
-<% object.characters.order(:occupation_class).pluck(:occupation_class).map{|x| x || ""}.uniq.sort.each do |occ_class| %>
-  <%= (occ_class == "" ? "<blank>" : occ_class) %>
+<% object.characters.order(:occupation_class).pluck(:occupation_class).map { |x| x || '' }.uniq.sort.each do |occ_class| %>
+  <%= (occ_class == '' ? '<blank>' : occ_class) %>
   <ul>
     <% if occ_class == "" %>
-      <% object.characters.where("occupation_class is null").order(:occupation_class,:last_name,:first_name).each do |character| %>
-        <li><%= link_to character.name, character_path(character) %><%= "#{(!character.grouping? ? '' : "-  #{character.grouping}")}" %></li>
+      <% object.characters.where('occupation_class is null').order(:occupation_class, :last_name, :first_name).each do |character| %>
+        <li><%= link_to character.name, character_path(character) %><%= (!character.grouping? ? '' : "-  #{character.grouping}").to_s %></li>
       <% end %>
     <% end %>
-    <% object.characters.where("occupation_class = ?", occ_class).order(:occupation_class,:last_name,:first_name).each do |character| %>
-      <li><%= link_to character.name, character_path(character) %><%= "#{(!character.grouping? ? '' : "-  #{character.grouping}")}" %></li>
+    <% object.characters.where('occupation_class = ?', occ_class).order(:occupation_class, :last_name, :first_name).each do |character| %>
+      <li><%= link_to character.name, character_path(character) %><%= (!character.grouping? ? '' : "-  #{character.grouping}").to_s %></li>
     <% end %>
   </ul>
 <% end %>

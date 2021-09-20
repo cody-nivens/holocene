@@ -1,9 +1,9 @@
 <dt>
-  <%= link_to book.name, book_path(book) %><%= link_to (fa_icon "pencil"), edit_book_path(book), :title => 'Edit' %>
-  <%= link_to (fa_icon "sticky-note-o"), book_signets_path(book), :title => "Signets" %>
-<%= link_to (fa_icon "book"), book_epub_path(book), :title => "EPub" %>
-<%= link_to (fa_icon "file-pdf-o"), book_path(book,:format => :pdf), :title => "PDF" %>
-<%= link_to (fa_icon "trash-o"), book, method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy" %>
+  <%= link_to book.name, book_path(book) %><%= link_to (fa_icon 'pencil'), edit_book_path(book), title: 'Edit' %>
+  <%= link_to (fa_icon 'sticky-note-o'), book_signets_path(book), title: 'Signets' %>
+<%= link_to (fa_icon 'book'), book_epub_path(book), title: 'EPub' %>
+<%= link_to (fa_icon 'file-pdf-o'), book_path(book, format: :pdf), title: 'PDF' %>
+<%= link_to (fa_icon 'trash-o'), book, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
 </dt>
 <dd>
   <%= book.body %>

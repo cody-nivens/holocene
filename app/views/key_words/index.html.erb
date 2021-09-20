@@ -6,14 +6,14 @@
   <% @key_words.each do |key_word| %>
     <% c.tab key_word.key_word do %>
       <span>
-        <div><%= link_to key_word.key_word, key_word_path(key_word) %><%= link_to (fa_icon "edit"), edit_key_word_path(key_word), :title => "Edit" %>
-          <%= link_to (fa_icon "trash-o"), key_word_path(key_word), method: :delete, data: { confirm: 'Are you sure?' }, :title => "Delete" %>
-          <%= render partial: 'key_words/key_words', :locals => {book: @book, key_word: key_word} %></div>
+        <div><%= link_to key_word.key_word, key_word_path(key_word) %><%= link_to (fa_icon 'edit'), edit_key_word_path(key_word), title: 'Edit' %>
+          <%= link_to (fa_icon 'trash-o'), key_word_path(key_word), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete' %>
+          <%= render partial: 'key_words/key_words', locals: { book: @book, key_word: key_word } %></div>
       </span>
     <% end %>
   <% end %>
 <% end %>
 <br>
 
-<% @footer_content << (link_to 'New Key Word', new_polymorphic_path([@book,:key_word]), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'New Key Word', new_polymorphic_path([@book, :key_word]), class: 'btn btn-default').to_s %>
 <% @footer_content << (link_to 'Back', book_path(@book), class: 'btn btn-default').to_s %>

@@ -17,7 +17,7 @@
       <tr>
         <td><%= character_scene.character.full_name %></td>
 
-        <td><%= link_to 'Show', polymorphic_path([@scene,character_scene]) %></td>
+        <td><%= link_to 'Show', polymorphic_path([@scene, character_scene]) %></td>
         <td><%= link_to 'Edit', edit_polymorphic_path([@scene, character_scene]) %></td>
         <td><%= link_to 'Destroy', polymorphic_path([@scene, character_scene]), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -26,4 +26,3 @@
 </table>
 
 <br>
-

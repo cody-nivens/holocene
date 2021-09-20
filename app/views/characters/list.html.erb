@@ -7,12 +7,12 @@
 <table class="table">
   <tr>
       <td style="width:40%">
-        <%= select_tag :characters_ids,   options_from_collection_for_select(@object.characters.order(:occupation_class,:grouping,:last_name,:first_name), :id, :select_name), :prompt => "Select Characters", :multiple => true, :size => 20 %>
+        <%= select_tag :characters_ids, options_from_collection_for_select(@object.characters.order(:occupation_class, :grouping, :last_name, :first_name), :id, :select_name), prompt: 'Select Characters', multiple: true, size: 20 %>
       </td><td style="width:20%">
           <%= f.submit class: 'btn btn-primary' %>
       </td><td style="width:40%">
         <% values = @object.set_values %>
-        <%= select_tag :characters_avail, options_from_collection_for_select(values[0].characters.order(:occupation_class,:grouping, :last_name, :first_name), :id, :select_name), :prompt => "Select Character", :multiple => true, :size => 20 %>
+        <%= select_tag :characters_avail, options_from_collection_for_select(values[0].characters.order(:occupation_class, :grouping, :last_name, :first_name), :id, :select_name), prompt: 'Select Character', multiple: true, size: 20 %>
       </td>
   </tr>
 </table>
@@ -21,4 +21,3 @@
 
 <% @footer_content << (link_to 'New Character', polymorphic_path([@object, :characters]), method: :post, class: 'btn btn-default').to_s %>
 <% @footer_content << (link_to 'Back', polymorphic_path(@object), class: 'btn btn-default').to_s %>
-

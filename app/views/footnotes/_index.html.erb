@@ -12,10 +12,10 @@
     <% footnotes.each do |footnote| %>
       <tr>
         <td><%= footnote.slug %></td>
-        <td><%= link_to footnote.body, footnote, :title => 'Show'  %></td>
+        <td><%= link_to footnote.body, footnote, title: 'Show' %></td>
         <td><%= (footnote.biblioentry.nil? ? '' : footnote.biblioentry_name) %></td>
-        <td><%= link_to (fa_icon "pencil"), edit_footnote_path(footnote), :title => 'Edit' %></td>
-        <td><%= link_to (fa_icon "trash-o"), footnote, method: :delete, data: { confirm: 'Are you sure?' }, :title => 'Destroy' %></td>
+        <td><%= link_to (fa_icon 'pencil'), edit_footnote_path(footnote), title: 'Edit' %></td>
+        <td><%= link_to (fa_icon 'trash-o'), footnote, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
       </tr>
     <% end %>
   </tbody>

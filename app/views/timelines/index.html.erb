@@ -16,9 +16,9 @@
         <td><%= timeline.name %></td>
         <td><%= timeline.holocene_events.count %></td>
         <td><%= timeline.description %></td>
-        <td><%= link_to (fa_icon "search-plus"), timeline, :title => "Show" %></td>
-        <td><%= link_to (fa_icon 'edit'), edit_timeline_path(timeline) , :title => "Edit"%></td>
-        <td><%= link_to (fa_icon "trash-o"), timeline, method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy" %></td>
+        <td><%= link_to (fa_icon 'search-plus'), timeline, title: 'Show' %></td>
+        <td><%= link_to (fa_icon 'edit'), edit_timeline_path(timeline), title: 'Edit' %></td>
+        <td><%= link_to (fa_icon 'trash-o'), timeline, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
       </tr>
     <% end %>
   </tbody>

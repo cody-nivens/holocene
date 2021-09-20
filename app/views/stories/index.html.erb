@@ -1,12 +1,12 @@
 <p id="notice"><%= notice %></p>
 <h1>Stories</h1>
 
-<%= render :partial => 'stories/index.html', :locals => {:stories => @stories, :book => @book } %>
+<%= render partial: 'stories/index.html', locals: { stories: @stories, book: @book } %>
 
-<% @footer_content << (link_to 'New Story', new_book_story_path(:book_id => @book.id), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Scenes', book_scenes_path(:id => @book.id), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Timeline', book_timeline_path(:id => @book.id), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Resync Stories', book_resync_stories_path(:id => @book.id), class: 'btn btn-default hide-print').to_s %>
+<% @footer_content << (link_to 'New Story', new_book_story_path(book_id: @book.id), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Scenes', book_scenes_path(id: @book.id), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Timeline', book_timeline_path(id: @book.id), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Resync Stories', book_resync_stories_path(id: @book.id), class: 'btn btn-default hide-print').to_s %>
 <% @footer_content << (link_to 'Back', book_path(@book), class: 'btn btn-default').to_s %>
 
 <script>

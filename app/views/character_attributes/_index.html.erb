@@ -11,7 +11,7 @@
 
    <tbody class="sortable">
      <% attributes.each_with_sortable_id do |character_attribute, sortable_id| %>
-      <tr  id="<%= sortable_id %>">
+      <tr id="<%= sortable_id %>">
          <td><%= character_attribute.name %></td>
          <td><%= character_attribute.related_name %></td>
          <td><%= link_to 'Show', character_attribute %></td>
@@ -28,4 +28,3 @@ $(function() {
   $('.sortable').railsSortable();
 });
 </script>
-

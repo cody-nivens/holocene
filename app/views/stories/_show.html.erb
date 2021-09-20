@@ -1,4 +1,4 @@
-<div style = "display:block; clear:both; page-break-after:always;"></div>
+<div style="display:block; clear:both; page-break-after:always;"></div>
 <% pdf ||= nil %>
 <% outline ||= nil %>
 <% just_printed_page_break = true %>
@@ -11,16 +11,16 @@
     <% story.characters.order(:occupation_class).pluck(:occupation_class).uniq.each do |occ_class| %>
       <h2><%= occ_class %></h2>
       <ul>
-        <% story.characters.where("occupation_class = ?", occ_class).order(:occupation_class,:last_name,:first_name).each do |character| %>
+        <% story.characters.where('occupation_class = ?', occ_class).order(:occupation_class, :last_name, :first_name).each do |character| %>
           <%# debugger if character.nil? %>
-          <%= render :partial => 'characters/show.html', :locals => {pdf: pdf, character: character, object: @object, scripted: @scripted} %>
+          <%= render partial: 'characters/show.html', locals: { pdf: pdf, character: character, object: @object, scripted: @scripted } %>
         <% end %>
       </ul>
     <% end %>
 
   </p>
   <% story.key_points.order(:position).each do |key_point| -%>
-    <%= render :partial => 'key_points/show.html', :locals => {book: story.book, story: story, key_point: key_point, outline: outline} %>
+    <%= render partial: 'key_points/show.html', locals: { book: story.book, story: story, key_point: key_point, outline: outline } %>
   <% end -%>
 <% end %>
 
@@ -34,7 +34,7 @@
 <% end %>
 <% story.key_points.order(:position).each do |key_point| -%>
   <% if key_point.print_name? %>
-    <div style = "display:block; clear:both; page-break-after:always;"></div>
+    <div style="display:block; clear:both; page-break-after:always;"></div>
     <% just_printed_page_break = true %>
     <h2><%= key_point.name %></h2>
   <% end %>
@@ -43,7 +43,7 @@
     <% unless scene.section.nil? %>
       <% if key_point.print_points? && scene.selector != last_selector %>
         <% unless just_printed_page_break %>
-          <div style = "display:block; clear:both; page-break-after:always;"></div>
+          <div style="display:block; clear:both; page-break-after:always;"></div>
         <% end %>
         <h3><%= key_point.selector_value(scene.selector) %></h3>
         <% last_selector = scene.selector %>
@@ -51,8 +51,8 @@
       <% just_printed_page_break = false %>
       <br>
       <strong>
-        <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil} %>
-      </strong><br><br/>
+        <%= render partial: 'scenes/scene_title.html', locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil } %>
+      </strong><br><br>
       <%== epub_friendly(scene.section.body) %>
     <% end %>
   <% end -%>

@@ -1,29 +1,28 @@
-<% @title = "Sync Scenes" %>
-<%= form_with :url => book_scenes_list_path, :local => false, :method => :get,  :id => 'my-form', :format => :js, :class => "form-inline" do |form| %>
+<% @title = 'Sync Scenes' %>
+<%= form_with url: book_scenes_list_path, local: false, method: :get, id: 'my-form', format: :js, class: 'form-inline' do |form| %>
   <%= hidden_field_tag :book_id, @book.id %>
 
   <div class="form-check">
     <label class="checkbox">
-      <%= check_box_tag :toggle, @toggle,@toggle,:class => "checkbox inline" %> Order
+      <%= check_box_tag :toggle, @toggle, @toggle, class: 'checkbox inline' %> Order
     </label>
   </div>
   <div class="form-check">
     <label class="checkbox">
-  <%= check_box_tag :print, @print,@print,:class => "checkbox inline" %> Print
+  <%= check_box_tag :print, @print, @print, class: 'checkbox inline' %> Print
     </label>
   </div>
   <div class="form-check">
     <label class="checkbox">
-  <%= check_box_tag :no_section, @no_section,@no_section,:class => "checkbox inline" %> No Sections
+  <%= check_box_tag :no_section, @no_section, @no_section, class: 'checkbox inline' %> No Sections
     </label>
   </div>
 
 <div class="field">
-  <%= select_tag('year', options_for_select(@year_options), prompt: "Please select an year:", class: "form-control",onchange: "javascript:this.form.commit.click();") %>
+  <%= select_tag('year', options_for_select(@year_options), prompt: 'Please select an year:', class: 'form-control', onchange: 'javascript:this.form.commit.click();') %>
 </div>
 
-
-  <%= submit_tag 'Go', class: "hidden"  %>
+  <%= submit_tag 'Go', class: 'hidden' %>
 <% end %>
 
 <div id='year-options' style="width: 100%; height: 100%"></div>
