@@ -1,6 +1,6 @@
 <h1>Editing Author</h1>
 
-<%= render 'form', user: current_user, author: @author, command_label: "Update Author", object: @object %>
+<%= render 'form', user: current_user, author: @author, command_label: 'Update Author', object: @object %>
 
-<% @footer_content << "#{link_to 'Show', polymorphic_path([@object,@author]), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', polymorphic_path([@object, :authors]), :class => "btn btn-default"}" %>
+<% @footer_content << (link_to 'Show', polymorphic_path([@object,@author]), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Back', polymorphic_path([@object, :authors]), class: 'btn btn-default').to_s %>

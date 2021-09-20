@@ -24,10 +24,10 @@
 <% end %>
 
 <p>
-<strong>Summary:</strong><br/>
+<strong>Summary:</strong><br>
   <%= @artifact.summary %>
 </p>
 
-<% @footer_content << "#{link_to 'Edit', edit_artifact_path(@artifact), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', book_artifacts_path(@book), :class => "btn btn-default"}" %>
+<% @footer_content << (link_to 'Edit', edit_artifact_path(@artifact), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Back', book_artifacts_path(@book), class: 'btn btn-default').to_s %>
 

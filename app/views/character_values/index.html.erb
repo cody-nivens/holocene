@@ -28,5 +28,5 @@
 
 <br>
 
-<% @footer_content << "#{link_to 'New Character Value', new_polymorphic_path([@character, :character_value]), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', character_path(@character), :class => "btn btn-default"}" %>
+<% @footer_content << (link_to 'New Character Value', new_polymorphic_path([@character, :character_value]), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Back', character_path(@character), class: 'btn btn-default').to_s %>

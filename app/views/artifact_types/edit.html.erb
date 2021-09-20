@@ -2,5 +2,5 @@
 
 <%= render 'form', artifact_type: @artifact_type, book: @book %>
 
-<% @footer_content << "#{link_to 'Show', artifact_type_path(@artifact_type), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', book_artifact_types_path(@book), :class => "btn btn-default"}" %>
+<% @footer_content << (link_to 'Show', artifact_type_path(@artifact_type), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Back', book_artifact_types_path(@book), class: 'btn btn-default').to_s %>

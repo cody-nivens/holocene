@@ -4,4 +4,4 @@
 <%= datagrid_table @grid, @records, :partials => 'city_grid' %>
 <%== pagy_nav(@pagy) %>
 
-<% @footer_content << "#{link_to 'New City', new_city_path, :class => "btn btn-default"}" %>
+<% @footer_content << (link_to 'New City', new_city_path, class: 'btn btn-default').to_s %>

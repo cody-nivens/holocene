@@ -34,13 +34,13 @@
 <% priv_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position - 1) -%>
 <% next_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position + 1) -%>
 
-<% @footer_content << "#{link_to 'Edit', edit_section_path(@section), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to '<', section_path(priv_section.first), :class => "btn icon-ok icon-white"}" unless priv_section.length == 0 %>
-<% @footer_content << "#{link_to '>', section_path(next_section.first), :class => "btn icon-ok icon-white"}" unless next_section.length == 0  %>
+<% @footer_content << (link_to 'Edit', edit_section_path(@section), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to '<', section_path(priv_section.first), class: 'btn icon-ok icon-white').to_s unless priv_section.length == 0 %>
+<% @footer_content << (link_to '>', section_path(next_section.first), class: 'btn icon-ok icon-white').to_s unless next_section.length == 0  %>
 <% if @section.sectioned_type == "Chapter" %>
-  <% @footer_content << "#{link_to "Timeline", section_timeline_path(:section_id => @section.id), :class => "btn icon-ok icon-white"}" %>
-  <% @footer_content << "#{link_to "Display",  section_display_path(:section_id => @section.id), :class => "btn icon-ok icon-white"}" %>
-  <% @footer_content << "#{link_to "Map",  geo_map_section_path(@section), :class => "btn icon-ok icon-white"}" %>
-  <% @footer_content << "#{link_to 'Footnotes',  section_footnotes_path(@section), :class => "btn btn-default"}" %>
+  <% @footer_content << (link_to "Timeline", section_timeline_path(:section_id => @section.id), class: 'btn icon-ok icon-white').to_s %>
+  <% @footer_content << (link_to "Display",  section_display_path(:section_id => @section.id), class: 'btn icon-ok icon-white').to_s %>
+  <% @footer_content << (link_to "Map",  geo_map_section_path(@section), class: 'btn icon-ok icon-white').to_s %>
+  <% @footer_content << (link_to 'Footnotes',  section_footnotes_path(@section), class: 'btn btn-default').to_s %>
 <% end -%>
-<% @footer_content << "#{link_to 'Back', polymorphic_path(@sectioned), :class => "btn btn-default"}" %>
+<% @footer_content << (link_to 'Back', polymorphic_path(@sectioned), class: 'btn btn-default').to_s %>

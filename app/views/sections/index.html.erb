@@ -15,8 +15,8 @@
   </tbody>
 </table>
 
-<% @footer_content << "#{link_to 'New Section', new_polymorphic_path([@sectioned, :section]), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', polymorphic_path(@sectioned), :class => "btn btn-default"}" %>
+<% @footer_content << (link_to 'New Section', new_polymorphic_path([@sectioned, :section]), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Back', polymorphic_path(@sectioned), class: 'btn btn-default').to_s %>
 
 <script>
 $(function() {

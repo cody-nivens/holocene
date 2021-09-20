@@ -1,6 +1,6 @@
 <h1>Editing Region</h1>
 
-<%= render 'form', region: @region, command_label: "Update Region"  %>
+<%= render 'form', region: @region, command_label: 'Update Region' %>
 
-<% @footer_content << "#{link_to 'Show', @region, :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', regions_path, :class => "btn btn-default"}" %>
+<% @footer_content << (link_to 'Show', @region, class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Back', regions_path, class: 'btn btn-default').to_s %>

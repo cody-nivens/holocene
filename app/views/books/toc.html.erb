@@ -26,7 +26,7 @@
     <% if chapter.aside.nil? %>
         <%#= link_to (fa_icon "plus"), new_book_chapter_aside_path(@book, chapter), :title => "Aside" %>
     <% else %>
-        <br/>
+        <br>
         <%#= link_to chapter.aside.name, book_chapter_aside_path(@book, chapter, chapter.aside), :title => chapter.aside.name %>
         <%#= link_to (fa_icon "pencil"), edit_book_chapter_aside_path(@book, chapter,chapter.aside), :title => "Edit Aside" %>
     <% end %>
@@ -46,9 +46,9 @@
   </tbody>
 </table>
 
-<% @footer_content << "#{link_to 'New Chapter', new_book_path(@book), :class => "btn btn-default" }" %>
-<% @footer_content << "#{link_to 'Chapters, Details', polymorphic_path([@book, :chapters]), :class => "btn btn-default" }" %>
-<% @footer_content << "#{link_to 'Back', :back, :class => "btn btn-default"}" %>
+<% @footer_content << (link_to 'New Chapter', new_book_path(@book), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Chapters, Details', polymorphic_path([@book, :chapters]), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Back', :back, class: 'btn btn-default').to_s %>
 
 <script>
 $(function() {

@@ -1,22 +1,22 @@
-<% @title = "Progress" %>
+<% @title = 'Progress' %>
 <% items = [@today_mod, @today_create, @yesterday_mod, @yesterday_create, @last_fortnight_mod, @last_fortnight_create] %>
-<% titles = ["Today's Modifications", "Today's Creations","Yesterday's Modifications", "Yesterday's Creations","Last Fortnight's Modifications", "Last Fortnight's Creations"] %>
-<% data = [{:name => "Added", :data => @dates_counts.collect{|key,x| [key.to_date,x[1]]}}, {:name => "Created", :data => @dates_counts.collect{|key,x| [key.to_date,x[0]]}}] %>
+<% titles = ["Today's Modifications", "Today's Creations", "Yesterday's Modifications", "Yesterday's Creations", "Last Fortnight's Modifications", "Last Fortnight's Creations"] %>
+<% data = [{ name: 'Added', data: @dates_counts.collect { |key, x| [key.to_date, x[1]] } }, { name: 'Created', data: @dates_counts.collect { |key, x| [key.to_date, x[0]] } }] %>
 <%= column_chart data, stacked: true %>
 <%= tabs do |c| %>
   <% items.each_with_index do |item,index| %>
     <% next if item.empty? %>
     <% c.tab titles[index] do %>
       <span>
-        <%= render :partial => "shared/metric.html", :locals => { objects: item, title: titles[index] } %>
+        <%= render partial: 'shared/metric.html', locals: { objects: item, title: titles[index] } %>
       </span>
     <% end %>
   <% end %>
 <% end %>
-<hr/>
+<hr>
 
-<% @footer_content << "#{link_to 'Stats', welcome_stats_path, :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Tags', welcome_tags_path, :class => "btn btn-default"}" %>
+<% @footer_content << (link_to 'Stats', welcome_stats_path, class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Tags', welcome_tags_path, class: 'btn btn-default').to_s %>
 <% unless @book.nil? %>
-  <% @footer_content << "#{link_to 'Back', book_path(@book), :class => "btn btn-default" }" %>
+  <% @footer_content << (link_to 'Back', book_path(@book), class: 'btn btn-default').to_s %>
 <% end %>

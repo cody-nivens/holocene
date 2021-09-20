@@ -1,6 +1,6 @@
 <h1>Editing Epoch</h1>
 
-<%= render 'form', epoch: @epoch, command_label: "Update Epoch" %>
+<%= render 'form', epoch: @epoch, command_label: 'Update Epoch' %>
 
-<% @footer_content << "#{link_to 'Show', @epoch, :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', epochs_path, :class => "btn btn-default"}" %>
+<% @footer_content << (link_to 'Show', @epoch, class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Back', epochs_path, class: 'btn btn-default').to_s %>

@@ -15,5 +15,5 @@
   <%= @character_attribute.related_name %>
 </p>
 
-<% @footer_content << "#{link_to 'Edit', edit_character_attribute_path(@character_attribute), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', character_category_character_attributes_path(@character_category), :class => "btn btn-default"}" %>
+<% @footer_content << (link_to 'Edit', edit_character_attribute_path(@character_attribute), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Back', character_category_character_attributes_path(@character_category), class: 'btn btn-default').to_s %>

@@ -1,22 +1,22 @@
-<p id="notice"><%= notice %></p>
+<p id='notice'><%= notice %></p>
 <% @title = @scene.name %>
 
 <h2>
   <%== breadcrumb(@scene.key_point.scripted.book, @scene.key_point.scripted, @scene.key_point, @scene) %>
-  <%= link_to (fa_icon "pencil"), edit_scene_path(@scene), :title => 'Edit' %>
+  <%= link_to (fa_icon 'pencil'), edit_scene_path(@scene), title: 'Edit' %>
 </h2>
 
-<table class="table">
+<table class='table'>
   <tr>
     <th>ABC:</th><td><%= @scene.abc %></td>
-    <th>Location:</th><td><%= (@scene.artifact.nil? ? "Unkown" : @scene.artifact_name) %></td>
+    <th>Location:</th><td><%= (@scene.artifact.nil? ? 'Unkown' : @scene.artifact_name) %></td>
     <th>Place:</th><td><%= @scene.place.to_plain_text %></td>
-    <th>Word Count:</th><td><%= number_with_delimiter(@scene.word_count, :delimiter => ',') %></td>
+    <th>Word Count:</th><td><%= number_with_delimiter(@scene.word_count, delimiter: ', ') %></td>
   </tr>
   <tr>
     <th>Time:</th><td><%= @scene.time_to_text %></td>
     <th>Check:</th><td><%= @scene.check %></td>
-    <th>Scene/Sequel:</th><td><%= (@scene.scene_sequel == 1 ? "Sequel" : "Scene")%></td>
+    <th>Scene/Sequel:</th><td><%= (@scene.scene_sequel == 1 ? 'Sequel' : 'Scene') %></td>
     <th>Selector:</th><td><%= selector_string(@scene.selector) %></td>
   </tr>
 </table>
@@ -73,20 +73,21 @@
   </p>
 <% end %>
 
-
 <% unless @scene.characters.length == 0 %>
   <p>
     <strong>Characters:</strong>
-    <br/>
+    <br>
     <% @scene.characters.order(:occupation_class).pluck(:occupation_class).uniq.compact.sort.each do |occ_class| %>
       <%= occ_class %>
       <ul>
-        <% @scene.characters.where("occupation_class = ?", occ_class).order(:occupation_class,:last_name,:first_name).each do |character| %>
-          <li><%= link_to("#{character.name}, #{@scene.date_string[0..3].to_i-character.birth_year.to_i}", polymorphic_path([@scene,character])) %><%= "#{(!character.grouping? ? '' : "-  #{character.grouping}")}" %>
-            <% character_scene=CharacterScene.where(character_id: character.id, scene_id: @scene.id) %>
+        <% @scene.characters.where('occupation_class = ?', occ_class).order(:occupation_class, :last_name, :first_name).each do |character| %>
+          <li><%= link_to character.name, polymorphic_path([@scene, character]) %>
+            <%= @scene.date_string[0..3].to_i - character.birth_year.to_i %>
+            <%= character.grouping? ? "- #{character.grouping}" : '' %>
+            <% character_scene = CharacterScene.where(character_id: character.id, scene_id: @scene.id) %>
             <%= link_to (fa_icon 'plus'), edit_character_scene_path(character_scene[0]) %>
             <% unless character_scene[0].summary.nil? %>
-             <%= character_scene[0].summary.to_plain_text %>
+              <%= character_scene[0].summary.to_plain_text %>
            <% end %>
           </li>
         <% end %>
@@ -95,11 +96,11 @@
   </p>
 <% end %>
 
-<% scenes = Scene.where(insert_scene_id: @scene.id).order(:date_string,:abc) %>
+<% scenes = Scene.where(insert_scene_id: @scene.id).order(:date_string, :abc) %>
 <p>
   <% unless scenes.length == 0 %>
     <strong>Scenes:</strong>
-    <br/>
+    <br>
     <ul>
       <% scenes.each do |iscene| %>
         <li><%= link_to(iscene.abc, scene_path(iscene)) %> <%= (iscene.section.nil? ? '' : '*') %><%= iscene.time_to_text %> : <%= iscene.name %></li>
@@ -107,30 +108,29 @@
       <% end %>
     </ul>
   <% end %>
-  <hr/>
+  <hr>
   <% unless @scene.section.nil? %>
     <% values = @scene.set_values %>
     <% text = @scene.section.body %>
-    <%== highlight(text.to_s,Regexp.new(KeyWord.where(book_id: values[0].id).collect{|x| x.key_word}.join("|"))) %>
+    <%== highlight(text.to_s, Regexp.new(KeyWord.where(book_id: values[0].id).collect(&:key_word).join('|'))) %>
   <% end %>
 </p>
 
 <% if @scene.section.nil? %>
-  <% @footer_content << "#{link_to 'New Section',new_polymorphic_path([@scene,:section]), :class => "btn btn-default" }" %>
+  <% @footer_content << (link_to 'New Section', new_polymorphic_path([@scene, :section]), class: 'btn btn-default').to_s %>
 <% else %>
-  <% @footer_content << "#{link_to 'Edit Section',edit_section_path(@scene.section), :class => "btn btn-default" }" %>
+  <% @footer_content << (link_to 'Edit Section', edit_section_path(@scene.section), class: 'btn btn-default').to_s %>
 <% end %>
-<% @footer_content << "#{link_to 'Characters', polymorphic_path([@scene, :characters ]), :class => "btn btn-default hide-print" }" %>
-<% @footer_content << "#{link_to 'Move', polymorphic_path([@scene, :move ]), :class => "btn btn-default hide-print" }" %>
-<% @footer_content << "#{link_to 'Destroy', scene_path(@scene), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', (@scene.key_point.nil? ? polymorphic_path([@situated, :scenes]) : key_point_path(@scene.key_point)), :class => "btn btn-default" }" %>
+<% @footer_content << (link_to 'Characters', polymorphic_path([@scene, :characters]), class: 'btn btn-default hide-print').to_s %>
+<% @footer_content << (link_to 'Move', polymorphic_path([@scene, :move]), class: 'btn btn-default hide-print').to_s %>
+<% @footer_content << (link_to 'Destroy', scene_path(@scene), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Back', (@scene.key_point.nil? ? polymorphic_path([@situated, :scenes]) : key_point_path(@scene.key_point)), class: 'btn btn-default').to_s %>
 
-<% prev_scene =  @scene.set_prev %>
+<% prev_scene = @scene.set_prev %>
 <% unless prev_scene.nil? %>
-  <% @footer_content << "#{link_to '<', scene_path(prev_scene), :class => "btn icon-ok icon-white" }" %>
+  <% @footer_content << (link_to '<', scene_path(prev_scene), class: 'btn icon-ok icon-white').to_s %>
 <% end %>
-<% next_scene =  @scene.set_next %>
+<% next_scene = @scene.set_next %>
 <% unless next_scene.nil? %>
-  <% @footer_content << "#{link_to '>', scene_path(next_scene), :class => "btn icon-ok icon-white" }" %>
+  <% @footer_content << (link_to '>', scene_path(next_scene), class: 'btn icon-ok icon-white').to_s %>
 <% end %>
-

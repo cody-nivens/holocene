@@ -12,7 +12,7 @@
 
     <h1>Move <%= @key_point.name %> to another story</h1>
 
-    <strong>Existing Key Point:</strong> <%= @key_point.name %><br/>
+    <strong>Existing Key Point:</strong> <%= @key_point.name %><br>
 
 <table class="table">
   <tr>
@@ -28,5 +28,5 @@
 
 <% end %>
 
-<% @footer_content << "#{link_to 'Back', polymorphic_path(@scripted), :class => "btn btn-default" }" %>
+<% @footer_content << (link_to 'Back', polymorphic_path(@scripted), class: 'btn btn-default').to_s %>
 

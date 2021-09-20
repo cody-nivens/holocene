@@ -14,16 +14,16 @@
             <tr>
               <td class="text-wrap" style="width: 20%">
               <% if print.nil? %>
-                <%= link_to scene.abc, scene_path(scene) %> <%= (scene.section.nil? ? '*' : '') %><br/>
+                <%= link_to scene.abc, scene_path(scene) %> <%= (scene.section.nil? ? '*' : '') %><br>
               <% else %>
-                <%= scene.abc %> <%= (scene.section.nil? ? '*' : '') %><br/>
+                <%= scene.abc %> <%= (scene.section.nil? ? '*' : '') %><br>
               <% end %>
               <%= scene.key_point.name %></td>
               <td class="text-nowrap"><%= scene.time_to_text %></td>
               <td style="width: 20%"><%= scene.place %></td>
               <td style="width: 20%">
                 <% scene.characters.order(:occupation_class,:last_name, :first_name).each do |character| %>
-                  <%= character.name %><br/>
+                  <%= character.name %><br>
                 <% end %>
               </td>
               <td><%= scene.plain_name %></td>

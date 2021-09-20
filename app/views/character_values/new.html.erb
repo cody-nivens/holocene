@@ -2,5 +2,5 @@
 
 <%= render 'form', character_value: @character_value, character_category: @character_category, character: @character %>
 
-<% @footer_content << "#{link_to 'Back', polymorphic_path([@object, @character, :character_values]), :class => "btn btn-default"}" %>
+<% @footer_content << (link_to 'Back', polymorphic_path([@object, @character, :character_values]), class: 'btn btn-default').to_s %>
 

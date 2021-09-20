@@ -1,5 +1,5 @@
 <% print_name ||= false %>
-<% inline_date ||=false %>
+<% inline_date ||= false %>
 <% if inline_date %>
 <%= scene.time_to_text %>
 <% end %>
@@ -7,7 +7,7 @@
 <% unless inline_date %>
 <%= scene.time_to_text %>
 <% end %>
-: <%= scene.characters.count %> : <%= scene.word_count %> : <%= (scene.artifact.nil? ? "Unknown" : scene.artifact_name) %><%= (scene.place.empty? ? '' : " - #{scene.place.to_plain_text}") %>
+: <%= scene.characters.count %> : <%= scene.word_count %> : <%= (scene.artifact.nil? ? 'Unknown' : scene.artifact_name) %><%= (scene.place.empty? ? '' : " - #{scene.place.to_plain_text}") %>
 <% unless print_name %>
-  <br/> <%= scene.name %>
+  <br> <%= scene.name %>
 <% end %>

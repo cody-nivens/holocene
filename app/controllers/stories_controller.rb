@@ -19,6 +19,7 @@ class StoriesController < ApplicationController
   # GET /stories/1
   # GET /stories/1.json
   def show
+    @object = @story
     @title = @story.name
     respond_to do |format|
       format.html { render :show }

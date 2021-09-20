@@ -6,9 +6,9 @@
     <%= f.hidden_field :character_id, value: character.id %>
 
     <%= f.label :character_category %>
-    <br/>
+    <br>
     <%= select_tag(:character_category_id, options_for_select(CharacterCategory.all.collect {|t| [t.name.humanize, t.id]}, multiple: false, class: 'form-control')) %>
-    <br/>
+    <br>
 
     <%= f.select(:character_attribute_id, character_category.character_attributes.collect {|t| [t.name.humanize, t.id]}, {}, {class: 'form-control'}) %>
     <%= f.text_field :value %>

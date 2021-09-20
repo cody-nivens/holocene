@@ -2,4 +2,4 @@
 
 <%= render 'form', timeline: @timeline, command_label: "Create Timeline"  %>
 
-<% @footer_content << "#{link_to 'Back', timelines_path, :class => "btn btn-default"}" %>
+<% @footer_content << (link_to 'Back', timelines_path, class: 'btn btn-default').to_s %>

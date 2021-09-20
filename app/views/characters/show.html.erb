@@ -6,7 +6,7 @@
 <%= render :partial => 'characters/show', :locals => {:pdf => pdf, :character => @character, object: @object, scripted: @scripted } %>
 
 
-<% @footer_content << "#{link_to 'Edit', edit_polymorphic_path([@object, @character]), :class => "btn btn-default hide-print"}" %>
-<% @footer_content << "#{link_to 'Attributes', polymorphic_path([@character, :character_values]), :class => "btn btn-default hide-print"}" %>
-<% @footer_content << "#{link_to 'Lineage', polymorphic_path([@object, @character, :lineage]), :class => "btn btn-default hide-print"}" %>
-<% @footer_content << "#{link_to 'Back', polymorphic_path([@object, :characters]), :class => "btn btn-default hide-print"}" %>
+<% @footer_content << (link_to 'Edit', edit_polymorphic_path([@object, @character]), class: 'btn btn-default hide-print').to_s %>
+<% @footer_content << (link_to 'Attributes', polymorphic_path([@character, :character_values]), class: 'btn btn-default hide-print').to_s %>
+<% @footer_content << (link_to 'Lineage', polymorphic_path([@object, @character, :lineage]), class: 'btn btn-default hide-print').to_s %>
+<% @footer_content << (link_to 'Back', polymorphic_path([@object, :characters]), class: 'btn btn-default hide-print').to_s %>

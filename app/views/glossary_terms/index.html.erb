@@ -7,8 +7,8 @@
     <tr>
       <th></th>
       <th>Events</th>
-      <th>See<br/>
-      Seealso<br/>
+      <th>See<br>
+      Seealso<br>
       Acronym</th>
       <th></th>
     </tr>
@@ -25,14 +25,14 @@
       <%= HoloceneEvent.tagged_with(glossary_term.name.gsub(/ /,'')).count %>
       </td>
       <td>
-        <%= (glossary_term.see.nil? ? '' : glossary_term.see_name) %><br/>
-        <%= (glossary_term.seealso.nil? ? '' : glossary_term.seealso_name) %><br/>
+        <%= (glossary_term.see.nil? ? '' : glossary_term.see_name) %><br>
+        <%= (glossary_term.seealso.nil? ? '' : glossary_term.seealso_name) %><br>
     <%= (glossary_term.acronym.nil? ? '' : glossary_term.acronym_name) %>
     </td>
 
       <td>
-          <%= link_to (fa_icon "search-plus"), glossary_term_url(glossary_term), :title => 'Show' %><br/>
-          <%= link_to (fa_icon "edit"), edit_glossary_term_path(glossary_term), :title => 'Edit' %><br/>
+          <%= link_to (fa_icon "search-plus"), glossary_term_url(glossary_term), :title => 'Show' %><br>
+          <%= link_to (fa_icon "edit"), edit_glossary_term_path(glossary_term), :title => 'Edit' %><br>
           <%= link_to (fa_icon "trash-o"), glossary_term_url(glossary_term), method: :delete, data: { confirm: 'Are you sure?' }, :title => 'Destroy' %>
     </td>
       </tr>
@@ -40,5 +40,5 @@
   </tbody>
 </table>
 
-<% @footer_content << "#{link_to 'New Glossary Term', new_book_glossary_term_path(@book), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', book_path(@book), :class => "btn btn-default"}" %>
+<% @footer_content << (link_to 'New Glossary Term', new_book_glossary_term_path(@book), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Back', book_path(@book), class: 'btn btn-default').to_s %>

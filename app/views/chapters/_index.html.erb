@@ -1,9 +1,8 @@
-<table class="table ">
+<table class='table'>
     <thead>
         <tr>
             <th>Partition</th>
             <th>Name</th>
-<!--            <th>Sections</th> -->
             <th>Signets</th>
             <th>Word Count</th>
             <th>Events</th>
@@ -11,59 +10,57 @@
             <th>Citations</th>
             <th>Start Year</th>
             <th>End Year</th>
-            <th colspan="3"></th>
+            <th colspan='3'></th>
         </tr>
     </thead>
   <tbody>
     <% chapters.order(:position).each_with_sortable_id do |chapter, sortable_id| %>
-      <tr id="<%= sortable_id %>">
+      <tr id='<%= sortable_id %>'>
     <% if chapter.partition.nil? %>
-      <td><%= link_to (fa_icon "plus"), new_chapter_partition_path(chapter), :title => "Partition", :class => "btn icon-ok icon-white"  %>
+      <td><%= link_to (fa_icon 'plus'), new_chapter_partition_path(chapter), title: 'Partition', class: 'btn icon-ok icon-white' %>
     <% else %>
-      <td><%= link_to (fa_icon "pencil"), chapter_partition_path(chapter,chapter.partition), :title => "Partition", :class => "btn icon-ok icon-white"  %>
+      <td><%= link_to (fa_icon 'pencil'), chapter_partition_path(chapter, chapter.partition), title: 'Partition', class: 'btn icon-ok icon-white' %>
     <% end %>
-        <%== (chapter.partition.nil? ? '' : "#{link_to chapter.partition_name, chapter_partition_path(chapter.scripted,chapter,chapter.partition)}") %></td>
+        <%== (chapter.partition.nil? ? '' : (link_to chapter.partition_name, chapter_partition_path(chapter.scripted, chapter, chapter.partition)).to_s) %></td>
       <td>
-        <strong><font size="4"><%= link_to chapter.name, chapter, :title => "Show"  %></font></strong>
+        <strong><font size='4'><%= link_to chapter.name, chapter, title: 'Show' %></font></strong>
     <% if chapter.aside.nil? %>
-      <%= link_to (fa_icon "plus"), new_chapter_aside_path(chapter), :title => "Aside", :class => "btn icon-ok icon-white" %>
+      <%= link_to (fa_icon 'plus'), new_chapter_aside_path(chapter), title: 'Aside', class: 'btn icon-ok icon-white' %>
     <% else %>
-        <br/>
-        <%= link_to chapter.aside_name, chapter_aside_path(chapter, chapter.aside), :title => chapter.aside_name %>
-        <%= link_to (fa_icon "pencil"), edit_chapter_aside_path(chapter,chapter.aside), :title => "Edit Aside", :class => "btn icon-ok icon-white" %>
+        <br>
+        <%= link_to chapter.aside_name, chapter_aside_path(chapter, chapter.aside), title: chapter.aside_name %>
+        <%= link_to (fa_icon 'pencil'), edit_chapter_aside_path(chapter, chapter.aside), title: 'Edit Aside', class: 'btn icon-ok icon-white' %>
     <% end %>
-        <%= link_to (fa_icon "pencil"), edit_chapter_path(chapter), :title => "Edit", :class => "btn icon-ok icon-white"  %>
-        <%= link_to (fa_icon "sticky-note-o"), chapter_signets_path(:chapter_id => chapter.id), :class => "btn icon-ok icon-white #{(chapter.signets.length > 0 ? "#{Signet.color_class(chapter.signets[0].color)}" : "" )}" %></td>
+        <%= link_to (fa_icon 'pencil'), edit_chapter_path(chapter), title: 'Edit', class: 'btn icon-ok icon-white' %>
+        <%= link_to (fa_icon 'sticky-note-o'), chapter_signets_path(chapter_id: chapter.id), class: "btn icon-ok icon-white #{!chapter.signets.empty? ? Signet.color_class(chapter.signets[0].color) : ''}" %></td>
         </td>
         <td>
-        <td align="right"><%= number_with_delimiter chapter.word_count %>
+        <td align='right'><%= number_with_delimiter chapter.word_count %>
     <% unless chapter.aside.nil? %>
-        <br/><%= chapter.aside.word_count %>
+        <br><%= chapter.aside.word_count %>
     <% end -%>
         </td>
-        <td align="right"><%= chapter.total_events %></td>
-        <td align="right"><%= number_with_delimiter chapter.footnotes.count %></td>
-        <td align="right"><%= number_with_delimiter chapter.citations.count %></td>
-        <td align="right"><%= HoloceneEvent.convert_ad(chapter.sections.map{|x| x.holocene_events.minimum('start_year')}.compact.min) %></td>
-        <td align="right"><%= HoloceneEvent.convert_ad(chapter.sections.map{|x| x.holocene_events.maximum('start_year')}.compact.max) %></td>
-        <td><%#= link_to (fa_icon "list-alt"), book_chapter_sections_path(chapter.scripted, chapter), :title => "Sections"  %></td>
-        <td><%= link_to (fa_icon "level-down"), chapter_demote_path(chapter), :title => "Demote"  %></td>
-        <td><%= link_to (fa_icon "map-o"), geo_map_chapter_path(chapter), :title => "Map"  %></td>
-        <td><%= link_to (fa_icon "trash-o"), chapter_path(chapter), method: :delete, data: { confirm: 'Are you sure?' }, :title => "Destroy"  %></td>
+        <td align='right'><%= chapter.total_events %></td>
+        <td align='right'><%= number_with_delimiter chapter.footnotes.count %></td>
+        <td align='right'><%= number_with_delimiter chapter.citations.count %></td>
+        <td align='right'><%= HoloceneEvent.convert_ad(chapter.sections.map { |x| x.holocene_events.minimum('start_year') }.compact.min) %></td>
+        <td align='right'><%= HoloceneEvent.convert_ad(chapter.sections.map { |x| x.holocene_events.maximum('start_year') }.compact.max) %></td>
+        <td><%= link_to (fa_icon 'level-down'), chapter_demote_path(chapter), title: 'Demote' %></td>
+        <td><%= link_to (fa_icon 'map-o'), geo_map_chapter_path(chapter), title: 'Map' %></td>
+        <td><%= link_to (fa_icon 'trash-o'), chapter_path(chapter), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
       </tr>
         <% chapter.sections.order(:position).each do |section| -%>
           <tr><td></td>
-            <td><strong><%= (section.embed? ? "Brief Note: " : '') %></strong><%= section.name %></td>
-          <td align="right"></td>
-          <td align="right"><%= number_with_delimiter section.word_count %></td>
-          <td align="right"><%= section.holocene_events.count %></td>
-          <td align="right"><%= section.footnotes.count %></td>
-          <td align="right"></td>
-          <td align="right"><%= HoloceneEvent.convert_ad(section.holocene_events.minimum('start_year')) %></td>
-          <td align="right"><%= HoloceneEvent.convert_ad(section.holocene_events.maximum('start_year')) %></td>
-        <td><%= link_to (fa_icon "level-up"), chapter_section_promote_path(chapter, section), :title => "Promote"  %></td>
+            <td><strong><%= (section.embed? ? 'Brief Note: ' : '') %></strong><%= section.name %></td>
+          <td align='right'></td>
+          <td align='right'><%= number_with_delimiter section.word_count %></td>
+          <td align='right'><%= section.holocene_events.count %></td>
+          <td align='right'><%= section.footnotes.count %></td>
+          <td align='right'><%= HoloceneEvent.convert_ad(section.holocene_events.minimum('start_year')) %></td>
+          <td align='right'><%= HoloceneEvent.convert_ad(section.holocene_events.maximum('start_year')) %></td>
+        <td><%= link_to (fa_icon 'level-up'), chapter_section_promote_path(chapter, section), title: 'Promote' %></td>
 
-        <td colspan="6"></td>
+        <td colspan='6'></td>
           </tr>
         <% end -%>
     <% end %>

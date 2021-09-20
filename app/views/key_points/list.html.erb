@@ -19,6 +19,6 @@
 
 <% end %>
 
-<% @footer_content << "#{link_to 'New Scene', new_key_point_scene_path(@key_point, selector: @selector.to_i), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', polymorphic_path([@scripted, :key_points]), :class => "btn btn-default" }" %>
+<% @footer_content << (link_to 'New Scene', new_key_point_scene_path(@key_point, selector: @selector.to_i), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Back', polymorphic_path([@scripted, :key_points]), class: 'btn btn-default').to_s %>
 

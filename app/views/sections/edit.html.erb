@@ -1,6 +1,6 @@
 <h1>Editing Section</h1>
 
-<%= render 'form', scripted: @scripted, sectioned: @sectioned, section: @section, command_label: "Update Section"  %>
+<%= render 'form', scripted: @scripted, sectioned: @sectioned, section: @section, command_label: 'Update Section' %>
 
-<% @footer_content << "#{link_to 'Show', section_path(@section), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', polymorphic_path(@sectioned), :class => "btn btn-default"}" %>
+<% @footer_content << (link_to 'Show', section_path(@section), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Back', polymorphic_path(@sectioned), class: 'btn btn-default').to_s %>

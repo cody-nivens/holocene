@@ -6,7 +6,7 @@
 
 <%= render 'authors/index.html', authors: book.authors %>
 
-<%== epub_friendly(book.body) %><br/>
+<%== epub_friendly(book.body) %><br>
 
 <% book.key_points.order(:position).each do |key_point| -%>
     <%= render 'key_points/show.html', scripted: key_point.scripted, book: book, key_point: key_point, epub: false %>
@@ -23,7 +23,7 @@
       <% next if scene.section.nil? %>
       <strong>
         <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil} %>
-      </strong><br/><br/>
+      </strong><br><br/>
     <% end %>
     <% end %>
     <% end %>
@@ -37,8 +37,8 @@
       <% next if scene.section.nil? %>
       <strong>
         <%= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil} %>
-      </strong><br/><br/>
-      <%== epub_friendly(scene.section.body) %><br/>
+      </strong><br><br/>
+      <%== epub_friendly(scene.section.body) %><br>
     <% end %>
     <% end %>
     <% end %>

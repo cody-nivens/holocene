@@ -2,7 +2,7 @@
 <h1>Character Attributes</h1>
 
 <%= render :partial => "character_attributes/index", locals: { character_category: @character_category } %>
-<br/>
+<br>
 
-<% @footer_content << "#{link_to 'New Character Attribute', new_character_category_character_attribute_path(@character_category), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', character_categories_path(@character_category), :class => "btn btn-default"}" %>
+<% @footer_content << (link_to 'New Character Attribute', new_character_category_character_attribute_path(@character_category), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Back', character_categories_path(@character_category), class: 'btn btn-default').to_s %>

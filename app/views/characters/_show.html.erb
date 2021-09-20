@@ -2,9 +2,9 @@
 
 <h3><%= character.name %></h3>
 <p>
-  <%= character.first_name %> <%= character.middle_name %> <%= character.last_name %> <%= character.suffix %><br/>
+  <%= character.first_name %> <%= character.middle_name %> <%= character.last_name %> <%= character.suffix %><br>
   <% unless character.birth_year.nil? %>
-    b. <%= character.birth_year %> - d. <%= character.death_year %>, Age: <%= character.death_year - character.birth_year %><br/>
+    b. <%= character.birth_year %> - d. <%= character.death_year %>, Age: <%= character.death_year - character.birth_year %><br>
   <% end %>
   <%= Character.sex_to_text(character.sex) %> <%= character.occupation_class %> - <%= character.grouping %>
 </p>

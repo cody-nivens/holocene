@@ -98,12 +98,12 @@
 
 <% end %>
 
-<% @footer_content << "#{link_to 'New Key Point', new_polymorphic_path([@story, KeyPoint]), :class => "btn btn-default hide-print" }" %>
-<% @footer_content << "#{link_to 'Characters', polymorphic_path([@story, :characters ]), :class => "btn btn-default hide-print" }" %>
-<% @footer_content << "#{link_to 'Resync Scenes', story_resync_scenes_path(:id => @story.id), :class => "btn btn-default hide-print" }" %>
-<% @footer_content << "#{link_to 'Key Points', polymorphic_path([@story, :key_points]), :class => "btn btn-default" }" %>
-<% @footer_content << "#{link_to 'Scenes', polymorphic_path([@story, :scenes]), :class => "btn btn-default hide-print" }" %>
-<% @footer_content << "#{link_to 'Stats', polymorphic_path([@story, :stats]), :class => "btn btn-default hide-print" }" %>
-<% @footer_content << "#{link_to 'Timeline', polymorphic_path([@story, :timeline]), :class => "btn btn-default hide-print"}" %>
-<% @footer_content << "#{link_to 'Tours', polymorphic_path([@story, :tours]), :class => "btn btn-default hide-print"}" %>
-<% @footer_content << "#{ link_to 'Back', book_path(@book), :class => "btn btn-default hide-print" }" %>
+<% @footer_content << (link_to 'New Key Point', new_polymorphic_path([@story, KeyPoint]), class: 'btn btn-default hide-print').to_s %>
+<% @footer_content << (link_to 'Characters', polymorphic_path([@story, :characters ]), class: 'btn btn-default hide-print').to_s %>
+<% @footer_content << (link_to 'Resync Scenes', story_resync_scenes_path(:id => @story.id), class: 'btn btn-default hide-print').to_s %>
+<% @footer_content << (link_to 'Key Points', polymorphic_path([@story, :key_points]), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Scenes', polymorphic_path([@story, :scenes]), class: 'btn btn-default hide-print').to_s %>
+<% @footer_content << (link_to 'Stats', polymorphic_path([@story, :stats]), class: 'btn btn-default hide-print').to_s %>
+<% @footer_content << (link_to 'Timeline', polymorphic_path([@story, :timeline]), class: 'btn btn-default hide-print').to_s %>
+<% @footer_content << (link_to 'Tours', polymorphic_path([@story, :tours]), class: 'btn btn-default hide-print').to_s %>
+<% @footer_content << (link_to 'Back', book_path(@book), class: 'btn btn-default hide-print').to_s %>

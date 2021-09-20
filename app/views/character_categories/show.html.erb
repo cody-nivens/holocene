@@ -7,6 +7,6 @@
 
 <%= render :partial => "character_attributes/index", locals: { character_category: @character_category } %>
 
-<% @footer_content << "#{link_to 'Edit', edit_character_category_path(@character_category), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'New Character Attribute', new_character_category_character_attribute_path(:character_category_id => @character_category.id), :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', character_categories_path, :class => "btn btn-default"}" %>
+<% @footer_content << (link_to 'Edit', edit_character_category_path(@character_category), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'New Character Attribute', new_character_category_character_attribute_path(:character_category_id => @character_category.id), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Back', character_categories_path, class: 'btn btn-default').to_s %>

@@ -2,6 +2,6 @@
 
 <%= render 'form', scripted: @scripted, sectioned: @sectioned, section: @section, command_label: "Create Section" %>
 
-<% @footer_content << "#{link_to 'Back', polymorphic_path((@sectioned.class.name == "Chapter" ? @section.sectioned : @sectioned) ), :class => "btn btn-default"}" %>
+<% @footer_content << (link_to 'Back', polymorphic_path((@sectioned.class.name == "Chapter" ? @section.sectioned : @sectioned) ), class: 'btn btn-default').to_s %>
 
 

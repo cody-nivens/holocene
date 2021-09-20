@@ -2,5 +2,5 @@
 
 <%= render 'form', key_word: @key_word, book: @book %>
 
-<% @footer_content << "#{link_to 'Show', @key_word, :class => "btn btn-default"}" %>
-<% @footer_content << "#{link_to 'Back', book_key_words_path(:book_id => @book.id), :class => "btn btn-default"}" %>
+<% @footer_content << (link_to 'Show', @key_word, class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Back', book_key_words_path(:book_id => @book.id), class: 'btn btn-default').to_s %>

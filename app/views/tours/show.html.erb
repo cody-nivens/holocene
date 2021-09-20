@@ -19,7 +19,7 @@
 <%== pagy_nav(@pagy) %>
 
 
-<% @footer_content << "#{ link_to 'Edit', edit_tour_path(@tour), :class => "btn btn-default hide-print" }" %>
-<% @footer_content << "#{ link_to 'Itinerary', tour_itineraries_path(@tour), :class => "btn btn-default hide-print" }" %>
-<% @footer_content << "#{link_to 'Map', geo_map_tour_path(@tour), :class => "btn btn-default"}" %>`
-<% @footer_content << "#{ link_to 'Back', story_tours_path(@story), :class => "btn btn-default hide-print" }" %>
+<% @footer_content << (link_to 'Edit', edit_tour_path(@tour), class: 'btn btn-default hide-print').to_s %>
+<% @footer_content << (link_to 'Itinerary', tour_itineraries_path(@tour), class: 'btn btn-default hide-print').to_s %>
+<% @footer_content << (link_to 'Map', geo_map_tour_path(@tour), class: 'btn btn-default').to_s %>`
+<% @footer_content << (link_to 'Back', story_tours_path(@story), class: 'btn btn-default hide-print').to_s %>
