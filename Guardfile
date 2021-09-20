@@ -63,6 +63,15 @@ def system_tests(resource = :all)
   end
 end
 
+# Returns the integration tests corresponding to the given resource.
+def view_tests(resource = :all)
+  if resource == :all
+    Dir["test/views/*/*_test.rb"]
+  else
+    Dir["test/views/#{resource}/*_test.rb"]
+  end
+end
+
 # Returns the controller tests corresponding to the given resource.
 def controller_test(resource)
   "test/controllers/#{resource}_controller_test.rb"
@@ -70,5 +79,5 @@ end
 
 # Returns all tests for the given resource.
 def resource_tests(resource)
-  integration_tests(resource) << controller_test(resource) << system_tests(resource)
+  integration_tests(resource) << controller_test(resource)  << system_tests(resource) << view_tests(resource)
 end
