@@ -8,8 +8,8 @@
   <%= f.text_field :copyright %>
 
   <%= f.hidden_field :user_id %>
-  <%= f.rich_text_area :body, class: "form-control customized-min-height" %>
-  <%= f.rich_text_area :publisher, class: "form-control customized-min-height" %>
+  <%= f.rich_text_area :body, class: 'form-control customized-min-height' %>
+  <%= f.rich_text_area :publisher, class: 'form-control customized-min-height' %>
 
-  <%= f.primary "#{command_label}" %>
+  <%= f.primary command_label.to_s %>
 <% end %>

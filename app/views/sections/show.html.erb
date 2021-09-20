@@ -3,18 +3,18 @@
 
 <h2>
   <%== breadcrumb(nil, nil, nil, @section.sectioned, @section) %>
-  <%= link_to (fa_icon "pencil"), edit_polymorphic_path([@sectioned, @section]), :title => 'Edit' %>
+  <%= link_to (fa_icon 'pencil'), edit_polymorphic_path([@sectioned, @section]), title: 'Edit' %>
 </h2>
 <table class="table">
   <tr>
-    <th>Word Count:</th><td><%= number_with_delimiter(@section.word_count, :delimiter => ',') %></td>
+    <th>Word Count:</th><td><%= number_with_delimiter(@section.word_count, delimiter: ',') %></td>
   </tr>
 </table>
 
 <% @slugs = [] -%>
 <% @footnotes = Footnote.process_body(@section, @slugs) -%>
 <% values = @section.set_values %>
-<%== highlight(@footnotes[0],Regexp.new(KeyWord.where(book_id: values[0].id).collect{|x| x.key_word}.join("|"))) %>
+<%== highlight(@footnotes[0], Regexp.new(KeyWord.where(book_id: values[0].id).collect(&:key_word).join('|'))) %>
 <% @slugs += @footnotes[1] -%>
 
 <% unless @section.holocene_events.length == 0 || @section.sectioned.show_events? -%>
@@ -35,12 +35,12 @@
 <% next_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position + 1) -%>
 
 <% @footer_content << (link_to 'Edit', edit_section_path(@section), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to '<', section_path(priv_section.first), class: 'btn icon-ok icon-white').to_s unless priv_section.length == 0 %>
-<% @footer_content << (link_to '>', section_path(next_section.first), class: 'btn icon-ok icon-white').to_s unless next_section.length == 0  %>
+<% @footer_content << (link_to '<', section_path(priv_section.first), class: 'btn icon-ok icon-white').to_s unless priv_section.length.zero? %>
+<% @footer_content << (link_to '>', section_path(next_section.first), class: 'btn icon-ok icon-white').to_s unless next_section.length.zero? %>
 <% if @section.sectioned_type == "Chapter" %>
-  <% @footer_content << (link_to "Timeline", section_timeline_path(:section_id => @section.id), class: 'btn icon-ok icon-white').to_s %>
-  <% @footer_content << (link_to "Display",  section_display_path(:section_id => @section.id), class: 'btn icon-ok icon-white').to_s %>
-  <% @footer_content << (link_to "Map",  geo_map_section_path(@section), class: 'btn icon-ok icon-white').to_s %>
-  <% @footer_content << (link_to 'Footnotes',  section_footnotes_path(@section), class: 'btn btn-default').to_s %>
+  <% @footer_content << (link_to 'Timeline', section_timeline_path(section_id: @section.id), class: 'btn icon-ok icon-white').to_s %>
+  <% @footer_content << (link_to 'Display', section_display_path(section_id: @section.id), class: 'btn icon-ok icon-white').to_s %>
+  <% @footer_content << (link_to 'Map', geo_map_section_path(@section), class: 'btn icon-ok icon-white').to_s %>
+  <% @footer_content << (link_to 'Footnotes', section_footnotes_path(@section), class: 'btn btn-default').to_s %>
 <% end -%>
 <% @footer_content << (link_to 'Back', polymorphic_path(@sectioned), class: 'btn btn-default').to_s %>

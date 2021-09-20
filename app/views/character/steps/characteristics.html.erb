@@ -1,5 +1,5 @@
 <%#= form_for @character, method: :put, url: wizard_path do |f| %>
-<%= bootstrap_form_for([@object, @character], url: wizard_path, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-10") do |f| %>
+<%= bootstrap_form_for([@object, @character], url: wizard_path, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10') do |f| %>
 
   <% if f.object.errors.any? %>
     <div class="error_messages">
@@ -24,7 +24,7 @@
       <%= f.text_field :ethnicity %>
       <%= f.text_field :birth_year %>
       <%= f.text_field :death_year %>
-      <%= f.select :sex, [["Male",0],["Female",1],["Non-Person",2]],:prompt => "Select Sex", :multiple => false, include_blank: false %>
+      <%= f.select :sex, [['Male', 0], ['Female', 1], ['Non-Person', 2]], prompt: 'Select Sex', multiple: false, include_blank: false %>
     </div>
 
     <div>
@@ -45,4 +45,3 @@
         $('#character_death_year').val(parseInt(birth_year) + parseInt(death_age));
     });
 </script>
-

@@ -1,4 +1,4 @@
-<%= bootstrap_form_for biblioentry, :url => {:controller => :biblioentries, :action => (biblioentry.id.nil? ? :create : :update)} do |f| %>
+<%= bootstrap_form_for biblioentry, url: { controller: :biblioentries, action: (biblioentry.id.nil? ? :create : :update) } do |f| %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
     <%= f.hidden_field :user_id %>
@@ -8,7 +8,7 @@
     <%= f.text_field :copyright_year %>
     <%= f.text_field :copyright_holder %>
     <%= f.text_field :publisher %>
-    <%= f.collection_check_boxes :author_ids, Author.where(user_id: current_user.id).order(:last_name), :id, :name_with_initial, {include_blank: ''}  %>
+    <%= f.collection_check_boxes :author_ids, Author.where(user_id: current_user.id).order(:last_name), :id, :name_with_initial, { include_blank: '' } %>
 
-    <%= f.primary "#{command_label}" %>
+    <%= f.primary command_label.to_s %>
 <% end %>

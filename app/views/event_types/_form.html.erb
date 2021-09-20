@@ -1,7 +1,7 @@
 <%= bootstrap_form_for(event_type, local: true) do |f| %>
   <% if event_type.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(event_type.errors.count, "error") %> prohibited this event_type from being saved:</h2>
+      <h2><%= pluralize(event_type.errors.count, 'error') %> prohibited this event_type from being saved:</h2>
 
       <ul>
       <% event_type.errors.full_messages.each do |message| %>
@@ -15,7 +15,7 @@
     <%= f.label :name %>
     <%= f.text_field :name %>
 
-    <%= f.rich_text_area :body, cols: "80", rows: "15", hide_label: true %>
+    <%= f.rich_text_area :body, cols: '80', rows: '15', hide_label: true %>
 
-  <%= f.primary "#{command_label}" %>
+  <%= f.primary command_label.to_s %>
 <% end %>

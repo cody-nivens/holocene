@@ -1,7 +1,7 @@
-<%= bootstrap_form_for(holocene_event, layout: :horizontal, label_col: "col-sm-2", control_col: "col-sm-8") do |f| %>
+<%= bootstrap_form_for(holocene_event, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-8') do |f| %>
   <% if holocene_event.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(holocene_event.errors.count, "error") %> prohibited this holocene_event from being saved:</h2>
+      <h2><%= pluralize(holocene_event.errors.count, 'error') %> prohibited this holocene_event from being saved:</h2>
 
       <ul>
       <% holocene_event.errors.full_messages.each do |message| %>
@@ -28,12 +28,12 @@
     <%= f.text_field :url %>
     <%= f.file_field :image, multiple: false, direct_upload: true %>
     <% unless holocene_event.id.nil? || !holocene_event.image.attached? %>
-    <%= image_tag holocene_event.image.variant(resize: "100x100>") %>
+    <%= image_tag holocene_event.image.variant(resize: '100x100>') %>
     <% end %>
 
-      <%= f.rich_text_area :body, label: false, cols: "80", rows: "15", hide_label: true %>
+      <%= f.rich_text_area :body, label: false, cols: '80', rows: '15', hide_label: true %>
 
     <%= f.text_field :tag_list %>
 
-    <%= f.primary "#{command_label}" %>
+    <%= f.primary command_label.to_s %>
 <% end %>

@@ -1,19 +1,23 @@
 <p id="notice"><%= notice %></p>
 <% @title = @key_point.name %>
 <h2>
-  <%== breadcrumb((@scripted.class.name == "Book" ? @scripted : (@scripted.class.name == "Chapter" ? @scripted.scripted : @scripted.book)), @scripted, @key_point) %>
-  <%== link_to (fa_icon "pencil"), edit_key_point_path(@key_point), :title => 'Edit' %>
-  <%== link_to (fa_icon "trash-o"), key_point_path(@key_point), method: :delete, data: { confirm: 'Are you sure?' }, :title => 'Destroy' %>
+  <%== breadcrumb((if @scripted.instance_of?(Book)
+                     @scripted
+                   else
+                     (@scripted.instance_of?(Chapter) ? @scripted.scripted : @scripted.book)
+                   end), @scripted, @key_point) %>
+  <%== link_to (fa_icon 'pencil'), edit_key_point_path(@key_point), title: 'Edit' %>
+  <%== link_to (fa_icon 'trash-o'), key_point_path(@key_point), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
 </h2>
 
 <table class="table">
   <tr>
     <th>Print name:</th>
-    <td><%= (@key_point.print_name? ? fa_icon("check") : '') %></td>
+    <td><%= (@key_point.print_name? ? fa_icon('check') : '') %></td>
     <th>Print points:</th>
-    <td><%= (@key_point.print_points? ? fa_icon("check") : '') %></td>
+    <td><%= (@key_point.print_points? ? fa_icon('check') : '') %></td>
     <th>Word Count:</th>
-    <td><%= number_with_delimiter(@key_point.word_count, :delimiter => ',') %></td>
+    <td><%= number_with_delimiter(@key_point.word_count, delimiter: ',') %></td>
   </tr>
 </table>
 
@@ -30,7 +34,7 @@
     <% c.tab KeyPoint.selector_title(selector) do %>
       <span>
         <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: selector) %> <%= @key_point.selector_value(selector) %></h3>
-        <%= render partial: 'key_points/scenes', :locals => {selector: selector, key_point: @key_point, story: @scripted, scripted: @scripted} %>
+        <%= render partial: 'key_points/scenes', locals: { selector: selector, key_point: @key_point, story: @scripted, scripted: @scripted } %>
       </span>
     <% end %>
   <% end %>

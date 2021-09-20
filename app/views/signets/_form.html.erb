@@ -5,7 +5,7 @@
     <% colors = [] %>
     <% indx = 0 %>
     <% while indx < Signet.num_of_colors %>
-      <% colors << [ Signet.color_name(indx), indx ] %>
+      <% colors << [Signet.color_name(indx), indx] %>
       <% indx += 1 %>
     <% end %>
     <%= f.select :color, options_for_select(colors) %>

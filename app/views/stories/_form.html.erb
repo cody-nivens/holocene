@@ -1,4 +1,4 @@
-<%= bootstrap_form_for [ story ] do |f| %>
+<%= bootstrap_form_for [story] do |f| %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
@@ -7,11 +7,11 @@
 
     <%= f.text_field :title %>
     <%= f.text_field :scene_character %>
-    <%= f.label "Print Summary?" %>
+    <%= f.label 'Print Summary?' %>
     <%= f.check_box :print_summary %>
-    <%= f.label "Publish?" %>
-    <%= f.check_box :publish  %>
-    <%= f.label "Stand Alone?" %>
+    <%= f.label 'Publish?' %>
+    <%= f.check_box :publish %>
+    <%= f.label 'Stand Alone?' %>
     <%= f.check_box :stand_alone %>
 
     <%= f.text_field :summary %>

@@ -1,8 +1,8 @@
 
-<%= bootstrap_form_for itinerary, :url => {:controller => :itineraries, :action => (itinerary.id.nil? ? :create : :update)} do |f| %>
+<%= bootstrap_form_for itinerary, url: { controller: :itineraries, action: (itinerary.id.nil? ? :create : :update) } do |f| %>
   <% if itinerary.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(itinerary.errors.count, "error") %> prohibited this scene from being saved:</h2>
+      <h2><%= pluralize(itinerary.errors.count, 'error') %> prohibited this scene from being saved:</h2>
 
       <ul>
         <% itinerary.errors.full_messages.each do |message| %>
@@ -20,7 +20,7 @@
   </div>
 
   <div class="field">
-    <%= f.select :city_id, cities.order(:name).collect { |p| [ p.name, p.id ] }, { include_blank: true } %>
+    <%= f.select :city_id, cities.order(:name).collect { |p| [p.name, p.id] }, { include_blank: true } %>
   </div>
 
   <div class="field">

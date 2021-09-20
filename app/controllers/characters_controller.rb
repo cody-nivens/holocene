@@ -5,10 +5,6 @@ class CharactersController < ApplicationController
   # GET /characters
   # GET /characters.json
   def index
-    # @grid = CharactersGrid.new(grid_params) do |scope|
-    #   scope.page(params[:page])
-    # end
-
     @category = grid_params[:category]
     @attribute = grid_params[:attribute]
     @value = grid_params[:value]

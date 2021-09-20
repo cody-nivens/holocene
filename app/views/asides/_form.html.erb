@@ -1,12 +1,11 @@
-<%= bootstrap_form_for [book,chapter,aside] do |f| %>
+<%= bootstrap_form_for [book, chapter, aside] do |f| %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
     <%= f.text_field :name %>
     <%= f.hidden_field :chapter_id %>
 
-    <%= f.rich_text_area :body, cols: "80", rows: "15", hide_label: true %>
+    <%= f.rich_text_area :body, cols: '80', rows: '15', hide_label: true %>
 
     <%= f.submit nil, class: 'btn' %>
-
 
 <% end %>

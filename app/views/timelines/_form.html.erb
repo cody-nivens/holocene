@@ -1,7 +1,7 @@
 <%= bootstrap_form_for(timeline, local: true) do |f| %>
   <% if timeline.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(timeline.errors.count, "error") %> prohibited this timeline from being saved:</h2>
+      <h2><%= pluralize(timeline.errors.count, 'error') %> prohibited this timeline from being saved:</h2>
 
       <ul>
       <% timeline.errors.full_messages.each do |message| %>
@@ -16,5 +16,5 @@
 
     <%= f.text_area :description %>
 
-    <%= f.primary "#{command_label}" %>
+    <%= f.primary command_label.to_s %>
 <% end %>

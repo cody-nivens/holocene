@@ -4,7 +4,7 @@
 </p>
 
 <p>
-  <strong>Start year:</strong> <%== convert_ad(@holocene_event.start_year,@holocene_event.start_year_uncert) %>
+  <strong>Start year:</strong> <%== convert_ad(@holocene_event.start_year, @holocene_event.start_year_uncert) %>
   <strong> - </strong> <%= convert_ad(@holocene_event.end_year) %>
 </p>
 
@@ -21,7 +21,7 @@
   <strong>Image:</strong>
 
   <% if @holocene_event.image.attached? %>
-      <%= image_tag(url_for(@holocene_event.image), :alt => @holocene_event.image.filename.to_s) %>
+      <%= image_tag(url_for(@holocene_event.image), alt: @holocene_event.image.filename.to_s) %>
   <% end %>
 </p>
 <% unless @holocene_event.lat.nil? -%>
@@ -43,9 +43,9 @@
 <% @slugs += @footnotes[1] -%>
 <% end -%>
 
-<p>Tags: <%==(@holocene_event.tag_list.map { |t| link_to t, tag_path(t) }.join(', ')) %></p>
+<p>Tags: <%== @holocene_event.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></p>
 
 <% @footer_content << (link_to 'Edit', edit_holocene_event_path(@holocene_event), class: 'btn btn-default').to_s %>
 <% @footer_content << (link_to 'Map', geo_map_holocene_event_path(@holocene_event), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Footnotes',  holocene_event_footnotes_path(@holocene_event), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Footnotes', holocene_event_footnotes_path(@holocene_event), class: 'btn btn-default').to_s %>
 <% @footer_content << (link_to 'Back', :back, class: 'btn btn-default').to_s %>
