@@ -19,7 +19,9 @@
 <% @footer_content << (link_to 'Back', polymorphic_path(@sectioned), class: 'btn btn-default').to_s %>
 
 <script>
-$(function() {
-  $('.sortable').railsSortable();
+$(document).ready(function() {
+  $(function() {
+    $('.sortable').railsSortable();
+  });
 });
 </script>

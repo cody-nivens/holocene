@@ -90,7 +90,7 @@ class Character < ApplicationRecord
   end
 
   def background?
-    !background.nil?
+    !background.blank?
   end
 
   def use_honorific_only?
@@ -271,7 +271,7 @@ class Character < ApplicationRecord
     sexuality = case rand(100)
                 when 0..64
                   'Straight'
-                when 65..95
+                when 65..94
                   'Bisexual'
                 else
                   'Gay'

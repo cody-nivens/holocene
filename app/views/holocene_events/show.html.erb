@@ -48,4 +48,4 @@
 <% @footer_content << (link_to 'Edit', edit_holocene_event_path(@holocene_event), class: 'btn btn-default').to_s %>
 <% @footer_content << (link_to 'Map', geo_map_holocene_event_path(@holocene_event), class: 'btn btn-default').to_s %>
 <% @footer_content << (link_to 'Footnotes', holocene_event_footnotes_path(@holocene_event), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', :back, class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Back', holocene_events_path, class: 'btn btn-default').to_s %>

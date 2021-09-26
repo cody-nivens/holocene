@@ -4,7 +4,7 @@
   <% else %>
     <td></td><td>
   <% end %>
-    <%= link_to artifact.name, artifact_url(artifact) %></td>
+    <%= link_to artifact.name, artifact_path(artifact) %></td>
   <td><%= artifact.character_name %></td>
   <td><%= artifact.artifact_type_name %></td>
   <td><%= link_to (fa_icon 'edit'), edit_artifact_path(artifact) %>

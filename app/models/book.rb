@@ -40,6 +40,16 @@ class Book < ApplicationRecord
     fiction
   end
 
+  def resync_stories
+    index = 48
+    stories.order(:position).each do |story|
+      story.update({ scene_character: index.chr })
+      index += 1
+      index = 65 if index == 58
+      story.resync_key_points
+    end
+  end
+
   def word_count(published = false)
     count = (body.nil? ? 0 : WordsCounted.count(body.to_plain_text).token_count)
     if is_fiction?

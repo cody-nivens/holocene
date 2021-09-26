@@ -43,13 +43,7 @@ class BooksController < ApplicationController
   #      }
 
   def resync_stories
-    index = 48
-    @book.stories.order(:position).each do |story|
-      story.update({ scene_character: index.chr })
-      index += 1
-      index = 65 if index == 58
-      story.resync_key_points
-    end
+    @book.resync_stories
 
     @book.stories.each do |story|
       story.characters.each do |character|

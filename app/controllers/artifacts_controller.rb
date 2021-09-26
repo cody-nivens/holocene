@@ -41,7 +41,7 @@ class ArtifactsController < ApplicationController
         format.html { redirect_to artifact_path(@artifact), notice: 'Artifact was successfully created.' }
         format.json { render :show, status: :created, location: @artifact }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new, book_id: @book.id, status: :unprocessable_entity }
         format.json { render json: @artifact.errors, status: :unprocessable_entity }
       end
     end

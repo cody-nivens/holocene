@@ -1,6 +1,6 @@
 class AsidesController < ApplicationController
   before_action :set_aside, only: %i[show edit update destroy]
-  before_action :set_chapter, only: %i[index new create show edit update destroy]
+  before_action :set_chapter, only: %i[index new ]
 
   # GET /asides
   # GET /asides.json
@@ -10,7 +10,9 @@ class AsidesController < ApplicationController
 
   # GET /asides/1
   # GET /asides/1.json
-  def show; end
+  def show
+    @chapter = @aside.chapter
+  end
 
   # GET /asides/new
   def new
@@ -20,13 +22,15 @@ class AsidesController < ApplicationController
   end
 
   # GET /asides/1/edit
-  def edit; end
+  def edit
+    @chapter = @aside.chapter
+  end
 
   # POST /asides
   # POST /asides.json
   def create
     @aside = Aside.new(aside_params)
-    @aside.chapter = @chapter
+    @chapter = @aside.chapter
     @scripted = @chapter.scripted
 
     respond_to do |format|
@@ -43,6 +47,7 @@ class AsidesController < ApplicationController
   # PATCH/PUT /asides/1
   # PATCH/PUT /asides/1.json
   def update
+    @chapter = @aside.chapter
     @scripted = @chapter.scripted
     respond_to do |format|
       if @aside.update(aside_params)
@@ -58,6 +63,7 @@ class AsidesController < ApplicationController
   # DELETE /asides/1
   # DELETE /asides/1.json
   def destroy
+    @chapter = @aside.chapter
     @scripted = @chapter.scripted
     @aside.destroy
     respond_to do |format|

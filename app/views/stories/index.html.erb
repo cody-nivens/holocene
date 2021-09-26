@@ -10,7 +10,9 @@
 <% @footer_content << (link_to 'Back', book_path(@book), class: 'btn btn-default').to_s %>
 
 <script>
-$(function() {
-  $('.sortable').railsSortable();
+$(document).ready(function() {
+  $(function() {
+    $('.sortable').railsSortable();
+  });
 });
 </script>

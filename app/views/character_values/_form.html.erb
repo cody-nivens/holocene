@@ -21,7 +21,8 @@
 
 <script>
 //$("#character_value_character_attribute_id").prop("disabled", true); // second dropdown is disable while first dropdown is empty
-$("#character_category_id").change(function(){
+$(document).ready(function() {
+  $("#character_category_id").change(function(){
     var character_category = $(this).val();
     if(character_category == ''){
       $("#character_value_character_attribute_id").prop("disabled", true);
@@ -47,5 +48,6 @@ $("#character_category_id").change(function(){
           }
       }
     });
+  });
 });
 </script>

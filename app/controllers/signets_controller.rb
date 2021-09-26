@@ -1,6 +1,6 @@
 class SignetsController < ApplicationController
   before_action :set_signet, only: %i[show edit update destroy]
-  before_action :set_sigged, only: %i[index new create show edit update]
+  before_action :set_sigged, only: %i[index new]
 
   # GET /signets
   # GET /signets.json
@@ -10,7 +10,9 @@ class SignetsController < ApplicationController
 
   # GET /signets/1
   # GET /signets/1.json
-  def show; end
+  def show
+    @sigged = @signet.sigged
+  end
 
   # GET /signets/new
   def new
@@ -19,12 +21,15 @@ class SignetsController < ApplicationController
   end
 
   # GET /signets/1/edit
-  def edit; end
+  def edit
+    @sigged = @signet.sigged
+  end
 
   # POST /signets
   # POST /signets.json
   def create
     @signet = Signet.new(signet_params)
+    @sigged = @signet.sigged
 
     respond_to do |format|
       if @signet.save
@@ -40,6 +45,7 @@ class SignetsController < ApplicationController
   # PATCH/PUT /signets/1
   # PATCH/PUT /signets/1.json
   def update
+    @sigged = @signet.sigged
     respond_to do |format|
       if @signet.update(signet_params)
         format.html { redirect_to polymorphic_path([@sigged, @signet]), notice: 'Signet was successfully updated.' }

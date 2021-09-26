@@ -39,7 +39,7 @@ class Story < ApplicationRecord
   def resync_key_points
     index = 0
     points = key_points.order(:position).collect do |x|
-      x.scenes.order(selector: :asc, date_string: :asc, abc: :asc).pluck(:id, :abc, :selector)
+      x.scenes.order(date_string: :asc, selector: :asc, position: :asc).pluck(:id, :abc, :selector)
     end
     kps = points.collect do |kp|
       kp.collect do |y|

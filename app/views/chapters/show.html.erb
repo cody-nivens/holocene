@@ -103,8 +103,8 @@
   <% @footer_content << (link_to (fa_icon 'list'), chapter_display_path(@chapter), title: 'Events', class: 'btn icon-ok icon-white').to_s %>
   <% @footer_content << (link_to (fa_icon 'calendar-o'), chapter_timeline_path(@chapter), title: 'Timeline', class: 'btn icon-ok icon-white').to_s %>
   <% @footer_content << (link_to (fa_icon 'map-o'), geo_map_chapter_path(@chapter), title: 'Map', class: 'btn icon-ok icon-white').to_s %>
-  <% @footer_content << (link_to 'Partition', (@chapter.partition.nil? ? new_chapter_partition_path(@chapter) : edit_chapter_partition_path(@chapter, @chapter.partition)), class: 'btn btn-default').to_s %>
-  <% @footer_content << (link_to 'Aside', (@chapter.aside.nil? ? new_chapter_aside_path(@chapter) : edit_chapter_aside_path(@chapter, @chapter.aside)), class: 'btn btn-default').to_s %>
+  <% @footer_content << (link_to 'Partition', (@chapter.partition.nil? ? new_chapter_partition_path(@chapter) : edit_partition_path(@chapter.partition)), class: 'btn btn-default').to_s %>
+  <% @footer_content << (link_to 'Aside', (@chapter.aside.nil? ? new_chapter_aside_path(chapter_id: @chapter.id) : edit_aside_path(@chapter.aside)), class: 'btn btn-default').to_s %>
   <% @footer_content << (link_to 'Sections', chapter_sections_path(@chapter), class: 'btn btn-default').to_s %>
   <% @footer_content << (link_to 'Footnotes', chapter_footnotes_path(@chapter), class: 'btn btn-default').to_s %>
   <% @footer_content << (link_to 'Citations', chapter_citations_path(@chapter), class: 'btn btn-default').to_s %>

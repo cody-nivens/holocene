@@ -81,7 +81,7 @@ Rails.application.routes.draw do
 
   get '/stories/:id/stats', to: 'stories#stats', as: :story_stats
   get '/stories/:story_id/key_points/:id/move', to: 'key_points#move', as: :story_key_point_move
-  post 'stories/:story_id//key_points/:id/moved', to: 'key_points#moved', as: :story_key_point_moved
+  post '/stories/:story_id//key_points/:id/moved', to: 'key_points#moved', as: :story_key_point_moved
   get '/stories/:story_id/characters/list', to: 'characters#list', as: :story_characters_list
   post '/stories/:story_id/characters/add', to: 'characters#add', as: :story_characters_add
   get '/stories/:id/timeline', to: 'stories#timeline', as: :story_timeline
@@ -116,10 +116,8 @@ Rails.application.routes.draw do
     resources :authors
     resources :characters, except: [:new] do
       resources :steps, only: %i[show update], controller: 'character/steps'
+      resources :character_values
     end
-  end
-  resources :characters, shallow: true do
-    resources :character_values
   end
   resources :stories, shallow: true do
     concerns :situated, scripted_type: 'Story'
@@ -138,20 +136,24 @@ Rails.application.routes.draw do
   resources :scenes do
     resources :characters, except: [:new] do
       resources :steps, only: %i[show update], controller: 'character/steps'
+      resources :character_values
     end
   end
   resources :stories do
     resources :characters, except: [:new] do
       resources :steps, only: %i[show update], controller: 'character/steps'
+      resources :character_values
     end
   end
   resources :chapters do
     concerns :scripted, scripted_type: 'Chapter'
     concerns :sectioned, sectioned_type: 'Chapter'
     resources :scenes
+    resources :sections
+  end
+  resources :chapters, shallow: true do
     resources :asides
     resources :partitions
-    resources :sections
   end
   resources :scenes, shallow: true do
     put :sort
@@ -181,7 +183,7 @@ Rails.application.routes.draw do
   get '/sections/:id/geo_map', to: 'sections#geo_map', as: :geo_map_section
   get '/holocene_events/:id/geo_map', to: 'holocene_events#geo_map', as: :geo_map_holocene_event
 
-  get 'citations/index'
+  get '/citations/index'
   get '/timelines/display/:timeline_id', to: 'holocene_events#display', as: :timeline_display
   get '/citation/display/:citation_id', to: 'holocene_events#display', as: :citation_display
   get '/chapters/display/:chapter_id', to: 'holocene_events#display', as: :chapter_display
@@ -243,6 +245,7 @@ Rails.application.routes.draw do
   get '/citations/:citation_id/holocene_events', to: 'holocene_events#index', as: :citation_holocene_events
 
   post '/chapters/:chapter_id/holocene_events', to: 'holocene_events#objects', as: :chapter_holocene_event
+  post '/epochs/:epoch_id/holocene_events', to: 'holocene_events#objects', as: :epoch_holocene_event
   post '/holocene_events/:object_type/:object_id/objects/:id', to: 'holocene_events#objects', as: :object_holocene_event
 
   post '/sections/:section_id/holocene_events', to: 'holocene_events#objects', as: :section_holocene_event

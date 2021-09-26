@@ -33,4 +33,4 @@
 </p>
 
 <% @footer_content << (link_to 'Edit', edit_glossary_term_path(@glossary_term), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', :back, class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Back', book_glossary_terms_path(@glossary_term.book), class: 'btn btn-default').to_s %>

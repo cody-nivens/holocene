@@ -23,7 +23,9 @@
 <% @footer_content << (link_to 'Back', polymorphic_path(@scripted), class: 'btn btn-default hide-print').to_s %>
 
 <script>
-$(function() {
-  $('.sortable').railsSortable();
+$(document).ready(function() {
+  $(function() {
+    $('.sortable').railsSortable();
+  });
 });
 </script>

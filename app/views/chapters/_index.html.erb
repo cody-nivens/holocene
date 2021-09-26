@@ -19,17 +19,17 @@
     <% if chapter.partition.nil? %>
       <td><%= link_to (fa_icon 'plus'), new_chapter_partition_path(chapter), title: 'Partition', class: 'btn icon-ok icon-white' %>
     <% else %>
-      <td><%= link_to (fa_icon 'pencil'), chapter_partition_path(chapter, chapter.partition), title: 'Partition', class: 'btn icon-ok icon-white' %>
+      <td><%= link_to (fa_icon 'pencil'), partition_path(chapter.partition), title: 'Partition', class: 'btn icon-ok icon-white' %>
     <% end %>
-        <%== (chapter.partition.nil? ? '' : (link_to chapter.partition_name, chapter_partition_path(chapter.scripted, chapter, chapter.partition)).to_s) %></td>
+        <%== (chapter.partition.nil? ? '' : (link_to chapter.partition_name, partition_path(chapter.partition)).to_s) %></td>
       <td>
         <strong><font size='4'><%= link_to chapter.name, chapter, title: 'Show' %></font></strong>
     <% if chapter.aside.nil? %>
       <%= link_to (fa_icon 'plus'), new_chapter_aside_path(chapter), title: 'Aside', class: 'btn icon-ok icon-white' %>
     <% else %>
         <br>
-        <%= link_to chapter.aside_name, chapter_aside_path(chapter, chapter.aside), title: chapter.aside_name %>
-        <%= link_to (fa_icon 'pencil'), edit_chapter_aside_path(chapter, chapter.aside), title: 'Edit Aside', class: 'btn icon-ok icon-white' %>
+        <%= link_to chapter.aside_name, aside_path(chapter.aside), title: chapter.aside_name %>
+        <%= link_to (fa_icon 'pencil'), edit_aside_path(chapter.aside), title: 'Edit Aside', class: 'btn icon-ok icon-white' %>
     <% end %>
         <%= link_to (fa_icon 'pencil'), edit_chapter_path(chapter), title: 'Edit', class: 'btn icon-ok icon-white' %>
         <%= link_to (fa_icon 'sticky-note-o'), chapter_signets_path(chapter_id: chapter.id), class: "btn icon-ok icon-white #{!chapter.signets.empty? ? Signet.color_class(chapter.signets[0].color) : ''}" %></td>

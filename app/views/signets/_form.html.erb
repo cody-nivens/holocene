@@ -1,4 +1,4 @@
-<%= bootstrap_form_for [sigged, signet] do |f| %>
+<%= bootstrap_form_for signet, url: { controller: :signets, action: (signet.id.nil? ? :create : :update) } do |f| %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">

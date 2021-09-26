@@ -1,9 +1,9 @@
-  <% scene_count = story.scene_count %>
-  <% section_count = story.section_count %>
-  <% word_count = story.word_count %>
-  <% wss_ratio = (section_count.zero? ? 0 : word_count / section_count * scene_count) %>
-  <% ss_ratio = (scene_count.zero? ? 0 : section_count.to_f / scene_count) %>
-  <% items = [{ label: 'Completed', color: '090', width: 100.0 * ss_ratio }, { label: 'Waiting', color: 'ededed', width: 100.0 - 100.0 * ss_ratio }] %>
+<% scene_count = story.scene_count %>
+<% section_count = story.section_count %>
+<% word_count = story.word_count %>
+<% wss_ratio = (section_count.zero? ? 0 : word_count / section_count * scene_count) %>
+<% ss_ratio = (scene_count.zero? ? 0 : section_count.to_f / scene_count) %>
+<% items = [{ label: 'Completed', color: '090', width: 100.0 * ss_ratio }, { label: 'Waiting', color: 'ededed', width: 100.0 - 100.0 * ss_ratio }] %>
 <dt>
   <div class="narrow">
     <%= story.scene_min %>

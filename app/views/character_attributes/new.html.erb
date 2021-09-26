@@ -2,4 +2,4 @@
 
 <%= render 'form', character_attribute: @character_attribute, character_category: @character_category %>
 
-<% @footer_content << (link_to 'Back', character_category_character_attributes_path(@character_category), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Back', character_category_path(@character_category), class: 'btn btn-default').to_s %>

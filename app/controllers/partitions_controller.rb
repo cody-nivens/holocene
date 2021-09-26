@@ -1,6 +1,6 @@
 class PartitionsController < ApplicationController
   before_action :set_partition, only: %i[show edit update destroy]
-  before_action :set_chapter, only: %i[index new create show edit update destroy]
+  before_action :set_chapter, only: %i[index new ]
 
   # GET /partitions
   # GET /partitions.json
@@ -11,7 +11,7 @@ class PartitionsController < ApplicationController
   # GET /partitions/1
   # GET /partitions/1.json
   def show
-    @chapter = @chapter
+    @chapter = @partition.chapter
   end
 
   # GET /partitions/new
@@ -21,17 +21,20 @@ class PartitionsController < ApplicationController
   end
 
   # GET /partitions/1/edit
-  def edit; end
+  def edit
+    @chapter = @partition.chapter
+  end
 
   # POST /partitions
   # POST /partitions.json
   def create
     @partition = Partition.new(partition_params)
+    @chapter = @partition.chapter
 
     respond_to do |format|
       if @partition.save
         format.html do
-          redirect_to chapter_partition_url(@chapter, @partition), notice: 'Partition was successfully created.'
+          redirect_to partition_url(@partition), notice: 'Partition was successfully created.'
         end
         format.json { render :show, status: :created, location: @partition }
       else
@@ -44,10 +47,11 @@ class PartitionsController < ApplicationController
   # PATCH/PUT /partitions/1
   # PATCH/PUT /partitions/1.json
   def update
+    @chapter = @partition.chapter
     respond_to do |format|
       if @partition.update(partition_params)
         format.html do
-          redirect_to chapter_partition_url(@chapter, @partition), notice: 'Partition was successfully updated.'
+          redirect_to partition_url(@partition), notice: 'Partition was successfully updated.'
         end
         format.json { render :show, status: :ok, location: @partition }
       else
@@ -60,6 +64,7 @@ class PartitionsController < ApplicationController
   # DELETE /partitions/1
   # DELETE /partitions/1.json
   def destroy
+    @chapter = @partition.chapter
     @partition.destroy
     respond_to do |format|
       format.html { redirect_to chapter_partitions_url(@chapter), notice: 'Partition was successfully destroyed.' }

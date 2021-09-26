@@ -1,6 +1,8 @@
 class CharacterValuesController < ApplicationController
   before_action :set_character_value, only: %i[show edit update destroy]
   before_action :set_character, only: %i[index new]
+  before_action :set_object, only: %i[index new edit show create update destroy]
+
 
   # GET /character_values
   # GET /character_values.json
@@ -36,7 +38,7 @@ class CharacterValuesController < ApplicationController
     respond_to do |format|
       if @character_value.save
         format.html do
-          redirect_to polymorphic_path([@character, :character_values]),
+          redirect_to polymorphic_path([@object, @character, :character_values]),
                       notice: 'Character value was successfully created.'
         end
         format.json { render :show, status: :created, location: @character_value }
@@ -55,7 +57,7 @@ class CharacterValuesController < ApplicationController
     respond_to do |format|
       if @character_value.update(character_value_params)
         format.html do
-          redirect_to polymorphic_path([@character, :character_values]),
+          redirect_to polymorphic_path([@object, @character, :character_values]),
                       notice: 'Character value was successfully updated.'
         end
         format.json { render :show, status: :ok, location: @character_value }
@@ -74,7 +76,7 @@ class CharacterValuesController < ApplicationController
     @character_value.destroy
     respond_to do |format|
       format.html do
-        redirect_to polymorphic_url([@character, :character_values]),
+        redirect_to polymorphic_url([@object, @character, :character_values]),
                     notice: 'Character value was successfully destroyed.'
       end
       format.json { head :no_content }
@@ -90,6 +92,11 @@ class CharacterValuesController < ApplicationController
 
   def set_character
     @character = Character.find(params[:character_id])
+  end
+
+  def set_object
+    klass = [Scene, Story, Book].detect { |c| params["#{c.name.underscore}_id"] }
+    @object = klass.find(params["#{klass.name.underscore}_id"])
   end
 
   # Only allow a list of trusted parameters through.

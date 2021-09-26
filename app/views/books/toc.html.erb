@@ -18,17 +18,17 @@
     <% if chapter.partition.nil? %>
         <td><%= link_to (fa_icon 'plus'), new_chapter_partition_path(@book, chapter), :title => 'Partition'  %>
     <% else %>
-        <td><%= link_to (fa_icon 'pencil'), chapter_partition_path(chapter,chapter.partition), :title => 'Partition'  %>
+        <td><%= link_to (fa_icon 'pencil'), partition_path(chapter.partition), :title => 'Partition'  %>
     <% end %>
-        <%== (chapter.partition.nil? ? '' : (link_to chapter.partition_name, chapter_partition_path(chapter,chapter.partition)).to_s) %></td>
+        <%== (chapter.partition.nil? ? '' : (link_to chapter.partition_name, partition_path(chapter.partition)).to_s) %></td>
         <td><%= link_to (fa_icon 'pencil'), edit_chapter_path(chapter), :title => 'Edit'  %>
         <strong><font size='4'><%= link_to chapter.name, chapter_path(chapter), title: 'Show' %></font></strong>
     <% if chapter.aside.nil? %>
         <%= link_to (fa_icon 'plus'), new_chapter_aside_path(chapter), :title => 'Aside' %>
     <% else %>
         <br>
-        <%= link_to chapter.aside.name, chapter_aside_path(chapter, chapter.aside), :title => chapter.aside.name %>
-        <%= link_to (fa_icon 'pencil'), edit_chapter_aside_path(@book, chapter,chapter.aside), :title => 'Edit Aside' %>
+        <%= link_to chapter.aside.name, aside_path(chapter.aside), :title => chapter.aside.name %>
+        <%= link_to (fa_icon 'pencil'), edit_aside_path(chapter.aside), :title => 'Edit Aside' %>
     <% end %>
         </td>
         <td align='right'><%= number_with_delimiter chapter.word_count %>
@@ -45,12 +45,12 @@
   </tbody>
 </table>
 
-<% @footer_content << (link_to 'New Chapter', new_chapter_path(@book), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'New Chapter', new_book_chapter_path(@book), class: 'btn btn-default').to_s %>
 <% @footer_content << (link_to 'Chapters, Details', polymorphic_path([@book, :chapters]), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', :back, class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Back', book_path(@book), class: 'btn btn-default').to_s %>
 
 <script>
-$(function() {
+$(document).ready(function() {
   $('.sortable').railsSortable();
 });
 </script>

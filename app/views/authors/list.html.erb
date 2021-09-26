@@ -19,4 +19,4 @@
 <% end %>
 
 <% @footer_content << (link_to 'New Author', new_polymorphic_path([@object, :author]), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', polymorphic_path(@object), class: 'btn btn-default').to_s %>
+<% @footer_content << (link_to 'Back', polymorphic_path([@object, :authors]), class: 'btn btn-default').to_s %>

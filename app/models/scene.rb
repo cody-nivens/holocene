@@ -13,7 +13,7 @@ class Scene < ApplicationRecord
 
   belongs_to :key_point, optional: true
   acts_as_list scope: :key_point
-  ranks :position, with_same: :key_point_id
+  ranks :position, with_same: [:key_point_id, :selector]
 
   belongs_to :artifact, optional: true
   belongs_to :situated, polymorphic: true
