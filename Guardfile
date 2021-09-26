@@ -17,7 +17,8 @@ guard :minitest, autorun: false, spring: "bin/rails test", all_on_start: false, 
   end
 
   watch(%r{^app/views/([^/]*?)/(.*)\.html\.erb$}) do |matches|
-    "test/views/#{matches[1]}/#{matches[2]}.html.erb_test.rb"
+    ["test/views/#{matches[1]}/#{matches[2]}.html.erb_test.rb",
+     "test/controllers/#{matches[1]}_controller_test.rb"]
   end
 
   watch(%r{^app/grids/(.*?)_grid\.rb$}) do |matches|
