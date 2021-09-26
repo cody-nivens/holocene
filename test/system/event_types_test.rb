@@ -9,6 +9,63 @@ class EventTypesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test 'event_types edit' do
+    visit edit_event_type_url(@event_type)
+#    visit Show
+    assert_text 'Show'
+    click_on 'Show'
+    assert_current_path event_type_path(@event_type)
+    click_on 'Back'
+    #assert_current_path event_types_path
+  end
+
+  test 'event_types geo_map' do
+    visit geo_map_event_type_url(@event_type)
+#    visit Display
+    assert_text 'Display'
+    click_on 'Display'
+    assert_current_path event_type_path(@event_type)
+    click_on 'Back'
+    #assert_current_path event_type_path(@event_type)
+  end
+
+  test 'event_types index' do
+    visit event_types_url
+#    visit New Event Type
+    assert_text 'New Event Type'
+    click_on 'New Event Type'
+    assert_current_path new_event_type_path
+    click_on 'Back'
+    assert_current_path event_types_path
+  end
+
+  test 'event_types show' do
+    visit event_type_url(@event_type)
+#    visit Edit
+    within '.footer' do
+      assert_text 'Edit'
+      click_on 'Edit'
+    end
+    assert_current_path edit_event_type_path(@event_type)
+    click_on 'Back'
+    #assert_current_path event_types_path
+#    visit Map
+    visit event_type_url(@event_type)
+    assert_text 'Map'
+    click_on 'Map'
+    assert_current_path geo_map_event_type_path(@event_type)
+    click_on 'Back'
+    #assert_current_path event_type_path(@event_type)
+#    visit Timeline
+    visit event_type_url(@event_type)
+    assert_text 'Timeline'
+    click_on 'Timeline'
+
+    assert_current_path event_type_timeline_path(@event_type)
+    #click_on 'Back'
+    #assert_current_path event_type_path(@event_type)
+  end
+
   test 'creating an Event type' do
     visit event_types_url
     click_on 'New Event Type'

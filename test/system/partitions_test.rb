@@ -11,6 +11,36 @@ class PartitionsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test 'partitions edit' do
+    visit edit_partition_url(@partition)
+#    visit Show
+    assert_text 'Show'
+    click_on 'Show'
+    assert_current_path partition_path(@partition)
+    click_on 'Back'
+    assert_current_path chapter_path(@chapter)
+  end
+
+  test 'partitions index' do
+    visit chapter_partitions_url(@chapter)
+#    visit New Partition
+    assert_text 'New Partition'
+    click_on 'New Partition'
+    assert_current_path new_chapter_partition_path(@chapter)
+    click_on 'Back'
+    assert_current_path chapter_path(@chapter)
+  end
+
+  test 'partitions show' do
+    visit partition_url(@partition)
+#    visit Edit
+    assert_text 'Edit'
+    click_on 'Edit'
+    assert_current_path edit_partition_path(@partition)
+    click_on 'Back'
+    assert_current_path chapter_path(@chapter)
+  end
+
   test 'creating a Partition' do
     visit chapter_partitions_url(@chapter)
     click_on 'New Partition'

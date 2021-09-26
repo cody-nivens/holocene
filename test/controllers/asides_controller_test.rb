@@ -26,7 +26,7 @@ class AsidesControllerTest < ActionDispatch::IntegrationTest
   test 'should create aside' do
     assert_difference('Aside.count') do
       post chapter_asides_url(@chapter_3),
-           params: { aside: { body: @aside.body, name: @aside.name }, chapter_id: @chapter_3.id }
+           params: { aside: { body: @aside.body, name: @aside.name, chapter_id: @chapter_3.id } }
     end
 
     assert_redirected_to chapter_url(@chapter_3)
@@ -36,7 +36,7 @@ class AsidesControllerTest < ActionDispatch::IntegrationTest
   test 'should not create aside' do
     assert_difference('Aside.count', 0) do
       post chapter_asides_url(@chapter),
-           params: { aside: { body: @aside.body, name: @aside.name }, chapter_id: @chapter.id }
+           params: { aside: { body: @aside.body, name: '', chapter_id: @chapter.id } }
     end
 
     assert_response :success
@@ -44,32 +44,32 @@ class AsidesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should show aside' do
-    get chapter_aside_url(@chapter, @aside)
+    get aside_url(@aside)
     assert_response :success
     assert_template 'asides/show'
   end
 
   test 'should get edit' do
-    get edit_chapter_aside_url(@chapter, @aside)
+    get edit_aside_url(@aside)
     assert_response :success
     assert_template 'asides/edit'
   end
 
   test 'should update aside' do
-    patch chapter_aside_url(@chapter, @aside), params: { aside: { body: @aside.body, name: @aside.name } }
+    patch aside_url(@aside), params: { aside: { body: @aside.body, name: @aside.name } }
     assert_redirected_to chapter_url(@chapter)
     # assert_template 'asides/show'
   end
 
   test 'should not update aside' do
-    patch chapter_aside_url(@chapter, @aside), params: { aside: { body: @aside.body, name: '' } }
+    patch aside_url(@aside), params: { aside: { body: @aside.body, name: '' } }
     assert_response :success
     assert_template 'asides/edit'
   end
 
   test 'should destroy aside' do
     assert_difference('Aside.count', -1) do
-      delete chapter_aside_url(@chapter, @aside)
+      delete aside_url(@aside)
     end
 
     assert_redirected_to chapter_url(@chapter)

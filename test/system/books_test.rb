@@ -10,6 +10,143 @@ class BooksTest < ApplicationSystemTestCase
     @book_3 = books(:book_3)
     @user = users(:users_1)
     sign_in @user
+    ThinkingSphinx::Test.init
+    ThinkingSphinx::Test.start index: false
+    index
+  end
+
+  teardown do
+    ThinkingSphinx::Test.stop
+    ThinkingSphinx::Test.clear
+  end
+
+  test 'books edit' do
+#    visit Show
+    visit edit_book_url(@book)
+    assert_text 'Show'
+    click_on 'Show'
+    assert_current_path book_path(@book)
+    click_on 'Back'
+    assert_current_path books_path
+  end
+
+  test 'books index' do
+#    visit New Book
+    visit books_url
+    assert_text 'New Book'
+    click_on 'New Book'
+    assert_current_path new_book_path
+    click_on 'Back'
+    assert_current_path books_path
+  end
+
+  test 'books show' do
+    visit book_url(@book_2)
+    assert_text @book_2.name
+
+#    visit Artifacts
+    within ".footer" do
+      assert_text 'Artifacts'
+      click_on 'Artifacts'
+    end
+    assert_current_path book_artifacts_path(@book_2)
+    click_on 'Back'
+    #assert_current_path book_path(@book_2)
+#    visit All Stories
+    visit book_url(@book_2)
+    assert_text 'All Stories'
+    click_on 'All Stories'
+    assert_current_path book_stories_path(@book_2)
+
+
+    click_on 'Back'
+
+    #assert_current_path book_path(@book_2)
+#    visit Authors
+    visit book_url(@book_2)
+    within ".footer" do
+      assert_text 'Authors'
+      click_on 'Authors'
+    end
+    assert_current_path book_authors_path(@book_2)
+    #click_on 'Back'
+    #assert_current_path book_path(@book_2)
+#    visit Chapters, TOC
+    visit book_url(@book)
+    assert_text 'Chapters, TOC'
+    click_on 'Chapters, TOC'
+    assert_current_path toc_path(@book)
+    click_on 'Back'
+    #assert_current_path book_path(@book)
+#    visit Characters
+    visit book_url(@book_2)
+    assert_text 'Characters'
+    within '.footer' do
+      click_on 'Characters'
+    end
+    assert_current_path polymorphic_path([@book_2, :characters])
+    click_on 'Back'
+    #assert_current_path book_path(@book_2)
+#    visit Key Points
+    visit book_url(@book_2)
+    assert_text 'Key Points'
+    click_on 'Key Points'
+    assert_current_path polymorphic_path([@book_2, :key_points])
+    click_on 'Back'
+    #assert_current_path book_path(@book_2)
+#    visit Key Words
+    visit book_url(@book_2)
+    assert_text 'Key Words'
+    within '.footer' do
+      click_on 'Key Words'
+    end
+    assert_current_path book_key_words_path(@book_2)
+    click_on 'Back'
+    #assert_current_path book_path(@book_2)
+#    visit New Chapter
+    visit book_url(@book)
+    assert_text 'New Chapter'
+    click_on 'New Chapter'
+    assert_current_path new_polymorphic_path([@book, :chapter])
+    click_on 'Back'
+    #assert_current_path book_path(@book)
+#    visit New Story
+    visit book_url(@book_2)
+    assert_text 'New Story'
+    click_on 'New Story'
+    assert_current_path new_book_story_path(book_id: @book_2.id)
+    click_on 'Back'
+    assert_current_path book_path(@book_2)
+#    visit Scenes
+    visit book_url(@book_2)
+    assert_text 'Scenes'
+    click_on 'Scenes'
+    assert_current_path polymorphic_path([@book_2, :scenes])
+    click_on 'Back'
+    #assert_current_path book_path(@book_2)
+#    visit Stats
+    visit book_url(@book_2)
+    assert_text 'Stats'
+    click_on 'Stats'
+    assert_current_path polymorphic_path([@book_2, :stats])
+    click_on 'Back'
+    #assert_current_path book_path(@book_2)
+  end
+
+  test 'books toc' do
+#    visit Chapters, Details
+    visit toc_url(@book)
+    assert_text 'Chapters, Details'
+    click_on 'Chapters, Details'
+    assert_current_path polymorphic_path([@book, :chapters])
+    click_on 'Back'
+    #assert_current_path toc_path(@book)
+#    visit New Chapter
+    assert_text 'New Chapter'
+    click_on 'New Chapter'
+    assert_current_path new_book_chapter_path(@book)
+    click_on 'Back'
+    #assert_current_path toc_path(@book)
   end
 
   test 'sort books' do

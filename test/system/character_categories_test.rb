@@ -11,6 +11,45 @@ class CharacterCategoriesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test 'character_categories edit' do
+#    visit Show
+    visit edit_character_category_url(@character_category)
+    assert_text 'Show'
+    click_on 'Show'
+    assert_current_path character_category_path(@character_category)
+    click_on 'Back'
+    assert_current_path character_categories_path
+  end
+
+  test 'character_categories index' do
+    visit character_categories_url
+#    visit New Character Category
+    assert_text 'New Character Category'
+    click_on 'New Character Category'
+    assert_current_path new_character_category_path
+    click_on 'Back'
+    assert_current_path character_categories_path
+  end
+
+  test 'character_categories show' do
+    visit character_category_url(@character_category)
+#    visit Edit
+    within ".footer" do
+      assert_text 'Edit'
+      click_on 'Edit'
+    end
+    assert_current_path edit_character_category_path(@character_category)
+    click_on 'Back'
+    assert_current_path character_categories_path
+#    visit New Character Attribute
+    visit character_category_url(@character_category)
+    assert_text 'New Character Attribute'
+    click_on 'New Character Attribute'
+    assert_current_path new_character_category_character_attribute_path(character_category_id: @character_category.id)
+    click_on 'Back'
+    assert_current_path character_category_path(@character_category)
+  end
+
   test 'sort character categories' do
     skip('Works in production')
 

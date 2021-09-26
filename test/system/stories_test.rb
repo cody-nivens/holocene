@@ -13,6 +13,123 @@ class StoriesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test 'stories index 2' do
+    visit book_stories_url(book_id: @book.id)
+#    visit New Story
+    assert_text 'New Story'
+    click_on 'New Story'
+    assert_current_path new_book_story_path(book_id: @book.id)
+    click_on 'Back'
+    assert_current_path book_path(@book)
+#    visit Resync Stories
+    visit book_stories_url(book_id: @book.id)
+    assert_text 'Resync Stories'
+    click_on 'Resync Stories'
+    assert_current_path book_resync_stories_path(id: @book.id)
+    click_on 'Back'
+    assert_current_path book_path(@book)
+#    visit Timeline
+    visit book_stories_url(book_id: @book.id)
+    assert_text 'Timeline'
+    click_on 'Timeline'
+    assert_current_path book_timeline_path(id: @book.id)
+    click_on 'Back'
+    assert_current_path book_stories_path(@book)
+  end
+
+  test 'stories show' do
+    visit story_url(@story)
+#    visit Characters
+    assert_text 'Characters'
+    within ".footer" do
+      click_on 'Characters'
+    end
+    assert_current_path polymorphic_path([@story, :characters])
+    click_on 'Back'
+    #assert_current_path book_path(@book)
+#    visit Key Points
+    visit story_url(@story)
+    assert_text 'Key Points'
+    within ".footer" do
+      click_on 'Key Points'
+    end
+    assert_current_path polymorphic_path([@story, :key_points])
+    click_on 'Back'
+    assert_current_path story_path(@story)
+#    visit New Key Point
+    assert_text 'New Key Point'
+    click_on 'New Key Point'
+    assert_current_path new_polymorphic_path([@story, KeyPoint])
+    click_on 'Back'
+    #assert_current_path story_key_points_path(@story)
+#    visit Resync Scenes
+    visit story_url(@story)
+    assert_text 'Resync Scenes'
+    click_on 'Resync Scenes'
+    assert_current_path story_resync_scenes_path(id: @story.id)
+    click_on 'Back'
+    #assert_current_path story_path(@story)
+#    visit Scenes
+    visit story_url(@story)
+    assert_text 'Scenes'
+    click_on 'Scenes'
+    assert_current_path polymorphic_path([@story, :scenes])
+    click_on 'Back'
+    #assert_current_path book_path(@book)
+#    visit Stats
+    visit story_url(@story)
+    assert_text 'Stats'
+    click_on 'Stats'
+    assert_current_path polymorphic_path([@story, :stats])
+    click_on 'Back'
+    #assert_current_path book_path(@book)
+#    visit Timeline
+    visit story_url(@story)
+    assert_text 'Timeline'
+    click_on 'Timeline'
+    assert_current_path polymorphic_path([@story, :timeline])
+    click_on 'Back'
+    assert_current_path story_key_points_path(@story)
+#    visit Tours
+    visit story_url(@story)
+    assert_text 'Tours'
+    click_on 'Tours'
+    assert_current_path polymorphic_path([@story, :tours])
+    click_on 'Back'
+    assert_current_path story_path(@story)
+  end
+
+  test 'stories index' do
+    visit book_stories_url(book_id: @book.id)
+#    visit Resync Stories
+    assert_text 'Resync Stories'
+    click_on 'Resync Stories'
+    assert_current_path book_resync_stories_path(id: @book.id)
+    click_on 'Back'
+    assert_current_path book_path(id: @book.id)
+#    visit New Story
+    visit book_stories_url(book_id: @book.id)
+    assert_text 'New Story'
+    click_on 'New Story'
+    assert_current_path new_book_story_path(book_id: @book.id)
+    click_on 'Back'
+    assert_current_path book_path(id: @book.id)
+#    visit Scenes
+    assert_text 'Scenes'
+    click_on 'Scenes'
+    assert_current_path book_scenes_path(book_id: @book.id)
+    click_on 'Back'
+    #assert_current_path book_path(@book)
+#    visit Timeline
+    visit book_stories_url(book_id: @book.id)
+    visit book_stories_url(book_id: @book.id)
+    assert_text 'Timeline'
+    click_on 'Timeline'
+    assert_current_path book_timeline_path(id: @book.id)
+    click_on 'Back'
+    #assert_current_path book_stories_path(book_id: @book.id)
+  end
+
   test 'sort stories' do
     skip('Works in production')
 

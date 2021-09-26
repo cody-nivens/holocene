@@ -20,6 +20,10 @@ class CharactersShowHtmlErbTest < ActionDispatch::IntegrationTest
     assert_select 'a[href=?]', edit_polymorphic_path([@book, @character])
     assert_select 'a[text()=?]', 'Back'
     assert_select 'a[href=?]', polymorphic_path([@book, :characters])
+    assert_select 'a[text()=?]', 'Attributes'
+    assert_select 'a[href=?]', polymorphic_path([@book, @character, :character_values])
+    assert_select 'a[text()=?]', 'Lineage'
+    assert_select 'a[href=?]', polymorphic_path([@book, @character, :lineage])
     assert_select '.footer>div>a', 4
     assert_template 'characters/show'
   end
@@ -32,6 +36,10 @@ class CharactersShowHtmlErbTest < ActionDispatch::IntegrationTest
     assert_select 'a[href=?]', edit_polymorphic_path([@story, @character])
     assert_select 'a[text()=?]', 'Back'
     assert_select 'a[href=?]', polymorphic_path([@story, :characters])
+    assert_select 'a[text()=?]', 'Attributes'
+    assert_select 'a[href=?]', polymorphic_path([@story, @character, :character_values])
+    assert_select 'a[text()=?]', 'Lineage'
+    assert_select 'a[href=?]', polymorphic_path([@story, @character, :lineage])
     assert_select '.footer>div>a', 4
     assert_template 'characters/show'
   end

@@ -9,6 +9,36 @@ class RegionsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test 'regions edit' do
+    visit edit_region_url(@region)
+#    visit Show
+    assert_text 'Show'
+    click_on 'Show'
+    assert_current_path region_path(@region)
+    click_on 'Back'
+    assert_current_path regions_path
+  end
+
+  test 'regions index' do
+    visit regions_url
+#    visit New Region
+    assert_text 'New Region'
+    click_on 'New Region'
+    assert_current_path new_region_path
+    click_on 'Back'
+    assert_current_path regions_path
+  end
+
+  test 'regions show' do
+    visit region_url(@region)
+#    visit Edit
+    assert_text 'Edit'
+    click_on 'Edit'
+    assert_current_path edit_region_path(@region)
+    click_on 'Back'
+    assert_current_path regions_path
+  end
+
   test 'creating a Region' do
     visit regions_url
     click_on 'New Region'

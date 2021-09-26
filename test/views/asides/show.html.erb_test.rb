@@ -12,11 +12,11 @@ class AsidesShowHtmlErbTest < ActionDispatch::IntegrationTest
   end
 
   test 'should show aside' do
-    get polymorphic_path([@chapter, @aside])
+    get aside_path(@aside)
     assert_response :success
 
     assert_select 'a[text()=?]', 'Edit'
-    assert_select 'a[href=?]', edit_polymorphic_path([@chapter, @aside])
+    assert_select 'a[href=?]', edit_aside_path(@aside)
     assert_select 'a[text()=?]', 'Back'
     assert_select '.footer>div>a', 2
     assert_template 'asides/show'

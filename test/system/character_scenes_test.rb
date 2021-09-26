@@ -10,6 +10,16 @@ class CharacterScenesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test 'character_scenes edit' do
+#    visit Show
+    visit scene_url(id: @scene.id)
+    find(:xpath, ".//a[i[contains(@class, 'fa-plus')]]", match: :first).click
+    assert_current_path edit_character_scene_path(@character_scene)
+    click_on 'Back'
+    #assert_current_path scene_path(id: @scene.id)
+  end
+
+
   test 'updating a Character scene' do
     visit scene_url(id: @scene.id)
     find(:xpath, ".//a[i[contains(@class, 'fa-plus')]]", match: :first).click

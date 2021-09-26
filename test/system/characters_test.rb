@@ -15,6 +15,60 @@ class CharactersTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test 'characters edit' do
+    visit edit_book_character_url(@book, @character)
+#    visit Show
+    assert_text 'Show'
+    click_on 'Show'
+    assert_current_path polymorphic_path([@book, @character])
+    click_on 'Back'
+    #assert_current_path book_characters_path(@book)
+  end
+
+  test 'characters index' do
+    visit book_characters_url(@book)
+    assert_current_path book_characters_path(@book)
+#    visit New Character
+    assert_text 'New Character'
+    click_on 'New Character'
+    assert_current_path book_character_step_path(@book, Character.last, :characteristics)
+  end
+
+  test 'characters list' do
+    visit book_characters_list_url(@book)
+#    visit New Character
+    assert_text 'New Character'
+    click_on 'New Character'
+    assert_current_path book_character_step_path(@book, Character.last, :characteristics)
+  end
+
+  test 'characters show' do
+    visit book_character_url(@book, @character)
+#    visit Attributes
+    assert_text 'Attributes'
+    click_on 'Attributes'
+    assert_text 'Character Values'
+    assert_current_path polymorphic_path([@book, @character, :character_values])
+    click_on 'Back'
+    assert_current_path polymorphic_path([@book, @character])
+#    visit Edit
+    within '.footer' do
+      assert_text 'Edit'
+      click_on 'Edit'
+    end
+    assert_current_path edit_book_character_path(@book, @character)
+    click_on 'Back'
+    assert_current_path book_characters_path(@book)
+#    visit Lineage
+    visit book_character_url(@book, @character)
+    assert_text 'Lineage'
+    click_on 'Lineage'
+    assert_text @character.name
+    assert_current_path polymorphic_path([@book, @character, :lineage])
+    click_on 'Back'
+    assert_current_path book_character_path(@book, @character)
+  end
+
   test 'visiting the Character index searching using first name' do
     visit book_url(id: @book.id)
     within '.footer' do

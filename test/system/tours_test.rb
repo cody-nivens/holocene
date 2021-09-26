@@ -14,17 +14,59 @@ class ToursTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test 'tours edit' do
+    visit edit_tour_url(@tour)
+#    visit Show
+    assert_text 'Show'
+    click_on 'Show'
+    assert_current_path tour_path(@tour)
+    click_on 'Back'
+    assert_current_path story_tours_path(@story)
+  end
+
+  test 'tours index' do
+    visit story_tours_url(@story)
+#    visit New Tour
+    assert_text 'New Tour'
+    click_on 'New Tour'
+    assert_current_path new_story_tour_path(@story)
+    click_on 'Back'
+    #assert_current_path story_tours_path(@story)
+    #assert_current_path tour_path(@tour)
+  end
+
+  test 'tours show' do
+    visit tour_url(@tour)
+#    visit Edit
+    assert_text 'Edit'
+    within ".footer" do
+      click_on 'Edit'
+    end
+    assert_current_path edit_tour_path(@tour)
+    click_on 'Back'
+    assert_current_path story_tours_path(@story)
+#    visit Itinerary
+    visit tour_url(@tour)
+    assert_text 'Itinerary'
+    click_on 'Itinerary'
+    assert_current_path tour_itineraries_path(@tour)
+    click_on 'Back'
+    #assert_current_path story_tours_path(@story)
+#    visit Map
+    visit tour_url(@tour)
+    assert_text 'Map'
+    click_on 'Map'
+    assert_current_path geo_map_tour_path(@tour)
+    click_on 'Back'
+    assert_current_path tour_path(@tour)
+  end
+
   test 'check multiple cities' do
     visit '/'
-
     click_link 'Books'
-
     click_link 'The Phantom'
-
     click_link 'The Beginnings'
-
     click_link 'Tours'
-
     click_link 'New Tour'
 
     fill_in 'Name', with: 'The Second Voyage'
@@ -43,33 +85,21 @@ class ToursTest < ApplicationSystemTestCase
 
   test 'visit itinerary page' do
     visit '/'
-
     click_link 'Books'
-
     click_link 'The Phantom'
-
     click_link 'The Beginnings'
-
     click_link 'Tours'
-
     click_link 'Show'
-
     click_link 'Sushi is Rice'
   end
 
   test 'search itenerary' do
     visit '/'
-
     click_link 'Books'
-
     click_link 'The Phantom'
-
     click_link 'The Endings'
-
     click_link 'Tours'
-
     click_link 'Show'
-
     click_link 'Add City'
 
     find(:css, "#city_activated_[value='#{@city_3.id}']").set(true)

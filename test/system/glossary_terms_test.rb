@@ -10,6 +10,38 @@ class GlossaryTermsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test 'glossary_terms edit' do
+    visit edit_glossary_term_url(@glossary_term)
+#    visit Show
+    assert_text 'Show'
+    click_on 'Show'
+    assert_current_path glossary_term_path(@glossary_term)
+    click_on 'Back'
+    assert_current_path book_glossary_terms_path(@book)
+  end
+
+  test 'glossary_terms index' do
+    visit book_glossary_terms_url(@book)
+#    visit New Glossary Term
+    assert_text 'New Glossary Term'
+    click_on 'New Glossary Term'
+    assert_current_path new_book_glossary_term_path(@book)
+    click_on 'Back'
+    assert_current_path book_glossary_terms_path(@book)
+    #assert_current_path glossary_term_path(@glossary_term)
+  end
+
+  test 'glossary_terms show' do
+    visit glossary_term_url(@glossary_term)
+#    visit Edit
+    assert_text 'Edit'
+    click_on 'Edit'
+    assert_current_path edit_glossary_term_path(@glossary_term)
+    click_on 'Back'
+    assert_current_path book_glossary_terms_path(@book)
+    #assert_current_path glossary_term_path(@glossary_term)
+  end
+
   test 'creating a Glossary term' do
     visit book_glossary_terms_url(@book)
     click_on 'New Glossary Term'

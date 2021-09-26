@@ -5,10 +5,81 @@ require 'application_system_test_case'
 class HoloceneEventsTest < ApplicationSystemTestCase
   setup do
     @holocene_event = holocene_events(:holocene_event_1)
+    @chapter = chapters(:chapter_1)
     file = Rails.root.join('test', 'fixtures', 'files', 'image.jpg')
     @holocene_event.image.attach(io: File.open(file), filename: 'image.jpg')
     @user = users(:users_1)
     sign_in @user
+  end
+
+  test 'holocene_events display' do
+    visit polymorphic_url([@chapter, :display])
+#    visit Map
+    assert_text 'Map'
+    click_on 'Map'
+    assert_current_path polymorphic_path([:geo_map, @chapter])
+    click_on 'Back'
+    assert_current_path chapter_path(@chapter)
+#    visit Timeline
+    visit polymorphic_url([@chapter, :display])
+    assert_text 'Timeline'
+    click_on 'Timeline'
+    assert_current_path polymorphic_path([@chapter, :timeline])
+    click_on 'Back'
+    #assert_current_path polymorphic_path([@chapter, :display])
+  end
+
+  test 'holocene_events edit' do
+    visit edit_holocene_event_url(@holocene_event)
+#    visit Show
+    assert_text 'Show'
+    click_on 'Show'
+    assert_current_path holocene_event_path(@holocene_event)
+    click_on 'Back'
+    assert_current_path holocene_events_path
+  end
+
+  test 'holocene_events geo_map' do
+    visit geo_map_holocene_event_url(@holocene_event)
+#    visit Display
+    assert_text 'Display'
+    click_on 'Display'
+    assert_current_path holocene_event_path(@holocene_event)
+    click_on 'Back'
+    assert_current_path holocene_events_path
+  end
+
+  test 'holocene_events index' do
+    visit holocene_events_url
+#    visit New Holocene Event
+    assert_text 'New Holocene Event'
+    click_on 'New Holocene Event'
+    assert_current_path new_holocene_event_path
+    click_on 'Back'
+    assert_current_path holocene_events_path
+  end
+
+  test 'holocene_events show' do
+    visit holocene_event_url(@holocene_event)
+#    visit Edit
+    assert_text 'Edit'
+    click_on 'Edit'
+    assert_current_path edit_holocene_event_path(@holocene_event)
+    click_on 'Back'
+    #assert_current_path holocene_events_path
+#    visit Footnotes
+    visit holocene_event_url(@holocene_event)
+    assert_text 'Footnotes'
+    click_on 'Footnotes'
+    assert_current_path holocene_event_footnotes_path(@holocene_event)
+    click_on 'Back'
+    assert_current_path holocene_event_path(@holocene_event)
+#    visit Map
+    assert_text 'Map'
+    click_on 'Map'
+    assert_current_path geo_map_holocene_event_path(@holocene_event)
+    click_on 'Back'
+    assert_current_path holocene_event_path(@holocene_event)
   end
 
   test 'searching a Holocene event' do

@@ -10,6 +10,38 @@ class BiblioentriesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test 'biblioentries edit' do
+#    visit Show
+    visit edit_biblioentry_url(@biblioentry)
+    assert_text 'Show'
+    click_on 'Show'
+    assert_current_path biblioentry_path(@biblioentry)
+    click_on 'Back'
+    assert_current_path book_path(@book)
+  end
+
+  test 'biblioentries index' do
+#    visit New Biblioentry
+    visit book_biblioentries_url(@book)
+    assert_text 'New Biblioentry'
+    click_on 'New Biblioentry'
+    assert_current_path new_book_biblioentry_path(@book)
+    click_on 'Back'
+    assert_current_path book_biblioentries_path(@book)
+  end
+
+  test 'biblioentries show' do
+#    visit Edit
+    visit biblioentry_url(@biblioentry)
+    assert_text 'Edit'
+    within ".footer" do
+      click_on 'Edit'
+    end
+    assert_current_path edit_biblioentry_path(@biblioentry)
+    click_on 'Back'
+    assert_current_path book_biblioentries_path(@book)
+  end
+
   test 'creating a Biblioentry' do
     visit book_biblioentries_url(@book)
     click_on 'New Biblioentry'

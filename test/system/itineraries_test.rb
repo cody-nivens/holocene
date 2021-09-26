@@ -12,6 +12,36 @@ class ItinerariesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test 'itineraries edit' do
+    visit edit_itinerary_url(@itinerary)
+#    visit Show
+    assert_text 'Show'
+    click_on 'Show'
+    assert_current_path itinerary_path(@itinerary)
+    click_on 'Back'
+    assert_current_path tour_path(@tour)
+  end
+
+  test 'itineraries index' do
+    visit tour_itineraries_url(@tour)
+#    visit New Itinerary
+    assert_text 'New Itinerary'
+    click_on 'New Itinerary'
+    assert_current_path new_tour_itinerary_path(@tour)
+    click_on 'Back'
+    assert_current_path tour_path(@tour)
+  end
+
+  test 'itineraries show' do
+    visit itinerary_url(@itinerary)
+#    visit Edit
+    assert_text 'Edit'
+    click_on 'Edit'
+    assert_current_path edit_itinerary_path(@itinerary)
+    click_on 'Back'
+    assert_current_path tour_path(@tour)
+  end
+
   test 'visiting the index' do
     visit tour_itineraries_url(@tour)
     assert_selector 'h1', text: 'Itineraries'

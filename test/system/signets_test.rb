@@ -5,10 +5,41 @@ require 'application_system_test_case'
 class SignetsTest < ApplicationSystemTestCase
   setup do
     @signet = signets(:signet_1)
+    @sigged = @signet.sigged
     @chapter = chapters(:chapter_1)
     @scripted = @chapter.scripted
     @user = users(:users_1)
     sign_in @user
+  end
+
+  test 'signets edit' do
+    visit edit_signet_url(@signet)
+#    visit Show
+    assert_text 'Show'
+    click_on 'Show'
+    assert_current_path polymorphic_path([@sigged, @signet])
+    click_on 'Back'
+    assert_current_path polymorphic_path(@sigged)
+  end
+
+  test 'signets index' do
+    visit polymorphic_url([@sigged, :signets])
+#    visit New Signet
+    assert_text 'New Signet'
+    click_on 'New Signet'
+    assert_current_path new_polymorphic_path([@sigged, :signet])
+    click_on 'Back'
+    assert_current_path polymorphic_path([@sigged, :signets])
+  end
+
+  test 'signets show' do
+    visit signet_url(@signet)
+#    visit Edit
+    assert_text 'Edit'
+    click_on 'Edit'
+    assert_current_path edit_signet_path(@signet)
+    click_on 'Back'
+    assert_current_path polymorphic_path(@sigged)
   end
 
   test 'creating a Signet' do

@@ -16,7 +16,7 @@ class CharacterAttributesNewHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_select 'a[text()=?]', 'Back'
-    assert_select 'a[href=?]', character_category_character_attributes_path(@character_category)
+    assert_select 'a[href=?]', character_category_path(@character_category)
     assert_select '.footer>div>a', 1
     assert_template 'character_attributes/new'
   end

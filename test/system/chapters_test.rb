@@ -10,6 +10,89 @@ class ChaptersTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test 'chapters edit' do
+#    visit Show
+    #visit edit_chapter_url(@chapter), params: { scripted_type: @scripted.class.name, scripted_id: @scripted.id }
+    visit edit_chapter_url(@chapter)
+    assert_text 'Show'
+    click_on 'Show'
+    assert_current_path chapter_path(@chapter)
+    click_on 'Back'
+    assert_current_path book_chapters_path(@scripted)
+  end
+
+  test 'chapters geo_map' do
+#    visit Display
+    visit geo_map_chapter_url(@chapter)
+    assert_text 'Display'
+    click_on 'Display'
+    assert_current_path chapter_display_path(@chapter)
+    click_on 'Back'
+    assert_current_path chapter_path(@chapter)
+  end
+
+  test 'chapters index' do
+    visit polymorphic_url([@scripted, :chapters])
+#    visit Chapters, Details
+    assert_text 'Chapters, Details'
+    click_on 'Chapters, Details'
+    assert_current_path polymorphic_path([@scripted, :chapters])
+    click_on 'Back'
+    assert_current_path polymorphic_path(@scripted)
+#    visit Chapters, TOC
+    assert_text 'Chapters, TOC'
+    click_on 'Chapters, TOC'
+    assert_current_path toc_path(@scripted)
+    click_on 'Back'
+    assert_current_path polymorphic_path(@scripted)
+#    visit New Chapter
+    assert_text 'New Chapter'
+    click_on 'New Chapter'
+    assert_current_path new_polymorphic_path([@scripted, Chapter])
+    click_on 'Back'
+    assert_current_path polymorphic_path(@scripted)
+  end
+
+  test 'chapters show' do
+    visit chapter_url(@chapter)
+#    visit Aside
+    assert_text 'Aside'
+    click_on 'Aside'
+    assert_current_path (@chapter.aside.nil? ? new_chapter_aside_path(chapter_id: @chapter) : edit_aside_path(@chapter.aside))
+    click_on 'Back'
+    #assert_current_path chapter_path(@chapter)
+#    visit Citations
+    visit chapter_url(@chapter)
+    assert_text 'Citations'
+    click_on 'Citations'
+    assert_current_path chapter_citations_path(@chapter)
+    click_on 'Back'
+    #assert_current_path chapter_path(@chapter)
+#    visit Footnotes
+    visit chapter_url(@chapter)
+    within ".footer" do
+      assert_text 'Footnotes'
+      click_on 'Footnotes'
+    end
+    assert_current_path chapter_footnotes_path(@chapter)
+    click_on 'Back'
+    assert_current_path chapter_path(@chapter)
+#    visit Partition
+    visit chapter_url(@chapter)
+    assert_text 'Partition'
+    click_on 'Partition'
+    assert_current_path (@chapter.partition.nil? ? new_chapter_partition_path(@chapter) : edit_partition_path(@chapter.partition))
+    click_on 'Back'
+    assert_current_path chapter_path(@chapter)
+#    visit Sections
+    visit chapter_url(@chapter)
+    assert_text 'Sections'
+    click_on 'Sections'
+    assert_current_path chapter_sections_path(@chapter)
+    click_on 'Back'
+    assert_current_path chapter_path(@chapter)
+  end
+
   test 'visiting the Chapters map' do
     visit polymorphic_url([@scripted, :chapters])
     Capybara.page.find('.fa-map-o', match: :first).click

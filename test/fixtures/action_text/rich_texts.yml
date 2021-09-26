@@ -86,6 +86,11 @@ rich_text_21:
   name: body
   body: It was a dark and stormy night. Lightening flashed all around.
 
+rich_text_22:
+  record: section_13 (Section)
+  name: body
+  body: ''
+
 <% i = 23 %>
 rich_text_<%= i %>:
   record: holocene_event_1 (HoloceneEvent)

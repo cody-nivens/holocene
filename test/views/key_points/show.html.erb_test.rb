@@ -16,7 +16,11 @@ class KeyPointsShowHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_select 'a[href=?]', edit_key_point_path(@key_point)
+
+    assert_select 'a[text()=?]', 'Move'
+    assert_select 'a[href=?]', polymorphic_path([@scripted, @key_point, :move])
     assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[href=?]', polymorphic_path([@scripted], anchor: @key_point.anchor)
     assert_select '.footer>div>a', 3
     assert_template 'key_points/show'
   end

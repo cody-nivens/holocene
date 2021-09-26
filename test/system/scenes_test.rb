@@ -21,6 +21,63 @@ class ScenesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test 'scenes index' do
+    visit polymorphic_path([@situated, :scenes])
+#    visit Timeline
+    assert_text 'Timeline'
+    click_on 'Timeline'
+    assert_current_path polymorphic_path([@situated, :timeline])
+    click_on 'Back'
+    #assert_current_path polymorphic_path(@situated)
+    #assert_current_path polymorphic_path([@situated, :key_points])
+  end
+
+  test 'scenes show' do
+    visit scene_url(@scene)
+#    visit Characters
+    assert_text 'Characters'
+    click_on 'Characters'
+    assert_current_path polymorphic_path([@scene, :characters])
+    click_on 'Back'
+    assert_current_path polymorphic_path(@scene.key_point)
+#    visit Destroy
+    assert_text 'Destroy'
+    accept_alert do
+      click_on 'Destroy'
+    end
+    #assert_current_path polymorphic_path([@situated, :scenes])
+    click_on 'Back'
+    assert_current_path polymorphic_path(@scene.situated)
+  end
+
+  test 'scenes show 2' do
+#    visit Edit Section
+    visit scene_url(@scene)
+    assert_text 'Edit Section'
+    click_on 'Edit Section'
+    assert_current_path edit_section_path(@scene.section)
+    click_on 'Back'
+    #assert_current_path polymorphic_path(@scene.key_point)
+    assert_current_path polymorphic_path(@scene)
+  end
+
+  test 'scenes show 3' do
+    visit scene_url(@scene_13)
+#    visit Move
+    assert_text 'Move'
+    click_on 'Move'
+    assert_current_path polymorphic_path([@scene_13, :move])
+    click_on 'Back'
+    #assert_current_path polymorphic_path(@scene_13.situated)
+#    visit New Section
+    visit scene_url(@scene_13)
+    assert_text 'New Section'
+    click_on 'New Section'
+    assert_current_path new_polymorphic_path([@scene_13, :section])
+    click_on 'Back'
+    #assert_current_path polymorphic_path(@scene_13)
+  end
+
   test 'visiting the scenes' do
     visit '/'
     click_link 'Books'

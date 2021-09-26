@@ -9,6 +9,36 @@ class CitiesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test 'cities edit' do
+    visit edit_city_url(@city)
+#    visit Show
+    assert_text 'Show'
+    click_on 'Show'
+    assert_current_path city_path(@city)
+    click_on 'Back'
+    assert_current_path cities_path
+  end
+
+  test 'cities index' do
+    visit cities_url
+#    visit New City
+    assert_text 'New City'
+    click_on 'New City'
+    assert_current_path new_city_path
+    click_on 'Back'
+    assert_current_path cities_path
+  end
+
+  test 'cities show' do
+    visit city_url(@city)
+#    visit Edit
+    assert_text 'Edit'
+    click_on 'Edit'
+    assert_current_path edit_city_path(@city)
+    click_on 'Back'
+    assert_current_path cities_path
+  end
+
   test 'visiting the index' do
     visit cities_url
 

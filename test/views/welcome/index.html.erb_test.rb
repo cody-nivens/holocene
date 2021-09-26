@@ -13,6 +13,11 @@ class WelcomeIndexHtmlErbTest < ActionDispatch::IntegrationTest
 
     assert_response 200
 
+    assert_select 'a[text()=?]', 'Stats'
+    assert_select 'a[href=?]', welcome_stats_path
+    assert_select 'a[text()=?]', 'Tags'
+    assert_select 'a[href=?]', welcome_tags_path
+
     assert_template 'welcome/index'
 
     #assert_select 'h1', 'Welcome'

@@ -19,6 +19,9 @@ class SectionsIndexHtmlErbTest < ActionDispatch::IntegrationTest
 
     assert_select 'a[text()=?]', 'New Section'
     assert_select 'a[href=?]', new_polymorphic_path([@sectioned, :section])
+    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[href=?]', polymorphic_path(@sectioned)
+
     assert_select '.footer>div>a', 2
     assert_template 'sections/index'
 

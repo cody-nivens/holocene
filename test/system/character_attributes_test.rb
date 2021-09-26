@@ -10,6 +10,36 @@ class CharacterAttributesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test 'character_attributes edit' do
+    visit edit_character_attribute_url(@character_attribute)
+#    visit Show
+    assert_text 'Show'
+    click_on 'Show'
+    assert_current_path character_attribute_path(@character_attribute)
+    click_on 'Back'
+    assert_current_path character_category_character_attributes_path(@character_category)
+  end
+
+  test 'character_attributes index' do
+    visit character_category_character_attributes_url(@character_category)
+#    visit New Character Attribute
+    assert_text 'New Character Attribute'
+    click_on 'New Character Attribute'
+    assert_current_path new_character_category_character_attribute_path(@character_category)
+    click_on 'Back'
+    #assert_current_path character_category_character_attributes_path(@character_category)
+  end
+
+  test 'character_attributes show' do
+    visit character_attribute_url(@character_attribute)
+#    visit Edit
+    assert_text 'Edit'
+    click_on 'Edit'
+    assert_current_path edit_character_attribute_path(@character_attribute)
+    click_on 'Back'
+    assert_current_path character_category_character_attributes_path(@character_category)
+  end
+
   test 'creating a Character attribute' do
     visit character_category_character_attributes_url(@character_category)
     click_on 'New Character Attribute'

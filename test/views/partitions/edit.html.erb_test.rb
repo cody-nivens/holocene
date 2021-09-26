@@ -12,12 +12,12 @@ class PartitionsEditHtmlErbTest < ActionDispatch::IntegrationTest
   end
 
   test 'should get edit' do
-    get edit_polymorphic_url([@chapter, @partition])
+    get edit_partition_url(@partition)
     assert_select 'a[text()=?]', 'Back'
     assert_response :success
 
     assert_select 'a[text()=?]', 'Show'
-    assert_select 'a[href=?]', polymorphic_path([@chapter, @partition])
+    assert_select 'a[href=?]', partition_path(@partition)
     assert_select 'a[text()=?]', 'Back'
     assert_select 'a[href=?]', chapter_path(@chapter)
     assert_select '.footer>div>a', 2

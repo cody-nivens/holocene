@@ -19,6 +19,7 @@ class HoloceneEventsShowHtmlErbTest < ActionDispatch::IntegrationTest
     assert_select 'a[text()=?]', 'Map'
     assert_select 'a[href=?]', geo_map_holocene_event_path(@holocene_event)
     assert_select 'a[text()=?]', 'Footnotes'
+    assert_select 'a[href=?]', holocene_event_footnotes_path(@holocene_event)
     assert_select 'a[text()=?]', 'Back'
     assert_select '.footer>div>a', 4
     assert_template 'holocene_events/show'

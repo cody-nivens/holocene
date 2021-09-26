@@ -9,6 +9,86 @@ class TimelinesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test 'timelines edit' do
+    visit edit_timeline_url(@timeline)
+#    visit Show
+    assert_text 'Show'
+    click_on 'Show'
+    assert_current_path timeline_path(@timeline)
+    click_on 'Back'
+    assert_current_path timelines_path
+  end
+
+  test 'timelines geo_map' do
+    visit geo_map_timeline_url(@timeline)
+#    visit Display
+    assert_text 'Display'
+    click_on 'Display'
+    assert_current_path timeline_display_path(@timeline)
+    click_on 'Back'
+    assert_current_path timeline_path(@timeline)
+#    visit Timeline
+    visit geo_map_timeline_url(@timeline)
+    assert_text 'Timeline'
+    click_on 'Timeline'
+    assert_current_path timeline_timeline_path(@timeline)
+    click_on 'Back'
+    assert_current_path timeline_path(@timeline)
+  end
+
+  test 'timelines index' do
+    visit timelines_url
+#    visit New Timeline
+    assert_text 'New Timeline'
+    click_on 'New Timeline'
+    assert_current_path new_timeline_path
+    click_on 'Back'
+    assert_current_path timelines_path
+  end
+
+  test 'timelines show' do
+    visit timeline_url(@timeline)
+#    visit Display
+    assert_text 'Display'
+    click_on 'Display'
+    assert_current_path timeline_display_path(timeline_id: @timeline.id)
+    click_on 'Back'
+    assert_current_path timelines_path
+#    visit Edit
+    visit timeline_url(@timeline)
+    assert_text 'Edit'
+    within ".footer" do
+      click_on 'Edit'
+    end
+    assert_current_path edit_timeline_path(@timeline)
+    click_on 'Back'
+    #assert_current_path timeline_path(@timeline)
+#    visit Map
+    visit timeline_url(@timeline)
+    assert_text 'Map'
+    click_on 'Map'
+    assert_current_path geo_map_timeline_path(@timeline)
+    click_on 'Back'
+    assert_current_path timeline_path(@timeline)
+#    visit Timeline
+    visit timeline_url(@timeline)
+    assert_text 'Timeline'
+    click_on 'Timeline'
+    assert_current_path timeline_timeline_path(timeline_id: @timeline.id)
+    click_on 'Back'
+    assert_current_path timelines_path
+  end
+
+  test 'timelines timeline' do
+    visit timeline_url(@timeline)
+#    visit Display
+    assert_text 'Display'
+    click_on 'Display'
+    assert_current_path timeline_display_path(@timeline)
+    click_on 'Back'
+    assert_current_path timelines_path
+  end
+
   test 'creating a Timeline' do
     visit timelines_url
     click_on 'New Timeline'

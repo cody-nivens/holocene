@@ -20,6 +20,36 @@ class KeyWordsTest < ApplicationSystemTestCase
     ThinkingSphinx::Test.clear
   end
 
+  test 'key_words edit' do
+    visit edit_key_word_url(@key_word)
+#    visit Show
+    assert_text 'Show'
+    click_on 'Show'
+    assert_current_path key_word_path(@key_word)
+    click_on 'Back'
+    assert_current_path book_key_words_path(@book)
+  end
+
+  test 'key_words index' do
+    visit book_key_words_url(book_id: @book.id)
+#    visit New Key Word
+    assert_text 'New Key Word'
+    click_on 'New Key Word'
+    assert_current_path new_polymorphic_path([@book, :key_word])
+    click_on 'Back'
+    #assert_current_path book_path(@book)
+  end
+
+  test 'key_words show' do
+    visit key_word_url(@key_word)
+#    visit Edit
+    assert_text 'Edit'
+    click_on 'Edit'
+    assert_current_path edit_key_word_path(@key_word)
+    click_on 'Back'
+    assert_current_path book_key_words_path(@book)
+  end
+
   test 'visiting the index' do
     visit book_key_words_url(book_id: @book.id)
     assert_selector 'h1', text: 'Key Words'

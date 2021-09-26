@@ -5,11 +5,42 @@ require 'application_system_test_case'
 class FootnotesTest < ApplicationSystemTestCase
   setup do
     @footnote = footnotes(:footnote_1)
+    @noted = @footnote.noted
     @chapter = chapters(:chapter_1)
     @section = sections(:section_1)
     @holocene_event = holocene_events(:holocene_event_1)
     @user = users(:users_1)
     sign_in @user
+  end
+
+  test 'footnotes edit' do
+    visit edit_chapter_footnote_url(chapter_id: @chapter.id, id: @footnote.id)
+#    visit Show
+    assert_text 'Show'
+    click_on 'Show'
+    assert_current_path polymorphic_path([@noted, @footnote])
+    click_on 'Back'
+    assert_current_path chapter_footnotes_path(@chapter)
+  end
+
+  test 'footnotes index' do
+    visit chapter_footnotes_url(chapter_id: @chapter.id)
+#    visit New Footnote
+    assert_text 'New Footnote'
+    click_on 'New Footnote'
+    assert page.current_path =~ Regexp.new("\/#{@noted.class.name.underscore.pluralize}\/#{@noted.id}\/footnotes\/")
+    click_on 'Back'
+    #assert_current_path chapter_footnotes_path(@chapter)
+  end
+
+  test 'footnotes show' do
+    visit chapter_footnote_url(chapter_id: @chapter.id, id: @footnote.id)
+#    visit Edit
+    assert_text 'Edit'
+    click_on 'Edit'
+    assert_current_path edit_polymorphic_path([@noted, @footnote])
+    click_on 'Back'
+    assert_current_path chapter_footnotes_path(@chapter)
   end
 
   test 'creating a Footnote' do

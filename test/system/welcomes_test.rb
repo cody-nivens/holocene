@@ -11,10 +11,35 @@ class WelcomesTest < ApplicationSystemTestCase
   test 'visiting the Welcome index' do
     visit root_url
     assert_text 'Events'
+    assert_text 'Stats'
+    click_on 'Stats'
+    assert_current_path welcome_stats_path
+    assert_text 'Tags'
+    click_on 'Tags'
+    assert_current_path welcome_tags_path
   end
 
   test 'visiting the Welcome stats' do
     visit welcome_stats_url
     assert_text 'Events'
+    assert_text 'Progress'
+    click_on 'Progress'
+    assert_current_path welcome_index_path
+    assert_text 'Tags'
+    click_on 'Tags'
+    assert_current_path welcome_tags_path
+  end
+
+  test 'visiting the Welcome tags' do
+    visit welcome_tags_url
+    assert_text 'Progress'
+    click_on 'Progress'
+    assert_current_path welcome_index_path
+    assert_text 'Stats'
+    click_on 'Stats'
+    assert_current_path welcome_stats_path
+    assert_text 'Tags'
+    click_on 'Tags'
+    assert_current_path welcome_tags_path
   end
 end

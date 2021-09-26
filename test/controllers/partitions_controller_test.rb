@@ -26,7 +26,7 @@ class PartitionsControllerTest < ActionDispatch::IntegrationTest
            params: { partition: { body: @partition.body, chapter_id: @partition.chapter_id, name: @partition.name } }
     end
 
-    assert_redirected_to chapter_partition_url(@chapter, Partition.last)
+    assert_redirected_to partition_url(Partition.last)
   end
 
   test 'should not create partition' do
@@ -39,29 +39,29 @@ class PartitionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should show partition' do
-    get chapter_partition_url(@chapter, @partition)
+    get partition_url(@partition)
     assert_response :success
   end
 
   test 'should get edit' do
-    get edit_chapter_partition_url(@chapter, @partition)
+    get edit_partition_url(@partition)
   end
 
   test 'should update partition' do
-    patch chapter_partition_url(@chapter, @partition),
+    patch partition_url(@partition),
           params: { partition: { body: @partition.body, chapter_id: @partition.chapter_id, name: @partition.name } }
-    assert_redirected_to chapter_partition_url(@chapter, @partition)
+    assert_redirected_to partition_url(@partition)
   end
 
   test 'should not update partition' do
-    patch chapter_partition_url(@chapter, @partition),
+    patch partition_url(@partition),
           params: { partition: { body: @partition.body, chapter_id: @partition.chapter_id, name: '' } }
     assert_response :success
   end
 
   test 'should destroy partition' do
     assert_difference('Partition.count', -1) do
-      delete chapter_partition_url(@chapter, @partition)
+      delete partition_url(@partition)
     end
 
     assert_redirected_to chapter_partitions_url(@chapter)
