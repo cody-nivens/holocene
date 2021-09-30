@@ -103,6 +103,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise', '~> 4.7.1'
+gem 'activeadmin'
 gem 'rolify'
 gem 'kaminari', '~> 1.2.1'
 gem 'datagrid'
@@ -126,12 +127,12 @@ gem 'timelineJS-rails'
 #gem 'rgeo-activerecord', :git => 'https://github.com/rgeo/rgeo-activerecord'
 gem 'mini_magick','~> 4.9.4'
 gem 'react-rails'
-gem 'words_counted', git: 'https://github.com/werthen/words_counted'
+gem 'words_counted', git: 'git@github.com:werthen/words_counted'
 gem 'rails-bootstrap-tabs', '~> 0.2.2'
 gem 'bootstrap-toggle-rails'
 gem 'namey'
 gem 'acts_as_list'
-gem 'ranked-model'
+gem 'ranked-model', git: 'git@github.com:mixonic/ranked-model'
 gem "chartkick"
 gem 'jdbc-mysql',      '~> 5.1.35', :platform => :jruby
 gem 'thinking-sphinx', '~> 5.3'
