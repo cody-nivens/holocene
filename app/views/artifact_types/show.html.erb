@@ -15,5 +15,5 @@
   <%= @artifact_type.book_id %>
 </p>
 
-<% @footer_content << (link_to 'Edit', edit_artifact_type_path(@artifact_type), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', book_artifact_types_path(@book), class: 'btn btn-default').to_s %>
+<% add_to_footer('Edit', edit_artifact_type_path(@artifact_type)) %>
+<% add_to_footer('Back', book_artifact_types_path(@book)) %>

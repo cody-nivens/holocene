@@ -2,6 +2,6 @@
 
 <%= render 'form', aside: @aside, book: @book, chapter: @chapter %>
 
-<% @footer_content << (link_to 'Show', aside_path(@aside), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Destroy', aside_path(@aside), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', chapter_path(@chapter), class: 'btn btn-default').to_s %>
+<% add_to_footer('Show', aside_path(@aside)) %>
+<% add_to_footer('Destroy', aside_path(@aside), method: :delete, data: { confirm: 'Are you sure?' }) %>
+<% add_to_footer('Back', chapter_path(@chapter)) %>

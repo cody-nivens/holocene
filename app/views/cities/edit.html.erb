@@ -2,5 +2,5 @@
 
 <%= render 'form', city: @city %>
 
-<% @footer_content << (link_to 'Show', city_path(@city), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', cities_path, class: 'btn btn-default').to_s %>
+<% add_to_footer('Show', city_path(@city)) %>
+<% add_to_footer('Back', cities_path) %>

@@ -17,47 +17,56 @@ class ToursTest < ApplicationSystemTestCase
   test 'tours edit' do
     visit edit_tour_url(@tour)
 #    visit Show
-    assert_text 'Show'
+    assert_link 'Show'
     click_on 'Show'
+    assert_link 'Edit'
     assert_current_path tour_path(@tour)
     click_on 'Back'
+    assert_link 'Edit'
     assert_current_path story_tours_path(@story)
   end
 
   test 'tours index' do
     visit story_tours_url(@story)
 #    visit New Tour
-    assert_text 'New Tour'
+    assert_link 'New Tour'
     click_on 'New Tour'
+    assert_no_link 'New Tour'
     assert_current_path new_story_tour_path(@story)
     click_on 'Back'
-    #assert_current_path story_tours_path(@story)
-    #assert_current_path tour_path(@tour)
+    assert_link 'New Tour'
+    assert_current_path story_tours_path(@story)
   end
 
   test 'tours show' do
     visit tour_url(@tour)
 #    visit Edit
-    assert_text 'Edit'
+    assert_link 'Edit'
     within ".footer" do
       click_on 'Edit'
     end
+    assert_link 'Show'
     assert_current_path edit_tour_path(@tour)
     click_on 'Back'
+    assert_link 'New Tour'
     assert_current_path story_tours_path(@story)
 #    visit Itinerary
     visit tour_url(@tour)
-    assert_text 'Itinerary'
+    assert_link 'Itinerary'
     click_on 'Itinerary'
+    assert_link 'New Itinerary'
     assert_current_path tour_itineraries_path(@tour)
     click_on 'Back'
-    #assert_current_path story_tours_path(@story)
+    assert_link 'Add City'
+    assert_current_path tour_path(@tour)
 #    visit Map
     visit tour_url(@tour)
-    assert_text 'Map'
+    assert_link 'Map'
     click_on 'Map'
+    assert_selector '#world-map'
     assert_current_path geo_map_tour_path(@tour)
     click_on 'Back'
+    assert_link 'Itinerary'
     assert_current_path tour_path(@tour)
   end
 

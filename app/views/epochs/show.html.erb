@@ -13,7 +13,7 @@
 <%= datagrid_table @grid %>
 <%= paginate(@grid.assets) %>
 
-<% @footer_content << (link_to 'Edit', edit_epoch_path(@epoch), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Timeline', epoch_timeline_path(@epoch), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Map', geo_map_epoch_path(@epoch), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', epochs_url, class: 'btn btn-default').to_s %>
+<% add_to_footer('Edit', edit_epoch_path(@epoch)) %>
+<% add_to_footer('Timeline', epoch_timeline_path(@epoch)) %>
+<% add_to_footer('Map', geo_map_epoch_path(@epoch)) %>
+<% add_to_footer('Back', epochs_url) %>

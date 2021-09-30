@@ -21,7 +21,7 @@
         <td class="<%= Signet.color_class(signet.color) %>"><%= Signet.color_name(signet.color) %></td>
         <td class="color-<%= Signet.color(signet.color) %>"><%= signet.message %></td>
         <td><%= link_to (fa_icon 'tv'), signet %>
-        <%= link_to (fa_icon 'pencil'), edit_signet_path("#{@sigged.class.name.underscore}_id".to_sym => @sigged.id, :id => signet.id) %>
+        <%= link_to (fa_icon 'edit'), edit_signet_path("#{@sigged.class.name.underscore}_id".to_sym => @sigged.id, :id => signet.id) %>
         <%= link_to (fa_icon 'trash-o'), signet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -30,5 +30,5 @@
 
 <br>
 
-<% @footer_content << (link_to 'New Signet', new_polymorphic_path([@sigged, :signet]), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', polymorphic_path([@sigged, :signets]), class: 'btn btn-default').to_s %>
+<% add_to_footer('New Signet', new_polymorphic_path([@sigged, :signet])) %>
+<% add_to_footer('Back', polymorphic_path([@sigged, :signets])) %>

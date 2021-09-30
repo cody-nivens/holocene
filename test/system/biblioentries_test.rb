@@ -13,32 +13,38 @@ class BiblioentriesTest < ApplicationSystemTestCase
   test 'biblioentries edit' do
 #    visit Show
     visit edit_biblioentry_url(@biblioentry)
-    assert_text 'Show'
+    assert_link 'Show'
     click_on 'Show'
+    assert_link 'Edit'
     assert_current_path biblioentry_path(@biblioentry)
     click_on 'Back'
+    assert_text 'No Dog'
     assert_current_path book_path(@book)
   end
 
   test 'biblioentries index' do
 #    visit New Biblioentry
     visit book_biblioentries_url(@book)
-    assert_text 'New Biblioentry'
+    assert_link 'New Biblioentry'
     click_on 'New Biblioentry'
+    assert_no_link 'New Biblioentry'
     assert_current_path new_book_biblioentry_path(@book)
     click_on 'Back'
+    assert_text 'Exodus to Arthur'
     assert_current_path book_biblioentries_path(@book)
   end
 
   test 'biblioentries show' do
 #    visit Edit
     visit biblioentry_url(@biblioentry)
-    assert_text 'Edit'
+    assert_link 'Edit'
     within ".footer" do
       click_on 'Edit'
     end
+    assert_text 'Editing Biblioentry'
     assert_current_path edit_biblioentry_path(@biblioentry)
     click_on 'Back'
+    assert_text 'Exodus to Arthur'
     assert_current_path book_biblioentries_path(@book)
   end
 

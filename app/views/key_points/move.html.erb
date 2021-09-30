@@ -27,4 +27,4 @@
 
 <% end %>
 
-<% @footer_content << (link_to 'Back', polymorphic_path(@scripted), class: 'btn btn-default').to_s %>
+<% add_to_footer('Back', polymorphic_path(@scripted)) %>

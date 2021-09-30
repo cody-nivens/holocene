@@ -12,30 +12,36 @@ class EventTypesTest < ApplicationSystemTestCase
   test 'event_types edit' do
     visit edit_event_type_url(@event_type)
 #    visit Show
-    assert_text 'Show'
+    assert_link 'Show'
     click_on 'Show'
+    assert_link 'Timeline'
     assert_current_path event_type_path(@event_type)
     click_on 'Back'
-    #assert_current_path event_types_path
+    assert_text 'Volcanic'
+    assert_current_path event_types_path
   end
 
   test 'event_types geo_map' do
     visit geo_map_event_type_url(@event_type)
 #    visit Display
-    assert_text 'Display'
+    assert_link 'Display'
     click_on 'Display'
+    assert_link 'Timeline'
     assert_current_path event_type_path(@event_type)
     click_on 'Back'
-    #assert_current_path event_type_path(@event_type)
+    assert_link 'New Event Type'
+    assert_current_path event_types_path
   end
 
   test 'event_types index' do
     visit event_types_url
 #    visit New Event Type
-    assert_text 'New Event Type'
+    assert_link 'New Event Type'
     click_on 'New Event Type'
+    assert_no_link 'New Event Type'
     assert_current_path new_event_type_path
     click_on 'Back'
+    assert_link 'New Event Type'
     assert_current_path event_types_path
   end
 
@@ -43,27 +49,32 @@ class EventTypesTest < ApplicationSystemTestCase
     visit event_type_url(@event_type)
 #    visit Edit
     within '.footer' do
-      assert_text 'Edit'
+      assert_link 'Edit'
       click_on 'Edit'
     end
+    assert_link 'Show'
     assert_current_path edit_event_type_path(@event_type)
     click_on 'Back'
-    #assert_current_path event_types_path
+    assert_link 'New Event Type'
+    assert_current_path event_types_path
 #    visit Map
     visit event_type_url(@event_type)
-    assert_text 'Map'
+    assert_link 'Map'
     click_on 'Map'
+    assert_selector '#world-map'
     assert_current_path geo_map_event_type_path(@event_type)
     click_on 'Back'
-    #assert_current_path event_type_path(@event_type)
+    assert_text @event_type.name
+    assert_current_path event_type_path(@event_type)
 #    visit Timeline
     visit event_type_url(@event_type)
-    assert_text 'Timeline'
+    assert_link 'Timeline'
     click_on 'Timeline'
-
+    assert_link 'Display'
     assert_current_path event_type_timeline_path(@event_type)
-    #click_on 'Back'
-    #assert_current_path event_type_path(@event_type)
+    click_on 'Back'
+    assert_text @event_type.name
+    assert_current_path event_type_path(@event_type)
   end
 
   test 'creating an Event type' do

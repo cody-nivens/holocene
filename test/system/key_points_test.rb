@@ -17,53 +17,62 @@ class KeyPointsTest < ApplicationSystemTestCase
   test 'key_points index' do
     visit polymorphic_url([@scripted, :key_points])
 #    visit New Key Point
-    assert_text 'New Key Point'
+    assert_link 'New Key Point'
     click_on 'New Key Point'
+    assert_no_link 'New Key Point'
     assert_current_path new_polymorphic_path([@scripted, KeyPoint])
     click_on 'Back'
-    #assert_current_path polymorphic_path([@scripted, :key_points])
-    #assert_current_path polymorphic_path([@scripted, :key_points])
+    assert_link 'Timeline'
+    assert_current_path polymorphic_path([@scripted, :key_points])
 #    visit Scenes
     visit polymorphic_url([@scripted, :key_points])
-    assert_text 'Scenes'
+    assert_link 'Scenes'
     click_on 'Scenes'
+    assert_button 'Go'
     assert_current_path polymorphic_path([@scripted, :scenes])
     click_on 'Back'
+    assert_link 'Key Points'
     assert_current_path polymorphic_path(@scripted)
 #    visit Timeline
     visit polymorphic_url([@scripted, :key_points])
-    assert_text 'Timeline'
+    assert_link 'Timeline'
     click_on 'Timeline'
+    assert_button 'Go'
     assert_current_path polymorphic_path([@scripted, :timeline])
     click_on 'Back'
-    #assert_current_path polymorphic_path(@scripted)
+    assert_link 'New Story'
+    assert_current_path polymorphic_path([@scripted, :stories])
   end
 
   test 'key_points list' do
     visit polymorphic_url([@key_point.scripted, @key_point, :list])
 #    visit New Scene
-    assert_text 'New Scene'
+    assert_link 'New Scene'
     click_on 'New Scene'
+    assert_text 'Abc'
     assert_current_path new_key_point_scene_path(@key_point, selector: @selector.to_i)
     click_on 'Back'
-    assert_current_path polymorphic_path([@key_point.scripted, :key_points])
+    assert_button 'Save'
+    assert_current_path polymorphic_path([@key_point.scripted, @key_point, :list])
   end
 
   test 'key_points show' do
     visit key_point_url(@key_point)
 #    visit Move
-    assert_text 'Move'
+    assert_link 'Move'
     click_on 'Move'
+    assert_text 'Existing Key Point'
     assert_current_path polymorphic_path([@key_point.scripted, @key_point, :move])
     click_on 'Back'
+    assert_link 'New Key Point'
     assert_current_path polymorphic_path(@key_point.scripted)
   end
 
   test 'sort key points' do
     visit books_url
-    assert_text 'The Phantom'
+    assert_link 'The Phantom'
     click_on 'The Phantom'
-    assert_text 'The Beginnings'
+    assert_link 'The Beginnings'
     click_on 'The Beginnings'
     assert_text 'Climate Change'
 
@@ -84,12 +93,12 @@ class KeyPointsTest < ApplicationSystemTestCase
 
   test 'creating a Key point' do
     visit books_url
-    assert_text 'The Phantom'
+    assert_link 'The Phantom'
     click_on 'The Phantom'
-    assert_text 'The Beginnings'
+    assert_link 'The Beginnings'
     click_on 'The Beginnings'
     assert_text 'Climate Change'
-    assert_text 'New Key Point'
+    assert_link 'New Key Point'
     click_on 'New Key Point'
 
     fill_in 'Climax', with: @key_point.climax
@@ -109,12 +118,12 @@ class KeyPointsTest < ApplicationSystemTestCase
 
   test 'not creating a Key point' do
     visit books_url
-    assert_text 'The Phantom'
+    assert_link 'The Phantom'
     click_on 'The Phantom'
-    assert_text 'The Beginnings'
+    assert_link 'The Beginnings'
     click_on 'The Beginnings'
     assert_text 'Climate Change'
-    assert_text 'New Key Point'
+    assert_link 'New Key Point'
     click_on 'New Key Point'
 
     fill_in 'Climax', with: @key_point.climax

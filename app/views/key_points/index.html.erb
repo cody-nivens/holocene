@@ -16,11 +16,11 @@
 
 <br>
 
-<% @footer_content << (link_to 'New Key Point', new_polymorphic_path([@scripted, KeyPoint]), class: 'btn btn-default hide-print').to_s %>
-<% @footer_content << (link_to 'Scenes', polymorphic_path([@scripted, :scenes]), class: 'btn btn-default hide-print').to_s %>
-<% @footer_content << (link_to 'Timeline', polymorphic_path([@scripted, :timeline]), class: 'btn btn-default hide-print').to_s %>
+<% add_to_footer('New Key Point', new_polymorphic_path([@scripted, KeyPoint]), print: true) %>
+<% add_to_footer('Scenes', polymorphic_path([@scripted, :scenes]), print: true) %>
+<% add_to_footer('Timeline', polymorphic_path([@scripted, :timeline]), print: true) %>
 
-<% @footer_content << (link_to 'Back', polymorphic_path(@scripted), class: 'btn btn-default hide-print').to_s %>
+<% add_to_footer('Back', polymorphic_path(@scripted), print: true) %>
 
 <script>
 $(document).ready(function() {

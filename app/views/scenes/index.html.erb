@@ -50,5 +50,5 @@
   <%= render partial: 'scenes/scenes.html', locals: { scenes: @scenes, print: @print, no_section: @no_section, only_section: @only_section, years: @years, date: @year, scripted: @scripted } %>
 </div>
 
-<% @footer_content << (link_to 'Timeline', polymorphic_path([@situated, :timeline]), class: 'btn btn-default hide-print').to_s %>
-<% @footer_content << (link_to 'Back', polymorphic_path(@situated), class: 'btn btn-default hide-print').to_s %>
+<% add_to_footer('Timeline', polymorphic_path([@situated, :timeline]), print: true) %>
+<% add_to_footer('Back', polymorphic_path(@situated), print: true) %>

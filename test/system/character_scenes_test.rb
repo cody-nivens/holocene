@@ -14,9 +14,11 @@ class CharacterScenesTest < ApplicationSystemTestCase
 #    visit Show
     visit scene_url(id: @scene.id)
     find(:xpath, ".//a[i[contains(@class, 'fa-plus')]]", match: :first).click
+    assert_text 'Editing Character Scene'
     assert_current_path edit_character_scene_path(@character_scene)
     click_on 'Back'
-    #assert_current_path scene_path(id: @scene.id)
+    assert_text 'ABC'
+    assert_current_path scene_path(@scene)
   end
 
 

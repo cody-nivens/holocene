@@ -2,4 +2,4 @@
 
 <%= render 'form', scripted: @scripted, sectioned: @sectioned, section: @section, command_label: 'Create Section' %>
 
-<% @footer_content << (link_to 'Back', polymorphic_path((@sectioned.instance_of?(Chapter) ? @section.sectioned : @sectioned)), class: 'btn btn-default').to_s %>
+<% add_to_footer('Back', polymorphic_path((@sectioned.instance_of?(Chapter) ? @section.sectioned : @sectioned))) %>

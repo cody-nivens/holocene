@@ -32,5 +32,5 @@
 
 <%= render 'footnotes/index', footnotes: @biblioentry.footnotes, noted: @biblioentry %>
 
-<% @footer_content << (link_to 'Edit', edit_biblioentry_path(@biblioentry), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', book_path(@book), class: 'btn btn-default').to_s %>
+<% add_to_footer('Edit', edit_biblioentry_path(@biblioentry)) %>
+<% add_to_footer('Back', book_path(@book)) %>

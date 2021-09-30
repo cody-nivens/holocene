@@ -1,7 +1,7 @@
 # test/lib/user_notify_test.rb
 require 'test_helper'
 
-class HoloceneRakeTaskTest < ActiveSupport::TestCase
+class StatsTaskTest < ActiveSupport::TestCase
   setup do
     Holocene::Application.load_tasks
 
@@ -11,7 +11,12 @@ class HoloceneRakeTaskTest < ActiveSupport::TestCase
     $stdout = original_stdout
   end
 
+  teardown do
+    Rake::Task.clear
+  end
+
   test "that the task is run" do
+    putc '?'
     assert true
   end
 

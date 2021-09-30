@@ -2,5 +2,5 @@
 
 <%= render 'form', event_type: @event_type, command_label: 'Update Event type' %>
 
-<% @footer_content << (link_to 'Show', @event_type, class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', event_types_path, class: 'btn btn-default').to_s %>
+<% add_to_footer('Show', @event_type) %>
+<% add_to_footer('Back', event_types_path) %>

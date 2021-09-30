@@ -13,30 +13,36 @@ class CharacterAttributesTest < ApplicationSystemTestCase
   test 'character_attributes edit' do
     visit edit_character_attribute_url(@character_attribute)
 #    visit Show
-    assert_text 'Show'
+    assert_link 'Show'
     click_on 'Show'
+    assert_text 'Character category:'
     assert_current_path character_attribute_path(@character_attribute)
     click_on 'Back'
+    assert_link 'New Character Attribute'
     assert_current_path character_category_character_attributes_path(@character_category)
   end
 
   test 'character_attributes index' do
     visit character_category_character_attributes_url(@character_category)
 #    visit New Character Attribute
-    assert_text 'New Character Attribute'
+    assert_link 'New Character Attribute'
     click_on 'New Character Attribute'
+    assert_no_link 'New Character Attribute'
     assert_current_path new_character_category_character_attribute_path(@character_category)
     click_on 'Back'
-    #assert_current_path character_category_character_attributes_path(@character_category)
+    assert_link 'Edit'
+    assert_current_path character_category_path(@character_category)
   end
 
   test 'character_attributes show' do
     visit character_attribute_url(@character_attribute)
 #    visit Edit
-    assert_text 'Edit'
+    assert_link 'Edit'
     click_on 'Edit'
+    assert_text 'Editing Character Attribute'
     assert_current_path edit_character_attribute_path(@character_attribute)
     click_on 'Back'
+    assert_link 'New Character Attribute'
     assert_current_path character_category_character_attributes_path(@character_category)
   end
 

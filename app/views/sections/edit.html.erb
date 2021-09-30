@@ -2,5 +2,5 @@
 
 <%= render 'form', scripted: @scripted, sectioned: @sectioned, section: @section, command_label: 'Update Section' %>
 
-<% @footer_content << (link_to 'Show', section_path(@section), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', polymorphic_path(@sectioned), class: 'btn btn-default').to_s %>
+<% add_to_footer('Show', section_path(@section)) %>
+<% add_to_footer('Back', polymorphic_path(@sectioned)) %>

@@ -18,61 +18,76 @@ class CharactersTest < ApplicationSystemTestCase
   test 'characters edit' do
     visit edit_book_character_url(@book, @character)
 #    visit Show
-    assert_text 'Show'
+    assert_link 'Show'
     click_on 'Show'
+    assert_text 'John Smith'
     assert_current_path polymorphic_path([@book, @character])
     click_on 'Back'
-    #assert_current_path book_characters_path(@book)
+    assert_text 'Joe'
+    assert_current_path book_characters_path(@book)
   end
 
   test 'characters index' do
     visit book_characters_url(@book)
     assert_current_path book_characters_path(@book)
 #    visit New Character
-    assert_text 'New Character'
+    assert_link 'New Character'
     click_on 'New Character'
+    assert_text 'Character Characteristics'
     assert_current_path book_character_step_path(@book, Character.last, :characteristics)
   end
 
   test 'characters list' do
     visit book_characters_list_url(@book)
 #    visit New Character
-    assert_text 'New Character'
+    assert_link 'New Character'
     click_on 'New Character'
+    assert_text 'Character Characteristics'
     assert_current_path book_character_step_path(@book, Character.last, :characteristics)
   end
 
-  test 'characters show' do
+  test 'characters show attributes' do
     visit book_character_url(@book, @character)
 #    visit Attributes
-    assert_text 'Attributes'
+    assert_link 'Attributes'
     click_on 'Attributes'
     assert_text 'Character Values'
     assert_current_path polymorphic_path([@book, @character, :character_values])
     click_on 'Back'
+    assert_link 'Lineage'
     assert_current_path polymorphic_path([@book, @character])
+  end
+
+  test 'characters show edit' do
 #    visit Edit
+    visit book_character_url(@book, @character)
     within '.footer' do
-      assert_text 'Edit'
+      assert_link 'Edit'
       click_on 'Edit'
     end
+    assert_link 'Show'
     assert_current_path edit_book_character_path(@book, @character)
     click_on 'Back'
+    assert_link 'New Character'
     assert_current_path book_characters_path(@book)
+  end
+
+  test 'characters show lineage' do
 #    visit Lineage
     visit book_character_url(@book, @character)
-    assert_text 'Lineage'
+    assert_link 'Lineage'
     click_on 'Lineage'
     assert_text @character.name
     assert_current_path polymorphic_path([@book, @character, :lineage])
     click_on 'Back'
+    assert_link 'Attributes'
     assert_current_path book_character_path(@book, @character)
   end
 
   test 'visiting the Character index searching using first name' do
     visit book_url(id: @book.id)
     within '.footer' do
-      assert_text 'Characters'
+      assert_link 'Characters'
       click_on 'Characters'
     end
 
@@ -89,7 +104,7 @@ class CharactersTest < ApplicationSystemTestCase
   test 'visiting the Character index searching using last name' do
     visit book_url(id: @book.id)
     within '.footer' do
-      assert_text 'Characters'
+      assert_link 'Characters'
       click_on 'Characters'
     end
 
@@ -105,7 +120,7 @@ class CharactersTest < ApplicationSystemTestCase
 
   test 'visiting the Character index for blank ethnicity' do
     visit book_url(id: @book.id)
-    assert_text 'Stats'
+    assert_link 'Stats'
     click_on 'Stats'
     # assert_text "Ethnicity"
     # click_on "Ethnicity"
@@ -116,7 +131,7 @@ class CharactersTest < ApplicationSystemTestCase
 
   test 'visiting the Character index for blank occupation_class' do
     visit book_url(id: @book.id)
-    assert_text 'Occupation Class'
+    assert_link 'Occupation Class'
     click_on 'Occupation Class'
     assert_text 'Educated'
     click_on '<blank>'
@@ -127,7 +142,10 @@ class CharactersTest < ApplicationSystemTestCase
     visit books_url
     assert_link 'The Phantom'
     click_on 'The Phantom'
+    assert_link 'Occupation Class'
     click_on 'Occupation Class'
+    #binding.pry
+    assert_link 'Educated'
     click_on 'Educated'
   end
 end

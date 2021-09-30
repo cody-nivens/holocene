@@ -12,37 +12,46 @@ class EpochsTest < ApplicationSystemTestCase
   test 'epochs edit' do
     visit edit_epoch_url(@epoch)
 #    visit Show
-    assert_text 'Show'
+    assert_link 'Show'
     click_on 'Show'
+    assert_link 'Timeline'
     assert_current_path epoch_path(@epoch)
     click_on 'Back'
+    assert_link 'New Epoch'
     assert_current_path epochs_path
   end
 
   test 'epochs geo_map' do
     visit geo_map_epoch_url(@epoch)
 #    visit Display
-    assert_text 'Display'
+    take_screenshot
+    assert_link 'Display'
     click_on 'Display'
+    assert_link 'Timeline'
     assert_current_path "/epochs/display/#{@epoch.id}"
     click_on 'Back'
-    #assert_current_path geo_map_epoch_path(@epoch)
+    assert_link 'Timeline'
+    assert_current_path epoch_path(@epoch)
 #    visit Timeline
     visit geo_map_epoch_url(@epoch)
-    assert_text 'Timeline'
+    assert_link 'Timeline'
     click_on 'Timeline'
+    assert_button 'Go'
     assert_current_path epoch_timeline_path(@epoch)
     click_on 'Back'
-    #assert_current_path geo_map_epoch_path(@epoch)
+    assert_link 'Timeline'
+    assert_current_path epoch_path(@epoch)
   end
 
   test 'epochs index' do
     visit epochs_url
 #    visit New Epoch
-    assert_text 'New Epoch'
+    assert_link 'New Epoch'
     click_on 'New Epoch'
+    assert_no_link 'New Epoch'
     assert_current_path new_epoch_path
     click_on 'Back'
+    assert_link 'New Epoch'
     assert_current_path epochs_path
   end
 
@@ -50,25 +59,30 @@ class EpochsTest < ApplicationSystemTestCase
     visit epoch_url(@epoch)
 #    visit Edit
     within '.footer' do
-      assert_text 'Edit'
+      assert_link 'Edit'
       click_on 'Edit'
     end
     assert_current_path edit_epoch_path(@epoch)
     click_on 'Back'
+    assert_link 'New Epoch'
     assert_current_path epochs_path
 #    visit Map
     visit epoch_url(@epoch)
-    assert_text 'Map'
+    assert_link 'Map'
     click_on 'Map'
+    assert_link 'Timeline'
     assert_current_path geo_map_epoch_path(@epoch)
     click_on 'Back'
+    assert_link 'Timeline'
     assert_current_path epoch_path(@epoch)
 #    visit Timeline
-    assert_text 'Timeline'
+    assert_link 'Timeline'
     click_on 'Timeline'
+    assert_link 'Display'
     assert_current_path epoch_timeline_path(@epoch)
     click_on 'Back'
-    #assert_current_path epochs_path
+    assert_text @epoch.name
+    assert_current_path epoch_path(@epoch)
   end
 
   test 'visiting the Epoch index' do

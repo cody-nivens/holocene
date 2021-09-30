@@ -15,70 +15,86 @@ class HoloceneEventsTest < ApplicationSystemTestCase
   test 'holocene_events display' do
     visit polymorphic_url([@chapter, :display])
 #    visit Map
-    assert_text 'Map'
+    assert_link 'Map'
     click_on 'Map'
+    assert_selector '#world-map'
     assert_current_path polymorphic_path([:geo_map, @chapter])
     click_on 'Back'
+    assert_link 'Aside'
     assert_current_path chapter_path(@chapter)
 #    visit Timeline
     visit polymorphic_url([@chapter, :display])
-    assert_text 'Timeline'
+    assert_link 'Timeline'
     click_on 'Timeline'
+    assert_link 'Display'
     assert_current_path polymorphic_path([@chapter, :timeline])
     click_on 'Back'
-    #assert_current_path polymorphic_path([@chapter, :display])
+    assert_link 'Citations'
+    assert_current_path chapter_path(@chapter)
   end
 
   test 'holocene_events edit' do
     visit edit_holocene_event_url(@holocene_event)
 #    visit Show
-    assert_text 'Show'
+    assert_link 'Show'
     click_on 'Show'
+    assert_link 'Footnotes'
     assert_current_path holocene_event_path(@holocene_event)
     click_on 'Back'
+    assert_link 'New Holocene Event'
     assert_current_path holocene_events_path
   end
 
   test 'holocene_events geo_map' do
     visit geo_map_holocene_event_url(@holocene_event)
 #    visit Display
-    assert_text 'Display'
+    assert_link 'Display'
     click_on 'Display'
+    assert_link 'Footnotes'
     assert_current_path holocene_event_path(@holocene_event)
     click_on 'Back'
+    assert_link 'New Holocene Event'
     assert_current_path holocene_events_path
   end
 
   test 'holocene_events index' do
     visit holocene_events_url
 #    visit New Holocene Event
-    assert_text 'New Holocene Event'
+    assert_link 'New Holocene Event'
     click_on 'New Holocene Event'
     assert_current_path new_holocene_event_path
+    assert_text 'New Holocene Event'
     click_on 'Back'
+    assert_link 'New Holocene Event'
     assert_current_path holocene_events_path
   end
 
   test 'holocene_events show' do
     visit holocene_event_url(@holocene_event)
 #    visit Edit
-    assert_text 'Edit'
+    assert_link 'Edit'
     click_on 'Edit'
+    assert_link 'Show'
     assert_current_path edit_holocene_event_path(@holocene_event)
     click_on 'Back'
-    #assert_current_path holocene_events_path
+    assert_link 'New Holocene Event'
+    assert_current_path holocene_events_path
 #    visit Footnotes
     visit holocene_event_url(@holocene_event)
-    assert_text 'Footnotes'
+    assert_link 'Footnotes'
     click_on 'Footnotes'
+    assert_link 'New Footnote'
     assert_current_path holocene_event_footnotes_path(@holocene_event)
     click_on 'Back'
+    assert_link 'Footnotes'
     assert_current_path holocene_event_path(@holocene_event)
 #    visit Map
-    assert_text 'Map'
+    assert_link 'Map'
     click_on 'Map'
+    assert_selector '#world-map'
     assert_current_path geo_map_holocene_event_path(@holocene_event)
     click_on 'Back'
+    assert_link 'Map'
     assert_current_path holocene_event_path(@holocene_event)
   end
 

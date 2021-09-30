@@ -40,5 +40,5 @@
   </tbody>
 </table>
 
-<% @footer_content << (link_to 'New Glossary Term', new_book_glossary_term_path(@book), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', book_path(@book), class: 'btn btn-default').to_s %>
+<% add_to_footer('New Glossary Term', new_book_glossary_term_path(@book)) %>
+<% add_to_footer('Back', book_path(@book)) %>

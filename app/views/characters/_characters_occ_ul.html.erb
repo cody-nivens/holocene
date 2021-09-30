@@ -2,12 +2,20 @@
   <%= (occ_class == '' ? '<blank>' : occ_class) %>
   <ul>
     <% if occ_class == "" %>
-      <% object.characters.where('occupation_class is null').order(:occupation_class, :last_name, :first_name).each do |character| %>
-        <li><%= link_to character.name, character_path(character) %><%= (!character.grouping? ? '' : "-  #{character.grouping}").to_s %></li>
+      <% occ_class = nil %>
+    <% end %>
+      <% object.characters.where(occupation_class: occ_class).order(:occupation_class, :last_name, :first_name).each do |character| %>
+        <li><%= link_to character.name, polymorphic_path([object, character]) %>
+          <%= (!character.grouping? ? '' : "-  #{character.grouping}").to_s %>
+          <% if object.class.name == 'Scene' %>
+            <%= object.date_string[0..3].to_i - character.birth_year.to_i %>
+            <% character_scene = CharacterScene.where(character_id: character.id, scene_id: object.id) %>
+            <%= link_to (fa_icon 'plus'), edit_character_scene_path(character_scene[0]) %>
+            <% unless character_scene[0].summary.nil? %>
+              <%= character_scene[0].summary.to_plain_text %>
+            <% end %>
+          <% end %>
+        </li>
       <% end %>
-    <% end %>
-    <% object.characters.where('occupation_class = ?', occ_class).order(:occupation_class, :last_name, :first_name).each do |character| %>
-      <li><%= link_to character.name, character_path(character) %><%= (!character.grouping? ? '' : "-  #{character.grouping}").to_s %></li>
-    <% end %>
   </ul>
 <% end %>

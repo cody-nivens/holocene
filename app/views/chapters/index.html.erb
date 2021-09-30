@@ -2,10 +2,10 @@
 
 <%= render 'chapters/index', chapters: @chapters %>
 
-<% @footer_content << (link_to 'New Chapter', new_polymorphic_path([@scripted, Chapter]), class: 'btn btn-default').to_s %>
+<% add_to_footer('New Chapter', new_polymorphic_path([@scripted, Chapter])) %>
 <% if @situated.class.name == 'Chpater' %>
-<% @footer_content << (link_to 'Scenes', polymorphic_path([@situated, :scenes]), class: 'btn btn-default').to_s %>
+<% add_to_footer('Scenes', polymorphic_path([@situated, :scenes])) %>
 <% end %>
-<% @footer_content << (link_to 'Chapters, Details', polymorphic_path([@scripted, :chapters]), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Chapters, TOC', toc_path(@scripted), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', polymorphic_path(@scripted), class: 'btn btn-default').to_s %>
+<% add_to_footer('Chapters, Details', polymorphic_path([@scripted, :chapters])) %>
+<% add_to_footer('Chapters, TOC', toc_path(@scripted)) %>
+<% add_to_footer('Back', polymorphic_path(@scripted)) %>

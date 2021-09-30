@@ -27,5 +27,5 @@
   </tbody>
 </table>
 
-<% @footer_content << (link_to 'New Biblioentry', new_book_biblioentry_path(@book), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', book_path(@book), class: 'btn btn-default').to_s %>
+<% add_to_footer('New Biblioentry', new_book_biblioentry_path(@book)) %>
+<% add_to_footer('Back', book_path(@book)) %>

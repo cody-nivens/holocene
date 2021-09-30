@@ -10,5 +10,5 @@
   <%= @character_value.value %>
 </p>
 
-<% @footer_content << (link_to 'Edit', edit_book_character_character_value_path(@object, @character, @character_value), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', polymorphic_path([@object, @character, :character_values]), class: 'btn btn-default').to_s %>
+<% add_to_footer('Edit', edit_book_character_character_value_path(@object, @character, @character_value)) %>
+<% add_to_footer('Back', polymorphic_path([@object, @character, :character_values])) %>

@@ -16,45 +16,53 @@ class ArtifactsTest < ApplicationSystemTestCase
     within row_containing_cell_with_text(@artifact.name) do
       find(:css, 'i.fa.fa-edit').click
     end
-    assert_text 'Show'
+    assert_link 'Show'
     click_on 'Show'
+    assert_text 'Owner/Controller:'
     assert_current_path artifact_path(@artifact)
     click_on 'Back'
+    assert_text 'New Artifact'
     assert_current_path book_artifacts_path(@artifact.book)
   end
 
   test 'artifacts index' do
 #    visit New Artifact
     visit book_artifacts_path(@book)
-    assert_text 'New Artifact'
+    assert_link 'New Artifact'
     click_on 'New Artifact'
+    assert_no_link 'New Artifact'
     assert_current_path new_book_artifact_path(@book)
     click_on 'Back'
+    assert_text 'New Artifact'
     assert_current_path book_artifacts_path(@book)
   end
 
   test 'artifacts show' do
 #    visit Edit
     visit artifact_path(@artifact)
-    assert_text 'Edit'
+    assert_link 'Edit'
     click_on 'Edit'
+    assert_text 'Editing Artifact'
     assert_current_path edit_artifact_path(@artifact)
     click_on 'Back'
+    assert_text 'New Artifact'
     assert_current_path book_artifacts_path(@artifact.book)
   end
 
 
   test 'artifact edit' do
     visit edit_artifact_path(@artifact)
-    assert_text 'Show'
+    assert_link 'Show'
     click_on 'Show'
+    assert_text 'Owner/Controller:'
     assert_current_path artifact_path(@artifact)
   end
 
   test 'artifact edit 2' do
     visit edit_artifact_path(@artifact)
-    assert_text 'Back'
+    assert_link 'Back'
     click_on 'Back'
+    assert_text 'New Artifact'
     assert_current_path book_artifacts_path(@artifact.book)
   end
 
@@ -70,6 +78,7 @@ class ArtifactsTest < ApplicationSystemTestCase
     assert_text 'Artifact was successfully created'
     assert_current_path artifact_path(Artifact.last)
     click_on 'Back'
+    assert_text 'New Artifact'
     assert_current_path book_artifacts_path(@book)
   end
 
@@ -83,8 +92,9 @@ class ArtifactsTest < ApplicationSystemTestCase
     click_on 'Create Artifact'
 
     assert_text "Name\ncan't be blank"
-    #assert_current_path new_book_artifact_path(@book)
+    assert_current_path book_artifacts_path(@book)
     click_on 'Back'
+    assert_link 'New Artifact'
     assert_current_path book_artifacts_path(@book)
   end
 end

@@ -16,7 +16,7 @@ class ScenesNewHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_select 'a[text()=?]', 'Back'
-    assert_select 'a[href=?]', key_point_path(@key_point)
+    assert_select 'a[href=?]', polymorphic_path([@scene.situated, @scene.key_point, :list])
     assert_select '.footer>div>a', 1
     assert_template 'scenes/new'
   end

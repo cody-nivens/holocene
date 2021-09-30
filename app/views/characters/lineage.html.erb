@@ -31,4 +31,4 @@
     <%= form.submit %>
   </div>
 <% end %>
-<% @footer_content << (link_to 'Back', polymorphic_path([@object, @character]), class: 'btn btn-default').to_s %>
+<% add_to_footer('Back', polymorphic_path([@object, @character])) %>

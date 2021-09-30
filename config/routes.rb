@@ -4,6 +4,9 @@ require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+  mount Sidekiq::Web => '/sidekiq'
   get '/characters/attributes', to: 'characters#attributes', format: :js, constraints: lambda { |request|
                                                                                          request.xhr?
                                                                                        }
@@ -29,7 +32,6 @@ Rails.application.routes.draw do
     get 'steps/show'
     get 'steps/update'
   end
-  mount Sidekiq::Web => '/sidekiq'
 
   concern :sectioned do |options|
     resources :chapters, options

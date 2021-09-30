@@ -13,78 +13,111 @@ class SectionsTest < ApplicationSystemTestCase
   test 'sections edit' do
     visit edit_section_url(@section)
 #    visit Show
-    assert_text 'Show'
+    assert_link 'Show'
     click_on 'Show'
+    assert_link 'Timeline'
     assert_current_path section_path(@section)
     click_on 'Back'
+    assert_link 'Citations'
     assert_current_path polymorphic_path(@chapter)
   end
 
-  test 'sections geo_map' do
+  test 'sections geo_map display' do
     visit geo_map_section_url(@section)
 #    visit Display
-    assert_text 'Display'
+    assert_link 'Display'
     click_on 'Display'
+    assert_link 'Timeline'
     assert_current_path section_display_path(section_id: @section.id)
     click_on 'Back'
-    assert_current_path polymorphic_path(@chapter)
+    assert_link 'Display'
+    assert_current_path polymorphic_path(@section)
+  end
+
+  test 'sections geo_map timeline' do
 #    visit Timeline
     visit geo_map_section_url(@section)
-    assert_text 'Timeline'
+    assert_link 'Timeline'
     click_on 'Timeline'
+    assert_link 'Display'
     assert_current_path section_timeline_path(section_id: @section.id)
     click_on 'Back'
-    #assert_current_path polymorphic_path(@chapter)
+    assert_link 'Timeline'
+    assert_current_path section_path(@section)
   end
 
   test 'sections index' do
     visit chapter_sections_url(@chapter)
 #    visit New Section
-    assert_text 'New Section'
+    assert_link 'New Section'
     click_on 'New Section'
+    assert_no_link 'New Section'
     assert_current_path new_polymorphic_path([@chapter, :section])
     click_on 'Back'
+    assert_link 'Partition'
     assert_current_path chapter_path(@chapter)
   end
 
-  test 'sections show' do
+  test 'sections show display' do
     visit section_url(@section)
 #    visit Display
-    assert_text 'Display'
+    assert_link 'Display'
     click_on 'Display'
+    assert_link 'Add Event'
     assert_current_path section_display_path(section_id: @section.id)
     click_on 'Back'
-    assert_current_path chapter_path(@chapter)
+    assert_link 'Map'
+    assert_current_path section_path(@section)
+  end
+
+  test 'sections show edit' do
 #    visit Edit
     visit section_url(@section)
     within ".footer" do
-      assert_text 'Edit'
+      assert_link 'Edit'
       click_on 'Edit'
     end
+    assert_text 'Editing Section'
     assert_current_path edit_section_path(@section)
     click_on 'Back'
+    assert_link 'Partition'
     assert_current_path chapter_path(@chapter)
+  end
+
+  test 'sections show footnotes' do
 #    visit Footnotes
     visit section_url(@section)
-    assert_text 'Footnotes'
+    assert_link 'Footnotes'
     click_on 'Footnotes'
+    assert_no_link 'Footnotes'
     assert_current_path section_footnotes_path(@section)
     click_on 'Back'
+    assert_text @section.name
     assert_current_path section_path(@section)
+  end
+
+  test 'sections show map' do
 #    visit Map
     visit section_url(@section)
-    assert_text 'Map'
+    assert_link 'Map'
     click_on 'Map'
+    assert_selector '#world-map'
     assert_current_path geo_map_section_path(@section)
     click_on 'Back'
+    assert_link 'Partition'
     assert_current_path chapter_path(@chapter)
+  end
+
+  test 'sections show timeline' do
 #    visit Timeline
     visit section_url(@section)
-    assert_text 'Timeline'
+    assert_link 'Timeline'
     click_on 'Timeline'
+    assert_link 'Display'
     assert_current_path section_timeline_path(section_id: @section.id)
     click_on 'Back'
-    #assert_current_path section_path(@section)
+    assert_text 'Word Count'
+    assert_current_path section_path(@section)
   end
 
   test 'creating a Section' do

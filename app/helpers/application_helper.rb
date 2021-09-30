@@ -1,6 +1,17 @@
 module ApplicationHelper
   include Pagy::Frontend
 
+  def add_to_footer(name, link, options = {})
+    print = options[:print] || false
+    method = options[:method] || :get
+    data = options[:data] || {}
+    classes = options[:classes] || "btn2 btn-default"
+
+    t_classes = "#{classes}#{print ? ' hide-print' : ''}"
+
+    @footer_content << (link_to name, link, class: t_classes, method: method, data: data).to_s
+  end
+
   def breadcrumb(book, story = nil, key_point = nil, scene = nil, section = nil, link = nil)
     str = ''
     unless book.nil?

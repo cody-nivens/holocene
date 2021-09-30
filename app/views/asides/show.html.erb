@@ -6,5 +6,5 @@
 
 <%== @aside.body %>
 
-<% @footer_content << (link_to 'Edit', edit_aside_path(@aside), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', chapter_asides_path(@chapter), class: 'btn btn-default').to_s %>
+<% add_to_footer('Edit', edit_aside_path(@aside)) %>
+<% add_to_footer('Back', chapter_path(@chapter)) %>

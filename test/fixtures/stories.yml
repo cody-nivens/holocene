@@ -125,3 +125,12 @@ story_15:
   position: 3
   publish: true
   stand_alone: false
+
+story_16:
+  title: The Middles XX
+  summary: MyText
+  book: book_2
+  scene_character: C
+  position: 12
+  publish: false
+  stand_alone: false

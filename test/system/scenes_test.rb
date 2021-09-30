@@ -24,58 +24,75 @@ class ScenesTest < ApplicationSystemTestCase
   test 'scenes index' do
     visit polymorphic_path([@situated, :scenes])
 #    visit Timeline
-    assert_text 'Timeline'
+    assert_link 'Timeline'
     click_on 'Timeline'
+    assert_button 'Go'
     assert_current_path polymorphic_path([@situated, :timeline])
     click_on 'Back'
-    #assert_current_path polymorphic_path(@situated)
-    #assert_current_path polymorphic_path([@situated, :key_points])
+    assert_link 'Timeline'
+    assert_current_path polymorphic_path([@situated, :key_points])
   end
 
-  test 'scenes show' do
+  test 'scenes show characters' do
     visit scene_url(@scene)
 #    visit Characters
-    assert_text 'Characters'
+    assert_link 'Characters'
     click_on 'Characters'
+    assert_link 'Add/Remove Characters'
     assert_current_path polymorphic_path([@scene, :characters])
     click_on 'Back'
-    assert_current_path polymorphic_path(@scene.key_point)
-#    visit Destroy
-    assert_text 'Destroy'
-    accept_alert do
-      click_on 'Destroy'
-    end
-    #assert_current_path polymorphic_path([@situated, :scenes])
-    click_on 'Back'
-    assert_current_path polymorphic_path(@scene.situated)
-  end
-
-  test 'scenes show 2' do
-#    visit Edit Section
-    visit scene_url(@scene)
-    assert_text 'Edit Section'
-    click_on 'Edit Section'
-    assert_current_path edit_section_path(@scene.section)
-    click_on 'Back'
-    #assert_current_path polymorphic_path(@scene.key_point)
+    assert_text 'Word Count:'
     assert_current_path polymorphic_path(@scene)
   end
 
-  test 'scenes show 3' do
+  test 'scenes show destroy' do
+#    visit Destroy
+    visit scene_url(@scene)
+    assert_link 'Destroy'
+    accept_alert do
+      click_on 'Destroy'
+    end
+    assert_button 'Go'
+    assert_current_path polymorphic_path([@situated, :scenes])
+    click_on 'Back'
+    assert_text @scene.situated.name
+    assert_current_path polymorphic_path(@scene.situated)
+  end
+
+  test 'scenes show edit' do
+#    visit Edit Section
+    visit scene_url(@scene)
+    assert_link 'Edit Section'
+    click_on 'Edit Section'
+    assert_text 'Editing Section'
+    assert_current_path edit_section_path(@scene.section)
+    click_on 'Back'
+    assert_text @scene.abc
+    assert_current_path polymorphic_path(@scene)
+  end
+
+  test 'scenes show move' do
     visit scene_url(@scene_13)
 #    visit Move
-    assert_text 'Move'
+    assert_link 'Move'
     click_on 'Move'
+    assert_text 'Existing Key Point'
     assert_current_path polymorphic_path([@scene_13, :move])
     click_on 'Back'
-    #assert_current_path polymorphic_path(@scene_13.situated)
+    assert_link 'New Key Point'
+    assert_current_path polymorphic_path(@scene_13.situated)
+  end
+
+  test 'scenes show new section' do
 #    visit New Section
     visit scene_url(@scene_13)
-    assert_text 'New Section'
+    assert_link 'New Section'
     click_on 'New Section'
+    assert_no_link 'New Section'
     assert_current_path new_polymorphic_path([@scene_13, :section])
     click_on 'Back'
-    #assert_current_path polymorphic_path(@scene_13)
+    assert_text @scene_13.abc
+    assert_current_path polymorphic_path(@scene_13)
   end
 
   test 'visiting the scenes' do
@@ -90,11 +107,11 @@ class ScenesTest < ApplicationSystemTestCase
 
   test 'sort scenes' do
     visit books_url
-    assert_text 'The Phantom'
+    assert_link 'The Phantom'
     click_on 'The Phantom'
-    assert_text 'The Beginnings'
+    assert_link 'The Beginnings'
     click_on 'The Beginnings'
-    assert_text 'Climate Change'
+    assert_link 'Climate Change'
     click_on 'Climate Change'
 
     # save_and_open_page

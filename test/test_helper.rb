@@ -6,6 +6,13 @@ unless ENV['NO_COVERAGE']
     enable_coverage :branch
     primary_coverage :branch
     add_group 'Grids', 'app/grids'
+    command_name 'Minitest'
+    formatter SimpleCov::Formatter::MultiFormatter.new([
+      SimpleCov::Formatter::SimpleFormatter,
+      SimpleCov::Formatter::HTMLFormatter
+    ])
+
+    #track_files "**/*.rb"
   end
 end
 ENV['RAILS_ENV'] ||= 'test'
@@ -70,12 +77,20 @@ module ActiveSupport
       # Add code that need to be executed before each test
       holocene_event = holocene_events(:holocene_event_1)
       file = Rails.root.join('test', 'fixtures', 'files', 'image.jpg')
-      holocene_event.image.attach(io: File.open(file), filename: 'image.jpg')
+      holocene_event.image.attach(io: File.open(file), filename: 'image.jpg',  content_type: 'image/jpeg')
     end
 
     def teardown
       # Add code that need to be executed after each test
       Capybara.reset_sessions!
+    end
+
+    def interactive_debug_session(log_in_as = nil)
+      return unless Capybara.current_driver == Capybara.javascript_driver
+      return unless current_url
+      login_as(log_in_as, scope: :user) if log_in_as.present?
+      Launchy.open(current_url)
+      binding.pry
     end
 
     def fill_in_editor(id, with:)

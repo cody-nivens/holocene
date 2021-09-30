@@ -14,82 +14,122 @@ class ChaptersTest < ApplicationSystemTestCase
 #    visit Show
     #visit edit_chapter_url(@chapter), params: { scripted_type: @scripted.class.name, scripted_id: @scripted.id }
     visit edit_chapter_url(@chapter)
-    assert_text 'Show'
+    assert_link 'Show'
     click_on 'Show'
+    assert_link 'Edit'
     assert_current_path chapter_path(@chapter)
     click_on 'Back'
+    assert_link 'New Chapter'
     assert_current_path book_chapters_path(@scripted)
   end
 
   test 'chapters geo_map' do
 #    visit Display
     visit geo_map_chapter_url(@chapter)
-    assert_text 'Display'
+    assert_link 'Display'
     click_on 'Display'
+    assert_link 'Timeline'
     assert_current_path chapter_display_path(@chapter)
     click_on 'Back'
+    assert_link 'Aside'
     assert_current_path chapter_path(@chapter)
   end
 
-  test 'chapters index' do
+  test 'chapters index details' do
     visit polymorphic_url([@scripted, :chapters])
 #    visit Chapters, Details
-    assert_text 'Chapters, Details'
+    assert_link 'Chapters, Details'
     click_on 'Chapters, Details'
+    assert_text 'TOC'
     assert_current_path polymorphic_path([@scripted, :chapters])
     click_on 'Back'
-    assert_current_path polymorphic_path(@scripted)
-#    visit Chapters, TOC
     assert_text 'Chapters, TOC'
-    click_on 'Chapters, TOC'
-    assert_current_path toc_path(@scripted)
-    click_on 'Back'
-    assert_current_path polymorphic_path(@scripted)
-#    visit New Chapter
-    assert_text 'New Chapter'
-    click_on 'New Chapter'
-    assert_current_path new_polymorphic_path([@scripted, Chapter])
-    click_on 'Back'
     assert_current_path polymorphic_path(@scripted)
   end
 
-  test 'chapters show' do
+  test 'chapters index toc' do
+#    visit Chapters, TOC
+    visit polymorphic_url([@scripted, :chapters])
+    assert_link 'Chapters, TOC'
+    click_on 'Chapters, TOC'
+    assert_link 'Chapters, Details'
+    assert_current_path toc_path(@scripted)
+    click_on 'Back'
+    assert_link 'Chapters, TOC'
+    assert_current_path polymorphic_path(@scripted)
+  end
+
+  test 'chapters index new chapter' do
+#    visit New Chapter
+    visit polymorphic_url([@scripted, :chapters])
+    assert_link 'New Chapter'
+    click_on 'New Chapter'
+    assert_button 'Create Chapter'
+    assert_current_path new_polymorphic_path([@scripted, Chapter])
+    click_on 'Back'
+    assert_link 'Chapters, TOC'
+    assert_current_path polymorphic_path([@scripted, :chapters])
+  end
+
+  test 'chapters show aside' do
     visit chapter_url(@chapter)
 #    visit Aside
-    assert_text 'Aside'
+    assert_link 'Aside'
     click_on 'Aside'
+    assert_text "#{(@chapter.aside.nil? ? 'New' : 'Editing')} Aside"
     assert_current_path (@chapter.aside.nil? ? new_chapter_aside_path(chapter_id: @chapter) : edit_aside_path(@chapter.aside))
     click_on 'Back'
-    #assert_current_path chapter_path(@chapter)
+    assert_text 'Footnotes'
+    assert_current_path chapter_path(@chapter)
+  end
+
+  test 'chapters show citations' do
 #    visit Citations
     visit chapter_url(@chapter)
-    assert_text 'Citations'
+    assert_link 'Citations'
     click_on 'Citations'
+    assert_text 'Select Citations'
     assert_current_path chapter_citations_path(@chapter)
     click_on 'Back'
-    #assert_current_path chapter_path(@chapter)
+    assert_text 'Domestication of Horses'
+    assert_current_path chapter_path(@chapter)
+  end
+
+  test 'chapters show footnotes' do
 #    visit Footnotes
     visit chapter_url(@chapter)
     within ".footer" do
-      assert_text 'Footnotes'
+      assert_link 'Footnotes'
       click_on 'Footnotes'
     end
+    assert_text 'New Footnote'
     assert_current_path chapter_footnotes_path(@chapter)
     click_on 'Back'
+    assert_text 'Domestication of Horses'
     assert_current_path chapter_path(@chapter)
+  end
+
+  test 'chapters show partition' do
 #    visit Partition
     visit chapter_url(@chapter)
-    assert_text 'Partition'
+    assert_link 'Partition'
     click_on 'Partition'
+    assert_text "#{(@chapter.partition.nil? ? 'New' : 'Editing')} Partition"
     assert_current_path (@chapter.partition.nil? ? new_chapter_partition_path(@chapter) : edit_partition_path(@chapter.partition))
     click_on 'Back'
+    assert_text 'Citations'
     assert_current_path chapter_path(@chapter)
+  end
+
+  test 'chapters show sections' do
 #    visit Sections
     visit chapter_url(@chapter)
-    assert_text 'Sections'
+    assert_link 'Sections'
     click_on 'Sections'
+    assert_text 'New Section'
     assert_current_path chapter_sections_path(@chapter)
     click_on 'Back'
+    assert_text 'Domestication of the Animals'
     assert_current_path chapter_path(@chapter)
   end
 

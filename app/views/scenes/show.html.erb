@@ -3,7 +3,7 @@
 
 <h2>
   <%== breadcrumb(@scene.key_point.scripted.book, @scene.key_point.scripted, @scene.key_point, @scene) %>
-  <%= link_to (fa_icon 'pencil'), edit_scene_path(@scene), title: 'Edit' %>
+  <%= link_to (fa_icon 'edit'), edit_scene_path(@scene), title: 'Edit' %>
 </h2>
 
 <table class='table'>
@@ -77,22 +77,7 @@
   <p>
     <strong>Characters:</strong>
     <br>
-    <% @scene.characters.order(:occupation_class).pluck(:occupation_class).uniq.compact.sort.each do |occ_class| %>
-      <%= occ_class %>
-      <ul>
-        <% @scene.characters.where('occupation_class = ?', occ_class).order(:occupation_class, :last_name, :first_name).each do |character| %>
-          <li><%= link_to character.name, polymorphic_path([@scene, character]) %>
-            <%= @scene.date_string[0..3].to_i - character.birth_year.to_i %>
-            <%= character.grouping? ? "- #{character.grouping}" : '' %>
-            <% character_scene = CharacterScene.where(character_id: character.id, scene_id: @scene.id) %>
-            <%= link_to (fa_icon 'plus'), edit_character_scene_path(character_scene[0]) %>
-            <% unless character_scene[0].summary.nil? %>
-              <%= character_scene[0].summary.to_plain_text %>
-           <% end %>
-          </li>
-        <% end %>
-      </ul>
-    <% end %>
+    <%= render partial: 'characters/characters_occ_ul.html', locals: { object: @scene } %>
   </p>
 <% end %>
 
@@ -117,20 +102,20 @@
 </p>
 
 <% if @scene.section.nil? %>
-  <% @footer_content << (link_to 'New Section', new_polymorphic_path([@scene, :section]), class: 'btn btn-default').to_s %>
+  <% add_to_footer('New Section', new_polymorphic_path([@scene, :section])) %>
 <% else %>
-  <% @footer_content << (link_to 'Edit Section', edit_section_path(@scene.section), class: 'btn btn-default').to_s %>
+  <% add_to_footer('Edit Section', edit_section_path(@scene.section)) %>
 <% end %>
-<% @footer_content << (link_to 'Characters', polymorphic_path([@scene, :characters]), class: 'btn btn-default hide-print').to_s %>
-<% @footer_content << (link_to 'Move', polymorphic_path([@scene, :move]), class: 'btn btn-default hide-print').to_s %>
-<% @footer_content << (link_to 'Destroy', scene_path(@scene), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', (@scene.key_point.nil? ? polymorphic_path([@situated, :scenes]) : key_point_path(@scene.key_point)), class: 'btn btn-default').to_s %>
+<% add_to_footer('Characters', polymorphic_path([@scene, :characters]), print: true) %>
+<% add_to_footer('Move', polymorphic_path([@scene, :move]), print: true) %>
+<% add_to_footer('Destroy', scene_path(@scene), method: :delete, data: { confirm: 'Are you sure?' }) %>
+<% add_to_footer('Back', (@scene.key_point.nil? ? polymorphic_path([@situated, :scenes]) : key_point_path(@scene.key_point))) %>
 
 <% prev_scene = @scene.set_prev %>
 <% unless prev_scene.nil? %>
-  <% @footer_content << (link_to '<', scene_path(prev_scene), class: 'btn icon-ok icon-white').to_s %>
+  <% add_to_footer('<', scene_path(prev_scene), classes: 'btn2 icon-ok icon-white') %>
 <% end %>
 <% next_scene = @scene.set_next %>
 <% unless next_scene.nil? %>
-  <% @footer_content << (link_to '>', scene_path(next_scene), class: 'btn icon-ok icon-white').to_s %>
+  <% add_to_footer('>', scene_path(next_scene), classes: 'btn2 icon-ok icon-white') %>
 <% end %>

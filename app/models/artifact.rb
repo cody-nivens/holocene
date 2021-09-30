@@ -1,4 +1,6 @@
 class Artifact < ApplicationRecord
+  include Rails.application.routes.url_helpers
+
   belongs_to :character
   belongs_to :book
   belongs_to :artifact_type
@@ -19,5 +21,9 @@ class Artifact < ApplicationRecord
   def set_values
     book = self.book
     [book, self, nil, nil, nil]
+  end
+
+  def tag_list_s
+    tag_list.map { |t| ActionController::Base.helpers.link_to t, tag_path(t) }.join(', ')
   end
 end

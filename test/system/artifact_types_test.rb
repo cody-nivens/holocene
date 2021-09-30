@@ -13,32 +13,38 @@ class ArtifactTypesTest < ApplicationSystemTestCase
   test 'artifact_types edit' do
     visit edit_artifact_type_path(@artifact_type)
 #    visit Show
-    assert_text 'Show'
+    assert_link 'Show'
     click_on 'Show'
+    assert_text 'Location:'
     assert_current_path artifact_type_path(@artifact_type)
     click_on 'Back'
+    assert_link 'New Artifact Type'
     assert_current_path book_artifact_types_path(@book)
   end
 
   test 'artifact_types index' do
 #    visit New Artifact Type
     visit book_artifact_types_url(@book)
-    assert_text 'New Artifact Type'
+    assert_link 'New Artifact Type'
     click_on 'New Artifact Type'
+    assert_no_link 'New Artifact Type'
     assert_current_path new_polymorphic_path([@book, :artifact_type])
     click_on 'Back'
+    assert_link 'New Artifact Type'
     assert_current_path book_artifact_types_path(@book)
   end
 
   test 'artifact_types show' do
 #    visit Edit
     visit book_artifact_types_url(@book)
-    assert_text 'Edit'
+    assert_link 'Edit'
     within row_containing_cell_with_text(@artifact_type.name) do
       click_on 'Edit'
     end
+    assert_text 'Editing Artifact Type'
     assert_current_path edit_artifact_type_path(@artifact_type)
     click_on 'Back'
+    assert_link 'New Artifact Type'
     assert_current_path book_artifact_types_path(@book)
   end
 

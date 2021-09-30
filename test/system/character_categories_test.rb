@@ -14,20 +14,24 @@ class CharacterCategoriesTest < ApplicationSystemTestCase
   test 'character_categories edit' do
 #    visit Show
     visit edit_character_category_url(@character_category)
-    assert_text 'Show'
+    assert_link 'Show'
     click_on 'Show'
+    assert_link 'New Character Attribute'
     assert_current_path character_category_path(@character_category)
     click_on 'Back'
+    assert_link 'New Character Category'
     assert_current_path character_categories_path
   end
 
   test 'character_categories index' do
     visit character_categories_url
 #    visit New Character Category
-    assert_text 'New Character Category'
+    assert_link 'New Character Category'
     click_on 'New Character Category'
+    assert_no_link 'New Character Category'
     assert_current_path new_character_category_path
     click_on 'Back'
+    assert_link 'New Character Category'
     assert_current_path character_categories_path
   end
 
@@ -35,18 +39,22 @@ class CharacterCategoriesTest < ApplicationSystemTestCase
     visit character_category_url(@character_category)
 #    visit Edit
     within ".footer" do
-      assert_text 'Edit'
+      assert_link 'Edit'
       click_on 'Edit'
     end
     assert_current_path edit_character_category_path(@character_category)
     click_on 'Back'
+    assert_link 'New Character Category'
     assert_current_path character_categories_path
 #    visit New Character Attribute
     visit character_category_url(@character_category)
-    assert_text 'New Character Attribute'
+    assert_link 'New Character Attribute'
     click_on 'New Character Attribute'
+    assert_no_link 'New Character Attribute'
     assert_current_path new_character_category_character_attribute_path(character_category_id: @character_category.id)
     click_on 'Back'
+    assert_text @character_category.name
+    assert_link 'New Character Attribute'
     assert_current_path character_category_path(@character_category)
   end
 

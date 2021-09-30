@@ -1,12 +1,12 @@
 <p id='notice'><%= notice %></p>
 
 <h2>
-<%== breadcrumb(@book) %>
-<%= link_to (fa_icon 'pencil'), edit_book_path(@book) %>
-<%= link_to (fa_icon 'sticky-note-o'), book_signets_path(@book), title: 'Signets' %>
-<%= link_to (fa_icon 'book'), book_epub_path(@book), title: 'EPub' %>
-<%= link_to (fa_icon 'file-pdf-o'), book_path(@book, format: :pdf), title: 'PDF' %>
-<%= link_to (fa_icon 'file-pdf-o'), book_path(@book, format: :pdf, outline: true), title: 'PDF' %>
+  <%== breadcrumb(@book) %>
+  <%= link_to (fa_icon 'edit'), edit_book_path(@book) %>
+  <%= link_to (fa_icon 'sticky-note-o'), book_signets_path(@book), title: 'Signets' %>
+  <%= link_to (fa_icon 'book'), book_epub_path(@book), title: 'EPub' %>
+  <%= link_to (fa_icon 'file-pdf-o'), book_path(@book, format: :pdf), title: 'PDF' %>
+  <%= link_to (fa_icon 'file-pdf-o'), book_path(@book, format: :pdf, outline: true), title: 'PDF' %>
 </h2>
 <% unless @book.is_fiction? %>
 <table class='table'>
@@ -25,21 +25,18 @@
 
 <% if @book.is_fiction? %>
   <%= render 'books/fiction', book: @book, stories: @stories %>
-<% @footer_content << (link_to 'New Story', new_book_story_path(book_id: @book.id), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'All Stories', book_stories_path(@book), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Characters', polymorphic_path([@book, :characters]), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Key Points', polymorphic_path([@book, :key_points]), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Scenes', polymorphic_path([@book, :scenes]), class: 'btn btn-default hide-print').to_s %>
-<% @footer_content << (link_to 'Stats', polymorphic_path([@book, :stats]), class: 'btn btn-default hide-print').to_s %>
-
-<% @footer_content << (link_to 'Artifacts', book_artifacts_path(@book), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Key Words', book_key_words_path(@book), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Authors', book_authors_path(@book), class: 'btn btn-default').to_s %>
+  <% add_to_footer('New Story', new_book_story_path(book_id: @book.id)) %>
+  <% add_to_footer('All Stories', book_stories_path(@book)) %>
+  <% add_to_footer('Characters', polymorphic_path([@book, :characters])) %>
+  <% add_to_footer('Key Points', polymorphic_path([@book, :key_points])) %>
+  <% add_to_footer('Scenes', polymorphic_path([@book, :scenes]), print: true) %>
+  <% add_to_footer('Stats', polymorphic_path([@book, :stats]), print: true) %>
+  <% add_to_footer('Artifacts', book_artifacts_path(@book)) %>
 <% else %>
   <%= render 'chapters/index', chapters: @chapters %>
-<% @footer_content << (link_to 'New Chapter', new_polymorphic_path([@book, :chapter]), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Chapters, TOC', toc_path(@book), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Key Words', book_key_words_path(@book), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Authors', book_authors_path(@book), class: 'btn btn-default').to_s %>
+  <% add_to_footer('New Chapter', new_polymorphic_path([@book, :chapter])) %>
+  <% add_to_footer('Chapters, TOC', toc_path(@book)) %>
 <% end %>
-<% @footer_content << (link_to 'Back', books_path, class: 'btn btn-default').to_s %>
+<% add_to_footer('Key Words', book_key_words_path(@book)) %>
+<% add_to_footer('Authors', book_authors_path(@book)) %>
+<% add_to_footer('Back', books_path) %>

@@ -31,3 +31,19 @@ tagging_8:
   tag: tag_two
   taggable: holocene_event_8 (HoloceneEvent)
   context: tags
+tagging_9:
+  tag: tag_one
+  taggable: artifact_1 (Artifact)
+  context: tags
+tagging_10:
+  tag: tag_one
+  taggable: artifact_2 (Artifact)
+  context: tags
+tagging_11:
+  tag: tag_two
+  taggable: artifact_1 (Artifact)
+  context: tags
+tagging_12:
+  tag: tag_two
+  taggable: artifact_2 (Artifact)
+  context: tags

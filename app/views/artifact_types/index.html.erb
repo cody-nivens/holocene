@@ -26,5 +26,5 @@
 
 <br>
 
-<% @footer_content << (link_to 'New Artifact Type', new_polymorphic_path([@book, :artifact_type]), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', book_path(@book), class: 'btn btn-default').to_s %>
+<% add_to_footer('New Artifact Type', new_polymorphic_path([@book, :artifact_type])) %>
+<% add_to_footer('Back', book_path(@book)) %>

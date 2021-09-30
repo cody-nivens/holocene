@@ -14,5 +14,5 @@
 <%= datagrid_table @grid %>
 <%= paginate(@grid.assets) %>
 
-<% @footer_content << (link_to 'Edit', edit_region_path(@region), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', regions_path, class: 'btn btn-default').to_s %>
+<% add_to_footer('Edit', edit_region_path(@region)) %>
+<% add_to_footer('Back', regions_path) %>

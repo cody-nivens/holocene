@@ -1,5 +1,6 @@
 <h1>Books</h1>
 
+<% unless @books.empty? %>
 <% pdf ||= nil %>
 <dl>
 <div class="chapter_outer-sortable" style="cursor: grab;">
@@ -14,5 +15,6 @@
   <% end %>
 </div>
 </dl>
+<% end %>
 
-<% @footer_content << (link_to 'New Book', new_book_path, class: 'btn btn-default').to_s %>
+<% add_to_footer('New Book', new_book_path) %>

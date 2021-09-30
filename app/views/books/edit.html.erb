@@ -2,5 +2,5 @@
 
 <%= render 'form', book: @book, command_label: 'Update Book' %>
 
-<% @footer_content << (link_to 'Show', @book, class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', books_path, class: 'btn btn-default').to_s %>
+<% add_to_footer('Show', @book) %>
+<% add_to_footer('Back', books_path) %>

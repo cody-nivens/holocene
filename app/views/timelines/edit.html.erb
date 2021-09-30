@@ -2,5 +2,5 @@
 
 <%= render 'form', timeline: @timeline, command_label: 'Update Timeline' %>
 
-<% @footer_content << (link_to 'Show', @timeline, class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', timelines_path, class: 'btn btn-default').to_s %>
+<% add_to_footer('Show', @timeline) %>
+<% add_to_footer('Back', timelines_path) %>

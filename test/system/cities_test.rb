@@ -12,30 +12,36 @@ class CitiesTest < ApplicationSystemTestCase
   test 'cities edit' do
     visit edit_city_url(@city)
 #    visit Show
-    assert_text 'Show'
+    assert_link 'Show'
     click_on 'Show'
+    assert_text 'Name ascii:'
     assert_current_path city_path(@city)
     click_on 'Back'
+    assert_link 'New City'
     assert_current_path cities_path
   end
 
   test 'cities index' do
     visit cities_url
 #    visit New City
-    assert_text 'New City'
+    assert_link 'New City'
     click_on 'New City'
+    assert_no_link 'New City'
     assert_current_path new_city_path
     click_on 'Back'
+    assert_link 'New City'
     assert_current_path cities_path
   end
 
   test 'cities show' do
     visit city_url(@city)
 #    visit Edit
-    assert_text 'Edit'
+    assert_link 'Edit'
     click_on 'Edit'
+    assert_link 'Show'
     assert_current_path edit_city_path(@city)
     click_on 'Back'
+    assert_link 'New City'
     assert_current_path cities_path
   end
 

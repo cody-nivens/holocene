@@ -15,8 +15,8 @@
 <% end %>
 <hr>
 
-<% @footer_content << (link_to 'Stats', welcome_stats_path, class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Tags', welcome_tags_path, class: 'btn btn-default').to_s %>
+<% add_to_footer('Stats', welcome_stats_path) %>
+<% add_to_footer('Tags', welcome_tags_path) %>
 <% unless @book.nil? %>
-  <% @footer_content << (link_to 'Back', book_path(@book), class: 'btn btn-default').to_s %>
+  <% add_to_footer('Back', book_path(@book)) %>
 <% end %>

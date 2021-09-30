@@ -15,30 +15,36 @@ class ItinerariesTest < ApplicationSystemTestCase
   test 'itineraries edit' do
     visit edit_itinerary_url(@itinerary)
 #    visit Show
-    assert_text 'Show'
+    assert_link 'Show'
     click_on 'Show'
+    assert_link 'Edit'
     assert_current_path itinerary_path(@itinerary)
     click_on 'Back'
+    assert_link 'Itinerary'
     assert_current_path tour_path(@tour)
   end
 
   test 'itineraries index' do
     visit tour_itineraries_url(@tour)
 #    visit New Itinerary
-    assert_text 'New Itinerary'
+    assert_link 'New Itinerary'
     click_on 'New Itinerary'
+    assert_no_link 'New Itinerary'
     assert_current_path new_tour_itinerary_path(@tour)
     click_on 'Back'
+    assert_link 'Itinerary'
     assert_current_path tour_path(@tour)
   end
 
   test 'itineraries show' do
     visit itinerary_url(@itinerary)
 #    visit Edit
-    assert_text 'Edit'
+    assert_link 'Edit'
     click_on 'Edit'
+    assert_link 'Show'
     assert_current_path edit_itinerary_path(@itinerary)
     click_on 'Back'
+    assert_link 'Itinerary'
     assert_current_path tour_path(@tour)
   end
 
@@ -50,6 +56,7 @@ class ItinerariesTest < ApplicationSystemTestCase
   test 'creating an Itinerary' do
     visit tour_itineraries_url(@tour)
     click_on 'New Itinerary'
+    assert_text 'New Itinerary'
 
     fill_in 'Name', with: @itinerary.name
     select @city.name, from: 'City'
@@ -63,6 +70,7 @@ class ItinerariesTest < ApplicationSystemTestCase
   test 'updating an Itinerary' do
     visit tour_itineraries_url(@tour)
     click_on 'Edit', match: :first
+    assert_text 'Editing Itinerary'
 
     fill_in 'Name', with: @itinerary.name
     select @city.name, from: 'City'

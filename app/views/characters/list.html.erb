@@ -19,5 +19,5 @@
 
 <% end %>
 
-<% @footer_content << (link_to 'New Character', polymorphic_path([@object, :characters]), method: :post, class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', polymorphic_path(@object), class: 'btn btn-default').to_s %>
+<% add_to_footer('New Character', polymorphic_path([@object, :characters]), method: :post) %>
+<% add_to_footer('Back', polymorphic_path(@object)) %>

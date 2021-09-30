@@ -1,3 +1,6 @@
+<div class="container">
+  <div class="row">
+    <div class="col-7">
 <%= bootstrap_form_for section, url: { controller: :sections, action: (section.id.nil? ? :create : :update) } do |f| %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
@@ -9,8 +12,15 @@
   <%= f.check_box :display_name %>
   <%= f.text_field :embed %>
 
+  <div class='field'>
   <%= f.rich_text_area :body, class: 'form-control customized-min-height' %>
+  </div>
 
   <%= f.primary command_label.to_s %>
 
 <% end %>
+  </div>
+  <div class="col">
+      <%= render partial: 'characters/characters_occ_ul.html', locals: { object: @sectioned } %>
+  </div>
+</div>

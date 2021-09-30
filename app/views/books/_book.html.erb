@@ -1,5 +1,5 @@
 <dt>
-  <%= link_to book.name, book_path(book) %><%= link_to (fa_icon 'pencil'), edit_book_path(book), title: 'Edit' %>
+  <%= link_to book.name, book_path(book) %><%= link_to (fa_icon 'edit'), edit_book_path(book), title: 'Edit' %>
   <%= link_to (fa_icon 'sticky-note-o'), book_signets_path(book), title: 'Signets' %>
 <%= link_to (fa_icon 'book'), book_epub_path(book), title: 'EPub' %>
 <%= link_to (fa_icon 'file-pdf-o'), book_path(book, format: :pdf), title: 'PDF' %>

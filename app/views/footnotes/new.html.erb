@@ -2,4 +2,4 @@
 
 <%= render 'form', footnote: @footnote, command_label: 'Create Footnote', noted: @noted %>
 
-<% @footer_content << (link_to 'Back', polymorphic_path([@noted, :footnotes]), class: 'btn btn-default').to_s %>
+<% add_to_footer('Back', polymorphic_path([@noted, :footnotes])) %>

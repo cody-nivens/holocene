@@ -2,7 +2,7 @@
 
   <%= hidden_field "#{@object.class.name.underscore}_id", value: @object.id %>
 
-<h1>Authors</h1>
+<h1>Add/Remove Authors</h1>
 
 <table class="table">
   <tr>
@@ -18,5 +18,5 @@
 
 <% end %>
 
-<% @footer_content << (link_to 'New Author', new_polymorphic_path([@object, :author]), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', polymorphic_path([@object, :authors]), class: 'btn btn-default').to_s %>
+<% add_to_footer('New Author', new_polymorphic_path([@object, :author])) %>
+<% add_to_footer('Back', polymorphic_path([@object, :authors])) %>

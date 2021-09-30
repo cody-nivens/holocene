@@ -16,30 +16,35 @@ class FootnotesTest < ApplicationSystemTestCase
   test 'footnotes edit' do
     visit edit_chapter_footnote_url(chapter_id: @chapter.id, id: @footnote.id)
 #    visit Show
-    assert_text 'Show'
+    assert_link 'Show'
     click_on 'Show'
+    assert_text 'Slug:'
     assert_current_path polymorphic_path([@noted, @footnote])
     click_on 'Back'
+    assert_link 'New Footnote'
     assert_current_path chapter_footnotes_path(@chapter)
   end
 
   test 'footnotes index' do
     visit chapter_footnotes_url(chapter_id: @chapter.id)
 #    visit New Footnote
-    assert_text 'New Footnote'
+    assert_link 'New Footnote'
     click_on 'New Footnote'
     assert page.current_path =~ Regexp.new("\/#{@noted.class.name.underscore.pluralize}\/#{@noted.id}\/footnotes\/")
     click_on 'Back'
-    #assert_current_path chapter_footnotes_path(@chapter)
+    assert_link 'New Footnote'
+    assert_current_path chapter_footnotes_path(@chapter)
   end
 
   test 'footnotes show' do
     visit chapter_footnote_url(chapter_id: @chapter.id, id: @footnote.id)
 #    visit Edit
-    assert_text 'Edit'
+    assert_link 'Edit'
     click_on 'Edit'
+    assert_link 'Show'
     assert_current_path edit_polymorphic_path([@noted, @footnote])
     click_on 'Back'
+    assert_link 'New Footnote'
     assert_current_path chapter_footnotes_path(@chapter)
   end
 

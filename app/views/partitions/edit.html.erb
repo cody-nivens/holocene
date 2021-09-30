@@ -2,5 +2,5 @@
 
 <%= render 'form', partition: @partition, book: @book, chapter: @chapter %>
 
-<% @footer_content << (link_to 'Show', partition_path(@partition), class: 'btn btn-default').to_s %>
-<% @footer_content << (link_to 'Back', chapter_path(@chapter), class: 'btn btn-default').to_s %>
+<% add_to_footer('Show', partition_path(@partition)) %>
+<% add_to_footer('Back', chapter_path(@chapter)) %>

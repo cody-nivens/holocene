@@ -6,11 +6,11 @@
 </div>
 
 <% if @object.class.name == 'Book' %>
-  <% @footer_content << (link_to 'New Character', polymorphic_path([@object, :characters]), method: :post, class: 'btn btn-default').to_s %>
+  <% add_to_footer('New Character', polymorphic_path([@object, :characters]), method: :post) %>
 <% else %>
-  <% @footer_content << (link_to 'Add/Remove Characters', polymorphic_path([@object, :characters_list]), class: 'btn btn-default').to_s %>
+  <% add_to_footer('Add/Remove Characters', polymorphic_path([@object, :characters_list])) %>
 <% end -%>
-<% @footer_content << (link_to 'Back', polymorphic_path(@object), class: 'btn btn-default').to_s %>
+<% add_to_footer('Back', polymorphic_path(@object)) %>
 
 <script type="text/javascript">
 jQuery(function($) {

@@ -14,30 +14,36 @@ class CharacterValuesTest < ApplicationSystemTestCase
   test 'character_values edit' do
     visit edit_book_character_character_value_url(@book, @character, @character_value)
 #    visit Show
-    assert_text 'Show'
+    assert_link 'Show'
     click_on 'Show'
+    assert_text 'Value:'
     assert_current_path book_character_character_value_path(@book, @character, @character_value)
     click_on 'Back'
+    assert_link 'New Character Value'
     assert_current_path book_character_character_values_path(@book, @character)
   end
 
   test 'character_values index' do
     visit book_character_character_values_url(@book, @character)
 #    visit New Character Value
-    assert_text 'New Character Value'
+    assert_link 'New Character Value'
     click_on 'New Character Value'
+    assert_no_link 'New Character Value'
     assert_current_path new_polymorphic_path([@book, @character, :character_value])
     click_on 'Back'
-    assert_current_path book_character_character_values_path(@book, @character)
+    assert_text 'New Character Value'
+    assert_current_path polymorphic_path([@book, @character, :character_values])
   end
 
   test 'character_values show' do
     visit book_character_character_value_url(@book, @character, @character_value)
 #    visit Edit
-    assert_text 'Edit'
+    assert_link 'Edit'
     click_on 'Edit'
+    assert_link 'Show'
     assert_current_path edit_book_character_character_value_path(@book, @character, @character_value)
     click_on 'Back'
+    assert_link 'New Character Value'
     assert_current_path book_character_character_values_path(@book, @character)
   end
 

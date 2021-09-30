@@ -15,30 +15,36 @@ class SignetsTest < ApplicationSystemTestCase
   test 'signets edit' do
     visit edit_signet_url(@signet)
 #    visit Show
-    assert_text 'Show'
+    assert_link 'Show'
     click_on 'Show'
+    assert_link 'Edit'
     assert_current_path polymorphic_path([@sigged, @signet])
     click_on 'Back'
+    assert_selector 'i.fa.fa-sticky-note-o'
     assert_current_path polymorphic_path(@sigged)
   end
 
   test 'signets index' do
     visit polymorphic_url([@sigged, :signets])
 #    visit New Signet
-    assert_text 'New Signet'
+    assert_link 'New Signet'
     click_on 'New Signet'
+    assert_no_link 'New Signet'
     assert_current_path new_polymorphic_path([@sigged, :signet])
     click_on 'Back'
+    assert_link 'New Signet'
     assert_current_path polymorphic_path([@sigged, :signets])
   end
 
   test 'signets show' do
     visit signet_url(@signet)
 #    visit Edit
-    assert_text 'Edit'
+    assert_link 'Edit'
     click_on 'Edit'
+    assert_link 'Show'
     assert_current_path edit_signet_path(@signet)
     click_on 'Back'
+    assert_selector 'i.fa.fa-sticky-note-o'
     assert_current_path polymorphic_path(@sigged)
   end
 

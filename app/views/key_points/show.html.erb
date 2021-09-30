@@ -6,7 +6,7 @@
                    else
                      (@scripted.instance_of?(Chapter) ? @scripted.scripted : @scripted.book)
                    end), @scripted, @key_point) %>
-  <%== link_to (fa_icon 'pencil'), edit_key_point_path(@key_point), title: 'Edit' %>
+  <%== link_to (fa_icon 'edit'), edit_key_point_path(@key_point), title: 'Edit' %>
   <%== link_to (fa_icon 'trash-o'), key_point_path(@key_point), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
 </h2>
 
@@ -40,8 +40,8 @@
   <% end %>
 <% end %>
 
-<% @footer_content << (link_to 'Move', polymorphic_path([@scripted, @key_point, :move]), class: 'btn btn-default hide-print').to_s %>
-<% @footer_content << (link_to 'Back', polymorphic_path([@scripted], anchor: @key_point.anchor), class: 'btn btn-default').to_s %>
+<% add_to_footer('Move', polymorphic_path([@scripted, @key_point, :move]), print: true) %>
+<% add_to_footer('Back', polymorphic_path([@scripted], anchor: @key_point.anchor)) %>
 
 <% prev_key_point = @key_point.set_prev %>
 <% unless prev_key_point.nil? %>
