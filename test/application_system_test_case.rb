@@ -59,7 +59,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     Selenium::WebDriver::Remote::Capabilities.chrome("goog:loggingPrefs": { browser: 'ALL' })
     holocene_event = holocene_events(:holocene_event_1)
     file = Rails.root.join('test', 'fixtures', 'files', 'image.jpg')
-    holocene_event.image.attach(io: File.open(file), filename: 'image.jpg')
+    #holocene_event.image.attach(io: File.open(file), filename: 'image.jpg')
   end
 
   def after_teardown

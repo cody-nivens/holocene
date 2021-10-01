@@ -7,7 +7,7 @@ class HoloceneEventsTest < ApplicationSystemTestCase
     @holocene_event = holocene_events(:holocene_event_1)
     @chapter = chapters(:chapter_1)
     file = Rails.root.join('test', 'fixtures', 'files', 'image.jpg')
-    @holocene_event.image.attach(io: File.open(file), filename: 'image.jpg')
+    #@holocene_event.image.attach(io: File.open(file), filename: 'image.jpg')
     @user = users(:users_1)
     sign_in @user
   end
