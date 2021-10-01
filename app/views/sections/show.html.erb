@@ -24,7 +24,7 @@
       <% @slugs += @footnotes[1] -%>
     <% end -%>
   <% end -%>
-  <%= render 'holocene_events/index.html', holocene_events: @section.holocene_events.order(:start_year), noted: @noted %>
+  <%= render 'holocene_events/index', formats: [:html], holocene_events: @section.holocene_events.order(:start_year), noted: @noted %>
 <% end -%>
 
 <% unless @slugs.length == 0 -%>

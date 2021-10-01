@@ -1,1 +1,1 @@
-$("#characters-list").html("<%= escape_javascript(render partial: 'characters/index_grid.html', locals: { grid: @grid, pagy: @pagy, records: @records } ) %>");
+$("#characters-list").html("<%= escape_javascript(render partial: 'characters/index_grid', formats: [:html], locals: { grid: @grid, pagy: @pagy, records: @records } ) %>");

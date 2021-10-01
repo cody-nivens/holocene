@@ -1,1 +1,1 @@
-$("#cities-list").html("<%= escape_javascript(render partial: 'cities/index_list.html', locals: { cities: @cities, pagy: @pagy } ) %>");
+$("#cities-list").html("<%= escape_javascript(render partial: 'cities/index_list', formats: [:html], locals: { cities: @cities, pagy: @pagy } ) %>");

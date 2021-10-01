@@ -8,7 +8,7 @@
     <div class="book-sortable" style="cursor: grab; min-height: 10px;">
       <% @books.rank(:position).each do |book| %>
         <%= content_tag 'div', id: "book-#{book.id}", data: { model_name: book.class.name.underscore, update_url: polymorphic_path([book, :sort]) } do %>
-          <%= render partial: 'books/book.html', locals: { book: book, pdf: pdf } %>
+          <%= render partial: 'books/book', formats: [:html], locals: { book: book, pdf: pdf } %>
         <% end %>
       <% end %>
     </div>

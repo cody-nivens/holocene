@@ -26,7 +26,7 @@
   <tr>
     <th>Scenes(section % scenes):</th>
     <td>
-      <%= render partial: 'scenes/progress_bar.html', locals: { object: @story } %>
+      <%= render partial: 'scenes/progress_bar', formats: [:html], locals: { object: @story } %>
     </td>
     <% word_count = @story.word_count %>
     <th>Word Count (Potential):</th> <td><%= number_with_delimiter(word_count, delimiter: ',') %> (<%= (section_count.zero? ? '' : number_with_delimiter(word_count / section_count * scene_count, delimiter: ',')) %>)</td>
@@ -53,7 +53,7 @@
                       <% else %>
                         <% key_point.scenes.where(selector: x).order(:position).each do |scene| %>
                           <dt>
-                            <%= render partial: 'scenes/scene_title.html', locals: { scene: scene, scripted: @story, key_point: key_point, pdf: nil, print_name: true } %>
+                            <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: @story, key_point: key_point, pdf: nil, print_name: true } %>
                           </dt>
                           <dd><%= scene.summary.to_plain_text %></dd>
                         <% end %>
@@ -72,26 +72,26 @@
 
   <% c.tab 'Gender' do %>
     <span>
-      <%= render partial: 'shared/stats2.html', locals: { category: 'Gender', value_attribute: 'Gender', attribute: 'sex', object: @story } %>
-      <%= render partial: 'shared/stats2.html', locals: { category: 'Gender', value_attribute: 'Gender', attribute: 'occupation_class', object: @story } %>
+      <%= render partial: 'shared/stats2', formats: [:html], locals: { category: 'Gender', value_attribute: 'Gender', attribute: 'sex', object: @story } %>
+      <%= render partial: 'shared/stats2', formats: [:html], locals: { category: 'Gender', value_attribute: 'Gender', attribute: 'occupation_class', object: @story } %>
     </span>
   <% end %>
 
   <% c.tab 'Ethnicity' do %>
     <span>
-      <%= render partial: 'characters/attribute_count.html', locals: { object: @story, field: :ethnicity } %>
+      <%= render partial: 'characters/attribute_count', formats: [:html], locals: { object: @story, field: :ethnicity } %>
     </span>
   <% end %>
 
 <% c.tab 'Occupation Class' do %>
   <span>
-    <%= render partial: 'characters/attribute_count.html', locals: { object: @story, field: :occupation_class } %>
+    <%= render partial: 'characters/attribute_count', formats: [:html], locals: { object: @story, field: :occupation_class } %>
   </span>
 <% end %>
 
 <% c.tab 'Characters' do %>
   <span>
-    <%= render partial: 'characters/characters_occ_ul.html', locals: { object: @story } %>
+    <%= render partial: 'characters/characters_occ_ul', formats: [:html], locals: { object: @story } %>
   </span>
 <% end %>
 

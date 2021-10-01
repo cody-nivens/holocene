@@ -47,7 +47,7 @@
 <% end %>
 
 <div id='scenes-list'>
-  <%= render partial: 'scenes/scenes.html', locals: { scenes: @scenes, print: @print, no_section: @no_section, only_section: @only_section, years: @years, date: @year, scripted: @scripted } %>
+  <%= render partial: 'scenes/scenes', formats: [:html], locals: { scenes: @scenes, print: @print, no_section: @no_section, only_section: @only_section, years: @years, date: @year, scripted: @scripted } %>
 </div>
 
 <% add_to_footer('Timeline', polymorphic_path([@situated, :timeline]), print: true) %>

@@ -8,7 +8,7 @@
     <% next if item.empty? %>
     <% c.tab titles[index] do %>
       <span>
-        <%= render partial: 'shared/metric.html', locals: { objects: item, title: titles[index] } %>
+        <%= render partial: 'shared/metric', formats: [:html], locals: { objects: item, title: titles[index] } %>
       </span>
     <% end %>
   <% end %>

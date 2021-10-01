@@ -180,7 +180,7 @@ class BookEPub
        <head><title>#{story.name}</title>
                <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
        </head>
-       <body>#{StoriesController.render partial: 'stories/show.html', :locals => { notes: @notes, book: @book, story: story, epub: true, pdf: true }}
+       <body>#{StoriesController.render partial: 'stories/show', formats: [:html], :locals => { notes: @notes, book: @book, story: story, epub: true, pdf: true }}
        </body></html>
      CHAP_ONE
  chap_index += 1
@@ -206,7 +206,7 @@ class BookEPub
        <head><title>#{chapter.name}</title>
                <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
        </head>
-       <body>#{ChaptersController.render partial: 'chapters/show.html', :locals => { notes: @notes, book: @book, chapter: chapter, epub: true }}
+       <body>#{ChaptersController.render partial: 'chapters/show', formats: [:html], :locals => { notes: @notes, book: @book, chapter: chapter, epub: true }}
        </body></html>
      CHAP_ONE
     chap_index += 1
@@ -216,7 +216,7 @@ class BookEPub
    s = ''
    @book.chapters.each do |chapter|
  unless chapter.citations.length == 0
-   s += FootnotesController.render partial: 'footnotes/citations.html',
+   s += FootnotesController.render partial: 'footnotes/citations', formats: [:html],
                                                                               locals: { slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: false, title: nil }
  end
    end
@@ -247,7 +247,7 @@ class BookEPub
      end
    end
 
-   str += HoloceneEventsController.render :partial => 'holocene_events/index.html',
+   str += HoloceneEventsController.render :partial => 'holocene_events/index', formats: [:html],
                                                                                             locals: { holocene_events: chapter.holocene_events.order(:start_year), chapter: chapter, links: false, epub: true,
 slugs: @slugs }
  end
@@ -261,7 +261,7 @@ slugs: @slugs }
                 @slugs += @footnotes[1]
               end
             end
-            str += HoloceneEventsController.render :partial => 'holocene_events/index.html',
+            str += HoloceneEventsController.render :partial => 'holocene_events/index', formats: [:html],
                                                                                                          locals: { holocene_events: section.holocene_events.order(:start_year), chapter: chapter, links: false,
 title: "#{chapter.name}:#{section.name}", epub: true, slugs: @slugs }
           end
@@ -286,7 +286,7 @@ title: "#{chapter.name}:#{section.name}", epub: true, slugs: @slugs }
              <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
        </head>
        <body>
-     #{GlossaryTermsController.render partial: 'glossary_terms/index.html', locals: { glossary_terms: @book.glossary_terms.order(:name) }}
+     #{GlossaryTermsController.render partial: 'glossary_terms/index', formats: [:html], locals: { glossary_terms: @book.glossary_terms.order(:name) }}
      </body></html>
    GLOSSTERMS
 
@@ -296,7 +296,7 @@ title: "#{chapter.name}:#{section.name}", epub: true, slugs: @slugs }
              <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
        </head>
        <body>
-     #{BiblioentriesController.render partial: 'biblioentries/index.html', locals: { biblioentries: @book.biblioentries }}
+     #{BiblioentriesController.render partial: 'biblioentries/index', formats: [:html], locals: { biblioentries: @book.biblioentries }}
      </body></html>
    BIBLIOTERMS
   end

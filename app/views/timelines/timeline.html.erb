@@ -15,7 +15,7 @@
   <%= submit_tag 'Go' %>
 <% end %>
 
-<%= render partial: 'timelines/timeline.html', locals: { object: @object, toggle: @toggle } %>
+<%= render partial: 'timelines/timeline', formats: [:html], locals: { object: @object, toggle: @toggle } %>
 
 <% add_to_footer('Display', timeline_display_path(@object)) %>
 <% add_to_footer('Back', polymorphic_path(@object)) %>

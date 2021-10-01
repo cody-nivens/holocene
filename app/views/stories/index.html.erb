@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 <h1>Stories</h1>
 
-<%= render partial: 'stories/index.html', locals: { stories: @stories, book: @book } %>
+<%= render partial: 'stories/index', formats: [:html], locals: { stories: @stories, book: @book } %>
 
 <% add_to_footer('New Story', new_book_story_path(book_id: @book.id)) %>
 <% add_to_footer('Scenes', book_scenes_path(id: @book.id)) %>

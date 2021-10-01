@@ -1,57 +1,57 @@
 <%= tabs do |c| %>
   <% c.tab 'Ethnicity' do %>
     <span>
-      <%= render partial: 'characters/attribute_count.html', locals: { object: object, field: :ethnicity } %>
+      <%= render partial: 'characters/attribute_count', formats: [:html], locals: { object: object, field: :ethnicity } %>
     </span>
   <% end %>
   <% c.tab 'Occupation Class' do %>
     <span>
-      <%= render partial: 'characters/attribute_count.html', locals: { object: object, field: :occupation_class } %>
+      <%= render partial: 'characters/attribute_count', formats: [:html], locals: { object: object, field: :occupation_class } %>
     </span>
   <% end %>
   <% c.tab 'Ethnicity/Eye Color' do %>
     <span>
-      <%= render partial: 'character_values/stats_a.html', locals: { characters: object.characters, category: 'ethnicity', cat1: 'Eye color', book: book } %>
+      <%= render partial: 'character_values/stats_a', formats: [:html], locals: { characters: object.characters, category: 'ethnicity', cat1: 'Eye color', book: book } %>
     </span>
   <% end %>
   <% c.tab 'Ethnicity/Hair Color' do %>
     <span>
-      <%= render partial: 'character_values/stats_a.html', locals: { characters: object.characters, category: 'ethnicity', cat1: 'Hair color', book: book } %>
+      <%= render partial: 'character_values/stats_a', formats: [:html], locals: { characters: object.characters, category: 'ethnicity', cat1: 'Hair color', book: book } %>
     </span>
   <% end %>
   <% c.tab 'Eye Color' do %>
     <span>
-      <%= render partial: 'character_values/stats.html', locals: { category: 'Physical Appearance', cat1: 'Eye color', book: book } %>
+      <%= render partial: 'character_values/stats', formats: [:html], locals: { category: 'Physical Appearance', cat1: 'Eye color', book: book } %>
     </span>
   <% end %>
   <% c.tab 'Hair Color' do %>
     <span>
-      <%= render partial: 'character_values/stats.html', locals: { category: 'Physical Appearance', cat1: 'Hair color', book: book } %>
+      <%= render partial: 'character_values/stats', formats: [:html], locals: { category: 'Physical Appearance', cat1: 'Hair color', book: book } %>
     </span>
   <% end %>
   <% c.tab 'Gender/Sex' do %>
     <span>
-      <%= render partial: 'shared/stats2.html', locals: { category: 'Gender', value_attribute: 'Gender', attribute: 'sex', object: object } %>
+      <%= render partial: 'shared/stats2', formats: [:html], locals: { category: 'Gender', value_attribute: 'Gender', attribute: 'sex', object: object } %>
     </span>
   <% end %>
   <% c.tab 'Gender/Occupation Class' do %>
     <span>
-      <%= render partial: 'shared/stats2.html', locals: { category: 'Gender', value_attribute: 'Gender', attribute: 'occupation_class', object: object } %>
+      <%= render partial: 'shared/stats2', formats: [:html], locals: { category: 'Gender', value_attribute: 'Gender', attribute: 'occupation_class', object: object } %>
     </span>
   <% end %>
   <% c.tab 'Eye Color/Sex' do %>
     <span>
-      <%= render partial: 'shared/stats2.html', locals: { category: 'Physical Appearance', value_attribute: 'Eye color', attribute: 'sex', object: object } %>
+      <%= render partial: 'shared/stats2', formats: [:html], locals: { category: 'Physical Appearance', value_attribute: 'Eye color', attribute: 'sex', object: object } %>
     </span>
   <% end %>
   <% c.tab 'Hair Color/Sex' do %>
     <span>
-      <%= render partial: 'shared/stats2.html', locals: { category: 'Physical Appearance', value_attribute: 'Hair color', attribute: 'sex', object: object } %>
+      <%= render partial: 'shared/stats2', formats: [:html], locals: { category: 'Physical Appearance', value_attribute: 'Hair color', attribute: 'sex', object: object } %>
     </span>
   <% end %>
   <% c.tab 'Occupation Class/Sex' do %>
     <span>
-      <%= render partial: 'characters/stats.html', locals: { characters: object.characters, character_attribute: 'occupation_class', character_attribute_2: 'sex', object: object } %>
+      <%= render partial: 'characters/stats', formats: [:html], locals: { characters: object.characters, character_attribute: 'occupation_class', character_attribute_2: 'sex', object: object } %>
     </span>
   <% end %>
 <% end %>

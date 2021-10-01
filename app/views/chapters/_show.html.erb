@@ -34,7 +34,7 @@
       <% end -%>
     <% end -%>
 
-  <%= render 'holocene_events/index.html', slugs: @slugs, holocene_events: chapter.holocene_events.order(:start_year).uniq, chapter: chapter, epub: epub -%>
+  <%= render 'holocene_events/index', formats: [:html], slugs: @slugs, holocene_events: chapter.holocene_events.order(:start_year).uniq, chapter: chapter, epub: epub -%>
 <% end -%>
 <% @slugs += @footnotes[1] -%>
 <% chapter.sections.order(:position).each do |section| -%>
@@ -68,7 +68,7 @@
       <% end -%>
     <% end -%>
 
-    <%= render 'holocene_events/index.html', slugs: @slugs, holocene_events: section.holocene_events.order(:start_year).uniq, chapter: chapter, epub: epub -%>
+    <%= render 'holocene_events/index', formats: [:html], slugs: @slugs, holocene_events: section.holocene_events.order(:start_year).uniq, chapter: chapter, epub: epub -%>
   <% end -%>
 <% end -%>
 

@@ -13,14 +13,14 @@
       <ul>
         <% story.characters.where('occupation_class = ?', occ_class).order(:occupation_class, :last_name, :first_name).each do |character| %>
           <%# debugger if character.nil? %>
-          <%= render partial: 'characters/show.html', locals: { pdf: pdf, character: character, object: @object, scripted: @scripted } %>
+          <%= render partial: 'characters/show', formats: [:html], locals: { pdf: pdf, character: character, object: @object, scripted: @scripted } %>
         <% end %>
       </ul>
     <% end %>
 
   </p>
   <% story.key_points.order(:position).each do |key_point| -%>
-    <%= render partial: 'key_points/show.html', locals: { book: story.book, story: story, key_point: key_point, outline: outline } %>
+    <%= render partial: 'key_points/show', formats: [:html], locals: { book: story.book, story: story, key_point: key_point, outline: outline } %>
   <% end -%>
 <% end %>
 
@@ -51,7 +51,7 @@
       <% just_printed_page_break = false %>
       <br>
       <strong>
-        <%= render partial: 'scenes/scene_title.html', locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil } %>
+        <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil } %>
       </strong><br><br>
       <%== epub_friendly(scene.section.body) %>
     <% end %>

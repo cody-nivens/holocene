@@ -11,7 +11,7 @@
       <%#= wicked_pdf_image_tag 'mysite.jpg' %>
     </div>
     <div id="content">
-    <%= render 'chapters/show.html', :locals =>{:chapter => @chapter} %>
+    <%= render 'chapters/show', formats: [:html], :locals =>{:chapter => @chapter} %>
     </div>
   </body>
 </html>

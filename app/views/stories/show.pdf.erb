@@ -11,7 +11,7 @@
       <%#= wicked_pdf_image_tag 'mysite.jpg' %>
     </div>
     <div id="content">
-    <%= render :partial => 'stories/show.html', :locals =>{:outline => params[:outline], :pdf => true, :story => @story} %>
+    <%= render :partial => 'stories/show', formats: [:html], :locals =>{:outline => params[:outline], :pdf => true, :story => @story} %>
     </div>
   </body>
 </html>

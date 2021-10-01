@@ -6,7 +6,7 @@
     <div class="key_point-sortable" style="cursor: grab; min-height: 10px;">
       <% @key_points.rank(:position).each do |key_point| %>
         <%= content_tag 'div', id: "key_point-#{key_point.id}", data: { model_name: key_point.class.name.underscore, update_url: key_point_sort_path(key_point) } do %>
-          <%= render partial: 'key_points/key_point.html', locals: { key_point: key_point, scripted: @scripted, pdf: pdf } %>
+          <%= render partial: 'key_points/key_point', formats: [:html], locals: { key_point: key_point, scripted: @scripted, pdf: pdf } %>
         <% end %>
       <% end %>
     </div>

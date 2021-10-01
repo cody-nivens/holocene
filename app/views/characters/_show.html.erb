@@ -94,7 +94,7 @@
         </div>
         <div class="col-md-4">
           <% CharacterCategory.all.each do |category| %>
-            <%= render partial: 'character_values/index_list.html',
+            <%= render partial: 'character_values/index_list', formats: [:html],
                        locals: { pdf: pdf, title: category.name, object: object,
                                  character_values: character.character_values.joins(:character_attribute).order(:name).where('character_category_id = ?', category.id) } %>
           <% end %>

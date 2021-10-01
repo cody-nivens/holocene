@@ -4,12 +4,12 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
+gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 
 # Use mysql as the database for Active Record
-gem 'mysql2', '>= 0.4.4'
+gem 'mysql2', '>= 0.5'
 # Use Puma as the app server
-gem 'puma', '~> 4.3.8'
+gem 'puma', '~> 5'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Use Uglifier as compressor for JavaScript assets
@@ -20,7 +20,7 @@ gem 'uglifier', '>= 1.3.0'
 gem "actiontext", require: "action_text"
 gem "image_processing", "~> 1.2"
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 4.0'
+gem 'webpacker', '~> 5.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -41,7 +41,7 @@ gem 'builder'
 # gem 'capistrano-rails', group: :development
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.2', require: false
+gem 'bootsnap', '>= 1.4.4', require: false
 gem 'sidekiq', '~>6.1.1'
 gem 'sidekiq-client-cli'
 #gem "sidekiq-cron", "~> 1.1"
@@ -65,10 +65,11 @@ end
 
 group :development do
     # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'web-console', '>= 4.1.0'
+  gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem 'rack-mini-profiler', '~> 2.0'
   gem 'spring-watcher-listen', '~> 2.0.0'
   #gem 'guard-spring'
   gem 'guard'
@@ -84,7 +85,7 @@ group :test do
   gem 'mocha'
 
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15', '< 4.0'
+  gem 'capybara', '>= 3.26'
   gem 'minitest'
   gem 'minitest-rails'
   gem 'minitest-rails-capybara'
@@ -102,13 +103,13 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'devise', '~> 4.7.1'
+gem 'devise'
 gem 'activeadmin'
 gem 'rolify'
-gem 'kaminari', '~> 1.2.1'
+gem 'kaminari'
 gem 'datagrid'
-gem "nokogiri", ">= 1.11.4"
-gem 'mini_portile2', '~> 2.4.0'
+gem "nokogiri"
+gem 'mini_portile2'
 gem 'acts-as-taggable-on'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
