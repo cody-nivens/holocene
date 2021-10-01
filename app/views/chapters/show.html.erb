@@ -97,12 +97,12 @@
   </div>
 <% end -%>
 
-<% add_to_footer((fa_icon 'edit'), edit_chapter_path(@chapter), classes: 'fa btn2 icon-ok icon-white', title: 'Edit') %>
+<% add_to_footer((fa_icon 'edit'), edit_chapter_path(@chapter), classes: 'fa btn icon-ok icon-white', title: 'Edit') %>
 <% if @chapter.scripted_type == 'Book' %>
-  <% add_to_footer((fa_icon 'sticky-note-o'), chapter_signets_path(chapter_id: @chapter.id), title: 'Signets', classes: "btn2 icon-ok icon-white #{!@chapter.signets.empty? ? Signet.color_class(@chapter.signets[0].color) : ''}") %>
-  <% add_to_footer((fa_icon 'list'), chapter_display_path(@chapter), title: 'Events', classes: 'btn2 icon-ok icon-white') %>
-  <% add_to_footer((fa_icon 'calendar-o'), chapter_timeline_path(@chapter), title: 'Timeline', classes: 'btn2 icon-ok icon-white') %>
-  <% add_to_footer((fa_icon 'map-o'), geo_map_chapter_path(@chapter), title: 'Map', classes: 'btn2 icon-ok icon-white') %>
+  <% add_to_footer((fa_icon 'sticky-note-o'), chapter_signets_path(chapter_id: @chapter.id), title: 'Signets', classes: "btn icon-ok icon-white #{!@chapter.signets.empty? ? Signet.color_class(@chapter.signets[0].color) : ''}") %>
+  <% add_to_footer((fa_icon 'list'), chapter_display_path(@chapter), title: 'Events', classes: 'btn icon-ok icon-white') %>
+  <% add_to_footer((fa_icon 'calendar-o'), chapter_timeline_path(@chapter), title: 'Timeline', classes: 'btn icon-ok icon-white') %>
+  <% add_to_footer((fa_icon 'map-o'), geo_map_chapter_path(@chapter), title: 'Map', classes: 'btn icon-ok icon-white') %>
   <% add_to_footer('Partition', (@chapter.partition.nil? ? new_chapter_partition_path(@chapter) : edit_partition_path(@chapter.partition))) %>
   <% add_to_footer('Aside', (@chapter.aside.nil? ? new_chapter_aside_path(chapter_id: @chapter.id) : edit_aside_path(@chapter.aside))) %>
   <% add_to_footer('Sections', chapter_sections_path(@chapter)) %>
@@ -114,9 +114,9 @@
 <% add_to_footer('Back', polymorphic_path([@chapter.scripted, :chapters])) %>
 <% prev_chapter = @chapter.set_prev %>
 <% unless prev_chapter.nil? %>
-  <% add_to_footer('<', chapter_path(prev_chapter), classes: 'btn2 icon-ok icon-white') %>
+  <% add_to_footer('<', chapter_path(prev_chapter), classes: 'btn icon-ok icon-white') %>
 <% end %>
 <% next_chapter = @chapter.set_next %>
 <% unless next_chapter.nil? %>
-  <% add_to_footer('>', chapter_path(next_chapter), classes: 'btn2 icon-ok icon-white') %>
+  <% add_to_footer('>', chapter_path(next_chapter), classes: 'btn icon-ok icon-white') %>
 <% end %>

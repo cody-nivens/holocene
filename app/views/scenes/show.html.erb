@@ -113,9 +113,9 @@
 
 <% prev_scene = @scene.set_prev %>
 <% unless prev_scene.nil? %>
-  <% add_to_footer('<', scene_path(prev_scene), classes: 'btn2 icon-ok icon-white') %>
+  <% add_to_footer('<', scene_path(prev_scene), classes: 'btn icon-ok icon-white') %>
 <% end %>
 <% next_scene = @scene.set_next %>
 <% unless next_scene.nil? %>
-  <% add_to_footer('>', scene_path(next_scene), classes: 'btn2 icon-ok icon-white') %>
+  <% add_to_footer('>', scene_path(next_scene), classes: 'btn icon-ok icon-white') %>
 <% end %>
