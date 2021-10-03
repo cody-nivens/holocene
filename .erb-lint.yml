@@ -5,9 +5,17 @@
 glob: "**/*.{html,text,js}{+*,}.erb"
 exclude:
   - '**/vendor/**/*'
+  - '**/*_grid/**/*'
   - '**/node_modules/**/*'
 EnableDefaultLinters: true
 linters:
+  HardCodedString:
+    enabled: false
+    exclude:
+      - 'app/views/*/*'
+  ErbSafety:
+    enabled: true
+    better_html_config: .better-html.yml
   Rubocop:
     enabled: true
     rubocop_config:

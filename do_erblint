@@ -1,0 +1,3 @@
+#!/bin/bash
+
+erblint --format compact --enable-linters allowed_script_type,closing_erb_tag_indent,deprecated_classes,erb_safety,extra_newline,final_newline,no_javascript_tag_helper,parser_errors,partial_instance_variable,require_input_autocomplete,require_script_nonce,right_trim,rubocop,rubocop_text,self_closing_tag,space_around_erb_tag,space_in_html_tag,space_indentation,trailing_whitespace "$@"
