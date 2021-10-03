@@ -104,8 +104,9 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
-gem 'activeadmin'
+gem 'cancancan'
 gem 'rolify'
+gem 'activeadmin'
 gem 'kaminari'
 gem 'datagrid'
 gem "nokogiri"
