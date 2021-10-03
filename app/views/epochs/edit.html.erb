@@ -3,4 +3,4 @@
 <%= render 'form', epoch: @epoch, command_label: 'Update Epoch' %>
 
 <% add_to_footer('Show', @epoch) %>
-<% add_to_footer('Back', epochs_path) %>
+<% add_to_footer('Back',  return_or_default_path(epochs_path)) %>)

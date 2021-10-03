@@ -45,7 +45,7 @@ class BiblioentriesTest < ApplicationSystemTestCase
     assert_current_path edit_biblioentry_path(@biblioentry)
     click_on 'Back'
     assert_text 'Exodus to Arthur'
-    assert_current_path book_biblioentries_path(@book)
+    assert_current_path biblioentry_path(@biblioentry)
   end
 
   test 'creating a Biblioentry' do

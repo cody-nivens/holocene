@@ -4,7 +4,6 @@ require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
-  devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   mount Sidekiq::Web => '/sidekiq'
   get '/characters/attributes', to: 'characters#attributes', format: :js, constraints: lambda { |request|
@@ -91,6 +90,7 @@ Rails.application.routes.draw do
   get '/stories/:story_id/character/:id/lineage', to: 'characters#lineage', as: :story_character_lineage
 
   devise_for :users
+  #devise_for :users, ActiveAdmin::Devise.config
   resources :footnotes
   resources :key_words, except: %i[index new create]
   resources :books, shallow: true do

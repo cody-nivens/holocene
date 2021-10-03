@@ -52,8 +52,8 @@ class KeyWordsTest < ApplicationSystemTestCase
     assert_link 'Show'
     assert_current_path edit_key_word_path(@key_word)
     click_on 'Back'
-    assert_link 'New Key Word'
-    assert_current_path book_key_words_path(@book)
+    assert_link 'Edit'
+    assert_current_path key_word_path(@key_word)
   end
 
   test 'visiting the index' do

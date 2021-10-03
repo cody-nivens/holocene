@@ -3,4 +3,4 @@
 <%= render 'form', scripted: @scripted, sectioned: @sectioned, section: @section, command_label: 'Update Section' %>
 
 <% add_to_footer('Show', section_path(@section)) %>
-<% add_to_footer('Back', polymorphic_path(@sectioned)) %>
+<% add_to_footer('Back',  return_or_default_path(polymorphic_path(@sectioned))) %>)

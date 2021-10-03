@@ -206,12 +206,16 @@ class ChaptersTest < ApplicationSystemTestCase
     visit polymorphic_url([@scripted, :chapters])
     click_on 'New Chapter'
 
-    fill_in 'Name', with: @chapter.name
+    fill_in 'Name', with: "#{@chapter.name}2"
     fill_in_rich_text_area 'chapter_body', with: '[[test99]]'
 
     click_on 'Create Chapter'
 
     assert_text 'Chapter was successfully created'
+
+    assert_link "#{@chapter.name}2"
+    click_on "#{@chapter.name}2"
+
     assert_link 'Missing footnote'
     click_on 'Missing footnote'
 

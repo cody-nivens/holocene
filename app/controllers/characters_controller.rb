@@ -92,7 +92,7 @@ class CharactersController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to polymorphic_path([@object, :characters_list]) }
+      format.html { redirect_back_or_default(polymorphic_path([@object, :characters_list])) }
     end
   end
 
@@ -144,7 +144,7 @@ class CharactersController < ApplicationController
     update_values
     respond_to do |format|
       if @character.update(character_params)
-        format.html { redirect_to polymorphic_path([@object, @character]) }
+        format.html { redirect_back_or_default(polymorphic_path([@object, @character])) }
         format.json { render :show, status: :ok, location: @character }
       else
         format.html { render :edit }

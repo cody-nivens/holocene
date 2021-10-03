@@ -10,7 +10,7 @@
   <%= @tour.story.name %>
 </p>
 
-<%= link_to 'Add City', url_for(:controller => 'cities', :action => 'add_city',
+<%= link_to 'Add City', url_for(controller: 'cities', action: 'add_city',
                                 "#{@tour.class.name.underscore}_id".to_sym => @tour.id), class: 'btn btn-secondary' %>
 
 <%= datagrid_form_for @grid, method: :get, url: tour_itineraries_path(@tour), partials: 'itinerary_grid' %>

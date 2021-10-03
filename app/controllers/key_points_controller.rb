@@ -18,7 +18,7 @@ class KeyPointsController < ApplicationController
     @key_point.update({ scripted_id: params["new_#{@scripted.class.name.underscore}_id".to_sym] })
 
     respond_to do |format|
-      format.html { redirect_to polymorphic_url(@scripted), notice: 'Key Point successfully moved.' }
+      format.html { redirect_back_or_default(polymorphic_url(@scripted), notice: 'Key Point successfully moved.') }
       format.json { render :show, status: :ok, location: @key_point }
     end
   end
@@ -54,7 +54,7 @@ class KeyPointsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to polymorphic_path([@scripted, :key_point_list], selector: selector) }
+      format.html { redirect_back_or_default(polymorphic_path([@scripted, :key_point_list], selector: selector)) }
     end
   end
 
@@ -85,7 +85,7 @@ class KeyPointsController < ApplicationController
 
     respond_to do |format|
       if @key_point.save
-        format.html { redirect_to key_point_url(@key_point), notice: 'Key point was successfully created.' }
+        format.html { redirect_back_or_default(key_point_url(@key_point), notice: 'Key point was successfully created.') }
         format.json { render :show, status: :created, location: @key_point }
       else
         format.html { render :new }
@@ -100,7 +100,7 @@ class KeyPointsController < ApplicationController
     @scripted = @key_point.scripted
     respond_to do |format|
       if @key_point.update(key_point_params)
-        format.html { redirect_to key_point_url(@key_point), notice: 'Key point was successfully updated.' }
+        format.html { redirect_back_or_default(key_point_url(@key_point), notice: 'Key point was successfully updated.') }
         format.json { render :show, status: :ok, location: @key_point }
       else
         format.html { render :edit }

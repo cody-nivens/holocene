@@ -38,7 +38,7 @@ class ArtifactsController < ApplicationController
 
     respond_to do |format|
       if @artifact.save
-        format.html { redirect_to artifact_path(@artifact), notice: 'Artifact was successfully created.' }
+        format.html { redirect_back_or_default(artifact_path(@artifact), notice: 'Artifact was successfully created.') }
         format.json { render :show, status: :created, location: @artifact }
       else
         format.html { render :new, book_id: @book.id, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class ArtifactsController < ApplicationController
     @book = @artifact.book
     respond_to do |format|
       if @artifact.update(artifact_params)
-        format.html { redirect_to artifact_path(@artifact), notice: 'Artifact was successfully updated.' }
+        format.html { redirect_back_or_default(artifact_path(@artifact), notice: 'Artifact was successfully updated.') }
         format.json { render :show, status: :ok, location: @artifact }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -66,7 +66,7 @@ class ArtifactsController < ApplicationController
     @book = @artifact.book
     @artifact.destroy
     respond_to do |format|
-      format.html { redirect_to book_artifacts_path(@book), notice: 'Artifact was successfully destroyed.' }
+      format.html { redirect_back_or_default(book_artifacts_path(@book), notice: 'Artifact was successfully destroyed.') }
       format.json { head :no_content }
     end
   end

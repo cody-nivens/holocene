@@ -32,7 +32,7 @@ class PartitionsTest < ApplicationSystemTestCase
     assert_current_path new_chapter_partition_path(@chapter)
     click_on 'Back'
     assert_link 'Partition'
-    assert_current_path chapter_path(@chapter)
+    assert_current_path chapter_partitions_path(@chapter)
   end
 
   test 'partitions show' do
@@ -43,8 +43,8 @@ class PartitionsTest < ApplicationSystemTestCase
     assert_link 'Show'
     assert_current_path edit_partition_path(@partition)
     click_on 'Back'
-    assert_link 'Partition'
-    assert_current_path chapter_path(@chapter)
+    assert_link 'Edit'
+    assert_current_path partition_path(@partition)
   end
 
   test 'creating a Partition' do

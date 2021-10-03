@@ -63,7 +63,7 @@ class AuthorsTest < ApplicationSystemTestCase
     assert_current_path edit_polymorphic_path([@book, @author])
     click_on 'Back'
     assert_text 'Erggy'
-    assert_current_path book_authors_path(@book)
+    assert_current_path book_author_path(@book, @author)
   end
 
 

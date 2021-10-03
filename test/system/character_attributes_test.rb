@@ -31,7 +31,7 @@ class CharacterAttributesTest < ApplicationSystemTestCase
     assert_current_path new_character_category_character_attribute_path(@character_category)
     click_on 'Back'
     assert_link 'Edit'
-    assert_current_path character_category_path(@character_category)
+    assert_current_path character_category_character_attributes_path(@character_category)
   end
 
   test 'character_attributes show' do
@@ -42,8 +42,8 @@ class CharacterAttributesTest < ApplicationSystemTestCase
     assert_text 'Editing Character Attribute'
     assert_current_path edit_character_attribute_path(@character_attribute)
     click_on 'Back'
-    assert_link 'New Character Attribute'
-    assert_current_path character_category_character_attributes_path(@character_category)
+    assert_link 'Edit'
+    assert_current_path character_attribute_path(@character_attribute)
   end
 
   test 'creating a Character attribute' do

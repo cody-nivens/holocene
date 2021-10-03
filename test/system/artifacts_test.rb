@@ -45,8 +45,8 @@ class ArtifactsTest < ApplicationSystemTestCase
     assert_text 'Editing Artifact'
     assert_current_path edit_artifact_path(@artifact)
     click_on 'Back'
-    assert_text 'New Artifact'
-    assert_current_path book_artifacts_path(@artifact.book)
+    assert_link 'Edit'
+    assert_current_path artifact_path(@artifact)
   end
 
 

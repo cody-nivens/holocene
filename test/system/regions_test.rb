@@ -41,8 +41,8 @@ class RegionsTest < ApplicationSystemTestCase
     assert_link 'Show'
     assert_current_path edit_region_path(@region)
     click_on 'Back'
-    assert_link 'New Region'
-    assert_current_path regions_path
+    assert_link 'Edit'
+    assert_current_path region_path(@region)
   end
 
   test 'creating a Region' do

@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <meta charset='utf-8' />
+    <meta charset='utf-8'>
     <%= wicked_pdf_stylesheet_link_tag "pdf" -%>
     <%= wicked_pdf_javascript_include_tag "number_pages" %>
     <title><%= @story.name %></title>
@@ -11,7 +11,7 @@
       <%#= wicked_pdf_image_tag 'mysite.jpg' %>
     </div>
     <div id="content">
-    <%= render :partial => 'stories/show', formats: [:html], :locals =>{:outline => params[:outline], :pdf => true, :story => @story} %>
+    <%= render partial: 'stories/show', formats: [:html], locals: { outline: params[:outline], pdf: true, story: @story } %>
     </div>
   </body>
 </html>

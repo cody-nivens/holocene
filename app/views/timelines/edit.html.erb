@@ -3,4 +3,4 @@
 <%= render 'form', timeline: @timeline, command_label: 'Update Timeline' %>
 
 <% add_to_footer('Show', @timeline) %>
-<% add_to_footer('Back', timelines_path) %>
+<% add_to_footer('Back',  return_or_default_path(timelines_path)) %>)

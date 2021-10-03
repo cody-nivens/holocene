@@ -44,8 +44,8 @@ class SignetsTest < ApplicationSystemTestCase
     assert_link 'Show'
     assert_current_path edit_signet_path(@signet)
     click_on 'Back'
-    assert_selector 'i.fa.fa-sticky-note-o'
-    assert_current_path polymorphic_path(@sigged)
+    assert_link 'Edit'
+    assert_current_path signet_path(@signet)
   end
 
   test 'creating a Signet' do

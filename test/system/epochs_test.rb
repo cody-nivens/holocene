@@ -55,7 +55,7 @@ class EpochsTest < ApplicationSystemTestCase
     assert_current_path epochs_path
   end
 
-  test 'epochs show' do
+  test 'epochs show edit' do
     visit epoch_url(@epoch)
 #    visit Edit
     within '.footer' do
@@ -64,8 +64,11 @@ class EpochsTest < ApplicationSystemTestCase
     end
     assert_current_path edit_epoch_path(@epoch)
     click_on 'Back'
-    assert_link 'New Epoch'
-    assert_current_path epochs_path
+    assert_link 'Edit'
+    assert_current_path epoch_path(@epoch)
+  end
+
+  test 'epochs show map' do
 #    visit Map
     visit epoch_url(@epoch)
     assert_link 'Map'
@@ -75,7 +78,11 @@ class EpochsTest < ApplicationSystemTestCase
     click_on 'Back'
     assert_link 'Timeline'
     assert_current_path epoch_path(@epoch)
+  end
+
+  test 'epochs show timeline' do
 #    visit Timeline
+    visit epoch_url(@epoch)
     assert_link 'Timeline'
     click_on 'Timeline'
     assert_link 'Display'

@@ -41,16 +41,23 @@ div.page-break { display:block; clear:both; page-break-after:always; }
 body {
   height: 100vh;
 }
+$font-base: 16;
+
+@function rem-calc($pixel) {
+  $rem: $pixel / $font-base;
+
+  @return #{$rem}rem;
+}
 
 html {
   position: relative;
-  font-size: 14px;
+  font-size: rem-calc(14);
 }
 
 body > .outer-container > .container {
-  padding: 15px 15px 0;
+  padding: rem-calc(15) rem-calc(15) 0;
   position: relative;
-  width: 1200px;
+  width: rem-calc(1200);
   min-height: 100%;
   overflow-x: auto;
 }
@@ -68,15 +75,36 @@ body > .outer-container {
   overflow-x: auto;
 }
 
-body > .outer-container > .container > .footer {
+.footer {
+  min-width: rem-calc(750);
   padding-right: 1em;
   padding-left: 1em;
-  position: fixed;
+  padding-top: 0.5rem;
+  padding-bottom: 0;
+  position: relative;
   bottom: 0;
-  margin-bottom: 1em;
-  height: 50px;
-  line-height: 50px; /* Vertically center the text there */
+  margin-bottom: 0em;
+  height: rem-calc(50);
+  line-height: rem-calc(50); /* Vertically center the text there */
   background-color: #f5f5f5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border: none;
+  border-radius: 0;
+  box-shadow: rem-calc(1) rem-calc(1) rem-calc(3) rgba(0, 0, 0, 0.1);
+  min-height: $navbar-height; // Ensure a navbar always shows (e.g., without a .navbar-brand in collapsed mode)
+  border: 1px solid transparent;
+
+  // Prevent floats from breaking the navbar
+  @include clearfix;
+
+  @media (min-width: $grid-float-breakpoint) {
+    border-radius: $navbar-border-radius;
+  }
+
 }
 #content-wrap {
   flex-direction: column;
@@ -86,27 +114,27 @@ body > .outer-container > .container > .footer {
   flex-grow: 1;
   justify-content: space-around;
   height: 100%;
-  margin-bottom: 60px;
+  margin-bottom: rem-calc(60);
 }
 
 dd {
     display: block;
-    margin-left: 40px;
+    margin-left: rem-calc(40);
 }
 td.dd-type {
 /*    display: block; */
-    padding-left: 40px;
+    padding-left: rem-calc(40);
     background-color: #EEE;
 }
 /*p {
-  padding-top: 20px;
-  padding-left: 300px;
+  padding-top: rem-calc(20);
+  padding-left: rem-calc(300);
   border-style: solid;
-  border-width: 2px;
+  border-width: rem-calc(2);
 }
 
 a {
-  margin-top: 50px;
+  margin-top: rem-calc(50);
 }
 
 * {
@@ -115,7 +143,7 @@ a {
 }
 */
 .gtree ul {
-  padding-top: 20px;
+  padding-top: rem-calc(20);
   position: relative;
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
@@ -127,7 +155,7 @@ a {
   text-align: center;
   list-style-type: none;
   position: relative;
-  padding: 20px 5px 0 5px;
+  padding: rem-calc(20) rem-calc(5) 0 rem-calc(5);
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   transition: all 0.5s;
@@ -142,16 +170,16 @@ a {
   position: absolute;
   top: 0;
   right: 50%;
-  border-top: 1px solid #ccc;
+  border-top: rem-calc(1) solid #ccc;
   width: 50%;
-  height: 45px;
+  height: rem-calc(45);
   z-index: -1;
 }
 
 .gtree li::after {
   right: auto;
   left: 50%;
-  border-left: 1px solid #ccc;
+  border-left: rem-calc(1) solid #ccc;
 }
 
 
@@ -183,20 +211,20 @@ a {
 /*Adding back the vertical connector to the last nodes*/
 
 .gtree li:last-child::before {
-  border-right: 1px solid #ccc;
-  border-radius: 0 5px 0 0;
-  -webkit-transform: translateX(1px);
-  -moz-transform: translateX(1px);
-  transform: translateX(1px);
-  -webkit-border-radius: 0 5px 0 0;
-  -moz-border-radius: 0 5px 0 0;
-  border-radius: 0 5px 0 0;
+  border-right: rem-calc(1) solid #ccc;
+  border-radius: 0 rem-calc(5) 0 0;
+  -webkit-transform: translateX(rem-calc(1));
+  -moz-transform: translateX(rem-calc(1));
+  transform: translateX(rem-calc(1));
+  -webkit-border-radius: 0 rem-calc(5) 0 0;
+  -moz-border-radius: 0 rem-calc(5) 0 0;
+  border-radius: 0 rem-calc(5) 0 0;
 }
 
 .gtree li:first-child::after {
-  border-radius: 5px 0 0 0;
-  -webkit-border-radius: 5px 0 0 0;
-  -moz-border-radius: 5px 0 0 0;
+  border-radius: rem-calc(5) 0 0 0;
+  -webkit-border-radius: rem-calc(5) 0 0 0;
+  -moz-border-radius: rem-calc(5) 0 0 0;
 }
 
 
@@ -205,43 +233,43 @@ a {
 .gtree ul ul::before {
   content: '';
   position: absolute;
-  top: -12px;
+  top: -rem-calc(12);
   left: 50%;
-  border-left: 1px solid #ccc;
+  border-left: rem-calc(1) solid #ccc;
   width: 0;
-  height: 32px;
+  height: rem-calc(32);
   z-index: -1;
 }
 
 .gtree li a {
-  border: 1px solid #ccc;
-  padding: 5px 10px;
+  border: rem-calc(1) solid #ccc;
+  padding: rem-calc(5) rem-calc(10);
   text-decoration: none;
   color: #666;
   font-family: arial, verdana, tahoma;
-  font-size: 11px;
+  font-size: rem-calc(11);
   display: inline-block;
   background: white;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
+  -webkit-border-radius: rem-calc(5);
+  -moz-border-radius: rem-calc(5);
+  border-radius: rem-calc(5);
   -webkit-transition: all 0.5s;
   -moz-transition: all 0.5s;
   transition: all 0.5s;
 }
 
 .gtree li a+a {
-  margin-left: 20px;
+  margin-left: rem-calc(20);
   position: relative;
 }
 
 .gtree li a+a::before {
   content: '';
   position: absolute;
-  border-top: 1px solid #ccc;
+  border-top: rem-calc(1) solid #ccc;
   top: 50%;
-  left: -21px;
-  width: 20px;
+  left: -rem-calc(21);
+  width: rem-calc(20);
 }
 
 
@@ -254,7 +282,7 @@ a {
 .gtree li a:hover~ul li a {
   background: #c8e4f8;
   color: #000;
-  border: 1px solid #94a0b4;
+  border: rem-calc(1) solid #94a0b4;
 }
 
 
@@ -275,8 +303,8 @@ a {
 
 .box_left {
     background: #a0ffa0;
-    min-width: 75px;
-    width: 500px;
+    min-width: rem-calc(75);
+    width: rem-calc(500);
     flex-grow: 0;
 }
 
@@ -286,54 +314,54 @@ a {
 }
 #content {
 clear: both;
-width: 950px;
-padding-bottom: 10px;
+width: 9rem-calc(50);
+padding-bottom: rem-calc(10);
 overflow:hidden;
 }
 #contentLeft {
 float: left;
 display:inline;
-/* width: 630px; */
-margin: 10px;
+/* width: rem-calc(630); */
+margin: rem-calc(10);
 }
 #contentRight {
 float: right;
-width: 270px;
-margin-top:25px;
-margin-right:15px;
+width: rem-calc(270);
+margin-top:rem-calc(25);
+margin-right:rem-calc(15);
 }
 div#aside {
 /*  width:92%;*/
-  width: 400px;
+  width: rem-calc(400);
   float: right;
   overflow-x:hidden; overflow-y:visible;
   padding:2%;
-  height:150px;
-  border:10px double yellowgreen;
+  height:1rem-calc(50);
+  border:rem-calc(10) double yellowgreen;
   background-color:#d7e5f7;
 }
 blockquote {
     display: block;
     margin-block-start: 1em;
     margin-block-end: 1em;
-    margin-inline-start: 40px;
-    margin-inline-end: 40px;
+    margin-inline-start: rem-calc(40);
+    margin-inline-end: rem-calc(40);
 }
 table td, table td * {
     vertical-align: top;
 }
 .border-primary {
-  border: 1px solid #333333;
+  border: rem-calc(1) solid #333333;
   }
   .border-primary .card-body,.card-title {
-  padding: 3px;
-  margin: 3px;
+  padding: rem-calc(3);
+  margin: rem-calc(3);
 }
 .triangle {
-    border-right: 10px solid;
-    border-bottom: 10px solid;
-    height: 30px;
-    width: 30px;
+    border-right: rem-calc(10) solid;
+    border-bottom: rem-calc(10) solid;
+    height: rem-calc(30);
+    width: rem-calc(30);
     transform: rotate(-45deg);
 }
 .color-FF69B4 {
@@ -376,10 +404,10 @@ table td, table td * {
 }
 
 dd {
-    margin-bottom: 10px;
+    margin-bottom: rem-calc(10);
 }
 #tag_cloud {
-  width: 400px;
+  width: rem-calc(400);
   line-height: 1.6em;
   .s { font-size: 0.8em; }
   .m { font-size: 1.2em; }
@@ -387,15 +415,15 @@ dd {
 }
 .Progress {
     background-color: var(--color-neutral-muted,var(--color-auto-gray-2));
-    border-radius: 6px;
+    border-radius: rem-calc(6);
     display: inline-flex;
-    height: 8px;
-    outline: 1px solid transparent;
+    height: rem-calc(8);
+    outline: rem-calc(1) solid transparent;
     overflow: hidden;
-    width: 60px;
+    width: rem-calc(60);
 }
 .Progress-item {
-    outline: 2px solid transparent;
+    outline: rem-calc(2) solid transparent;
 }
 .equal-spacing {
   display:flex;
@@ -418,7 +446,7 @@ dt > div.title {
     padding-left: 0.5em;
 }
 div > div.medium {
-    width: 5em;
+    width: 6em;
     float: left;
     text-align: left;
 }
@@ -444,7 +472,7 @@ dt > div.progress_bar {
   position: absolute;
   z-index: 1030;
   display: block;
-  font-size: 12px;
+  font-size: rem-calc(12);
   line-height: 1.4;
   visibility: visible;
   filter: alpha(opacity=0);
@@ -455,29 +483,29 @@ dt > div.progress_bar {
   opacity: .9;
 }
 .tooltip.top {
-  padding: 5px 0;
-  margin-top: -3px;
+  padding: rem-calc(5) 0;
+  margin-top: -rem-calc(3);
 }
 .tooltip.right {
-  padding: 0 5px;
-  margin-left: 3px;
+  padding: 0 rem-calc(5);
+  margin-left: rem-calc(3);
 }
 .tooltip.bottom {
-  padding: 5px 0;
-  margin-top: 3px;
+  padding: rem-calc(5) 0;
+  margin-top: rem-calc(3);
 }
 .tooltip.left {
-  padding: 0 5px;
-  margin-left: -3px;
+  padding: 0 rem-calc(5);
+  margin-left: -rem-calc(3);
 }
 .tooltip-inner {
-  max-width: 200px;
-  padding: 3px 8px;
+  max-width: rem-calc(200);
+  padding: rem-calc(3) rem-calc(8);
   color: #fff;
   text-align: center;
   text-decoration: none;
   background-color: #000;
-  border-radius: 4px;
+  border-radius: rem-calc(4);
 }
 .tooltip-arrow {
   position: absolute;
@@ -489,53 +517,53 @@ dt > div.progress_bar {
 .tooltip.top .tooltip-arrow {
   bottom: 0;
   left: 50%;
-  margin-left: -5px;
-  border-width: 5px 5px 0;
+  margin-left: -rem-calc(5);
+  border-width: rem-calc(5) rem-calc(5) 0;
   border-top-color: #000;
 }
 .tooltip.top-left .tooltip-arrow {
   bottom: 0;
-  left: 5px;
-  border-width: 5px 5px 0;
+  left: rem-calc(5);
+  border-width: rem-calc(5) rem-calc(5) 0;
   border-top-color: #000;
 }
 .tooltip.top-right .tooltip-arrow {
-  right: 5px;
+  right: rem-calc(5);
   bottom: 0;
-  border-width: 5px 5px 0;
+  border-width: rem-calc(5) rem-calc(5) 0;
   border-top-color: #000;
 }
 .tooltip.right .tooltip-arrow {
   top: 50%;
   left: 0;
-  margin-top: -5px;
-  border-width: 5px 5px 5px 0;
+  margin-top: -rem-calc(5);
+  border-width: rem-calc(5) rem-calc(5) rem-calc(5) 0;
   border-right-color: #000;
 }
 .tooltip.left .tooltip-arrow {
   top: 50%;
   right: 0;
-  margin-top: -5px;
-  border-width: 5px 0 5px 5px;
+  margin-top: -rem-calc(5);
+  border-width: rem-calc(5) 0 rem-calc(5) rem-calc(5);
   border-left-color: #000;
 }
 .tooltip.bottom .tooltip-arrow {
   top: 0;
   left: 50%;
-  margin-left: -5px;
-  border-width: 0 5px 5px;
+  margin-left: -rem-calc(5);
+  border-width: 0 rem-calc(5) rem-calc(5);
   border-bottom-color: #000;
 }
 .tooltip.bottom-left .tooltip-arrow {
   top: 0;
-  left: 5px;
-  border-width: 0 5px 5px;
+  left: rem-calc(5);
+  border-width: 0 rem-calc(5) rem-calc(5);
   border-bottom-color: #000;
 }
 .tooltip.bottom-right .tooltip-arrow {
   top: 0;
-  right: 5px;
-  border-width: 0 5px 5px;
+  right: rem-calc(5);
+  border-width: 0 rem-calc(5) rem-calc(5);
   border-bottom-color: #000;
 }
 .btn-default {
@@ -555,7 +583,7 @@ dt > div.progress_bar {
     -ms-user-select: none;
     user-select: none;
     background-color: transparent;
-    border: 1px solid transparent;
+    border: rem-calc(1) solid transparent;
     padding: 0.375rem 0.75rem;
     font-size: 1.5rem;
     border-radius: 0.25rem;

@@ -41,7 +41,7 @@ class ItinerariesController < ApplicationController
 
     respond_to do |format|
       if @itinerary.save
-        format.html { redirect_to itinerary_path(@itinerary), notice: 'Itinerary was successfully created.' }
+        format.html { redirect_back_or_default(itinerary_path(@itinerary), notice: 'Itinerary was successfully created.') }
         format.json { render :show, status: :created, location: @itinerary }
       else
         format.html do
@@ -58,7 +58,7 @@ class ItinerariesController < ApplicationController
     @tour = @itinerary.tour
     respond_to do |format|
       if @itinerary.update(itinerary_params)
-        format.html { redirect_to itinerary_path(@itinerary), notice: 'Itinerary was successfully updated.' }
+        format.html { redirect_back_or_default(itinerary_path(@itinerary), notice: 'Itinerary was successfully updated.') }
         format.json { render :show, status: :ok, location: @itinerary }
       else
         format.html do
@@ -75,7 +75,7 @@ class ItinerariesController < ApplicationController
     @tour = @itinerary.tour
     @itinerary.destroy
     respond_to do |format|
-      format.html { redirect_to tour_itineraries_url(@tour), notice: 'Itinerary was successfully destroyed.' }
+      format.html { redirect_back_or_default(tour_itineraries_url(@tour), notice: 'Itinerary was successfully destroyed.') }
       format.json { head :no_content }
     end
   end

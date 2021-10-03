@@ -3,4 +3,4 @@
 <%= render 'form', itinerary: @itinerary, cities: @cities %>
 
 <% add_to_footer('Show', itinerary_path(@itinerary), print: true) %>
-<% add_to_footer('Back', tour_path(@tour), print: true) %>
+<% add_to_footer('Back',  return_or_default_path(tour_path(@tour)), print: true) %>)

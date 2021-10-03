@@ -6,13 +6,10 @@
 
 <div id="world-map" style="width: 720px; height: 400px"></div>
 
-<script type="text/javascript">
-
-    // $(function(){
+<script nonce="<%= request.content_security_policy_nonce %>" type="text/javascript">
     $(document).ready(function(){
 
     var map_locs = <%== object.map_locs.to_json %>
-  //@code_start
     $('#world-map').vectorMap({
       map: 'world_mill_en',
       scaleColors: ['#C8EEFF', '#0071A4'],
@@ -41,6 +38,5 @@
 //    }
 
     });
-  //@code_end
 });
 </script>

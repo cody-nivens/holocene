@@ -68,8 +68,8 @@ class CharactersTest < ApplicationSystemTestCase
     assert_link 'Show'
     assert_current_path edit_book_character_path(@book, @character)
     click_on 'Back'
-    assert_link 'New Character'
-    assert_current_path book_characters_path(@book)
+    assert_link 'Edit'
+    assert_current_path book_character_path(@book, @character)
   end
 
   test 'characters show lineage' do

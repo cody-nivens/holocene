@@ -22,7 +22,7 @@ class StoriesTest < ApplicationSystemTestCase
     assert_current_path new_book_story_path(book_id: @book.id)
     click_on 'Back'
     assert_link 'New Story'
-    assert_current_path book_path(@book)
+    assert_current_path book_stories_path(@book)
   end
 
   test 'stories index resync stories' do
@@ -86,7 +86,7 @@ class StoriesTest < ApplicationSystemTestCase
     assert_current_path new_polymorphic_path([@story, KeyPoint])
     click_on 'Back'
     assert_link 'Scenes'
-    assert_current_path polymorphic_path([@story, :key_points])
+    assert_current_path story_path(@story)
   end
 
   test 'stories show resync scenes' do

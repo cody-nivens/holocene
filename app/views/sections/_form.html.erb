@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-7">
+    <div class="col-8">
 <%= bootstrap_form_for section, url: { controller: :sections, action: (section.id.nil? ? :create : :update) } do |f| %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
@@ -20,7 +20,7 @@
 
 <% end %>
   </div>
-  <div class="col">
+  <div class="col-2">
       <%= render partial: 'characters/characters_occ_ul', formats: [:html], locals: { object: @sectioned } %>
   </div>
 </div>

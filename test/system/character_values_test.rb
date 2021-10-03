@@ -43,8 +43,8 @@ class CharacterValuesTest < ApplicationSystemTestCase
     assert_link 'Show'
     assert_current_path edit_book_character_character_value_path(@book, @character, @character_value)
     click_on 'Back'
-    assert_link 'New Character Value'
-    assert_current_path book_character_character_values_path(@book, @character)
+    assert_link 'Edit'
+    assert_current_path book_character_character_value_path(@book, @character, @character_value)
   end
 
   test 'creating a Character value' do

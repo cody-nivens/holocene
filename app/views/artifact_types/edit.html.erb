@@ -1,6 +1,6 @@
 <h1>Editing Artifact Type</h1>
 
-<%= render 'form', artifact_type: @artifact_type, book: @book %>
+<%= render 'form', artifact_type: @artifact_type, book: @artifact_type.book %>
 
 <% add_to_footer('Show', artifact_type_path(@artifact_type)) %>
-<% add_to_footer('Back', book_artifact_types_path(@book)) %>
+<% add_to_footer('Back',  return_or_default_path(book_artifact_types_path(@artifact_type.book))) %>)

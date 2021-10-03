@@ -3,4 +3,4 @@
 <%= render 'form', book: @book, biblioentry: @biblioentry, command_label: 'Update Biblioentry' %>
 
 <% add_to_footer('Show', biblioentry_path(@biblioentry)) %>
-<% add_to_footer('Back', book_biblioentries_path(@book)) %>
+<% add_to_footer('Back',  return_or_default_path(book_biblioentries_path(@book))) %>)

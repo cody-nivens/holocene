@@ -1,5 +1,9 @@
 class ApplicationController < ActionController::Base
   include Pagy::Backend
+  #load_and_authorize_resource
+#  before_action :configure_permitted_parameters, if: :devise_controller?
+  rescue_from SecurityError do |exception| redirect_to root_path end
+  rescue_from CanCan::AccessDenied do | exception | redirect_to root_path, alert: exception.message end
 
   before_action :authenticate_user!
   before_action :set_footer_content
@@ -8,6 +12,34 @@ class ApplicationController < ActionController::Base
 
   before_action :set_title
   before_action :set_book_from_session
+
+  after_action :set_return_to_location
+
+  REDIRECT_CONTROLLER_BLACKLIST = %w(
+    sessions
+    user_sessions
+  )
+
+  def set_return_to_location
+    return unless request.get?
+    return unless request.format.html?
+    return unless %w(show index edit).include?(params[:action])
+    return if REDIRECT_CONTROLLER_BLACKLIST.include?(controller_name)
+    session[:return_to] = request.fullpath
+  end
+
+  def return_or_default_path(default_path)
+      session[:return_to].present? && session[:return_to] != request.fullpath ?
+        session[:return_to] : default_path
+  end
+
+  def redirect_back_or_default(default_path, options = {})
+    default_path ||= root_path
+    flash[:notice] = options[:notice]
+    redirect_to(
+      return_or_default_path(default_path)
+    )
+  end
 
   def set_book_from_session
     book = if session[:book_id].nil?
@@ -69,6 +101,19 @@ class ApplicationController < ActionController::Base
       my_ids = (case1.ids + case2.ids + case3.ids + case4.ids + case5.ids).uniq
     end
     my_ids
+  end
+
+   #
+  # redirect registered users to a profile page
+  # of to the admin dashboard if the user is an administrator
+  #
+  def after_sign_in_path_for(resource)
+    #resource.has_role?(:admin) ? admin_dashboard_path : user_path(resource)
+    resource.has_role?(:admin) ? admin_dashboard_path : root_path
+  end
+
+  def authenticate_admin_user!
+    raise SecurityError unless current_user.has_role?(:admin)
   end
 
   private
@@ -180,7 +225,7 @@ class BookEPub
        <head><title>#{story.name}</title>
                <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
        </head>
-       <body>#{StoriesController.render partial: 'stories/show', formats: [:html], :locals => { notes: @notes, book: @book, story: story, epub: true, pdf: true }}
+       <body>#{StoriesController.render partial: 'stories/show', formats: [:html], locals: { notes: @notes, book: @book, story: story, epub: true, pdf: true }}
        </body></html>
      CHAP_ONE
  chap_index += 1
@@ -206,7 +251,7 @@ class BookEPub
        <head><title>#{chapter.name}</title>
                <link rel="stylesheet" href="../css/main.css" type="text/css" media="all" />
        </head>
-       <body>#{ChaptersController.render partial: 'chapters/show', formats: [:html], :locals => { notes: @notes, book: @book, chapter: chapter, epub: true }}
+       <body>#{ChaptersController.render partial: 'chapters/show', formats: [:html], locals: { notes: @notes, book: @book, chapter: chapter, epub: true }}
        </body></html>
      CHAP_ONE
     chap_index += 1
@@ -247,9 +292,9 @@ class BookEPub
      end
    end
 
-   str += HoloceneEventsController.render :partial => 'holocene_events/index', formats: [:html],
-                                                                                            locals: { holocene_events: chapter.holocene_events.order(:start_year), chapter: chapter, links: false, epub: true,
-slugs: @slugs }
+   str += HoloceneEventsController.render partial: 'holocene_events/index', formats: [:html],
+                                          locals: { holocene_events: chapter.holocene_events.order(:start_year), chapter: chapter, links: false,
+                                                    epub: true, slugs: @slugs }
  end
  next if chapter.sections.length == 0
         chapter.sections.order(:position).each do |section|
@@ -261,9 +306,9 @@ slugs: @slugs }
                 @slugs += @footnotes[1]
               end
             end
-            str += HoloceneEventsController.render :partial => 'holocene_events/index', formats: [:html],
-                                                                                                         locals: { holocene_events: section.holocene_events.order(:start_year), chapter: chapter, links: false,
-title: "#{chapter.name}:#{section.name}", epub: true, slugs: @slugs }
+            str += HoloceneEventsController.render partial: 'holocene_events/index', formats: [:html],
+                                                   locals: { holocene_events: section.holocene_events.order(:start_year), chapter: chapter, links: false,
+                                                             title: "#{chapter.name}:#{section.name}", epub: true, slugs: @slugs }
           end
         end
    end

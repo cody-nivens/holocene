@@ -2,4 +2,4 @@
 
 <%= render 'form', key_point: @key_point, scripted: @scripted, klass: @klass %>
 
-<% add_to_footer('Back', key_point_path(@key_point)) %>
+<% add_to_footer('Back',  return_or_default_path(key_point_path(@key_point))) %>)

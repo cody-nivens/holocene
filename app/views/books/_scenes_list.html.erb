@@ -14,7 +14,6 @@
               <% else %>
                 <%= values.compact.collect(&:name).join('|') %>
               <% end %>
-              <%#= render :partial => "scenes/scene_title.html", :locals => { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, inline_date: true} %>
             </li>
           <% end %>
         <% end %>

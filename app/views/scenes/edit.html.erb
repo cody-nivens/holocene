@@ -2,4 +2,4 @@
 
 <%= render 'form', scene: @scene, situated: @situated, selector: @selector, key_point: @key_point %>
 
-<% add_to_footer('Back', scene_path(@scene)) %>
+<% add_to_footer('Back',  return_or_default_path(scene_path(@scene))) %>)

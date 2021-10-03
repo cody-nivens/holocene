@@ -35,7 +35,7 @@ class AsidesController < ApplicationController
 
     respond_to do |format|
       if @aside.save
-        format.html { redirect_to chapter_path(@chapter), notice: 'Aside was successfully created.' }
+        format.html { redirect_back_or_default(chapter_path(@chapter), notice: 'Aside was successfully created.') }
         format.json { render :show, status: :created, location: @aside }
       else
         format.html { render :new }
@@ -51,7 +51,7 @@ class AsidesController < ApplicationController
     @scripted = @chapter.scripted
     respond_to do |format|
       if @aside.update(aside_params)
-        format.html { redirect_to chapter_path(@chapter), notice: 'Aside was successfully updated.' }
+        format.html { redirect_back_or_default(chapter_path(@chapter), notice: 'Aside was successfully updated.') }
         format.json { render :show, status: :ok, location: @aside }
       else
         format.html { render :edit }

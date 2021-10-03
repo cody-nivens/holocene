@@ -32,8 +32,8 @@ class ItinerariesTest < ApplicationSystemTestCase
     assert_no_link 'New Itinerary'
     assert_current_path new_tour_itinerary_path(@tour)
     click_on 'Back'
-    assert_link 'Itinerary'
-    assert_current_path tour_path(@tour)
+    assert_link 'New Itinerary'
+    assert_current_path tour_itineraries_path(@tour)
   end
 
   test 'itineraries show' do
@@ -44,8 +44,8 @@ class ItinerariesTest < ApplicationSystemTestCase
     assert_link 'Show'
     assert_current_path edit_itinerary_path(@itinerary)
     click_on 'Back'
-    assert_link 'Itinerary'
-    assert_current_path tour_path(@tour)
+    assert_link 'Edit'
+    assert_current_path itinerary_path(@itinerary)
   end
 
   test 'visiting the index' do

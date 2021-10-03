@@ -23,7 +23,7 @@
  </table>
 <% end %>
 
-<script>
+<script nonce="<%= request.content_security_policy_nonce %>" type='text/javascript'>
 $(function() {
   $('.sortable').railsSortable();
 });

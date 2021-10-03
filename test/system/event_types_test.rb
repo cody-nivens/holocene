@@ -45,7 +45,7 @@ class EventTypesTest < ApplicationSystemTestCase
     assert_current_path event_types_path
   end
 
-  test 'event_types show' do
+  test 'event_types show edit' do
     visit event_type_url(@event_type)
 #    visit Edit
     within '.footer' do
@@ -55,8 +55,11 @@ class EventTypesTest < ApplicationSystemTestCase
     assert_link 'Show'
     assert_current_path edit_event_type_path(@event_type)
     click_on 'Back'
-    assert_link 'New Event Type'
-    assert_current_path event_types_path
+    assert_link 'Edit'
+    assert_current_path event_type_path(@event_type)
+  end
+
+  test 'event_types show map' do
 #    visit Map
     visit event_type_url(@event_type)
     assert_link 'Map'
@@ -66,6 +69,9 @@ class EventTypesTest < ApplicationSystemTestCase
     click_on 'Back'
     assert_text @event_type.name
     assert_current_path event_type_path(@event_type)
+  end
+
+  test 'event_types show timeline' do
 #    visit Timeline
     visit event_type_url(@event_type)
     assert_link 'Timeline'

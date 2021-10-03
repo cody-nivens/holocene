@@ -2,4 +2,4 @@
 
 <%= render 'form', scripted: @scripted, sectioned: @sectioned, section: @section, command_label: 'Create Section' %>
 
-<% add_to_footer('Back', polymorphic_path((@sectioned.instance_of?(Chapter) ? @section.sectioned : @sectioned))) %>
+<% add_to_footer('Back',  return_or_default_path(polymorphic_path((@sectioned.instance_of?(Chapter) ? @section.sectioned : @sectioned)))) %>)

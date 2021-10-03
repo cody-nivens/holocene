@@ -2,4 +2,4 @@
 
 <%= render 'form', key_point: @key_point, scripted: @scripted, klass: @klass %>
 
-<% add_to_footer('Back', polymorphic_path([@scripted, :key_points])) %>
+<% add_to_footer('Back',  return_or_default_path(polymorphic_path([@scripted, :key_points]))) %>)

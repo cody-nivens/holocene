@@ -61,7 +61,7 @@ class ScenesController < ApplicationController
                                                                selector: @new_selector })
         @scene.key_point.selector_value_set(@new_selector, title)
         @scene.key_point.save
-        format.html { redirect_to polymorphic_path(@scene), notice: 'Scene was successfully moved.' }
+        format.html { redirect_back_or_default(polymorphic_path(@scene), notice: 'Scene was successfully moved.') }
       else
         format.html do
           render :move, situated_tyep: @situated.class.name, situated_id: @situated.id, new_key_point_id: @key_point.id
@@ -102,7 +102,7 @@ class ScenesController < ApplicationController
 
     respond_to do |format|
       if @scene.save
-        format.html { redirect_to scene_path(@scene), notice: 'Scene was successfully created.' }
+        format.html { redirect_back_or_default(scene_path(@scene), notice: 'Scene was successfully created.') }
         format.json { render :show, status: :created, location: @scene }
       else
         format.html { render :new, situated_type: @situated.class.name, situated_id: @situated.id }
@@ -119,7 +119,7 @@ class ScenesController < ApplicationController
 
     respond_to do |format|
       if @scene.update(scene_params)
-        format.html { redirect_to scene_path(@scene), notice: 'Scene was successfully updated.' }
+        format.html { redirect_back_or_default(scene_path(@scene), notice: 'Scene was successfully updated.') }
         format.json { render :show, status: :ok, location: @scene }
       else
         format.html { render :edit, situated_type: @situated.class.name, situated_id: @situated.id }
@@ -134,7 +134,7 @@ class ScenesController < ApplicationController
     @situated = @scene.situated
     @scene.destroy
     respond_to do |format|
-      format.html { redirect_to polymorphic_url([@situated, :scenes]), notice: 'Scene was successfully destroyed.' }
+      format.html { redirect_back_or_default(polymorphic_url([@situated, :scenes]), notice: 'Scene was successfully destroyed.') }
       format.json { head :no_content }
     end
   end

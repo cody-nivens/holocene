@@ -69,7 +69,7 @@ class HoloceneEventsTest < ApplicationSystemTestCase
     assert_current_path holocene_events_path
   end
 
-  test 'holocene_events show' do
+  test 'holocene_events show edit' do
     visit holocene_event_url(@holocene_event)
 #    visit Edit
     assert_link 'Edit'
@@ -77,8 +77,11 @@ class HoloceneEventsTest < ApplicationSystemTestCase
     assert_link 'Show'
     assert_current_path edit_holocene_event_path(@holocene_event)
     click_on 'Back'
-    assert_link 'New Holocene Event'
-    assert_current_path holocene_events_path
+    assert_link 'Edit'
+    assert_current_path holocene_event_path(@holocene_event)
+  end
+
+  test 'holocene_events show footnotes' do
 #    visit Footnotes
     visit holocene_event_url(@holocene_event)
     assert_link 'Footnotes'
@@ -88,7 +91,11 @@ class HoloceneEventsTest < ApplicationSystemTestCase
     click_on 'Back'
     assert_link 'Footnotes'
     assert_current_path holocene_event_path(@holocene_event)
+  end
+
+  test 'holocene_events show map' do
 #    visit Map
+    visit holocene_event_url(@holocene_event)
     assert_link 'Map'
     click_on 'Map'
     assert_selector '#world-map'

@@ -7,4 +7,4 @@
 <%== @aside.body %>
 
 <% add_to_footer('Edit', edit_aside_path(@aside)) %>
-<% add_to_footer('Back', chapter_path(@chapter)) %>
+<% add_to_footer('Back', return_or_default_path(chapter_path(@chapter))) %>

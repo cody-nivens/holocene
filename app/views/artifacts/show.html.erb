@@ -16,7 +16,7 @@
 
 <% unless @artifact.children.empty? %>
 <div id='tag_cloud'>
-  <% tag_cloud @artifact.children.tag_counts, %w[s m l] do |tag, css_class| %>
+  <% tag_cloud @artifact.children.tag_counts.order(:name), %w[s m l] do |tag, css_class| %>
     <%= link_to tag.name, tag_artifacts_path(book_id: @book.id, tag: tag.name), class: css_class %>
   <% end %>
 </div>
@@ -24,11 +24,11 @@
 <p>
   <strong>Related Artifacts:</strong>
   <ul>
-<% @artifact.children.each do |child| %>
+<% @artifact.children.order(:name).each do |child| %>
   <li>
     <div>
       <div class='medium'>
-       <%= child.name %>
+       <%=  link_to child.name, artifact_path(child) %>
       </div>
       <div class='title'>
         <%== child.tag_list_s %>

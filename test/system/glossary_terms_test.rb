@@ -42,8 +42,8 @@ class GlossaryTermsTest < ApplicationSystemTestCase
     assert_link 'Show'
     assert_current_path edit_glossary_term_path(@glossary_term)
     click_on 'Back'
-    assert_link 'New Glossary Term'
-    assert_current_path book_glossary_terms_path(@book)
+    assert_link 'Edit'
+    assert_current_path glossary_term_path(@glossary_term)
   end
 
   test 'creating a Glossary term' do

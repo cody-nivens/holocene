@@ -36,7 +36,7 @@ class EpochsController < ApplicationController
 
     respond_to do |format|
       if @epoch.save
-        format.html { redirect_to @epoch, notice: 'Epoch was successfully created.' }
+        format.html { redirect_back_or_default(@epoch, notice: 'Epoch was successfully created.') }
         format.json { render :show, status: :created, location: @epoch }
       else
         format.html { render :new }
@@ -50,7 +50,7 @@ class EpochsController < ApplicationController
   def update
     respond_to do |format|
       if @epoch.update(epoch_params)
-        format.html { redirect_to @epoch, notice: 'Epoch was successfully updated.' }
+        format.html { redirect_back_or_default(@epoch, notice: 'Epoch was successfully updated.') }
         format.json { render :show, status: :ok, location: @epoch }
       else
         format.html { render :edit }
@@ -64,7 +64,7 @@ class EpochsController < ApplicationController
   def destroy
     @epoch.destroy
     respond_to do |format|
-      format.html { redirect_to epochs_url, notice: 'Epoch was successfully destroyed.' }
+      format.html { redirect_back_or_default(epochs_url, notice: 'Epoch was successfully destroyed.') }
       format.json { head :no_content }
     end
   end

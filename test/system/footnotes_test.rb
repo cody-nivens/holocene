@@ -44,8 +44,8 @@ class FootnotesTest < ApplicationSystemTestCase
     assert_link 'Show'
     assert_current_path edit_polymorphic_path([@noted, @footnote])
     click_on 'Back'
-    assert_link 'New Footnote'
-    assert_current_path chapter_footnotes_path(@chapter)
+    assert_link 'Edit'
+    assert_current_path chapter_footnote_path(@chapter, @footnote)
   end
 
   test 'creating a Footnote' do

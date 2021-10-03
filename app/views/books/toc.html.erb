@@ -16,19 +16,19 @@
     <% @chapters.each_with_sortable_id do |chapter, sortable_id| %>
       <tr id='<%= sortable_id %>'>
     <% if chapter.partition.nil? %>
-        <td><%= link_to (fa_icon 'plus'), new_chapter_partition_path(@book, chapter), :title => 'Partition'  %>
+        <td><%= link_to (fa_icon 'plus'), new_chapter_partition_path(@book, chapter), title: 'Partition' %>
     <% else %>
-        <td><%= link_to (fa_icon 'edit'), partition_path(chapter.partition), :title => 'Partition'  %>
+        <td><%= link_to (fa_icon 'edit'), partition_path(chapter.partition), title: 'Partition' %>
     <% end %>
         <%== (chapter.partition.nil? ? '' : (link_to chapter.partition_name, partition_path(chapter.partition)).to_s) %></td>
-        <td><%= link_to (fa_icon 'edit'), edit_chapter_path(chapter), :title => 'Edit'  %>
+        <td><%= link_to (fa_icon 'edit'), edit_chapter_path(chapter), title: 'Edit' %>
         <strong><font size='4'><%= link_to chapter.name, chapter_path(chapter), title: 'Show' %></font></strong>
     <% if chapter.aside.nil? %>
-        <%= link_to (fa_icon 'plus'), new_chapter_aside_path(chapter), :title => 'Aside' %>
+        <%= link_to (fa_icon 'plus'), new_chapter_aside_path(chapter), title: 'Aside' %>
     <% else %>
         <br>
-        <%= link_to chapter.aside_name, aside_path(chapter.aside), :title => chapter.aside_name %>
-        <%= link_to (fa_icon 'edit'), edit_aside_path(chapter.aside), :title => 'Edit Aside' %>
+        <%= link_to chapter.aside_name, aside_path(chapter.aside), title: chapter.aside_name %>
+        <%= link_to (fa_icon 'edit'), edit_aside_path(chapter.aside), title: 'Edit Aside' %>
     <% end %>
         </td>
         <td align='right'><%= number_with_delimiter chapter.word_count %>
@@ -49,7 +49,7 @@
 <% add_to_footer('Chapters, Details', polymorphic_path([@book, :chapters])) %>
 <% add_to_footer('Back', book_path(@book)) %>
 
-<script>
+<script nonce="<%= request.content_security_policy_nonce %>" type='text/javascript'>
 $(document).ready(function() {
   $('.sortable').railsSortable();
 });

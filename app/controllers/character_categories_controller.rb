@@ -33,7 +33,7 @@ class CharacterCategoriesController < ApplicationController
 
     respond_to do |format|
       if @character_category.save
-        format.html { redirect_to @character_category, notice: 'Character category was successfully created.' }
+        format.html { redirect_back_or_default(@character_category, notice: 'Character category was successfully created.') }
         format.json { render :show, status: :created, character_category: @character_category }
       else
         format.html { render :new }
@@ -47,7 +47,7 @@ class CharacterCategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @character_category.update(character_category_params)
-        format.html { redirect_to @character_category, notice: 'Character category was successfully updated.' }
+        format.html { redirect_back_or_default(@character_category, notice: 'Character category was successfully updated.') }
         format.json { render :show, status: :ok, character_category: @character_category }
       else
         format.html { render :edit }
@@ -62,7 +62,7 @@ class CharacterCategoriesController < ApplicationController
     @character_category.destroy
 
     respond_to do |format|
-      format.html { redirect_to character_categories_url, notice: 'Character category was successfully destroyed.' }
+      format.html { redirect_back_or_default(character_categories_url, notice: 'Character category was successfully destroyed.') }
       format.json { head :no_content }
     end
   end

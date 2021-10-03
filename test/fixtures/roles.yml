@@ -1,11 +1,5 @@
 ---
 newuser:
-  id: 1
   name: newuser
-  resource_type: 
-  resource_id: 
 admin:
-  id: 2
   name: admin
-  resource_type: 
-  resource_id: 

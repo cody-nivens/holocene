@@ -3,4 +3,4 @@
 <%= render 'form', footnote: @footnote, command_label: 'Update Footnote', noted: @noted %>
 
 <% add_to_footer('Show', polymorphic_path([@noted, @footnote])) %>
-<% add_to_footer('Back', polymorphic_path([@noted, :footnotes])) %>
+<% add_to_footer('Back',  return_or_default_path(polymorphic_path([@noted, :footnotes]))) %>)

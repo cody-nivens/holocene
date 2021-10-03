@@ -28,7 +28,6 @@ a, a:hover, a:focus {
     background: #fff;
     border: none;
     border-radius: 0;
-    margin-bottom: rem-calc(40); 
     box-shadow: rem-calc(1) rem-calc(1) rem-calc(3) rgba(0, 0, 0, 0.1);
 }
 

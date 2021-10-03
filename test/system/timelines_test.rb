@@ -76,8 +76,8 @@ class TimelinesTest < ApplicationSystemTestCase
     assert_link 'Show'
     assert_current_path edit_timeline_path(@timeline)
     click_on 'Back'
-    assert_link 'New Timeline'
-    assert_current_path timelines_path
+    assert_link 'Edit'
+    assert_current_path timeline_path(@timeline)
   end
 
   test 'timelines show map' do

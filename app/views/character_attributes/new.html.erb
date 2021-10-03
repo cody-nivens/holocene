@@ -2,4 +2,4 @@
 
 <%= render 'form', character_attribute: @character_attribute, character_category: @character_category %>
 
-<% add_to_footer('Back', character_category_path(@character_category)) %>
+<% add_to_footer('Back',  return_or_default_path(character_category_path(@character_category))) %>)

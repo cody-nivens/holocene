@@ -22,7 +22,7 @@ Local variables:
       <% if assets.any? %>
         <%= datagrid_rows(grid, assets, **options) %>
       <% else %>
-        <tr><td class="noresults" colspan="100%"><%== I18n.t('datagrid.no_results') %></td></tr>
+        <tr><td class='noresults' colspan='100%'><%== I18n.t('datagrid.no_results') %></td></tr>
       <% end %>
     </tbody>
   <% end %>
@@ -40,18 +40,18 @@ Local variables:
       <% if assets.any? %>
         <%= datagrid_rows(grid, assets, **options) %>
       <% else %>
-        <tr><td class="noresults" colspan="100%"><%== I18n.t('datagrid.no_results') %></td></tr>
+        <tr><td class='noresults' colspan='100%'><%== I18n.t('datagrid.no_results') %></td></tr>
       <% end %>
     </tbody>
   <% end %>
 <% end %>
 <% end %>
-<script>
+<script nonce="<%= request.content_security_policy_nonce %>" type='text/javascript'>
 $('#holocene_event_other_id').change(function() {
-    if ($(this).val() == "") {
-        $('#datagrid_select').val("Delete Events");
+    if ($(this).val() == '') {
+        $('#datagrid_select').val('Delete Events');
     } else {
-        $('#datagrid_select').val("Move Events");
+        $('#datagrid_select').val('Move Events');
     }
 });
 </script>

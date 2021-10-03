@@ -20,18 +20,20 @@ class AsidesTest < ApplicationSystemTestCase
     assert_link 'Edit'
     assert_current_path aside_path(@aside)
     click_on 'Back'
-    assert_link 'Aside'
-    assert_current_path chapter_path(@chapter)
+    assert_link 'Show'
+    assert_current_path edit_aside_path(@aside)
+  end
 
+  test 'asides edit destroy' do
     visit edit_aside_url(@aside)
 #    visit Destroy
-    assert_text 'Destroy'
+    assert_link 'Destroy'
     accept_alert do
       click_on 'Destroy'
     end
+    assert_no_link 'Destroy'
     assert_current_path chapter_path(@chapter)
     click_on 'Back'
-    assert_link 'New Chapter'
     assert_current_path book_chapters_path(@book)
   end
 
@@ -43,8 +45,8 @@ class AsidesTest < ApplicationSystemTestCase
     assert_no_link 'New Aside'
     assert_current_path new_chapter_aside_path(@chapter_3)
     click_on 'Back'
-    assert_link 'Aside'
-    assert_current_path chapter_path(@chapter_3)
+    assert_link 'New Aside'
+    assert_current_path chapter_asides_path(@chapter_3)
   end
 
   test 'asides show' do
@@ -55,8 +57,8 @@ class AsidesTest < ApplicationSystemTestCase
     assert_text 'Editing Aside'
     assert_current_path edit_aside_path(@aside)
     click_on 'Back'
-    assert_link 'Aside'
-    assert_current_path chapter_path(@chapter)
+    assert_link 'Edit'
+    assert_current_path aside_path(@aside)
   end
 
   test 'creating an Aside' do

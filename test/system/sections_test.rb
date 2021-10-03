@@ -54,8 +54,8 @@ class SectionsTest < ApplicationSystemTestCase
     assert_no_link 'New Section'
     assert_current_path new_polymorphic_path([@chapter, :section])
     click_on 'Back'
-    assert_link 'Partition'
-    assert_current_path chapter_path(@chapter)
+    assert_link 'New Section'
+    assert_current_path chapter_sections_path(@chapter)
   end
 
   test 'sections show display' do
@@ -80,8 +80,8 @@ class SectionsTest < ApplicationSystemTestCase
     assert_text 'Editing Section'
     assert_current_path edit_section_path(@section)
     click_on 'Back'
-    assert_link 'Partition'
-    assert_current_path chapter_path(@chapter)
+    assert_link 'Edit'
+    assert_current_path section_path(@section)
   end
 
   test 'sections show footnotes' do

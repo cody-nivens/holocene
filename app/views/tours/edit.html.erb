@@ -3,4 +3,4 @@
 <%= render 'form', tour: @tour, story: @story %>
 
 <% add_to_footer('Show', tour_path(@tour), print: true) %>
-<% add_to_footer('Back', story_tours_path(@story), print: true) %>
+<% add_to_footer('Back',  return_or_default_path(story_tours_path(@story)), print: true) %>)

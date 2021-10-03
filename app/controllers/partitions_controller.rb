@@ -67,7 +67,7 @@ class PartitionsController < ApplicationController
     @chapter = @partition.chapter
     @partition.destroy
     respond_to do |format|
-      format.html { redirect_to chapter_partitions_url(@chapter), notice: 'Partition was successfully destroyed.' }
+      format.html { redirect_back_or_default(chapter_partitions_url(@chapter), notice: 'Partition was successfully destroyed.') }
       format.json { head :no_content }
     end
   end

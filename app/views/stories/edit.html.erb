@@ -2,4 +2,4 @@
 
 <%= render 'form', story: @story, book: @book %>
 
-<% add_to_footer('Back', story_path(@story)) %>
+<% add_to_footer('Back',  return_or_default_path(story_path(@story))) %>)

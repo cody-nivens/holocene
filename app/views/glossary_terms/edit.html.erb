@@ -3,4 +3,4 @@
 <%= render 'form', glossary_term: @glossary_term, book: @book %>
 
 <% add_to_footer('Show', glossary_term_path(@glossary_term)) %>
-<% add_to_footer('Back', book_glossary_terms_path(@book)) %>
+<% add_to_footer('Back',  return_or_default_path(book_glossary_terms_path(@book))) %>)

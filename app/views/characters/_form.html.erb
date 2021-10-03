@@ -5,16 +5,16 @@
   <%= hidden_field "#{object.class.name.underscore}_id", value: object.id %>
 
   <p>
-  <div class="form-inputs">
+  <div class='form-inputs'>
    Person is <%= text_field_tag 'age', '', size: 5 %> in the year <%= text_field_tag 'year', year, size: 5 %> and lived <%= text_field_tag 'death_age', '', size: 5 %> years.
   </div>
 </p>
 
-    <div class="container-fluid">
-    <div class="row">
-    <div class="col-lg-4 bg-success">
+    <div class='container-fluid'>
+    <div class='row'>
+    <div class='col-lg-4 bg-success'>
     <span>
-  <div class="form-inputs">
+  <div class='form-inputs'>
     <%= f.text_field :first_name %>
     <%= f.text_field :middle_name %>
     <%= f.text_field :last_name %>
@@ -27,9 +27,9 @@
   </div>
   </div>
 
-    <div class="col-lg-4 bg-success">
+    <div class='col-lg-4 bg-success'>
     <span>
-  <div class="form-inputs">
+  <div class='form-inputs'>
     <%= f.text_field :ethnicity %>
     <%= f.select :sex, [['Male', 0], ['Female', 1], ['Non-Person', 2]], prompt: 'Select Sex', multiple: false, include_blank: false %>
     <%= f.text_field :birth_year %>
@@ -47,8 +47,8 @@
       </div>
     </span>
       </div>
-    <div class="row">
-    <div class="col-lg-12 bg-success">
+    <div class='row'>
+    <div class='col-lg-12 bg-success'>
     <span>
     <%= f.rich_text_area :background %>
     </span>
@@ -56,14 +56,14 @@
       </div>
       </div>
 
-    <div class="row">
+    <div class='row'>
 <% CharacterCategory.order(:position).each do |category| %>
-    <div class="col-lg-4 bg-warning">
+    <div class='col-lg-4 bg-warning'>
       <span>
   <% character_values = character.character_values.joins(:character_attribute).order(:name).where('character_category_id = ?', category.id) %>
     <% character_attributes = category.character_attributes %>
   <strong><%= category.name %>:</strong>
-  <table class="table" style="width: auto;">
+  <table class='table' style='width: auto;'>
     <tbody>
       <% character_attributes.each do |character_attribute| %>
       <% character_value = character_values.where(character_attribute_id: character_attribute.id)[0] %>
@@ -81,7 +81,7 @@
   </div>
   </div>
 
-  <div class="form-actions">
+  <div class='form-actions'>
     <%= f.submit nil, class: 'btn' %>
   </div>
 <% end %>
@@ -90,11 +90,11 @@
 <% attributes.keys.each do |key| %>
   <% str += "$('##{key.to_s.gsub(/ /, '_')}').val('#{attributes[key]}');" %>
 <% end %>
-<script>
+<script nonce="<%= request.content_security_policy_nonce %>" type='text/javascript'>
   $(document).ready(function(){
       <%== str %>
     });
-    $(document).on("change", "input#death_age", function(e){
+    $(document).on('change', 'input#death_age', function(e){
         var year = $('#year').val();
         var age = $('#age').val();
         var death_age = $('#death_age').val();

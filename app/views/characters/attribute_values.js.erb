@@ -1,2 +1,2 @@
-$('#characters_grid_value').html("<%= escape_javascript( render :partial => 'characters/attribute_values', formats: [:html], :locals => { values: @values}) %>");
+$('#characters_grid_value').html("<%= escape_javascript( render partial: 'characters/attribute_values', formats: [:html], locals: { values: @values }) %>");
 

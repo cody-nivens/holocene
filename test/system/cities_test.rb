@@ -41,8 +41,8 @@ class CitiesTest < ApplicationSystemTestCase
     assert_link 'Show'
     assert_current_path edit_city_path(@city)
     click_on 'Back'
-    assert_link 'New City'
-    assert_current_path cities_path
+    assert_link 'Edit'
+    assert_current_path city_path(@city)
   end
 
   test 'visiting the index' do

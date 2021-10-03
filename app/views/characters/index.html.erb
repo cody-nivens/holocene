@@ -12,7 +12,7 @@
 <% end -%>
 <% add_to_footer('Back', polymorphic_path(@object)) %>
 
-<script type="text/javascript">
+<script nonce="<%= request.content_security_policy_nonce %>" type="text/javascript">
 jQuery(function($) {
   $("#characters_grid_category").change(function() {
   $.ajax({

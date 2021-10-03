@@ -38,7 +38,7 @@ class ToursTest < ApplicationSystemTestCase
     assert_current_path story_tours_path(@story)
   end
 
-  test 'tours show' do
+  test 'tours show edit' do
     visit tour_url(@tour)
 #    visit Edit
     assert_link 'Edit'
@@ -48,8 +48,11 @@ class ToursTest < ApplicationSystemTestCase
     assert_link 'Show'
     assert_current_path edit_tour_path(@tour)
     click_on 'Back'
-    assert_link 'New Tour'
-    assert_current_path story_tours_path(@story)
+    assert_link 'Edit'
+    assert_current_path tour_path(@tour)
+  end
+
+  test 'tours show itinerary' do
 #    visit Itinerary
     visit tour_url(@tour)
     assert_link 'Itinerary'
@@ -59,6 +62,9 @@ class ToursTest < ApplicationSystemTestCase
     click_on 'Back'
     assert_link 'Add City'
     assert_current_path tour_path(@tour)
+  end
+
+  test 'tours show map' do
 #    visit Map
     visit tour_url(@tour)
     assert_link 'Map'

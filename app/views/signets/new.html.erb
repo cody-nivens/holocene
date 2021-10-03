@@ -2,4 +2,4 @@
 
 <%= render 'form', signet: @signet, sigged: @sigged %>
 
-<% add_to_footer('Back', polymorphic_path([@sigged, :signets])) %>
+<% add_to_footer('Back',  return_or_default_path(polymorphic_path([@sigged, :signets]))) %>)

@@ -44,7 +44,7 @@ class BooksTest < ApplicationSystemTestCase
     assert_current_path books_path
   end
 
-  test 'books show' do
+  test 'books show artifacts' do
     visit book_url(@book_2)
     assert_text @book_2.name
 
@@ -59,6 +59,9 @@ class BooksTest < ApplicationSystemTestCase
     click_on 'Back'
     assert_text 'All Stories'
     assert_current_path book_path(@book_2)
+  end
+
+  test 'books show all stories' do
 #    visit All Stories
     visit book_url(@book_2)
     assert_link 'All Stories'
@@ -68,6 +71,9 @@ class BooksTest < ApplicationSystemTestCase
     click_on 'Back'
     assert_text 'The Beginnings'
     assert_current_path book_path(@book_2)
+  end
+
+  test 'books show authors' do
 #    visit Authors
     visit book_url(@book)
     within ".footer" do
@@ -79,6 +85,9 @@ class BooksTest < ApplicationSystemTestCase
     click_on 'Back'
     assert_text 'No Dogs'
     assert_current_path book_path(@book)
+  end
+
+  test 'books show characters toc' do
 #    visit Chapters, TOC
     visit book_url(@book)
     assert_link 'Chapters, TOC'
@@ -88,6 +97,9 @@ class BooksTest < ApplicationSystemTestCase
     click_on 'Back'
     assert_text 'New Chapter'
     assert_current_path book_path(@book)
+  end
+
+  test 'books show characters' do
 #    visit Characters
     visit book_url(@book_2)
     assert_text 'Characters'
@@ -99,6 +111,9 @@ class BooksTest < ApplicationSystemTestCase
     click_on 'Back'
     assert_text 'The Beginnings'
     assert_current_path book_path(@book_2)
+  end
+
+  test 'books show key points' do
 #    visit Key Points
     visit book_url(@book_2)
     assert_link 'Key Points'
@@ -108,6 +123,9 @@ class BooksTest < ApplicationSystemTestCase
     click_on 'Back'
     assert_link 'New Story'
     assert_current_path book_path(@book_2)
+  end
+
+  test 'books show key words' do
 #    visit Key Words
     visit book_url(@book_2)
     assert_text 'Key Words'
@@ -119,6 +137,9 @@ class BooksTest < ApplicationSystemTestCase
     click_on 'Back'
     assert_link 'New Story'
     assert_current_path book_path(@book_2)
+  end
+
+  test 'books show new chapter' do
 #    visit New Chapter
     visit book_url(@book)
     assert_link 'New Chapter'
@@ -127,7 +148,10 @@ class BooksTest < ApplicationSystemTestCase
     assert_current_path new_polymorphic_path([@book, :chapter])
     click_on 'Back'
     assert_text 'No Dogs'
-    assert_current_path book_chapters_path(@book)
+    assert_current_path book_path(@book)
+  end
+
+  test 'books show new story' do
 #    visit New Story
     visit book_url(@book_2)
     assert_link 'New Story'
@@ -137,6 +161,9 @@ class BooksTest < ApplicationSystemTestCase
     click_on 'Back'
     assert_text 'The Beginnings'
     assert_current_path book_path(@book_2)
+  end
+
+  test 'books show scenes' do
 #    visit Scenes
     visit book_url(@book_2)
     assert_link 'Scenes'
@@ -146,6 +173,9 @@ class BooksTest < ApplicationSystemTestCase
     click_on 'Back'
     assert_text 'The Beginnings'
     assert_current_path book_path(@book_2)
+  end
+
+  test 'books show stats' do
 #    visit Stats
     visit book_url(@book_2)
     assert_link 'Stats'
@@ -175,7 +205,7 @@ class BooksTest < ApplicationSystemTestCase
     assert_current_path new_book_chapter_path(@book)
     click_on 'Back'
     assert_link 'New Chapter'
-    assert_current_path book_chapters_path(@book)
+    assert_current_path book_path(@book)
   end
 
   test 'sort books' do
@@ -217,7 +247,9 @@ class BooksTest < ApplicationSystemTestCase
     click_on 'Create Chapter'
 
     assert_text 'Chapter was successfully created'
-    assert_text 'Chapter 1'
+
+    assert_link 'Chapter 1'
+    click_on 'Chapter 1'
 
     assert_link 'Missing footnote'
     click_on 'Missing footnote'
@@ -243,6 +275,7 @@ class BooksTest < ApplicationSystemTestCase
     assert_text 'Book was successfully created'
     assert_text 'Test 1'
 
+
     click_on 'All Stories'
     assert_link 'New Story'
     click_on 'New Story'
@@ -251,6 +284,9 @@ class BooksTest < ApplicationSystemTestCase
     fill_in 'Title', with: 'The Impossible Dream'
     click_on 'Create Story'
     assert_text 'Story was successfully created'
+
+    assert_link 'The Impossible Dream'
+    click_on 'The Impossible Dream'
 
     assert_link 'New Key Point'
     click_on 'New Key Point'
@@ -261,6 +297,9 @@ class BooksTest < ApplicationSystemTestCase
     fill_in 'First plot point', with: 'Snoopy chases the Red Baron'
     click_on 'Create Key point'
     assert_text 'Key point was successfully created'
+
+    assert_link 'Good points'
+    click_on 'Good points'
 
     find(:xpath, ".//a[i[contains(@class, 'fa-plus')]]", match: :first).click
     assert_link 'New Scene'

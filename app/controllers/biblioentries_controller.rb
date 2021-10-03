@@ -31,7 +31,7 @@ class BiblioentriesController < ApplicationController
 
     respond_to do |format|
       if @biblioentry.save
-        format.html { redirect_to biblioentry_url(@biblioentry), notice: 'Biblioentry was successfully created.' }
+        format.html { redirect_back_or_default(biblioentry_url(@biblioentry), notice: 'Biblioentry was successfully created.') }
         format.json { render :show, status: :created, location: @biblioentry }
       else
         format.html { render :new }
@@ -45,7 +45,7 @@ class BiblioentriesController < ApplicationController
     @book = @biblioentry.book
     respond_to do |format|
       if @biblioentry.update(biblioentry_params)
-        format.html { redirect_to biblioentry_url(@biblioentry), notice: 'Biblioentry was successfully updated.' }
+        format.html { redirect_back_or_default(biblioentry_url(@biblioentry), notice: 'Biblioentry was successfully updated.') }
         format.json { render :show, status: :ok, location: @biblioentry }
       else
         format.html { render :edit }
@@ -59,7 +59,7 @@ class BiblioentriesController < ApplicationController
     @book = @biblioentry.book
     @biblioentry.destroy
     respond_to do |format|
-      format.html { redirect_to book_biblioentries_path(@book), notice: 'Biblioentry was successfully destroyed.' }
+      format.html { redirect_back_or_default(book_biblioentries_path(@book), notice: 'Biblioentry was successfully destroyed.') }
       format.json { head :no_content }
     end
   end

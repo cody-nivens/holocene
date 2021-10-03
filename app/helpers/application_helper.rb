@@ -42,6 +42,11 @@ module ApplicationHelper
     str
   end
 
+  def return_or_default_path(default_path = root_path)
+      session[:return_to].present? && session[:return_to] != request.fullpath ?
+        session[:return_to] : default_path
+  end
+
   def surpress_first(crumb)
     values = crumb.split(/\|/)
     value = values.shift

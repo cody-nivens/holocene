@@ -1,9 +1,9 @@
 <h1>Sections for <%= @sectioned.class.name %> <%= @sectioned.name %></h1>
 
-<table class="table table-striped">
-  <tbody class="sortable">  <!-- sortable target -->
+<table class='table table-striped'>
+  <tbody class='sortable'>  <!-- sortable target -->
     <% @sections.each_with_sortable_id do |section, sortable_id| %>
-      <tr id="<%= sortable_id %>">  <!-- Needs id tag on sorting elements -->
+      <tr id='<%= sortable_id %>'>  <!-- Needs id tag on sorting elements -->
         <td><%= section.name %></td>
         <td><%= (section.display_name ? 'Y' : 'N') %></td>
         <td><%= render partial: 'shared/summary', locals: { object: section } %>
@@ -18,7 +18,7 @@
 <% add_to_footer('New Section', new_polymorphic_path([@sectioned, :section])) %>
 <% add_to_footer('Back', polymorphic_path(@sectioned)) %>
 
-<script>
+<script nonce="<%= request.content_security_policy_nonce %>" type='text/javascript'>
 $(document).ready(function() {
   $(function() {
     $('.sortable').railsSortable();

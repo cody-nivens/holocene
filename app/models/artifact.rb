@@ -1,6 +1,8 @@
 class Artifact < ApplicationRecord
   include Rails.application.routes.url_helpers
 
+  acts_as_taggable_on :tags
+
   belongs_to :character
   belongs_to :book
   belongs_to :artifact_type
@@ -10,8 +12,6 @@ class Artifact < ApplicationRecord
   has_many :scenes, as: :located
 
   has_rich_text :summary
-
-  acts_as_taggable_on :tags
 
   delegate :name, to: :character, prefix: true
   delegate :name, to: :artifact_type, prefix: true
@@ -24,6 +24,6 @@ class Artifact < ApplicationRecord
   end
 
   def tag_list_s
-    tag_list.map { |t| ActionController::Base.helpers.link_to t, tag_path(t) }.join(', ')
+    tag_list.sort.map { |t| ActionController::Base.helpers.link_to t, tag_path(t) }.join(', ')
   end
 end
