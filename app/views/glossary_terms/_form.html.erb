@@ -11,6 +11,6 @@
     <%= f.collection_select :acronym_id, GlossaryTerm.where(book_id: book.id).order(:name), :id, :name %>
 
   <div class="form-actions">
-    <%= f.submit nil, class: 'btn' %>
+    <%= f.submit nil, class: 'btn btn-primary' %>
   </div>
 <% end %>
