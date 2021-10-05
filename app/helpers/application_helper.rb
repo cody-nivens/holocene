@@ -5,7 +5,7 @@ module ApplicationHelper
     print = options[:print] || false
     method = options[:method] || :get
     data = options[:data] || {}
-    classes = options[:classes] || "btn btn-default"
+    classes = options[:classes] || "btn btn-secondary"
 
     t_classes = "#{classes}#{print ? ' hide-print' : ''}"
 
