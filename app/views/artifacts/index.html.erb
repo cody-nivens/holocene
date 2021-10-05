@@ -3,7 +3,7 @@
 <h1>Artifacts</h1>
 
 <div id='tag_cloud'>
-  <% tag_cloud Artifact.where(book_id: @book.id).tag_counts, %w[s m l] do |tag, css_class| %>
+  <% tag_cloud Artifact.where(book_id: @book.id).tag_counts.order(:name), %w[s m l] do |tag, css_class| %>
     <%= link_to tag.name, tag_artifacts_path(book_id: @book.id, tag: tag.name), class: css_class %>
   <% end %>
 </div>
