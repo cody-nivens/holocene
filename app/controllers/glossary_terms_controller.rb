@@ -68,7 +68,7 @@ class GlossaryTermsController < ApplicationController
     @book = @glossary_term.book
     @glossary_term.destroy
     respond_to do |format|
-      format.html { redirect_back_or_default(book_glossary_terms_url(@book), notice: 'Glossary term was successfully destroyed.') }
+      format.html { redirect_to book_glossary_terms_url(@book), notice: 'Glossary term was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

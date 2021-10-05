@@ -46,7 +46,7 @@ class ChaptersController < ApplicationController
     @chapter.destroy
 
     respond_to do |format|
-      format.html { redirect_back_or_default(polymorphic_path([@scripted, :chapters]), notice: 'Chapter was demoted.') }
+      format.html { redirect_to polymorphic_path([@scripted, :chapters]), notice: 'Chapter was demoted.' }
     end
   end
 
@@ -125,7 +125,7 @@ class ChaptersController < ApplicationController
     respond_to do |format|
       if @chapter.save
         @chapter.reload
-        format.html { redirect_back_or_default(@chapter, notice: 'Chapter was successfully created.') }
+        format.html { redirect_to @chapter, notice: 'Chapter was successfully created.' }
         format.json { render :show, status: :created, location: @chapter }
       else
         format.html { render :new }
@@ -140,7 +140,7 @@ class ChaptersController < ApplicationController
     @scripted = @chapter.scripted
     respond_to do |format|
       if @chapter.update(chapter_params)
-        format.html { redirect_back_or_default(@chapter, notice: 'Chapter was successfully updated.') }
+        format.html { redirect_to @chapter, notice: 'Chapter was successfully updated.' }
         format.json { render :show, status: :ok, location: @chapter }
       else
         format.html { render :edit }

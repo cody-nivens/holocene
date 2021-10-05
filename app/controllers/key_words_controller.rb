@@ -29,7 +29,7 @@ class KeyWordsController < ApplicationController
 
     respond_to do |format|
       if @key_word.save
-        format.html { redirect_back_or_default(@key_word, notice: 'Key word was successfully created.') }
+        format.html { redirect_to @key_word, notice: 'Key word was successfully created.' }
         format.json { render :show, status: :created, location: @key_word }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -43,7 +43,7 @@ class KeyWordsController < ApplicationController
     @book = @key_word.book
     respond_to do |format|
       if @key_word.update(key_word_params)
-        format.html { redirect_back_or_default(@key_word, notice: 'Key word was successfully updated.') }
+        format.html { redirect_to @key_word, notice: 'Key word was successfully updated.' }
         format.json { render :show, status: :ok, location: @key_word }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,7 +57,7 @@ class KeyWordsController < ApplicationController
     @book = @key_word.book
     @key_word.destroy
     respond_to do |format|
-      format.html { redirect_back_or_default(polymorphic_url([@book, :key_words]), notice: 'Key word was successfully destroyed.') }
+      format.html { redirect_to polymorphic_url([@book, :key_words]), notice: 'Key word was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

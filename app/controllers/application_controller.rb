@@ -29,8 +29,10 @@ class ApplicationController < ActionController::Base
   end
 
   def return_or_default_path(default_path)
-      session[:return_to].present? && session[:return_to] != request.fullpath ?
-        session[:return_to] : default_path
+    the_path = session[:return_to].present? && session[:return_to] != request.fullpath ?
+                    session[:return_to] : default_path
+    session.delete(:return_to) if session[:return_to].present? && session[:return_to] != request.fullpath
+    the_path
   end
 
   def redirect_back_or_default(default_path, options = {})

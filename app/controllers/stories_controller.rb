@@ -51,7 +51,7 @@ class StoriesController < ApplicationController
     @story.resync_key_points
 
     respond_to do |format|
-      format.html { redirect_back_or_default(story_path(@story), notice: 'Story was successfully resynced.') }
+      format.html { redirect_to story_path(@story), notice: 'Story was successfully resynced.' }
     end
   end
 
@@ -71,7 +71,7 @@ class StoriesController < ApplicationController
 
     respond_to do |format|
       if @story.save
-        format.html { redirect_back_or_default(story_path(@story), notice: 'Story was successfully created.') }
+        format.html { redirect_to story_path(@story), notice: 'Story was successfully created.' }
         format.json { render :show, status: :created, location: @story }
       else
         format.html { render :new, book_id: @book.id }
@@ -85,7 +85,7 @@ class StoriesController < ApplicationController
   def update
     respond_to do |format|
       if @story.update(story_params)
-        format.html { redirect_back_or_default(story_url(@story), notice: 'Story was successfully updated.') }
+        format.html { redirect_to story_url(@story), notice: 'Story was successfully updated.' }
         format.json { render :show, status: :ok, location: @story }
       else
         format.html { render :edit, book_id: @book.id }
@@ -99,7 +99,7 @@ class StoriesController < ApplicationController
   def destroy
     @story.destroy
     respond_to do |format|
-      format.html { redirect_back_or_default(book_stories_url(book_id: @book.id), notice: 'Story was successfully destroyed.') }
+      format.html { redirect_to book_stories_url(book_id: @book.id), notice: 'Story was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

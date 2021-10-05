@@ -42,7 +42,7 @@ class CharacterAttributesController < ApplicationController
 
     respond_to do |format|
       if @character_attribute.save
-        format.html { redirect_back_or_default(@character_attribute, notice: 'Character attribute was successfully created.') }
+        format.html { redirect_to @character_attribute, notice: 'Character attribute was successfully created.' }
         format.json { render :show, status: :created, location: @character_attribute }
       else
         format.html { render :new, character_category_id: @character_category.id }
@@ -57,7 +57,7 @@ class CharacterAttributesController < ApplicationController
     @character_category = @character_attribute.character_category
     respond_to do |format|
       if @character_attribute.update(character_attribute_params)
-        format.html { redirect_back_or_default(@character_attribute, notice: 'Character attribute was successfully updated.') }
+        format.html { redirect_to @character_attribute, notice: 'Character attribute was successfully updated.' }
         format.json { render :show, status: :ok, location: @character_attribute }
       else
         format.html { render :edit }

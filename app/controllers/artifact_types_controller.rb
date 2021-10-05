@@ -30,7 +30,7 @@ class ArtifactTypesController < ApplicationController
 
     respond_to do |format|
       if @artifact_type.save
-        format.html { redirect_back_or_default(artifact_type_url(@artifact_type), notice: 'Artifact type was successfully created.') }
+        format.html { redirect_to artifact_type_url(@artifact_type), notice: 'Artifact type was successfully created.' }
         format.json { render :show, status: :created, location: @artifact_type }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -44,7 +44,7 @@ class ArtifactTypesController < ApplicationController
     @book = @artifact_type.book
     respond_to do |format|
       if @artifact_type.update(artifact_type_params)
-        format.html { redirect_back_or_default(artifact_type_url(@artifact_type), notice: 'Artifact type was successfully updated.') }
+        format.html { redirect_to artifact_type_url(@artifact_type), notice: 'Artifact type was successfully updated.' }
         format.json { render :show, status: :ok, location: @artifact_type }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -58,7 +58,7 @@ class ArtifactTypesController < ApplicationController
     @book = @artifact_type.book
     @artifact_type.destroy
     respond_to do |format|
-      format.html { redirect_back_or_default(book_artifact_types_url(@book), notice: 'Artifact type was successfully destroyed.') }
+      format.html { redirect_to book_artifact_types_url(@book), notice: 'Artifact type was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

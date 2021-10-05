@@ -41,7 +41,7 @@ class ToursController < ApplicationController
 
     respond_to do |format|
       if @tour.save
-        format.html { redirect_back_or_default(tour_path(@tour), notice: 'Tour was successfully created.') }
+        format.html { redirect_to tour_path(@tour), notice: 'Tour was successfully created.' }
         format.json { render :show, status: :created, location: @tour }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -55,7 +55,7 @@ class ToursController < ApplicationController
     @story = @tour.story
     respond_to do |format|
       if @tour.update(tour_params)
-        format.html { redirect_back_or_default(tour_path(@tour), notice: 'Tour was successfully updated.') }
+        format.html { redirect_to tour_path(@tour), notice: 'Tour was successfully updated.' }
         format.json { render :show, status: :ok, location: @tour }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -69,7 +69,7 @@ class ToursController < ApplicationController
     @story = @tour.story
     @tour.destroy
     respond_to do |format|
-      format.html { redirect_back_or_default(story_tours_url(@story), notice: 'Tour was successfully destroyed.') }
+      format.html { redirect_to story_tours_url(@story), notice: 'Tour was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

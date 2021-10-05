@@ -117,7 +117,7 @@ class HoloceneEventsController < ApplicationController
 
     respond_to do |format|
       if @holocene_event.save
-        format.html { redirect_back_or_default(@holocene_event, notice: 'Holocene event was successfully created.') }
+        format.html { redirect_to @holocene_event, notice: 'Holocene event was successfully created.' }
         format.json { render :show, status: :created, location: @holocene_event }
       else
         format.html { render :new }
@@ -135,7 +135,7 @@ class HoloceneEventsController < ApplicationController
     params[:holocene_event].delete(:object_type)
     respond_to do |format|
       if @holocene_event.update(holocene_event_params)
-        format.html { redirect_back_or_default(@holocene_event, notice: 'Holocene event was successfully updated.') }
+        format.html { redirect_to @holocene_event, notice: 'Holocene event was successfully updated.' }
         format.json { render :show, status: :ok, location: @holocene_event }
       else
         format.html { render :edit }
@@ -149,7 +149,7 @@ class HoloceneEventsController < ApplicationController
   def destroy
     @holocene_event.destroy
     respond_to do |format|
-      format.html { redirect_back_or_default(holocene_events_url, notice: 'Holocene event was successfully destroyed.') }
+      format.html { redirect_to holocene_events_url, notice: 'Holocene event was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
