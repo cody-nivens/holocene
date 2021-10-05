@@ -10,17 +10,3 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require rails-ujs
-//= require jquery3
-//= require activestorage
-//= require turbolinks
-//= require jquery_ujs
-//= require jquery-ui/widgets/sortable
-//= require rails_sortable
-//= require popper
-//= require bootstrap
-//= require timelineJS/timeline
-//= link_tree ../icons
-//= link_tree ../fonts
-//= link_tree ../images
-//= require bootstrap-toggle
