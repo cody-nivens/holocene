@@ -98,7 +98,8 @@ module ActiveSupport
     end
 
     def fill_in_rich_text_area(id, with:)
-      find(:css, id.to_s).click.set(with)
+      #find(:css, id.to_s).click.set(with)
+      find(".trix-content").set(with)
     end
 
     def row_containing_cell_with_text(text)

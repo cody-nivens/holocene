@@ -213,9 +213,6 @@ class ChaptersTest < ApplicationSystemTestCase
 
     assert_text 'Chapter was successfully created'
 
-    assert_link "#{@chapter.name}2"
-    click_on "#{@chapter.name}2"
-
     assert_link 'Missing footnote'
     click_on 'Missing footnote'
 

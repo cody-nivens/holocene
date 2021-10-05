@@ -248,9 +248,6 @@ class BooksTest < ApplicationSystemTestCase
 
     assert_text 'Chapter was successfully created'
 
-    assert_link 'Chapter 1'
-    click_on 'Chapter 1'
-
     assert_link 'Missing footnote'
     click_on 'Missing footnote'
 
@@ -285,9 +282,6 @@ class BooksTest < ApplicationSystemTestCase
     click_on 'Create Story'
     assert_text 'Story was successfully created'
 
-    assert_link 'The Impossible Dream'
-    click_on 'The Impossible Dream'
-
     assert_link 'New Key Point'
     click_on 'New Key Point'
 
@@ -297,9 +291,6 @@ class BooksTest < ApplicationSystemTestCase
     fill_in 'First plot point', with: 'Snoopy chases the Red Baron'
     click_on 'Create Key point'
     assert_text 'Key point was successfully created'
-
-    assert_link 'Good points'
-    click_on 'Good points'
 
     find(:xpath, ".//a[i[contains(@class, 'fa-plus')]]", match: :first).click
     assert_link 'New Scene'

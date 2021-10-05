@@ -41,6 +41,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
           'prefs' => {
             'download.default_directory' => DOWNLOADS_PATH,
             'download.prompt_for_download' => false,
+            'disable_screenshots' => true,
             'plugins.plugins_disabled' => ['Chrome PDF Viewer']
           }
         }
@@ -69,7 +70,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   # File actiontext/lib/action_text/system_test_helper.rb, line 27
   def fill_in_rich_text_area(locator = nil, with:)
-    find(:rich_text_area, locator).execute_script('this.editor.loadHTML(arguments[0])', with.to_s)
+    find(:xpath, "//\*[@id='#{locator}']", visible: false).set(with.to_s)
   end
 end
 Capybara.add_selector :rich_text_area do
