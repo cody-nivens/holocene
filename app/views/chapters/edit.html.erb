@@ -1,4 +1,4 @@
 <%= render 'form', scripted: @scripted, chapter: @chapter, command_label: 'Update Chapter' %>
 
 <% add_to_footer('Show', chapter_path(@chapter)) %>
-<% add_to_footer('Back',  return_or_default_path(polymorphic_path([@scripted, :chapters]))) %>)
+<% add_to_footer('Back',  return_or_default_path(polymorphic_path([@scripted, :chapters]))) %>
