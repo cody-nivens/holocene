@@ -1,29 +1,44 @@
 <% @book ||= (session[:book_id].blank? ? nil : Book.find_by(id: session[:book_id])) %>
-<li class="nav-item"> <a href="/books"> <i class="glyphicon glyphicon-tree-conifer"></i> Books</a> </li>
+<li class='nav-item'> <a class='nav-link' href='/books'>Books</a> </li>
 <% unless @book.nil? %>
-  <li class="nav-item"> <a href="/books/<%= @book.id %>"> <i class="glyphicon glyphicon-tree-conifer"></i><%= @book.name %></a> </li>
-
+  <li class='nav-item'> <a class='nav-link' href='/books/<%= @book.id %>'></i><%= @book.name %></a> </li>
   <% if @book.fiction? %>
-    <li class="nav-item"> <a href="/books/<%= @book.id %>/characters"> <i class="glyphicon glyphicon-tree-conifer"></i> Characters</a> </li>
-    <li class="nav-item"> <a href="/books/<%= @book.id %>/artifacts"> <i class="glyphicon glyphicon-tree-conifer"></i> Artifacts</a> </li>
-    <li class="nav-item"> <a href="/books/<%= @book.id %>/artifact_types"> <i class="glyphicon glyphicon-tree-conifer"></i> Artifact Types</a> </li>
-    <li class="nav-item"> <a href="/books/<%= @book.id %>/key_words"> <i class="glyphicon glyphicon-tree-conifer"></i> Key Words</a> </li>
-    <li class="nav-item"> <a href="/character_categories"> <i class="glyphicon glyphicon-tree-conifer"></i> Character Categories</a> </li>
+    <li class='nav-item dropdown'>
+      <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown1' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+       Support
+      </a>
+      <ul class='dropdown-menu' aria-labelledby='navbar_dropdown1'>
+        <li class='nav-item'> <a class='nav-link' href='/books/<%= @book.id %>/artifacts'>Artifacts</a> </li>
+        <li class='nav-item'> <a class='nav-link' href='/books/<%= @book.id %>/artifact_types'>Artifact Types</a> </li>
+        <li class='nav-item'> <a class='nav-link' href='/books/<%= @book.id %>/key_words'>Key Words</a> </li>
+        <li class='nav-item'> <a class='nav-link' href='/character_categories'>Character Categories</a> </li>
+        <li class='nav-item'> <a class='nav-link' href='/cities'>Cities</a> </li>
+      </ul>
+    </li>
+    <li class='nav-item'> <a class='nav-link' href='/books/<%= @book.id %>/characters'>Characters</a> </li>
   <% else %>
-    <li class="nav-item">
-      <a class="dropdown-toggle" href="#" id="navbar" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <li class='nav-item dropdown'>
+      <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown1' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
         Events
       </a>
-      <div class="dropdown-menu" aria-labelledby="navbar">
-      <div class="dropdown-divider"></div>
-        <ul>
-          <% %w[holocene_event timeline event_type region epoch].each do |form| %>
-            <li class="dropdown"> <%= link_to t("app.index.#{form}.link"), [form.pluralize.to_sym], class: 'dropdown-item' %> </li>
-          <% end %>
-        </ul>
-      </div>
+      <ul class='dropdown-menu' aria-labelledby='navbar_dropdown1'>
+        <% %w[holocene_event timeline epoch].each do |form| %>
+          <li> <%= link_to t("app.index.#{form}.link"), [form.pluralize.to_sym], class: 'dropdown-item' %> </li>
+        <% end %>
+      </ul>
+    </li>
+    <li class='nav-item dropdown'>
+      <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown1' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+        Support
+      </a>
+      <ul class='dropdown-menu' aria-labelledby='navbar_dropdown1'>
+        <% %w[event_type region].each do |form| %>
+          <li> <%= link_to t("app.index.#{form}.link"), [form.pluralize.to_sym], class: 'dropdown-item' %> </li>
+        <% end %>
+       <li class='nav-item'> <a class='nav-link' href='/books/<%= @book.id %>/key_words'>Key Words</a> </li>
+       <li class='nav-item'> <a class='nav-link' href='/cities'>Cities</a> </li>
+      </ul>
     </li>
   <% end %>
-  <li class="nav-item"> <a href="/books/<%= @book.id %>/authors"> <i class="glyphicon glyphicon-tree-conifer"></i> Authors</a> </li>
+  <li class='nav-item'> <a class='nav-link' href='/books/<%= @book.id %>/authors'>Authors</a> </li>
 <% end %>
-<li class="nav-item"> <a href="/cities"> <i class="glyphicon glyphicon-tree-conifer"></i> Cities</a> </li>
