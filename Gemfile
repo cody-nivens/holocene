@@ -144,3 +144,4 @@ gem "pagy"
 gem 'country_select', '~> 6.0'
 gem 'rexml'
 gem "better_html"
+gem 'bootstrap-tooltip-rails', '~> 0.1'

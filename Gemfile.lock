@@ -131,6 +131,9 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sassc (>= 2.0.0)
     bootstrap-toggle-rails (2.2.1.0)
+    bootstrap-tooltip-rails (0.1)
+      rails (>= 3.1)
+      thor
     bootstrap_form (4.5.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -401,7 +404,7 @@ GEM
     rexml (3.2.5)
     riddle (2.4.2)
     rolify (6.0.0)
-    rubocop (1.22.0)
+    rubocop (1.22.1)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
@@ -547,6 +550,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   bootstrap-sass
   bootstrap-toggle-rails
+  bootstrap-tooltip-rails (~> 0.1)
   bootstrap_form (>= 4.0.0)
   builder
   by_star!
@@ -631,4 +635,4 @@ RUBY VERSION
    ruby 3.0.2p107
 
 BUNDLED WITH
-   2.2.22
+   2.2.28
