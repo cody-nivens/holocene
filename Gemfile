@@ -42,7 +42,7 @@ gem 'builder'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
-gem 'sidekiq', '~>6.1.1'
+gem 'sidekiq', '~>6.2.2'
 gem 'sidekiq-client-cli'
 #gem "sidekiq-cron", "~> 1.1"
 gem "sidekiq-scheduler"
