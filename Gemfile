@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+git_source(:github) { |repo| 'https://github.com/#{repo}.git' }
 
 ruby '3.0.2'
 
@@ -17,8 +17,8 @@ gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
 
-gem "actiontext", require: "action_text"
-gem "image_processing", "~> 1.2"
+gem 'actiontext', require: 'action_text'
+gem 'image_processing', '~> 1.2'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 5.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -42,14 +42,15 @@ gem 'builder'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
-gem 'sidekiq', '~>6.1.1'
+gem 'sidekiq', '>= 6.2.1'
+
 gem 'sidekiq-client-cli'
-#gem "sidekiq-cron", "~> 1.1"
-gem "sidekiq-scheduler"
+#gem 'sidekiq-cron', '~> 1.1'
+gem 'sidekiq-scheduler'
 
 #gem 'whenever', :require => false
 
-gem "rack", ">= 2.2.3"
+gem 'rack', '>= 2.2.3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -57,8 +58,8 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'dotenv'
   gem 'heavens_door'
-  gem "rubocop", require: false
-  gem "rubocop-rails"
+  gem 'rubocop', require: false
+  gem 'rubocop-rails'
   gem 'rubocop-minitest', require: false
   gem 'erb_lint', require: false
 end
@@ -77,8 +78,8 @@ group :development do
   gem 'rails_best_practices'
   gem 'guard-rails'
   gem 'pry'
-  gem "better_errors"
-  gem "binding_of_caller"
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :test do
@@ -109,23 +110,23 @@ gem 'rolify'
 gem 'activeadmin'
 gem 'kaminari'
 gem 'datagrid'
-gem "nokogiri"
+gem 'nokogiri'
 gem 'mini_portile2'
 gem 'acts-as-taggable-on'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'rails_sortable'
-gem "popper_js"
+gem 'popper_js'
 gem 'bootstrap-sass'
 gem 'simple_form'
 gem 'wicked_pdf'
 gem 'gepub'
 gem 'wkhtmltopdf-binary', '0.12.4'
-gem "bootstrap_form", ">= 4.0.0"
-gem "font-awesome-rails"
+gem 'bootstrap_form', '>= 4.0.0'
+gem 'font-awesome-rails'
 gem 'font-awesome-sass', '~> 5.5.0'
 gem 'timelineJS-rails'
-#gem "rgeo"
+#gem 'rgeo'
 #gem 'rgeo-activerecord', :git => 'https://github.com/rgeo/rgeo-activerecord'
 gem 'mini_magick','~> 4.9.4'
 gem 'react-rails'
@@ -135,13 +136,13 @@ gem 'bootstrap-toggle-rails'
 gem 'namey'
 gem 'acts_as_list'
 gem 'ranked-model', git: 'git@github.com:mixonic/ranked-model'
-gem "chartkick"
+gem 'chartkick'
 gem 'jdbc-mysql',      '~> 5.1.35', :platform => :jruby
 gem 'thinking-sphinx', '~> 5.3'
 gem 'wicked'
-gem 'by_star', git: "git://github.com/radar/by_star"
-gem "pagy"
+gem 'by_star', git: 'git://github.com/radar/by_star'
+gem 'pagy'
 gem 'country_select', '~> 6.0'
 gem 'rexml'
-gem "better_html"
+gem 'better_html'
 gem 'bootstrap-tooltip-rails', '~> 0.1'
