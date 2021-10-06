@@ -37,7 +37,7 @@ class ItinerariesControllerTest < ActionDispatch::IntegrationTest
                                   tour_id: @itinerary.tour_id } }
     end
 
-    assert_response 422
+    assert_response :unprocessable_entity
   end
 
   test 'should show itinerary' do
@@ -61,7 +61,7 @@ class ItinerariesControllerTest < ActionDispatch::IntegrationTest
     patch itinerary_url(@itinerary),
           params: { itinerary: { name: '', city_id: @itinerary.city_id, position: @itinerary.position, stay: @itinerary.stay,
                                  tour_id: @itinerary.tour_id } }
-    assert_response 422
+    assert_response :unprocessable_entity
   end
 
   test 'should destroy itinerary' do

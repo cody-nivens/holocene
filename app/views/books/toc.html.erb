@@ -48,9 +48,3 @@
 <% add_to_footer('New Chapter', new_book_chapter_path(@book)) %>
 <% add_to_footer('Chapters, Details', polymorphic_path([@book, :chapters])) %>
 <% add_to_footer('Back', book_path(@book)) %>
-
-<script nonce="<%= request.content_security_policy_nonce %>" type='text/javascript'>
-$(document).ready(function() {
-  $('.sortable').railsSortable();
-});
-</script>

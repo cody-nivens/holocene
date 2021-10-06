@@ -88,7 +88,7 @@ class ApplicationController < ActionController::Base
   def add_background_events(_object)
     events = HoloceneEvent.where(user_id: current_user.id).order(:start_year)
     my_ids = []
-    unless events.length == 0
+    unless events.size == 0
       start_year = events.minimum(:start_year)
       end_year = events.maximum(:start_year)
 
@@ -262,7 +262,7 @@ class BookEPub
    @slugs = []
    s = ''
    @book.chapters.each do |chapter|
- unless chapter.citations.length == 0
+ unless chapter.citations.size == 0
    s += FootnotesController.render partial: 'footnotes/citations', formats: [:html],
                                                                               locals: { slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: false, title: nil }
  end
@@ -286,7 +286,7 @@ class BookEPub
    @book.chapters.order(:position).each do |chapter|
  next unless chapter.always_display_events
 
- unless chapter.holocene_events.length == 0
+ unless chapter.holocene_events.size == 0
    chapter.holocene_events.order(:start_year).each do |he|
      if he.body.present?
        @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? ? 1 : @footnotes[2]))
@@ -298,9 +298,9 @@ class BookEPub
                                           locals: { holocene_events: chapter.holocene_events.order(:start_year), chapter: chapter, links: false,
                                                     epub: true, slugs: @slugs }
  end
- next if chapter.sections.length == 0
+ next if chapter.sections.size == 0
         chapter.sections.order(:position).each do |section|
-          unless section.holocene_events.length == 0
+          unless section.holocene_events.size == 0
             section.holocene_events.order(:start_year).each do |he|
               if he.body.present?
                 @footnotes = Footnote.process_body(he, @slugs,

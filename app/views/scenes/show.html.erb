@@ -73,7 +73,7 @@
   </p>
 <% end %>
 
-<% unless @scene.characters.length == 0 %>
+<% unless @scene.characters.size == 0 %>
   <p>
     <strong>Characters:</strong>
     <br>
@@ -83,7 +83,7 @@
 
 <% scenes = Scene.where(insert_scene_id: @scene.id).order(:date_string, :abc) %>
 <p>
-  <% unless scenes.length == 0 %>
+  <% unless scenes.size == 0 %>
     <strong>Scenes:</strong>
     <br>
     <ul>

@@ -13,6 +13,11 @@ class StoriesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test 'stories index' do
+    visit book_stories_url(book_id: @book.id)
+    assert_current_path book_stories_path(book_id: @book.id)
+  end
+
   test 'stories index new story' do
     visit book_stories_url(book_id: @book.id)
 #    visit New Story

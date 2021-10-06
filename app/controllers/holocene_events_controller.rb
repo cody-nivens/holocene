@@ -29,7 +29,7 @@ class HoloceneEventsController < ApplicationController
   def display
     @events = @object.holocene_events.order(:start_year)
     ids = @object.holocene_events.pluck(:id)
-    @command = if ids.length == 0
+    @command = if ids.size == 0
                  'Add Events'
                else
                  'Delete Events'

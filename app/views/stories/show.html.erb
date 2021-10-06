@@ -59,7 +59,7 @@
                 <li><%= link_to key_point.hook, key_point_path(key_point), id: key_point.anchor %> - <%= link_to key_point.key_element, key_point_path(key_point) %>
                   <dl>
                     <% 1.upto(6).each do |x| %>
-                      <% if key_point.scenes.where(selector: x).length == 0 %>
+                      <% if key_point.scenes.where(selector: x).size == 0 %>
                         <dt><%= key_point.selector_value(x) %></dt>
                       <% else %>
                         <% key_point.scenes.where(selector: x).order(:position).each do |scene| %>

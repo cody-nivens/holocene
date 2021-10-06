@@ -38,7 +38,7 @@ class ToursControllerTest < ActionDispatch::IntegrationTest
       post story_tours_url(@story), params: { tour: { name: '', story_id: @tour.story_id } }
     end
 
-    assert_response 422
+    assert_response :unprocessable_entity
   end
 
   test 'should show tour' do
@@ -58,7 +58,7 @@ class ToursControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not update tour' do
     patch tour_url(@tour), params: { tour: { name: '', story_id: @tour.story_id } }
-    assert_response 422
+    assert_response :unprocessable_entity
   end
 
   test 'should destroy tour' do

@@ -1,15 +1,15 @@
 <div style='display:block; clear:both; page-break-after:always;'></div>
 <% unless  chapter.partition.nil? || epub == true -%>
   <div style='display:block; clear:both; page-break-after:always;'></div>
-    <h1><%= chapter.partition_name %></h1>
+  <h1><%= chapter.partition_name %></h1>
 
-    <%== chapter.partition.body %>
+  <%== chapter.partition.body %>
 <% end -%>
 <div style='display:block; clear:both; page-break-after:always;'></div>
 <% unless !chapter.partition.nil? && chapter.partition_name == chapter.name.gsub(/\s+$/, '') -%>
-<% unless !chapter.display_title? %>
-<h1><%= chapter.name %></h1>
-<% end -%>
+  <% unless !chapter.display_title? %>
+    <h1><%= chapter.name %></h1>
+  <% end -%>
 <% end -%>
 <% @notes = notes if @notes.nil? -%>
 <% @slugs = [] -%>
@@ -17,22 +17,22 @@
 <% if chapter.aside.nil? -%>
   <%== @footnotes[0] %>
 <% else -%>
-    <div id='aside_content'>
-      <blockquote>
-        <h2><%= chapter.aside_name %></h2>
-        <%== chapter.aside.body -%>
-        <hr>
-      </blockquote>
-      <%== @footnotes[0] -%>
-    </div>
+  <div id='aside_content'>
+    <blockquote>
+      <h2><%= chapter.aside_name %></h2>
+      <%== chapter.aside.body -%>
+      <hr>
+    </blockquote>
+    <%== @footnotes[0] -%>
+  </div>
 <% end -%>
-<% if chapter.holocene_events.length != 0 && ((chapter.show_events? && chapter.scripted.show_events?) || chapter.always_display_events?) -%>
-    <% chapter.holocene_events.order(:start_year).each do |he| -%>
-      <% unless he.body.blank? -%>
-        <% @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
-        <% @slugs += @footnotes[1] -%>
-      <% end -%>
+<% if chapter.holocene_events.size != 0 && ((chapter.show_events? && chapter.scripted.show_events?) || chapter.always_display_events?) -%>
+  <% chapter.holocene_events.order(:start_year).each do |he| -%>
+    <% unless he.body.blank? -%>
+      <% @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
+      <% @slugs += @footnotes[1] -%>
     <% end -%>
+  <% end -%>
 
   <%= render 'holocene_events/index', formats: [:html], slugs: @slugs, holocene_events: chapter.holocene_events.order(:start_year).uniq, chapter: chapter, epub: epub -%>
 <% end -%>
@@ -40,14 +40,14 @@
 <% chapter.sections.order(:position).each do |section| -%>
   <% s = '' %>
   <% if section.embed? %>
-      <div class='card border-primary border-dark mb3 pull-right' style='width: 60%;'>
-        <div class='card-header bg-transparent border-primary'>
-          <h2 class='card-header card-title'>
-            <%= section.name %>
-          </h2>
-        </div>
-        <div class='card-body border'>
-          <% s = ' class="card-title"' %>
+    <div class='card border-primary border-dark mb3 pull-right' style='width: 60%;'>
+      <div class='card-header bg-transparent border-primary'>
+        <h2 class='card-header card-title'>
+          <%= section.name %>
+        </h2>
+      </div>
+      <div class='card-body border'>
+        <% s = ' class="card-title"' %>
   <% end %>
   <% unless section.embed? %>
     <h2<%== s %>><%= section.name %></h2>
@@ -56,11 +56,11 @@
   <% @slugs += @footnotes[1] -%>
   <%== @footnotes[0] -%>
   <% if section.embed? %>
-    </div>
+      </div>
     </div>
   <% end %>
 
-  <% if section.holocene_events.length != 0 && ((chapter.show_events? && chapter.scripted.show_events?) || chapter.always_display_events?) -%>
+  <% if section.holocene_events.size != 0 && ((chapter.show_events? && chapter.scripted.show_events?) || chapter.always_display_events?) -%>
     <% section.holocene_events.order(:start_year).each do |he| -%>
       <% unless he.body.blank? -%>
         <% @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
@@ -72,6 +72,6 @@
   <% end -%>
 <% end -%>
 
-<% unless @slugs.length == 0 -%>
-<%== Footnote.write_footnotes(@slugs) -%>
+<% unless @slugs.size == 0 -%>
+  <%== Footnote.write_footnotes(@slugs) -%>
 <% end -%>

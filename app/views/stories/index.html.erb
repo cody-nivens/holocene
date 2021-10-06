@@ -8,11 +8,3 @@
 <% add_to_footer('Timeline', book_timeline_path(id: @book.id)) %>
 <% add_to_footer('Resync Stories', book_resync_stories_path(id: @book.id), print: true) %>
 <% add_to_footer('Back', book_path(@book)) %>
-
-<script nonce="<%= request.content_security_policy_nonce %>" type='text/javascript'>
-$(document).ready(function() {
-  $(function() {
-    $('.sortable').railsSortable();
-  });
-});
-</script>

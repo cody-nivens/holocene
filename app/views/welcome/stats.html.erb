@@ -43,7 +43,7 @@
     <% books = Book.where(user_id: current_user.id) %>
     <% books.each do |book| %>
       <% if book.is_fiction? %>
-    <% unless book.stories.length == 0 %>
+    <% unless book.stories.size == 0 %>
        <% book.stories.each do |story| %>
           <% story_section_count += story.section_count %>
           <% key_point_count += story.key_points.count %>
@@ -52,7 +52,7 @@
        <% end %>
     <% end %>
       <% else %>
-    <% unless book.chapters.length == 0 %>
+    <% unless book.chapters.size == 0 %>
        <% chapter_count += book.chapters.count %>
        <% book.chapters.each do |chapter| %>
           <% chapter_section_count += chapter.sections.count %>
@@ -61,7 +61,7 @@
     <% end %>
     <% end %>
     <% end %>
-    <% unless books.length == 0 %>
+    <% unless books.size == 0 %>
     <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= 'Chapter' %></td><td><%= chapter_count %></td></tr>
     <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= 'Chapter sections' %></td><td><%= chapter_section_count %></td></tr>
     <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= 'Story' %></td><td><%= story_count %></td></tr>

@@ -17,7 +17,7 @@
 <%== highlight(@footnotes[0], Regexp.new(KeyWord.where(book_id: values[0].id).collect(&:key_word).join('|'))) %>
 <% @slugs += @footnotes[1] -%>
 
-<% unless @section.holocene_events.length == 0 || @section.sectioned.show_events? -%>
+<% unless @section.holocene_events.size == 0 || @section.sectioned.show_events? -%>
   <% @section.holocene_events.order(:start_year).each do |he| -%>
     <% unless he.body.blank? -%>
       <% @footnotes = Footnote.process_body(he, slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
@@ -27,7 +27,7 @@
   <%= render 'holocene_events/index', formats: [:html], holocene_events: @section.holocene_events.order(:start_year), noted: @noted %>
 <% end -%>
 
-<% unless @slugs.length == 0 -%>
+<% unless @slugs.size == 0 -%>
   <%== Footnote.write_footnotes(@slugs) %>
 <% end -%>
 
@@ -35,8 +35,8 @@
 <% next_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position + 1) -%>
 
 <% add_to_footer('Edit', edit_section_path(@section)) %>
-<% @footer_content << (link_to '<', section_path(priv_section.first), class: 'btn icon-ok icon-white').to_s unless priv_section.length.zero? %>
-<% @footer_content << (link_to '>', section_path(next_section.first), class: 'btn icon-ok icon-white').to_s unless next_section.length.zero? %>
+<% @footer_content << (link_to '<', section_path(priv_section.first), class: 'btn icon-ok icon-white').to_s unless priv_section.size.zero? %>
+<% @footer_content << (link_to '>', section_path(next_section.first), class: 'btn icon-ok icon-white').to_s unless next_section.size.zero? %>
 <% if @section.sectioned_type == "Chapter" %>
   <% @footer_content << (link_to 'Timeline', section_timeline_path(section_id: @section.id), class: 'btn icon-ok icon-white').to_s %>
   <% @footer_content << (link_to 'Display', section_display_path(section_id: @section.id), class: 'btn icon-ok icon-white').to_s %>

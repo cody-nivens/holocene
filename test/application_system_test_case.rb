@@ -66,6 +66,17 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   def after_teardown
     super
     remove_uploaded_files
+    errors = page.driver.browser.manage.logs.get(:browser)
+    if errors.present?
+      errors.each do |error|
+        #next unless error.level == 'WARNING'
+        #next unless error.message =~ /pack-test/
+        next if error.message =~ /\/assets\//
+        #assert_not_equal error.level, 'SEVERE', error.message
+        STDERR.puts 'WARN: javascript warning'
+        STDERR.puts error.message
+      end
+    end
   end
 
   # File actiontext/lib/action_text/system_test_helper.rb, line 27

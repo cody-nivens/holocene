@@ -41,7 +41,7 @@ class ArtifactsControllerTest < ActionDispatch::IntegrationTest
                                  artifact_type_id: @artifact_type.id, parent_id: nil } }
     end
 
-    assert_response 422
+    assert_response :unprocessable_entity
     assert_template 'artifacts/new'
   end
 
@@ -94,7 +94,7 @@ class ArtifactsControllerTest < ActionDispatch::IntegrationTest
     patch artifact_url(@artifact),
           params: { artifact: { character_id: @artifact.character_id, name: '', book_id: @book.id,
                                 artifact_type_id: @artifact_type.id, parent_id: nil } }
-    assert_response 422
+    assert_response :unprocessable_entity
     assert_template 'artifacts/edit'
   end
 

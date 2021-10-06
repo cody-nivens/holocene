@@ -71,7 +71,7 @@
               <span>
                 <table class='table' style='width: auto;'>
                   <tbody>
-                    <% character_attributes[0..character_attributes.length/2].each do |character_attribute| %>
+                    <% character_attributes[0..character_attributes.size/2].each do |character_attribute| %>
                       <% character_value = character_values.where(character_attribute_id: character_attribute.id)[0] %>
                       <tr>
                         <td><%= character_attribute.name %></td>
@@ -86,8 +86,8 @@
               <span>
                 <table class='table' style='width: auto;'>
                   <tbody>
-                    <% unless character_attributes.length == 1 %>
-                      <% character_attributes[character_attributes.length/2..character_attributes.length-1].each do |character_attribute| %>
+                    <% unless character_attributes.size == 1 %>
+                      <% character_attributes[character_attributes.size/2..character_attributes.length-1].each do |character_attribute| %>
                         <% character_value = character_values.where(character_attribute_id: character_attribute.id)[0] %>
                         <tr>
                           <td><%= character_attribute.name %></td>

@@ -66,7 +66,7 @@ class CitiesControllerTest < ActionDispatch::IntegrationTest
                              iso3: @city.iso3, lat: @city.lat, lng: @city.lng, name: '', name_ascii: @city.name_ascii, population: @city.population, simple_map_id: @city.simple_map_id } }
     end
 
-    assert_response 422
+    assert_response :unprocessable_entity
   end
 
   test 'should show city' do
@@ -90,7 +90,7 @@ class CitiesControllerTest < ActionDispatch::IntegrationTest
     patch city_url(@city),
           params: { city: { admin_name: @city.admin_name, capital: @city.capital, country: @city.country, iso2: @city.iso2,
                             iso3: @city.iso3, lat: @city.lat, lng: @city.lng, name: '', name_ascii: @city.name_ascii, population: @city.population, simple_map_id: @city.simple_map_id } }
-    assert_response 422
+    assert_response :unprocessable_entity
   end
 
   test 'should destroy city' do

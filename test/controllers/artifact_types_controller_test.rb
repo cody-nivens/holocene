@@ -37,7 +37,7 @@ class ArtifactTypesControllerTest < ActionDispatch::IntegrationTest
       post book_artifact_types_url(@book), params: { artifact_type: { book_id: @artifact_type.book_id, name: '' } }
     end
 
-    assert_response 422
+    assert_response :unprocessable_entity
     assert_template 'artifact_types/new'
   end
 
@@ -62,7 +62,7 @@ class ArtifactTypesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not update artifact_type' do
     patch artifact_type_url(@artifact_type), params: { artifact_type: { book_id: @artifact_type.book_id, name: '' } }
-    assert_response 422
+    assert_response :unprocessable_entity
     assert_template 'artifact_types/edit'
   end
 

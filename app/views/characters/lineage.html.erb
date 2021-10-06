@@ -7,14 +7,14 @@
   <ol>
     <% last_person = @character %>
   <% people = Character.where(father: last_person.id) %>
-  <% while people.length > 0 do %>
+  <% while people.size > 0 do %>
    <% person = people[0] %>
          <li><%= person.full_name %>: <%= person.birth_year %> - <%= person.death_year %></li>
     <% people = Character.where(father: person.id) %>
     <%# debugger if person.first_name == "George" && person.middle_name == "Charles" %>
-    <% if people.length == 0 %>
+    <% if people.size == 0 %>
       <% people = Character.where(father: last_person.id) - [person] %>
-      <% person = (people.length.positive? ? people[0] : nil) %>
+      <% person = (people.size.positive? ? people[0] : nil) %>
     <% end %>
     <% last_person = person %>
   <% end %>

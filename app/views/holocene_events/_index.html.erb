@@ -1,6 +1,6 @@
 <% epub ||= false %>
 <% title ||= (chapter.nil? ? '' : chapter.name).to_s %>
-<% unless holocene_events.length == 0 %>
+<% unless holocene_events.size == 0 %>
   <h2><%= title %></h2>
   <table class='table w-100'>
     <tr><th>Name</th><th>Event Type</th><th>Region</th><th>Start Year</th></tr>

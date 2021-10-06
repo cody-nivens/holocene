@@ -17,11 +17,3 @@
 
 <% add_to_footer('New Section', new_polymorphic_path([@sectioned, :section])) %>
 <% add_to_footer('Back', polymorphic_path(@sectioned)) %>
-
-<script nonce="<%= request.content_security_policy_nonce %>" type='text/javascript'>
-$(document).ready(function() {
-  $(function() {
-    $('.sortable').railsSortable();
-  });
-});
-</script>

@@ -68,6 +68,7 @@ class ArtifactTypesTest < ApplicationSystemTestCase
     click_on 'Create Artifact type'
 
     assert_text "Name\ncan't be blank"
+    assert_current_path polymorphic_path([@book, :artifact_types])
     click_on 'Back'
   end
 end

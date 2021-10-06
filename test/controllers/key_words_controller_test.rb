@@ -50,7 +50,7 @@ class KeyWordsControllerTest < ActionDispatch::IntegrationTest
       post book_key_words_url(@book), params: { key_word: { book_id: @key_word.book_id, key_word: '' } }
     end
 
-    assert_response 422
+    assert_response :unprocessable_entity
   end
 
   test 'should show key_word 1' do
@@ -84,7 +84,7 @@ class KeyWordsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not update key_word' do
     patch key_word_url(@key_word), params: { key_word: { book_id: @key_word.book_id, key_word: '' } }
-    assert_response 422
+    assert_response :unprocessable_entity
   end
 
   test 'should destroy key_word' do
