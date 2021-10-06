@@ -1,6 +1,7 @@
 class CharacterAttribute < ApplicationRecord
-  include RailsSortable::Model
-  set_sortable :position # Indicate a sort column
+  include RankedModel
+
+  ranks :position, with_same: :character_category_id
 
   belongs_to :character_category
   belongs_to :related, primary_key: :related_id, class_name: 'CharacterAttribute', optional: true

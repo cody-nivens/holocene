@@ -30,7 +30,7 @@ class CharacterAttributesTest < ApplicationSystemTestCase
     assert_no_link 'New Character Attribute'
     assert_current_path new_character_category_character_attribute_path(@character_category)
     click_on 'Back'
-    assert_link 'Edit'
+    assert_link 'New Character Attribute'
     assert_current_path character_category_character_attributes_path(@character_category)
   end
 

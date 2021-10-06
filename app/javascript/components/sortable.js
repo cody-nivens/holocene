@@ -162,4 +162,56 @@ $(document).ready(function() {
       })
     }
   })
+
+  $('.character_attribute-sortable').sortable({
+    axis        : "y",
+    cursor      : "grabbing",
+    placeholder : "ui-state-highlight",
+    connectWith : '.character_attribute-sortable',
+
+    update: function(_, ui){
+      if (ui.sender) return
+
+      let item      = ui.item
+      let itemData  = item.data()
+      let listID    = item.parents('.ui-sortable-handle').eq(0).data().id
+      let params    = { _method: 'put' }
+
+      params[itemData.modelName] = { position_position: item.index(), character_category_id: listID }
+
+      $.ajax({
+        type     : 'POST',
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').last().attr('content'))},
+        url      : itemData.updateUrl,
+        dataType : 'json',
+        data     : params
+      })
+    }
+  })
+
+  $('.chapter-sortable').sortable({
+    axis        : "y",
+    cursor      : "grabbing",
+    placeholder : "ui-state-highlight",
+    connectWith : '.chapter-sortable',
+
+    update: function(_, ui){
+      if (ui.sender) return
+
+      let item      = ui.item
+      let itemData  = item.data()
+      let listID    = item.parents('.ui-sortable-handle').eq(0).data().id
+      let params    = { _method: 'put' }
+
+      params[itemData.modelName] = { position_position: item.index(), scripted_type: 'Book', scripted_id: listID }
+
+      $.ajax({
+        type     : 'POST',
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').last().attr('content'))},
+        url      : itemData.updateUrl,
+        dataType : 'json',
+        data     : params
+      })
+    }
+  })
 })

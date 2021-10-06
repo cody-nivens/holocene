@@ -17,6 +17,12 @@ class CharacterAttributesController < ApplicationController
     end
   end
 
+  def sort
+    @character_attribute = CharacterAttribute.find(params[:character_attribute_id])
+    @character_attribute.update(character_attribute_params)
+    render body: nil
+  end
+
   # GET /character_attributes/1
   # GET /character_attributes/1.json
   def show
@@ -93,6 +99,6 @@ class CharacterAttributesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def character_attribute_params
-    params.require(:character_attribute).permit(:name, :character_category_id, :related_id)
+    params.require(:character_attribute).permit(:name, :character_category_id, :related_id, :position_position)
   end
 end

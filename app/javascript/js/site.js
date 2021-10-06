@@ -6,10 +6,10 @@ require('trix');
 require('@rails/actiontext');
 import 'components/sortable';
 import 'chartkick/chart.js';
-import 'js/jquery-jvectormap';
+import 'js/jquery.jvectormap.min';
 
 $(document).ready(function() {
   $("a[data-bs-toggle='tooltip']").tooltip({ html: true, container: 'body', trigger: 'hover' });
-  $("[data-toggle='popover']").popover();
+  //$("[data-toggle='popover']").popover();
 })
 
