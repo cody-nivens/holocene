@@ -55,4 +55,11 @@ class Section < ApplicationRecord
       [book, chapter, key_point, scene, self]
     end
   end
+
+  #
+  # List of citations associated with chapter
+  #
+  def citations
+    Footnote.where(noted_id: id).where(slug: '')
+  end
 end

@@ -432,10 +432,30 @@ dd {
 dt > div.narrow {
     width: 2em;
     float: left;
+    text-align: left;
+}
+dt > div.narrow-right {
+    width: 2em;
+    float: left;
+    text-align: right;
+}
+dt > div.mid {
+    width: 5em;
+    float: left;
+    text-align: left;
+}
+dt > div.mid-right {
+    width: 5em;
+    float: left;
     text-align: right;
 }
 dt > div.medium {
     width: 10em;
+    float: left;
+    text-align: left;
+}
+dt > div.medium-right {
+    width: 6em;
     float: left;
     text-align: right;
 }
@@ -444,12 +464,22 @@ dt > div.title {
     float: left;
     padding-left: 0.5em;
 }
-div > div.medium {
+li > div.narrow {
+    width: 2em;
+    float: left;
+    text-align: right;
+}
+li > div.medium-right {
+    width: 6em;
+    float: left;
+    text-align: right;
+}
+li > div.medium {
     width: 6em;
     float: left;
     text-align: left;
 }
-div > div.title {
+li > div.title {
     width: 30em;
     float: left;
     padding-left: 0.5em;

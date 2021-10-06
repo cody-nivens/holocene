@@ -73,7 +73,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
         #next unless error.message =~ /pack-test/
         next if error.message =~ /\/assets\//
         #assert_not_equal error.level, 'SEVERE', error.message
-        STDERR.puts 'WARN: javascript warning'
+        STDERR.puts "WARN: javascript warning: #{name}"
         STDERR.puts error.message
       end
     end

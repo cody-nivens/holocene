@@ -12,7 +12,6 @@
       <h2><%= occ_class %></h2>
       <ul>
         <% story.characters.where('occupation_class = ?', occ_class).order(:occupation_class, :last_name, :first_name).each do |character| %>
-          <%# debugger if character.nil? %>
           <%= render partial: 'characters/show', formats: [:html], locals: { pdf: pdf, character: character, object: @object, scripted: @scripted } %>
         <% end %>
       </ul>

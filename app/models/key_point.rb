@@ -3,12 +3,12 @@ class KeyPoint < ApplicationRecord
   ThinkingSphinx::Callbacks.append(
     self, behaviours: [:sql]
   )
-  ranks :position, with_same: [:scripted_id, :scripted_type]
 
   belongs_to :scripted, polymorphic: true
-  acts_as_list scope: :scripted
+  ranks :position, with_same: [:scripted_id, :scripted_type]
+  acts_as_list scope: [:scripted_id, :scripted_type]
 
-  has_many :scenes
+  has_many :scenes, dependent: :destroy
 
   validates :hook, presence: true
 
