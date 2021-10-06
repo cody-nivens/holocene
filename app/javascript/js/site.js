@@ -1,16 +1,15 @@
 import $ from 'jquery';
 import 'popper.js';
-import 'bootstrap/dist/js/bootstrap.bundle';
+import 'bootstrap/dist/js/bootstrap';
 
 require('trix');
 require('@rails/actiontext');
-require('components/sortable');
+import 'components/sortable';
 import 'chartkick/chart.js';
-
-require('components/sortable')
-import "chartkick/chart.js"
+import 'js/jquery-jvectormap';
 
 $(document).ready(function() {
   $("a[data-bs-toggle='tooltip']").tooltip({ html: true, container: 'body', trigger: 'hover' });
+  $("[data-toggle='popover']").popover();
 })
 

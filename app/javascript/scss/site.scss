@@ -1,10 +1,10 @@
-// app/javascript/stylesheets/site.scss
+// app/javascript/scss/site.scss
 
 $fa-font-path: "~font-awesome/fonts";
 @import '~font-awesome/scss/font-awesome';
 
 @import 'variables';
-@import '~bootstrap/scss/bootstrap';
+@import "bootstrap/scss/bootstrap";
 
 @import 'tpl';
 

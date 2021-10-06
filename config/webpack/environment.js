@@ -28,6 +28,17 @@ environment.plugins.append(
   })
 );
 
+environment.loaders.append('jquery', {
+  test: require.resolve('jquery'),
+  rules: [
+    {
+      loader: 'expose-loader',
+      options: {
+        exposes: ['$', 'jQuery'],
+      },
+    },
+  ],
+});
 environment.config.merge(customConfig);
 
 const aliasConfig = {

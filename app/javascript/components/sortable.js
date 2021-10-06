@@ -10,7 +10,7 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-require("jquery-ui");
+require("jquery-ui-dist/jquery-ui");
 
 $(document).ready(function() {
   $('.chapter_outer-sortable').sortable({

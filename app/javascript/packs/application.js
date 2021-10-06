@@ -1,14 +1,15 @@
-require("@rails/activestorage").start()
-require("turbolinks").start()
+require('jquery');
+require("@rails/activestorage").start();
+require("turbolinks").start();
 
 //
 // CSS
-import 'scss/site'
+import 'scss/site';
 
 // JS
-import('js/site')
+import 'js/site';
 
 // Images
-const images = require.context('../images', true)
-const imagePath = (name) => images(name, true)
+const mages = require.context('../images', true);
+const imagePath = (name) => images(name, true);
 
