@@ -53,7 +53,9 @@ Rails.application.routes.draw do
   resources :signets
   resources :embeds
   resources :character_categories, shallow: true do
-    resources :character_attributes
+    resources :character_attributes do
+      put :sort
+    end
     put :sort
   end
 
@@ -152,6 +154,7 @@ Rails.application.routes.draw do
     concerns :sectioned, sectioned_type: 'Chapter'
     resources :scenes
     resources :sections
+    put :sort
   end
   resources :chapters, shallow: true do
     resources :asides

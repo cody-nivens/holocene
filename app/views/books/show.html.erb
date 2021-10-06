@@ -26,6 +26,7 @@
 
 <% if @book.is_fiction? %>
   <%= render 'books/fiction', book: @book, stories: @stories %>
+
   <% add_to_footer('New Story', new_book_story_path(book_id: @book.id)) %>
   <% add_to_footer('All Stories', book_stories_path(@book)) %>
   <% add_to_footer('Characters', polymorphic_path([@book, :characters])) %>
