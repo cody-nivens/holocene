@@ -119,7 +119,6 @@ class Namer < ApplicationRecord
       column_percent -= 5
     end
 
-    # debugger if first_name.nil? || middle_name.nil? || surname.nil?
     [first_name.name, (middle_name.nil? ? nil : middle_name.name), surname.name]
   end
 end

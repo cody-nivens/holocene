@@ -29,17 +29,21 @@ class KeyWord < ApplicationRecord
 
       indx0 = item[1][0].name
       search_results[item[0]][indx0] = {} if search_results[item[0]][indx0].nil?
+
       indx1 = item[1][1].name unless item[1][1].nil?
       search_results[item[0]][indx0][indx1] = {} if !indx1.nil? && search_results[item[0]][indx0][indx1].nil?
+
       indx2 = item[1][2].name unless item[1][2].nil?
       if !indx2.nil? && search_results[item[0]][indx0][indx1][indx2].nil?
         search_results[item[0]][indx0][indx1][indx2] = {}
       end
+
       indx3 = item[1][3].name unless item[1][3].nil?
       if !indx3.nil? && search_results[item[0]][indx0][indx1][indx2][indx3].nil?
         search_results[item[0]][indx0][indx1][indx2][indx3] = {}
       end
       indx4 = item[1][4]
+
       if !indx4.nil?
         search_results[item[0]][indx0][indx1][indx2][indx3][item[1][4].class.name] = item[1][4]
       elsif !indx3.nil?
