@@ -1,7 +1,8 @@
 class Chapter < ApplicationRecord
-  include RailsSortable::Model
-  set_sortable :position # Indicate a sort column
-  acts_as_list scope: :scripted
+  include RankedModel
+
+  ranks :position, with_same: [:scripted_id, :scripted_type]
+  acts_as_list scope: [:scripted_id, :scripted_type]
 
   has_rich_text :body
 

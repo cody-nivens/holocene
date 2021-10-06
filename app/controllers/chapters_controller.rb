@@ -7,6 +7,12 @@ class ChaptersController < ApplicationController
     @chapters = @scripted.chapters.order(:position).all
   end
 
+  def sort
+    @chapter = Chapter.find(params[:chapter_id])
+    @chapter.update(chapter_params)
+    render body: nil
+  end
+
   def geo_map
     @object = @chapter
   end
@@ -176,7 +182,7 @@ class ChaptersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def chapter_params
-    params.require(:chapter).permit(:name, :body, :position, :scripted_id, :scripted_type, :position, :aside,
+    params.require(:chapter).permit(:name, :body, :position, :scripted_id, :scripted_type, :position_position, :aside,
                                     :show_events, :always_display_events, :display_title, :scripted_id, :scripted_type)
   end
 end

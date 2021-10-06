@@ -14,8 +14,8 @@
         </tr>
     </thead>
   <tbody>
-    <% chapters.order(:position).each_with_sortable_id do |chapter, sortable_id| %>
-      <tr id='<%= sortable_id %>'>
+    <% chapters.order(:position).each do |chapter| %>
+      <tr>
     <% if chapter.partition.nil? %>
       <td><%= link_to (fa_icon 'plus'), new_chapter_partition_path(chapter), title: 'Partition', class: 'btn icon-ok icon-white' %>
     <% else %>
@@ -41,8 +41,8 @@
     <% end -%>
         </td>
         <td align='right'><%= chapter.total_events %></td>
-        <td align='right'><%= number_with_delimiter chapter.footnotes.count %></td>
-        <td align='right'><%= number_with_delimiter chapter.citations.count %></td>
+        <td align='right'><%= number_with_delimiter chapter.footnotes.size %></td>
+        <td align='right'><%= number_with_delimiter chapter.citations.size %></td>
         <td align='right'><%= HoloceneEvent.convert_ad(chapter.sections.map { |x| x.holocene_events.minimum('start_year') }.compact.min) %></td>
         <td align='right'><%= HoloceneEvent.convert_ad(chapter.sections.map { |x| x.holocene_events.maximum('start_year') }.compact.max) %></td>
         <td><%= link_to (fa_icon 'level-down'), chapter_demote_path(chapter), title: 'Demote' %></td>
@@ -54,8 +54,9 @@
             <td><strong><%= (section.embed? ? 'Brief Note: ' : '') %></strong><%= section.name %></td>
           <td align='right'></td>
           <td align='right'><%= number_with_delimiter section.word_count %></td>
-          <td align='right'><%= section.holocene_events.count %></td>
-          <td align='right'><%= section.footnotes.count %></td>
+          <td align='right'><%= section.holocene_events.size %></td>
+          <td align='right'><%= section.footnotes.size %></td>
+          <td align='right'><%= section.citations.size %></td>
           <td align='right'><%= HoloceneEvent.convert_ad(section.holocene_events.minimum('start_year')) %></td>
           <td align='right'><%= HoloceneEvent.convert_ad(section.holocene_events.maximum('start_year')) %></td>
         <td><%= link_to (fa_icon 'level-up'), chapter_section_promote_path(chapter, section), title: 'Promote' %></td>
