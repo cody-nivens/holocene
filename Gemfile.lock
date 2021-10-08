@@ -589,7 +589,7 @@ DEPENDENCIES
   mocha
   mysql2 (>= 0.5)
   namey
-  nokogiri
+  nokogiri (>= 1.12.5)
   pagy
   pdf-reader
   popper_js
