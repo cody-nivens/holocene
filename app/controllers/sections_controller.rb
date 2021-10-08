@@ -6,6 +6,12 @@ class SectionsController < ApplicationController
     @sections = @sectioned.sections.order(:position)
   end
 
+  def sort
+    @section = Section.find(params[:section_id])
+    @section.update(section_params)
+    render body: nil
+  end
+
   def geo_map
     @object = @section
   end
@@ -84,9 +90,6 @@ class SectionsController < ApplicationController
   def set_sectioned
     @klass = [Chapter, Scene].detect { |c| params["#{c.name.underscore}_id"] }
     @sectioned = @klass.find((params[:section].nil? || params[:section][:sectioned_id].empty? ? params["#{@klass.name.underscore}_id"] : params[:section][:sectioned_id]))
-    # @scripted = @sectioned.scripted
-    #  @klass = @scripted.class
-    # end
   end
 
   def update_metrics
@@ -95,7 +98,7 @@ class SectionsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def section_params
-    params.require(:section).permit(:name, :body, :position, :sectioned_type, :sectioned_id, :display_name, :embed,
+    params.require(:section).permit(:name, :body, :position_position, :sectioned_type, :sectioned_id, :display_name, :embed,
                                     :user_id)
   end
 end

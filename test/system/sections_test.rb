@@ -6,9 +6,39 @@ class SectionsTest < ApplicationSystemTestCase
   setup do
     @section = sections(:section_1)
     @chapter = @section.sectioned
+    @chapter2 = chapters(:chapter_2)
+    sections = @chapter2.sections.order(:position)
+    @section1 = sections[0]
+    @section2 = sections[1]
+    @section3 = sections[2]
+
     @user = users(:users_1)
     sign_in @user
   end
+
+  test 'sort sections' do
+    visit chapter_sections_path(@chapter2)
+    assert_text 'Chapter Two Stuff'
+
+    # save_and_open_page
+    # debugger
+    # take_screenshot
+    assert_match /#{@section1.name}.*#{@section2.name}.*#{@section3.name}/m, page.html
+
+    draggable = find(:css, "#section-#{@section2.id}")
+    droppable = find(:css, "#section-#{@section1.id}")
+    draggable.drag_to(droppable)
+    wait_for_ajax
+
+    assert_text @section1.name
+
+    assert_match /#{@section2.name}.*#{@section1.name}.*#{@section3.name}/m, page.html
+    visit current_path
+
+    assert_text @section1.name
+    assert_match /#{@section2.name}.*#{@section1.name}.*#{@section3.name}/m, page.html
+  end
+
 
   test 'sections edit' do
     visit edit_section_url(@section)

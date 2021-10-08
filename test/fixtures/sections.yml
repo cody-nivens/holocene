@@ -1,7 +1,7 @@
 ---
 section_1:
   name: 'Domestication of the Animals 1'
-  display_name: 
+  display_name:
   position: 0
   slug: FBz8kjcBbN
   sectioned: chapter_1 (Chapter)
@@ -12,7 +12,7 @@ section_1:
       - holocene_event_12
 section_2:
   name: 'Agriculture '
-  display_name: 
+  display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: chapter_1 (Chapter)
@@ -21,7 +21,7 @@ section_2:
       - holocene_event_5
 section_3:
   name: 'Domestication of Cows'
-  display_name: 
+  display_name:
   position: 0
   slug: FBz8kjcBbN
   sectioned: chapter_3 (Chapter)
@@ -30,14 +30,14 @@ section_3:
       - holocene_event_5
 section_4:
   name: 'Horticlure'
-  display_name: 
+  display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: chapter_3 (Chapter)
   user: user_1
 section_5:
   name: 'Domestication of the strawberry'
-  display_name: 
+  display_name:
   position: 0
   slug: FBz8kjcBbN
   sectioned: chapter_4 (Chapter)
@@ -46,22 +46,22 @@ section_5:
       - holocene_event_5
 section_6:
   name: 'Aquaculture'
-  display_name: 
+  display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: chapter_4 (Chapter)
   user: user_1
 section_7:
   name: 'Vinoculture'
-  display_name: 
-  position: 1
+  display_name:
+  position: 0
   slug: HJct7pHDDe
   sectioned: chapter_2 (Chapter)
   user: user_1
 section_8:
   name: 'Domestication of the Animals 2'
-  display_name: 
-  position: 1
+  display_name:
+  position: 2
   slug: FBz8kjcBbN
   sectioned: chapter_2 (Chapter)
   user: user_1
@@ -69,42 +69,42 @@ section_8:
       - holocene_event_5
 section_9:
   name: 'Small Plants'
-  display_name: 
-  position: 2
+  display_name:
+  position: 4
   slug: HJct7pHDDe
   sectioned: chapter_2 (Chapter)
   user: user_1
 section_10:
   name: 'Tasty things'
-  display_name: 
-  position: 3
+  display_name:
+  position: 6
   slug: HJct7pHDDe
   sectioned: chapter_2 (Chapter)
   user: user_1
 section_11:
   name: 'Dark and stormy night'
-  display_name: 
+  display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_1 (Scene)
   user: user_1
 section_12:
   name: 'Dark and stormy night'
-  display_name: 
+  display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_2 (Scene)
   user: user_1
 section_13:
   name: 'Another dark and stormy night'
-  display_name: 
+  display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_2 (Scene)
   user: user_1
 section_14:
   name: 'Just another dark and stormy night'
-  display_name: 
+  display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_14 (Scene)

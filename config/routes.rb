@@ -90,6 +90,8 @@ Rails.application.routes.draw do
   get '/stories/:id/timeline', to: 'stories#timeline', as: :story_timeline
   get '/stories/:id/resync_scenes', to: 'stories#resync_scenes', as: :story_resync_scenes
   get '/stories/:story_id/character/:id/lineage', to: 'characters#lineage', as: :story_character_lineage
+  put '/sections/:section_id/sort', to: 'sections#sort', as: :section_sort
+
 
   devise_for :users
   #devise_for :users, ActiveAdmin::Devise.config

@@ -1,14 +1,14 @@
 <% attributes = CharacterAttribute.where(character_category: character_category) %>
-    <ul>
-      <div class="chapter_outer-sortable" style="cursor: grab;">
-        <%= content_tag 'div', id: "character_category-#{character_category.id}", data: { id: character_category.id, model_name: character_category.class.name.underscore, update_url: polymorphic_path([character_category, :sort]) } do %>
-          <div class="character_attribute-sortable" style="cursor: grab; min-height: 10px;">
-            <% attributes.rank(:position).each do |attribute| %>
-              <%= content_tag 'div', id: "character_attribute-#{attribute.id}", data: { model_name: attribute.class.name.underscore, update_url: character_attribute_sort_path(attribute) } do %>
-                <li><%= link_to attribute.name, character_attribute_path(attribute), id: attribute.id %></li>
-              <% end %>
-            <% end %>
-          </div>
+<ul>
+  <div class="chapter_outer-sortable" style="cursor: grab;">
+    <%= content_tag 'div', id: "character_category-#{character_category.id}", data: { id: character_category.id, model_name: character_category.class.name.underscore, update_url: polymorphic_path([character_category, :sort]) } do %>
+      <div class="character_attribute-sortable" style="cursor: grab; min-height: 10px;">
+        <% attributes.rank(:position).each do |attribute| %>
+          <%= content_tag 'div', id: "character_attribute-#{attribute.id}", data: { model_name: attribute.class.name.underscore, update_url: character_attribute_sort_path(attribute) } do %>
+            <li><%= link_to attribute.name, character_attribute_path(attribute), id: attribute.id %></li>
+          <% end %>
         <% end %>
       </div>
-    </ul>
+    <% end %>
+  </div>
+</ul>

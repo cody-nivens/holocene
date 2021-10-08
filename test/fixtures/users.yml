@@ -1,7 +1,7 @@
 ---
 users_1:
   email: palo@alto.com
-  encrypted_password: "$2a$11$IJaLI5dAcN5IUWGAYq7luulc1VDuBE9NVGClQwF9FHKfk/zkonFwa"
+  encrypted_password: "$2a$11$O8F8c7hzZlr6VaU9OHDXLeKhLBCzt6zG9dO44AXVUaDXKKClwHsya"
   reset_password_token:
   reset_password_sent_at:
   remember_created_at: !ruby/object:ActiveSupport::TimeWithZone

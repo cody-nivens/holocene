@@ -214,4 +214,31 @@ $(document).ready(function() {
       })
     }
   })
+
+  $('.section-sortable').sortable({
+    axis        : "y",
+    cursor      : "grabbing",
+    placeholder : "ui-state-highlight",
+    connectWith : '.section-sortable',
+
+    update: function(_, ui){
+      if (ui.sender) return
+
+      let item      = ui.item
+      let itemData  = item.data()
+      let listID    = item.parents('.ui-sortable-handle').eq(0).data().id
+      let listModel = item.parents('.ui-sortable-handle').eq(0).data().modelName
+      let params    = { _method: 'put' }
+
+      params[itemData.modelName] = { position_position: item.index(), sectioned_type: listModel, sectioned_id: listID }
+
+      $.ajax({
+        type     : 'POST',
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').last().attr('content'))},
+        url      : itemData.updateUrl,
+        dataType : 'json',
+        data     : params
+      })
+    }
+  })
 })
