@@ -4,7 +4,6 @@ require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
-  ActiveAdmin.routes(self)
   mount Sidekiq::Web => '/sidekiq'
   get '/characters/attributes', to: 'characters#attributes', format: :js, constraints: lambda { |request|
                                                                                          request.xhr?
