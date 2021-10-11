@@ -1,0 +1,15 @@
+{
+  "defaults": {
+        "actions": [
+        "wait for path to be /users/sign_in",
+        "set field #user_email to palo@alto.com",
+        "set field #user_password to 1213456789",
+        "click element #submit",
+        "wait for path to be /admin/dashboard",
+        "navigate to http://localhost:3000/"
+       ]
+     },
+"urls": [
+      "url": "http://locahost:3000/",
+    ]
+}

@@ -40,3 +40,4 @@ yarn-debug.log*
 /db/sphinx
 /config/*.sphinx.conf
 /rails_best_practices_output.html
+/pa11y-ci-report

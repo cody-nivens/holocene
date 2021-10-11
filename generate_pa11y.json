@@ -1,0 +1,16 @@
+{
+  "actions": [
+    "wait for path to be /users/sign_in",
+    "set field #user_email to palo@alto.com",
+    "set field #user_password to 123456789",
+    "click element input[name='commit']",
+    "wait for path to be /"
+  ],
+  "urls": [
+      "http://localhost:3000/",
+      "http://localhost:3000/about",
+      "http://localhost:3000/contact",
+      "http://localhost:3000/books",
+      "http://localhost:3000/event_types"
+  ]
+}
