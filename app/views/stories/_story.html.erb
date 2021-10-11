@@ -15,7 +15,7 @@
     <%= link_to story.title, story_path(story) %>
     <%= link_to (fa_icon 'search-plus'), story_path(story), title: 'Show' %>
     <%= link_to (fa_icon 'edit'), edit_story_path(story), title: 'Edit' %>
-    <%= link_to (fa_icon 'trash-o'), story_path(story), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
+    <%= link_to (fa_icon 'trash'), story_path(story), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
   </div>
   <div class="progress_bar">
     <%= render partial: 'shared/progress_bar', locals: { items: items } %>

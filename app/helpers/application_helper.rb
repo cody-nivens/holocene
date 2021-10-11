@@ -5,7 +5,7 @@ module ApplicationHelper
     print = options[:print] || false
     method = options[:method] || :get
     data = options[:data] || {}
-    classes = options[:classes] || "btn btn-secondary"
+    classes = options[:classes] || "btn"
 
     t_classes = "#{classes}#{print ? ' hide-print' : ''}"
 
@@ -14,32 +14,16 @@ module ApplicationHelper
 
   def breadcrumb(book, story = nil, key_point = nil, scene = nil, section = nil, link = nil)
     str = ''
-    unless book.nil?
-      str += (link.nil? && story.nil? ? book.name : my_link_to(book.name, book_path(book)))
+    tag.nav aria: { label: 'breadcrumb' } do
+      tag.ol class: 'breadcrumb' do
+        str = bc_book(book, story, link).to_s
+        str += bc_story(story, book, link, key_point).to_s
+        str += bc_key_point(key_point, scene, link).to_s
+        str += bc_scene(scene, section, link).to_s
+        str += bc_section(section, link).to_s
+        str
+      end
     end
-    case story.class.name
-    when 'Story'
-      book ||= story.book unless story.nil?
-    when 'Chapter'
-      book ||= story.scripted unless story.nil?
-    end
-    unless story.nil?
-      str += ' | ' unless str.empty?
-      str += (link.nil? && key_point.nil? ? story.name : my_link_to(story.name, polymorphic_path(story)))
-    end
-    unless key_point.nil?
-      str += ' | ' unless str.empty?
-      str += (link.nil? && scene.nil? ? key_point.name : my_link_to(key_point.name, key_point_path(key_point)))
-    end
-    unless scene.nil?
-      str += ' | ' unless str.empty?
-      str += (link.nil? && section.nil? ? scene.name : my_link_to(scene.name, scene_path(id: scene.id)))
-    end
-    unless section.nil?
-      str += ' | ' unless str.empty?
-      str += (link.nil? ? section.name : my_link_to(section.name, section_path(section)))
-    end
-    str
   end
 
   def return_or_default_path(default_path = root_path)
@@ -48,11 +32,7 @@ module ApplicationHelper
   end
 
   def surpress_first(crumb)
-    values = crumb.split(/\|/)
-    value = values.shift
-    return value if values.length == 0
-
-    values.join('|')
+    crumb.sub(/breadcrumb-item/,'breadcrumb-item d-none')
   end
 
   def epub_friendly(body)
@@ -101,5 +81,72 @@ module ApplicationHelper
     a = (value < 0 ? "#{-value}&nbsp;BC" : "#{value}&nbsp;AD")
     a += " &plusmn; #{uncert} years" unless uncert.nil?
     a.html_safe
+  end
+
+  def breadcrumb_page(title)
+    tag.li(title, class: 'breadcrumb-item active', aria: { current: 'page' })
+  end
+
+  def breadcrumb_link(name, my_link)
+    tag.li class: 'breadcrumb-item' do
+      link_to name, my_link
+    end
+  end
+
+  def bc_book(book, story, link)
+    unless book.nil?
+      if link.nil? && story.nil?
+        breadcrumb_page(book.name)
+      else
+        breadcrumb_link(book.name, book_path(book))
+      end
+    end
+  end
+
+  def bc_story(story, book, link, key_point)
+    unless story.nil?
+      case story.class.name
+      when 'Story'
+        book ||= story.book
+      when 'Chapter'
+        book ||= story.scripted
+      end
+      if link.nil? && key_point.nil?
+        breadcrumb_page(story.name)
+      else
+        breadcrumb_link(story.name, polymorphic_path(story))
+      end
+    end
+  end
+
+
+  def bc_key_point(key_point, scene, link)
+    unless key_point.nil?
+      if link.nil? && scene.nil?
+        breadcrumb_page(key_point.name)
+      else
+        breadcrumb_link(key_point.name, key_point_path(key_point))
+      end
+    end
+  end
+
+  def bc_scene(scene, section, link)
+    unless scene.nil?
+      if link.nil? && section.nil?
+        breadcrumb_page(scene.name)
+      else
+        breadcrumb_link(scene.name, scene_path(id: scene.id))
+      end
+    end
+  end
+
+  def bc_section(section, link)
+    unless section.nil?
+      if link.nil?
+        breadcrumb_page(section.name)
+      else
+        breadcrumb_link(section.name, section_path(section))
+      end
+    end
   end
 end

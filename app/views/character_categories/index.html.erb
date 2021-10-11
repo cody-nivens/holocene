@@ -11,7 +11,7 @@
             <li>
               <%= link_to character_category.name, character_category %>
               <%= link_to (fa_icon 'edit'), edit_character_category_path(character_category) %>
-              <%= link_to (fa_icon 'trash-o'), character_category, method: :delete, data: { confirm: 'Are you sure?' } %>
+              <%= link_to (fa_icon 'trash'), character_category, method: :delete, data: { confirm: 'Are you sure?' } %>
             </li>
           <% end %>
         <% end %>

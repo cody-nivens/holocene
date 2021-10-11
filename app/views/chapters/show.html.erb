@@ -41,13 +41,13 @@
   <div class='card border-primary border-dark mb3 pull-right float-right' style='width: 60%;'>
     <div class='card-header bg-transparent border-primary'>
       <h3 class='card-header card-title'>
-            <%= section.name %>
-            <%= link_to (fa_icon 'edit'), edit_section_path(section), title: 'Edit', class: 'btn icon-ok icon-white' %>
-            <%= link_to (fa_icon 'sticky-note-o'), section_signets_path(section_id: section.id), title: 'Signets', class: "btn icon-ok icon-white #{!section.signets.empty? ? Signet.color_class(sections.signets[0].color) : ''}" %>
-            <%= link_to (fa_icon 'list'), section_display_path(section_id: section.id), class: 'btn icon-ok icon-white', title: 'Events' %>
-            <%= link_to (fa_icon 'calendar-o'), section_timeline_path(section_id: section.id), class: 'btn icon-ok icon-white', title: 'Timeline' %>
-            <%= link_to (fa_icon 'map-o'), geo_map_section_path(section), class: 'btn icon-ok icon-white', title: 'Map' %>
-<%= link_to 'Footnotes', section_footnotes_path(section_id: section.id), class: 'btn btn-default' %>
+        <%= section.name %>
+        <%= link_to (fa_icon 'edit'), edit_section_path(section), title: 'Edit', class: 'btn icon-ok icon-white' %>
+        <%= link_to (fa_icon 'sticky-note'), section_signets_path(section_id: section.id), title: 'Signets', class: "btn icon-ok icon-white #{!section.signets.empty? ? Signet.color_class(sections.signets[0].color) : ''}" %>
+        <%= link_to (fa_icon 'list'), section_display_path(section_id: section.id), class: 'btn icon-ok icon-white', title: 'Events' %>
+        <%= link_to (fa_icon 'calendar'), section_timeline_path(section_id: section.id), class: 'btn icon-ok icon-white', title: 'Timeline' %>
+        <%= link_to (fa_icon 'map'), geo_map_section_path(section), class: 'btn icon-ok icon-white', title: 'Map' %>
+        <%= link_to 'Footnotes', section_footnotes_path(section_id: section.id) %>
       </h3>
     </div>
     <div class='card-body border'>
@@ -57,11 +57,11 @@
       <h2<%== s %>>
             <%= section.name %>
             <%= link_to (fa_icon 'edit'), edit_polymorphic_path([@chapter, section]), class: 'btn icon-ok icon-white', title: 'Edit' %>
-            <%= link_to (fa_icon 'sticky-note-o'), section_signets_path(section_id: section.id), title: 'Sinets', class: "btn icon-ok icon-white #{!section.signets.empty? ? Signet.color_class(section.signets[0].color) : ''}" %>
+            <%= link_to (fa_icon 'sticky-note'), section_signets_path(section_id: section.id), title: 'Sinets', class: "btn icon-ok icon-white #{!section.signets.empty? ? Signet.color_class(section.signets[0].color) : ''}" %>
             <%= link_to (fa_icon 'list'), section_display_path(section_id: section.id), class: 'btn icon-ok icon-white', title: 'Events' %>
-            <%= link_to (fa_icon 'calendar-o'), section_timeline_path(section_id: section.id), class: 'btn icon-ok icon-white', title: 'Timeline' %>
-            <%= link_to (fa_icon 'map-o'), geo_map_section_path(section), class: 'btn icon-ok icon-white', title: 'Map' %>
-            <%= link_to 'Footnotes', section_footnotes_path(section_id: section.id), class: 'btn btn-default' %>
+            <%= link_to (fa_icon 'calendar'), section_timeline_path(section_id: section.id), class: 'btn icon-ok icon-white', title: 'Timeline' %>
+            <%= link_to (fa_icon 'map'), geo_map_section_path(section), class: 'btn icon-ok icon-white', title: 'Map' %>
+            <%= link_to 'Footnotes', section_footnotes_path(section_id: section.id) %>
       </h2>
     <% end %>
     <% @footnotes = Footnote.process_body(section, @slugs, @footnotes[2]) -%>
@@ -97,12 +97,12 @@
   </div>
 <% end -%>
 
-<% add_to_footer((fa_icon 'edit'), edit_chapter_path(@chapter), classes: 'fa btn icon-ok icon-white', title: 'Edit') %>
+<% add_to_footer((fa_icon 'edit'), edit_chapter_path(@chapter), classes: 'btn icon-ok icon-white', title: 'Edit') %>
 <% if @chapter.scripted_type == 'Book' %>
-  <% add_to_footer((fa_icon 'sticky-note-o'), chapter_signets_path(chapter_id: @chapter.id), title: 'Signets', classes: "btn icon-ok icon-white #{!@chapter.signets.empty? ? Signet.color_class(@chapter.signets[0].color) : ''}") %>
+  <% add_to_footer((fa_icon 'sticky-note'), chapter_signets_path(chapter_id: @chapter.id), title: 'Signets', classes: "btn icon-ok icon-white #{!@chapter.signets.empty? ? Signet.color_class(@chapter.signets[0].color) : ''}") %>
   <% add_to_footer((fa_icon 'list'), chapter_display_path(@chapter), title: 'Events', classes: 'btn icon-ok icon-white') %>
-  <% add_to_footer((fa_icon 'calendar-o'), chapter_timeline_path(@chapter), title: 'Timeline', classes: 'btn icon-ok icon-white') %>
-  <% add_to_footer((fa_icon 'map-o'), geo_map_chapter_path(@chapter), title: 'Map', classes: 'btn icon-ok icon-white') %>
+  <% add_to_footer((fa_icon 'calendar'), chapter_timeline_path(@chapter), title: 'Timeline', classes: 'btn icon-ok icon-white') %>
+  <% add_to_footer((fa_icon 'map'), geo_map_chapter_path(@chapter), title: 'Map', classes: 'btn icon-ok icon-white') %>
   <% add_to_footer('Partition', (@chapter.partition.nil? ? new_chapter_partition_path(@chapter) : edit_partition_path(@chapter.partition))) %>
   <% add_to_footer('Aside', (@chapter.aside.nil? ? new_chapter_aside_path(chapter_id: @chapter.id) : edit_aside_path(@chapter.aside))) %>
   <% add_to_footer('Sections', chapter_sections_path(@chapter)) %>

@@ -21,23 +21,23 @@
 
 <script nonce="<%= request.content_security_policy_nonce %>" type='text/javascript'>
 //$('#character_value_character_attribute_id').prop('disabled', true); // second dropdown is disable while first dropdown is empty
-$(document).ready(function() {
-  $('#character_category_id').change(function(){
-    var character_category = $(this).val();
-    if(character_category == ''){
-      $('#character_value_character_attribute_id').prop('disabled', true);
-    }else{
-      $('#character_value_character_attribute_id').prop('disabled', false);
-    }
-    $.ajax({
+  $(document).on('turbolinks:load', function() {
+    $('#character_category_id').change(function(){
+      var character_category = $(this).val();
+      if(character_category == ''){
+        $('#character_value_character_attribute_id').prop('disabled', true);
+      }else{
+        $('#character_value_character_attribute_id').prop('disabled', false);
+      }
+      $.ajax({
         url: '/character_categories/' + character_category + '/character_attributes',
-      method: 'GET',
-      dataType: 'json',
-      data: {character_category_id: character_category},
-      error: function (xhr, status, error) {
+        method: 'GET',
+        dataType: 'json',
+        data: {character_category_id: character_category},
+        error: function (xhr, status, error) {
           console.error('AJAX Error: ' + status + error);
-      },
-      success: function (response) {
+        },
+        success: function (response) {
           console.log(response);
           var character_attributes = response['character_attributes'];
           $('#character_value_character_attribute_id').empty();
@@ -46,8 +46,8 @@ $(document).ready(function() {
           for(var i = 0; i < character_attributes.length; i++){
             $('#character_value_character_attribute_id').append('<option value=' + character_attributes[i]['id'] + '>' + character_attributes[i]['name'] + '</option>');
           }
-      }
+        }
+      });
     });
   });
-});
 </script>

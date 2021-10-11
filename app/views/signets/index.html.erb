@@ -22,7 +22,7 @@
         <td class="color-<%= Signet.color(signet.color) %>"><%= signet.message %></td>
         <td><%= link_to (fa_icon 'tv'), signet %>
         <%= link_to (fa_icon 'edit'), edit_signet_path("#{@sigged.class.name.underscore}_id".to_sym => @sigged.id, :id => signet.id) %>
-        <%= link_to (fa_icon 'trash-o'), signet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%= link_to (fa_icon 'trash'), signet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

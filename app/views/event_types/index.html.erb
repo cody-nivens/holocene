@@ -17,8 +17,8 @@
         <td><%= event_type.holocene_events.count %></td>
         <td><%= event_type.body %></td>
         <td><%= link_to (fa_icon 'edit'), edit_event_type_path(event_type), title: 'Edit' %></td>
-        <td><%= link_to (fa_icon 'map-o'), geo_map_event_type_path(event_type), title: 'Map' %></td>
-        <td><%= link_to (fa_icon 'trash-o'), event_type, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
+        <td><%= link_to (fa_icon 'map'), geo_map_event_type_path(event_type), title: 'Map' %></td>
+        <td><%= link_to (fa_icon 'trash'), event_type, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
       </tr>
     <% end %>
   </tbody>

@@ -2,49 +2,59 @@
 <table class="table">
 <% else %>
 <strong><%= date %></strong>
-<ul>
 <% end %>
-  <% scenes.keys.sort.each do |year| %>
-    <% scenes[year].keys.sort.each do |month| %>
-      <% scenes[year][month].keys.sort.each do |day| %>
-        <% scenes[year][month][day].each do |scene| %>
-          <% next if !no_section.nil? && !scene.section.nil? %>
-          <% next if !only_section.nil? && scene.section.nil? %>
-          <% if @toggle == "on" %>
-            <tr>
-              <td class="text-wrap" style="width: 20%">
-              <% if print.nil? %>
-                <%= link_to scene.abc, scene_path(scene) %> <%= (scene.section.nil? ? '*' : '') %><br>
-              <% else %>
-                <%= scene.abc %> <%= (scene.section.nil? ? '*' : '') %><br>
+<% old_date = '' %>
+<% scenes.keys.sort.each do |year| %>
+  <% scenes[year].keys.sort.each do |month| %>
+    <% scenes[year][month].keys.sort.each do |day| %>
+      <% scenes[year][month][day].each do |scene| %>
+        <% next if !no_section.nil? && !scene.section.nil? %>
+        <% next if !only_section.nil? && scene.section.nil? %>
+        <% if @toggle == "on" %>
+          <tr>
+            <td class="text-wrap" style="width: 20%">
+            <% if print.nil? %>
+              <%= link_to scene.abc, scene_path(scene) %> <%= (scene.section.nil? ? '*' : '') %><br>
+            <% else %>
+              <%= scene.abc %> <%= (scene.section.nil? ? '*' : '') %><br>
+            <% end %>
+            <%= scene.key_point.name %></td>
+            <td class="text-nowrap"><%= scene.time_to_text %></td>
+            <td style="width: 20%"><%= scene.place %></td>
+            <td style="width: 20%">
+              <% scene.characters.order(:occupation_class, :last_name, :first_name).each do |character| %>
+                <%= character.name %><br>
               <% end %>
-              <%= scene.key_point.name %></td>
-              <td class="text-nowrap"><%= scene.time_to_text %></td>
-              <td style="width: 20%"><%= scene.place %></td>
-              <td style="width: 20%">
-                <% scene.characters.order(:occupation_class, :last_name, :first_name).each do |character| %>
-                  <%= character.name %><br>
-                <% end %>
-              </td>
-              <td><%= scene.plain_name %></td>
-            </tr>
-          <% else %>
-            <li><%= (scene.section.nil? ? '*' : ' ') %>
-              <%= scene.time_to_text %>
-              <% values = scene.set_values %>
-              <% if print.nil? %>
-                <%== surpress_first(breadcrumb(values[0], values[1], values[2], values[3], values[4], true)) %>
-              <% else %>
-                <%= values.compact.collect(&:name).join('|') %>
-              <% end %>
-            </li>
+            </td>
+            <td><%= scene.plain_name %></td>
+          </tr>
+        <% else %>
+          <% if scene.date_string != old_date %>
+            <% unless old_date.blank? %>
+              </ul>
+            <% end %>
+            <%= scene.time_to_text %>
+            <% old_date = scene.date_string %>
+            <ul>
           <% end %>
+          <% values = scene.set_values %>
+          <li>
+            <div>
+              <div class='float-left'><%= (scene.section.nil? ? '*' : ' ') -%></div>
+              <% if print.nil? %>
+                <%== surpress_first(breadcrumb(values[0], values[1], values[2], values[3], values[4], true)) -%>
+              <% else %>
+                <%= values.compact.collect(&:name).join('|') -%>
+              <% end %>
+            </div>
+          </li>
         <% end %>
       <% end %>
     <% end %>
   <% end %>
+<% end %>
 <% if @toggle == "on" %>
-</table>
+  </table>
 <% else %>
-</ul>
+  </ul>
 <% end %>

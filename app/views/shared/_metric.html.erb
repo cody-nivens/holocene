@@ -1,8 +1,16 @@
 <% unless objects.empty? %>
-  <ul>
-  <% objects.each do |metric| %>
+  <% old_date = '' %>
+  <% objects.order(date: :desc).each do |metric| %>
     <% values = metric.metrized.set_values %>
-    <li><%= metric.date.to_date %>: <%== breadcrumb(values[0], values[1], values[2], values[3], values[4], true) %></li>
+    <% if metric.date != old_date %>
+      <% unless old_date.blank? %>
+        </ul>
+      <% end %>
+      <%= metric.date.to_date %>:
+      <% old_date = metric.date %>
+      <ul>
+    <% end %>
+    <li><%== breadcrumb(values[0], values[1], values[2], values[3], values[4], true) %></li>
   <% end %>
   </ul>
 <% end %>

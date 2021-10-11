@@ -111,7 +111,8 @@ class ApplicationController < ActionController::Base
   #
   def after_sign_in_path_for(resource)
     #resource.has_role?(:admin) ? admin_dashboard_path : user_path(resource)
-    resource.has_role?(:admin) ? admin_dashboard_path : root_path
+    #resource.has_role?(:admin) ? admin_dashboard_path : root_path
+    root_path
   end
 
   def authenticate_admin_user!

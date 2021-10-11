@@ -90,7 +90,11 @@ class Scene < ApplicationRecord
   end
 
   def name
-    summary.to_plain_text[0..99].to_s
+    if summary.blank?
+      abc
+    else
+      summary.to_plain_text[0..99].to_s
+    end
   end
 
   def plain_name

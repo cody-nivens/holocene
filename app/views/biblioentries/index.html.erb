@@ -21,7 +21,7 @@
         <td><%= biblioentry.footnotes.count %></td>
         <td><%= link_to (fa_icon 'search-plus'), biblioentry_path(biblioentry), title: 'Show' %></td>
         <td><%= link_to (fa_icon 'edit'), edit_biblioentry_path(biblioentry), title: 'Edit' %></td>
-        <td><%= link_to (fa_icon 'trash-o'), biblioentry_path(biblioentry), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
+        <td><%= link_to (fa_icon 'trash'), biblioentry_path(biblioentry), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
       </tr>
     <% end %>
   </tbody>

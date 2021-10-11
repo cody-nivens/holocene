@@ -33,7 +33,7 @@
       <td>
           <%= link_to (fa_icon 'search-plus'), glossary_term_url(glossary_term), title: 'Show' %><br>
           <%= link_to (fa_icon 'edit'), edit_glossary_term_path(glossary_term), title: 'Edit' %><br>
-          <%= link_to (fa_icon 'trash-o'), glossary_term_url(glossary_term), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
+          <%= link_to (fa_icon 'trash'), glossary_term_url(glossary_term), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
     </td>
       </tr>
     <% end %>

@@ -6,11 +6,8 @@ class ApplicationRecordsHelperTest < ActionView::TestCase
   test 'supress the first crumb' do
     character = characters(:character_1)
     values = character.set_values
-
     string = breadcrumb(values[0], values[1], values[2], values[3], values[4])
-
     string2 = surpress_first(string)
-
     assert_not_equal string, string2
   end
 
@@ -26,7 +23,7 @@ class ApplicationRecordsHelperTest < ActionView::TestCase
     chapter = book.chapters.first
     values = chapter.set_values
     string = breadcrumb(values[0], values[1], values[2], values[3], values[4])
-    string2 = (link_to book.name, book_path(book)).gsub(/"/, "'")
+    string2 = link_to book.name, book_path(book)
     assert Regexp.new(string2) =~ string
     assert Regexp.new(chapter.name) =~ string
     assert /|/ =~ string
@@ -38,8 +35,8 @@ class ApplicationRecordsHelperTest < ActionView::TestCase
     section = chapter.sections.last
     values = section.set_values
     string = breadcrumb(values[0], values[1], values[2], values[3], values[4])
-    string2 = (link_to book.name, book_path(book)).gsub(/"/, "'")
-    string3 = (link_to chapter.name, chapter_path(chapter)).gsub(/"/, "'")
+    string2 = link_to book.name, book_path(book)
+    string3 = link_to chapter.name, chapter_path(chapter)
     assert Regexp.new(string2) =~ string
     assert Regexp.new(string3) =~ string
     assert Regexp.new(section.name) =~ string
@@ -51,7 +48,7 @@ class ApplicationRecordsHelperTest < ActionView::TestCase
     story = book.stories.first
     values = story.set_values
     string = breadcrumb(values[0], values[1], values[2], values[3], values[4])
-    string2 = (link_to book.name, book_path(book)).gsub(/"/, "'")
+    string2 = link_to book.name, book_path(book)
     assert Regexp.new(string2) =~ string
     assert Regexp.new(story.name) =~ string
     assert /|/ =~ string
@@ -63,8 +60,8 @@ class ApplicationRecordsHelperTest < ActionView::TestCase
     key_point = story.key_points.last
     values = key_point.set_values
     string = breadcrumb(values[0], values[1], values[2], values[3], values[4])
-    string2 = (link_to book.name, book_path(book)).gsub(/"/, "'")
-    string3 = (link_to story.name, story_path(story)).gsub(/"/, "'")
+    string2 = link_to book.name, book_path(book)
+    string3 = link_to story.name, story_path(story)
     assert Regexp.new(string2) =~ string
     assert Regexp.new(string3) =~ string
     assert Regexp.new(key_point.name) =~ string
@@ -78,9 +75,9 @@ class ApplicationRecordsHelperTest < ActionView::TestCase
     scene = key_point.scenes.last
     values = scene.set_values
     string = breadcrumb(values[0], values[1], values[2], values[3], values[4])
-    string2 = (link_to book.name, book_path(book)).gsub(/"/, "'")
-    string3 = (link_to story.name, story_path(story)).gsub(/"/, "'")
-    string4 = (link_to key_point.name, key_point_path(key_point)).gsub(/"/, "'")
+    string2 = link_to book.name, book_path(book)
+    string3 = link_to story.name, story_path(story)
+    string4 = link_to key_point.name, key_point_path(key_point)
     assert Regexp.new(string2) =~ string
     assert Regexp.new(string3) =~ string
     assert Regexp.new(string4) =~ string
@@ -96,10 +93,10 @@ class ApplicationRecordsHelperTest < ActionView::TestCase
     section = scene.section
     values = section.set_values
     string = breadcrumb(values[0], values[1], values[2], values[3], values[4])
-    string2 = (link_to book.name, book_path(book)).gsub(/"/, "'")
-    string3 = (link_to story.name, story_path(story)).gsub(/"/, "'")
-    string4 = (link_to key_point.name, key_point_path(key_point)).gsub(/"/, "'")
-    string5 = (link_to scene.name, scene_path(scene)).gsub(/"/, "'")
+    string2 = link_to book.name, book_path(book)
+    string3 = link_to story.name, story_path(story)
+    string4 = link_to key_point.name, key_point_path(key_point)
+    string5 = link_to scene.name, scene_path(scene)
     assert Regexp.new(string2) =~ string
     assert Regexp.new(string3) =~ string
     assert Regexp.new(string4) =~ string
