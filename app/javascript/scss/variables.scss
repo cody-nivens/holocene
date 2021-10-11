@@ -5,3 +5,18 @@ $body-color: #111;
 $navbar-default-bg: #312312;
 $light-orange: #ff8c00;
 $navbar-default-color: $light-orange;
+$theme-colors: ( "bootstrap": $body-bg, "simpleform": #00617f );
+$fa-font-path: "font-awesome/fonts" !default;
+$font-base: 16;
+
+@function rem-calc($pixel) {
+  $rem: $pixel / $font-base;
+  @return #{$rem}rem;
+}
+
+//$navbar-border-radius:            $border-radius !default;
+
+$navbar-height: rem-calc(50) !default;
+
+//$grid-float-breakpoint:     nth($grid-breakpoints, 1) !default;
+

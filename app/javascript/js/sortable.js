@@ -10,9 +10,7 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-require("jquery-ui-dist/jquery-ui");
-
-$(document).ready(function() {
+$(document).on('turbolinks:load', function() {
   $('.chapter_outer-sortable').sortable({
     axis        : "y",
     cursor      : "grabbing",
