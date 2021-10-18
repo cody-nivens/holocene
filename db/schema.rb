@@ -2,17 +2,17 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_27_211059) do
+ActiveRecord::Schema.define(version: 2021_10_11_142636) do
 
-  create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
     t.string "record_type", null: false
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
   end
 
-  create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "active_admin_comments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
     t.string "resource_type"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
   end
 
-  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "active_storage_blobs", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -57,19 +57,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "admin_users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_admin_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
-  end
-
-  create_table "artifact_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "artifact_types", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.bigint "book_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -78,7 +66,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["book_id"], name: "index_artifact_types_on_book_id"
   end
 
-  create_table "artifacts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "artifacts", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.bigint "character_id", null: false
     t.bigint "book_id", null: false
@@ -92,7 +80,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["parent_id"], name: "index_artifacts_on_parent_id"
   end
 
-  create_table "asides", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "asides", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -100,7 +88,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["chapter_id"], name: "index_asides_on_chapter_id"
   end
 
-  create_table "authors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "authors", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.datetime "created_at", null: false
@@ -109,21 +97,21 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["user_id"], name: "index_authors_on_user_id"
   end
 
-  create_table "authors_biblioentries", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "authors_biblioentries", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "author_id", null: false
     t.bigint "biblioentry_id", null: false
     t.index ["author_id", "biblioentry_id"], name: "index_author_biblioentry_1"
     t.index ["biblioentry_id", "author_id"], name: "index_author_biblioentry_2"
   end
 
-  create_table "authors_books", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "authors_books", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "author_id", null: false
     t.bigint "book_id", null: false
     t.index ["author_id", "book_id"], name: "index_author_book_1"
     t.index ["book_id", "author_id"], name: "index_author_book_2"
   end
 
-  create_table "biblioentries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "biblioentries", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.string "xreflabel"
     t.string "copyright_year"
@@ -138,7 +126,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["user_id"], name: "index_biblioentries_on_user_id"
   end
 
-  create_table "books", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "books", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -152,13 +140,13 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["user_id"], name: "index_books_on_user_id"
   end
 
-  create_table "books_characters", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "books_characters", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "book_id", null: false
     t.bigint "character_id", null: false
     t.index ["book_id", "character_id"], name: "index_books_characters_on_book_id_and_character_id", unique: true
   end
 
-  create_table "chapters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "chapters", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.integer "position"
     t.string "slug"
@@ -172,28 +160,28 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["scripted_type", "scripted_id"], name: "index_chapters_on_scripted_type_and_scripted_id"
   end
 
-  create_table "chapters_characters", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "chapters_characters", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "chapter_id", null: false
     t.bigint "character_id", null: false
     t.index ["chapter_id", "character_id"], name: "index_chapter_character_1"
     t.index ["character_id", "chapter_id"], name: "index_chapter_character_2"
   end
 
-  create_table "chapters_holocene_events", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "chapters_holocene_events", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "chapter_id", null: false
     t.bigint "holocene_event_id", null: false
     t.index ["chapter_id", "holocene_event_id"], name: "index_chapter_holocene_event_1"
     t.index ["holocene_event_id", "chapter_id"], name: "index_chapter_holocene_event_2"
   end
 
-  create_table "chapters_timelines", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "chapters_timelines", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "chapter_id", null: false
     t.bigint "timeline_id", null: false
     t.index ["chapter_id", "timeline_id"], name: "index_chapter_timeline_1"
     t.index ["timeline_id", "chapter_id"], name: "index_chapter_timeline_2"
   end
 
-  create_table "character_attributes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "character_attributes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.bigint "character_category_id", null: false
     t.integer "related_id"
@@ -204,14 +192,14 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["related_id"], name: "index_character_attributes_on_related_id"
   end
 
-  create_table "character_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "character_categories", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "position"
   end
 
-  create_table "character_scenes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "character_scenes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "character_id", null: false
     t.bigint "scene_id", null: false
     t.datetime "created_at", null: false
@@ -220,14 +208,14 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["scene_id", "character_id"], name: "index_scene_character_2"
   end
 
-  create_table "character_stories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "character_stories", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "story_id", null: false
     t.bigint "character_id", null: false
     t.index ["character_id", "story_id"], name: "index_story_character_2"
     t.index ["story_id", "character_id"], name: "index_story_character_1"
   end
 
-  create_table "character_values", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "character_values", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "character_id", null: false
     t.bigint "character_attribute_id", null: false
     t.string "value"
@@ -237,7 +225,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["character_id"], name: "index_character_values_on_character_id"
   end
 
-  create_table "characters", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "characters", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.string "reason_for_name"
     t.string "nickname"
@@ -264,7 +252,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["mother_id"], name: "index_characters_on_mother_id"
   end
 
-  create_table "cities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "cities", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.string "name_ascii"
     t.decimal "lat", precision: 10, scale: 4
@@ -280,7 +268,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "epochs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "epochs", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.integer "start_date"
     t.integer "end_date"
@@ -291,14 +279,14 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["user_id"], name: "index_epochs_on_user_id"
   end
 
-  create_table "epochs_timelines", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "epochs_timelines", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "epoch_id", null: false
     t.bigint "timeline_id", null: false
     t.index ["epoch_id", "timeline_id"], name: "index_epoch_timeline_1"
     t.index ["timeline_id", "epoch_id"], name: "index_epoch_timeline_2"
   end
 
-  create_table "event_types", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "event_types", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -306,21 +294,21 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["user_id"], name: "index_event_types_on_user_id"
   end
 
-  create_table "event_types_holocene_events", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "event_types_holocene_events", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "event_type_id", null: false
     t.bigint "holocene_event_id", null: false
     t.index ["event_type_id", "holocene_event_id"], name: "index_event_type_holocene_event_1"
     t.index ["holocene_event_id", "event_type_id"], name: "index_event_type_holocene_event_2"
   end
 
-  create_table "event_types_timelines", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "event_types_timelines", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "event_type_id", null: false
     t.bigint "timeline_id", null: false
     t.index ["event_type_id", "timeline_id"], name: "index_event_type_timeline_1"
     t.index ["timeline_id", "event_type_id"], name: "index_event_type_timeline_2"
   end
 
-  create_table "footnotes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "footnotes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "slug"
     t.string "noted_type"
     t.bigint "noted_id"
@@ -331,7 +319,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["noted_type", "noted_id"], name: "index_footnotes_on_noted_type_and_noted_id"
   end
 
-  create_table "glossary_terms", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "glossary_terms", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.text "body"
     t.integer "see_id"
@@ -349,7 +337,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["user_id"], name: "index_glossary_terms_on_user_id"
   end
 
-  create_table "holocene_events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "holocene_events", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.integer "start_year"
     t.integer "end_year"
@@ -369,21 +357,21 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["user_id"], name: "index_holocene_events_on_user_id"
   end
 
-  create_table "holocene_events_sections", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "holocene_events_sections", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "holocene_event_id", null: false
     t.bigint "section_id", null: false
     t.index ["holocene_event_id", "section_id"], name: "index_holocene_event_section_1"
     t.index ["section_id", "holocene_event_id"], name: "index_holocene_event_section_2"
   end
 
-  create_table "holocene_events_timelines", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "holocene_events_timelines", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "holocene_event_id", null: false
     t.bigint "timeline_id", null: false
     t.index ["holocene_event_id", "timeline_id"], name: "index_timeline_holocene_event_2"
     t.index ["timeline_id", "holocene_event_id"], name: "index_timeline_holocene_event_1"
   end
 
-  create_table "itineraries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "itineraries", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.bigint "tour_id", null: false
     t.bigint "city_id", null: false
@@ -395,7 +383,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["tour_id"], name: "index_itineraries_on_tour_id"
   end
 
-  create_table "key_points", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "key_points", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.text "hook"
     t.string "inciting_incident"
     t.string "key_element"
@@ -415,7 +403,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["scripted_type", "scripted_id"], name: "index_key_points_on_scripted_type_and_scripted_id"
   end
 
-  create_table "key_words", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "key_words", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "key_word"
     t.bigint "book_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -423,7 +411,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["book_id"], name: "index_key_words_on_book_id"
   end
 
-  create_table "metrics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "metrics", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "count"
     t.datetime "date"
     t.bigint "user_id", null: false
@@ -435,7 +423,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["user_id"], name: "index_metrics_on_user_id"
   end
 
-  create_table "namers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "namers", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.boolean "first_name", default: false
     t.decimal "white", precision: 5, scale: 3
@@ -449,7 +437,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "partitions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "partitions", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.integer "chapter_id"
     t.datetime "created_at", null: false
@@ -457,7 +445,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["chapter_id"], name: "index_partitions_on_chapter_id"
   end
 
-  create_table "regions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "regions", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -465,7 +453,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["user_id"], name: "index_regions_on_user_id"
   end
 
-  create_table "roles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "roles", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
     t.bigint "resource_id"
@@ -476,7 +464,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
   end
 
-  create_table "scenes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "scenes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "abc"
     t.boolean "check"
     t.integer "scene_sequel"
@@ -499,7 +487,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["situated_type", "situated_id"], name: "index_scenes_on_situated_type_and_situated_id"
   end
 
-  create_table "sections", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "sections", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.boolean "display_name"
     t.integer "position"
@@ -516,7 +504,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["user_id"], name: "index_sections_on_user_id"
   end
 
-  create_table "signets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "signets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "color"
     t.string "message"
     t.string "sigged_type"
@@ -526,7 +514,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["sigged_id", "sigged_type"], name: "index_signets_on_sigged_id_and_sigged_type"
   end
 
-  create_table "stories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "stories", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "title"
     t.text "summary"
     t.integer "book_id"
@@ -540,7 +528,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["book_id"], name: "index_stories_on_book_id"
   end
 
-  create_table "taggings", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "taggings", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "tag_id"
     t.string "taggable_type"
     t.integer "taggable_id"
@@ -559,13 +547,13 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
   end
 
-  create_table "tags", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "tags", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", collation: "utf8_bin"
     t.integer "taggings_count", default: 0
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
-  create_table "timelines", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "timelines", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
@@ -574,7 +562,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["user_id"], name: "index_timelines_on_user_id"
   end
 
-  create_table "tours", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "tours", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.bigint "story_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -582,7 +570,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["story_id"], name: "index_tours_on_story_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -594,7 +582,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_211059) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "users_roles", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "users_roles", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "role_id"
     t.index ["role_id"], name: "index_users_roles_on_role_id"

@@ -7,6 +7,6 @@
     <%= link_to artifact.name, artifact_path(artifact) %></td>
   <td><%= artifact.character_name %></td>
   <td><%= artifact.artifact_type_name %></td>
-  <td><%= link_to (fa_icon 'edit'), edit_artifact_path(artifact) %>
-    <%= link_to (fa_icon 'trash'), artifact_path(artifact), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <td><%= link_to (fa_icon 'edit'), edit_artifact_path(artifact), title: 'Edit' %>
+    <%= link_to (fa_icon 'trash'), artifact_path(artifact), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete' %></td>
 </tr>

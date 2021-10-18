@@ -33,7 +33,7 @@
   <% 1.upto(6).each do |selector| %>
     <% c.tab KeyPoint.selector_title(selector) do %>
       <span>
-        <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: selector) %> <%= @key_point.selector_value(selector) %></h3>
+        <h3><%= link_to (fa_icon 'plus'), polymorphic_path([@scripted, @key_point, :list], selector: selector), title: 'Add Scene' %> <%= @key_point.selector_value(selector) %></h3>
         <%= render partial: 'key_points/scenes', locals: { selector: selector, key_point: @key_point, story: @scripted, scripted: @scripted } %>
       </span>
     <% end %>
@@ -45,9 +45,9 @@
 
 <% prev_key_point = @key_point.set_prev %>
 <% unless prev_key_point.nil? %>
-  <% @footer_content << (link_to '<', key_point_path(prev_key_point), class: 'btn icon-ok icon-white').to_s %>
+  <% add_to_footer('<', key_point_path(prev_key_point), class: 'btn icon-ok icon-white', title: 'Previous Key Point').to_s %>
 <% end %>
 <% next_key_point = @key_point.set_next %>
 <% unless next_key_point.nil? %>
-  <% @footer_content << (link_to '>', key_point_path(next_key_point), class: 'btn icon-ok icon-white').to_s %>
+  <% add_to_footer('>', key_point_path(next_key_point), class: 'btn icon-ok icon-white', title: 'Next Key Point').to_s %>
 <% end %>

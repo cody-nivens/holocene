@@ -1,26 +1,28 @@
+<%= bootstrap_form_for section, url: { controller: :sections, action: (section.id.nil? ? :create : :update) } do |f| %>
 <div class="container">
   <div class="row">
     <div class="col-8">
-<%= bootstrap_form_for section, url: { controller: :sections, action: (section.id.nil? ? :create : :update) } do |f| %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+      <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <%= f.hidden_field :sectioned_id %>
-  <%= f.hidden_field :sectioned_type %>
-  <%= f.hidden_field :user_id %>
+      <%= f.hidden_field :sectioned_id %>
+      <%= f.hidden_field :sectioned_type %>
+      <%= f.hidden_field :user_id %>
 
-  <%= f.text_field :name %>
-  <%= f.check_box :display_name %>
-  <%= f.text_field :embed %>
+      <%= f.text_field :name %>
+      <%= f.check_box :display_name %>
+      <%= f.text_field :embed %>
 
-  <div class='field'>
-  <%= f.rich_text_area :body, class: 'form-control customized-min-height' %>
-  </div>
+      <div class='field'>
+        <%= f.rich_text_area :body, class: 'form-control customized-min-height' %>
+      </div>
 
-  <%= f.primary command_label.to_s %>
-
-<% end %>
-  </div>
-  <div class="col-2">
-      <%= render partial: 'characters/characters_occ_ul', formats: [:html], locals: { object: @sectioned } %>
+      <%= f.primary command_label.to_s %>
+    </div>
+    <% unless section.sectioned_type == 'Chapter' %>
+      <div class="col-2">
+        <%= render partial: 'characters/characters_occ_ul', formats: [:html], locals: { object: @sectioned } %>
+      </div>
+    <% end %>
   </div>
 </div>
+<% end %>

@@ -20,5 +20,5 @@ book_3:
 book_4:
   name: The Sopwith Camel
   user: users_1
-  fiction: 1
+  fiction: 0
   position: 4

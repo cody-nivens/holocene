@@ -45,7 +45,7 @@ class HoloceneEvent < ApplicationRecord
   # Generate URL for image
   #
   def cover_url
-    rails_blob_path(image, disposition: 'attachment', only_path: true)
+    #rails_blob_path(image, disposition: 'attachment', only_path: true)
   end
 
   #

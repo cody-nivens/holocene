@@ -30,7 +30,7 @@
                  else
                    character_scene.character_name
                  end) %>, <%= character_scene.character_occupation_class %><%= (character_scene.character_grouping.blank? ? '' : ", #{character_scene.character_grouping}") %>
-          <%= link_to (fa_icon 'plus'), edit_character_scene_path(character_scene) %>
+          <%= link_to (fa_icon 'plus'), edit_character_scene_path(character_scene), title: 'Edit character role in scene' %>
           <% unless character_scene.summary.nil? %>
             <%= character_scene.summary.to_plain_text %>
           <% end %>

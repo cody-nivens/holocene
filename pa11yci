@@ -1,0 +1,19 @@
+{
+  "defaults": {
+    "hideElements": "#carbonads",
+    "ignore": [ "notice", "warning" ]
+  },
+"urls": [
+    {
+      "url": "http://localhost:3000/",
+        "actions": [
+        "wait for path to be /users/sign_in",
+        "set field #user_email to palo@alto.com",
+        "set field #user_password to 123456789",
+        "screen capture example.png",
+        "click element input[name='commit']",
+        "navigate to http://localhost:3000/"
+       ]
+     }
+    ]
+}

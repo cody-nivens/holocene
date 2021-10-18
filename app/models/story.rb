@@ -8,7 +8,6 @@ class Story < ApplicationRecord
 
   has_many :character_stories
   has_many :characters, through: :character_stories
-  has_many :chapters, as: :scripted
   has_many :key_points, -> { order(position: :asc) }, as: :scripted
   has_many :scenes, as: :situated
   has_many :signets, as: :sigged

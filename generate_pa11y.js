@@ -11,7 +11,7 @@ async function runExample() {
 
 		// Put together some options to use in each test
 		const options = require('./generate_pa11y.json');
-            options['log'] = {
+        options['log'] = {
                 debug: console.log,
                 error: console.error,
                 info: console.log

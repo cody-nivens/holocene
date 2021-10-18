@@ -9,7 +9,7 @@
   </div>
   <div class='title'>
     <%= link_to (fa_icon 'edit'), edit_chapter_path(chapter), title: 'Edit' %>
-    <strong><font size='4'><%= link_to chapter.name, chapter_path(chapter), title: 'Show' %></font></strong>
+    <strong><%= link_to chapter.name, chapter_path(chapter), title: 'Show' %></strong>
     <br>
     <% if chapter.aside.nil? %>
       <%= link_to (fa_icon 'plus'), new_chapter_aside_path(chapter), title: 'Aside' %>

@@ -41,7 +41,7 @@ chapter_5:
   name: 'Chapter Five Stuff '
   position: 1
   slug: xx3vUMrsN3
-  scripted: story_1 (Story)
+  scripted: book_4 (Book)
   show_events: true
   always_display_events: true
   display_title: true
@@ -49,7 +49,7 @@ chapter_6:
   name: 'Chapter Six Stuff '
   position: 2
   slug: tE3vUMrsN3
-  scripted: story_1 (Story)
+  scripted: book_4 (Book)
   show_events: true
   always_display_events: true
   display_title: true

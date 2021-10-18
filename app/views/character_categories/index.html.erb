@@ -10,8 +10,8 @@
           <%= content_tag 'div', id: "character_category-#{character_category.id}", data: { model_name: character_category.class.name.underscore, update_url: character_category_sort_path(character_category) } do %>
             <li>
               <%= link_to character_category.name, character_category %>
-              <%= link_to (fa_icon 'edit'), edit_character_category_path(character_category) %>
-              <%= link_to (fa_icon 'trash'), character_category, method: :delete, data: { confirm: 'Are you sure?' } %>
+              <%= link_to (fa_icon 'edit'), edit_character_category_path(character_category), title: 'Edit' %>
+              <%= link_to (fa_icon 'trash'), character_category, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete' %>
             </li>
           <% end %>
         <% end %>

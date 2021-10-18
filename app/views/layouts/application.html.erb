@@ -20,12 +20,12 @@
     <div class="outer-container">
       <%= render partial: 'application/header' %>
       <%= render partial: 'layouts/messages' %>
-    <div class="container">
-      <div id="content-wrap">
-        <%= yield %>
+      <div class="container">
+        <div id="content-wrap">
+          <%= yield %>
+        </div>
+        <%= render partial: 'application/footer', locals: { footer_content: @footer_content } %>
       </div>
-      <%= render partial: 'application/footer', locals: { footer_content: @footer_content } %>
-    </div>
     </div>
   </body>
 </html>

@@ -20,9 +20,9 @@
 
     <td>
  <div class='dropdown'>
-  <button class='btn btn-default dropdown-toggle' type='button' id='menu1' data-toggle='dropdown'>Event Types
+  <button class='btn btn-default dropdown-toggle' type='button' id='menu2' data-toggle='dropdown'>Event Types
   <span class='caret'></span></button>
-  <ul class='dropdown-menu' role='menu' aria-labelledby='menu1'>
+  <ul class='dropdown-menu' role='menu' aria-labelledby='menu2'>
     <% EventType.all.order(:name).each do |event_type| -%>
         <li><%= link_to "#{event_type.name} #{event_type.holocene_events.count}", event_type_path(event_type), html: { role: 'menu' } %></li>
     <% end -%>

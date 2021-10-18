@@ -18,20 +18,20 @@
     <li class='nav-item'> <a class='nav-link' href='/books/<%= @book.id %>/characters'>Characters</a> </li>
   <% else %>
     <li class='nav-item dropdown'>
-      <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown1' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+      <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown2' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
         Events
       </a>
-      <ul class='dropdown-menu' aria-labelledby='navbar_dropdown1'>
+      <ul class='dropdown-menu' aria-labelledby='navbar_dropdown2'>
         <% %w[holocene_event timeline epoch].each do |form| %>
           <li> <%= link_to t("app.index.#{form}.link"), [form.pluralize.to_sym], class: 'dropdown-item' %> </li>
         <% end %>
       </ul>
     </li>
     <li class='nav-item dropdown'>
-      <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown1' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+      <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown3' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
         Support
       </a>
-      <ul class='dropdown-menu' aria-labelledby='navbar_dropdown1'>
+      <ul class='dropdown-menu' aria-labelledby='navbar_dropdown3'>
         <% %w[event_type region].each do |form| %>
           <li> <%= link_to t("app.index.#{form}.link"), [form.pluralize.to_sym], class: 'dropdown-item' %> </li>
         <% end %>

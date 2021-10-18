@@ -42,11 +42,11 @@
     <div class='card-header bg-transparent border-primary'>
       <h3 class='card-header card-title'>
         <%= section.name %>
-        <%= link_to (fa_icon 'edit'), edit_section_path(section), title: 'Edit', class: 'btn icon-ok icon-white' %>
-        <%= link_to (fa_icon 'sticky-note'), section_signets_path(section_id: section.id), title: 'Signets', class: "btn icon-ok icon-white #{!section.signets.empty? ? Signet.color_class(sections.signets[0].color) : ''}" %>
-        <%= link_to (fa_icon 'list'), section_display_path(section_id: section.id), class: 'btn icon-ok icon-white', title: 'Events' %>
-        <%= link_to (fa_icon 'calendar'), section_timeline_path(section_id: section.id), class: 'btn icon-ok icon-white', title: 'Timeline' %>
-        <%= link_to (fa_icon 'map'), geo_map_section_path(section), class: 'btn icon-ok icon-white', title: 'Map' %>
+        <%= link_to (fa_icon 'edit'), edit_section_path(section), title: 'Edit' %>
+        <%= link_to (fa_icon 'sticky-note'), section_signets_path(section_id: section.id), title: 'Signets', class: "#{!section.signets.empty? ? Signet.color_class(sections.signets[0].color) : ''}" %>
+        <%= link_to (fa_icon 'list'), section_display_path(section_id: section.id), title: 'Events' %>
+        <%= link_to (fa_icon 'calendar'), section_timeline_path(section_id: section.id), title: 'Timeline' %>
+        <%= link_to (fa_icon 'map'), geo_map_section_path(section), title: 'Map' %>
         <%= link_to 'Footnotes', section_footnotes_path(section_id: section.id) %>
       </h3>
     </div>
@@ -56,11 +56,11 @@
     <% unless section.embed? %>
       <h2<%== s %>>
             <%= section.name %>
-            <%= link_to (fa_icon 'edit'), edit_polymorphic_path([@chapter, section]), class: 'btn icon-ok icon-white', title: 'Edit' %>
-            <%= link_to (fa_icon 'sticky-note'), section_signets_path(section_id: section.id), title: 'Sinets', class: "btn icon-ok icon-white #{!section.signets.empty? ? Signet.color_class(section.signets[0].color) : ''}" %>
-            <%= link_to (fa_icon 'list'), section_display_path(section_id: section.id), class: 'btn icon-ok icon-white', title: 'Events' %>
-            <%= link_to (fa_icon 'calendar'), section_timeline_path(section_id: section.id), class: 'btn icon-ok icon-white', title: 'Timeline' %>
-            <%= link_to (fa_icon 'map'), geo_map_section_path(section), class: 'btn icon-ok icon-white', title: 'Map' %>
+            <%= link_to (fa_icon 'edit'), edit_polymorphic_path([@chapter, section]), title: 'Edit' %>
+            <%= link_to (fa_icon 'sticky-note'), section_signets_path(section_id: section.id), title: 'Sinets', class: "#{!section.signets.empty? ? Signet.color_class(section.signets[0].color) : ''}" %>
+            <%= link_to (fa_icon 'list'), section_display_path(section_id: section.id), title: 'Events' %>
+            <%= link_to (fa_icon 'calendar'), section_timeline_path(section_id: section.id), title: 'Timeline' %>
+            <%= link_to (fa_icon 'map'), geo_map_section_path(section), title: 'Map' %>
             <%= link_to 'Footnotes', section_footnotes_path(section_id: section.id) %>
       </h2>
     <% end %>

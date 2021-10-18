@@ -35,12 +35,12 @@
 <% next_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position + 1) -%>
 
 <% add_to_footer('Edit', edit_section_path(@section)) %>
-<% @footer_content << (link_to '<', section_path(priv_section.first), class: 'btn icon-ok icon-white').to_s unless priv_section.size.zero? %>
-<% @footer_content << (link_to '>', section_path(next_section.first), class: 'btn icon-ok icon-white').to_s unless next_section.size.zero? %>
+<% add_to_footer('<', section_path(priv_section.first), class: 'btn icon-ok icon-white', title: 'Previous section').to_s unless priv_section.size.zero? %>
+<% add_to_footer('>', section_path(next_section.first), class: 'btn icon-ok icon-white', title: 'Next section').to_s unless next_section.size.zero? %>
 <% if @section.sectioned_type == "Chapter" %>
-  <% @footer_content << (link_to 'Timeline', section_timeline_path(section_id: @section.id), class: 'btn icon-ok icon-white').to_s %>
-  <% @footer_content << (link_to 'Display', section_display_path(section_id: @section.id), class: 'btn icon-ok icon-white').to_s %>
-  <% @footer_content << (link_to 'Map', geo_map_section_path(@section), class: 'btn icon-ok icon-white').to_s %>
+  <% add_to_footer('Timeline', section_timeline_path(section_id: @section.id), class: 'btn icon-ok icon-white').to_s %>
+  <% add_to_footer('Display', section_display_path(section_id: @section.id), class: 'btn icon-ok icon-white').to_s %>
+  <% add_to_footer('Map', geo_map_section_path(@section), class: 'btn icon-ok icon-white').to_s %>
   <% add_to_footer('Footnotes', section_footnotes_path(@section)) %>
 <% end -%>
 <% add_to_footer('Back', polymorphic_path(@sectioned)) %>

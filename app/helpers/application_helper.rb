@@ -48,7 +48,6 @@ module ApplicationHelper
     authors.each do |author|
       s += "#{author.first_name} #{author.last_name}, "
     end
-
     s.chomp(', ')
   end
 
@@ -77,7 +76,6 @@ module ApplicationHelper
 
   def convert_ad(value, uncert = nil)
     return '' if value.nil?
-
     a = (value < 0 ? "#{-value}&nbsp;BC" : "#{value}&nbsp;AD")
     a += " &plusmn; #{uncert} years" unless uncert.nil?
     a.html_safe
