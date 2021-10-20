@@ -49,8 +49,9 @@ class ScenesTest < ApplicationSystemTestCase
 #    visit Destroy
     visit scene_url(@scene)
     assert_link 'Destroy'
-    accept_alert do
+    accept_confirm do
       click_on 'Destroy'
+      page.driver.browser.switch_to.alert.accept
     end
     assert_button 'Go'
     assert_current_path polymorphic_path([@situated, :scenes])
@@ -173,7 +174,7 @@ class ScenesTest < ApplicationSystemTestCase
 
   test 'creating a Scene' do
     visit key_point_url(@key_point)
-    find(:xpath, ".//a[i[contains(@class, 'fa-plus')]]", match: :first).click
+    Capybara.page.find('.fa-plus', match: :first).click
     click_on 'New Scene'
 
     assert_text 'Abc'
@@ -203,7 +204,7 @@ class ScenesTest < ApplicationSystemTestCase
 
   test 'not creating a Scene' do
     visit key_point_url(@key_point)
-    find(:xpath, ".//a[i[contains(@class, 'fa-plus')]]", match: :first).click
+    Capybara.page.find('.fa-plus', match: :first).click
     click_on 'New Scene'
 
     fill_in 'Abc', with: ''

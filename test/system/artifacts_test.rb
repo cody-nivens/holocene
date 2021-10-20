@@ -14,7 +14,7 @@ class ArtifactsTest < ApplicationSystemTestCase
 #   visit Show
     visit book_artifacts_path(@artifact.book)
     within row_containing_cell_with_text(@artifact.name) do
-      find(:css, 'i.fa.fa-edit').click
+      find(:xpath, ".//a[contains(@title, 'Edit')]", match: :first).click
     end
     assert_link 'Show'
     click_on 'Show'

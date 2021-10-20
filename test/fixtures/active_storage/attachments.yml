@@ -1,6 +1,4 @@
 attachment_identifier:
-  name: "attachment_name"
-  record_type: "HoloceneEvent"
-  record_id: <%= ActiveRecord::FixtureSet.identify(:holocene_event_1) %>
-  blob_id: <%= ActiveRecord::FixtureSet.identify(:blob_1) %>
-  created_at: <%= Time.zone.now %>
+  name: image
+  record: holocene_event_1 (HoloceneEvent)
+  blob: blob_1

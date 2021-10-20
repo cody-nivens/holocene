@@ -17,7 +17,8 @@ unless ENV['NO_HEADLESS']
 
     options.add_preference(:browser, set_download_behavior: { behavior: 'allow' })
 
-    driver = Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+    service = Selenium::WebDriver::Service.chrome(args: { verbose: true, log_path: '/tmp/chromedriver.log' })
+    driver = Capybara::Selenium::Driver.new(app, browser: :chrome, service: service, options: options)
 
     bridge = driver.browser.send(:bridge)
 
@@ -66,7 +67,8 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   def after_teardown
     super
     remove_uploaded_files
-    errors = page.driver.browser.manage.logs.get(:browser)
+    errors = page.driver.browser.logs.get(:browser)
+    #errors = page.driver.browser.manage.logs.get(:browser)
     if errors.present?
       errors.each do |error|
         #next unless error.level == 'WARNING'

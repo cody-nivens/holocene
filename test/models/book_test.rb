@@ -19,6 +19,6 @@ class BookTest < ActiveSupport::TestCase
   test 'word count II' do
     book = books(:book_4)
     count = book.word_count
-    assert_equal 0, count
+    assert_equal 10, count
   end
 end

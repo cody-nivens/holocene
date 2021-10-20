@@ -13,7 +13,7 @@ class CharacterScenesTest < ApplicationSystemTestCase
   test 'character_scenes edit' do
 #    visit Show
     visit scene_url(id: @scene.id)
-    find(:xpath, ".//a[i[contains(@class, 'fa-plus')]]", match: :first).click
+    Capybara.page.find('.fa-plus', match: :first).click
     assert_text 'Editing Character Scene'
     assert_current_path edit_character_scene_path(@character_scene)
     click_on 'Back'
@@ -24,7 +24,7 @@ class CharacterScenesTest < ApplicationSystemTestCase
 
   test 'updating a Character scene' do
     visit scene_url(id: @scene.id)
-    find(:xpath, ".//a[i[contains(@class, 'fa-plus')]]", match: :first).click
+    Capybara.page.find('.fa-plus', match: :first).click
 
     fill_in_rich_text_area 'character_scene_summary', with: 'Test 1'
     click_on 'Update Character scene'
@@ -35,7 +35,7 @@ class CharacterScenesTest < ApplicationSystemTestCase
 
   test 'not updating a Character scene' do
     visit scene_url(id: @scene.id)
-    find(:xpath, ".//a[i[contains(@class, 'fa-plus')]]", match: :first).click
+    Capybara.page.find('.fa-plus', match: :first).click
 
     CharacterScene.any_instance.stubs(:update).returns(false)
 

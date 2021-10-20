@@ -1,8 +1,9 @@
 blob_1:
-  id: 1
   key: '12345678'
   filename: 'image.jpg'
-  content_type: 'image/jpg'
-  byte_size: 9432
-  checksum: "4f0f08c26fdf7de911a6433ae0ae63e7"
   created_at: <%= Time.zone.now %>
+  content_type: image/jpeg
+  metadata: '{"identified":true,"analyzed":true}'
+  byte_size: <%= File.size(Rails.root.join('test', 'fixtures', 'files', 'image.jpg')) %>
+  checksum: <%= Digest::MD5.file(Rails.root.join('test', 'fixtures', 'files', 'image.jpg')).base64digest %>
+  service_name: test

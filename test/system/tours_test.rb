@@ -160,8 +160,9 @@ class ToursTest < ApplicationSystemTestCase
 
   test 'destroying a Tour' do
     visit story_tours_url(@story)
-    page.accept_confirm do
+    accept_confirm do
       click_on 'Destroy', match: :first
+      page.driver.browser.switch_to.alert.accept
     end
 
     assert_text 'Tour was successfully destroyed'

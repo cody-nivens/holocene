@@ -135,7 +135,7 @@ class ChaptersTest < ApplicationSystemTestCase
 
   test 'visiting the Chapters map' do
     visit polymorphic_url([@scripted, :chapters])
-    Capybara.page.find('.fa-map-o', match: :first).click
+    Capybara.page.find('.fa-map', match: :first).click
     assert_no_text 'link_to'
     assert_link 'Back'
     click_on 'Back'
@@ -143,12 +143,12 @@ class ChaptersTest < ApplicationSystemTestCase
 
   test 'demoting a chapter' do
     visit polymorphic_url([@scripted, :chapters])
-    Capybara.page.find('.fa-level-down', match: :first).click
+    Capybara.page.find('.fa-arrow-down', match: :first).click
   end
 
   test 'promoting a chapter' do
     visit polymorphic_url([@scripted, :chapters])
-    Capybara.page.find('.fa-level-up', match: :first).click
+    Capybara.page.find('.fa-arrow-up', match: :first).click
   end
 
   test 'visiting the timeline' do

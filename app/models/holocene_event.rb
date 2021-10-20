@@ -2,6 +2,7 @@ class HoloceneEvent < ApplicationRecord
   include SharedMethods
   include Rails.application.routes.url_helpers
 
+  has_one_attached :image
   has_rich_text :body
 
   belongs_to :region
@@ -19,7 +20,6 @@ class HoloceneEvent < ApplicationRecord
   accepts_nested_attributes_for :region
   accepts_nested_attributes_for :event_types
 
-  has_one_attached :image
 
   acts_as_taggable_on :tags
 

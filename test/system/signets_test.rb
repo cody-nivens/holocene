@@ -20,7 +20,7 @@ class SignetsTest < ApplicationSystemTestCase
     assert_link 'Edit'
     assert_current_path polymorphic_path([@sigged, @signet])
     click_on 'Back'
-    assert_selector 'i.fa.fa-sticky-note-o'
+    assert find(:xpath, ".//a[contains(@title, 'Signets')]", match: :first)
     assert_current_path polymorphic_path(@sigged)
   end
 
@@ -52,7 +52,7 @@ class SignetsTest < ApplicationSystemTestCase
     visit book_chapters_url(@scripted)
 
     within(:xpath, "//a[text()='Cultural Events ']/../../..") do
-      Capybara.page.find('.fa-sticky-note-o').click
+      Capybara.page.find('.fa-sticky-note').click
     end
 
     click_on 'New Signet'
@@ -69,7 +69,7 @@ class SignetsTest < ApplicationSystemTestCase
     visit book_chapters_url(@scripted)
 
     within(:xpath, "//a[text()='Cultural Events ']/../../..") do
-      Capybara.page.find('.fa-sticky-note-o').click
+      Capybara.page.find('.fa-sticky-note').click
     end
 
     click_on 'New Signet'

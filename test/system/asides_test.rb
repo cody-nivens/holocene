@@ -28,8 +28,9 @@ class AsidesTest < ApplicationSystemTestCase
     visit edit_aside_url(@aside)
 #    visit Destroy
     assert_link 'Destroy'
-    accept_alert do
+    accept_confirm do
       click_on 'Destroy'
+      page.driver.browser.switch_to.alert.accept
     end
     assert_no_link 'Destroy'
     assert_current_path chapter_path(@chapter)

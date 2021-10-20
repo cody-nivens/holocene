@@ -133,6 +133,7 @@ class CitiesTest < ApplicationSystemTestCase
     visit cities_url
     page.accept_confirm do
       click_on 'Destroy', match: :first
+      page.driver.browser.switch_to.alert.accept
     end
 
     assert_text 'City was successfully destroyed'

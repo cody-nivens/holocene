@@ -292,7 +292,7 @@ class BooksTest < ApplicationSystemTestCase
     click_on 'Create Key point'
     assert_text 'Key point was successfully created'
 
-    find(:xpath, ".//a[i[contains(@class, 'fa-plus')]]", match: :first).click
+    Capybara.page.find('.fa-plus', match: :first).click
     assert_link 'New Scene'
     click_on 'New Scene'
 

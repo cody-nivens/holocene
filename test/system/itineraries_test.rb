@@ -83,8 +83,9 @@ class ItinerariesTest < ApplicationSystemTestCase
 
   test 'destroying an Itinerary' do
     visit tour_itineraries_url(@tour)
-    page.accept_confirm do
+    accept_confirm do
       click_on 'Destroy', match: :first
+      page.driver.browser.switch_to.alert.accept
     end
 
     assert_text 'Itinerary was successfully destroyed'
