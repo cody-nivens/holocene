@@ -1,5 +1,5 @@
-blob_1:
-  key: '12345678'
+blob_2:
+  key: 1234567890abcedefgh
   filename: 'image.jpg'
   created_at: <%= Time.zone.now %>
   content_type: image/jpeg
@@ -7,3 +7,7 @@ blob_1:
   byte_size: <%= File.size(Rails.root.join('test', 'fixtures', 'files', 'image.jpg')) %>
   checksum: <%= Digest::MD5.file(Rails.root.join('test', 'fixtures', 'files', 'image.jpg')).base64digest %>
   service_name: test
+
+blob_1: <%= ActiveStorage::Blob.fixture(
+  filename: "image.jpg"
+) %>

@@ -30,6 +30,12 @@ class CharacterAttributesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'should sort character_attributes' do
+    put character_attribute_sort_url(character_attribute_id: @character_attribute.id), xhr: true,
+                                                                                    params: { character_attribute: { id: @character_attribute.id } }
+    assert_response :success
+  end
+
   test 'should create character_attribute' do
     assert_difference('CharacterAttribute.count') do
       post character_category_character_attributes_url(@character_category),

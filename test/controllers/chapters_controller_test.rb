@@ -25,6 +25,11 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'should sort chapters' do
+    put chapter_sort_url(chapter_id: @chapter.id), xhr: true, params: { chapter: { id: @chapter.id } }
+    assert_response :success
+  end
+
   test 'should get holocene events' do
     get chapter_holocene_events_url(@chapter)
     assert_response :success

@@ -1,43 +1,28 @@
 require 'test_helper'
 
 DOWNLOADS_PATH = File.expand_path(File.join(Rails.root, 'tmp', 'downloads'))
+if ENV['NO_HEADLESS']
+  token = :selenium
+else
+  token = :headless_selenium
+end
+Capybara.register_driver token do |app|
+  options = Selenium::WebDriver::Chrome::Options.new
+
 unless ENV['NO_HEADLESS']
-  Capybara.register_driver :headless_selenium do |app|
-    options = Selenium::WebDriver::Chrome::Options.new
+  options.add_argument('--headless')
+end
 
-    options.add_argument('--headless')
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-gpu')
-    options.add_argument('--disable-popup-blocking')
-    options.add_argument('--window-size=1366,1900')
+  options.add_argument('--no-sandbox')
+  options.add_argument('--disable-gpu')
+  options.add_argument('--disable-popup-blocking')
+  options.add_argument('--window-size=1366,1900')
 
-    options.add_preference(:download, directory_upgrade: true,
+  options.add_preference(:download, directory_upgrade: true,
                                       prompt_for_download: false,
                                       default_directory: DOWNLOADS_PATH)
 
-    options.add_preference(:browser, set_download_behavior: { behavior: 'allow' })
-
-    service = Selenium::WebDriver::Service.chrome(args: { verbose: true, log_path: '/tmp/chromedriver.log' })
-    driver = Capybara::Selenium::Driver.new(app, browser: :chrome, service: service, options: options)
-
-    bridge = driver.browser.send(:bridge)
-
-    path = '/session/:session_id/chromium/send_command'
-    path[':session_id'] = bridge.session_id
-
-    bridge.http.call(:post, path, cmd: 'Page.setDownloadBehavior',
-                                  params: {
-                                    behavior: 'allow',
-                                    downloadPath: DOWNLOADS_PATH
-                                  })
-
-    driver
-  end
-end
-class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
-  if ENV['NO_HEADLESS']
-    driven_by :selenium, using: :chrome, screen_size: [1366, 1900], options: {
-      desired_capabilities: Selenium::WebDriver::Remote::Capabilities.chrome(
+  options.add_preference(:capabilities, Selenium::WebDriver::Remote::Capabilities.chrome(
         'chromeOptions' => {
           'prefs' => {
             'download.default_directory' => DOWNLOADS_PATH,
@@ -47,7 +32,28 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
           }
         }
       )
-    }
+                          )
+  options.add_preference(:browser, set_download_behavior: { behavior: 'allow' })
+
+  service = Selenium::WebDriver::Service.chrome(args: { verbose: true, log_path: '/tmp/chromedriver.log' })
+  driver = Capybara::Selenium::Driver.new(app, browser: :chrome, service: service, options: options)
+
+  bridge = driver.browser.send(:bridge)
+
+  path = '/session/:session_id/chromium/send_command'
+  path[':session_id'] = bridge.session_id
+
+  bridge.http.call(:post, path, cmd: 'Page.setDownloadBehavior',
+                                params: {
+                                  behavior: 'allow',
+                                  downloadPath: DOWNLOADS_PATH
+                                })
+
+  driver
+end
+class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
+  if ENV['NO_HEADLESS']
+    driven_by :selenium
   else
     driven_by :headless_selenium
   end
@@ -60,13 +66,13 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     super
     Selenium::WebDriver::Remote::Capabilities.chrome("goog:loggingPrefs": { browser: 'ALL' })
     holocene_event = holocene_events(:holocene_event_1)
-    file = Rails.root.join('test', 'fixtures', 'files', 'image.jpg')
-    #holocene_event.image.attach(io: File.open(file), filename: 'image.jpg')
+    #file = Rails.root.join('test', 'fixtures', 'files', 'image.jpg')
+    ##holocene_event.image.attach(io: File.open(file), filename: 'image.jpg')
   end
 
   def after_teardown
     super
-    remove_uploaded_files
+#    remove_uploaded_files
     errors = page.driver.browser.logs.get(:browser)
     #errors = page.driver.browser.manage.logs.get(:browser)
     if errors.present?

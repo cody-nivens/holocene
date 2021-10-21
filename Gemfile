@@ -90,7 +90,6 @@ group :test do
   gem 'minitest'
   gem 'minitest-rails'
   gem 'minitest-rails-capybara'
-  gem 'selenium-webdriver'
   gem 'pdf-reader'
   gem 'geckodriver-helper'
   gem 'rails-controller-testing'
@@ -98,6 +97,8 @@ group :test do
   gem 'simplecov', require: false, group: :test
 
   # Easy installation and use of chromedriver to run system tests with Chrome
+
+  gem 'selenium-webdriver'
   gem 'webdrivers'
 end
 
@@ -129,7 +130,7 @@ gem 'react-rails'
 gem 'words_counted', git: 'git@github.com:werthen/words_counted'
 gem 'rails-bootstrap-tabs', '~> 0.2.2'
 gem 'bootstrap-toggle-rails'
-gem 'namey'
+#gem 'namey'
 gem 'acts_as_list'
 gem 'ranked-model', git: 'git@github.com:mixonic/ranked-model'
 gem 'chartkick'
