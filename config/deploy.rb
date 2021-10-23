@@ -36,8 +36,11 @@ lock "~> 3.16.0"
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
 
-set :rbenv_type, :user # :user or :system, depends on your rbenv setup
-set :rbenv_ruby, File.read('.ruby-version').strip
+# set :rbenv_type, :system # :user or :system, depends on your rbenv setup
+# set :rbenv_ruby, File.read('.ruby-version').strip
+set :rvm_type, :user                     # Defaults to: :auto
+set :rvm_ruby_version, '3.0.2'      # Defaults to: 'default'
+set :rvm_custom_path, '~/.rvm'  # only needed if not detected
 # Change these
 server '192.168.1.10', roles: [:web, :app, :db], primary: true
 
@@ -71,42 +74,42 @@ set :puma_init_active_record, true  # Change to false when not using ActiveRecor
 # set :keep_releases, 5
 
 ## Linked Files & Directories (Default None):
-#-- set :linked_files, %w{config/database.yml}
-#-- set :linked_dirs,  %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
-#--
-#-- namespace :puma do
-#--   desc 'Create Directories for Puma Pids and Socket'
-#--   task :make_dirs do
-#--     on roles(:app) do
-#--       execute "mkdir #{shared_path}/tmp/sockets -p"
-#--       execute "mkdir #{shared_path}/tmp/pids -p"
-#--     end
-#--   end
-#--
-#--   before :start, :make_dirs
-#-- end
-#--
-#-- namespace :deploy do
-#--   desc "Make sure local git is in sync with remote."
-#--   task :check_revision do
-#--     on roles(:app) do
-#--       unless `git rev-parse HEAD` == `git rev-parse origin/master`
-#--         puts "WARNING: HEAD is not the same as origin/master"
-#--         puts "Run `git push` to sync changes."
-#--         exit
-#--       end
-#--     end
-#--   end
-#--
-#--   desc 'Initial Deploy'
-#--   task :initial do
-#--     on roles(:app) do
-#--       before 'deploy:restart', 'puma:start'
-#--       invoke 'deploy'
-#--     end
-#--   end
-#--
-#--   before :starting,     :check_revision
-#--   after  :finishing,    :compile_assets
-#--   after  :finishing,    :cleanup
-#-- end
+set :linked_files, %w{config/database.yml}
+set :linked_dirs,  %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+
+namespace :puma do
+  desc 'Create Directories for Puma Pids and Socket'
+  task :make_dirs do
+    on roles(:app) do
+      execute "mkdir #{shared_path}/tmp/sockets -p"
+      execute "mkdir #{shared_path}/tmp/pids -p"
+    end
+  end
+
+  #before :start, :make_dirs
+end
+
+namespace :deploy do
+   desc "Make sure local git is in sync with remote."
+   task :check_revision do
+     on roles(:app) do
+       unless `git rev-parse HEAD` == `git rev-parse origin/master`
+         puts "WARNING: HEAD is not the same as origin/master"
+         puts "Run `git push` to sync changes."
+         exit
+       end
+     end
+   end
+
+   desc 'Initial Deploy'
+   task :initial do
+     on roles(:app) do
+       before 'deploy:restart', 'puma:start'
+       invoke 'deploy'
+     end
+   end
+
+   before :starting,     :check_revision
+   after  :finishing,    :compile_assets
+   after  :finishing,    :cleanup
+end

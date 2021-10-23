@@ -5,8 +5,7 @@ set :stage, :production
 # Include default deployment tasks
 require "capistrano/deploy"
 
-require 'capistrano/rbenv'
-#require 'capistrano/rbenv_install'
+require 'capistrano/rvm'
 require 'capistrano/bundler'
 require 'capistrano/rails'
 require 'capistrano/puma'
