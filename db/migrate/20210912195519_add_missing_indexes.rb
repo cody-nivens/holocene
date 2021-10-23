@@ -8,7 +8,6 @@ add_index :biblioentries, :book_id
 add_index :books, :user_id
 add_index :character_attributes, :related_id
 add_index :characters, :father_id
-add_index :characters, :mother_id
 add_index :epochs, :user_id
 add_index :event_types, :user_id
 add_index :glossary_terms, :see_id
