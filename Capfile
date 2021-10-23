@@ -8,8 +8,11 @@ require "capistrano/deploy"
 require 'capistrano/rvm'
 require 'capistrano/bundler'
 require 'capistrano/rails'
+require 'capistrano/nginx'
 require 'capistrano/puma'
 install_plugin Capistrano::Puma  # Default puma tasks
+install_plugin Capistrano::Puma::Nginx
+install_plugin Capistrano::Puma::Systemd
 
 # Load the SCM plugin appropriate to your project:
 #

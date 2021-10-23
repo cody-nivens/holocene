@@ -85,6 +85,7 @@ group :development do
   gem 'capistrano-rails', require: false
   gem 'capistrano-rvm', require: false
   gem 'capistrano-bundler', require: false
+  gem 'capistrano3-nginx', '~> 2.0', require: false
   gem 'capistrano3-puma',   require: false
 end
 
