@@ -80,6 +80,13 @@ group :development do
   gem 'binding_of_caller'
   gem 'rails-erd'
   gem 'ruby-graphviz'
+  # Use Capistrano for deployment
+  gem 'capistrano', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rbenv', require: false
+  gem 'capistrano-rbenv-install', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano3-puma',   require: false
 end
 
 group :test do

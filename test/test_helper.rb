@@ -1,20 +1,6 @@
 # frozen_string_literal: true
 
 require 'simplecov'
-unless ENV['NO_COVERAGE']
-  SimpleCov.start :rails do
-    enable_coverage :branch
-    primary_coverage :branch
-    add_group 'Grids', 'app/grids'
-    command_name 'Minitest'
-    formatter SimpleCov::Formatter::MultiFormatter.new([
-      SimpleCov::Formatter::SimpleFormatter,
-      SimpleCov::Formatter::HTMLFormatter
-    ])
-
-    #track_files "**/*.rb"
-  end
-end
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
@@ -31,15 +17,20 @@ module SidekiqMinitestSupport
 end
 
 module SphinxHelpers
-  def index
-    ThinkingSphinx::Test.index
-    # Wait for Sphinx to finish loading in the new index files.
-    sleep 0.25 until index_finished?
+    $initialized = false
+
+  def init_sphinx_helpers
+    $initialized ||= false
   end
 
-  def index_finished?
-    Dir[Rails.root.join(ThinkingSphinx::Test.config.indices_location, '*.{new,tmp}*')].empty?
+  def index
+    # Wait for Sphinx to finish loading in the new index files.
+    sleep 0.25 until ts_index_finished?
   end
+end
+
+def ts_index_finished?
+  Dir[Rails.root.join(ThinkingSphinx::Test.config.indices_location, '*.{new,tmp}*')].empty?
 end
 
 class ActiveStorage::Blob
@@ -72,10 +63,49 @@ module MiniTest
   end
 end
 
+def locked? lockfile_name
+  f = File.open(lockfile_name, File::CREAT)
+
+  # returns false if already locked, 0 if not
+  ret = f.flock(File::LOCK_EX|File::LOCK_NB)
+
+  # unlocks if possible, for cleanup; this is a noop if lock not acquired
+  f.flock(File::LOCK_UN)
+
+  f.close
+  !ret # ret == false means we *couldn't* get a lock, i.e. it was locked
+end
+
+ActiveSupport::Testing::Parallelization.after_fork_hook do |i|
+  ENV['TEST_ENV_NUMBER'] = i.to_s
+  puts ENV['TEST_ENV_NUMBER']
+  #ENV.keys.each do |key|
+  #  puts "#{key} -> #{ENV[key]}"
+  #end
+end
+
+def init_sphinx
+  lock_file = Rails.root.join("tmp/test_parallel.lock")
+  FileUtils.mkdir(Rails.root.join(ThinkingSphinx::Test.config.indices_location)) unless File.exists?(Rails.root.join(ThinkingSphinx::Test.config.indices_location))
+
+  if locked? lock_file
+    sleep 0.25 until ts_index_finished?
+  else
+    $initialized = true
+    ThinkingSphinx::Test.index
+    sleep 0.25 until ts_index_finished?
+  end
+end
+
 module ActiveSupport
   class TestCase
     # Run tests in parallel with specified workers
-    # parallelize(workers: :number_of_processors)
+    parallelize(workers: :number_of_processors)
+    init_sphinx
+
+#    unless ENV['NO_COVERAGE']
+#      SimpleCov.coverage_dir "coverage_#{ENV['TEST_ENV_NUMBER'] || ''}"
+#    end
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
@@ -87,10 +117,9 @@ module ActiveSupport
     include SphinxHelpers
     include Devise::Test::IntegrationHelpers
 
-#    def self.prepare
+    def self.prepare
 #      DownloadHelpers.clear_downloads
-#    end
-#    prepare
+    end
 
     def setup
       # Add code that need to be executed before each test
@@ -102,6 +131,13 @@ module ActiveSupport
     def teardown
       # Add code that need to be executed after each test
       Capybara.reset_sessions!
+    end
+
+    def after_run
+      FileUtils.rm_rf(Rails.root.join(ThinkingSphinx::Test.config.indices_location))
+      FileUtils.mkdir(Rails.root.join(ThinkingSphinx::Test.config.indices_location))
+      lock_file = FileUtils.rm(Rails.root.join("tmp/test_parallel.lock"))
+      File.delete(lock_file) if File.exist?(lock_file)
     end
 
     def interactive_debug_session(log_in_as = nil)

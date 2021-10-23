@@ -65,7 +65,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   def before_setup
     super
     Selenium::WebDriver::Remote::Capabilities.chrome("goog:loggingPrefs": { browser: 'ALL' })
-    holocene_event = holocene_events(:holocene_event_1)
+    #holocene_event = holocene_events(:holocene_event_1)
     #file = Rails.root.join('test', 'fixtures', 'files', 'image.jpg')
     ##holocene_event.image.attach(io: File.open(file), filename: 'image.jpg')
   end
@@ -74,7 +74,6 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     super
 #    remove_uploaded_files
     errors = page.driver.browser.logs.get(:browser)
-    #errors = page.driver.browser.manage.logs.get(:browser)
     if errors.present?
       errors.each do |error|
         #next unless error.level == 'WARNING'

@@ -17,6 +17,7 @@ require('trix');
 require('@rails/actiontext');
 import 'chartkick/chart.js';
 import 'js/sortable';
+import 'js/number_pages';
 import 'js/jquery.jvectormap.min';
 import 'js/jquery-jvectormap-world-mill-en';
 
