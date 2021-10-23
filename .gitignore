@@ -43,3 +43,5 @@ yarn-debug.log*
 /pa11y-ci-report
 /pa11y-ci-results.json
 /erd.pdf
+
+/config/credentials/production.key
