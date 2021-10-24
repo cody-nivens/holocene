@@ -1,11 +1,11 @@
 class StoriesController < ApplicationController
-  before_action :set_story, only: %i[stats timeline resync_scenes show edit update destroy]
+  before_action :set_story, only: %i[stats resync_scenes edit update destroy]
   before_action :set_book, only: %i[index new]
 
   # GET /stories
   # GET /stories.json
   def index
-    @stories = Story.where(book_id: @book.id).order(:position)
+    @stories = Story.includes([:key_points]).where(book_id: @book.id).order(:position)
   end
 
   def stats; end
@@ -19,6 +19,8 @@ class StoriesController < ApplicationController
   # GET /stories/1
   # GET /stories/1.json
   def show
+    @story = Story.includes({ scenes: [:section, { key_point: :scenes }, :artifact, :rich_text_place, :rich_text_summary] }).find(params[:id])
+    @book = @story.book
     @object = @story
     @title = @story.name
     respond_to do |format|
@@ -41,6 +43,8 @@ class StoriesController < ApplicationController
   end
 
   def timeline
+    @story = Story.includes([{ key_points: :scripted }]).find(params[:id])
+    @book = @story.book
     @toggle = params[:toggle]
     @print = params[:print]
 

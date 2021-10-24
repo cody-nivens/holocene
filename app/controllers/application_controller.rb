@@ -220,7 +220,8 @@ class BookEPub
 
   if @book.is_fiction?
     chap_index = 1
-   @book.stories.order(:position).each do |story|
+    @book.stories.includes([{ key_points: { scenes: [:artifact, :rich_text_place, :rich_text_summary,
+                                                     :key_point, { section: :rich_text_body }] } }]).order(:position).each do |story|
      next unless story.publish?
 
  @ebook.add_item("text/#{story.name.downcase.gsub(/ /, '_').gsub(/[-',]/, '')}.xhtml").add_content(StringIO.new(<<~CHAP_ONE)).toc_text(story.name).landmark(type: 'story', title: story.name)
@@ -235,7 +236,7 @@ class BookEPub
    end
   else
     chap_index = 1
-   @book.chapters.each do |chapter|
+   @book.chapters.includes([:rich_text_body, { holocene_events: [:event_types, :rich_text_body, :region] }, { partition: :rich_text_body }, { aside: :rich_text_body }, { sections: :rich_text_body }]).each do |chapter|
  unless chapter.partition.nil?
       @ebook.add_item("text/#{chapter.slug}_p.xhtml").add_content(StringIO.new(<<~PARTITION)).toc_text(chapter.partition_name).landmark(type: 'part', title: chapter.partition_name)
             <html xmlns="http://www.w3.org/1999/xhtml">

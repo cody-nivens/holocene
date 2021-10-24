@@ -17,7 +17,7 @@
         <td><%= epoch.name %></td>
         <td><%= epoch.start_date %></td>
         <td><%= epoch.end_date %></td>
-        <td><%= epoch.holocene_events.count %></td>
+        <td><%= epoch.holocene_events.size %></td>
         <td><%= link_to (fa_icon 'search-plus'), epoch, title: 'Show' %></td>
         <td><%= link_to (fa_icon 'map'), geo_map_epoch_path(epoch), title: 'Map' %></td>
         <td><%= link_to (fa_icon 'edit'), edit_epoch_path(epoch), title: 'Edit' %></td>

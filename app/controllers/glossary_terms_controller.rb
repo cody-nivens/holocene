@@ -5,7 +5,7 @@ class GlossaryTermsController < ApplicationController
   # GET /glossary_terms
   # GET /glossary_terms.json
   def index
-    @glossary_terms = @book.glossary_terms.order(:name)
+    @glossary_terms = @book.glossary_terms.includes([:see, :seealso, :acronym]).order(:name)
   end
 
   # GET /glossary_terms/1

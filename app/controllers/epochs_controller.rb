@@ -14,9 +14,8 @@ class EpochsController < ApplicationController
   # GET /epochs/1
   # GET /epochs/1.json
   def show
-    @grid = HoloceneEventsGrid.new(hgrid_params.merge({ start_year: [@epoch.start_date,
-                                                                     @epoch.end_date] })) do |scope|
-      scope.page(params[:page])
+    @grid = HoloceneEventsGrid.new(hgrid_params.merge({ start_year: [@epoch.start_date, @epoch.end_date] })) do |scope|
+              scope.includes([:region, :rich_text_body, :event_types]).page(params[:page])
     end
   end
 

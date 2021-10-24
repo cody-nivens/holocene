@@ -61,7 +61,7 @@
       </span>
     <% end %>
 
-    <% CharacterCategory.order(:position).each do |category| %>
+    <% CharacterCategory.all.includes([:character_attributes]).order(:position).each do |category| %>
       <% c.tab category.name do %>
         <span>
           <div class='row'>

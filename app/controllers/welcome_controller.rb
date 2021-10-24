@@ -25,7 +25,7 @@ class WelcomeController < ApplicationController
 
         @dates_counts[key] = [0, 0] if @dates_counts[key].nil?
         mets = section.metrics.order(date: :desc)
-        @dates_counts[key][0] += mets[0].count if mets.size == 1
+        @dates_counts[key][0] += mets[0].count if mets.count == 1
         @dates_counts[key][1] += mets[0].count - mets[1].count if mets.size > 1
       end
     end

@@ -13,7 +13,7 @@
   </thead>
 
   <tbody>
-    <% @character_values.joins(:character_attribute).order(:name).each do |character_value| %>
+    <% @character_values.includes([{ character_attribute: :character_category }]).joins(:character_attribute).order(:name).each do |character_value| %>
       <tr>
         <td><%= character_value.character_attribute.character_category_name %></td>
         <td><%= character_value.character_attribute_name %></td>

@@ -46,7 +46,7 @@ class Chapter < ApplicationRecord
   # Total number of events in chapter
   #
   def total_events
-    total = sections.map { |x| x.holocene_events.uniq.length }.sum
+    total = sections.includes([:sectioned, :holocene_events_sections, :holocene_events]).map { |x| x.holocene_events.uniq.length }.sum
     total += holocene_events.uniq.length
     total
   end

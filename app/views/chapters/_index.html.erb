@@ -14,7 +14,7 @@
         </tr>
     </thead>
   <tbody>
-    <% chapters.order(:position).each do |chapter| %>
+    <% chapters.includes([:signets]).order(:position).each do |chapter| %>
       <tr>
     <% if chapter.partition.nil? %>
       <td><%= link_to (fa_icon 'plus'), new_chapter_partition_path(chapter), title: 'Add Partition' %>

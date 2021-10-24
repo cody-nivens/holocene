@@ -19,7 +19,7 @@
 <table class="table">
   <tr>
     <th>Scene Character:</th> <td><%= @story.scene_character %></td>
-    <th>Characters:</th> <td><%= @story.characters.count %></td>
+    <th>Characters:</th> <td><%= @story.characters.size %></td>
     <th>Publish:</th> <td><%= (@story.publish? ? fa_icon('check') : '') %></td>
     <th>Stand Alone:</th> <td><%= (@story.stand_alone? ? fa_icon('check') : '') %></td>
   </tr>

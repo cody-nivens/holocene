@@ -33,7 +33,7 @@ class Itinerary < ApplicationRecord
   private
 
   def update_position
-    Itinerary.joins(:city).where(tour_id: tour_id).order(:lng).each_with_index do |x, i|
+    Itinerary.joins(:city).includes([:tour, :city]).where(tour_id: tour_id).order(:lng).each_with_index do |x, i|
       x.update({ position: i + 1 })
     end
   end

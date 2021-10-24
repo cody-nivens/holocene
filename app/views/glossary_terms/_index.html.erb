@@ -14,7 +14,7 @@
   </thead>
 
   <tbody>
-    <% glossary_terms.each do |glossary_term| %>
+    <% glossary_terms.includes([:see, :seealso, :acronym]).each do |glossary_term| %>
       <tr>
         <td><%= glossary_term.name %></td>
         <td><%= glossary_term.body %></td>

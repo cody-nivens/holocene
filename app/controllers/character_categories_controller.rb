@@ -1,5 +1,5 @@
 class CharacterCategoriesController < ApplicationController
-  before_action :set_character_category, only: %i[show edit update destroy]
+  before_action :set_character_category, only: %i[show edit update]
 
   # GET /character_categories
   # GET /character_categories.json
@@ -59,6 +59,7 @@ class CharacterCategoriesController < ApplicationController
   # DELETE /character_categories/1
   # DELETE /character_categories/1.json
   def destroy
+    @character_category = CharacterCategory.includes([{ character_attributes: :character_values }]).find(params[:id])
     @character_category.destroy
 
     respond_to do |format|

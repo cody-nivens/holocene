@@ -61,7 +61,7 @@
   </div>
 
   <div class='field'>
-    <%= f.select :insert_scene_id, Scene.all.order(:abc).collect { |p| [p.full_name, p.id] }, { include_blank: true } %>
+    <%= f.select :insert_scene_id, Scene.all.includes([:rich_text_summary]).order(:abc).collect { |p| [p.full_name, p.id] }, { include_blank: true } %>
   </div>
 
   <div class='field'>

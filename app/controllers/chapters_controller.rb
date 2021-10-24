@@ -1,10 +1,12 @@
 class ChaptersController < ApplicationController
   before_action :set_chapter,
-                only: %i[promote demote geo_map pdf holocene_events sections show edit update destroy]
+                only: %i[promote demote geo_map pdf holocene_events sections edit update destroy]
   before_action :set_scripted, only: %i[index create new]
 
   def index
-    @chapters = @scripted.chapters.order(:position).all
+    @chapters = @scripted.chapters.includes([ { partition: :rich_text_body }, { aside: :rich_text_body },
+                                              :chapters_holocene_events, :holocene_events,
+                                              { sections: :rich_text_body }, :rich_text_body]).order(:position).all
   end
 
   def sort
@@ -25,7 +27,7 @@ class ChaptersController < ApplicationController
 
     @prev_chapter = @chapter if @prev_chapter.nil?
 
-    @prev_chapter.sections.order(:position).each do |section|
+    @prev_chapter.sections.includes([:user]).order(:position).each do |section|
       section.update({ position: position })
       position += 1
     end
@@ -44,7 +46,7 @@ class ChaptersController < ApplicationController
       @prev_chapter.holocene_events << holocene_event unless @prev_chapter.holocene_events.include?(holocene_event)
     end
 
-    @chapter.sections.order(:position).each do |section|
+    @chapter.sections.includes([:user]).order(:position).each do |section|
       section.update({ chapter_id: @prev_chapter.id, position: position })
       position += 1
     end
@@ -104,6 +106,7 @@ class ChaptersController < ApplicationController
   # GET /chapters/1
   # GET /chapters/1.json
   def show
+    @chapter = Chapter.includes([{ holocene_events: [:region, :event_types, :rich_text_body] }]).find(params[:id])
     @title = @chapter.name
     @notes = {}
     @sections = @chapter.sections.order(:position)

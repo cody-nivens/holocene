@@ -20,8 +20,8 @@
   </div>
   <div class='narrow-right'><%= number_with_delimiter chapter.word_count %></div>
   <div class='narrow-right'><%= chapter.total_events %></div>
-  <div class='narrow-right'><%= number_with_delimiter chapter.footnotes.count %></div>
-  <div class='narrow-right'><%= number_with_delimiter chapter.citations.count %></div>
+  <div class='narrow-right'><%= number_with_delimiter chapter.footnotes.size %></div>
+  <div class='narrow-right'><%= number_with_delimiter chapter.citations.size %></div>
   <div class='mid'><%= HoloceneEvent.convert_ad(chapter.sections.map { |x| x.holocene_events.minimum('start_year') }.compact.min) %></div>
   <div class='mid'><%= HoloceneEvent.convert_ad(chapter.sections.map { |x| x.holocene_events.maximum('start_year') }.compact.max) %></div>
   <div class='narrow'><%= link_to (fa_icon 'level-down'), chapter_demote_path(chapter), data: { confirm: 'Are you sure?' }, title: 'Demote' %></div>

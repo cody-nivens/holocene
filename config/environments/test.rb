@@ -6,6 +6,19 @@ require "active_support/core_ext/integer/time"
 # and recreated between test runs. Don't rely on the data there!
 
 Rails.application.configure do
+  config.after_initialize do
+    Bullet.enable        = true
+    Bullet.bullet_logger = false
+    Bullet.raise         = false # raise an error if n+1 query occurs
+    Bullet.alert         = false
+    Bullet.console       = true
+    Bullet.rails_logger  = true
+    Bullet.add_footer    = true
+
+    Bullet.add_safelist :type => :unused_eager_loading, :class_name => "ActsAsTaggableOn::Tagging", :association => :tag
+    Bullet.add_safelist :type => :unused_eager_loading, :class_name => "Aside", :association => :rich_text_body
+  end
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   config.cache_classes = false

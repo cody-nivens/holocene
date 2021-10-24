@@ -1,5 +1,5 @@
 class KeyPointsController < ApplicationController
-  before_action :set_key_point, only: %i[moved move show list add edit update destroy]
+  before_action :set_key_point, only: %i[moved move list add edit update]
   before_action :set_scripted, only: %i[moved move index list add new]
 
   # GET /key_points
@@ -61,6 +61,9 @@ class KeyPointsController < ApplicationController
   # GET /key_points/1
   # GET /key_points/1.json
   def show
+    @key_point = KeyPoint.includes({ scenes: [:artifact, :rich_text_place, :rich_text_summary, :insert_scene, :characters, { section: :rich_text_body }, { character_scenes: [:character, :rich_text_summary] }]}).find(params[:id])
+    @scripted = @key_point.scripted
+    @klass = @scripted.class
     @title = @key_point.name
     @scripted = @key_point.scripted
   end
@@ -112,6 +115,10 @@ class KeyPointsController < ApplicationController
   # DELETE /key_points/1
   # DELETE /key_points/1.json
   def destroy
+    @key_point = KeyPoint.includes({ scenes: [:artifact, :rich_text_place, :rich_text_summary, :insert_scene, :characters,
+                                              :rich_text_goal_reaction, :rich_text_conflict_dilemma, :rich_text_disaster_decision,
+                                              :rich_text_short_term_goal, :rich_text_long_term_goal, :rich_text_over_arching_goal,
+                                              { section: :rich_text_body }, { character_scenes: [:character, :rich_text_summary] }]}).find(params[:id])
     @scripted = @key_point.scripted
     @key_point.destroy
     respond_to do |format|

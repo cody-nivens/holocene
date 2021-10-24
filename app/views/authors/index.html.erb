@@ -16,8 +16,8 @@
       <tr>
         <td><%= author.first_name %></td>
         <td><%= author.last_name %></td>
-        <td><%= author.books.count %></td>
-        <td><%= author.biblioentries.count %></td>
+        <td><%= author.books.size %></td>
+        <td><%= author.biblioentries.size %></td>
         <td><%= link_to (fa_icon 'search-plus'), polymorphic_path([@object, author]), title: 'Show' %></td>
         <td><%= link_to (fa_icon 'edit'), edit_polymorphic_path([@object, author]), title: 'Edit' %></td>
         <td><%= link_to (fa_icon 'trash'), polymorphic_path([@object, author]), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>

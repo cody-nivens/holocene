@@ -61,14 +61,14 @@
   <% end %>
 
   <% if section.holocene_events.size != 0 && ((chapter.show_events? && chapter.scripted.show_events?) || chapter.always_display_events?) -%>
-    <% section.holocene_events.order(:start_year).each do |he| -%>
+    <% section.holocene_events.includes([:rich_text_body, :event_types]).order(:start_year).each do |he| -%>
       <% unless he.body.blank? -%>
         <% @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
         <% @slugs += @footnotes[1] -%>
       <% end -%>
     <% end -%>
 
-    <%= render 'holocene_events/index', formats: [:html], slugs: @slugs, holocene_events: section.holocene_events.order(:start_year).uniq, chapter: chapter, epub: epub -%>
+    <%= render 'holocene_events/index', formats: [:html], slugs: @slugs, holocene_events: section.holocene_events.includes([:region, :rich_text_body]).order(:start_year).uniq, chapter: chapter, epub: epub -%>
   <% end -%>
 <% end -%>
 

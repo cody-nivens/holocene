@@ -4,7 +4,7 @@ class EventTypesController < ApplicationController
   # GET /event_types
   # GET /event_types.json
   def index
-    @event_types = EventType.all.order(:name)
+    @event_types = EventType.all.includes([:rich_text_body]).order(:name)
   end
 
   # GET /event_types/1

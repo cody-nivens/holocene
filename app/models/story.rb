@@ -53,7 +53,7 @@ class Story < ApplicationRecord
       end
     end
     results = []
-    key_points.each do |kp|
+    key_points.includes([:scenes, { scripted: :characters }]).each do |kp|
       kp.scenes.each do |scene|
         scene.characters.each do |character|
           results << character unless results.include?(character)
@@ -85,7 +85,7 @@ class Story < ApplicationRecord
 
   def scene_count(_pub = false)
     count = 0
-    key_points.each do |key_point|
+    key_points.includes([:scenes]).each do |key_point|
       count += key_point.scene_count
     end
     count

@@ -14,7 +14,7 @@ class KeyPoint < ApplicationRecord
 
   def section_count
     count = 0
-    scenes.each do |scene|
+    scenes.includes([:section]).each do |scene|
       count += (scene.section.nil? ? 0 : 1)
     end
     count

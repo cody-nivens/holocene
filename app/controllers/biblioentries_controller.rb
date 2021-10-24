@@ -4,7 +4,7 @@ class BiblioentriesController < ApplicationController
 
   # GET /books/:book_id/biblioentries(.:format)
   def index
-    @biblioentries = @book.biblioentries.order(:name)
+    @biblioentries = @book.biblioentries.includes([:authors]).order(:name)
   end
 
   # GET /books/:book_id/biblioentries/:id(.:format)

@@ -5,7 +5,7 @@ class PartitionsController < ApplicationController
   # GET /partitions
   # GET /partitions.json
   def index
-    @partitions = Partition.all
+    @partitions = Partition.all.includes([:chapter, :rich_text_body])
   end
 
   # GET /partitions/1

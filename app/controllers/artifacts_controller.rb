@@ -1,5 +1,5 @@
 class ArtifactsController < ApplicationController
-  before_action :set_artifact, only: %i[show edit update destroy]
+  before_action :set_artifact, only: %i[show edit]
   before_action :set_book, only: %i[tagged index new]
 
   # GET /artifacts or /artifacts.json
@@ -49,6 +49,7 @@ class ArtifactsController < ApplicationController
 
   # PATCH/PUT /artifacts/1 or /artifacts/1.json
   def update
+    @artifact = Artifact.find(params[:id])
     @book = @artifact.book
     respond_to do |format|
       if @artifact.update(artifact_params)
@@ -63,6 +64,7 @@ class ArtifactsController < ApplicationController
 
   # DELETE /artifacts/1 or /artifacts/1.json
   def destroy
+    @artifact = Artifact.find(params[:id])
     @book = @artifact.book
     @artifact.destroy
     respond_to do |format|

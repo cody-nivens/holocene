@@ -6,7 +6,7 @@ class HoloceneEventsController < ApplicationController
     @command = 'Add Events'
 
     @grid = HoloceneEventsGrid.new(grid_params) do |scope|
-      scope.page(params[:page])
+      scope.includes([:event_types, :region, :rich_text_body]).page(params[:page])
     end
   end
 
@@ -27,7 +27,7 @@ class HoloceneEventsController < ApplicationController
   end
 
   def display
-    @events = @object.holocene_events.order(:start_year)
+    @events = @object.holocene_events.includes([:event_types]).order(:start_year)
     ids = @object.holocene_events.pluck(:id)
     @command = if ids.size == 0
                  'Add Events'
@@ -40,7 +40,7 @@ class HoloceneEventsController < ApplicationController
                      (@object.instance_of?(Section) ? @object.sectioned.sections.order(:name) : nil)
                    end)
     @grid = HoloceneEventsGrid.new(grid_params.merge({ id: ids, object: @object })) do |scope|
-      scope.page(params[:page])
+      scope.includes([:event_types, :region, :rich_text_body]).page(params[:page])
     end
   end
 
@@ -50,7 +50,7 @@ class HoloceneEventsController < ApplicationController
     ids = event_ids - @object.holocene_events.ids
     @command = 'Add Events'
     @grid = HoloceneEventsGrid.new(grid_params.merge({ id: ids, object: @object })) do |scope|
-      scope.page(params[:page])
+      scope.includes([:event_types, :region, :rich_text_body]).page(params[:page])
     end
     respond_to do |format|
       format.html { render :display }

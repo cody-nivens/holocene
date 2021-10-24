@@ -1,5 +1,5 @@
 class CharactersController < ApplicationController
-  before_action :set_character, only: %i[lineage show edit update destroy]
+  before_action :set_character, only: %i[lineage edit update]
   before_action :set_object, only: %i[lineage index add list edit show create update destroy]
 
   # GET /characters
@@ -61,7 +61,9 @@ class CharactersController < ApplicationController
 
   # GET /characters/1
   # GET /characters/1.json
-  def show; end
+  def show
+    @character = Character.includes([{ scenes: :rich_text_summary },{ character_values: :character_attribute }]).find(params[:id])
+  end
 
   def lineage; end
 
@@ -98,10 +100,12 @@ class CharactersController < ApplicationController
 
   # POST /characters
   # GET /characters/1/edit
-  def edit; end
+  def edit
+    @character = Character.includes([{ character_values: :character_attribute }]).find(params[:id])
+  end
 
   def update_values
-    CharacterCategory.all.each do |category|
+    CharacterCategory.all.includes([:character_attributes]).each do |category|
       character_values = @character.character_values.joins(:character_attribute).order(:name).where(
         'character_category_id = ?', category.id
       )
@@ -156,6 +160,7 @@ class CharactersController < ApplicationController
   # DELETE /characters/1
   # DELETE /characters/1.json
   def destroy
+    @character = Character.includes([{ artifacts: :taggings}]).find(params[:id])
     @character.destroy
     respond_to do |format|
       format.html do

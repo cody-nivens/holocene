@@ -109,7 +109,7 @@ class Scene < ApplicationRecord
   def self.get_scenes(situated, _toggle, scene_year = nil)
     stories = nil
     stories = if situated.instance_of?(Book)
-                situated.stories.where(stand_alone: false, publish: true).order(:position)
+                situated.stories.includes([{ key_points: [:scripted, { scenes: [:section, :rich_text_summary] }] }]).where(stand_alone: false, publish: true).order(:position)
               else
                 [situated]
               end
@@ -117,7 +117,7 @@ class Scene < ApplicationRecord
     scenes_h = {}
     stories.each do |story|
       story.key_points.each do |key_point|
-        key_point.scenes.order(:selector, :position).each do |scene|
+        key_point.scenes.includes([:situated, :section, :rich_text_summary, :rich_text_place]).order(:selector, :position).each do |scene|
           date = scene.date_string.to_date
           next if !scene_year.nil? && date.year != scene_year.to_i
 
@@ -181,7 +181,6 @@ class Scene < ApplicationRecord
   end
 
   def set_values
-    situated = self.situated
     story = key_point = book = nil
     case situated_type
     when 'Story'

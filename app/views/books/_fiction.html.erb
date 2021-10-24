@@ -1,9 +1,9 @@
 <table class="table">
   <tr>
     <th>Stories(Publishable):</th>
-    <td><%= book.stories.count %> (<%= book.stories.where(publish: true).count %>)</td>
+    <td><%= book.stories.size %> (<%= book.stories.where(publish: true).size %>)</td>
     <th>Characters:</th>
-    <td><%= book.characters.count %></td></tr>
+    <td><%= book.characters.size %></td></tr>
   <tr>
     <th>Scenes (Publishable)(Sections % Scenes):</th>
     <% pub_scene_count = book.scene_count(true) %>

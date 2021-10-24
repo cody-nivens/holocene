@@ -53,7 +53,7 @@ module ApplicationHelper
 
   def format_biblioentry(bib)
     s = ''
-    bib.authors.each do |author|
+    bib.authors.includes([:authors_biblioentries]).each do |author|
       s += "#{author.first_name} #{author.last_name},"
     end
     s += "<em>#{bib.name}</em>,"

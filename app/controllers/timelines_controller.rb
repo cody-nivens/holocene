@@ -1,6 +1,5 @@
 class TimelinesController < ApplicationController
   before_action :set_timeline, only: %i[geo_map show edit update destroy]
-  before_action :set_object, only: [:timeline]
 
   # GET /timelines
   # GET /timelines.json
@@ -13,7 +12,7 @@ class TimelinesController < ApplicationController
   def show
     ids = @timeline.holocene_events.pluck(:id)
     @grid = HoloceneEventsGrid.new(hgrid_params.merge({ id: ids })) do |scope|
-      scope.page(params[:page])
+      scope.includes([:event_types, :region, :rich_text_body]).page(params[:page])
     end
   end
 
@@ -21,7 +20,20 @@ class TimelinesController < ApplicationController
     @object = @timeline
   end
 
-  def timeline; end
+  def timeline
+    params.each do |name, value|
+      if name =~ /(.+)_id$/
+        case Regexp.last_match(1).classify
+        when 'HoloceneEvent'
+          @object = HoloceneEvent.includes([:rich_text_body]).find(value)
+        when 'Epoch'
+          @object = Epoch.find(value)
+        else
+          @object = Regexp.last_match(1).classify.constantize.includes([{ holocene_events: [:image_attachment, :rich_text_body] }]).find(value)
+        end
+      end
+    end
+  end
 
   # GET /timelines/new
   def new
@@ -83,16 +95,6 @@ class TimelinesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_timeline
     @timeline = Timeline.find(params[:id])
-  end
-
-  def set_object
-    params.each do |name, value|
-      if name =~ /(.+)_id$/
-        @object = Regexp.last_match(1).classify.constantize.find(value)
-        return
-      end
-    end
-    nil
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

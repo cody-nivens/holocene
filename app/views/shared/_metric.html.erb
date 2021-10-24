@@ -1,6 +1,6 @@
 <% unless objects.empty? %>
   <% old_date = '' %>
-  <% objects.order(date: :desc).each do |metric| %>
+  <% objects.includes([:metrized]).order(date: :desc).each do |metric| %>
     <% values = metric.metrized.set_values %>
     <% if metric.date != old_date %>
       <% unless old_date.blank? %>

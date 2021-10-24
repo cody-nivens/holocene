@@ -3,7 +3,7 @@ class SectionsController < ApplicationController
   before_action :set_sectioned, only: %i[index new]
 
   def index
-    @sections = @sectioned.sections.order(:position)
+    @sections = @sectioned.sections.includes([:rich_text_body]).order(:position)
   end
 
   def sort

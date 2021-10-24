@@ -7,6 +7,7 @@ class CharacterScene < ApplicationRecord
 
   belongs_to :character
   belongs_to :scene
+
   delegate :name, :birth_year, :occupation_class, :grouping, to: :character, prefix: true
 
   def name

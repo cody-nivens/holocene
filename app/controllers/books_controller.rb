@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book,
-                only: %i[stats timeline resync_stories toc epub export pdf show edit update destroy]
+                only: %i[stats timeline resync_stories toc epub export pdf edit update destroy]
 
   # GET /books
   # GET /books.json
@@ -45,13 +45,13 @@ class BooksController < ApplicationController
   def resync_stories
     @book.resync_stories
 
-    @book.stories.each do |story|
+    @book.stories.includes([:character_stories, :characters]).each do |story|
       story.characters.each do |character|
         @book.characters << character unless @book.characters.include?(character)
       end
     end
 
-    Scene.order(:abc).each_with_index do |x, i|
+    Scene.includes([:situated]).order(:abc).each_with_index do |x, i|
       x.update({ position: i })
     end
 
@@ -63,9 +63,12 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
+    @book = Book.includes([:rich_text_body, { chapters: [:rich_text_body, { aside: :rich_text_body },
+                                                         { sections: :rich_text_body }, { partition: :rich_text_body },
+                                                         { holocene_events: [:region, :event_types, :rich_text_body] }] }]).find(params[:id])
     @title = @book.name
     session[:book_id] = @book.id
-    @chapters = @book.chapters
+    @chapters = @book.chapters.includes({ holocene_events: :rich_text_body })
     @scripted = @book
     @stories = @book.stories.where(publish: true).order(:position) if @book.is_fiction?
 

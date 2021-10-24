@@ -8,11 +8,11 @@
 <table class="table">
   <tr>
       <td style="width:40%">
-          <%= select_tag :scenes_ids, options_from_collection_for_select(@key_point.scenes.where(selector: @selector), :id, :name), prompt: 'Select Scene', multiple: true, size: 20 %>
+          <%= select_tag :scenes_ids, options_from_collection_for_select(@key_point.scenes.includes([:rich_text_summary]).where(selector: @selector), :id, :name), prompt: 'Select Scene', multiple: true, size: 20 %>
       </td><td style="width:20%">
           <%= f.submit class: 'btn btn-primary' %>
       </td><td style="width:40%">
-          <%= select_tag :scenes_avail, options_from_collection_for_select(@scripted.scenes.where(selector: 0), :id, :name), prompt: 'Select Scene', multiple: true, size: 20 %>
+          <%= select_tag :scenes_avail, options_from_collection_for_select(@scripted.scenes.includes([:rich_text_summary]).where(selector: 0), :id, :name), prompt: 'Select Scene', multiple: true, size: 20 %>
       </td>
   </tr>
 </table>

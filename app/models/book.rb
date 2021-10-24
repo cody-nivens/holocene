@@ -62,7 +62,7 @@ class Book < ApplicationRecord
         end
       end
     else
-      chapters.each do |chap|
+      chapters.includes([:rich_text_body, :partition]).each do |chap|
         count += chap.word_count
       end
     end
@@ -71,7 +71,7 @@ class Book < ApplicationRecord
 
   def scene_count(published = false)
     count = 0
-    stories = (published ? self.stories.where(publish: true) : self.stories)
+    stories = (published ? self.stories.includes([:key_points]).where(publish: true) : self.stories.includes([:key_points]))
     stories.each do |story|
       count += story.scene_count
     end

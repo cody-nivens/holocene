@@ -101,7 +101,7 @@ module ActiveSupport
   class TestCase
     # Run tests in parallel with specified workers
     parallelize(workers: :number_of_processors)
-    init_sphinx
+    #init_sphinx
 
 #    unless ENV['NO_COVERAGE']
 #      SimpleCov.coverage_dir "coverage_#{ENV['TEST_ENV_NUMBER'] || ''}"

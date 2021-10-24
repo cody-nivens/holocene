@@ -5,7 +5,7 @@ class AsidesController < ApplicationController
   # GET /asides
   # GET /asides.json
   def index
-    @asides = Aside.all
+    @asides = Aside.all.includes([:rich_text_body])
   end
 
   # GET /asides/1
