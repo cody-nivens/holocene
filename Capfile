@@ -11,6 +11,7 @@ require 'capistrano/rails'
 require 'capistrano/nginx'
 require 'capistrano/puma'
 require 'capistrano/sidekiq'
+require 'thinking_sphinx/capistrano'
 install_plugin Capistrano::Sidekiq  # Default sidekiq tasks
 install_plugin Capistrano::Sidekiq::Systemd
 install_plugin Capistrano::Puma  # Default puma tasks

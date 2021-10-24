@@ -42,7 +42,7 @@ set :rvm_type, :user                     # Defaults to: :auto
 set :rvm_ruby_version, '3.0.2'      # Defaults to: 'default'
 set :rvm_custom_path, '~/.rvm'  # only needed if not detected
 # Change these
-server '192.168.1.10', roles: [:web, :app, :db], primary: true
+server '192.168.1.12', roles: [:web, :app, :db], primary: true
 
 set :application, "holocene"
 set :repo_url, "git@github.com:cody-nivens/holocene.git"
@@ -51,7 +51,7 @@ set :puma_threads,    [4, 16]
 set :puma_workers,    0
 
 # Don't change these unless you know what you're doing
-set :pty,             false
+set :pty,             true
 set :use_sudo,        false
 set :stage,           :production
 set :deploy_via,      :remote_cache

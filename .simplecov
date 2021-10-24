@@ -1,5 +1,5 @@
 unless ENV['NO_COVERAGE']
-  SimpleCov.coverage_dir "coverage_#{ENV['TEST_ENV_NUMBER'] || ''}"
+  SimpleCov.coverage_dir "coverage#{ENV['TEST_ENV_NUMBER'] || ''}"
   SimpleCov.start :rails do
     enable_coverage :branch
     primary_coverage :branch
