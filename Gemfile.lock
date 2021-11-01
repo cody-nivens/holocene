@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git@github.com:cody-nivens/rails-bootstrap-tab.git
-  revision: 7cd48d0f3e20792d2666f745817c93055d645590
+  revision: 5061fba917770cee1ac81774ae0f2a8e27e4fe9d
   specs:
     rails-bootstrap-tabs (0.2.7)
       rails (>= 3.2.11)

@@ -1,2 +1,3 @@
 RailsBootstrapTabs.bootstrap_version = 4
-RailsBootstrapTabs.nav_markup = true
+#RailsBootstrapTabs.fade_effect = true
+#RailsBootstrapTabs.nav_markup = true
