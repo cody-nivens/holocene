@@ -22,6 +22,14 @@
     </p>
   <% end %>
 
+  <% unless scene.characters.size == 0 %>
+  <p>
+    <strong>Characters:</strong>
+    <br>
+    <%= render partial: 'characters/characters_occ_ul', formats: [:html], locals: { object: scene } %>
+  </p>
+<% end %>
+
   <% unless scene.characters.empty? %>
     <ul>
       <% scene.character_scenes.joins(:character).order(:occupation_class, :last_name, :first_name).each do |character_scene| %>

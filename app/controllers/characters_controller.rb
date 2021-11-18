@@ -26,12 +26,12 @@ class CharactersController < ApplicationController
       end
       my_scope = case @object.class.name
                  when 'Book'
-                   my_scope.joins(:books_characters).where('books_characters.book_id = ?', @object.id).distinct
+                   my_scope.joins(:books_characters).where('books_characters.book_id = ?', @object.id)
                  when 'Story'
-                   my_scope.joins(:character_stories).where('character_stories.story_id = ?', @object.id).distinct
+                   my_scope.joins(:character_stories).where('character_stories.story_id = ?', @object.id)
                  else
                    # when "Scene"
-                   my_scope.joins(:character_scenes).where('character_scenes.scene_id = ?', @object.id).distinct
+                   my_scope.joins(:character_scenes).where('character_scenes.scene_id = ?', @object.id)
                  end
     end
 

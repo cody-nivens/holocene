@@ -4,7 +4,7 @@
     <% if occ_class == "" %>
       <% occ_class = nil %>
     <% end %>
-      <% object.characters.where(occupation_class: occ_class).order(:occupation_class, :last_name, :first_name).each do |character| %>
+      <% object.characters.where(occupation_class: occ_class).order(:occupation_class, :last_name, :first_name).distinct.each do |character| %>
         <li><%= link_to character.name, polymorphic_path([object, character]) %>
           <%= (!character.grouping? ? '' : "-  #{character.grouping}").to_s %>
           <% if object.class.name == 'Scene' %>
