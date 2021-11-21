@@ -11,6 +11,14 @@ class CharactersController < ApplicationController
 
     my_params = grid_params.except(:category, :attribute, :value)
 
+    if grid_params[:no_ethnicity].to_i == 1
+      my_params[:ethnicity] = ['']
+    end
+
+    if grid_params[:no_grouping].to_i == 1
+      my_params[:grouping] = ['']
+    end
+
     @grid = CharactersGrid.new(my_params) do |scope|
       if @attribute.present?
         if @value.blank?

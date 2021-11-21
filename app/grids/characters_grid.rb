@@ -15,21 +15,26 @@ class CharactersGrid < BaseGrid
     where('LOWER( first_name ) like ?', "%#{value}%")
   end
 
+  filter(:no_ethnicity, :boolean, default: false, dummy: true)
+
   filter(:ethnicity, :enum, select: proc {
-                                      Character.all.pluck(:ethnicity).compact.sort.uniq.map do |c|
-                                        [c, c]
-                                      end
-                                    }, multiple: true)
+    Character.all.pluck(:ethnicity).compact.sort.uniq.drop(1).map do |c|
+      [c, c]
+    end
+  }, multiple: true)
+
   filter(:occupation_class, :enum, select: proc {
                                              Character.all.pluck(:occupation_class).compact.sort.uniq.map do |c|
                                                [c, c]
                                              end
                                            }, multiple: true)
+  filter(:no_grouping, :boolean, default: false, dummy: true)
+
   filter(:grouping, :enum, select: proc {
-                                     Character.all.pluck(:grouping).compact.sort.uniq.map do |c|
-                                       [c, c]
-                                     end
-                                   }, multiple: true)
+    Character.all.pluck(:grouping).compact.sort.uniq.drop(1).map do |c|
+      [c, c]
+    end
+  }, multiple: true)
   filter(:category, :enum, select: proc {
                                      CharacterCategory.all.order(:name).pluck(:name, :id).compact.sort.uniq.map do |c|
                                        [c[0], c[1]]
@@ -101,7 +106,7 @@ class CharactersGrid < BaseGrid
     link_to (fa_icon 'edit'), edit_character_path(character), title: 'Edit'
   end
   column(:action3, header: '', html: true) do |character|
-    link_to (fa_icon 'trash-o'), polymorphic_path([@object, character]), method: :delete,
+    link_to (fa_icon 'trash'), polymorphic_path([@object, character]), method: :delete,
                                                                          data: { confirm: 'Are you sure?' }, title: 'Destroy'
   end
 end
