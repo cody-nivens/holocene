@@ -7,5 +7,5 @@
 <%= datagrid_table @grid, @records, partials: 'itinerary_grid' %>
 <%== pagy_nav(@pagy) %>
 
-<% add_to_footer('New Itinerary', new_tour_itinerary_path(@tour), print: true) %>
-<% add_to_footer('Back', tour_path(@tour), print: true) %>
+<% add_to_footer('New Itinerary', new_tour_itinerary_path(@tour)) %>
+<% add_to_footer('Back', tour_path(@tour)) %>

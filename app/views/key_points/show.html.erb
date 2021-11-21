@@ -40,7 +40,7 @@
   <% end %>
 <% end %>
 
-<% add_to_footer('Move', polymorphic_path([@scripted, @key_point, :move]), print: true) %>
+<% add_to_footer('Move', polymorphic_path([@scripted, @key_point, :move])) %>
 <% add_to_footer('Back', polymorphic_path([@scripted], anchor: @key_point.anchor)) %>
 
 <% prev_key_point = @key_point.set_prev %>

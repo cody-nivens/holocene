@@ -2,7 +2,7 @@ module ApplicationHelper
   include Pagy::Frontend
 
   def add_to_footer(name, link, options = {})
-    print = options[:print] || false
+    print = options[:print] || true
     method = options[:method] || :get
     data = options[:data] || {}
     classes = options[:classes] || "btn"

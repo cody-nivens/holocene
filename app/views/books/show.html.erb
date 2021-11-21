@@ -31,8 +31,8 @@
   <% add_to_footer('All Stories', book_stories_path(@book)) %>
   <% add_to_footer('Characters', polymorphic_path([@book, :characters])) %>
   <% add_to_footer('Key Points', polymorphic_path([@book, :key_points])) %>
-  <% add_to_footer('Scenes', polymorphic_path([@book, :scenes]), print: true) %>
-  <% add_to_footer('Stats', polymorphic_path([@book, :stats]), print: true) %>
+  <% add_to_footer('Scenes', polymorphic_path([@book, :scenes])) %>
+  <% add_to_footer('Stats', polymorphic_path([@book, :stats])) %>
   <% add_to_footer('Artifacts', book_artifacts_path(@book)) %>
 <% else %>
   <%= render 'chapters/index', chapters: @chapters %>

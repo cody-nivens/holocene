@@ -18,5 +18,5 @@
 <% @object = @itinerary %>
 <%= render 'shared/map', object: @object %>
 
-<% add_to_footer('Edit', edit_itinerary_path(@itinerary), print: true) %>
-<% add_to_footer('Back', tour_path(@tour), print: true) %>
+<% add_to_footer('Edit', edit_itinerary_path(@itinerary)) %>
+<% add_to_footer('Back', tour_path(@tour)) %>

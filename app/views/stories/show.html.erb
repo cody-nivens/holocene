@@ -97,12 +97,12 @@
 
 <% end %>
 
-<% add_to_footer('New Key Point', new_polymorphic_path([@story, KeyPoint]), print: true) %>
-<% add_to_footer('Characters', polymorphic_path([@story, :characters]), print: true) %>
-<% add_to_footer('Resync Scenes', story_resync_scenes_path(id: @story.id), print: true) %>
+<% add_to_footer('New Key Point', new_polymorphic_path([@story, KeyPoint])) %>
+<% add_to_footer('Characters', polymorphic_path([@story, :characters])) %>
+<% add_to_footer('Resync Scenes', story_resync_scenes_path(id: @story.id)) %>
 <% add_to_footer('Key Points', polymorphic_path([@story, :key_points])) %>
-<% add_to_footer('Scenes', polymorphic_path([@story, :scenes]), print: true) %>
-<% add_to_footer('Stats', polymorphic_path([@story, :stats]), print: true) %>
-<% add_to_footer('Timeline', polymorphic_path([@story, :timeline]), print: true) %>
-<% add_to_footer('Tours', polymorphic_path([@story, :tours]), print: true) %>
-<% add_to_footer('Back', book_path(@book), print: true) %>
+<% add_to_footer('Scenes', polymorphic_path([@story, :scenes])) %>
+<% add_to_footer('Stats', polymorphic_path([@story, :stats])) %>
+<% add_to_footer('Timeline', polymorphic_path([@story, :timeline])) %>
+<% add_to_footer('Tours', polymorphic_path([@story, :tours])) %>
+<% add_to_footer('Back', book_path(@book)) %>

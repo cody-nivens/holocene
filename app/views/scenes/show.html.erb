@@ -106,8 +106,8 @@
 <% else %>
   <% add_to_footer('Edit Section', edit_section_path(@scene.section)) %>
 <% end %>
-<% add_to_footer('Characters', polymorphic_path([@scene, :characters]), print: true) %>
-<% add_to_footer('Move', polymorphic_path([@scene, :move]), print: true) %>
+<% add_to_footer('Characters', polymorphic_path([@scene, :characters])) %>
+<% add_to_footer('Move', polymorphic_path([@scene, :move])) %>
 <% add_to_footer('Destroy', scene_path(@scene), method: :delete, data: { confirm: 'Are you sure?' }) %>
 <% add_to_footer('Back', (@scene.key_point.nil? ? polymorphic_path([@situated, :scenes]) : key_point_path(@scene.key_point))) %>
 

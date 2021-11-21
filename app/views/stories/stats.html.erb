@@ -1,4 +1,4 @@
 <h2>Stats for Story <%= link_to @story.name, story_path(@story) %></h2>
 <%= render partial: 'shared/stats', formats: [:html], locals: { object: @story, book: @book } %>
 
-<% add_to_footer('Back', story_path(@story), print: true) %>
+<% add_to_footer('Back', story_path(@story)) %>

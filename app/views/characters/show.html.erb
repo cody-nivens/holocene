@@ -4,7 +4,7 @@
 
 <%= render partial: 'characters/show', locals: { pdf: pdf, character: @character, object: @object, scripted: @scripted } %>
 
-<% add_to_footer('Edit', edit_polymorphic_path([@object, @character]), print: true) %>
-<% add_to_footer('Attributes', polymorphic_path([@object, @character, :character_values]), print: true) %>
-<% add_to_footer('Lineage', polymorphic_path([@object, @character, :lineage]), print: true) %>
-<% add_to_footer('Back', polymorphic_path([@object, :characters]), print: true) %>
+<% add_to_footer('Edit', edit_polymorphic_path([@object, @character])) %>
+<% add_to_footer('Attributes', polymorphic_path([@object, @character, :character_values])) %>
+<% add_to_footer('Lineage', polymorphic_path([@object, @character, :lineage])) %>
+<% add_to_footer('Back', polymorphic_path([@object, :characters])) %>

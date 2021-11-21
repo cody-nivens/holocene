@@ -16,7 +16,7 @@
 
 <br>
 
-<% add_to_footer('New Key Point', new_polymorphic_path([@scripted, KeyPoint]), print: true) %>
-<% add_to_footer('Scenes', polymorphic_path([@scripted, :scenes]), print: true) %>
-<% add_to_footer('Timeline', polymorphic_path([@scripted, :timeline]), print: true) %>
-<% add_to_footer('Back', polymorphic_path(@scripted), print: true) %>
+<% add_to_footer('New Key Point', new_polymorphic_path([@scripted, KeyPoint])) %>
+<% add_to_footer('Scenes', polymorphic_path([@scripted, :scenes])) %>
+<% add_to_footer('Timeline', polymorphic_path([@scripted, :timeline])) %>
+<% add_to_footer('Back', polymorphic_path(@scripted)) %>
