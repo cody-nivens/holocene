@@ -4,6 +4,7 @@
 <%= link_to (fa_icon 'book'), book_epub_path(book), title: 'EPub' %>
 <%= link_to (fa_icon 'file-pdf'), book_path(book, format: :pdf), title: 'PDF' %>
 <%= link_to (fa_icon 'trash'), book, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
+<%= render partial: 'books/book_stats', locals: { book: book } %>
 </dt>
 <dd>
   <%= book.body %>

@@ -71,9 +71,10 @@ class BooksController < ApplicationController
     @chapters = @book.chapters.includes({ holocene_events: :rich_text_body })
     @scripted = @book
     @stories = @book.stories.where(publish: true).order(:position) if @book.is_fiction?
+    long = params[:long]
 
     respond_to do |format|
-      format.html { render :show }
+      format.html { render :show, locals: { long: long } }
       format.pdf do
         render pdf: 'export',
                disposition: 'attachment',

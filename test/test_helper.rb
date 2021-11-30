@@ -8,6 +8,7 @@ require 'download_helpers'
 require 'minitest/unit'
 require 'mocha/minitest'
 require 'sidekiq/testing'
+require 'fileutils'
 
 module SidekiqMinitestSupport
   def after_teardown
@@ -24,8 +25,7 @@ module SphinxHelpers
   end
 
   def index
-    # Wait for Sphinx to finish loading in the new index files.
-    sleep 0.25 until ts_index_finished?
+    init_sphinx
   end
 end
 
@@ -79,57 +79,40 @@ end
 ActiveSupport::Testing::Parallelization.after_fork_hook do |i|
   ENV['TEST_ENV_NUMBER'] = i.to_s
   puts ENV['TEST_ENV_NUMBER']
-  #ENV.keys.each do |key|
-  #  puts "#{key} -> #{ENV[key]}"
-  #end
 end
 
 def init_sphinx
   lock_file = Rails.root.join("tmp/test_parallel.lock")
-  FileUtils.mkdir(Rails.root.join(ThinkingSphinx::Test.config.indices_location)) unless File.exists?(Rails.root.join(ThinkingSphinx::Test.config.indices_location))
-
-  if locked? lock_file
-    sleep 0.25 until ts_index_finished?
-  else
-    $initialized = true
+  if ENV['TEST_ENV_NUMBER'].to_i.zero?
+    FileUtils.touch(lock_file)
     ThinkingSphinx::Test.index
+    sleep 0.25 until ts_index_finished?
+    File.delete(lock_file)
+  else
     sleep 0.25 until ts_index_finished?
   end
 end
 
 module ActiveSupport
   class TestCase
-    # Run tests in parallel with specified workers
     parallelize(workers: :number_of_processors)
-    #init_sphinx
 
-#    unless ENV['NO_COVERAGE']
-#      SimpleCov.coverage_dir "coverage_#{ENV['TEST_ENV_NUMBER'] || ''}"
-#    end
-
-    # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
 
     set_fixture_class 'tags' => ActsAsTaggableOn::Tag
     set_fixture_class 'taggings' => ActsAsTaggableOn::Tagging
-    # Add more helper methods to be used by all tests here...
+
     include ApplicationHelper
     include SphinxHelpers
     include Devise::Test::IntegrationHelpers
 
     def self.prepare
-#      DownloadHelpers.clear_downloads
     end
 
     def setup
-      # Add code that need to be executed before each test
-      #holocene_event = holocene_events(:holocene_event_1)
-      #file = Rails.root.join('test', 'fixtures', 'files', 'image.jpg')
-      #holocene_event.image.attach(io: File.open(file), filename: 'image.jpg',  content_type: 'image/jpeg')
     end
 
     def teardown
-      # Add code that need to be executed after each test
       Capybara.reset_sessions!
     end
 
@@ -153,7 +136,6 @@ module ActiveSupport
     end
 
     def fill_in_rich_text_area(id, with:)
-      #find(:css, id.to_s).click.set(with)
       find(".trix-content").set(with)
     end
 
@@ -167,16 +149,10 @@ module ActiveSupport
 
     def convert_pdf_to_page(content)
       pdf_io = StringIO.new(content)
-      # debugger
       reader = PDF::Reader.new(pdf_io)
       reader.pages.map(&:to_s).join("\n")
     end
 
-    # assert react_component render
-    #
-    # assert_react_component("HelloWorld") do |props|
-    #   assert_equal "Hello world", props[:message]
-    # end
     def assert_react_component(name)
       assert_select 'div[data-react-class]' do |dom|
         assert_select '[data-react-class=?]', name

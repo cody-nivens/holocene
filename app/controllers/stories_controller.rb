@@ -5,7 +5,12 @@ class StoriesController < ApplicationController
   # GET /stories
   # GET /stories.json
   def index
+    long = params[:long]
+
     @stories = Story.includes([:key_points]).where(book_id: @book.id).order(:position)
+    respond_to do |format|
+      format.html { render :index, locals: { long: long } }
+    end
   end
 
   def stats; end

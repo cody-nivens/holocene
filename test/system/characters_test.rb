@@ -5,6 +5,8 @@ require 'application_system_test_case'
 class CharactersTest < ApplicationSystemTestCase
   setup do
     @character = characters(:character_1)
+    @jill = characters(:character_6)
+    @joe = characters(:character_2)
     @book = @character.books[0]
     @story = @book.stories.last
     @key_point = @story.key_points.last
@@ -37,13 +39,33 @@ class CharactersTest < ApplicationSystemTestCase
     assert_current_path book_character_step_path(@book, Character.last, :characteristics)
   end
 
-  test 'characters list' do
+  test 'book characters list' do
     visit book_characters_list_url(@book)
 #    visit New Character
     assert_link 'New Character'
+    take_screenshot
     click_on 'New Character'
     assert_text 'Character Characteristics'
     assert_current_path book_character_step_path(@book, Character.last, :characteristics)
+  end
+
+  test 'scene characters list' do
+    visit scene_characters_list_url(@scene)
+#    visit New Character
+    assert_difference('@scene.characters.count', 2) do
+      assert_link 'New Character'
+      select 'Jill', from: 'characters_avail'
+      select 'Joe', from: 'characters_avail'
+      click_on 'Save'
+      assert_link 'New Character'
+      wait_for_ajax
+      within '#characters_ids' do
+        assert_selector(:xpath, ".//option[contains(text(),'#{@jill.name}')]", count: 1)
+        assert_selector(:xpath, ".//option[contains(text(),'#{@joe.name}')]", count: 1)
+      end
+      page.all('select#characters_ids option').map(&:value) == [@jill.name, @joe.name ]
+    end
+    take_screenshot
   end
 
   test 'characters show attributes' do

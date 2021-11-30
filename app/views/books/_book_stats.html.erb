@@ -1,0 +1,19 @@
+<table class="table">
+  <tr>
+    <th>Stories(Publishable):</th>
+    <td><%= book.stories.size %> (<%= book.stories.where(publish: true).size %>)</td>
+    <th>Characters:</th>
+    <td><%= book.characters.size %></td></tr>
+  <tr>
+    <th>Scenes (Publishable)(Sections % Scenes):</th>
+    <% pub_scene_count = book.scene_count(true) %>
+    <% scene_count = book.scene_count %>
+    <% section_count = book.section_count %>
+    <% word_count = book.word_count %>
+    <% pub_word_count = book.word_count(true) %>
+    <td>
+      <%= render partial: 'scenes/progress_bar', formats: [:html], locals: { object: book } %>
+    </td>
+    <th>Word Count | Publishable (Potential):</th> <td><%= number_with_delimiter(word_count, delimiter: ',') %> | <%= number_with_delimiter(pub_word_count, delimiter: ',') %> (<%= (section_count.zero? ? '' : number_with_delimiter(word_count / section_count * pub_scene_count, delimiter: ',')) %>)</td>
+  </tr>
+</table>

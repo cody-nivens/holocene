@@ -25,10 +25,10 @@
 </p>
 
 <% if @book.is_fiction? %>
-  <%= render 'books/fiction', book: @book, stories: @stories %>
+  <%= render 'books/fiction', book: @book, stories: @stories, long: long %>
 
   <% add_to_footer('New Story', new_book_story_path(book_id: @book.id)) %>
-  <% add_to_footer('All Stories', book_stories_path(@book)) %>
+  <% add_to_footer('All Stories', book_stories_path(@book, long: true)) %>
   <% add_to_footer('Characters', polymorphic_path([@book, :characters])) %>
   <% add_to_footer('Key Points', polymorphic_path([@book, :key_points])) %>
   <% add_to_footer('Scenes', polymorphic_path([@book, :scenes])) %>

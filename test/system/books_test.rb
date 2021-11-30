@@ -67,7 +67,7 @@ class BooksTest < ApplicationSystemTestCase
     assert_link 'All Stories'
     click_on 'All Stories'
     assert_text 'The Middles XX'
-    assert_current_path book_stories_path(@book_2)
+    assert_current_path book_stories_path(@book_2, long: true)
     click_on 'Back'
     assert_text 'The Beginnings'
     assert_current_path book_path(@book_2)
