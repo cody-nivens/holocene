@@ -8,7 +8,16 @@ Rails.application.configure do
     Bullet.rails_logger  = true
     Bullet.add_footer    = true
   end
+  #config.hosts = nil
 
+#  config.hosts = [
+#    IPAddr.new("0.0.0.0/0"), # All IPv4 addresses.
+#    IPAddr.new("::/0"),      # All IPv6 addresses.
+#    "localhost",             # The localhost reserved domain.
+#    ".localdomain",             # The localhost reserved domain.
+#    "127.0.0.1"              # The localhost reserved domain.
+#  ]
+#
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
