@@ -103,9 +103,10 @@ class BooksController < ApplicationController
     @chapters = @book.chapters.includes({ holocene_events: :rich_text_body })
     @scripted = @book
     @stories = @book.stories.where(publish: true).order(:position) if @book.is_fiction?
+    outline = params[:outline]
 
     respond_to do |format|
-      format.html { render :view, locals: { long: true } }
+      format.html { render :view, locals: { outline: outline} }
     end
   end
 

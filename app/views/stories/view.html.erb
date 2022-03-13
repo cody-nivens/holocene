@@ -1,9 +1,9 @@
 <h2>
   <%== breadcrumb(@story.book, @story) %>
-  <%= link_to (fa_icon 'edit'), edit_story_path(@story), title: 'Edit' %>
+  <%= link_to (fa_icon 'edit', type: :regular), edit_story_path(@story), title: 'Edit' %>
   <%= link_to (fa_icon 'list'), story_path(@story), title: 'Show' %>
   <%= link_to (fa_icon 'file-pdf'), story_path(@story, format: :pdf), title: 'PDF' %>
-  <%= link_to (fa_icon 'file-pdf'), story_path(@story, format: :pdf, outline: true), title: 'PDF Outline' %>
+  <%= link_to (fa_icon 'file-pdf', type: :regular), story_path(@story, format: :pdf, outline: true), title: 'PDF Outline' %>
 </h2>
 
 <%= render partial: 'stories/view', formats: [:html], locals: { outline: params[:outline], pdf: true, story: @story } %>
