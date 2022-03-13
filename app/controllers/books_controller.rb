@@ -92,6 +92,23 @@ class BooksController < ApplicationController
     end
   end
 
+  # GET /books/1
+  # GET /books/1.json
+  def view
+    @book = Book.includes([:rich_text_body, { chapters: [:rich_text_body, { aside: :rich_text_body },
+                                                         { sections: :rich_text_body }, { partition: :rich_text_body },
+                                                         { holocene_events: [:region, :event_types, :rich_text_body] }] }]).find(params[:id])
+    @title = @book.name
+    session[:book_id] = @book.id
+    @chapters = @book.chapters.includes({ holocene_events: :rich_text_body })
+    @scripted = @book
+    @stories = @book.stories.where(publish: true).order(:position) if @book.is_fiction?
+
+    respond_to do |format|
+      format.html { render :view, locals: { long: true } }
+    end
+  end
+
   def epub
     @notes = []
     BookEPub.new(@book).build

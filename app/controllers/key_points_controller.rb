@@ -6,6 +6,13 @@ class KeyPointsController < ApplicationController
   # GET /key_points.json
   def index
     @key_points = @scripted.key_points.order(:position)
+    if request.xhr?
+      respond_to do |format|
+        format.json {
+          render json: {key_points: @key_points }
+        }
+      end
+    end
   end
 
   def sort
@@ -62,7 +69,13 @@ class KeyPointsController < ApplicationController
   # GET /key_points/1.json
   def show
     @key_point = KeyPoint.includes({ scenes: [:artifact, :rich_text_place, :rich_text_summary, :insert_scene, :characters, { section: :rich_text_body }, { character_scenes: [:character, :rich_text_summary] }]}).find(params[:id])
+    @klass = @scripted.class
+    @title = @key_point.name
     @scripted = @key_point.scripted
+  end
+
+  def view
+    @key_point = KeyPoint.includes({ scenes: [:artifact, :rich_text_place, :rich_text_summary, :insert_scene, :characters, { section: :rich_text_body }, { character_scenes: [:character, :rich_text_summary] }]}).find(params[:id])
     @klass = @scripted.class
     @title = @key_point.name
     @scripted = @key_point.scripted

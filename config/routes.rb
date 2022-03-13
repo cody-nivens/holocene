@@ -11,6 +11,11 @@ Rails.application.routes.draw do
   get '/characters/attribute_values', to: 'characters#attribute_values', format: :js, constraints: lambda { |request|
                                                                                                      request.xhr?
                                                                                                    }
+
+  get '/books/:id/view', to: 'books#view', as: :book_view
+  get '/stories/:id/view', to: 'stories#view', as: :story_view
+  get '/key_points/:id/view', to: 'key_points#view', as: :key_point_view
+
   get '/cities/index', to: 'cities#index', format: :js, constraints: ->(request) { request.xhr? }
   get '/cities/index', to: 'cities#index'
   post '/cities/itinerary', to: 'cities#itinerary', as: :cities_itinerary

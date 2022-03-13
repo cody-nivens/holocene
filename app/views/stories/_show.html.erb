@@ -31,28 +31,4 @@
     <%= story.summary %>
   <% end %>
 <% end %>
-<% story.key_points.order(:position).each do |key_point| -%>
-  <% if key_point.print_name? %>
-    <div style="display:block; clear:both; page-break-after:always;"></div>
-    <% just_printed_page_break = true %>
-    <h2><%= key_point.name %></h2>
-  <% end %>
-  <% last_selector = 0 %>
-  <% Scene.where(key_point_id: key_point.id).order(:selector, :position).each do |scene| %>
-    <% unless scene.section.nil? %>
-      <% if key_point.print_points? && scene.selector != last_selector %>
-        <% unless just_printed_page_break %>
-          <div style="display:block; clear:both; page-break-after:always;"></div>
-        <% end %>
-        <h3><%= key_point.selector_value(scene.selector) %></h3>
-        <% last_selector = scene.selector %>
-      <% end %>
-      <% just_printed_page_break = false %>
-      <br>
-      <strong>
-        <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil } %>
-      </strong><br><br>
-      <%== epub_friendly(scene.section.body) %>
-    <% end %>
-  <% end -%>
-<% end -%>
+<%= render partial: 'stories/view_story', formats: [:html], locals: { story: story, pdf: pdf } %>

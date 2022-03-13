@@ -1,0 +1,9 @@
+<div style="display:block; clear:both; page-break-after:always;"></div>
+<% pdf ||= nil %>
+<% outline ||= nil %>
+<% just_printed_page_break = true %>
+
+  <% if story.print_summary? %>
+    <%= story.summary %>
+  <% end %>
+<%= render partial: 'stories/view_story2', formats: [:html], locals: { story: story, pdf: pdf } %>

@@ -7,6 +7,7 @@
                      (@scripted.instance_of?(Chapter) ? @scripted.scripted : @scripted.book)
                    end), @scripted, @key_point) %>
   <%== link_to (fa_icon 'edit'), edit_key_point_path(@key_point), title: 'Edit' %>
+  <%== link_to (fa_icon 'newspaper'), key_point_view_path(@key_point), title: 'View' %>
   <%== link_to (fa_icon 'trash'), key_point_path(@key_point), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
 </h2>
 
@@ -30,6 +31,9 @@
 </p>
 
 <%= tabs do |c| %>
+  <% c.tab "All" do %>
+    <%= render partial: 'key_points/list', formats: [:html], locals: { scripted: @key_point.scripted, key_point: @key_point } %>
+  <% end %>
   <% 1.upto(6).each do |selector| %>
     <% c.tab KeyPoint.selector_title(selector) do %>
       <span>

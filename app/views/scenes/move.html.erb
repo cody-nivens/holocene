@@ -16,6 +16,13 @@
   <strong>Selector:</strong> <%= selector_string(@scene.selector) %>
 
   <table class='table'>
+
+  <tr>
+    <td>
+      <%= f.select "story_id".to_sym, options_from_collection_for_select( @situated.book.stories.order(:position), :id, :name, @situated.id), prompt: 'Select Story', multiple: false, size: 1 %>
+      </td>
+  </tr>
+
     <tr>
       <td>
         <%= f.select :new_key_point_id, options_from_collection_for_select(@scene.key_point.scripted.key_points.order(:position), :id, :name, @key_point.id),

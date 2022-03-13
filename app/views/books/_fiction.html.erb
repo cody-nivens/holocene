@@ -5,7 +5,7 @@
 <%= tabs do |c| %>
   <% c.tab 'Stories' do %>
     <span>
-        <%= render partial: 'stories/index', formats: [:html], locals: { stories: stories, book: book, long: false } %>
+        <%= render partial: 'stories/index', formats: [:html], locals: { stories: stories, book: book, long: long } %>
     </span>
   <% end %>
 

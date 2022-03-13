@@ -88,6 +88,7 @@
     <br>
     <ul>
       <% scenes.includes([:section, :rich_text_summary]).each do |iscene| %>
+        <% next unless iscene.key_point.scripted.publish? %>
         <li><%= link_to(iscene.abc, scene_path(iscene)) %> <%= (iscene.section.nil? ? '' : '*') %><%= iscene.time_to_text %> : <%= iscene.name %></li>
         <% insert_scene = iscene %>
       <% end %>

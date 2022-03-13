@@ -41,11 +41,16 @@ class Book < ApplicationRecord
   end
 
   def resync_stories
-    index = 48
+    chars = %w{ A B C D E F G H I J K L M N O P Q R S T U V W X Y Z }
+    index_1 = 0
+    index_2 = 0
     stories.order(:position).each do |story|
-      story.update({ scene_character: index.chr })
-      index += 1
-      index = 65 if index == 58
+      story.update({ scene_character: chars[index_2] + chars[index_1] })
+      index_1 += 1
+      if index_1 == 26
+        index_1 = 0
+        index_2 += 1
+      end
       story.resync_key_points
     end
   end

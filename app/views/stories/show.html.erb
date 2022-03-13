@@ -4,6 +4,7 @@
 <h2>
   <%== breadcrumb(@story.book, @story) %>
   <%= link_to (fa_icon 'edit'), edit_story_path(@story), title: 'Edit' %>
+  <%= link_to (fa_icon 'newspaper'), story_view_path(@story), title: 'View' %>
   <%= link_to (fa_icon 'file-pdf'), story_path(@story, format: :pdf), title: 'PDF' %>
   <%= link_to (fa_icon 'file-pdf'), story_path(@story, format: :pdf, outline: true), title: 'PDF Outline' %>
 </h2>
@@ -46,20 +47,7 @@
             <% @story.key_points.rank(:position).each do |key_point| %>
               <%= content_tag 'div', id: "key_point-#{key_point.id}", data: { model_name: key_point.class.name.underscore, update_url: key_point_sort_path(key_point) } do %>
                 <li><%= link_to key_point.hook, key_point_path(key_point), id: key_point.anchor %> - <%= link_to key_point.key_element, key_point_path(key_point) %>
-                  <dl>
-                    <% 1.upto(6).each do |x| %>
-                      <% if key_point.scenes.where(selector: x).size == 0 %>
-                        <dt><%= key_point.selector_value(x) %></dt>
-                      <% else %>
-                        <% key_point.scenes.where(selector: x).order(:position).each do |scene| %>
-                          <dt>
-                            <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: @story, key_point: key_point, pdf: nil, print_name: true } %>
-                          </dt>
-                          <dd><%= scene.summary.to_plain_text %></dd>
-                        <% end %>
-                      <% end %>
-                    <% end %>
-                  </dl>
+                <%= render partial: 'key_points/list', formats: [:html], locals: { scripted: @story, key_point: key_point } %>
                 </li>
               <% end %>
             <% end %>

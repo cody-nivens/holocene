@@ -13,37 +13,40 @@
 <% end -%>
 
 <% @notes = {} -%>
+<% line_count = 0 %>
+<% inserted_scenes = [] %>
 <% if book.is_fiction? %>
-  <% if outline %>
-    <% scenes = Scene.get_scenes(book, 'off') %>
-    <% scenes.keys.sort.each do |year| %>
+  <% scenes = Scene.get_scenes(book, 'off') %>
+  <% scenes.keys.sort.each do |year| %>
     <% scenes[year].keys.sort.each do |month| %>
-    <% scenes[year][month].keys.sort.each do |day| %>
-    <% scenes[year][month][day].each do |scene| %>
-      <% next if scene.section.nil? %>
-      <strong>
-        <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil } %>
-      </strong><br><br>
+      <% scenes[year][month].keys.sort.each do |day| %>
+        <% scenes[year][month][day].keys.sort.each do |hour| %>
+          <% scenes[year][month][day][hour].keys.sort.each do |minute| %>
+            <% scenes[year][month][day][hour][minute].each do |scene| %>
+              <% next if inserted_scenes.include?(scene.id) %>
+              <% insert_scenes = Scene.where(insert_scene_id: scene.id) %>
+              <% insert_scenes.each do |iscene| %>
+                <% next if inserted_scenes.include?(iscene.id) %>
+                <% next unless iscene.key_point.scripted.publish? %>
+                <% inserted_scenes << iscene.id %>
+                <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: iscene, outline: outline} %>
+                <% line_count += 1 if outline %>
+              <% end %>
+              <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline} %>
+              <% if outline %>
+                <% if line_count == 50 %>
+                  <% line_count = 0 %>
+                  <!--  <div style="display:block; clear:both; page-break-after:always;"></div> -->
+                <% else %>
+                  <% line_count += 1 if outline %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
     <% end %>
-    <% end %>
-    <% end %>
-    <% end %>
-  <% else -%>
-    <% scenes = Scene.get_scenes(book, 'off') %>
-    <% scenes.keys.sort.each do |year| %>
-    <% scenes[year].keys.sort.each do |month| %>
-    <% scenes[year][month].keys.sort.each do |day| %>
-    <% scenes[year][month][day].each do |scene| %>
-      <% next if scene.section.nil? %>
-      <strong>
-        <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil } %>
-      </strong><br><br>
-      <%== epub_friendly(scene.section.body) %><br>
-    <% end %>
-    <% end %>
-    <% end %>
-    <% end %>
-    <% end -%>
+  <% end -%>
 <% else %>
   <%# chapters.includes(partition: { :rich_text_body }, chapter: { :rich_text_body }, aside: { :rich_text_body }).each do |chapter| -%>
   <% chapters.includes(:partition, :rich_text_body, :aside).each do |chapter| -%>

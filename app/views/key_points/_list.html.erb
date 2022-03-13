@@ -1,0 +1,20 @@
+<ul>
+  <% 1.upto(6).each do |selector| %>
+    <li>
+      <%= KeyPoint.selector_title(selector) %>
+      <dl>
+        <% if key_point.scenes.where(selector: selector).size == 0 %>
+          <dt><%= link_to (fa_icon 'plus'), polymorphic_path([scripted, key_point, :list], selector: selector), title: 'Add Scene' %> <%= key_point.selector_value(selector) %>
+          </dt>
+        <% else %>
+          <dt><%= link_to (fa_icon 'plus'), polymorphic_path([scripted, key_point, :list], selector: selector), title: 'Add Scene' %> <%= key_point.selector_value(selector) %><br>
+          </dt>
+          <% key_point.scenes.where(selector: selector).order(:position).each do |scene| %>
+            <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scripted, key_point: key_point, pdf: nil, print_name: false, short_labels: true } %>
+          <dd><%= scene.summary.to_plain_text %></dd>
+        <% end %>
+      </dl>
+    <% end %>
+    </li>
+  <% end %>
+  </ul>

@@ -47,6 +47,18 @@ class StoriesController < ApplicationController
     end
   end
 
+  # GET /stories/1
+  # GET /stories/1.json
+  def view
+    @story = Story.includes({ scenes: [:section, { key_point: :scenes }, :artifact, :rich_text_place, :rich_text_summary] }).find(params[:id])
+    @book = @story.book
+    @object = @story
+    @title = @story.name
+    respond_to do |format|
+      format.html { render :view }
+    end
+  end
+
   def timeline
     @story = Story.includes([{ key_points: :scripted }]).find(params[:id])
     @book = @story.book

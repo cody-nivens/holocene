@@ -1,13 +1,14 @@
 <% print_name ||= false %>
 <% inline_date ||= false %>
+<% short_labels ||= false %>
 <% if inline_date %>
+<%= scene.time_to_text %> :
+<% else %>
+<%= (scene.section.nil? ? '*' : ' ') %> <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene), target: :_blank) : scene.abc) %>
 <%= scene.time_to_text %>
+: <%= scene.characters.size %> : <%= scene.word_count %> :
 <% end %>
-<%= (scene.section.nil? ? '*' : ' ') %> <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene)) : scene.abc) %>
-<% unless inline_date %>
-<%= scene.time_to_text %>
-<% end %>
-: <%= scene.characters.size %> : <%= scene.word_count %> : <%= (scene.artifact.nil? ? 'Unknown' : scene.artifact_name) %><%= (scene.place.empty? ? '' : " - #{scene.place.to_plain_text}") %>
-<% unless print_name %>
-  <br> <%= scene.name %>
+<%= scene.artifact.nil? ? '' : "#{scene.artifact_name} - " %><%= scene.place.empty? ? '' : "#{scene.place&.to_plain_text}" %>
+<% if print_name %>
+  <br> <%= (short_labels ? scene.name : scene.plain_name) %>
 <% end %>

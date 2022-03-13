@@ -3,18 +3,64 @@
 <% else %>
   <strong><%= date %></strong><br>
 <% end %>
+<% if @no_scene == "on" %>
+  <% stories = if situated.instance_of?(Book)
+                situated.stories.where(stand_alone: false, publish: true).includes([{ key_points: [:scripted, { scenes: [:section, :rich_text_summary] }] }]).order(:position)
+              else
+                [situated]
+              end %>
+
+  <% scenes_h = {} %>
+  <% stories.each do |story| %>
+    <% story.key_points.each do |key_point| %>
+      <% output_header = false %>
+        <ul>
+      <% 1.upto(6).each do |selector| %>
+        <% scenes = key_point.scenes.where(selector: selector) %>
+        <% next unless scenes.size.zero? %>
+        <% next if key_point.selector_value(selector).blank? %>
+        <% unless output_header %>
+          <%== breadcrumb(situated, story, key_point) %> 
+          <% output_header = true %>
+        <% end %>
+        <%# debugger if scenes.size.zero? %>
+        <li><%= KeyPoint.selector_title(selector) %>: <%= key_point.selector_value(selector) %></li>
+      <% end %>
+        </ul>
+    <% end %>
+<% end %>
+<% elsif @has_inserts == "on" %>
+  <% scenes2 = Scene.where.not(insert_scene_id: nil).order(:insert_scene_id) %>
+  <% old_insert_scene = 0 %>
+  <% scenes2.each do |scene| %>
+    <% next unless scene.situated.publish %>
+    <% if scene.insert_scene_id != old_insert_scene %>
+      <% unless old_insert_scene == 0 %>
+        </ul>
+      <% end %>
+      <% old_insert_scene = scene.insert_scene_id %>
+      <ul>
+    <% end %>
+    <li>
+      <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil } %>
+    </li>
+  <% end %>
+  </ul>
+<% else %>
 <% old_date = '' %>
 <% scenes.keys.sort.each do |year| %>
   <% scenes[year].keys.sort.each do |month| %>
     <% scenes[year][month].keys.sort.each do |day| %>
-      <% scenes[year][month][day].each do |scene| %>
+      <% scenes[year][month][day].keys.sort.each do |hour| %>
+      <% scenes[year][month][day][hour].keys.sort.each do |minute| %>
+      <% scenes[year][month][day][hour][minute].each do |scene| %>
         <% next if !no_section.nil? && !scene.section.nil? %>
         <% next if !only_section.nil? && scene.section.nil? %>
         <% if @toggle == "on" %>
           <tr>
             <td class="text-wrap" style="width: 20%">
             <% if print.nil? %>
-              <%= link_to scene.abc, scene_path(scene) %> <%= (scene.section.nil? ? '*' : '') %><br>
+              <%= link_to scene.abc, scene_path(scene), target: :_blank %> <%= (scene.section.nil? ? '*' : '') %><br>
             <% else %>
               <%= scene.abc %> <%= (scene.section.nil? ? '*' : '') %><br>
             <% end %>
@@ -50,8 +96,11 @@
           </li>
         <% end %>
       <% end %>
+      <% end %>
+      <% end %>
     <% end %>
   <% end %>
+<% end %>
 <% end %>
 <% if @toggle == "on" %>
   </table>

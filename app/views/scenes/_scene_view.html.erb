@@ -1,0 +1,11 @@
+<strong>
+  <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, print_name: false, inline_date: false } %>
+</strong>
+<% if scene.section&.body.blank? || outline %>
+  <%= scene.summary %>
+<% end%>
+<% unless outline %>
+  <%== epub_friendly(scene.section.body) unless scene.section&.body.nil? %>
+<% end %>
+<br>
+

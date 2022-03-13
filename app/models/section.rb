@@ -24,6 +24,10 @@ class Section < ApplicationRecord
 
   validates :name, presence: true
 
+  def display_name?
+    display_name
+  end
+
   def embed?
     embed != 0
   end

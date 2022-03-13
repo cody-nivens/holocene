@@ -85,9 +85,15 @@ module ApplicationHelper
     tag.li(title, class: 'breadcrumb-item active', aria: { current: 'page' })
   end
 
-  def breadcrumb_link(name, my_link)
-    tag.li class: 'breadcrumb-item' do
-      link_to name, my_link
+  def breadcrumb_link(name, my_link, blank: false)
+    if blank
+      return tag.li class: 'breadcrumb-item' do
+               link_to name, my_link, target: :_blank
+             end
+    else
+      return tag.li class: 'breadcrumb-item' do
+               link_to name, my_link
+             end
     end
   end
 

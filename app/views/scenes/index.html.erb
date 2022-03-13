@@ -31,7 +31,23 @@
     <div class='col-md-2'>
       <div class='form-check'>
         <label class='checkbox'>
+          <%= check_box_tag :no_scene, @no_scene, @no_scene, class: 'checkbox inline' %> No Scene
+        </label>
+      </div>
+    </div>
+    <div class='col-md-2'>
+      <div class='form-check'>
+        <label class='checkbox'>
           <%= check_box_tag :only_section, @only_section, @only_section, class: 'checkbox inline' %> Only Section
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-md-2'>
+      <div class='form-check'>
+        <label class='checkbox'>
+          <%= check_box_tag :has_inserts, @has_inserts, @has_inserts, class: 'checkbox inline' %> Has Inserts
         </label>
       </div>
     </div>
@@ -47,7 +63,10 @@
 <% end %>
 
 <div id='scenes-list'>
-  <%= render partial: 'scenes/scenes', formats: [:html], locals: { scenes: @scenes, print: @print, no_section: @no_section, only_section: @only_section, years: @years, date: @year, scripted: @scripted } %>
+    <%= render partial: 'scenes/scenes', formats: [:html], locals: { scenes: @scenes, print: @print, situated: @situated,
+                                                                     no_scene: @no_scene, no_section: @no_section, 
+                                                                     only_section: @only_section, years: @years, 
+                                                                     date: @year, scripted: @scripted } %>
 </div>
 
 <% add_to_footer('Timeline', polymorphic_path([@situated, :timeline])) %>

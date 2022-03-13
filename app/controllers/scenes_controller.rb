@@ -8,17 +8,23 @@ class ScenesController < ApplicationController
     @toggle = params[:toggle]
     @print = params[:print]
     @no_section = params[:no_section]
+    @no_scene = params[:no_scene]
     @only_section = params[:only_section]
+    @has_inserts = params[:has_inserts]
 
     @year = params[:year]
-    @scenes = Scene.get_scenes(@situated, @toggle)
-    @years =  @scenes.keys.sort
-    @year = @years[0] if @year.nil?
-    @scenes = { @year.to_i => @scenes[@year.to_i] } unless @year.nil?
+    @scenes = @no_scene ? nil : Scene.get_scenes(@situated, @toggle)
+    unless @scenes.nil?
+      @years =  @scenes.keys.sort
+      if @year.nil?
+        @scenes = @scenes
+        @year = @years[0] if @year.nil?
+      end
 
-    @year_options = []
-    @years.each do |year|
-      @year_options << [year, year]
+      @year_options = []
+      @years.each do |year|
+        @year_options << [year, year]
+      end
     end
 
     respond_to do |format|
@@ -81,7 +87,7 @@ class ScenesController < ApplicationController
     @selector = params[:selector]
     @scene.selector = @selector
     @scene.key_point = @key_point
-    @scene.date_string = '0001-01-01'
+    @scene.date_string = '0001-01-01-07-00'
   end
 
   # GET /scenes/1/edit
@@ -98,7 +104,7 @@ class ScenesController < ApplicationController
     @scene = Scene.new(scene_params)
     @key_point = @scene.key_point
     @situated = @scene.situated
-    @scene.date_string = '%04d' % params['t_years'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i
+    @scene.date_string = '%04d' % params['t_years'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i + '-%02d' % params['t']['hour'].to_i + '-%02d' % params['t']['minute'].to_i
 
     respond_to do |format|
       if @scene.save
@@ -114,7 +120,7 @@ class ScenesController < ApplicationController
   # PATCH/PUT /scenes/1
   # PATCH/PUT /scenes/1.json
   def update
-    @scene.date_string = '%04d' % params['t_years'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i
+    @scene.date_string = '%04d' % params['t_years'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i + '-%02d' % params['t']['hour'].to_i + '-%02d' % params['t']['minute'].to_i
     @situated = @scene.situated
 
     respond_to do |format|
@@ -159,7 +165,8 @@ class ScenesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def scene_params
-    params.require(:scene).permit(:abc, :check, :summary, :place, :time, :scene_sequel, :goal_reaction, :conflict_dilemma, :disaster_decision, :short_term_goal, :long_term_goal, :over_arching_goal, :situated_id,
+    params.require(:scene).permit(:abc, :check, :summary, :place, :time, :scene_sequel, :goal_reaction, :conflict_dilemma, :disaster_decision, 
+                                  :short_term_goal, :long_term_goal, :over_arching_goal, :situated_id,
                                   :situated_type, :selector, :key_point_id, :section_id, :insert_scene_id, :before_flag, :artifact_id, :position_position)
   end
 end

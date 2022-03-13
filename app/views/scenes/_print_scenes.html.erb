@@ -1,0 +1,23 @@
+<% inserted_scenes = [] %>
+
+<% scenes.keys.sort.each do |year| %>
+  <% scenes[year].keys.sort.each do |month| %>
+    <% scenes[year][month].keys.sort.each do |day| %>
+      <% scenes[year][month][day].keys.sort.each do |hour| %>
+        <% scenes[year][month][day][hour].keys.sort.each do |minute| %>
+          <% scenes[year][month][day][hour][minute].each do |scene| %>
+            <%# next if scene.section.nil? %>
+            <% next if inserted_scenes.include?(scene.id) %>
+            <% insert_scenes = Scene.where(insert_scene_id: scene.id) %>
+            <% insert_scenes.each do |iscene| %>
+              <% next unless iscene.key_point.scripted.publish? %>
+              <% inserted_scenes << iscene.id %>
+              <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: iscene, outline: outline} %>
+            <% end %>
+            <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline} %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end -%>

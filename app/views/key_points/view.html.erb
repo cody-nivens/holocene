@@ -1,0 +1,13 @@
+<h2>
+  <%== breadcrumb((if @scripted.instance_of?(Book)
+                     @scripted
+                   else
+                     (@scripted.instance_of?(Chapter) ? @scripted.scripted : @scripted.book)
+                   end), @scripted, @key_point) %>
+  <%== link_to (fa_icon 'edit'), edit_key_point_path(@key_point), title: 'Edit' %>
+  <%== link_to (fa_icon 'list'), key_point_path(@key_point), title: 'Show' %>
+  <%== link_to (fa_icon 'trash'), key_point_path(@key_point), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
+</h2>
+
+<%= render partial: 'key_points/view', formats: [:html], locals: { pdf: false, key_point: @key_point } %>
+<% add_to_footer('Back', @key_point) %>
