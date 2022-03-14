@@ -23,7 +23,6 @@
           <%== breadcrumb(situated, story, key_point) %> 
           <% output_header = true %>
         <% end %>
-        <%# debugger if scenes.size.zero? %>
         <li><%= KeyPoint.selector_title(selector) %>: <%= key_point.selector_value(selector) %></li>
       <% end %>
         </ul>

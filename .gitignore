@@ -45,3 +45,4 @@ yarn-debug.log*
 /erd.pdf
 
 /config/credentials/production.key
+/db/*.sql

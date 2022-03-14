@@ -11,7 +11,6 @@
    <% person = people[0] %>
          <li><%= person.full_name %>: <%= person.birth_year %> - <%= person.death_year %></li>
     <% people = Character.where(father: person.id) %>
-    <%# debugger if person.first_name == "George" && person.middle_name == "Charles" %>
     <% if people.size == 0 %>
       <% people = Character.where(father: last_person.id) - [person] %>
       <% person = (people.size.positive? ? people[0] : nil) %>

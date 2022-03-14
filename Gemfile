@@ -89,6 +89,7 @@ group :development do
   gem 'capistrano3-nginx', '~> 2.0', require: false
   gem 'capistrano3-puma',   require: false
   gem 'capistrano-sidekiq', require: false
+  gem "capistrano-db-tasks", require: false
 end
 
 group :test do
