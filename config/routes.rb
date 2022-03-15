@@ -73,6 +73,9 @@ Rails.application.routes.draw do
   get '/books/:id/epub', to: 'books#epub', as: :book_epub
   get '/books/:id/toc', to: 'books#toc', as: :toc
   get '/books/:book_id/key_points/:id/move', to: 'key_points#move', as: :book_key_point_move
+  get '/stories/:id/move', to: 'stories#move', as: :story_move
+  post '/stories/:id/moved', to: 'stories#moved', as: :story_moved
+
   post '/books/:book_id/authors/add', to: 'authors#add', as: :book_authors_add
   get '/books/:book_id/authors/list', to: 'authors#list', as: :book_authors_list
   post '/books/:book_id/characters/add', to: 'characters#add', as: :book_characters_add

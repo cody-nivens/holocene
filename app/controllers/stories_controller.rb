@@ -1,5 +1,5 @@
 class StoriesController < ApplicationController
-  before_action :set_story, only: %i[stats resync_scenes edit update destroy]
+  before_action :set_story, only: %i[stats move moved resync_scenes edit update destroy]
   before_action :set_book, only: %i[index new]
 
   # GET /stories
@@ -58,6 +58,18 @@ class StoriesController < ApplicationController
       format.html { render :view }
     end
   end
+
+  def moved
+    @story.update({ book_id: params[:new_book_id] })
+    @book = @story.book
+
+    respond_to do |format|
+      format.html { redirect_to polymorphic_url(@book), notice: 'Story successfully moved.' }
+      format.json { render :show, status: :ok, location: @story}
+    end
+  end
+
+  def move; end
 
   def timeline
     @story = Story.includes([{ key_points: :scripted }]).find(params[:id])
