@@ -25,8 +25,7 @@ class WelcomeController < ApplicationController
         @dates_counts[key] = [0, 0] if @dates_counts[key].nil?
         section = Section.find(item[1])
         met = Metric.find(item[0])
-        mets = section.metrics.order(date: :desc)
-        mets = Metric.where(metrized_id: item[1]).before(key - 1.day).order(date: :desc)
+        mets = Metric.where(metrized_id: item[1]).before(key).order(date: :desc)
         if mets.length > 0
           @dates_counts[key][1] += met.count - mets[0].count
         else
