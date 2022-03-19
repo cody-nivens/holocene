@@ -3,6 +3,19 @@ development:
   min_infix_len: 2
 
 
+production:
+  sql_range_step: 10000000
+  mysql41: 9307
+  html_strip: true
+  min_infix_len: 2
+  mysql41: 9313
+  indices_location: <%= File.join(Rails.root, "db", "sphinx", "production") %>
+  configuration_file: <%= File.join(Rails.root, "config", "production.sphinx.conf")%>
+  log: <%= File.join(Rails.root, "log", "production.searchd.log") %>
+  query_log: <%= File.join(Rails.root, "log", "production.searchd.query.log") %>
+  binlog_path: <%= File.join(Rails.root, "tmp", "binlog", "production") %>
+  pid_file: <%= File.join(Rails.root, "tmp", "pids", "production.sphinx.pid") %>
+
 test:
   sql_range_step: 10000000
   mysql41: 9307
