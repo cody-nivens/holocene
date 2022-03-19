@@ -72,7 +72,7 @@ set :compressor, :bzip2
 # set :rbenv_type, :system # :user or :system, depends on your rbenv setup
 # set :rbenv_ruby, File.read('.ruby-version').strip
 set :rvm_type, :user                     # Defaults to: :auto
-set :rvm_ruby_version, '3.0.2'      # Defaults to: 'default'
+set :rvm_ruby_version, '3.1.1'      # Defaults to: 'default'
 set :rvm_custom_path, '~/.rvm'  # only needed if not detected
 # Change these
 server '192.168.1.12', roles: [:web, :app, :db], primary: true
