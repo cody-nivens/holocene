@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| 'https://github.com/#{repo}.git' }
 
-ruby '3.0.2'
+ruby '3.1.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
@@ -147,7 +147,7 @@ gem 'chartkick'
 gem 'jdbc-mysql',      '~> 5.1.35', :platform => :jruby
 gem 'thinking-sphinx', '~> 5.3'
 gem 'wicked'
-gem 'by_star', git: 'git://github.com/radar/by_star'
+gem 'by_star', git: 'git@github.com:radar/by_star'
 gem 'pagy'
 gem 'country_select', '~> 6.0'
 gem 'rexml'
