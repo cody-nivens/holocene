@@ -45,16 +45,16 @@ class Section < ApplicationRecord
   end
 
   def set_values
-    sectioned = self.sectioned
+    #sectioned = self.sectioned
     scene = chapter = key_point = book = nil
     case sectioned_type
     when 'Chapter'
-      chapter = self.sectioned
-      book = self.sectioned.scripted
+      chapter = sectioned
+      book = sectioned.scripted
       [book, chapter, self, nil, nil]
     else
       # when "Scene"
-      scene = self.sectioned
+      scene = sectioned
       key_point = scene.key_point
       chapter = key_point.scripted
       book = chapter.book

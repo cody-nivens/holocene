@@ -32,11 +32,11 @@ class Scene < ApplicationRecord
           class_name: 'ActionText::RichText',
           as: :record
 
-  has_many :character_scenes
+  has_many :character_scenes, dependent: :destroy
   has_many :characters, through: :character_scenes
-  has_one :section, as: :sectioned
-  has_many :signets, as: :sigged
-  has_many :tours
+  has_one :section, as: :sectioned, dependent: :destroy
+  has_many :signets, as: :sigged, dependent: :destroy
+  #has_many :tours, dependent: :destroy
 
   delegate :abc, to: :insert_scene, prefix: true
   delegate :name, to: :artifact, prefix: true

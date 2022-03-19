@@ -6,12 +6,12 @@ class Story < ApplicationRecord
   belongs_to :book
   ranks :position, with_same: :book_id
 
-  has_many :character_stories
+  has_many :character_stories, dependent: :destroy
   has_many :characters, through: :character_stories
-  has_many :key_points, -> { order(position: :asc) }, as: :scripted
+  has_many :key_points, -> { order(position: :asc) }, as: :scripted, dependent: :destroy
   has_many :scenes, as: :situated
-  has_many :signets, as: :sigged
-  has_many :tours
+  has_many :signets, as: :sigged, dependent: :destroy
+  has_many :tours, dependent: :destroy
 
   validates :title, presence: true
 
