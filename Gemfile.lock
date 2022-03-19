@@ -323,6 +323,14 @@ GEM
     msgpack (1.4.5)
     mysql2 (0.5.3)
     nenv (0.3.0)
+    net-imap (0.2.3)
+      digest
+      net-protocol
+      strscan
+    net-pop (0.1.1)
+      digest
+      net-protocol
+      timeout
     net-protocol (0.1.2)
       io-wait
       timeout
@@ -516,6 +524,7 @@ GEM
     sshkit (1.21.2)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    strscan (3.0.1)
     thinking-sphinx (5.4.0)
       activerecord (>= 4.2.0)
       builder (>= 2.1.2)
@@ -629,6 +638,8 @@ DEPENDENCIES
   minitest-rails-capybara
   mocha
   mysql2 (>= 0.5)
+  net-imap
+  net-pop
   net-smtp
   nokogiri (>= 1.12.5)
   pagy
