@@ -110,8 +110,6 @@ group :test do
 
   gem 'selenium-webdriver'
   gem 'webdrivers'
-  gem 'mail'
-  gem 'net-smtp'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -155,3 +153,5 @@ gem 'country_select', '~> 6.0'
 gem 'rexml'
 gem 'better_html'
 gem 'bootstrap-tooltip-rails', '~> 0.1'
+gem 'mail'
+gem 'net-smtp'
