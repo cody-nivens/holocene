@@ -15,7 +15,6 @@ class CharacterScene < ApplicationRecord
   end
 
   def set_values
-    debugger if scene.nil?
     values = scene.set_values
     [values[0], values[1], values[2], values[3], self]
   end
