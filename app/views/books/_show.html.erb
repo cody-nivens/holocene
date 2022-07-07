@@ -71,7 +71,7 @@
     <% @slugs = [] %>
     <% @notes = {} -%>
     <% @footnotes = ['', [], 1] %>
-    <% unless chapter.holocene_events.size == 0 -%>
+    <% unless chapter.holocene_events.size == 0 or chapter.always_display_events? -%>
       <%== render 'holocene_events/index', formats: [:html], holocene_events: chapter.holocene_events.order(:start_year), chapter: chapter, links: false, epub: true, short: true, slugs: @slugs %>
       <% unless @slugs.size == 0 -%>
         <%== Footnote.write_footnotes(@slugs) -%>
