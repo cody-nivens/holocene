@@ -7,7 +7,6 @@
   <%== chapter.partition.body %>
   </blockquote>
 <% end -%>
-<div style='display:block; clear:both; page-break-after:always;'></div>
 <% unless !chapter.partition.nil? && chapter.partition_name == chapter.name.gsub(/\s+$/, '') -%>
   <% unless !chapter.display_title? %>
     <h2><%= chapter.name %></h2>
@@ -52,7 +51,7 @@
         <% s = ' class="card-title"' %>
   <% end %>
   <% unless section.embed? %>
-    <h2<%== s %>><%= section.name %></h2>
+    <h3<%== s %>><%= section.name %></h3>
   <% end %>
   <% @footnotes = Footnote.process_body(section, @slugs, @footnotes[2]) -%>
   <% @slugs += @footnotes[1] -%>

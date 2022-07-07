@@ -1,4 +1,17 @@
 <h1>Chapters</h1>
+<% if @scripted.class.name == 'Book' %>
+<h2>
+  <%== breadcrumb(@scripted) %>
+  <%= link_to (fa_icon 'edit', type: :regular), edit_book_path(@scripted), title: 'Edit' %>
+  <%= link_to (fa_icon 'sticky-note', type: :regular), book_signets_path(@scripted), title: 'Signets' %>
+  <%= link_to (fa_icon 'list', type: :solid), book_path(@scripted, long: true), title: 'Show, long' %>
+  <%= link_to (fa_icon 'newspaper', type: :solid), book_view_path(@scripted), title: 'View' %>
+  <%= link_to (fa_icon 'newspaper', type: :regular), book_view_path(@scripted, outline: true), title: 'View, outline' %>
+  <%= link_to (fa_icon 'book', type: :solid), book_epub_path(@scripted), title: 'EPub' %>
+  <%= link_to (fa_icon 'file-pdf', type: :solid), book_path(@scripted, format: :pdf), title: 'PDF' %>
+  <%= link_to (fa_icon 'file-pdf', type: :regular), book_path(@scripted, format: :pdf, outline: true), title: 'PDF, outline' %>
+</h2>
+<% end %>
 
 <%= render 'chapters/index', chapters: @chapters %>
 
