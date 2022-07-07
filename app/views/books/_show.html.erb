@@ -79,6 +79,13 @@
     <% end -%>
   <% end -%>
 
+  <% unless HoloceneEvent.where(user_id: current_user.id).size == 0 -%>
+    <h3>Holocene Events<h3>
+    <%== render 'holocene_events/index', formats: [:html], holocene_events: HoloceneEvent.where(user_id: current_user.id).order(:start_year), chapter: nil, links: false, epub: true, short: false, slugs: @slugs %>
+    <% unless @slugs.size == 0 -%>
+      <%== Footnote.write_footnotes(@slugs) -%>
+    <% end -%>
+  <% end -%>
   <% unless book.glossary_terms.size == 0 -%>
     <%= render 'glossary_terms/index', formats: [:html], glossary_terms: book.glossary_terms.order(:name) %>
   <% end -%>
