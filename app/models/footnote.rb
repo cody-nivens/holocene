@@ -45,7 +45,7 @@ class Footnote < ApplicationRecord
         str += "<a href='/#{slug[1].class.name.underscore.pluralize}/#{slug[1].id}/footnotes/#{slug[0]}'>Missing footnote</a><br/>"
       else
         footnote = (my_footnote[0].biblioentry.nil? ? my_footnote[0].body : my_footnote[0].biblioentry.name)
-        str += "<sup id='fn#{index}'>#{index}. [#{footnote.to_plain_text}]<a href='#ref#{index}' data-turbolinks='false' title='Jump back to footnote #{index} in the text.'>↩</a></sup><br/>"
+        str += "<sup id='fn#{index}'>#{index}. [#{footnote}]<a href='#ref#{index}' data-turbolinks='false' title='Jump back to footnote #{index} in the text.'>↩</a></sup><br/>"
       end
     end
     str

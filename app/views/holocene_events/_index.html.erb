@@ -1,4 +1,5 @@
-<% epub ||= false %>
+<% epub  ||= false %>
+<% short ||= false %>
 <% title ||= (chapter.nil? ? '' : chapter.name).to_s %>
 <% unless holocene_events.size == 0 %>
   <h2><%= title %></h2>
@@ -11,7 +12,7 @@
           <td><%= (epub ? he.region.name : link_to(he.region.name, region_path(he.region))) %></td>
           <td><%= HoloceneEvent.convert_ad(he.start_year, he.start_year_uncert) %><%== (he.end_year.nil? ? '' : " - #{HoloceneEvent.convert_ad(he.end_year)}") %></td>
         </tr>
-        <% unless he.body.blank? -%>
+        <% unless he.body.blank? or short == true -%>
           <tr>
             <% footnotes = Footnote.process_body(he, slugs, (footnotes.nil? ? 1 : footnotes[2])) -%>
               <td class="dd-type" colspan="4"><%== footnotes[0] %></td>
