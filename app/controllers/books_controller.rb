@@ -84,7 +84,7 @@ class BooksController < ApplicationController
                toc: {
                  disable_dotted_lines: true,
                  disable_toc_links: true,
-                 level_indentation: 4,
+                 level_indentation: 2,
                  header_text: @book.name,
                  text_size_shrink: 0.5
                }
