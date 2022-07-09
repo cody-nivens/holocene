@@ -2,7 +2,7 @@
   <%== breadcrumb(@book) %>
   <%= link_to (fa_icon 'edit', type: :regular), edit_book_path(@book), title: 'Edit' %>
   <%= link_to (fa_icon 'sticky-note', type: :regular), book_signets_path(@book), title: 'Signets' %>
-  <%= link_to (fa_icon 'list', type: :solid), book_view_path(@book), title: 'Show' %>
+  <%= link_to (fa_icon 'list', type: :solid), book_path(@book), title: 'Show' %>
   <%= link_to (fa_icon 'book', type: :solid), book_epub_path(@book), title: 'EPub' %>
   <%= link_to (fa_icon 'file-pdf', type: :solid), book_path(@book, format: :pdf), title: 'PDF' %>
   <%= link_to (fa_icon 'file-pdf', type: :regular), book_path(@book, format: :pdf, outline: true), title: 'PDF' %>
