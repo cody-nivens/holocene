@@ -1,11 +1,14 @@
 <% print_name ||= false %>
 <% inline_date ||= false %>
 <% short_labels ||= false %>
+<% target ||= :_blank %>
 <% wc = scene.word_count %>
 <% if inline_date %>
 <%= scene.time_to_text %> :
 <% else %>
-<%= (scene.section.nil? ? '*' : ' ') %> <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene), target: :_blank) : scene.abc) %>
+  <%= (scene.section.nil? ? '*' : ' ') %> 
+  <%#= (pdf.nil? ? link_to(scene.abc, scene_path(scene), target: target) : scene.abc) %>
+  <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene)) : scene.abc) %>
 <%= scene.time_to_text %>
 : <%= scene.characters.size %> : <%== (wc == 0 ? "<span style='background-color:#FF0;'>#{wc}</span>" : "#{wc}") %> :
 <% end %>
