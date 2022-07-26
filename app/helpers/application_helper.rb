@@ -19,7 +19,7 @@ module ApplicationHelper
         str = bc_book(book, story, link).to_s
         str += bc_story(story, book, link, key_point).to_s
         str += bc_key_point(key_point, scene, link).to_s
-        str += bc_scene(scene, section, link).to_s
+        str += bc_scene(scene, section, link).to_s if section.blank?
         str += bc_section(section, link).to_s
         str
       end
