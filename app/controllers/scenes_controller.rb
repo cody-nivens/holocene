@@ -11,6 +11,7 @@ class ScenesController < ApplicationController
     @no_scene = params[:no_scene]
     @only_section = params[:only_section]
     @has_inserts = params[:has_inserts]
+    @low_word_count = params[:low_word_count]
 
     @year = params[:year]
     @scenes = @no_scene ? nil : Scene.get_scenes(@situated, @toggle)
