@@ -1,17 +1,20 @@
 <% print_name ||= false %>
 <% inline_date ||= false %>
 <% short_labels ||= false %>
-<% target ||= :_blank %>
+<% target ||= nil %>
 <% wc = scene.word_count %>
 <% unless scene.section.nil? %>
   <strong><i><%= scene.section.name %></i></strong>
 <% end %>
 <% if inline_date %>
-<%= scene.time_to_text %> :
+  <%= scene.time_to_text %> :
 <% else %>
   <%= (scene.section.nil? ? '*' : ' ') %> 
-  <%#= (pdf.nil? ? link_to(scene.abc, scene_path(scene), target: target) : scene.abc) %>
-  <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene)) : scene.abc) %>
+  <% if target.nil? %>
+    <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene)) : scene.abc) %>
+  <% else %>
+    <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene), target: target) : scene.abc) %>
+  <% end %>
   <%= scene.time_to_text %>
 <% end %>
 <span style="background-color: #<%= (wc > 1000 ? '9FE2BF' : ( wc > 500 ? '40E0D0' : (wc > 250 ? 'DFFF00' : 'FF7F50'))) %>"><%=  number_with_delimiter(wc, :delimiter => ',') %></span>

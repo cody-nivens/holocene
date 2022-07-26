@@ -1,5 +1,6 @@
 $('#scenes-list').html("<%= escape_javascript( render partial: 'scenes/scenes', formats: [:html], locals: { scenes: @scenes, situated: @situated,
                                                                                                             print: @print, no_scene: @no_scene,
+                                                                                                            low_word_count: @low_word_count,
                                                                                                             no_section: @no_section, only_section: @only_section,
                                                                                                             years: @years, date: @year }) %>");
 
