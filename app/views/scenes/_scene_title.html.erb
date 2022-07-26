@@ -14,7 +14,7 @@
   <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene)) : scene.abc) %>
   <%= scene.time_to_text %>
 <% end %>
-<span style="background-color: #<%= (wc > 1000 ? '9FE2BF' : ( wc > 500 ? '40E0D0' : (wc > 250 ? 'DFFF00' : 'FF7F50'))) %>"><%= wc %></span>
+<span style="background-color: #<%= (wc > 1000 ? '9FE2BF' : ( wc > 500 ? '40E0D0' : (wc > 250 ? 'DFFF00' : 'FF7F50'))) %>"><%=  number_with_delimiter(wc, :delimiter => ',') %></span>
 <%= scene.artifact.nil? ? '' : "#{scene.artifact_name} - " %><%= scene.place.empty? ? '' : "#{scene.place&.to_plain_text}" %>
 <% if print_name %>
   <br> <%= (short_labels ? scene.name : scene.plain_name) %>
