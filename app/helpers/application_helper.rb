@@ -12,20 +12,6 @@ module ApplicationHelper
     @footer_content << (link_to name, link, class: t_classes, method: method, data: data).to_s
   end
 
-  def breadcrumb(book, story = nil, key_point = nil, scene = nil, section = nil, link = nil)
-    str = ''
-    tag.nav aria: { label: 'breadcrumb' } do
-      tag.ol class: 'breadcrumb' do
-        str = bc_book(book, story, link).to_s
-        str += bc_story(story, book, link, key_point).to_s
-        str += bc_key_point(key_point, scene, link).to_s
-        str += bc_scene(scene, section, link).to_s if section.blank?
-        str += bc_section(section, link).to_s
-        str
-      end
-    end
-  end
-
   def return_or_default_path(default_path = root_path)
       session[:return_to].present? && session[:return_to] != request.fullpath ?
         session[:return_to] : default_path
@@ -81,11 +67,25 @@ module ApplicationHelper
     a.html_safe
   end
 
+  def breadcrumb(book, story = nil, key_point = nil, scene = nil, section = nil, link = nil)
+    str = ''
+    tag.nav aria: { label: 'breadcrumb' } do
+      tag.ol class: 'breadcrumb' do
+        str = bc_book(book, story, link).to_s
+        str += bc_story(story, book, link, key_point).to_s
+        str += bc_key_point(key_point, scene, link).to_s
+        str += bc_scene(scene, section, link).to_s if section.blank?
+        str += bc_section(section, link).to_s
+        str
+      end
+    end
+  end
+
   def breadcrumb_page(title)
     tag.li(title, class: 'breadcrumb-item active', aria: { current: 'page' })
   end
 
-  def breadcrumb_link(name, my_link, blank: false)
+  def breadcrumb_link(name, my_link, blank=false)
     if blank
       return tag.li class: 'breadcrumb-item' do
                link_to name, my_link, target: :_blank
@@ -102,7 +102,7 @@ module ApplicationHelper
       if link.nil? && story.nil?
         breadcrumb_page(book.name)
       else
-        breadcrumb_link(book.name, book_path(book))
+        breadcrumb_link(book.name, book_path(book), link)
       end
     end
   end
@@ -118,7 +118,7 @@ module ApplicationHelper
       if link.nil? && key_point.nil?
         breadcrumb_page(story.name)
       else
-        breadcrumb_link(story.name, polymorphic_path(story))
+        breadcrumb_link(story.name, polymorphic_path(story), link)
       end
     end
   end
@@ -129,7 +129,7 @@ module ApplicationHelper
       if link.nil? && scene.nil?
         breadcrumb_page(key_point.name)
       else
-        breadcrumb_link(key_point.name, key_point_path(key_point))
+        breadcrumb_link(key_point.name, key_point_path(key_point), link)
       end
     end
   end
@@ -139,7 +139,7 @@ module ApplicationHelper
       if link.nil? && section.nil?
         breadcrumb_page(scene.name)
       else
-        breadcrumb_link(scene.name, scene_path(id: scene.id))
+        breadcrumb_link(scene.name, scene_path(id: scene.id), link)
       end
     end
   end
@@ -149,7 +149,7 @@ module ApplicationHelper
       if link.nil?
         breadcrumb_page(section.name)
       else
-        breadcrumb_link(section.name, section_path(section))
+        breadcrumb_link(section.name, section_path(section), link)
       end
     end
   end
