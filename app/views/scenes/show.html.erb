@@ -6,20 +6,7 @@
   <%= link_to (fa_icon 'edit'), edit_scene_path(@scene), title: 'Edit' %>
 </h2>
 
-<table class='table'>
-  <tr>
-    <th>ABC:</th><td><%= @scene.abc %></td>
-    <th>Location:</th><td><%= (@scene.artifact.nil? ? 'Unkown' : @scene.artifact_name) %></td>
-    <th>Place:</th><td><%= @scene.place.to_plain_text %></td>
-    <th>Word Count:</th><td><%= number_with_delimiter(@scene.word_count, delimiter: ', ') %></td>
-  </tr>
-  <tr>
-    <th>Time:</th><td><%= @scene.time_to_text %></td>
-    <th>Check:</th><td><%= @scene.check %></td>
-    <th>Scene/Sequel:</th><td><%= (@scene.scene_sequel == 1 ? 'Sequel' : 'Scene') %></td>
-    <th>Selector:</th><td><%= selector_string(@scene.selector) %></td>
-  </tr>
-</table>
+<%= render partial: 'scenes/stats', locals: { object: @scene } %>
 <p>
   <%= @scene.summary %>
 </p>
