@@ -75,6 +75,16 @@ class Story < ApplicationRecord
     count
   end
 
+  def word_counts
+    counts = []
+    key_points.each do |key_point|
+      key_point.scenes.each do |scene|
+        counts << scene.section.word_count unless scene.section.nil?
+      end
+    end
+    counts
+  end
+
   def section_count
     count = 0
     key_points.each do |key_point|

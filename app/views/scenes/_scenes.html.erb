@@ -51,7 +51,34 @@
   <% old_insert_scene = 0 %>
   <ul>
   <% scenes2.each do |scene| %>
-    <% next unless scene.section.nil? or scene.section.word_count < 500 %>
+    <% next unless scene.section.nil? or scene.section.word_count <= 250 %>
+    <% next unless scene.situated.nil? or scene.situated.publish? %>
+    <% next unless scene.key_point.scripted.book_id == @book.id %>
+    <li>
+      <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, target: :_blank } %>
+    </li>
+  <% end %>
+  </ul>
+<% elsif @mid_word_count == "on" %>
+  <% scenes2 = Scene.includes([:section]).order(:date_string) %>
+  <% old_insert_scene = 0 %>
+  <ul>
+  <% scenes2.each do |scene| %>
+    <% next unless scene.section.nil? or (scene.section.word_count <= 650 and scene.section.word_count > 250) %>
+    <% next unless scene.situated.nil? or scene.situated.publish? %>
+    <% next unless scene.key_point.scripted.book_id == @book.id %>
+    <li>
+      <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, target: :_blank } %>
+    </li>
+  <% end %>
+  </ul>
+<% elsif @better_word_count == "on" %>
+  <% scenes2 = Scene.includes([:section]).order(:date_string) %>
+  <% old_insert_scene = 0 %>
+  <ul>
+  <% scenes2.each do |scene| %>
+    <% next unless scene.section.nil? or (scene.section.word_count < 1000 and scene.section.word_count > 650) %>
+    <% next unless scene.situated.nil? or scene.situated.publish? %>
     <% next unless scene.situated.publish? %>
     <% next unless scene.key_point.scripted.book_id == @book.id %>
     <li>

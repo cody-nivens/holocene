@@ -59,6 +59,20 @@
       </div>
     </div>
     <div class='col-md-2'>
+      <div class='form-check'>
+        <label class='checkbox'>
+          <%= check_box_tag :mid_word_count, @mid_word_count, @mid_word_count, class: 'checkbox inline' %> Mid Word Count
+        </label>
+      </div>
+    </div>
+    <div class='col-md-2'>
+      <div class='form-check'>
+        <label class='checkbox'>
+          <%= check_box_tag :better_word_count, @better_word_count, @better_word_count, class: 'checkbox inline' %> Better Word Count
+        </label>
+      </div>
+    </div>
+    <div class='col-md-2'>
       <div class='field'>
         <%= select_tag('year', options_for_select(@year_options), prompt: 'Please select an year:', class: 'form-control', onchange: 'javascript:this.form.commit.click();') %>
       </div>
@@ -73,6 +87,8 @@
     <%= render partial: 'scenes/scenes', formats: [:html], locals: { scenes: @scenes, print: @print, situated: @situated,
                                                                      no_scene: @no_scene, no_section: @no_section, 
                                                                      low_word_count: @low_word_count,
+                                                                     mid_word_count: @mid_word_count,
+                                                                     better_word_count: @better_word_count,
                                                                      only_section: @only_section, years: @years, 
                                                                      date: @year, scripted: @scripted } %>
 </div>

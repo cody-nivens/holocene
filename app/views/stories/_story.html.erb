@@ -4,7 +4,23 @@
 <% word_count = story.word_count %>
 <% wss_ratio = (section_count.zero? ? 0 : word_count / section_count * scene_count) %>
 <% ss_ratio = (scene_count.zero? ? 0 : section_count.to_f / scene_count) %>
-<% items = [{ label: 'Completed', color: '090', width: 100.0 * ss_ratio }, { label: 'Waiting', color: 'ededed', width: 100.0 - 100.0 * ss_ratio }] %>
+<% items = [{ label: 'Completed', color: '090', width: 100.0 * ss_ratio }, 
+            { label: 'Waiting', color: 'ededed', width: 100.0 - 100.0 * ss_ratio }] %>
+<% word_counts = story.word_counts %>
+<% bt_count = word_counts.collect{|x| x > 1000 ? 1 : 0 }.sum %>
+<% bt_ratio = bt_count.zero? ? 0 : bt_count / word_counts.length %>
+<% g_count  = word_counts.collect{|x| x <= 1000 ? x > 650 ? 1 : 0 : 0 }.sum %>
+<% g_ratio = g_count.zero? ? 0 : g_count / word_counts.length %>
+<% o_count  = word_counts.collect{|x| x <= 650 ? x > 250 ? 1 : 0 : 0 }.sum %>
+<% o_ratio = o_count.zero? ? 0 : o_count / word_counts.length %>
+<% b_count  = word_counts.collect{|x| x <= 250 ? 1 : 0 }.sum %>
+<% b_ratio = b_count.zero? ? 0 : b_count / word_counts.length %>
+
+<% items2 = [{ label: 'Better', color: '9FE2BF', width: 100 - 100 * bt_ratio },
+             { label: 'Good', color: '40E0D0', width: 100 - 100 * g_ratio },
+             { label: 'Okay', color: 'DFFF00', width: 100 - 100 * o_ratio },
+             { label: 'Bad', color: 'FF7F50', width: 100 - 100 * b_ratio }] %>
+
 <% end %>
 <dt>
   <div class="narrow">
@@ -22,6 +38,9 @@
   <% if long %>
   <div class="progress_bar">
     <%= render partial: 'shared/progress_bar', locals: { items: items } %>
+  </div>
+  <div class="progress_bar">
+    <%= render partial: 'shared/progress_bar', locals: { items: items2 } %>
   </div>
   <div class="medium">
     <%= scene_count %> (<%= section_count %> <%= (scene_count.zero? ? '' : number_with_precision((section_count.to_f / scene_count) * 100.0, precision: 2)) %>%)
