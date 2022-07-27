@@ -153,4 +153,21 @@ module ApplicationHelper
       end
     end
   end
+
+  def good_color
+    '9FE2BF'
+  end
+
+  def okay_color
+    '87CEFA'
+  end
+
+  def caution_color
+    'DFFF00'
+  end
+
+  def bad_color
+    'F08080'
+  end
+
 end
