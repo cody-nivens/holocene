@@ -11,7 +11,7 @@ class Section < ApplicationRecord
 
   belongs_to :user
   belongs_to :sectioned, polymorphic: true
-  has_many :metrics, as: :metrized
+  has_many :metrics, as: :metrized, dependent: :destroy
 
   # belongs_to :chapter, :optional => true
   # has_many :chapters, :as => :scripted
