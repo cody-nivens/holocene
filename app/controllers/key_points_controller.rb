@@ -23,6 +23,10 @@ class KeyPointsController < ApplicationController
 
   def moved
     @key_point.update({ scripted_id: params["new_#{@scripted.class.name.underscore}_id".to_sym] })
+    @key_point.scenes.each do |scene|
+      scene.situated = @scripted
+      scene.save
+    end
 
     respond_to do |format|
       format.html { redirect_to polymorphic_url(@scripted), notice: 'Key Point successfully moved.' }

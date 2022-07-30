@@ -14,8 +14,8 @@ class WelcomeController < ApplicationController
     @dates_counts = {}
     metrics = Metric.past_fortnight(:date).where(user_id: current_user.id).order(date: :desc)
     metrics.collect { |x| x.metrized_id }.sort.uniq.each do |item|
-      #Metric.past_fortnight(:date).where(metrized_id: item).each do |y|
-      Metric.where(metrized_id: item).each do |y|
+      Metric.past_fortnight(:date).where(metrized_id: item).each do |y|
+      #Metric.where(metrized_id: item).each do |y|
         items[y.date] = [] if items[y.date].nil?
         items[y.date] << [y.id, y.metrized_id] unless items[y.date].include?([y.id, y.metrized_id])
       end
