@@ -147,6 +147,8 @@ Rails.application.routes.draw do
     resources :chapters
   end
   resources :scenes do
+    concerns :sectioned, sectioned_type: 'Scene'
+    resources :sections
     resources :characters, except: [:new] do
       resources :steps, only: %i[show update], controller: 'character/steps'
       resources :character_values

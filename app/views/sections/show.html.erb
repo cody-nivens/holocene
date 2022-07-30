@@ -2,7 +2,7 @@
 <% @title = @section.name %>
 
 <h2>
-  <%== breadcrumb(nil, nil, nil, @section.sectioned, @section) %>
+  <%== breadcrumb(@section.sectioned.key_point.scripted.book, @section.sectioned.key_point.scripted, @section.sectioned.key_point, @section.sectioned, @section) %>
   <%= link_to (fa_icon 'edit'), edit_polymorphic_path([@sectioned, @section]), title: 'Edit' %>
 </h2>
 <table class="table">

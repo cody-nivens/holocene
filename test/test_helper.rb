@@ -25,7 +25,7 @@ module SphinxHelpers
   end
 
   def index
-    init_sphinx
+  #  init_sphinx
   end
 end
 
@@ -117,8 +117,8 @@ module ActiveSupport
     end
 
     def after_run
-      FileUtils.rm_rf(Rails.root.join(ThinkingSphinx::Test.config.indices_location))
-      FileUtils.mkdir(Rails.root.join(ThinkingSphinx::Test.config.indices_location))
+#      FileUtils.rm_rf(Rails.root.join(ThinkingSphinx::Test.config.indices_location))
+#      FileUtils.mkdir(Rails.root.join(ThinkingSphinx::Test.config.indices_location))
       lock_file = FileUtils.rm(Rails.root.join("tmp/test_parallel.lock"))
       File.delete(lock_file) if File.exist?(lock_file)
     end
