@@ -13,7 +13,7 @@ class WelcomeController < ApplicationController
     items = {}
     @dates_counts = {}
     metrics = Metric.past_fortnight(:date).where(user_id: current_user.id).order(date: :desc)
-    metrics.collect { |x| x.metrized_id }.sort.uniq.each do |item|
+    metrics.pluck(:metrized_id).sort.uniq.each do |item|
       Metric.past_fortnight(:date).where(metrized_id: item).each do |y|
       #Metric.where(metrized_id: item).each do |y|
         items[y.date] = [] if items[y.date].nil?
