@@ -1,3 +1,23 @@
+  <% bt_count = g_count = o_count = b_count = words_total = 0 %>
+  <% book.stories.each do |story| %>
+    <% word_counts = story.word_counts %>
+    <% words_total += word_counts.length %>
+    <% bt_count += word_counts.collect{|x| x > 1000 ? 1 : 0 }.sum %>
+    <% g_count  += word_counts.collect{|x| x <= 1000 ? x > 650 ? 1 : 0 : 0 }.sum %>
+    <% o_count  += word_counts.collect{|x| x <= 650 ? x > 250 ? 1 : 0 : 0 }.sum %>
+    <% b_count  += word_counts.collect{|x| x <= 250 ? 1 : 0 }.sum %>
+  <% end %>
+
+<% bt_ratio = bt_count.zero? ? 0 : bt_count.to_f / words_total %>
+<% g_ratio = g_count.zero? ? 0 : g_count.to_f / words_total %>
+<% o_ratio = o_count.zero? ? 0 : o_count.to_f / words_total %>
+<% b_ratio = b_count.zero? ? 0 : b_count.to_f / words_total %>
+
+<% items2 = [{ label: 'Better', color: good_color, width:  100.0 * bt_ratio },
+             { label: 'Good', color: okay_color, width: 100.0 * g_ratio },
+             { label: 'Okay', color: caution_color, width: 100.0 * o_ratio },
+             { label: 'Bad', color: bad_color, width:  100.0 * b_ratio }] %>
+
 <table class="table">
   <tr>
     <th>Stories(Publishable):</th>
@@ -13,6 +33,7 @@
     <% pub_word_count = book.word_count(true) %>
     <td>
       <%= render partial: 'scenes/progress_bar', formats: [:html], locals: { object: book } %>
+    <%= render partial: 'shared/progress_bar', locals: { items: items2 } %>
     </td>
     <th>Word Count | Publishable (Potential):</th> <td><%= number_with_delimiter(word_count, delimiter: ',') %> | <%= number_with_delimiter(pub_word_count, delimiter: ',') %> (<%= (section_count.zero? ? '' : number_with_delimiter(word_count / section_count * pub_scene_count, delimiter: ',')) %>)</td>
   </tr>
