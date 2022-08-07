@@ -6,7 +6,7 @@
       <div class="story-sortable" style="cursor: grab; min-height: 10px;">
         <% stories.rank(:position).each do |story| %>
           <%= content_tag 'div', id: "story-#{story.id}", data: { model_name: story.class.name.underscore, update_url: story_sort_path(story) } do %>
-            <%= render partial: 'stories/story', formats: [:html], locals: { story: story, pdf: pdf, long: long } %>
+            <%= render partial: 'stories/story', formats: [:html], locals: { story: story, pdf: pdf, long: long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
           <% end %>
         <% end %>
       </div>

@@ -2,7 +2,9 @@
 <% scene_count = story.scene_count %>
 <% section_count = story.section_count %>
 <% word_count = story.word_count %>
-<% wss_ratio = (section_count.zero? ? 0 : word_count / section_count * scene_count) %>
+<% word_counts = story.word_counts %>
+<% scene_avg = 0 %>
+<% wss_ratio = word_counts.collect{|x| x > word_avg ? x : word_avg}.sum %>
 <% ss_ratio = (scene_count.zero? ? 0 : section_count.to_f / scene_count) %>
 <% items = [{ label: 'Completed', color: '090', width: 100.0 * ss_ratio }, 
             { label: 'Waiting', color: 'ededed', width: 100.0 - 100.0 * ss_ratio }] %>

@@ -1,4 +1,4 @@
-  <% bt_count = g_count = o_count = b_count = z_count = words_total = 0 %>
+  <% bt_count = g_count = o_count = b_count = z_count = words_total = pot_word_count = 0 %>
   <% book.stories.each do |story| %>
     <% word_counts = story.word_counts %>
     <% words_total += word_counts.length %>
@@ -19,13 +19,18 @@
              { label: 'Okay', color: caution_color, width: 100.0 * o_ratio },
              { label: 'Bad', color: bad_color, width:  100.0 * b_ratio }] %>
 
-<% pub_scene_count = book.scene_count(true) %>
 <% scene_count = book.scene_count %>
 <% section_count = book.section_count %>
 <% word_count = book.word_count %>
-<% pub_word_count = book.word_count(true) %>
 <% word_avg = word_count / (scene_count - z_count) %>
-<% pot_word_count = scene_count * word_avg %>
+
+  <% book.stories.each do |story| %>
+    <% word_counts = story.word_counts %>
+    <% pot_word_count += word_counts.collect{|x| x > word_avg ? x : word_avg}.sum %>
+  <% end %>
+<% pub_scene_count = book.scene_count(true) %>
+<% pub_word_count = book.word_count(true) %>
+<%# pot_word_count = scene_count * word_avg %>
 
 <table class="table">
   <tr>
