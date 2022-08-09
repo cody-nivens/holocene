@@ -22,7 +22,7 @@
 <% scene_count = book.scene_count %>
 <% section_count = book.section_count %>
 <% word_count = book.word_count %>
-<% word_avg = word_count / (scene_count - z_count) %>
+<% word_avg = scene_count == z_count ? 0 : word_count / (scene_count - z_count) %>
 
   <% book.stories.each do |story| %>
     <% word_counts = story.word_counts %>

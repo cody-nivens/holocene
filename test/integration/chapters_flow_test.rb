@@ -26,7 +26,7 @@ class ChaptersFlowTest < ActionDispatch::IntegrationTest
     assert_template 'chapters/show'
 
     assert_select '.alert', /.*Chapter was successfully created.*/
-    assert_select 'h2', /.*The Great Pumpkin Patch.*/
+    assert_select 'h3', /.*The Great Pumpkin Patch.*/
 
     chapter = Chapter.last
 
