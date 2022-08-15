@@ -1,0 +1,10 @@
+<h2><%= @date.to_date %></h2>
+
+<%= render partial: 'shared/metric', formats: [:html], locals: { objects: @metrics, title: "Items for #{@date.to_s}" } %>
+
+<% add_to_footer('Stats', welcome_stats_path) %>
+<% add_to_footer('Tags', welcome_tags_path) %>
+<% unless @book.nil? %>
+  <% add_to_footer('Back', welcome_index_path) %>
+<% end %>
+

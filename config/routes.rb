@@ -180,6 +180,7 @@ Rails.application.routes.draw do
   resources :epochs
   resources :timelines
   get '/welcome/index'
+  get '/welcome/show'
   get '/welcome/stats'
   get '/stats', to: 'welcome#stats'
   get '/tags', to: 'welcome#tags', as: :welcome_tags

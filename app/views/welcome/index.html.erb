@@ -3,13 +3,17 @@
 <% titles = ["Today's Modifications", "Today's Creations", "Yesterday's Modifications", "Yesterday's Creations", "Fortnight's Modifications", "Fortnight's Creations"] %>
 <% data = [{ name: 'Added', data: @dates_counts.collect { |key, x| [key.to_date, x[1]] } }, { name: 'Created', data: @dates_counts.collect { |key, x| [key.to_date, x[0]] } }] %>
 
-<%= column_chart data, stacked: true %>
 
 <%= tabs do |c| %>
   <% c.tab "Progress" do %>
+    <%= column_chart data, stacked: true %>
     <%= month_calendar do |date| %>
-      <%= date %>
       <% counts = @dates_counts[date.in_time_zone] %>
+      <% if counts.nil? %>
+        <%= date %>
+      <% else %>
+        <%= link_to date, welcome_show_path(:date => date.to_s) %>
+      <% end %>
       <% unless counts.nil? %>
         <br>
         <% unless counts[0].zero? %>
