@@ -496,6 +496,8 @@ GEM
       sidekiq (>= 3)
       thwait
       tilt (>= 1.4.0)
+    simple_calendar (2.4.3)
+      rails (>= 3.0)
     simple_form (5.1.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -669,6 +671,7 @@ DEPENDENCIES
   sidekiq (>= 6.2.1)
   sidekiq-client-cli
   sidekiq-scheduler
+  simple_calendar (~> 2.4)
   simple_form
   simplecov
   spring

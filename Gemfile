@@ -158,3 +158,5 @@ gem 'net-smtp'
 gem 'net-imap'
 gem 'net-pop'
 gem 'net-ssh', '7.0.1'
+gem "simple_calendar", "~> 2.4"
+

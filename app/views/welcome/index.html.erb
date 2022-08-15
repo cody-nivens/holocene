@@ -6,6 +6,22 @@
 <%= column_chart data, stacked: true %>
 
 <%= tabs do |c| %>
+  <% c.tab "Progress" do %>
+    <%= month_calendar do |date| %>
+      <%= date %>
+      <% counts = @dates_counts[date.in_time_zone] %>
+      <% unless counts.nil? %>
+        <br>
+        <% unless counts[0].zero? %>
+           <%= "Created: #{number_with_delimiter(counts[0], delimiter: ',')}" %><br>
+        <% end %>
+        <% unless counts[1].zero? %>
+          <%= "Modified: #{number_with_delimiter(counts[1], delimiter: ',')}" %><br>
+        <% end %>
+        <%= "Items: #{Metric.where(date: date.in_time_zone).count}" %>
+      <% end %>
+    <% end %>
+  <% end %>
   <% items.each_with_index do |item,index| %>
     <% next if item.empty? %>
     <% c.tab titles[index] do %>
