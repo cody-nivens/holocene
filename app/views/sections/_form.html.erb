@@ -20,7 +20,7 @@
       <%= f.primary command_label.to_s %>
     </div>
     <% unless section.sectioned_type == 'Chapter' %>
-      <div class="col-2">
+      <div class="col-4">
         <%= render partial: 'characters/characters_occ_ul', formats: [:html], locals: { object: @sectioned } %>
       </div>
     <% end %>
