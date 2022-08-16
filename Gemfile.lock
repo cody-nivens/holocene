@@ -225,6 +225,9 @@ GEM
     erubis (2.7.0)
     et-orbi (1.2.7)
       tzinfo
+    exception_notification (4.5.0)
+      actionmailer (>= 5.2, < 8)
+      activesupport (>= 5.2, < 8)
     execjs (2.8.1)
     ffi (1.15.5)
     font_awesome5_rails (1.5.0)
@@ -617,6 +620,7 @@ DEPENDENCIES
   dotenv
   dotenv-rails
   erb_lint
+  exception_notification
   font_awesome5_rails
   geckodriver-helper
   gepub

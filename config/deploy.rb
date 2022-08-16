@@ -107,7 +107,7 @@ set :puma_init_active_record, true  # Change to false when not using ActiveRecor
 # set :keep_releases, 5
 
 ## Linked Files & Directories (Default None):
-set :linked_files, %w{config/database.yml config/master.key config/credentials/production.key config/production.sphinx.conf}
+set :linked_files, %w{config/database.yml config/master.key config/credentials/production.key config/environments/production.rb config/production.sphinx.conf}
 #set :linked_files, fetch(:linked_files, []).push("config/master.key")
 set :linked_dirs,  %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
