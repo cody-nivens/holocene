@@ -54,7 +54,7 @@
     </td>
     <% word_count = @story.word_count %>
     <th>Word Count (Potential):</th> <td>
-     <%=  number_with_delimiter(word_count, :delimiter => ',') %>
+     <span style="background-color: #<%= percent_color(word_count.to_f/pot_word_count.to_f) %>"><%=  number_with_delimiter(word_count, :delimiter => ',') %></span>
      (
        <%=  number_with_delimiter(pot_word_count, :delimiter => ',') %>
      )
