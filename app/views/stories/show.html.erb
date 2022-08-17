@@ -27,10 +27,6 @@
 <% b_count  = word_counts.collect{|x| x <= 250 ? 1 : 0 }.sum %>
 <% b_ratio = b_count.zero? ? 0 : b_count.to_f / word_counts.length %>
 
-<% z_count  = word_counts.collect{|x| x <= 10 ? 1 : 0 }.sum %>
-<% word_avg = scene_count == z_count ? 0 : word_count / (scene_count - z_count) %>
-<% pot_word_count = word_counts.collect{|x| x > word_avg ? x : word_avg}.sum %>
-
 <% items2 = [{ label: 'Better', color: good_color, width:  100.0 * bt_ratio },
              { label: 'Good', color: okay_color, width: 100.0 * g_ratio },
              { label: 'Okay', color: caution_color, width: 100.0 * o_ratio },
@@ -54,10 +50,7 @@
     </td>
     <% word_count = @story.word_count %>
     <th>Word Count (Potential):</th> <td>
-     <span style="background-color: #<%= percent_color(word_count.to_f/pot_word_count.to_f) %>"><%=  number_with_delimiter(word_count, :delimiter => ',') %></span>
-     (
-       <%=  number_with_delimiter(pot_word_count, :delimiter => ',') %>
-     )
+    <%== render partial: "shared/word_count", locals: { scene_count: scene_count, word_count: word_count, word_counts: word_counts } %>
     </td>
     <th>Print Summary:</th> <td><%= (@story.print_summary? ? fa_icon('check') : '') %></td>
   </tr>

@@ -11,6 +11,11 @@
   <%== link_to (fa_icon 'trash'), key_point_path(@key_point), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
 </h2>
 
+<% scene_count = @key_point.scene_count %>
+<% section_count = @key_point.section_count %>
+<% word_count = @key_point.word_count %>
+<% word_counts = @key_point.word_counts %>
+
 <table class="table">
   <tr>
     <th>Print name:</th>
@@ -18,7 +23,9 @@
     <th>Print points:</th>
     <td><%= (@key_point.print_points? ? fa_icon('check') : '') %></td>
     <th>Word Count:</th>
-    <td><%= number_with_delimiter(@key_point.word_count, delimiter: ',') %></td>
+    <td>
+      <%== render partial: "shared/word_count", locals: { scene_count: scene_count, word_count: word_count, word_counts: word_counts } %>
+    </td>
   </tr>
 </table>
 

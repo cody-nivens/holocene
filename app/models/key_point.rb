@@ -36,6 +36,14 @@ class KeyPoint < ApplicationRecord
     count
   end
 
+  def word_counts
+    counts = []
+    scenes.each do |scene|
+      counts << scene.word_count
+    end
+    counts
+  end
+
   def set_prev
     higher_item
   end
