@@ -3,7 +3,9 @@
     <th>ABC:</th><td><%= object.abc %></td>
     <th>Location:</th><td><%= (object.artifact.nil? ? 'Unkown' : object.artifact_name) %></td>
     <th>Place:</th><td><%= object.place.to_plain_text %></td>
-    <th>Word Count:</th><td><%= number_with_delimiter(object.word_count, delimiter: ', ') %></td>
+    <th>Word Count:</th><td>
+      <span style="background-color: #<%= count_color(object.word_count) %>"><%=  number_with_delimiter(object.word_count, :delimiter => ',') %></span>
+    </td>
   </tr>
   <tr>
     <th>Time:</th><td><%= object.time_to_text %></td>

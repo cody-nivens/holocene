@@ -170,4 +170,7 @@ module ApplicationHelper
     'F08080'
   end
 
+  def count_color(wc)
+    (wc > 1000 ? good_color : ( wc > 500 ? okay_color : (wc > 250 ? caution_color : bad_color)))
+  end
 end

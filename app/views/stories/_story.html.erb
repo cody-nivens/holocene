@@ -1,4 +1,5 @@
 <% if long %>
+<% bt_count = g_count = o_count = b_count = z_count = words_total = pot_word_count = 0 %>
 <% scene_count = story.scene_count %>
 <% section_count = story.section_count %>
 <% word_count = story.word_count %>
@@ -8,7 +9,6 @@
 <% ss_ratio = (scene_count.zero? ? 0 : section_count.to_f / scene_count) %>
 <% items = [{ label: 'Completed', color: '090', width: 100.0 * ss_ratio }, 
             { label: 'Waiting', color: 'ededed', width: 100.0 - 100.0 * ss_ratio }] %>
-<% word_counts = story.word_counts %>
 <% bt_count = word_counts.collect{|x| x > 1000 ? 1 : 0 }.sum %>
 <% bt_ratio = bt_count.zero? ? 0 : bt_count.to_f / word_counts.length %>
 <% g_count  = word_counts.collect{|x| x <= 1000 ? x > 650 ? 1 : 0 : 0 }.sum %>
@@ -17,6 +17,10 @@
 <% o_ratio = o_count.zero? ? 0 : o_count.to_f / word_counts.length %>
 <% b_count  = word_counts.collect{|x| x <= 250 ? 1 : 0 }.sum %>
 <% b_ratio = b_count.zero? ? 0 : b_count.to_f / word_counts.length %>
+
+<% z_count  += word_counts.collect{|x| x <= 10 ? 1 : 0 }.sum %>
+<% word_avg = scene_count == z_count ? 0 : word_count / (scene_count - z_count) %>
+<% pot_word_count = word_counts.collect{|x| x > word_avg ? x : word_avg}.sum %>
 
 <% items2 = [{ label: 'Better', color: good_color, width:  100.0 * bt_ratio },
              { label: 'Good', color: okay_color, width: 100.0 * g_ratio },
@@ -48,7 +52,10 @@
     <%= scene_count %> (<%= section_count %> <%= (scene_count.zero? ? '' : number_with_precision((section_count.to_f / scene_count) * 100.0, precision: 2)) %>%)
   </div>
   <div class="medium">
-    <%= number_with_delimiter(word_count, delimiter: ',') %> (<%= number_with_delimiter(wss_ratio, delimiter: ',') %>)
+    <span style="background-color: #<%= count_color(word_count) %>"><%=  number_with_delimiter(word_count, :delimiter => ',') %></span>
+    (
+    <span style="background-color: #<%= count_color(pot_word_count) %>"><%=  number_with_delimiter(pot_word_count, :delimiter => ',') %></span>
+    )
   </div>
 <% end %>
   <div style="clear:both"></div>
