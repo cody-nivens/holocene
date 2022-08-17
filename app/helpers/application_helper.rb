@@ -170,7 +170,15 @@ module ApplicationHelper
     'F08080'
   end
 
+  def count_colors
+    [ bad_color, caution_color, okay_color, good_color ]
+  end
+
   def count_color(wc)
     (wc > 1000 ? good_color : ( wc > 500 ? okay_color : (wc > 250 ? caution_color : bad_color)))
+  end
+
+  def percent_color(wc)
+    (wc == 1.0 ? good_color : ( wc > 0.75 ? okay_color : (wc > 0.5 ? caution_color : bad_color)))
   end
 end

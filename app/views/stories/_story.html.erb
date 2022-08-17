@@ -4,7 +4,7 @@
 <% section_count = story.section_count %>
 <% word_count = story.word_count %>
 <% word_counts = story.word_counts %>
-<% scene_avg = 0 %>
+<% scene_avg = (word_count/scene_count).to_i %>
 <% wss_ratio = word_counts.collect{|x| x > word_avg ? x : word_avg}.sum %>
 <% ss_ratio = (scene_count.zero? ? 0 : section_count.to_f / scene_count) %>
 <% items = [{ label: 'Completed', color: '090', width: 100.0 * ss_ratio }, 
@@ -18,8 +18,9 @@
 <% b_count  = word_counts.collect{|x| x <= 250 ? 1 : 0 }.sum %>
 <% b_ratio = b_count.zero? ? 0 : b_count.to_f / word_counts.length %>
 
-<% z_count  += word_counts.collect{|x| x <= 10 ? 1 : 0 }.sum %>
+<% z_count  += word_counts.collect{|x| x <= 15 ? 1 : 0 }.sum %>
 <% word_avg = scene_count == z_count ? 0 : word_count / (scene_count - z_count) %>
+<% word_avg = word_avg > scene_avg ? word_avg : scene_avg %>
 <% pot_word_count = word_counts.collect{|x| x > word_avg ? x : word_avg}.sum %>
 
 <% items2 = [{ label: 'Better', color: good_color, width:  100.0 * bt_ratio },
@@ -52,9 +53,10 @@
     <%= scene_count %> (<%= section_count %> <%= (scene_count.zero? ? '' : number_with_precision((section_count.to_f / scene_count) * 100.0, precision: 2)) %>%)
   </div>
   <div class="medium">
-    <span style="background-color: #<%= count_color(word_count) %>"><%=  number_with_delimiter(word_count, :delimiter => ',') %></span>
+    <%# debugger %>
+    <span style="background-color: #<%= percent_color(word_count.to_f/pot_word_count.to_f) %>"><%=  number_with_delimiter(word_count, :delimiter => ',') %></span>
     (
-    <span style="background-color: #<%= count_color(pot_word_count) %>"><%=  number_with_delimiter(pot_word_count, :delimiter => ',') %></span>
+    <%=  number_with_delimiter(pot_word_count, :delimiter => ',') %>
     )
   </div>
 <% end %>
