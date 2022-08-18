@@ -10,14 +10,14 @@ class BooksTest < ApplicationSystemTestCase
     @book_3 = books(:book_3)
     @user = users(:users_1)
     sign_in @user
-    ThinkingSphinx::Test.init
-    ThinkingSphinx::Test.start index: false
-    index
+#    ThinkingSphinx::Test.init
+#    ThinkingSphinx::Test.start index: false
+#    index
   end
 
   teardown do
-    ThinkingSphinx::Test.stop
-    ThinkingSphinx::Test.clear
+#    ThinkingSphinx::Test.stop
+#    ThinkingSphinx::Test.clear
   end
 
   test 'books edit' do

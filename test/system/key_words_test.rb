@@ -10,14 +10,14 @@ class KeyWordsTest < ApplicationSystemTestCase
     @book = @key_word.book
     @user = users(:users_1)
     sign_in @user
-    ThinkingSphinx::Test.init
-    ThinkingSphinx::Test.start index: false
-    index
+#    ThinkingSphinx::Test.init
+#    ThinkingSphinx::Test.start index: false
+#    index
   end
 
   teardown do
-    ThinkingSphinx::Test.stop
-    ThinkingSphinx::Test.clear
+#    ThinkingSphinx::Test.stop
+#    ThinkingSphinx::Test.clear
   end
 
   test 'key_words edit' do
