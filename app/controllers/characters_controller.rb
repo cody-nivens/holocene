@@ -187,7 +187,7 @@ class CharactersController < ApplicationController
       object.book.characters << character unless object.book.characters.include?(character)
     when 'Scene'
       unless object.key_point.scripted.book.characters.include?(character)
-        object.key_point.scripted.book.characters << character
+        object.key_point.scripted.book.characters << character unless object.key_point.scripted.book.characters.include?(character)
       end
       object.key_point.scripted.characters << character unless object.key_point.scripted.characters.include?(character)
     end
