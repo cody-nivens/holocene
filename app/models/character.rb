@@ -117,7 +117,7 @@ class Character < ApplicationRecord
     # if !self.honorific? && !self.use_honorific_only?
     #  str += " #{self.first_name}"
     # else
-    str += first_name unless use_honorific_only?
+    str += first_name unless first_name.nil? or use_honorific_only?
     # end
 
     str += if middle_name.blank? || (honorific? && use_honorific_only)
