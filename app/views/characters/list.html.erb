@@ -1,4 +1,4 @@
-<%= form_with url: polymorphic_path([@object, :characters_add]) do |f| %>
+<%= bootstrap_form_for :character, url: polymorphic_path([@object, :characters_add]) do |f| %>
 
   <%= hidden_field "#{@object.class.name.underscore}_id", value: @object.id %>
 
