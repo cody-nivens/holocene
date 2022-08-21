@@ -46,6 +46,7 @@
     </td>
     <th>Word Count | Publishable (Potential):</th>
     <td><%= number_with_delimiter(word_count, delimiter: ',') %> | 
-    <%= number_with_delimiter(pub_word_count, delimiter: ',') %> (<%= (section_count.zero? ? '' : number_with_delimiter(pot_word_count, delimiter: ',')) %>)</td>
+      <%= number_with_delimiter(pub_word_count, delimiter: ',') %> (<%= (section_count.zero? ? '' : number_with_delimiter(pot_word_count, delimiter: ',')) %>)
+      <%= number_to_percentage(pub_word_count.to_f/pot_word_count*100) %></td>
   </tr>
 </table>
