@@ -95,11 +95,7 @@
 
 <div id='scenes-list'>
     <%= render partial: 'scenes/scenes', formats: [:html], locals: { scenes: @scenes, print: @print, situated: @situated,
-                                                                     no_scene: @no_scene, no_section: @no_section, 
-                                                                     low_word_count: @low_word_count,
-                                                                     mid_word_count: @mid_word_count,
-                                                                     better_word_count: @better_word_count,
-                                                                     only_section: @only_section, years: @years, 
+                                                                     option: @option, years: @years, 
                                                                      date: @year, scripted: @scripted } %>
 </div>
 
