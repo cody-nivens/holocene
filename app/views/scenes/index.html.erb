@@ -34,21 +34,21 @@
     <div class='col-md-2'>
       <div class='form-check'>
         <label class='checkbox'>
-          <%= check_box_tag :no_section, @no_section, @no_section, class: 'checkbox inline' %> No Section
+          <%= radio_button_tag :option, :no_section, @no_section, class: 'checkbox inline' %> No Section
         </label>
       </div>
     </div>
     <div class='col-md-2'>
       <div class='form-check'>
         <label class='checkbox'>
-          <%= check_box_tag :no_scene, @no_scene, @no_scene, class: 'checkbox inline' %> No Scene
+          <%= radio_button_tag :option, :no_scene, @no_scene, class: 'checkbox inline' %> No Scene
         </label>
       </div>
     </div>
     <div class='col-md-2'>
       <div class='form-check'>
         <label class='checkbox'>
-          <%= check_box_tag :only_section, @only_section, @only_section, class: 'checkbox inline' %> Only Section
+          <%= radio_button_tag :option, :only_section, @only_section, class: 'checkbox inline' %> Only Section
         </label>
       </div>
     </div>
@@ -57,28 +57,28 @@
     <div class='col-md-2'>
       <div class='form-check'>
         <label class='checkbox'>
-          <%= check_box_tag :has_inserts, @has_inserts, @has_inserts, class: 'checkbox inline' %> Has Inserts
+          <%= radio_button_tag :option, :has_inserts, @has_inserts, class: 'checkbox inline' %> Has Inserts
         </label>
       </div>
     </div>
     <div class='col-md-2'>
       <div class='form-check'>
         <label class='checkbox'>
-          <%= check_box_tag :low_word_count, @low_word_count, @low_word_count, class: 'checkbox inline' %> Low Word Count
+          <%= radio_button_tag :option, :low_word_count, @low_word_count, class: 'checkbox inline' %> Low Word Count
         </label>
       </div>
     </div>
     <div class='col-md-2'>
       <div class='form-check'>
         <label class='checkbox'>
-          <%= check_box_tag :mid_word_count, @mid_word_count, @mid_word_count, class: 'checkbox inline' %> Mid Word Count
+          <%= radio_button_tag :option, :mid_word_count, @mid_word_count, class: 'checkbox inline' %> Mid Word Count
         </label>
       </div>
     </div>
     <div class='col-md-2'>
       <div class='form-check'>
         <label class='checkbox'>
-          <%= check_box_tag :better_word_count, @better_word_count, @better_word_count, class: 'checkbox inline' %> Better Word Count
+          <%= radio_button_tag :option, :better_word_count, @better_word_count, class: 'checkbox inline' %> Better Word Count
         </label>
       </div>
     </div>

@@ -7,13 +7,7 @@ class ScenesController < ApplicationController
   def index
     @toggle = params[:toggle]
     @print = params[:print]
-    @no_section = params[:no_section]
-    @no_scene = params[:no_scene]
-    @only_section = params[:only_section]
-    @has_inserts = params[:has_inserts]
-    @low_word_count = params[:low_word_count]
-    @mid_word_count = params[:mid_word_count]
-    @better_word_count = params[:better_word_count]
+    @option = params[:option]
 
     @year = params[:year]
     @scenes = @no_scene ? nil : Scene.get_scenes(@situated, @toggle)
