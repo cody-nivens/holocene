@@ -59,7 +59,7 @@ class Book < ApplicationRecord
     count = (body.nil? ? 0 : WordsCounted.count(body.to_plain_text).token_count)
     if is_fiction?
       stories = (published ? self.stories.where(publish: true) : self.stories)
-      stories.each do |story|
+      stories.includes([:key_points]).each do |story|
         story.key_points.each do |key_point|
           key_point.scenes.each do |scene|
             count += scene.section.word_count unless scene.section.nil?
