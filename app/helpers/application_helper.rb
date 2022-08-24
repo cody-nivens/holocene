@@ -67,7 +67,7 @@ module ApplicationHelper
     a.html_safe
   end
 
-  def breadcrumb(book, story = nil, key_point = nil, scene = nil, section = nil, link = nil)
+  def breadcrumb(book, story = nil, key_point = nil, scene = nil, section = nil, link: nil)
     str = ''
     tag.nav aria: { label: 'breadcrumb' } do
       tag.ol class: 'breadcrumb' do

@@ -9,7 +9,7 @@
           <% values = result.set_values %>
           <% next unless values[0] == book && values[1].nil? %>
           <li>
-            <%== surpress_first(breadcrumb(values[0], values[1], values[2], values[3], values[4], true)) %>
+            <%== surpress_first(breadcrumb(values[0], values[1], values[2], values[3], values[4], link: true)) %>
           </li>
         <% else %>
       <% search_results[record_type][key0].keys.sort.each do |key1| %>
@@ -18,7 +18,7 @@
           <% values = result.set_values %>
           <% next unless values[0] == book %>
           <li>
-            <%== surpress_first(breadcrumb(values[0], values[1], values[2], values[3], values[4], true)) %>
+            <%== surpress_first(breadcrumb(values[0], values[1], values[2], values[3], values[4], link: true)) %>
           </li>
         <% else %>
           <% search_results[record_type][key0][key1].keys.sort.each do |key2| %>
@@ -27,7 +27,7 @@
               <% values = result.set_values %>
               <% next unless values[0] == book %>
               <li>
-                <%== surpress_first(breadcrumb(values[0], values[1], values[2], values[3], values[4], true)) %>
+                <%== surpress_first(breadcrumb(values[0], values[1], values[2], values[3], values[4], link: true)) %>
               </li>
             <% else %>
               <% search_results[record_type][key0][key1][key2].keys.sort.each do |key3| %>
@@ -36,7 +36,7 @@
                   <% values = result.set_values %>
                   <% next unless values[0] == book %>
                   <li>
-                    <%== surpress_first(breadcrumb(values[0], values[1], values[2], values[3], values[4], true)) %>
+                    <%== surpress_first(breadcrumb(values[0], values[1], values[2], values[3], values[4], link: true)) %>
                   </li>
                 <% else %>
                   <% search_results[record_type][key0][key1][key2][key3].keys.sort.each do |key4| %>
@@ -45,7 +45,7 @@
                       <% values = result.set_values %>
                       <% next unless values[0] == book %>
                       <li>
-                        <%== surpress_first(breadcrumb(values[0], values[1], values[2], values[3], values[4], true)) %>
+                        <%== surpress_first(breadcrumb(values[0], values[1], values[2], values[3], values[4], link: true)) %>
                       </li>
                     <% else %>
                     <% end %>

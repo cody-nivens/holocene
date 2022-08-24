@@ -1,7 +1,7 @@
 <p id='notice'><%= notice %></p>
 
 <h2>
-  <%== breadcrumb(@book) %>
+  <%== breadcrumb(@book, link: true) %>
   <%= link_to (fa_icon 'edit', type: :regular), edit_book_path(@book), title: 'Edit' %>
   <%= link_to (fa_icon 'sticky-note', type: :regular), book_signets_path(@book), title: 'Signets' %>
   <%= link_to (fa_icon 'list', type: :solid), book_path(@book, long: true), title: 'Show, long' %>

@@ -1,7 +1,7 @@
 <h1>Chapters</h1>
 <% if @scripted.class.name == 'Book' %>
 <h2>
-  <%== breadcrumb(@scripted) %>
+  <%== breadcrumb(@scripted, link: true) %>
   <%= link_to (fa_icon 'edit', type: :regular), edit_book_path(@scripted), title: 'Edit' %>
   <%= link_to (fa_icon 'sticky-note', type: :regular), book_signets_path(@scripted), title: 'Signets' %>
   <%= link_to (fa_icon 'list', type: :solid), book_path(@scripted, long: true), title: 'Show, long' %>

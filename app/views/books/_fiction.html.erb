@@ -10,7 +10,9 @@
 
 
 
-<% if long %>
+<% if !long %>
+        <%= render partial: 'stories/index', formats: [:html], locals: { stories: stories, book: book, long: long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
+<% else %>
   <%= render partial: 'books/book_stats', locals: { book: book } %>
 <% end %>
 
