@@ -14,38 +14,38 @@
         <%= render partial: 'stories/index', formats: [:html], locals: { stories: stories, book: book, long: long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
 <% else %>
   <%= render partial: 'books/book_stats', locals: { book: book } %>
-<% end %>
 
-<%= tabs do |c| %>
-  <% c.tab 'Stories' do %>
-    <span>
+  <%= tabs do |c| %>
+    <% c.tab 'Stories' do %>
+      <span>
         <%= render partial: 'stories/index', formats: [:html], locals: { stories: stories, book: book, long: long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
-    </span>
-  <% end %>
+      </span>
+    <% end %>
 
-  <% c.tab 'Gender' do %>
-    <span>
-      <div id='gender'>
-      <%= render partial: 'shared/stats2', formats: [:html], locals: { category: 'Gender', value_attribute: 'Gender', attribute: 'sex', object: book } %>
-      </div>
-    </span>
-  <% end %>
+    <% c.tab 'Gender' do %>
+      <span>
+        <div id='gender'>
+        <%= render partial: 'shared/stats2', formats: [:html], locals: { category: 'Gender', value_attribute: 'Gender', attribute: 'sex', object: book } %>
+        </div>
+      </span>
+    <% end %>
 
-  <% c.tab 'Ethnicity' do %>
-    <span>
-      <%= render partial: 'characters/attribute_count', formats: [:html], locals: { object: book, field: :ethnicity } %>
-    </span>
-  <% end %>
+    <% c.tab 'Ethnicity' do %>
+      <span>
+        <%= render partial: 'characters/attribute_count', formats: [:html], locals: { object: book, field: :ethnicity } %>
+      </span>
+    <% end %>
 
-  <% c.tab 'Occupation Class' do %>
-    <span>
-      <%= render partial: 'characters/attribute_count', formats: [:html], locals: { object: book, field: :occupation_class } %>
-    </span>
-  <% end %>
+    <% c.tab 'Occupation Class' do %>
+      <span>
+        <%= render partial: 'characters/attribute_count', formats: [:html], locals: { object: book, field: :occupation_class } %>
+      </span>
+    <% end %>
 
-  <% c.tab 'Characters' do %>
-    <span>
-      <%= render partial: 'characters/characters_occ_ul', formats: [:html], locals: { object: book } %>
-    </span>
+    <% c.tab 'Characters' do %>
+      <span>
+        <%= render partial: 'characters/characters_occ_ul', formats: [:html], locals: { object: book } %>
+      </span>
+    <% end %>
   <% end %>
 <% end %>
