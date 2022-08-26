@@ -1,27 +1,12 @@
 <% if long %>
-<% bt_count = g_count = o_count = b_count = z_count = words_total = pot_word_count = 0 %>
 <% scene_count = story.scene_count %>
 <% section_count = story.section_count %>
-<% word_count = story.word_count %>
-<% word_counts = story.word_counts %>
-<% wss_ratio = word_counts.collect{|x| x > word_avg ? x : word_avg}.sum %>
+
 <% ss_ratio = (scene_count.zero? ? 0 : section_count.to_f / scene_count) %>
 <% items = [{ label: 'Completed', color: '090', width: 100.0 * ss_ratio }, 
             { label: 'Waiting', color: 'ededed', width: 100.0 - 100.0 * ss_ratio }] %>
-<% bt_count = word_counts.collect{|x| x > 1000 ? 1 : 0 }.sum %>
-<% bt_ratio = bt_count.zero? ? 0 : bt_count.to_f / word_counts.length %>
-<% g_count  = word_counts.collect{|x| x <= 1000 ? x > 650 ? 1 : 0 : 0 }.sum %>
-<% g_ratio = g_count.zero? ? 0 : g_count.to_f / word_counts.length %>
-<% o_count  = word_counts.collect{|x| x <= 650 ? x > 250 ? 1 : 0 : 0 }.sum %>
-<% o_ratio = o_count.zero? ? 0 : o_count.to_f / word_counts.length %>
-<% b_count  = word_counts.collect{|x| x <= 250 ? 1 : 0 }.sum %>
-<% b_ratio = b_count.zero? ? 0 : b_count.to_f / word_counts.length %>
 
-<% items2 = [{ label: 'Better', color: good_color, width:  100.0 * bt_ratio },
-             { label: 'Good', color: okay_color, width: 100.0 * g_ratio },
-             { label: 'Okay', color: caution_color, width: 100.0 * o_ratio },
-             { label: 'Bad', color: bad_color, width:  100.0 * b_ratio }] %>
-
+<% items2 = wc_counts_info(story) %>
 <% end %>
 <dt>
   <div class="narrow">
@@ -47,7 +32,7 @@
     <%= scene_count %> (<%= section_count %> <%= (scene_count.zero? ? '' : number_with_precision((section_count.to_f / scene_count) * 100.0, precision: 2)) %>%)
   </div>
   <div class="medium">
-    <%== render partial: "shared/word_count", locals: { scene_count: scene_count, word_count: word_count, word_counts: word_counts } %>
+    <%== render partial: "shared/word_count", locals: { obj: story} %>
   </div>
 <% end %>
   <div style="clear:both"></div>

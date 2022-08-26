@@ -14,24 +14,7 @@
   <%= @story.summary %>
 </p>
 
-<% scene_count = @story.scene_count %>
-<% section_count = @story.section_count %>
-<% word_count = @story.word_count %>
-<% word_counts = @story.word_counts %>
-<% bt_count = word_counts.collect{|x| x > 1000 ? 1 : 0 }.sum %>
-<% bt_ratio = bt_count.zero? ? 0 : bt_count.to_f / word_counts.length %>
-<% g_count  = word_counts.collect{|x| x <= 1000 ? x > 650 ? 1 : 0 : 0 }.sum %>
-<% g_ratio = g_count.zero? ? 0 : g_count.to_f / word_counts.length %>
-<% o_count  = word_counts.collect{|x| x <= 650 ? x > 250 ? 1 : 0 : 0 }.sum %>
-<% o_ratio = o_count.zero? ? 0 : o_count.to_f / word_counts.length %>
-<% b_count  = word_counts.collect{|x| x <= 250 ? 1 : 0 }.sum %>
-<% b_ratio = b_count.zero? ? 0 : b_count.to_f / word_counts.length %>
-
-<% items2 = [{ label: 'Better', color: good_color, width:  100.0 * bt_ratio },
-             { label: 'Good', color: okay_color, width: 100.0 * g_ratio },
-             { label: 'Okay', color: caution_color, width: 100.0 * o_ratio },
-             { label: 'Bad', color: bad_color, width:  100.0 * b_ratio }] %>
-
+<% items2 = wc_counts_info(@story) %>
 <table class="table">
   <tr>
     <th>Scene Character:</th> <td><%= @story.scene_character %></td>
@@ -50,7 +33,7 @@
     </td>
     <% word_count = @story.word_count %>
     <th>Word Count (Potential):</th> <td>
-    <%== render partial: "shared/word_count", locals: { scene_count: scene_count, word_count: word_count, word_counts: word_counts } %>
+    <%== render partial: "shared/word_count", locals: { obj: @story } %>
     </td>
     <th>Print Summary:</th> <td><%= (@story.print_summary? ? fa_icon('check') : '') %></td>
   </tr>

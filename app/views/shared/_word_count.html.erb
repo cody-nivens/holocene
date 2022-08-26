@@ -1,3 +1,8 @@
+<% scene_count = obj.scene_count %>
+<% section_count = obj.section_count %>
+<% word_count = obj.word_count %>
+<% word_counts = obj.word_counts %>
+
 <% scene_avg = scene_count.zero? ? 0 : (word_count/scene_count).to_i %>
 
 <% z_count = word_counts.collect{|x| x <= 15 ? 1 : 0 }.sum %>

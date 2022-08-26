@@ -175,10 +175,32 @@ module ApplicationHelper
   end
 
   def count_color(wc)
-    (wc > 1000 ? good_color : ( wc > 500 ? okay_color : (wc > 250 ? caution_color : bad_color)))
+    (wc > 1000 ? good_color : ( wc > 650 ? okay_color : (wc > 250 ? caution_color : bad_color)))
   end
 
   def percent_color(wc)
     (wc >= 0.95 ? good_color : ( wc > 0.75 ? okay_color : (wc > 0.5 ? caution_color : bad_color)))
+  end
+
+  def wc_counts_info(obj)
+    scene_count = obj.scene_count
+    section_count = obj.section_count
+    word_count = obj.word_count
+    word_counts = obj.word_counts
+    bt_count = word_counts.collect{|x| x > 1000 ? 1 : 0 }.sum
+    bt_ratio = bt_count.zero? ? 0 : bt_count.to_f / word_counts.length
+    g_count  = word_counts.collect{|x| x <= 1000 ? x > 650 ? 1 : 0 : 0 }.sum
+    g_ratio = g_count.zero? ? 0 : g_count.to_f / word_counts.length
+    o_count  = word_counts.collect{|x| x <= 650 ? x > 250 ? 1 : 0 : 0 }.sum
+    o_ratio = o_count.zero? ? 0 : o_count.to_f / word_counts.length
+    b_count  = word_counts.collect{|x| x <= 250 ? 1 : 0 }.sum
+    b_ratio = b_count.zero? ? 0 : b_count.to_f / word_counts.length
+
+    items = [{ label: 'Better', color: good_color, width:  100.0 * bt_ratio },
+             { label: 'Good', color: okay_color, width: 100.0 * g_ratio },
+             { label: 'Okay', color: caution_color, width: 100.0 * o_ratio },
+             { label: 'Bad', color: bad_color, width:  100.0 * b_ratio }]
+
+    return items
   end
 end
