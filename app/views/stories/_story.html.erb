@@ -16,6 +16,7 @@
     <%= story.scene_max %>
   </div>
   <div class="title">
+    <%= story.scene_character %>
     <%= link_to story.title, story_path(story) %>
     <%= link_to (fa_icon 'search-plus'), story_path(story), title: 'Show' %>
     <%= link_to (fa_icon 'edit'), edit_story_path(story), title: 'Edit' %>
@@ -32,7 +33,7 @@
     <%= scene_count %> (<%= section_count %> <%= (scene_count.zero? ? '' : number_with_precision((section_count.to_f / scene_count) * 100.0, precision: 2)) %>%)
   </div>
   <div class="medium">
-    <%== render partial: "shared/word_count", locals: { obj: story} %>
+    <%== render partial: "shared/word_count", locals: { obj: story } %>
   </div>
 <% end %>
   <div style="clear:both"></div>
