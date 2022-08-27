@@ -203,4 +203,17 @@ module ApplicationHelper
 
     return items
   end
+
+  def physical_attributes(character)
+    phy_pa  = CharacterCategory.where(name: 'Physical Appearance').first
+    phy_gen = CharacterCategory.where(name: 'Gender').first
+    phy_hc  = CharacterAttribute.where(character_category_id: phy_pa.id, name: 'Hair color').first
+    phy_ec  = CharacterAttribute.where(character_category_id: phy_pa.id, name: 'Eye color').first
+    phy_gen = CharacterAttribute.where(character_category_id: phy_gen.id, name: 'Gender').first
+    hc      = CharacterValue.where(character_id: character.id, character_attribute_id: phy_hc).first
+    ec      = CharacterValue.where(character_id: character.id, character_attribute_id: phy_ec).first
+    gen     = CharacterValue.where(character_id: character.id, character_attribute_id: phy_gen).first
+
+    "h: #{hc.nil? ? '' : hc.value[0..2]};e #{ec.nil? ? '' : ec.value[0..2]};g #{gen.nil? ? '' : gen.value[0..2]};"
+  end
 end

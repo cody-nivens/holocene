@@ -33,11 +33,10 @@ class BooksShowHtmlErbTest < ActionDispatch::IntegrationTest
   end
 
   test 'should show book II' do
-    get book_path(@book_2)
+    get book_path(@book_2, long: true)
     assert_response :success
 
-    #assert_select 'td', '46 | 27 (165)'
-    assert_select 'td', '1'
+    assert_select 'td', '12 (10)'
 
     assert_select 'a[href=?]', edit_book_path(@book_2)
 
