@@ -8,7 +8,7 @@
 <% end %>
 
 <% if story.print_summary? %>
-   <%= story.summary %>
+   <%= story.summary_body %>
 <% end %>
 
 <%= render partial: 'stories/view_story2', formats: [:html], locals: { story: story, pdf: pdf, outline: outline } %>
