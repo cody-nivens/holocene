@@ -32,7 +32,7 @@
                 <% next unless iscene.key_point.scripted.publish? %>
                 <% inserted_scenes << iscene.id %>
 
-                <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: iscene, outline: outline, pdf: pdf} %>
+                <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: iscene, outline: outline, pdf: nil } %>
                 <% line_count += 1 if outline %>
               <% end %>
               <% if scene.title_scene and scene.situated.title_page? %>
@@ -48,7 +48,7 @@
                 <% end %>
               <% end %>
 
-              <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline, pdf: pdf} %>
+              <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline, pdf: nil } %>
               <% if outline %>
                 <% if line_count == 50 %>
                   <% line_count = 0 %>
