@@ -7,6 +7,7 @@ class StoriesController < ApplicationController
   def index
     long = params[:long]
 
+    @title = "Stories#{long.nil? ? '' : ', Long'}"
     @stories = Story.includes([:key_points]).where(book_id: @book.id).order(:position)
     respond_to do |format|
       format.html { render :index, locals: { long: long } }
@@ -51,9 +52,10 @@ class StoriesController < ApplicationController
   # GET /stories/1.json
   def view
     @story = Story.includes({ scenes: [:section, { key_point: :scenes }, :artifact, :rich_text_place, :rich_text_summary] }).find(params[:id])
+    @title = "View#{params[:outline].nil? ? '' : ' Outline'}, #{@story.name}"
     @book = @story.book
     @object = @story
-    @title = @story.name
+
     respond_to do |format|
       format.html { render :view }
     end
@@ -152,6 +154,6 @@ class StoriesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def story_params
     params.require(:story).permit(:title, :summary, :book_id, :scene_character, :publish, :stand_alone,
-                                  :print_summary, :position_position)
+                                  :print_summary, :position_position, :title_page)
   end
 end

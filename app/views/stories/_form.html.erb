@@ -6,6 +6,8 @@
     <%= f.hidden_field :book_id, value: book.id %>
 
     <%= f.text_field :title %>
+    <%= f.label 'Title Page?' %>
+    <%= f.check_box :title_page %>
     <%= f.text_field :scene_character %>
     <%= f.label 'Print Summary?' %>
     <%= f.check_box :print_summary %>

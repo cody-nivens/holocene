@@ -19,17 +19,24 @@
   <tr>
     <th>Scene Character:</th> <td><%= @story.scene_character %></td>
     <th>Characters:</th> <td><%= @story.characters.size %></td>
+  </tr>
+  <tr>
     <th>Publish:</th> <td><%= (@story.publish? ? fa_icon('check') : '') %></td>
     <th>Stand Alone:</th> <td><%= (@story.stand_alone? ? fa_icon('check') : '') %></td>
+    <th>Title Page:</th> <td><%= (@story.title_page? ? fa_icon('check') : '') %></td>
   </tr>
   <tr>
     <th>Scenes(section % scenes):</th>
     <td>
-      <%= render partial: 'scenes/progress_bar', formats: [:html], locals: { object: @story } %>
-        <div class="progress_bar">
-    <%= render partial: 'shared/progress_bar', locals: { items: items2 } %>
-  </div>
-
+      <div class="progress_bar">
+        <%= render partial: 'scenes/progress_bar', formats: [:html], locals: { object: @story } %>
+      </div>
+    </td>
+    <td>
+      <div class="progress_bar">
+        <%= render partial: 'shared/progress_bar', locals: { items: items2 } %>
+      </div>
+    </td>
     </td>
     <% word_count = @story.word_count %>
     <th>Word Count (Potential):</th> <td>

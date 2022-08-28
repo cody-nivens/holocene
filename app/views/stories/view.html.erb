@@ -6,5 +6,5 @@
   <%= link_to (fa_icon 'file-pdf', type: :regular), story_path(@story, format: :pdf, outline: true), title: 'PDF Outline' %>
 </h2>
 
-<%= render partial: 'stories/view', formats: [:html], locals: { outline: params[:outline], pdf: true, story: @story } %>
+<%= render partial: 'stories/view', formats: [:html], locals: { outline: params[:outline], pdf: nil, story: @story } %>
 <% add_to_footer('Back', @story) %>

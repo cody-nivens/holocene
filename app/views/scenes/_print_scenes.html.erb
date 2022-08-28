@@ -1,3 +1,6 @@
+<% pdf ||= nil %>
+<% outline ||= nil %>
+
 <% inserted_scenes = [] %>
 
 <% scenes.keys.sort.each do |year| %>
@@ -12,9 +15,9 @@
             <% insert_scenes.each do |iscene| %>
               <% next unless iscene.key_point.scripted.publish? %>
               <% inserted_scenes << iscene.id %>
-              <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: iscene, outline: outline} %>
+              <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: iscene, outline: outline, pdf: pdf} %>
             <% end %>
-            <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline} %>
+            <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline, pdf: pdf} %>
           <% end %>
         <% end %>
       <% end %>

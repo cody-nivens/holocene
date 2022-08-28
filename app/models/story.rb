@@ -19,6 +19,10 @@ class Story < ApplicationRecord
     { events: Scene.get_scenes_to_array(self, toggle).collect { |x| x.slide } }
   end
 
+  def title_page?
+    title_page
+  end
+
   def publish?
     publish
   end

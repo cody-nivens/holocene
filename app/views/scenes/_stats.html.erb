@@ -13,4 +13,7 @@
     <th>Scene/Sequel:</th><td><%= (object.scene_sequel == 1 ? 'Sequel' : 'Scene') %></td>
     <th>Selector:</th><td><%= selector_string(object.selector) %></td>
   </tr>
+  <tr>
+    <th>Title Scene:</th><td><%= (object.title_scene? ? fa_icon('check') : '') %></td>
+  </tr>
 </table>

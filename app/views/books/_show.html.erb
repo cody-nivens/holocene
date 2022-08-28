@@ -15,6 +15,8 @@
 <% @notes = {} -%>
 <% line_count = 0 %>
 <% inserted_scenes = [] %>
+<% last_scene = nil %>
+
 <% if book.is_fiction? %>
   <% scenes = Scene.get_scenes(book, 'off') %>
   <% scenes.keys.sort.each do |year| %>
@@ -29,10 +31,28 @@
                 <% next if inserted_scenes.include?(iscene.id) %>
                 <% next unless iscene.key_point.scripted.publish? %>
                 <% inserted_scenes << iscene.id %>
-                <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: iscene, outline: outline} %>
+
+                <% if iscene.title_scene? %>
+                  <div style="display:block; clear:both; page-break-after:always;"></div>
+                  <h2><%= iscene.situated.title %></h2>
+                  <% just_printed_page_break = true %>
+                <% end %>
+
+                <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: iscene, outline: outline, pdf: pdf} %>
                 <% line_count += 1 if outline %>
               <% end %>
-              <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline} %>
+                <% if scene.title_scene and scene.situated.title_page? %>
+                  <div style="display:block; clear:both; page-break-after:always;"></div>
+                  <h2><%= scene.situated.title %></h2>
+                  <% just_printed_page_break = true %>
+                <% end %>
+                <% if scene.title_scene and scene.situated.print_summary? %>
+                  <%= scene.situated.summary %>
+                  <div style="display:block; clear:both; page-break-after:always;"></div>
+                  <% just_printed_page_break = true %>
+                <% end %>
+
+              <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline, pdf: pdf} %>
               <% if outline %>
                 <% if line_count == 50 %>
                   <% line_count = 0 %>

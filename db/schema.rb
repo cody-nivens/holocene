@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_19_125232) do
+ActiveRecord::Schema.define(version: 2022_08_27_231150) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -487,6 +487,7 @@ ActiveRecord::Schema.define(version: 2021_10_19_125232) do
     t.boolean "before_flag", default: false
     t.bigint "artifact_id"
     t.string "date_string"
+    t.boolean "title_scene", default: false
     t.index ["artifact_id"], name: "index_scenes_on_artifact_id"
     t.index ["insert_scene_id"], name: "index_scenes_on_insert_scene_id"
     t.index ["key_point_id"], name: "index_scenes_on_key_point_id"
@@ -532,6 +533,7 @@ ActiveRecord::Schema.define(version: 2021_10_19_125232) do
     t.boolean "publish", default: true
     t.boolean "stand_alone", default: false
     t.boolean "print_summary", default: false
+    t.boolean "title_page", default: false
     t.index ["book_id"], name: "index_stories_on_book_id"
   end
 
@@ -555,7 +557,7 @@ ActiveRecord::Schema.define(version: 2021_10_19_125232) do
   end
 
   create_table "tags", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "name", collation: "utf8_bin"
+    t.string "name", collation: "utf8mb3_bin"
     t.integer "taggings_count", default: 0
     t.index ["name"], name: "index_tags_on_name", unique: true
   end

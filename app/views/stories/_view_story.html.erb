@@ -17,7 +17,7 @@
       <% just_printed_page_break = false %>
       <br>
       <strong>
-        <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil } %>
+        <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: pdf } %>
       </strong><br><br>
       <%== epub_friendly(scene.section.body) %>
     <% end %>

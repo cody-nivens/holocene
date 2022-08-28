@@ -43,6 +43,10 @@ class Scene < ApplicationRecord
 
   validates :abc, presence: true
 
+  def title_scene?
+    title_scene
+  end
+
   def set_prev
     prev_item = higher_item
     if prev_item.nil?
