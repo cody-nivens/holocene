@@ -17,6 +17,19 @@
               <% inserted_scenes << iscene.id %>
               <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: iscene, outline: outline, pdf: pdf} %>
             <% end %>
+            <% if scene.title_scene and scene.situated.title_page? %>
+              <div style="display:block; clear:both; page-break-after:always;"></div>
+              <h2><%= scene.situated.title %></h2>
+              <% just_printed_page_break = true %>
+            <% end %>
+            <% if scene.title_scene and scene.situated.print_summary? %>
+              <% if !outline %>
+                <%= scene.situated.summary %>
+                <div style="display:block; clear:both; page-break-after:always;"></div>
+                <% just_printed_page_break = true %>
+              <% end %>
+            <% end %>
+
             <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline, pdf: pdf} %>
           <% end %>
         <% end %>

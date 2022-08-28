@@ -32,25 +32,21 @@
                 <% next unless iscene.key_point.scripted.publish? %>
                 <% inserted_scenes << iscene.id %>
 
-                <% if iscene.title_scene? %>
-                  <div style="display:block; clear:both; page-break-after:always;"></div>
-                  <h2><%= iscene.situated.title %></h2>
-                  <% just_printed_page_break = true %>
-                <% end %>
-
                 <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: iscene, outline: outline, pdf: pdf} %>
                 <% line_count += 1 if outline %>
               <% end %>
-                <% if scene.title_scene and scene.situated.title_page? %>
-                  <div style="display:block; clear:both; page-break-after:always;"></div>
-                  <h2><%= scene.situated.title %></h2>
-                  <% just_printed_page_break = true %>
-                <% end %>
-                <% if scene.title_scene and scene.situated.print_summary? %>
+              <% if scene.title_scene and scene.situated.title_page? %>
+                <div style="display:block; clear:both; page-break-after:always;"></div>
+                <h2><%= scene.situated.title %></h2>
+                <% just_printed_page_break = true %>
+              <% end %>
+              <% if scene.title_scene and scene.situated.print_summary? %>
+                <% if !outline %>
                   <%= scene.situated.summary %>
                   <div style="display:block; clear:both; page-break-after:always;"></div>
                   <% just_printed_page_break = true %>
                 <% end %>
+              <% end %>
 
               <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline, pdf: pdf} %>
               <% if outline %>
