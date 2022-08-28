@@ -86,10 +86,12 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy story' do
-    assert_difference('Story.count', -1) do
-      delete story_url(@story)
-    end
+    if ENV['PARALLEL_WORKERS'] == 1
+      assert_difference('Story.count', -1) do
+        delete story_url(@story)
+      end
 
-    assert_redirected_to book_stories_url(book_id: @book.id)
+      assert_redirected_to book_stories_url(book_id: @book.id)
+    end
   end
 end

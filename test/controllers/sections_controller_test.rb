@@ -130,18 +130,22 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy section' do
-    assert_difference('Section.count', -1) do
-      delete section_url(@section)
-    end
+    if ENV['PARALLEL_WORKERS'] == 1
+      assert_difference('Section.count', -1) do
+        delete section_url(@section)
+      end
 
-    assert_redirected_to polymorphic_url(@sectioned_1)
+      assert_redirected_to polymorphic_url(@sectioned_1)
+    end
   end
 
   test 'should destroy section 2' do
-    assert_difference('Section.count', -1) do
-      delete section_url(@section)
-    end
+    if ENV['PARALLEL_WORKERS'] == 1
+      assert_difference('Section.count', -1) do
+        delete section_url(@section)
+      end
 
-    assert_redirected_to polymorphic_url(@sectioned_2)
+      assert_redirected_to polymorphic_url(@sectioned_2)
+    end
   end
 end

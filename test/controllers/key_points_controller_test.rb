@@ -140,10 +140,12 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy key_point' do
-    assert_difference('KeyPoint.count', -1) do
-      delete key_point_url(@key_point)
-    end
+    if ENV['PARALLEL_WORKERS'] == 1
+      assert_difference('KeyPoint.count', -1) do
+        delete key_point_url(@key_point)
+      end
 
-    assert_redirected_to polymorphic_url([@scripted, :key_points])
+      assert_redirected_to polymorphic_url([@scripted, :key_points])
+    end
   end
 end
