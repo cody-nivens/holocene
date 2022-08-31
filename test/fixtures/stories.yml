@@ -2,7 +2,6 @@
 
 story_1:
   title: The Beginnings
-  summary: MyText
   book: book_2
   scene_character: A
   position: 1
@@ -11,7 +10,6 @@ story_1:
 
 story_2:
   title: The Endings
-  summary: Stormy Weather
   book: book_2
   scene_character: B
   position: 2
@@ -20,7 +18,6 @@ story_2:
 
 story_3:
   title: The Middles I
-  summary: MyText
   book: book_3
   scene_character: C
   position: 1
@@ -29,7 +26,6 @@ story_3:
 
 story_4:
   title: The Middles II
-  summary: MyText
   book: book_2
   scene_character: C
   position: 3
@@ -38,7 +34,6 @@ story_4:
 
 story_5:
   title: The Middles III
-  summary: MyText
   book: book_2
   scene_character: C
   position: 4
@@ -47,7 +42,6 @@ story_5:
 
 story_6:
   title: The Middles IV
-  summary: MyText
   book: book_2
   scene_character: C
   position: 5
@@ -56,7 +50,6 @@ story_6:
 
 story_7:
   title: The Middles V
-  summary: MyText
   book: book_2
   scene_character: C
   position: 6
@@ -65,7 +58,6 @@ story_7:
 
 story_8:
   title: The Middles VI
-  summary: MyText
   book: book_2
   scene_character: C
   position: 7
@@ -74,7 +66,6 @@ story_8:
 
 story_9:
   title: The Middles VII
-  summary: MyText
   book: book_2
   scene_character: C
   position: 8
@@ -83,7 +74,6 @@ story_9:
 
 story_10:
   title: The Middles VIII
-  summary: MyText
   book: book_2
   scene_character: C
   position: 9
@@ -92,7 +82,6 @@ story_10:
 
 story_11:
   title: The Middles IX
-  summary: MyText
   book: book_2
   scene_character: C
   position: 10
@@ -101,7 +90,6 @@ story_11:
 
 story_12:
   title: The Middles X
-  summary: MyText
   book: book_2
   scene_character: C
   position: 11
@@ -110,7 +98,6 @@ story_12:
 
 story_14:
   title: The Beginnings 2
-  summary: The scorpian king stung.
   book: book_3
   scene_character: A
   position: 1
@@ -119,7 +106,6 @@ story_14:
 
 story_15:
   title: The Middles XI
-  summary: MyText
   book: book_3
   scene_character: C
   position: 3
@@ -128,7 +114,6 @@ story_15:
 
 story_16:
   title: The Middles XX
-  summary: MyText
   book: book_2
   scene_character: C
   position: 12

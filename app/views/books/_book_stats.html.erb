@@ -1,5 +1,5 @@
   <% bt_count = g_count = o_count = b_count = z_count = words_total = pot_word_count = 0 %>
-  <% book.stories.each do |story| %>
+  <% book.stories.where(publish: true).each do |story| %>
     <% word_counts = story.word_counts %>
     <% words_total += word_counts.length %>
     <% bt_count += word_counts.collect{|x| x > 1000 ? 1 : 0 }.sum %>
@@ -24,7 +24,7 @@
 <% word_count = book.word_count %>
 <% word_avg = scene_count == z_count ? 0 : word_count / (scene_count - z_count) %>
 
-  <% book.stories.each do |story| %>
+  <% book.stories.where(publish: true).each do |story| %>
     <% word_counts = story.word_counts %>
     <% pot_word_count += word_counts.collect{|x| x > word_avg ? x : word_avg}.sum %>
   <% end %>

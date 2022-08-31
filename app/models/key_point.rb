@@ -12,7 +12,7 @@ class KeyPoint < ApplicationRecord
 
   validates :hook, presence: true
 
-  def section_count
+  def section_count(publish = false)
     count = 0
     scenes.includes([:section]).each do |scene|
       count += (scene.section.nil? ? 0 : 1)

@@ -83,10 +83,16 @@ class Book < ApplicationRecord
     count
   end
 
-  def section_count
+  def section_count(publish = false)
     count = 0
-    stories.each do |story|
-      count += story.section_count
+    if publish
+      stories.where(publish: true).each do |story|
+        count += story.section_count(publish)
+      end
+    else
+      stories.each do |story|
+        count += story.section_count(publish)
+      end
     end
     count
   end

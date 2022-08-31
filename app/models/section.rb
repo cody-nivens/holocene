@@ -40,7 +40,8 @@ class Section < ApplicationRecord
     holocene_events.collect { |x| (x.lat.nil? ? nil : x.location) }.compact
   end
 
-  def word_count
+  def word_count(publish = false)
+    return 0 if publish and !sectioned.publish?
     WordsCounted.count(body.to_plain_text).token_count + WordsCounted.count(name).token_count
   end
 

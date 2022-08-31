@@ -1,11 +1,12 @@
 <% pub_scene_count = object.scene_count(true) %>
 <% scene_count = object.scene_count %>
-<%= scene_count %><%= (object.instance_of?(Book) ? " (#{pub_scene_count})" : '') %>
 <% section_count = object.section_count %>
+<% pub_section_count = object.section_count(true) %>
 <% ss_ratio = (pub_scene_count.zero? ? 0 : section_count.to_f / pub_scene_count) %>
 <% items = [
      { label: 'Completed', color: '090', width: 100.0 * ss_ratio },
      { label: 'Waiting', color: 'ededed', width: 100.0 - 100.0 * ss_ratio }
    ] %>
+<%= scene_count %><%= object.instance_of?(Book) ? " (#{pub_scene_count})" : '' %>
+(<%= section_count %> <%= (pub_scene_count.zero? ? '' : number_with_precision((pub_section_count.to_f / pub_scene_count) * 100.0, precision: 2)) %>%)
 <%= render partial: 'shared/progress_bar', locals: { items: items } %>
-(<%= section_count %> <%= (pub_scene_count.zero? ? '' : number_with_precision((section_count.to_f / pub_scene_count) * 100.0, precision: 2)) %>%)

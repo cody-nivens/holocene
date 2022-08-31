@@ -39,7 +39,7 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
   test 'should create story' do
     assert_difference('Story.count') do
       post book_stories_url(book_id: @book.id),
-           params: { story: { book_id: @story.book.id, summary: @story.summary, title: @story.title } }
+           params: { story: { book_id: @story.book.id, summary_body: @story.summary_body, title: @story.title } }
     end
 
     assert_redirected_to story_url(Story.last)
@@ -48,7 +48,7 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
   test 'should not create story' do
     assert_difference('Story.count', 0) do
       post book_stories_url(book_id: @book.id),
-           params: { story: { book_id: @story.book.id, summary: @story.summary, title: '' } }
+           params: { story: { book_id: @story.book.id, summary_body: @story.summary_body, title: '' } }
     end
 
     assert_response :success
@@ -76,12 +76,12 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should update story' do
     patch story_url(@story),
-          params: { story: { book_id: @story.book.id, summary: @story.summary, title: @story.title } }
+          params: { story: { book_id: @story.book.id, summary_body: @story.summary_body, title: @story.title } }
     assert_redirected_to story_url(@story)
   end
 
   test 'should not update story' do
-    patch story_url(@story), params: { story: { book_id: @story.book.id, summary: @story.summary, title: '' } }
+    patch story_url(@story), params: { story: { book_id: @story.book.id, summary_body: @story.summary_body, title: '' } }
     assert_response :success
   end
 

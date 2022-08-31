@@ -91,10 +91,10 @@ class Story < ApplicationRecord
     counts
   end
 
-  def section_count
+  def section_count(publish = false)
     count = 0
     key_points.each do |key_point|
-      count += key_point.section_count
+      count += key_point.section_count(publish)
     end
     count
   end
