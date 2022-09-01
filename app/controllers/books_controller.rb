@@ -65,8 +65,11 @@ class BooksController < ApplicationController
   def show
     @book = Book.includes([:rich_text_body]).find(params[:id])
     session[:book_id] = @book.id
-    @chapters = @book.chapters.includes({ holocene_events: :rich_text_body })
-    @stories = @book.stories.where(publish: true).order(:position) if @book.is_fiction?
+    if @book.is_fiction?
+      @stories = @book.stories.where(publish: true).includes(:rich_text_summary_body).order(:position)
+    else
+      @chapters = @book.chapters.includes({ holocene_events: :rich_text_body })
+    end
     long = params[:long]
 
     respond_to do |format|
