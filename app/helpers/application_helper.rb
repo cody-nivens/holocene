@@ -75,7 +75,12 @@ module ApplicationHelper
         str += bc_story(story, book, link, key_point).to_s
         str += bc_key_point(key_point, scene, link).to_s
         str += bc_scene(scene, section, link).to_s if section.blank?
-        str += bc_section(section, link).to_s
+        case section.class.name
+        when "Section"
+          str += bc_section(section, link).to_s
+        when "CharacterScene"
+          str += bc_character_scene(section, link).to_s
+        end
         str
       end
     end
@@ -150,6 +155,16 @@ module ApplicationHelper
         breadcrumb_page(section.name)
       else
         breadcrumb_link(section.name, section_path(section), link)
+      end
+    end
+  end
+
+  def bc_character_scene(section, link)
+    unless section.nil?
+      if link.nil?
+        breadcrumb_page(section.name)
+      else
+        breadcrumb_link(section.name, character_scene_path(section), link)
       end
     end
   end

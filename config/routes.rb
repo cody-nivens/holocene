@@ -175,7 +175,7 @@ Rails.application.routes.draw do
     put :sort
     concerns :located, located_type: 'Book'
     resources :sections
-    resources :character_scenes, only: %i[edit update]
+    resources :character_scenes, only: %i[show edit update]
   end
   resources :epochs
   resources :timelines

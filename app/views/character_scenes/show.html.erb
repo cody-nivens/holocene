@@ -1,0 +1,9 @@
+<h2><%= @character_scene.scene.name %>:<%= @character_scene.character.name %></h2>
+
+<p>
+ <%= @character_scene.summary %>
+</p>
+
+<% add_to_footer('Edit',  edit_character_scene_path(@character_scene)) %>
+<% add_to_footer('Back',  return_or_default_path(polymorphic_path(@character_scene.scene))) %>
+
