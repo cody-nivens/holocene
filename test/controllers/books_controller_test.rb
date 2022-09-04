@@ -112,6 +112,11 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'should get chars' do
+    get book_chars_url(@book)
+    assert_response :success
+  end
+
   test 'should update book' do
     patch book_url(@book), params: { book: { body: @book.body, name: @book.name, user_id: @user.id } }
     assert_redirected_to book_url(@book)

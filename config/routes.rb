@@ -13,6 +13,7 @@ Rails.application.routes.draw do
                                                                                                    }
 
   get '/books/:id/view', to: 'books#view', as: :book_view
+  get '/books/:id/chars', to: 'books#chars', as: :book_chars
   get '/stories/:id/view', to: 'stories#view', as: :story_view
   get '/key_points/:id/view', to: 'key_points#view', as: :key_point_view
 

@@ -110,6 +110,7 @@
       <p>
         <ul>
           <% character.scenes.order(:date_string, :abc).each do |scene| %>
+            <% next unless scene.situated.book == @object %>
             <li>
               <% if object.class.name == "Scene" %>
                 <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene)) : scene.abc) %>:

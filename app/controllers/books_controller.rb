@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book,
-                only: %i[stats timeline resync_stories toc epub export pdf edit update destroy]
+                only: %i[chars stats timeline resync_stories toc epub export pdf edit update destroy]
 
   # GET /books
   # GET /books.json
@@ -9,6 +9,18 @@ class BooksController < ApplicationController
   end
 
   def stats; end
+
+  def chars
+    @characters = @book.characters
+    @data = {}
+    @characters.each do |character|
+      @data[character.name] = 0
+      character.scenes.each do |scene|
+        next unless scene.situated.book == @book
+        @data[character.name] += 1
+      end
+    end
+  end
 
   def sort
     @book = Book.find(params[:book_id])
