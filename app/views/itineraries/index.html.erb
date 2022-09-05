@@ -1,6 +1,5 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Itineraries</h1>
+<% @title = "Itineraries" %>
+<h2>Itineraries</h2>
 
 <%= datagrid_form_for @grid, method: :get, url: tour_itineraries_path(@tour), partials: 'itinerary_grid' %>
 <%== pagy_info(@pagy) %>

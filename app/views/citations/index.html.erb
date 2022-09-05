@@ -1,9 +1,5 @@
-<p id="notice"><%= notice %></p>
-<%= simple_form_for :citation, url: chapter_citation_update_path(@chapter.id) do |f| %>
-  <%= f.error_notification %>
-  <%#= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-
-<h1>Citations</h1>
+<% @title = "Citations" %>
+<h2>Citations</h2>
 
 <table class="table">
   <tr>

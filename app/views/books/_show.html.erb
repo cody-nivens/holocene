@@ -1,8 +1,7 @@
 <% pdf ||= nil %>
 <% outline ||= nil %>
-<p id='notice'><%= notice %></p>
 
-<h1><%= book.name %></h1>
+<h2><%= book.name %></h2>
 
 <%= render 'authors/index', formats: [:html], authors: book.authors %>
 

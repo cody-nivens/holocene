@@ -1,7 +1,5 @@
 <% pdf ||= nil %>
 
-<p id="notice"><%= notice %></p>
-
 <%= render partial: 'characters/show', locals: { pdf: pdf, character: @character, object: @object, scripted: @scripted } %>
 
 <% add_to_footer('Edit', edit_polymorphic_path([@object, @character])) %>

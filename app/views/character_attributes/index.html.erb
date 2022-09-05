@@ -1,8 +1,7 @@
-<p id="notice"><%= notice %></p>
-<h1>Character Attributes</h1>
+<% @title = "Character Attributes" %>
+<h2>Character Attributes</h2>
 
 <%= render partial: 'character_attributes/index', locals: { character_category: @character_category } %>
-<br>
 
 <% add_to_footer('New Character Attribute', new_character_category_character_attribute_path(@character_category)) %>
 <% add_to_footer('Back', character_categories_path(@character_category)) %>
