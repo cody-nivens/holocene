@@ -75,14 +75,18 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
-    @book = Book.includes([:rich_text_body]).find(params[:id])
+    @book = Book.find(params[:id])
     session[:book_id] = @book.id
+    long = params[:long]
     if @book.is_fiction?
-      @stories = @book.stories.where(publish: true).includes(:rich_text_summary_body).order(:position)
+      if long
+        @stories = @book.stories.where(publish: true).includes(:rich_text_summary_body).order(:position)
+      else
+        @stories = @book.stories.where(publish: true).order(:position)
+      end
     else
       @chapters = @book.chapters.includes({ holocene_events: :rich_text_body })
     end
-    long = params[:long]
 
     respond_to do |format|
       format.html { render :show, locals: { long: long } }
