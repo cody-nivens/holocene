@@ -15,7 +15,7 @@ class ApplicationsAboutHtmlErbTest < ActionDispatch::IntegrationTest
 
     assert_template 'application/about'
 
-    assert_select 'h1', 'About'
+    assert_select 'h2', 'About'
 
     ['layouts/_nav_links', '_nav_links', 'layouts/_nav_links_for_auth', '_nav_links_for_auth',
      'application/_header', '_header', 'layouts/_messages', '_messages', 'application/_footer', '_footer'].each do |partial|

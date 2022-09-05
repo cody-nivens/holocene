@@ -50,7 +50,7 @@ class ItinerariesTest < ApplicationSystemTestCase
 
   test 'visiting the index' do
     visit tour_itineraries_url(@tour)
-    assert_selector 'h1', text: 'Itineraries'
+    assert_selector 'h2', text: 'Itineraries'
   end
 
   test 'creating an Itinerary' do

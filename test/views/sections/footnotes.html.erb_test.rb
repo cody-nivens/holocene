@@ -18,7 +18,7 @@ class SectionsFootnotesHtmlErbTest < ActionDispatch::IntegrationTest
 
     assert_template 'footnotes/index'
 
-    assert_select 'h1', 'Footnotes'
+    assert_select 'h2', 'Footnotes'
 
     ['layouts/_nav_links', '_nav_links', 'layouts/_nav_links_for_auth', '_nav_links_for_auth',
      'application/_header', '_header', 'layouts/_messages', '_messages', 'application/_footer', '_footer'].each do |partial|

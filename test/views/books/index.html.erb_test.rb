@@ -21,7 +21,7 @@ class BooksIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_select '.footer>div>a', 1
     assert_template 'books/index'
 
-    assert_select 'h1', 'Books'
+    assert_select 'h2', 'Books'
 
     ['layouts/_nav_links', '_nav_links', 'layouts/_nav_links_for_auth', '_nav_links_for_auth',
      'application/_header', '_header', 'layouts/_messages', '_messages', 'application/_footer', '_footer'].each do |partial|

@@ -22,7 +22,7 @@ class ArtifactTypesIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_select '.footer>div>a', 2
     assert_template 'artifact_types/index'
 
-    assert_select 'h1', 'Artifact Types'
+    assert_select 'h2', 'Artifact Types'
 
     ['layouts/_nav_links', '_nav_links', 'layouts/_nav_links_for_auth', '_nav_links_for_auth',
      'application/_header', '_header', 'layouts/_messages', '_messages', 'application/_footer', '_footer'].each do |partial|

@@ -10,7 +10,7 @@
   <%= f.hidden_field :situated_type %>
   <%= f.hidden_field :selector, value: (@scene.selector.nil? ? @selector.to_i : @scene.selector) %>
 
-  <h1>Move scene <%= @scene.abc %>: <%= @scene.name %> </h1>
+  <h2>Move scene <%= @scene.abc %>: <%= @scene.name %> </h2>
 
   <strong>Existing Key Point:</strong> <%= @key_point.name %><br>
   <strong>Selector:</strong> <%= selector_string(@scene.selector) %>

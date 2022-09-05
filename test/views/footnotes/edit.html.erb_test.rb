@@ -14,7 +14,7 @@ class FootnotesEditHtmlErbTest < ActionDispatch::IntegrationTest
   test 'should get edit' do
     get edit_polymorphic_url([@noted, @footnote])
     assert_response :success
-    assert_select 'h1', 'Editing Footnote'
+    assert_select 'h2', 'Editing Footnote'
 
     assert_select 'a[text()=?]', 'Back'
     assert_select 'a[href=?]', polymorphic_path([@noted, :footnotes])

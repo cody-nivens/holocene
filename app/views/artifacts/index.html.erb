@@ -1,5 +1,5 @@
 <% @title = "Artifacts" %>
-<h1>Artifacts</h1>
+<h2>Artifacts</h2>
 
 <div id='tag_cloud'>
   <% tag_cloud Artifact.where(book_id: @book.id).tag_counts.order(:name), %w[s m l] do |tag, css_class| %>

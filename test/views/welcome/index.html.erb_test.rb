@@ -20,8 +20,6 @@ class WelcomeIndexHtmlErbTest < ActionDispatch::IntegrationTest
 
     assert_template 'welcome/index'
 
-    #assert_select 'h1', 'Welcome'
-
     ['layouts/_nav_links', '_nav_links', 'layouts/_nav_links_for_auth', '_nav_links_for_auth',
      'application/_header', '_header', 'layouts/_messages', '_messages', 'application/_footer', '_footer'].each do |partial|
       assert_template partial: partial

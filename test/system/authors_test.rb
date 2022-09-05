@@ -69,7 +69,7 @@ class AuthorsTest < ApplicationSystemTestCase
 
   test 'Adding an Author' do
     visit book_authors_url(@book)
-    assert_selector 'h1', text: 'Authors'
+    assert_selector 'h2', text: 'Authors'
     assert_link 'New Author'
     click_on 'Add Author'
     select 'M. Kariil', from: 'authors_avail'

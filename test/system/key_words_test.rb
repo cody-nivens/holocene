@@ -58,7 +58,7 @@ class KeyWordsTest < ApplicationSystemTestCase
 
   test 'visiting the index' do
     visit book_key_words_url(book_id: @book.id)
-    assert_selector 'h1', text: 'Key Words'
+    assert_selector 'h2', text: 'Key Words'
   end
 
   test 'creating a Key word' do

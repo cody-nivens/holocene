@@ -94,7 +94,7 @@ class EpochsTest < ApplicationSystemTestCase
 
   test 'visiting the Epoch index' do
     visit epochs_url
-    assert_selector 'h1', text: 'Epochs'
+    assert_selector 'h2', text: 'Epochs'
     assert_link 'New Epoch'
     assert_no_text 'link_to'
     click_on 'Show', match: :first
@@ -107,7 +107,7 @@ class EpochsTest < ApplicationSystemTestCase
 
   test 'visiting the map' do
     visit epochs_url
-    assert_selector 'h1', text: 'Epochs'
+    assert_selector 'h2', text: 'Epochs'
     assert_link 'New Epoch'
     assert_no_text 'link_to'
     click_on 'Show', match: :first

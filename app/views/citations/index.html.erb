@@ -1,18 +1,22 @@
 <% @title = "Citations" %>
 <h2>Citations</h2>
 
-<table class="table">
-  <tr>
+<%= simple_form_for :citation, url: chapter_citation_update_path(@chapter.id) do |f| %>
+  <table class="table">
+    <tr>
       <td style="width:40%">
-<%= select_tag :cit_ids, options_from_collection_for_select(@citations, :id, :name), prompt: 'Select Citations', multiple: true, size: 20 %>
-</td><td style="width:20%">
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
-</td><td style="width:40%">
-<%= select_tag :biblioentries_ids, options_from_collection_for_select(@all_citations, :id, :name), prompt: 'Select Citations', multiple: true, size: 20 %>
-</td></tr>
-</table>
+        <%= select_tag :cit_ids, options_from_collection_for_select(@citations, :id, :name), prompt: 'Select Citations', multiple: true, size: 20 %>
+      </td>
+      <td style="width:20%">
+        <div class="form-actions">
+          <%= f.button :submit %>
+        </div>
+      </td>
+      <td style="width:40%">
+        <%= select_tag :biblioentries_ids, options_from_collection_for_select(@all_citations, :id, :name), prompt: 'Select Citations', multiple: true, size: 20 %>
+      </td>
+    </tr>
+  </table>
 <% end %>
 
 <% add_to_footer('Back', chapter_path(@chapter)) %>

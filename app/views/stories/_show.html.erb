@@ -4,12 +4,12 @@
 <% just_printed_page_break = true %>
 
 <% if outline %>
-  <h1><%= story.name %></h1>
+  <h2><%= story.name %></h2>
   <p class="first-para">
     <h2>Characters</h2>
 
     <% story.characters.order(:occupation_class).pluck(:occupation_class).uniq.each do |occ_class| %>
-      <h2><%= occ_class %></h2>
+      <h3><%= occ_class %></h3>
       <ul>
         <% story.characters.where('occupation_class = ?', occ_class).order(:occupation_class, :last_name, :first_name).each do |character| %>
           <%= render partial: 'characters/show', formats: [:html], locals: { pdf: pdf, character: character, object: @object, scripted: @scripted } %>
@@ -25,7 +25,7 @@
 
 <% if story.word_count > 0 %>
   <% unless outline %>
-    <h1><%= story.name %></h1>
+    <h2><%= story.name %></h2>
   <% end %>
   <% if story.print_summary? %>
     <%= story.summary_body %>

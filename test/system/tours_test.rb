@@ -133,7 +133,7 @@ class ToursTest < ApplicationSystemTestCase
 
   test 'visiting the index' do
     visit story_tours_url(@story)
-    assert_selector 'h1', text: 'Tours'
+    assert_selector 'h2', text: 'Tours'
   end
 
   test 'creating a Tour' do

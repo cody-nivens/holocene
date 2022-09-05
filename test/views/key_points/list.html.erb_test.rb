@@ -18,7 +18,7 @@ class KeyPointsListHtmlErbTest < ActionDispatch::IntegrationTest
 
     assert_template 'key_points/list'
 
-    assert_select 'h1', 'Scenes for "Climate Change" in "The Beginnings"'
+    assert_select 'h2', 'Scenes for "Climate Change" in "The Beginnings"'
 
     ['layouts/_nav_links', '_nav_links', 'layouts/_nav_links_for_auth', '_nav_links_for_auth',
      'application/_header', '_header', 'layouts/_messages', '_messages', 'application/_footer', '_footer'].each do |partial|

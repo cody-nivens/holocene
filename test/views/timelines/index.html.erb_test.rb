@@ -22,7 +22,7 @@ class TimelinesIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_select '.footer>div>a', 1
     assert_template 'timelines/index'
 
-    assert_select 'h1', 'Timelines'
+    assert_select 'h2', 'Timelines'
 
     ['layouts/_nav_links', '_nav_links', 'layouts/_nav_links_for_auth', '_nav_links_for_auth',
      'application/_header', '_header', 'layouts/_messages', '_messages', 'application/_footer', '_footer'].each do |partial|

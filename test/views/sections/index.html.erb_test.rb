@@ -25,7 +25,7 @@ class SectionsIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_select '.footer>div>a', 2
     assert_template 'sections/index'
 
-    assert_select 'h1', "Sections for #{@sectioned.class.name} #{@sectioned.name.gsub(/ $/, '')}"
+    assert_select 'h2', "Sections for #{@sectioned.class.name} #{@sectioned.name.gsub(/ $/, '')}"
 
     ['layouts/_nav_links', '_nav_links', 'layouts/_nav_links_for_auth', '_nav_links_for_auth',
      'application/_header', '_header', 'layouts/_messages', '_messages', 'application/_footer', '_footer'].each do |partial|

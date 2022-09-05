@@ -3,7 +3,7 @@
     <%= hidden_field_tag :story_id, (@story.nil? ? nil : @story.id) %>
     <%= f.hidden_field :story_id, value: @story.id %>
 
-    <h1>Move <%= @story.name %> to another book</h1>
+    <h2>Move <%= @story.name %> to another book</h2>
 
     <strong>Existing Book:</strong> <%= @book.name %><br>
 
