@@ -17,7 +17,7 @@ class Book < ApplicationRecord
   has_many :stories, dependent: :destroy
   has_many :chapters, as: :scripted
   has_many :key_points, as: :scripted
-  has_many :scenes, as: :situated
+  has_many :scenes, dependent: :destroy
   has_many :artifacts, dependent: :destroy
   has_many :artifact_types, dependent: :destroy
 
@@ -51,7 +51,7 @@ class Book < ApplicationRecord
         index_1 = 0
         index_2 += 1
       end
-      story.resync_key_points
+      story.resync_key_points(self)
     end
   end
 

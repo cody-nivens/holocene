@@ -14,6 +14,7 @@ class Character < ApplicationRecord
 
   has_many :signets, as: :sigged
 
+
   belongs_to :father, class_name: 'Character', optional: true
   belongs_to :mother, class_name: 'Character', optional: true
   delegate :name, to: :father, prefix: true

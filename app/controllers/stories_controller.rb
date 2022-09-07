@@ -104,7 +104,7 @@ class StoriesController < ApplicationController
   end
 
   def resync_scenes
-    @story.resync_key_points
+    @story.resync_key_points(@story.book)
 
     respond_to do |format|
       format.html { redirect_to story_path(@story), notice: 'Story was successfully resynced.' }

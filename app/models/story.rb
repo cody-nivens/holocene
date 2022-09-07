@@ -41,7 +41,7 @@ class Story < ApplicationRecord
     title
   end
 
-  def resync_key_points
+  def resync_key_points(book)
     index = 0
     points = key_points.order(:position).collect do |x|
       x.scenes.order(date_string: :asc, selector: :asc, position: :asc).pluck(:id, :abc, :selector)
@@ -55,7 +55,7 @@ class Story < ApplicationRecord
     kps.each do |updates|
       updates.each do |x|
         scene = Scene.find(x[0])
-        scene.update({ abc: x[1] })
+        scene.update({ abc: x[1], book_id: book.id })
       end
     end
     results = []

@@ -11,6 +11,7 @@ class Scene < ApplicationRecord
     self, 'action_text/rich_text', behaviours: [:sql]
   )
 
+  belongs_to :book
   belongs_to :key_point, optional: true
   acts_as_list scope: :key_point
   ranks :position, with_same: [:key_point_id, :selector]
@@ -34,6 +35,7 @@ class Scene < ApplicationRecord
 
   has_many :character_scenes, dependent: :destroy
   has_many :characters, through: :character_scenes
+
   has_one :section, as: :sectioned, dependent: :destroy
   has_many :signets, as: :sigged, dependent: :destroy
   #has_many :tours, dependent: :destroy

@@ -13,6 +13,15 @@
           <% unless character_scene[0].summary.nil? %>
             <%= character_scene[0].summary.to_plain_text %>
           <% end %>
+        <% else %>
+          <ul>
+            <% character.scenes.order(:abc).each do |scene| %>
+              <% next if scene.book != @book or (object.class.name == "Story" && scene.situated != object)  %>
+              <li>
+                <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, target: :_blank } %>
+              </li>
+            <% end %>
+          </ul>
         <% end %>
       </li>
     <% end %>

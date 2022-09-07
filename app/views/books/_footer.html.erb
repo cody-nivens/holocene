@@ -5,7 +5,7 @@
   <% add_to_footer('Key Points', polymorphic_path([book, :key_points])) %>
   <% add_to_footer('Scenes', polymorphic_path([book, :scenes])) %>
   <% add_to_footer('Stats', polymorphic_path([book, :stats])) %>
-  <% add_to_footer('Top Characters', book_chars_path(book)) %>
+  <% add_to_footer('Char List', book_chars_path(book)) %>
   <% add_to_footer('Artifacts', book_artifacts_path(book)) %>
 <% else %>
   <% add_to_footer('New Chapter', new_polymorphic_path([book, :chapter])) %>

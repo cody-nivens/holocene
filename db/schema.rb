@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_28_222840) do
+ActiveRecord::Schema.define(version: 2022_09_07_022410) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -488,6 +488,7 @@ ActiveRecord::Schema.define(version: 2022_08_28_222840) do
     t.bigint "artifact_id"
     t.string "date_string"
     t.boolean "title_scene", default: false
+    t.bigint "book_id"
     t.index ["artifact_id"], name: "index_scenes_on_artifact_id"
     t.index ["insert_scene_id"], name: "index_scenes_on_insert_scene_id"
     t.index ["key_point_id"], name: "index_scenes_on_key_point_id"
