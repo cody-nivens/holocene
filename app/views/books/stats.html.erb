@@ -1,3 +1,4 @@
+<%= render partial: 'header', locals: { book: @book } %>
 <h2>Stats for Book <%= link_to @book.name, book_path(@book) %></h2>
 <%= render partial: 'shared/stats', formats: [:html], locals: { object: @book, book: @book } %>
-<% add_to_footer('Back', book_path(@book)) %>
+<%= render partial: 'footer', locals: { book: @book } %>

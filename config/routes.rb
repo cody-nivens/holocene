@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get '/books/:id/view', to: 'books#view', as: :book_view
   get '/books/:id/chars', to: 'books#chars', as: :book_chars
   get '/stories/:id/view', to: 'stories#view', as: :story_view
+  get '/stories/:id/chars', to: 'stories#chars', as: :story_chars
   get '/key_points/:id/view', to: 'key_points#view', as: :key_point_view
 
   get '/cities/index', to: 'cities#index', format: :js, constraints: ->(request) { request.xhr? }

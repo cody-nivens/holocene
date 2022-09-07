@@ -17,7 +17,7 @@ class StoriesStatsHtmlErbTest < ActionDispatch::IntegrationTest
 
     assert_select 'a[text()=?]', 'Back'
     assert_select 'a[href=?]', story_path(@story)
-    assert_select '.footer>div>a', 1
+    assert_select '.footer>div>a', 11
     assert_template 'stories/stats'
   end
 end

@@ -1,5 +1,5 @@
 class StoriesController < ApplicationController
-  before_action :set_story, only: %i[stats move moved resync_scenes edit update destroy]
+  before_action :set_story, only: %i[chars stats move moved resync_scenes edit update destroy]
   before_action :set_book, only: %i[index new]
 
   # GET /stories
@@ -12,6 +12,27 @@ class StoriesController < ApplicationController
     respond_to do |format|
       format.html { render :index, locals: { long: long } }
     end
+  end
+
+  def chars
+    @book = @story.book
+    @characters = @story.characters
+    @data = {}
+    op = params[:op]
+    op ||= false
+
+    @characters.each do |character|
+      @data[character.name] = { count: 0, scenes: [] }
+      character.scenes.each do |scene|
+        next unless scene.situated.book == @book
+        @data[character.name][:count] += 1
+      end
+    end
+
+    respond_to do |format|
+      format.html { render :chars, locals: { story: @story, op: op} }
+    end
+
   end
 
   def stats; end

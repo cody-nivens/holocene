@@ -1,10 +1,4 @@
-<h2>Characters for Book: <%= @book.name %></h2>
-<% @title = "Top Characters" %>
-<ul>
-<%  @data.sort_by {|e| e[1]}.reverse[0..24].each do |item| %>
-  <li><%= item[0] %>: <%= item[1] %></li>
-<% end %>
-</ul>
-
-<% add_to_footer('Back', book_path(@book)) %>
+<%= render partial: 'header', locals: { book: @book } %>
+<%= render partial: 'shared/chars', locals: { object: @book, op: op } %>
+<%= render partial: 'footer', locals: { book: @book } %>
 

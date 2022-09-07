@@ -1,10 +1,3 @@
-<h2>
-  <%== breadcrumb(@story.book, @story, link: true) %>
-  <%= link_to (fa_icon 'edit', type: :regular), edit_story_path(@story), title: 'Edit' %>
-  <%= link_to (fa_icon 'list'), story_path(@story), title: 'Show' %>
-  <%= link_to (fa_icon 'file-pdf'), story_path(@story, format: :pdf), title: 'PDF' %>
-  <%= link_to (fa_icon 'file-pdf', type: :regular), story_path(@story, format: :pdf, outline: true), title: 'PDF Outline' %>
-</h2>
-
+<%= render partial: 'header', locals: { book: @book, story: @story } %>
 <%= render partial: 'stories/view', formats: [:html], locals: { outline: params[:outline], pdf: nil, story: @story } %>
-<% add_to_footer('Back', @story) %>
+<%= render partial: 'footer', locals: { book: @book, story: @story } %>

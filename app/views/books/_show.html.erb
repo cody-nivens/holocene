@@ -41,7 +41,7 @@
               <% end %>
               <% if scene.title_scene and scene.situated.print_summary? %>
                 <% if !outline %>
-                  <%= scene.situated.summary %>
+                  <%= scene.situated.summary_body %>
                   <div style="display:block; clear:both; page-break-after:always;"></div>
                   <% just_printed_page_break = true %>
                 <% end %>

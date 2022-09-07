@@ -13,13 +13,20 @@ class BooksController < ApplicationController
   def chars
     @characters = @book.characters
     @data = {}
+    op = params[:op]
+
     @characters.each do |character|
-      @data[character.name] = 0
+      @data[character.name] = { count: 0, scenes: [] }
       character.scenes.each do |scene|
         next unless scene.situated.book == @book
-        @data[character.name] += 1
+        @data[character.name][:count] += 1
       end
     end
+
+    respond_to do |format|
+      format.html { render :chars, locals: { book: @book, op: op } }
+    end
+
   end
 
   def sort
@@ -78,6 +85,7 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     session[:book_id] = @book.id
     long = params[:long]
+
     if @book.is_fiction?
       if long
         @stories = @book.stories.where(publish: true).includes(:rich_text_summary_body).order(:position)

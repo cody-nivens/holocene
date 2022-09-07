@@ -1,0 +1,16 @@
+<% case op %>
+<% when 'top' %>
+  <h3>Top Characters</h3>
+  <% @title = "Top Chars, #{object.name}" %>
+  <ul>
+    <%  @data.sort_by {|k, v| v[:count]}.reverse.each do |k, v| %>
+      <% next if v[:count] < 2 %>
+      <li><%= k %>: <%= v[:count] %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <h3>Characters</h3>
+  <% @title = "Characters, #{object.name}" %>
+  <%= render partial: 'characters/characters_occ_ul', formats: [:html], locals: { object: object } %>
+<% end %>
+
