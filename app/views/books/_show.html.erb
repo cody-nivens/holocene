@@ -12,58 +12,10 @@
 <% end -%>
 
 <% @notes = {} -%>
-<% line_count = 0 %>
-<% inserted_scenes = [] %>
-<% last_scene = nil %>
 
 <% if book.is_fiction? %>
   <% scenes = Scene.get_scenes(book, 'off') %>
-  <% scenes.keys.sort.each do |year| %>
-    <% scenes[year].keys.sort.each do |month| %>
-      <% scenes[year][month].keys.sort.each do |day| %>
-        <% scenes[year][month][day].keys.sort.each do |hour| %>
-          <% scenes[year][month][day][hour].keys.sort.each do |minute| %>
-            <% scenes[year][month][day][hour][minute].each do |scene| %>
-              <% next if inserted_scenes.include?(scene.id) %>
-              <% insert_scenes = Scene.where(insert_scene_id: scene.id) %>
-              <% insert_scenes.each do |iscene| %>
-                <% next if inserted_scenes.include?(iscene.id) %>
-                <% next unless iscene.key_point.scripted.publish? %>
-                <% inserted_scenes << iscene.id %>
-
-                <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: iscene, outline: outline, pdf: nil } %>
-                <% line_count += 1 if outline %>
-              <% end %>
-              <% if scene.title_scene and scene.situated.title_page? %>
-                <div style="display:block; clear:both; page-break-after:always;"></div>
-                <h2><%= scene.situated.title %></h2>
-                <% just_printed_page_break = true %>
-              <% end %>
-              <% if scene.title_scene and scene.situated.print_summary? %>
-                <% if !outline %>
-                  <%= scene.situated.summary_body %>
-                  <div style="display:block; clear:both; page-break-after:always;"></div>
-                  <% just_printed_page_break = true %>
-                <% end %>
-              <% end %>
-
-              <% if scene.insert_scene_id.nil? %>
-                <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline, pdf: nil } %>
-                <% if outline %>
-                  <% if line_count == 50 %>
-                    <% line_count = 0 %>
-                    <!--  <div style="display:block; clear:both; page-break-after:always;"></div> -->
-                  <% else %>
-                    <% line_count += 1 if outline %>
-                  <% end %>
-                <% end %>
-              <% end %>
-            <% end %>
-          <% end %>
-        <% end %>
-      <% end %>
-    <% end %>
-  <% end -%>
+  <%= render partial: 'shared/scenes', locals: { scenes: scenes, op: 'view', outline: outline, pdf: pdf } %>
 <% else %>
   <%# chapters.includes(partition: { :rich_text_body }, chapter: { :rich_text_body }, aside: { :rich_text_body }).each do |chapter| -%>
   <% chapters.includes(:partition, :rich_text_body, :aside).each do |chapter| -%>
