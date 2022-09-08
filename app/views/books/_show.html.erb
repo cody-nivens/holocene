@@ -47,13 +47,15 @@
                 <% end %>
               <% end %>
 
-              <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline, pdf: nil } %>
-              <% if outline %>
-                <% if line_count == 50 %>
-                  <% line_count = 0 %>
-                  <!--  <div style="display:block; clear:both; page-break-after:always;"></div> -->
-                <% else %>
-                  <% line_count += 1 if outline %>
+              <% if scene.insert_scene_id.nil? %>
+                <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline, pdf: nil } %>
+                <% if outline %>
+                  <% if line_count == 50 %>
+                    <% line_count = 0 %>
+                    <!--  <div style="display:block; clear:both; page-break-after:always;"></div> -->
+                  <% else %>
+                    <% line_count += 1 if outline %>
+                  <% end %>
                 <% end %>
               <% end %>
             <% end %>

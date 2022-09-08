@@ -3,7 +3,7 @@
   <ul>
     <% object.characters.where(occupation_class: occ_class).order(:occupation_class, :last_name, :first_name).distinct.each do |character| %>
       <li>
-        <%= link_to character.name, polymorphic_path([object, character]) %>
+        <%= link_to character.full_name, polymorphic_path([object, character]) %>
         <%= (!character.grouping? ? '' : "-  #{character.grouping}").to_s %>
         <%== physical_attributes(character) %>
         <% if object.class.name == 'Scene' %>

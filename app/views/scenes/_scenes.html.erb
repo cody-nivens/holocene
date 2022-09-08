@@ -121,7 +121,7 @@
             <td style="width: 20%"><%= scene.place %></td>
             <td style="width: 20%">
               <% scene.characters.order(:occupation_class, :last_name, :first_name).each do |character| %>
-                <%= character.name %><br>
+                <%= character.full_name %><br>
               <% end %>
             </td>
             <td><%= scene.plain_name %></td>

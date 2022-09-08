@@ -74,10 +74,6 @@ class Character < ApplicationRecord
     social_class.present?
   end
 
-  def grouping?
-    grouping.present?
-  end
-
   def reign?
     reign.present?
   end
@@ -150,7 +146,7 @@ class Character < ApplicationRecord
   end
 
   def full_name
-    "#{honorific.blank? ? '' : "#{honorific} "}#{first_name} #{middle_name} #{last_name} #{suffix}"
+    "#{honorific.blank? ? '' : "#{honorific} "}#{first_name}#{nickname.present? ? " '#{nickname}'" : '' } #{middle_name} #{last_name} #{suffix}"
   end
 
   def full_last_first

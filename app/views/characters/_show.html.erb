@@ -1,8 +1,7 @@
 <% pdf ||= nil %>
 
-<h3><%= character.name %></h3>
+<h3><%= character.full_name %></h3>
 <p>
-  <%= character.first_name %> <%= character.middle_name %> <%= character.last_name %> <%= character.suffix %><br>
   <% unless character.birth_year.nil? %>
     b. <%= character.birth_year %> - d. <%= character.death_year %>, Age: <%= character.death_year - character.birth_year %><br>
   <% end %>
@@ -84,20 +83,24 @@
       <%= character.social_class %>
     </p>
   <% end %>
-
-  <% if character.background? %>
-    <p>
-      <strong>Background:</strong>
-      <%= character.background %>
-    </p>
-  <% end %>
-        </div>
+</div>
         <div class="col-md-4">
           <% CharacterCategory.all.each do |category| %>
             <%= render partial: 'character_values/index_list', formats: [:html],
                        locals: { pdf: pdf, title: category.name, object: object,
                                  character_values: character.character_values.joins(:character_attribute).order(:name).where('character_category_id = ?', category.id) } %>
           <% end %>
+        </div>
+      </div>
+            <div class="row">
+        <div class="col-md-8">
+  <% if character.background? %>
+    <p>
+      <strong>Background:</strong>
+      <%= character.background %>
+    </p>
+  <% end %>
+
         </div>
       </div>
     </div>
