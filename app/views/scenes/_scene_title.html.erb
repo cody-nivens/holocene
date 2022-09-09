@@ -4,22 +4,33 @@
 <% target ||= nil %>
 <% wc = scene.word_count %>
 
-<% unless scene.section.nil? %>
-  <strong><i><%= scene.section.name %></i></strong>
-<% end %>
-<% if inline_date %>
-  <%= scene.time_to_text %> :
-<% else %>
-  <%= (scene.section.nil? ? '*' : ' ') %> 
-  <% if target.nil? %>
-    <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene)) : scene.abc) %>
-  <% else %>
-    <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene), target: target) : scene.abc) %>
-  <% end %>
-  <%= scene.time_to_text %>
-<% end %>
-<span style="background-color: #<%= count_color(wc) %>"><%=  number_with_delimiter(wc, :delimiter => ',') %></span>
-<%= scene.artifact.nil? ? '' : "#{scene.artifact_name} - " %><%= scene.place.empty? ? '' : "#{scene.place&.to_plain_text}" %>
-<% if print_name %>
-  <br> <%= (short_labels ? scene.name : scene.plain_name) %>
-<% end %>
+<table style="width:100%">
+  <tbody>
+    <tr>
+      <% if inline_date %>
+        <td colspan="7"><%= scene.time_to_text %> :</td>
+      <% else %>
+        <td width="2%;">  <%= (scene.title_scene? ? '*' : ' ') %> </td>
+        <td width="13%;">  <%= scene.time_to_text %></td>
+        <td width="2%;">  <%=  number_with_delimiter(scene.characters.size, :delimiter => ',') %></td>
+        <td width="5%;">
+          <% if target.nil? %>
+            <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene)) : scene.abc) %></td>
+          <% else %>
+            <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene), target: target) : scene.abc) %></td>
+          <% end %>
+      <% end %>
+      <% unless scene.section.nil? %>
+        <td width="20%;">  <strong><i><%= scene.section.name %></i></strong></td>
+      <% end %>
+      <td width="5%;">
+        <span style="background-color: #<%= count_color(wc) %>">
+          <%=  number_with_delimiter(wc, :delimiter => ',') %>
+        </span></td>
+      <td width="53%;"><%= scene.artifact.nil? ? '' : "#{scene.artifact_name} - " %><%= scene.place.empty? ? '' : "#{scene.place&.to_plain_text}" %></td>
+      <% if print_name %>
+        </td></tr><tr><td></td><td colspan="6">  <br> <%= (short_labels ? scene.name : scene.plain_name) %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
