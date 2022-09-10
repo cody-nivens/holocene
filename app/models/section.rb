@@ -42,7 +42,23 @@ class Section < ApplicationRecord
 
   def word_count(publish = false)
     return 0 if publish and !sectioned.publish?
-    WordsCounted.count(body.to_plain_text).token_count + WordsCounted.count(name).token_count
+        val = $redis.get("section_#{id}")
+    if val.nil?
+      values = { updated_at: nil, count: 0 }
+    else
+      values = ActiveSupport::JSON.decode(val)
+    end
+    if values[:updated_at] == updated_at
+      return values[:word_count]
+    end
+    
+    values[:word_count] = WordsCounted.count(body.to_plain_text).token_count + WordsCounted.count(name).token_count
+    values[:updated_at] = updated_at
+
+    $redis.set("section_#{id}", values.to_json)
+
+    return values[:word_count]
+
   end
 
   def set_values
