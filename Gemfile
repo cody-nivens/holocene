@@ -31,6 +31,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'builder'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -160,3 +161,7 @@ gem 'net-pop'
 gem 'net-ssh', '7.0.1'
 gem "simple_calendar", "~> 2.4"
 gem 'exception_notification'
+gem 'redis'
+gem 'redis-namespace'
+gem 'redis-rails'
+gem 'redis-rack-cache'

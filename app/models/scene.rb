@@ -112,7 +112,23 @@ class Scene < ApplicationRecord
   end
 
   def word_count
-    (section.nil? ? 0 : section.word_count)
+     val = $redis.get("scene_#{id}")
+     values = ActiveSupport::JSON.decode(val) unless val.nil?
+
+     if val.nil?
+       values = { updated_at: nil, count: 0 }
+     end
+     if values[:updated_at] == updated_at
+       return values[:word_count]
+     end
+
+     count = (section.nil? ? 0 : section.word_count)
+     values[:word_count] = count
+     values[:updated_at] = updated_at
+
+     $redis.set("scene_#{id}", values.to_json)
+
+     return values[:word_count]
   end
 
   def self.get_scenes(situated, _toggle, scene_year = nil)
