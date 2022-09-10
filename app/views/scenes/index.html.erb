@@ -31,6 +31,16 @@
   </div>
     </div>
     <div class='col-md-2'>
+      <div class='field'>
+        <%= select_tag('year', options_for_select(@year_options), prompt: 'Please select an year:', class: 'form-control', onchange: 'javascript:this.form.commit.click();') %>
+      </div>
+    </div>
+    <div class='col-md-2'>
+      <%= submit_tag 'Go' %>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-md-2'>
       <div class='form-check'>
         <label class='checkbox'>
           <%= radio_button_tag :option, :no_section, @no_section, class: 'checkbox inline' %> No Section
@@ -51,8 +61,6 @@
         </label>
       </div>
     </div>
-  </div>
-  <div class='row'>
     <div class='col-md-2'>
       <div class='form-check'>
         <label class='checkbox'>
@@ -60,6 +68,8 @@
         </label>
       </div>
     </div>
+  </div>
+  <div class='row'>
     <div class='col-md-2'>
       <div class='form-check'>
         <label class='checkbox'>
@@ -77,17 +87,16 @@
     <div class='col-md-2'>
       <div class='form-check'>
         <label class='checkbox'>
-          <%= radio_button_tag :option, :better_word_count, @better_word_count, class: 'checkbox inline' %> Better Word Count
+          <%= radio_button_tag :option, :better_word_count, @better_word_count, class: 'checkbox inline' %> Better Words
         </label>
       </div>
     </div>
     <div class='col-md-2'>
-      <div class='field'>
-        <%= select_tag('year', options_for_select(@year_options), prompt: 'Please select an year:', class: 'form-control', onchange: 'javascript:this.form.commit.click();') %>
+      <div class='form-check'>
+        <label class='checkbox'>
+          <%= radio_button_tag :option, :chars, @chars, class: 'checkbox inline' %> Zero Charcters
+        </label>
       </div>
-    </div>
-    <div class='col-md-2'>
-      <%= submit_tag 'Go' %>
     </div>
   </div>
 <% end %>

@@ -10,6 +10,12 @@
         <% scenes[year][month][day][hour].keys.sort.each do |minute| %>
           <% scenes[year][month][day][hour][minute].each do |scene| %>
             <% case op %>
+            <% when 'words' %>
+              <% next unless scene.section.nil? or (scene.section.word_count <= high and scene.section.word_count > low) %>
+              <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, target: :_blank } %>
+            <% when 'chars' %>
+              <% next if scene.characters.size > 0 %>
+              <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, target: :_blank } %>
             <% when 'scenes' %>
               <% next if option == "no_section" && !scene.section.nil? %>
               <% next if option == "only_section" && scene.section.nil? %>
