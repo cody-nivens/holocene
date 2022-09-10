@@ -112,7 +112,7 @@ class Scene < ApplicationRecord
   end
 
   def word_count
-     val = $redis.get("scene_#{id}")
+    val = Redis.current.get("scene_#{id}")
      values = ActiveSupport::JSON.decode(val) unless val.nil?
 
      if val.nil?
@@ -126,7 +126,7 @@ class Scene < ApplicationRecord
      values[:word_count] = count
      values[:updated_at] = updated_at
 
-     $redis.set("scene_#{id}", values.to_json)
+     Redis.current.set("scene_#{id}", values.to_json)
 
      return values[:word_count]
   end
