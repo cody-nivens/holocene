@@ -8,24 +8,9 @@
 <% scene_count = book.scene_count %>
 <% word_avg = word_count / (scene_count - z_count) %>
 
-
-
 <% if !long %>
-        <%= render partial: 'stories/index', formats: [:html], locals: { stories: stories, book: book, long: long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
+  <%= render partial: 'stories/index', formats: [:html], locals: { stories: stories, book: book, long: long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
 <% else %>
   <%= render partial: 'books/book_stats', locals: { book: book } %>
-
-  <%= tabs do |c| %>
-    <% c.tab 'Stories' do %>
-      <span>
-        <%= render partial: 'stories/index', formats: [:html], locals: { stories: stories, book: book, long: long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
-      </span>
-    <% end %>
-
-    <% c.tab 'Characters' do %>
-      <span>
-        <%= render partial: 'characters/characters_occ_ul', formats: [:html], locals: { object: book } %>
-      </span>
-    <% end %>
-  <% end %>
+  <%= render partial: 'stories/index', formats: [:html], locals: { stories: stories, book: book, long: long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
 <% end %>
