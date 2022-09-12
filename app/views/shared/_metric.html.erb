@@ -11,7 +11,7 @@
       <% old_date = metric.date %>
       <ul>
     <% end %>
-    <li><%== breadcrumb(values[0], values[1], values[2], values[3], values[4], link: true) %></li>
+    <li><%== breadcrumb(values[0], values[1], values[2], values[3], values[4], link: true) %> <%= metric.metrized.word_count %></li>
   <% end %>
   </ul>
 <% end %>
