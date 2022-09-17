@@ -56,7 +56,6 @@ class ScenesController < ApplicationController
     @selector = params[:selector]
     @new_selector = params[:new_selector]
     title = @key_point.selector_value(@selector)
-    @scene.situated = @key_point.scripted
     @scene.save
 
     respond_to do |format|
@@ -64,6 +63,8 @@ class ScenesController < ApplicationController
                                                                selector: @new_selector })
         @scene.key_point.selector_value_set(@new_selector, title)
         @scene.key_point.save
+        @scene.situated = @key_point.scripted
+        @scene.save
         format.html { redirect_to polymorphic_path(@scene), notice: 'Scene was successfully moved.' }
       else
         format.html do
