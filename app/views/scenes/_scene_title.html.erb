@@ -10,9 +10,9 @@
       <% if inline_date %>
         <td colspan="7"><%= scene.time_to_text %> :</td>
       <% else %>
-        <td width="2%;">  <%= (scene.title_scene? ? '*' : ' ') %> </td>
-        <td width="21%;">  <%= scene.time_to_text %></td>
-        <td width="2%;">  <%=  number_with_delimiter(scene.characters.size, :delimiter => ',') %></td>
+        <td width="1%;">  <%= (scene.title_scene? ? '*' : ' ') %> </td>
+        <td width="16%;">  <%= scene.time_to_text %></td>
+        <td width="3%;">  <%=  number_with_delimiter(scene.characters.size, :delimiter => ',') %></td>
         <td width="5%;">
           <% if target.nil? %>
             <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene)) : scene.abc) %></td>
@@ -21,7 +21,7 @@
           <% end %>
       <% end %>
       <% unless scene.section.nil? %>
-        <td width="20%;">  <strong><i><%= scene.section.name %></i></strong></td>
+        <td width="25%;">  <strong><i><%= scene.section.name %></i></strong></td>
       <% end %>
       <td width="5%;">
         <span style="background-color: #<%= count_color(wc) %>">
