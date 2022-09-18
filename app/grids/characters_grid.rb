@@ -102,7 +102,7 @@ class CharactersGrid < BaseGrid
     character_values[0].value unless character_values.empty?
   end
   column(:action2, header: '', html: true) do |character|
-    link_to (fa_icon 'edit'), edit_character_path(character), title: 'Edit'
+    link_to (fa_icon 'edit'), polymorphic_path([:edit,@object,character]), title: 'Edit'
   end
   column(:action3, header: '', html: true) do |character|
     link_to (fa_icon 'trash'), polymorphic_path([@object, character]), method: :delete,
