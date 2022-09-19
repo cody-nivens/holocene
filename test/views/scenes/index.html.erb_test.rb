@@ -19,7 +19,6 @@ class ScenesIndexHtmlErbTest < ActionDispatch::IntegrationTest
     @scenes = Scene.all
 
     assert_select 'a[text()=?]', 'Back'
-    assert_select 'a[href=?]', polymorphic_path(@key_point)
     assert_select '.footer>div>a', 2
     assert_template 'scenes/index'
 

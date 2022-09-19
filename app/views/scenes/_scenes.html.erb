@@ -1,7 +1,5 @@
 <% if @toggle == "on" %>
   <table class="table">
-<% else %>
-  <strong><%= date %></strong><br>
 <% end %>
 <% if option == "no_scene" %>
   <% stories = if situated.instance_of?(Book)
@@ -20,7 +18,7 @@
         <% next unless scenes.size.zero? %>
         <% next if key_point.selector_value(selector).blank? %>
         <% unless output_header %>
-          <%== breadcrumb(situated, story, key_point) %> 
+          <%== breadcrumb(situated, story, key_point, link: true) %> 
           <% output_header = true %>
         <% end %>
         <li>
@@ -30,42 +28,40 @@
       </ul>
     <% end %>
   <% end %>
-  <% elsif @option == "has_inserts" %>
-    <% scenes2 = Scene.where.not(insert_scene_id: nil).order(:insert_scene_id) %>
-    <% old_insert_scene = 0 %>
-        <ul>
-    <% scenes2.each do |scene| %>
-      <% next unless scene.situated.publish %>
-      <% if scene.insert_scene_id != old_insert_scene %>
-        <% unless old_insert_scene == 0 %>
-          </ul>
-        <% end %>
-        <% old_insert_scene = scene.insert_scene_id %>
-        <ul>
+<% elsif option == "has_inserts" %>
+  <% scenes2 = Scene.where.not(insert_scene_id: nil).order(:insert_scene_id) %>
+  <% old_insert_scene = 0 %>
+      <ul>
+  <% scenes2.each do |scene| %>
+    <% next unless scene.situated.publish %>
+    <% if scene.insert_scene_id != old_insert_scene %>
+      <% unless old_insert_scene == 0 %>
+        </ul>
       <% end %>
-      <li>
-        <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, target: :_blank } %>
-      </li>
+      <% old_insert_scene = scene.insert_scene_id %>
+      <ul>
     <% end %>
-    </ul>
-  <% elsif option == "low_word_count" or option == "mid_word_count" or option == "better_word_count" %>
-    <% high = 0; low = 0 %>
-    <% if @option == "low_word_count" %>
-      <% high = 250; low = 0 %>
-    <% elsif @option == "mid_word_count" %>
-      <% high = 650; low = 250 %>
-    <% else %>
-      <% high = 1000; low = 650 %>
-    <% end %>
-       <%= render partial: 'shared/scenes', locals: { scenes: scenes, op: 'words', option: option, toggle: @toggle, high: high, low: low } %>
+    <li>
+      <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, target: :_blank } %>
+    </li>
+  <% end %>
+  </ul>
+<% elsif option == "low_word_count" or option == "mid_word_count" or option == "better_word_count" %>
+  <% high = 0; low = 0 %>
+  <% if option == "low_word_count" %>
+    <% high = 250; low = 0 %>
+  <% elsif option == "mid_word_count" %>
+    <% high = 650; low = 250 %>
+  <% else %>
+    <% high = 1000; low = 650 %>
+  <% end %>
+  <%= render partial: 'shared/scenes', locals: { scenes: scenes, op: 'words', option: option, toggle: @toggle, high: high, low: low } %>
 
-  <% elsif @option == "chars" %>
+<% elsif @option == "chars" %>
    <%= render partial: 'shared/scenes', locals: { scenes: scenes, op: 'chars', option: option, toggle: @toggle } %>
 <% else %>
    <%= render partial: 'shared/scenes', locals: { scenes: scenes, op: 'scenes', option: option, toggle: @toggle } %>
 <% end %>
 <% if @toggle == "on" %>
   </table>
-<% else %>
-  </ul>
 <% end %>

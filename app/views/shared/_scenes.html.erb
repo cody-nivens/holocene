@@ -19,6 +19,8 @@
             <% when 'scenes' %>
               <% next if option == "no_section" && !scene.section.nil? %>
               <% next if option == "only_section" && scene.section.nil? %>
+              <% next if option == "checked" && !scene.check? %>
+              <% next if option == "not_checked" && scene.check? %>
               <% if toggle == "on" %>
                 <tr>
                   <td class="text-wrap" style="width: 20%">
@@ -38,25 +40,13 @@
                   <td><%= scene.plain_name %></td>
                 </tr>
               <% else %>
-                <% if scene.date_string != old_date %>
-                  <% unless old_date.blank? %>
-                    </ul>
-                  <% end %>
-                  <%= scene.time_to_text %>
-                  <% old_date = scene.date_string %>
-                  <ul>
-                <% end %>
                 <% values = scene.set_values %>
-                <li>
-                  <div>
-                    <div class='float-left'><%= (scene.section.nil? ? '*' : ' ') -%></div>
-                    <% if print.nil? %>
-                      <%== surpress_first(breadcrumb(values[0], values[1], values[2], values[3], values[4], link: true)) -%>
-                    <% else %>
-                      <%= values.compact.collect(&:name).join('|') -%>
-                    <% end %>
-                  </div>
-                </li>
+                <div class='float-left'><%= (scene.section.nil? ? '*' : ' ') -%></div>
+                <% if print.nil? %>
+                  <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, target: :_blank } %>
+                <% else %>
+                  <%= values.compact.collect(&:name).join('|') -%>
+                <% end %>
               <% end %>
             <% when 'view' %>
               <% next if inserted_scenes.include?(scene.id) %>
