@@ -1,17 +1,27 @@
 <% unless objects.empty? %>
+  <table style="width: 100%">
   <% old_date = '' %>
   <% objects.includes([:metrized]).order(date: :desc, updated_at: :desc).each do |metric| %>
     <% next if metric.metrized.sectioned.nil? %>
     <% values = metric.metrized.set_values %>
     <% if metric.date != old_date %>
       <% unless old_date.blank? %>
-        </ul>
       <% end %>
-      <%= metric.date.to_date %>:
+      <%#= metric.date.to_date %>
       <% old_date = metric.date %>
-      <ul>
     <% end %>
-    <li><%== breadcrumb(values[0], values[1], values[2], values[3], values[4], link: true) %> <%= metric.metrized.word_count %></li>
+    <% next_metric = metric.metrized.metrics.before(metric.date).order(date: :desc) %>
+    <% prev_value =  metric.count - (next_metric.size > 0 ? next_metric[0].count : 0) %>
+    <tr><td>
+        <%= prev_value %>
+      </td><td>
+      <% if metric.metrized.sectioned.class.name == 'Scene' %>
+        <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: metric.metrized.sectioned, scripted: metric.metrized.sectioned.key_point.scripted, key_point: metric.metrized.sectioned.key_point, pdf: nil, target: :_blank } %>
+      <% else %>
+        <%== breadcrumb(values[0], values[1], values[2], values[3], values[4], link: true) %>
+      <% end %>
+      </td>
+    </tr>
   <% end %>
-  </ul>
+  </table>
 <% end %>
