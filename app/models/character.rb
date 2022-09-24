@@ -150,7 +150,7 @@ class Character < ApplicationRecord
   end
 
   def full_last_first
-    "#{last_name.presence || ''}#{suffix.blank? ? '' : " #{suffix}"}#{last_name.blank? ? '' : ', '}#{first_name} #{middle_name}"
+    "#{last_name.presence || ''}#{suffix.blank? ? '' : " #{suffix}"}#{last_name.blank? ? '' : ', '}#{first_name}#{nickname? ? " \"#{nickname}\"" : ''} #{middle_name}"
   end
 
   def self.romanize(n)

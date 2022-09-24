@@ -59,16 +59,9 @@ class CharactersGrid < BaseGrid
 
   column(:last_name, html: true, order: 'last_name asc, first_name asc, suffix asc',
                      order_desc: 'last_name desc, first_name desc, suffix desc') do |he|
-    link_to he.last_name, polymorphic_path([@object, he])
+    link_to he.full_last_first, polymorphic_path([@object, he])
   end
-
-  column(:first_name, html: true, order: 'first_name asc, first_name asc, suffix asc',
-                      order_desc: 'first_name desc, first_name desc, suffix desc') do |he|
-    link_to he.first_name, polymorphic_path([@object, he])
-  end
-  column(:nickname)
-  column(:middle_name)
-  column(:suffix)
+  #column(:nickname)
   column(:honorific)
   column(:sex, html: true, order: 'sex asc, last_name asc, first_name asc',
                order_desc: 'sex desc, last_name desc, first_name desc') do |value|
