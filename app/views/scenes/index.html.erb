@@ -2,9 +2,11 @@
 <h2>
   <% case @situated.class.name %>
   <% when 'Book' %>
-    <%== breadcrumb(@situated) %>
+    <%= render partial: 'books/header', locals: { book: @situated } %>
+
   <% when 'Story' %>
-    <%== breadcrumb(@situated.book, @situated) %>
+    <%= render partial: 'stories/header', locals: { book: @situated.book, story: @situated } %>
+
   <% when 'KeyPoint' %>
     <%== breadcrumb(@situated.scripted.book, @situated.scripted, @situated) %>
   <% end %>
