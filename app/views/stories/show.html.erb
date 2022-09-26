@@ -5,6 +5,7 @@
   <%= @story.summary_body %>
 </p>
 
+<% if @long %>
 <% items2 = wc_counts_info(@story) %>
 <table class="table">
   <tr>
@@ -36,6 +37,7 @@
     <th>Print Summary:</th> <td><%= (@story.print_summary? ? fa_icon('check') : '') %></td>
   </tr>
 </table>
+<% end %>
 
 <% pdf ||= nil %>
 <%= tabs do |c| %>
@@ -49,7 +51,7 @@
             <% @story.key_points.rank(:position).each do |key_point| %>
               <%= content_tag 'div', id: "key_point-#{key_point.id}", data: { model_name: key_point.class.name.underscore, update_url: key_point_sort_path(key_point) } do %>
                 <li><%= link_to key_point.hook, key_point_path(key_point), id: key_point.anchor %> - <%= link_to key_point.key_element, key_point_path(key_point) %>
-                <%= render partial: 'key_points/list', formats: [:html], locals: { scripted: @story, key_point: key_point } %>
+                <%= render partial: 'key_points/list', formats: [:html], locals: { scripted: @story, key_point: key_point, long: @long } %>
                 </li>
               <% end %>
             <% end %>

@@ -1,12 +1,12 @@
 <% if long %>
-<% scene_count = story.scene_count %>
-<% section_count = story.section_count %>
+  <% scene_count = story.scene_count %>
+  <% section_count = story.section_count %>
 
-<% ss_ratio = (scene_count.zero? ? 0 : section_count.to_f / scene_count) %>
-<% items = [{ label: 'Completed', color: '090', width: 100.0 * ss_ratio }, 
-            { label: 'Waiting', color: 'ededed', width: 100.0 - 100.0 * ss_ratio }] %>
+  <% ss_ratio = (scene_count.zero? ? 0 : section_count.to_f / scene_count) %>
+  <% items = [{ label: 'Completed', color: '090', width: 100.0 * ss_ratio }, 
+              { label: 'Waiting', color: 'ededed', width: 100.0 - 100.0 * ss_ratio }] %>
 
-<% items2 = wc_counts_info(story) %>
+  <% items2 = wc_counts_info(story) %>
 <% end %>
 <dt>
   <div class="narrow">
@@ -17,25 +17,25 @@
   </div>
   <div class="title">
     <%= story.scene_character %>
-    <%= link_to story.title, story_path(story) %>
+    <%= long ? link_to(story.title, story_path(story, long: long)) : link_to(story.title, story_path(story)) %>
     <%= link_to (fa_icon 'search-plus'), story_path(story), title: 'Show' %>
     <%= link_to (fa_icon 'edit'), edit_story_path(story), title: 'Edit' %>
     <%= link_to (fa_icon 'trash'), story_path(story), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
   </div>
   <% if long %>
-  <div class="progress_bar">
-    <%= render partial: 'shared/progress_bar', locals: { items: items } %>
-  </div>
-  <div class="progress_bar">
-    <%= render partial: 'shared/progress_bar', locals: { items: items2 } %>
-  </div>
-  <div class="medium">
-    <%= scene_count %> (<%= section_count %> <%= (scene_count.zero? ? '' : number_with_precision((section_count.to_f / scene_count) * 100.0, precision: 2)) %>%)
-  </div>
-  <div class="medium">
-    <%== render partial: "shared/word_count", locals: { obj: story } %>
-  </div>
-<% end %>
+    <div class="progress_bar">
+      <%= render partial: 'shared/progress_bar', locals: { items: items } %>
+    </div>
+    <div class="progress_bar">
+      <%= render partial: 'shared/progress_bar', locals: { items: items2 } %>
+    </div>
+    <div class="medium">
+      <%= scene_count %> (<%= section_count %> <%= (scene_count.zero? ? '' : number_with_precision((section_count.to_f / scene_count) * 100.0, precision: 2)) %>%)
+    </div>
+    <div class="medium">
+      <%== render partial: "shared/word_count", locals: { obj: story } %>
+    </div>
+  <% end %>
   <div style="clear:both"></div>
 </dt>
 <dd><%= story.summary_body %></dd>

@@ -1,16 +1,15 @@
-<% z_count = 0 %>
-<% book.stories.each do |story| %>
-  <% word_counts = story.word_counts %>
-  <% z_count  += word_counts.collect{|x| x <= 10 ? 1 : 0 }.sum %>
-<% end %>
+<% word_count = scene_count = word_avg = 0 %>
+<% if long %>
+  <% z_count = 0 %>
+  <% book.stories.each do |story| %>
+    <% word_counts = story.word_counts %>
+    <% z_count  += word_counts.collect{|x| x <= 10 ? 1 : 0 }.sum %>
+  <% end %>
 
-<% word_count = book.word_count %>
-<% scene_count = book.scene_count %>
-<% word_avg = word_count / (scene_count - z_count) %>
+  <% word_count = book.word_count %>
+  <% scene_count = book.scene_count %>
+  <% word_avg = word_count / (scene_count - z_count) %>
 
-<% if !long %>
-  <%= render partial: 'stories/index', formats: [:html], locals: { stories: stories, book: book, long: long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
-<% else %>
   <%= render partial: 'books/book_stats', locals: { book: book } %>
-  <%= render partial: 'stories/index', formats: [:html], locals: { stories: stories, book: book, long: long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
 <% end %>
+<%= render partial: 'stories/index', formats: [:html], locals: { stories: stories, book: book, long: long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>

@@ -50,6 +50,7 @@ class StoriesController < ApplicationController
     @book = @story.book
     @object = @story
     @title = @story.name
+    @long = params[:long]
     respond_to do |format|
       format.html { render :show }
       format.pdf do
