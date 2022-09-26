@@ -1,7 +1,7 @@
 <table class='table'>
   <tr>
     <th>ABC:</th><td><%= object.abc %></td>
-    <th>Location:</th><td><%= (object.artifact.nil? ? 'Unkown' : object.artifact_name) %></td>
+    <th>Location:</th><td><%= object.artifact.nil? ? 'Unkown' : object.artifact_name %></td>
     <th>Place:</th><td><%= object.place.to_plain_text %></td>
     <th>Word Count:</th><td>
       <span style="background-color: #<%= count_color(object.word_count) %>"><%=  number_with_delimiter(object.word_count, :delimiter => ',') %></span>
@@ -9,11 +9,11 @@
   </tr>
   <tr>
     <th>Time:</th><td><%= object.time_to_text %></td>
-    <th>Check:</th><td><%= object.check %></td>
-    <th>Scene/Sequel:</th><td><%= (object.scene_sequel == 1 ? 'Sequel' : 'Scene') %></td>
+    <th>Check:</th><td><%= object.check? ? fa_icon('check') : '' %></td>
+    <th>Scene/Sequel:</th><td><%= object.scene_sequel == 1 ? 'Sequel' : 'Scene' %></td>
     <th>Selector:</th><td><%= selector_string(object.selector) %></td>
   </tr>
   <tr>
-    <th>Title Scene:</th><td><%= (object.title_scene? ? fa_icon('check') : '') %></td>
+    <th>Title Scene:</th><td><%= object.title_scene? ? fa_icon('check') : '' %></td>
   </tr>
 </table>
