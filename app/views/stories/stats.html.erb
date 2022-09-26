@@ -1,4 +1,4 @@
-<%= render partial: 'header', locals: { book: @book, story: @story } %>
+<%= render partial: 'header', locals: { book: @book, story: @story, long: false } %>
 <h2>Stats for Story <%= link_to @story.name, story_path(@story) %></h2>
 
 <%= render partial: 'shared/stats', formats: [:html], locals: { object: @story, book: @book } %>

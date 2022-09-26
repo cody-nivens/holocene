@@ -1,6 +1,6 @@
 <% @title = "#{params[:long].nil? ? '' : 'Long: '} #{@book.name}" %>
 
-<%= render partial: 'header', locals: { book: @book } %>
+<%= render partial: 'header', locals: { book: @book, long: long } %>
 
 <% unless @book.is_fiction? %>
   <table class='table'>

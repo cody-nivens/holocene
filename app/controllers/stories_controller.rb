@@ -77,6 +77,7 @@ class StoriesController < ApplicationController
     @title = "View#{params[:outline].nil? ? '' : ' Outline'}, #{@story.name}"
     @book = @story.book
     @object = @story
+    @long = params[:long]
 
     respond_to do |format|
       format.html { render :view }

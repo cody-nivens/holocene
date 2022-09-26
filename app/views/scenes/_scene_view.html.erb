@@ -1,5 +1,5 @@
 <strong>
-  <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: pdf , print_name: false, inline_date: false } %>
+  <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: pdf , print_name: false, inline_date: false, long: long } %>
 </strong>
 <% if scene.section&.body.blank? || outline %>
   <%= scene.summary %>

@@ -42,7 +42,7 @@
       <ul>
     <% end %>
     <li>
-      <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, target: :_blank } %>
+      <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, target: :_blank, long: long } %>
     </li>
   <% end %>
   </ul>
@@ -55,12 +55,12 @@
   <% else %>
     <% high = 1000; low = 650 %>
   <% end %>
-  <%= render partial: 'shared/scenes', locals: { scenes: scenes, op: 'words', option: option, toggle: @toggle, high: high, low: low } %>
+  <%= render partial: 'shared/scenes', locals: { scenes: scenes, op: 'words', option: option, toggle: @toggle, high: high, low: low, long: long } %>
 
 <% elsif @option == "chars" %>
-   <%= render partial: 'shared/scenes', locals: { scenes: scenes, op: 'chars', option: option, toggle: @toggle } %>
+   <%= render partial: 'shared/scenes', locals: { scenes: scenes, op: 'chars', option: option, toggle: @toggle, long: long } %>
 <% else %>
-   <%= render partial: 'shared/scenes', locals: { scenes: scenes, op: 'scenes', option: option, toggle: @toggle } %>
+   <%= render partial: 'shared/scenes', locals: { scenes: scenes, op: 'scenes', option: option, toggle: @toggle, long: long } %>
 <% end %>
 <% if @toggle == "on" %>
   </table>

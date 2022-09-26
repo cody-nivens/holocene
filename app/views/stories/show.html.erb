@@ -1,6 +1,6 @@
 <% @title = @story.name %>
 
-<%= render partial: 'stories/header', locals: { book: @book, story: @story } %>
+<%= render partial: 'stories/header', locals: { book: @book, story: @story, long: @long } %>
 <p>
   <%= @story.summary_body %>
 </p>

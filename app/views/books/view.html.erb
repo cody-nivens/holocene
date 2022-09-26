@@ -1,5 +1,5 @@
 <% @title = "View#{params[:outline].nil? ? '' : ' Outline'}, #{@book.name}" %>
 
-<%= render partial: 'header', locals: { book: @book } %>
-<%= render partial: 'books/show', formats: [:html], locals: { outline: params[:outline], pdf: true, book: @book, chapters: @chapters } %>
+<%= render partial: 'header', locals: { book: @book, long: long } %>
+<%= render partial: 'books/show', formats: [:html], locals: { outline: params[:outline], pdf: true, book: @book, chapters: @chapters, long: long } %>
 <%= render partial: 'footer', locals: { book: @book } %>

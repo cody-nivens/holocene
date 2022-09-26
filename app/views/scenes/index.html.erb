@@ -2,11 +2,9 @@
 <h2>
   <% case @situated.class.name %>
   <% when 'Book' %>
-    <%= render partial: 'books/header', locals: { book: @situated } %>
-
+    <%= render partial: 'books/header', locals: { book: @situated, long: false } %>
   <% when 'Story' %>
-    <%= render partial: 'stories/header', locals: { book: @situated.book, story: @situated } %>
-
+    <%= render partial: 'stories/header', locals: { book: @situated.book, story: @situated, long: false } %>
   <% when 'KeyPoint' %>
     <%== breadcrumb(@situated.scripted.book, @situated.scripted, @situated) %>
   <% end %>
@@ -130,7 +128,7 @@
 <div id='scenes-list'>
     <%= render partial: 'scenes/scenes', formats: [:html], locals: { scenes: @scenes, print: @print, situated: @situated,
                                                                      option: @option, years: @years, 
-                                                                     date: @year, scripted: @scripted } %>
+                                                                     date: @year, scripted: @scripted, long: false } %>
 </div>
 
 <% add_to_footer('Timeline', polymorphic_path([@situated, :timeline])) %>
