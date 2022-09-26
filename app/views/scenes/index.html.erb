@@ -2,9 +2,9 @@
 <h2>
   <% case @situated.class.name %>
   <% when 'Book' %>
-    <%= render partial: 'books/header', locals: { book: @situated, long: false } %>
+    <%= render partial: 'books/header', locals: { book: @situated, long: @long } %>
   <% when 'Story' %>
-    <%= render partial: 'stories/header', locals: { book: @situated.book, story: @situated, long: false } %>
+    <%= render partial: 'stories/header', locals: { book: @situated.book, story: @situated, long: @long } %>
   <% when 'KeyPoint' %>
     <%== breadcrumb(@situated.scripted.book, @situated.scripted, @situated) %>
   <% end %>
@@ -27,6 +27,13 @@
   <div class='form-check'>
     <label class='checkbox'>
       <%= check_box_tag :print, @print, @print, class: 'checkbox inline' %> Print
+    </label>
+  </div>
+    </div>
+    <div class='col-md-2'>
+  <div class='form-check'>
+    <label class='checkbox'>
+      <%= check_box_tag :long, @long, @long, class: 'checkbox inline' %> Long
     </label>
   </div>
     </div>
@@ -128,7 +135,7 @@
 <div id='scenes-list'>
     <%= render partial: 'scenes/scenes', formats: [:html], locals: { scenes: @scenes, print: @print, situated: @situated,
                                                                      option: @option, years: @years, 
-                                                                     date: @year, scripted: @scripted, long: false } %>
+                                                                     date: @year, scripted: @scripted, long: @long } %>
 </div>
 
 <% add_to_footer('Timeline', polymorphic_path([@situated, :timeline])) %>

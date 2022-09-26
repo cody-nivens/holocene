@@ -8,6 +8,7 @@ class ScenesController < ApplicationController
     @toggle = params[:toggle]
     @print = params[:print]
     @option = params[:option]
+    @long = params[:long]
 
     @year = params[:year]
     @scenes = @no_scene ? nil : Scene.get_scenes(@situated, @toggle)
