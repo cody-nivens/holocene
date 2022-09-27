@@ -1,4 +1,4 @@
-<% @title = @scene.name %>
+<% @title = @scene.section.nil? ? @scene.name : @scene.section.name %>
 
 <h2>
   <%== breadcrumb(@scene.key_point.scripted.book, @scene.key_point.scripted, @scene.key_point, @scene, @scene.section) %>
