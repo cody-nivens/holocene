@@ -202,13 +202,13 @@ module ApplicationHelper
     section_count = obj.section_count
     word_count = obj.word_count
     word_counts = obj.word_counts
-    bt_count = word_counts.collect{|x| x > 1000 ? 1 : 0 }.sum
+    bt_count = word_counts.collect{|x| x > @better_wc ? 1 : 0 }.sum
     bt_ratio = bt_count.zero? ? 0 : bt_count.to_f / word_counts.length
-    g_count  = word_counts.collect{|x| x <= 1000 ? x > 650 ? 1 : 0 : 0 }.sum
+    g_count  = word_counts.collect{|x| x <= @better_wc ? x > @mid_wc ? 1 : 0 : 0 }.sum
     g_ratio = g_count.zero? ? 0 : g_count.to_f / word_counts.length
-    o_count  = word_counts.collect{|x| x <= 650 ? x > 250 ? 1 : 0 : 0 }.sum
+    o_count  = word_counts.collect{|x| x <= @mid_wc ? x > @low_wc ? 1 : 0 : 0 }.sum
     o_ratio = o_count.zero? ? 0 : o_count.to_f / word_counts.length
-    b_count  = word_counts.collect{|x| x <= 250 ? 1 : 0 }.sum
+    b_count  = word_counts.collect{|x| x <= @low_wc ? 1 : 0 }.sum
     b_ratio = b_count.zero? ? 0 : b_count.to_f / word_counts.length
 
     items = [{ label: 'Better', color: good_color, width:  100.0 * bt_ratio },
@@ -224,11 +224,15 @@ module ApplicationHelper
     phy_gen = CharacterCategory.where(name: 'Gender').first
     phy_hc  = CharacterAttribute.where(character_category_id: phy_pa.id, name: 'Hair color').first
     phy_ec  = CharacterAttribute.where(character_category_id: phy_pa.id, name: 'Eye color').first
+    phy_ht  = CharacterAttribute.where(character_category_id: phy_pa.id, name: 'Height').first
+    phy_wt  = CharacterAttribute.where(character_category_id: phy_pa.id, name: 'Weight').first
     phy_gen = CharacterAttribute.where(character_category_id: phy_gen.id, name: 'Gender').first
     hc      = CharacterValue.where(character_id: character.id, character_attribute_id: phy_hc).first
     ec      = CharacterValue.where(character_id: character.id, character_attribute_id: phy_ec).first
     gen     = CharacterValue.where(character_id: character.id, character_attribute_id: phy_gen).first
+    ht      = CharacterValue.where(character_id: character.id, character_attribute_id: phy_ht.id).first
+    wt      = CharacterValue.where(character_id: character.id, character_attribute_id: phy_wt.id).first
 
-    "h: #{hc.nil? ? '' : hc.value[0..2]};e #{ec.nil? ? '' : ec.value[0..2]};g #{gen.nil? ? '' : gen.value[0..2]};"
+"<td>#{ht.nil? ? '' : ht.value}</td> <td>#{wt.nil? ? '' : wt.value}</td> <td>#{hc.nil? ? '' : hc.value}</td> <td>#{ec.nil? ? '' : ec.value}</td> <td>#{gen.nil? ? '' : gen.value}</td>"
   end
 end

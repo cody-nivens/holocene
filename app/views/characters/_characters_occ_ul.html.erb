@@ -1,29 +1,40 @@
+  <table class='table'>
+    <thead>
+      <tr><th>Name</th><th>Group</th>
+        <th>Height</th>
+        <th>Weight</th>
+        <th>Hair Color</th>
+        <th>Eye Color</th>
+        <th>Gender</th>
+      <th>Age</th><th>Scene</th></tr>
+    </thead>
+    <tbody>
 <% object.characters.order(:occupation_class).pluck(:occupation_class).map { |x| x || '' }.uniq.sort.each do |occ_class| %>
-  <%= (occ_class == '' ? '<blank>' : occ_class) %>
-  <ul>
+  <tr><th colspan="4"><%= (occ_class == '' ? '<blank>' : occ_class) %></th></tr>
     <% object.characters.where(occupation_class: occ_class).order(:occupation_class, :last_name, :first_name).distinct.each do |character| %>
-      <li>
+      <tr>
+        <td width="15%">
         <%= link_to character.full_name, polymorphic_path([object, character]) %>
-        <%= (!character.grouping? ? '' : "-  #{character.grouping}").to_s %>
+        </td><td>
+        <%= (!character.grouping? ? '' : "#{character.grouping}").to_s %>
+        </td>
         <%== physical_attributes(character) %>
+        <td>
         <% if object.class.name == 'Scene' %>
           <%= object.date_string[0..3].to_i - character.birth_year.to_i %>
+        <% end %>
+        </td><td>
+        <% if object.class.name == 'Scene' %>
           <% character_scene = CharacterScene.where(character_id: character.id, scene_id: object.id) %>
           <%= link_to (fa_icon 'plus'), edit_character_scene_path(character_scene[0]), title: 'Edit character role in scene' %>
           <% unless character_scene[0].summary.nil? %>
+          </td></tr><tr><td></td><td colspan="4">
             <%= character_scene[0].summary.to_plain_text %>
           <% end %>
-        <% else %>
-          <ul>
-            <% character.scenes.order(:abc).each do |scene| %>
-              <% next if scene.book != @book or (object.class.name == "Story" && scene.situated != object)  %>
-              <li>
-                <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, target: :_blank } %>
-              </li>
-            <% end %>
-          </ul>
-        <% end %>
-      </li>
+          <% end %>
+        </td>
+      </tr>
     <% end %>
-  </ul>
 <% end %>
+    </tbody>
+  </table>
