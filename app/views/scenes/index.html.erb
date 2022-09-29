@@ -16,120 +16,107 @@
   <%= hidden_field_tag :situated_type, @situated.class.name %>
 
   <div class='row'>
-    <div class='col-md-2'>
-      <div class='form-check'>
-        <label class='checkbox'>
-          <%= check_box_tag :toggle, @toggle, @toggle, class: 'checkbox inline' %> Detail
-        </label>
-      </div>
-    </div>
-    <div class='col-md-2'>
-  <div class='form-check'>
-    <label class='checkbox'>
-      <%= check_box_tag :print, @print, @print, class: 'checkbox inline' %> Print
-    </label>
-  </div>
-    </div>
-    <div class='col-md-2'>
-  <div class='form-check'>
-    <label class='checkbox'>
-      <%= check_box_tag :long, @long, @long, class: 'checkbox inline' %> Long
-    </label>
-  </div>
-    </div>
-    <div class='col-md-2'>
+    <div class='col-md-4'>
+      <fieldset class="form-group border p-3">
+        <legend class="w-auto px-2">Listing</legend>
+        <div class="form-group">
+          <label class='checkbox'>
+            <%= check_box_tag :toggle, @toggle, @toggle, class: 'checkbox inline' %> Detail
+          </label>
+        </div>
+        <div class="form-group">
+          <label class='checkbox'>
+            <%= check_box_tag :print, @print, @print, class: 'checkbox inline' %> Print
+          </label>
+        </div>
+        <div class="form-group">
+          <label class='checkbox'>
+            <%= check_box_tag :long, @long, @long, class: 'checkbox inline' %> Long
+          </label>
+        </div>
       <div class='field'>
         <%= select_tag('year', options_for_select(@year_options), prompt: 'Please select an year:', class: 'form-control', onchange: 'javascript:this.form.commit.click();') %>
       </div>
-    </div>
-    <div class='col-md-2'>
-      <%= submit_tag 'Go' %>
+      <div class='col-md-2'>
+        <%= submit_tag 'Go' %>
+      </div>
+    </fieldset>
+  </div>
+  <div class='col-md-4'>
+  <div class='row'>
+      <fieldset class="form-group border p-3">
+        <legend class="w-auto px-2">Report</legend>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :no_section, @no_section, class: 'checkbox inline' %> No Section
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :no_scene, @no_scene, class: 'checkbox inline' %> No Scene
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :only_section, @only_section, class: 'checkbox inline' %> Only Section
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :has_inserts, @has_inserts, class: 'checkbox inline' %> Has Inserts
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :not_checked, @not_checked, class: 'checkbox inline' %> Not Checked
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :checked, @checked, class: 'checkbox inline' %> Checked
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :chars, @chars, class: 'checkbox inline' %> Zero Charcters
+          </label>
+        </div>
+      </fieldset>
     </div>
   </div>
-  <div class='row'>
-    <div class='col-md-2'>
-      <div class='form-check'>
-        <label class='checkbox'>
-          <%= radio_button_tag :option, :no_section, @no_section, class: 'checkbox inline' %> No Section
-        </label>
+  <div class='col-md-4'>
+    <fieldset class="form-group border p-3">
+      <legend class="w-auto px-2">Word Counts</legend>
+      <div class='field'>
+        <label class="form-label" for="form12">Low</label>
+        <%= text_field_tag :low_wc, @low_wc %>
       </div>
-    </div>
-    <div class='col-md-2'>
-      <div class='form-check'>
-        <label class='checkbox'>
-          <%= radio_button_tag :option, :no_scene, @no_scene, class: 'checkbox inline' %> No Scene
-        </label>
+      <div class='field'>
+        <label class="form-label" for="form12">Mid</label>
+        <%= text_field_tag :mid_wc, @mid_wc %>
       </div>
-    </div>
-    <div class='col-md-2'>
-      <div class='form-check'>
-        <label class='checkbox'>
-          <%= radio_button_tag :option, :only_section, @only_section, class: 'checkbox inline' %> Only Section
-        </label>
+      <div class='field'>
+        <label class="form-label" for="form12">Better</label>
+        <%= text_field_tag :better_wc, @better_wc %>
       </div>
-    </div>
-    <div class='col-md-2'>
-      <div class='form-check'>
-        <label class='checkbox'>
-          <%= radio_button_tag :option, :has_inserts, @has_inserts, class: 'checkbox inline' %> Has Inserts
-        </label>
-      </div>
-    </div>
-  </div>
-  <div class='row'>
-    <div class='col-md-2'>
       <div class='form-check'>
         <label class='checkbox'>
           <%= radio_button_tag :option, :low_word_count, @low_word_count, class: 'checkbox inline' %> Low Word Count
         </label>
       </div>
-    </div>
-    <div class='col-md-2'>
       <div class='form-check'>
         <label class='checkbox'>
           <%= radio_button_tag :option, :mid_word_count, @mid_word_count, class: 'checkbox inline' %> Mid Word Count
         </label>
       </div>
-    </div>
-    <div class='col-md-2'>
       <div class='form-check'>
         <label class='checkbox'>
           <%= radio_button_tag :option, :better_word_count, @better_word_count, class: 'checkbox inline' %> Better Words
         </label>
       </div>
-    </div>
-    <div class='col-md-2'>
-      <div class='form-check'>
-        <label class='checkbox'>
-          <%= radio_button_tag :option, :chars, @chars, class: 'checkbox inline' %> Zero Charcters
-        </label>
-      </div>
-    </div>
+    </fieldset>
   </div>
-  <div class='row'>
-    <div class='col-md-2'>
-      <div class='form-check'>
-        <label class='checkbox'>
-          <%= radio_button_tag :option, :not_checked, @not_checked, class: 'checkbox inline' %> Not Checked
-        </label>
-      </div>
-    </div>
-    <div class='col-md-2'>
-      <div class='form-check'>
-        <label class='checkbox'>
-          <%= radio_button_tag :option, :checked, @checked, class: 'checkbox inline' %> Checked
-        </label>
-      </div>
-    </div>
-    <div class='col-md-2'>
-      <div class='form-check'>
-      </div>
-    </div>
-    <div class='col-md-2'>
-      <div class='form-check'>
-      </div>
-    </div>
-  </div>
+</div>
 <% end %>
 
 <div id='scenes-list'>

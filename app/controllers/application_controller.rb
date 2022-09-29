@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_title
   before_action :set_book_from_session
+  before_action :set_wcs_from_session
 
   after_action :set_return_to_location
 
@@ -19,6 +20,12 @@ class ApplicationController < ActionController::Base
     sessions
     user_sessions
   )
+
+  def set_wcs_from_session
+    @low_wc = session[:wc_low].to_i ||= 250
+    @mid_wc = session[:wc_mid].to_i ||= 650
+    @better_wc = session[:wc_better].to_i ||= 1000
+  end
 
   def set_return_to_location
     return unless request.get?

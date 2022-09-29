@@ -9,6 +9,15 @@ class ScenesController < ApplicationController
     @print = params[:print]
     @option = params[:option]
     @long = params[:long]
+    unless params[:low_wc].blank?
+      session[:wc_low] = @low_wc = params[:low_wc]
+    end
+    unless params[:mid_wc].blank?
+      session[:wc_mid] = @mid_wc = params[:mid_wc]
+    end
+    unless params[:better_wc].blank?
+      session[:wc_better] = @better_wc = params[:better_wc]
+    end
 
     @year = params[:year]
     @scenes = @no_scene ? nil : Scene.get_scenes(@situated, @toggle)

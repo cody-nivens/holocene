@@ -2,10 +2,10 @@
   <% book.stories.where(publish: true).each do |story| %>
     <% word_counts = story.word_counts %>
     <% words_total += word_counts.length %>
-    <% bt_count += word_counts.collect{|x| x > 1000 ? 1 : 0 }.sum %>
-    <% g_count  += word_counts.collect{|x| x <= 1000 ? x > 650 ? 1 : 0 : 0 }.sum %>
-    <% o_count  += word_counts.collect{|x| x <= 650 ? x > 250 ? 1 : 0 : 0 }.sum %>
-    <% b_count  += word_counts.collect{|x| x <= 250 ? 1 : 0 }.sum %>
+    <% bt_count += word_counts.collect{|x| x > @better_wc ? 1 : 0 }.sum %>
+    <% g_count  += word_counts.collect{|x| x <= @better_wc ? x > @mid_wc ? 1 : 0 : 0 }.sum %>
+    <% o_count  += word_counts.collect{|x| x <= @mid_wc ? x > @low_wc ? 1 : 0 : 0 }.sum %>
+    <% b_count  += word_counts.collect{|x| x <= @low_wc ? 1 : 0 }.sum %>
     <% z_count  += word_counts.collect{|x| x == 0 ? 1 : 0 }.sum %>
   <% end %>
 

@@ -49,11 +49,11 @@
 <% elsif option == "low_word_count" or option == "mid_word_count" or option == "better_word_count" %>
   <% high = 0; low = 0 %>
   <% if option == "low_word_count" %>
-    <% high = 250; low = 0 %>
+    <% high = @low_wc; low = 0 %>
   <% elsif option == "mid_word_count" %>
-    <% high = 650; low = 250 %>
+    <% high = @mid_wc; low = @low_wc %>
   <% else %>
-    <% high = 1000; low = 650 %>
+    <% high = @better_wc; low = @mid_wc %>
   <% end %>
   <%= render partial: 'shared/scenes', locals: { scenes: scenes, op: 'words', option: option, toggle: @toggle, high: high, low: low, long: long } %>
 

@@ -11,7 +11,7 @@
           <% scenes[year][month][day][hour][minute].each do |scene| %>
             <% case op %>
             <% when 'words' %>
-              <% next unless scene.section.nil? or (scene.section.word_count <= high and scene.section.word_count > low) %>
+              <% next unless scene.section.nil? or (scene.section.word_count <= high.to_i and scene.section.word_count > low.to_i) %>
               <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, target: :_blank, long: long } %>
             <% when 'chars' %>
               <% next if scene.characters.size > 0 %>
