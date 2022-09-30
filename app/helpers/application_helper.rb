@@ -190,11 +190,11 @@ module ApplicationHelper
   end
 
   def count_color(wc)
-    (wc > 1000 ? good_color : ( wc > 650 ? okay_color : (wc > 250 ? caution_color : bad_color)))
+    (wc > @better_wc.to_i ? good_color : ( wc > @mid_wc.to_i ? okay_color : (wc > @low_wc.to_i ? caution_color : bad_color)))
   end
 
   def percent_color(wc)
-    (wc >= 0.95 ? good_color : ( wc > 0.75 ? okay_color : (wc > 0.5 ? caution_color : bad_color)))
+    (wc >= 0.95 ? good_color : ( wc > 0.80 ? okay_color : (wc > 0.5 ? caution_color : bad_color)))
   end
 
   def wc_counts_info(obj)
