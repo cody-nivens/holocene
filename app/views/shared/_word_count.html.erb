@@ -10,5 +10,5 @@
 <% word_avg = word_avg > scene_avg ? word_avg : scene_avg %>
 <% pot_word_count = word_counts.collect{|x| x > word_avg ? x : word_avg}.sum %>
 <span style="background-color: #<%= percent_color(pot_word_count.zero? ? 0 : word_count.to_f/pot_word_count.to_f) %>"><%=  number_with_delimiter(word_count, :delimiter => ',') %></span>
-(<%=  number_with_delimiter(pot_word_count, :delimiter => ',') %>)
+(<%=  number_with_delimiter(pot_word_count, :delimiter => ',') %> <%= number_with_precision((word_count.to_f/pot_word_count.to_f)*100, precision: 2) %>%)
 
