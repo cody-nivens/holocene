@@ -1,4 +1,4 @@
-<%= render partial: 'header', locals: { book: @book, story: @story } %>
+<%= render partial: 'header', locals: { book: @book, story: @story, long: false } %>
 <%= form_with url: polymorphic_path([@story, :moved]) do |f| %>
 
     <%= hidden_field_tag :story_id, (@story.nil? ? nil : @story.id) %>
