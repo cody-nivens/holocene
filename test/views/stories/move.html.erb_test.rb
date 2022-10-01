@@ -16,7 +16,6 @@ class StoriesMoveHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_select 'a[text()=?]', 'Back'
-    assert_select 'a[href=?]', story_path(@story)
     assert_select '.footer>div>a', 11
     assert_template 'stories/move'
   end

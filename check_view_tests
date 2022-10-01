@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for j in `find app/views/ -name *.html.erb |grep -v _|sed -e 's/app\/views\///'`; do
+  if [ ! -e test/views/${j}_test.rb ]; then
+      echo $j 
+   fi 
+done
