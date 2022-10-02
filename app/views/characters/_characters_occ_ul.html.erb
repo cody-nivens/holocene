@@ -6,7 +6,9 @@
         <th>Hair Color</th>
         <th>Eye Color</th>
         <th>Gender</th>
-      <th>Age</th><th>Scene</th></tr>
+        <th>Age</th>
+        <th>Ethnicity</th>
+        <th>Scene</th></tr>
     </thead>
     <tbody>
 <% object.characters.order(:occupation_class).pluck(:occupation_class).map { |x| x || '' }.uniq.sort.each do |occ_class| %>
@@ -17,9 +19,11 @@
         <%= link_to character.full_name, polymorphic_path([object, character]) %>
         </td><td>
         <%= (!character.grouping? ? '' : "#{character.grouping}").to_s %>
-        </td>
+        </td><td>
         <%== physical_attributes(character) %>
         <td>
+        <%= (!character.ethnicity? ? '' : "#{character.ethnicity}").to_s %>
+        </td><td>
         <% if object.class.name == 'Scene' %>
           <%= object.date_string[0..3].to_i - character.birth_year.to_i %>
         <% end %>
