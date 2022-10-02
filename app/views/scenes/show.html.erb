@@ -52,7 +52,7 @@
   </p>
 <% end %>
 
-<% unless @scene.insert_scene.blank? %>
+<% unless @scene.insert_scene.present? %>
   <p>
     <strong>Insert Scene:</strong>
     <%= (@scene.insert_scene.nil? ? '' : @scene.insert_scene.full_name) %>

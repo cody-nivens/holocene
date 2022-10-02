@@ -72,7 +72,7 @@
                 <% end %>
               <% end %>
 
-              <% if scene.insert_scene_id.nil? %>
+              <% unless inserted_scenes.include?(scene.id) %>
                 <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline, pdf: nil, long: long } %>
                 <% if outline %>
                   <% if line_count == 50 %>

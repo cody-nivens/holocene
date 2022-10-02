@@ -84,6 +84,7 @@ class KeyPointsController < ApplicationController
     @klass = @scripted.class
     @title = @key_point.name
     @scripted = @key_point.scripted
+    @long = params[:long]
   end
 
   # GET /key_points/new

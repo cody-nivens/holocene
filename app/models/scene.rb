@@ -115,10 +115,10 @@ class Scene < ApplicationRecord
     (section.nil? ? 0 : section.word_count)
   end
 
-  def self.get_scenes(situated, _toggle, scene_year = nil)
+  def self.get_scenes(situated, toggle, scene_year = nil)
     stories = nil
     stories = if situated.instance_of?(Book)
-                situated.stories.where(stand_alone: false, publish: true).includes([{ key_points: [:scripted, { scenes: [:section, :rich_text_summary] }] }]).order(:position)
+                situated.stories.where(stand_alone: false, publish: true)
               else
                 [situated]
               end
@@ -126,7 +126,7 @@ class Scene < ApplicationRecord
     scenes_h = {}
     stories.each do |story|
       story.key_points.each do |key_point|
-        key_point.scenes.includes([:situated, :section, :rich_text_summary, :rich_text_place]).order(:selector, :position).each do |scene|
+        key_point.scenes.each do |scene|
           date = scene.date_string.to_date
           my_info = scene.time_to_array
           year = my_info[0]
@@ -142,7 +142,8 @@ class Scene < ApplicationRecord
           scenes_h[year][month][day][hour] = {} if scenes_h[year][month][day][hour].nil?
           scenes_h[year][month][day][hour][minute] = [] if scenes_h[year][month][day][hour][minute].nil?
 
-          scenes_h[year][month][day][hour][minute] << scene unless scenes_h[year][month][day][hour][minute].include?(scene)
+          scenes_h[year][month][day][hour][minute] << scene 
+          #unless scenes_h[year][month][day][hour][minute].include?(scene)
         end
       end
     end

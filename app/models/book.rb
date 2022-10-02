@@ -56,9 +56,9 @@ class Book < ApplicationRecord
   end
 
   def word_count(published = false)
-    count = (body.nil? ? 0 : WordsCounted.count(body.to_plain_text).token_count)
+    count = body.nil? ? 0 : WordsCounted.count(body.to_plain_text).token_count
     if is_fiction?
-      stories = (published ? self.stories.where(publish: true) : self.stories)
+      stories = published ? self.stories.where(publish: true) : self.stories
       stories.includes([:key_points]).each do |story|
         story.key_points.each do |key_point|
           key_point.scenes.each do |scene|
@@ -76,7 +76,7 @@ class Book < ApplicationRecord
 
   def scene_count(published = false)
     count = 0
-    stories = (published ? self.stories.includes([:key_points]).where(publish: true) : self.stories.includes([:key_points]))
+    stories = published ? self.stories.where(publish: true) : self.stories
     stories.each do |story|
       count += story.scene_count
     end
