@@ -1,13 +1,15 @@
   <table class='table'>
     <thead>
-      <tr><th>Name</th><th>Group</th>
+      <tr>
+        <th>Name</th>
+        <th>Group</th>
         <th>Height</th>
         <th>Weight</th>
         <th>Hair Color</th>
         <th>Eye Color</th>
         <th>Gender</th>
-        <th>Age</th>
         <th>Ethnicity</th>
+        <th>Age</th>
         <th>Scene</th></tr>
     </thead>
     <tbody>
@@ -19,7 +21,7 @@
         <%= link_to character.full_name, polymorphic_path([object, character]) %>
         </td><td>
         <%= (!character.grouping? ? '' : "#{character.grouping}").to_s %>
-        </td><td>
+        </td>
         <%== physical_attributes(character) %>
         <td>
         <%= (!character.ethnicity? ? '' : "#{character.ethnicity}").to_s %>
