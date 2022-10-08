@@ -1,10 +1,9 @@
 <% pdf ||= nil %>
 <% outline ||= nil %>
 
-<h2><%= book.name %></h2>
-
 <%= render 'authors/index', formats: [:html], authors: book.authors %>
 
+<strong>Copyright: </strong><%= Date.today.strftime("%m/%d/%Y") %>
 <%== epub_friendly(book.body) %><br>
 
 <div style="display:block; clear:both; page-break-after:always;"></div>
