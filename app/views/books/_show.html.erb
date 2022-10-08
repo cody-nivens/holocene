@@ -7,9 +7,7 @@
 
 <%== epub_friendly(book.body) %><br>
 
-<% book.key_points.order(:position).each do |key_point| -%>
-    <%= render 'key_points/show', formats: [:html], scripted: key_point.scripted, book: book, key_point: key_point, epub: false %>
-<% end -%>
+<div style="display:block; clear:both; page-break-after:always;"></div>
 
 <% @notes = {} -%>
 
