@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book,
-                only: %i[chars stats timeline resync_stories toc epub export pdf edit update destroy]
+                only: %i[view show chars stats timeline resync_stories toc epub export pdf edit update destroy]
 
   # GET /books
   # GET /books.json
@@ -82,8 +82,6 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
-    @book = Book.find(params[:id])
-    session[:book_id] = @book.id
     long = params[:long]
 
     if @book.is_fiction?
@@ -118,8 +116,6 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def view
-    @book = Book.find(params[:id])
-    session[:book_id] = @book.id
     @chapters = @book.chapters.includes({ holocene_events: :rich_text_body })
     @scripted = @book
     @stories = @book.stories.where(publish: true).order(:position) if @book.is_fiction?
@@ -206,6 +202,7 @@ class BooksController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_book
     @book = Book.find(params[:id])
+    session[:book_id] = @book.id
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

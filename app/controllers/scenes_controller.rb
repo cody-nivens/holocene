@@ -9,6 +9,15 @@ class ScenesController < ApplicationController
     @print = params[:print]
     @option = params[:option]
     @long = params[:long]
+    @button_action = params[:button_action]
+
+    if @button_action == "Reset Checked" and @situated.class.name == 'Book'
+      scenes = Scene.get_scenes_to_array(@situated)
+      scenes.each do |scene|
+        scene.update_attribute(:check, false)
+      end
+    end
+
     unless params[:low_wc].blank?
       session[:wc_low] = @low_wc = params[:low_wc]
     end

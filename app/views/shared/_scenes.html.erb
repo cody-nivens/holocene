@@ -13,7 +13,6 @@
             <% when 'words' %>
               <% next unless scene.section.nil? or (scene.section.word_count <= high.to_i and scene.section.word_count > low.to_i) %>
               <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, target: :_blank, long: long } %>
-              <br>
             <% when 'chars' %>
               <% next if scene.characters.size > 0 %>
               <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, target: :_blank, long: long } %>
@@ -63,7 +62,6 @@
               <% if scene.title_scene and scene.situated.title_page? %>
                 <div style="display:block; clear:both; page-break-after:always;"></div>
                 <h2><%= scene.situated.title %></h2>
-                <br>
                 <% just_printed_page_break = true %>
               <% end %>
               <% if scene.title_scene and scene.situated.print_summary? %>

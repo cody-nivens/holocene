@@ -38,7 +38,8 @@
         <%= select_tag('year', options_for_select(@year_options), prompt: 'Please select an year:', class: 'form-control', onchange: 'javascript:this.form.commit.click();') %>
       </div>
       <div class='col-md-2'>
-        <%= submit_tag 'Go' %>
+        <%= submit_tag 'Go', type: 'submit', name: 'button_action', value: 'Go' %>
+        <%= submit_tag 'Reset Checked', type: 'submit', name: 'button_action', value: 'Reset Checked' %>
       </div>
     </fieldset>
   </div>

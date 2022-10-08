@@ -115,7 +115,7 @@ class Scene < ApplicationRecord
     (section.nil? ? 0 : section.word_count)
   end
 
-  def self.get_scenes(situated, toggle, scene_year = nil)
+  def self.get_scenes(situated, toggle = "off", scene_year = nil)
     stories = nil
     stories = if situated.instance_of?(Book)
                 situated.stories.where(stand_alone: false, publish: true)
@@ -151,7 +151,7 @@ class Scene < ApplicationRecord
     scenes_h
   end
 
-  def self.get_scenes_to_array(situated, toggle, scene_year = nil)
+  def self.get_scenes_to_array(situated, toggle = "off", scene_year = nil)
     scenes = get_scenes(situated, toggle, scene_year)
     items = []
     scenes.keys.sort.each do |year|
