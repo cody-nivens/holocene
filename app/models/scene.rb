@@ -95,7 +95,7 @@ class Scene < ApplicationRecord
   end
 
   def full_name
-    "#{abc}:#{summary.to_plain_text[0..99]}"
+    "#{abc}:#{section.present? ? section.name : summary.to_plain_text[0..99]}"
   end
 
   def name
