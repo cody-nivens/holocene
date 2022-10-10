@@ -9,4 +9,4 @@
    ] %>
 <%= scene_count %><%= object.instance_of?(Book) ? " (#{pub_scene_count})" : '' %>
 (<%= section_count %> <%= (pub_scene_count.zero? ? '' : number_with_precision((pub_section_count.to_f / pub_scene_count) * 100.0, precision: 2)) %>%)
-<%= render partial: 'shared/progress_bar', locals: { items: items } %>
+<%#= render partial: 'shared/progress_bar', locals: { items: items } %>
