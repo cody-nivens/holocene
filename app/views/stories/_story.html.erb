@@ -8,7 +8,7 @@
 
   <% items2 = wc_counts_info(story) %>
 <% end %>
-<dt>
+<dt class="col-sm-12">
   <div class="narrow">
     <%= story.scene_min %>
   </div>
@@ -21,6 +21,9 @@
     <%= link_to (fa_icon 'search-plus'), story_path(story), title: 'Show' %>
     <%= link_to (fa_icon 'edit'), edit_story_path(story), title: 'Edit' %>
     <%= link_to (fa_icon 'trash'), story_path(story), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
+  </div>
+  <div class="narrow">
+    <%== story.title_page? ? fa_icon('check') : '&nbsp;' %>
   </div>
   <% if long %>
     <div class="progress_bar">
@@ -35,4 +38,4 @@
   <% end %>
   <div style="clear:both"></div>
 </dt>
-<dd><%= story.summary_body %></dd>
+<dd class="col-sm-12"><%= story.summary_body %></dd>
