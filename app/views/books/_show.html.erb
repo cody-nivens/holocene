@@ -3,8 +3,10 @@
 
 <%= render 'authors/index', formats: [:html], authors: book.authors %>
 
-<strong>Copyright: </strong><%= Date.today.strftime("%m/%d/%Y") %>
-<%== epub_friendly(book.body) %><br>
+<strong>Copyright:</strong><%= Date.today.strftime("%Y") %>
+<p>
+<%== epub_friendly(book.body) %>
+</p>
 
 <div style="display:block; clear:both; page-break-after:always;"></div>
 
