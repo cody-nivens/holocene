@@ -78,7 +78,7 @@ class Story < ApplicationRecord
         count += scene.section.word_count unless scene.section.nil?
       end
     end
-    count
+    count + WordsCounted.count(summary_body.to_plain_text).token_count
   end
 
   def word_counts

@@ -13,12 +13,6 @@
   </table>
 <% end %>
 
-<% unless long.nil? %>
-<p>
-  <%== @book.body %>
-</p>
-<% end %>
-
 <% if @book.is_fiction? %>
   <%= render 'books/fiction', book: @book, stories: @stories, long: long %>
 <% else %>
