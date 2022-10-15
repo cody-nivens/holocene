@@ -16,7 +16,7 @@
         <%= prev_value %>
       </td><td>
       <% if metric.metrized.sectioned.class.name == 'Scene' %>
-        <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: metric.metrized.sectioned, scripted: metric.metrized.sectioned.key_point.scripted, key_point: metric.metrized.sectioned.key_point, pdf: nil, target: :_blank } %>
+        <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: metric.metrized.sectioned, scripted: metric.metrized.sectioned.key_point.scripted, key_point: metric.metrized.sectioned.key_point, pdf: nil, target: :_blank, long: true } %>
       <% else %>
         <%== breadcrumb(values[0], values[1], values[2], values[3], values[4], link: true) %>
       <% end %>
