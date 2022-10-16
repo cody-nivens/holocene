@@ -62,6 +62,18 @@
   </span>
 <% end %>
 
+<% c.tab 'Summary' do %>
+  <span>
+    <div class='container-fluid'>
+      <div class='row'>
+        <div class='col-sm-12'>
+          <%= @story.summary_body %>
+        </div>
+      </div>
+    </div>
+  </span>
+<% end %>
+
 <% c.tab 'Characters' do %>
   <span>
     <%= render partial: 'characters/characters_occ_ul', formats: [:html], locals: { object: @story } %>
