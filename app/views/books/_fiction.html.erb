@@ -25,7 +25,15 @@
     <div class='container-fluid'>
       <div class='row'>
         <div class='col-sm-12'>
+          <p>
           <%= @book.body %>
+          </p>
+          <% @stories.each do |story| %>
+            <% next unless story.title_page? or story.print_summary? %>
+            <p><strong><%= story.name %></strong><br>
+              <%= story.summary_body %>
+            </p>
+          <% end %>
         </div>
       </div>
     </div>

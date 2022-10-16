@@ -8,34 +8,36 @@
 
   <% items2 = wc_counts_info(story) %>
 <% end %>
-<dt class="col-sm-12">
-  <div class="narrow">
+<dt class="row">
+  <div class="col-sm-1 ">
     <%= story.scene_min %>
   </div>
-  <div class="narrow">
+  <div class="col-sm-1 ">
     <%= story.scene_max %>
   </div>
-  <div class="title">
+  <div class="col-sm-4 ">
     <%= story.scene_character %>
     <%= long ? link_to(story.title, story_path(story, long: long)) : link_to(story.title, story_path(story)) %>
     <%= link_to (fa_icon 'search-plus'), story_path(story), title: 'Show' %>
     <%= link_to (fa_icon 'edit'), edit_story_path(story), title: 'Edit' %>
     <%= link_to (fa_icon 'trash'), story_path(story), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
   </div>
-  <div class="narrow">
+  <div class="col-sm-1 ">
     <%== story.title_page? ? fa_icon('check') : '&nbsp;' %>
   </div>
   <% if long %>
-    <div class="progress_bar">
+    <div class="col-sm-1 ">
       <%= render partial: 'shared/progress_bar', locals: { items: items2 } %>
     </div>
-    <div class="medium">
+    <div class="col-sm-2 ">
       <%= scene_count %> (<%= section_count %> <%= (scene_count.zero? ? '' : number_with_precision((section_count.to_f / scene_count) * 100.0, precision: 2)) %>%)
     </div>
-    <div class="medium">
+    <div class="col-sm-2 ">
       <%== render partial: "shared/word_count", locals: { obj: story } %>
     </div>
   <% end %>
   <div style="clear:both"></div>
 </dt>
-<dd class="col-sm-12"><%= story.summary_body %></dd>
+<dd class="row">
+
+</dd>
