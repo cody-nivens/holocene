@@ -12,4 +12,25 @@
 
   <%= render partial: 'books/book_stats', locals: { book: book } %>
 <% end %>
+<%= tabs do |c| %>
+
+<% c.tab 'Stories' do %>
+ <span>
 <%= render partial: 'stories/index', formats: [:html], locals: { stories: stories, book: book, long: long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
+ </span>
+<% end %>
+
+<% c.tab 'Summary' do %>
+  <span>
+    <div class='container-fluid'>
+      <div class='row'>
+        <div class='col-sm-12'>
+          <%= @book.body %>
+        </div>
+      </div>
+    </div>
+  </span>
+<% end %>
+
+<% end %>
+
