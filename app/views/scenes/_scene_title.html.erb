@@ -25,6 +25,7 @@
       <% unless scene.section.nil? %>
         <td width="25%;">  <strong><i><%= scene.section.name %></i></strong></td>
       <% end %>
+      <td width="43%;"><%= scene.artifact.nil? ? '' : "#{scene.artifact_name} - " %><%= scene.place.empty? ? '' : "#{scene.place&.to_plain_text}" %></td>
       <td class="text-end" width="5%;">
         <% if long %>
         <span style="background-color: #<%= count_color(wc) %>">
@@ -32,7 +33,6 @@
         </span>
       <% end %>
       </td>
-      <td width="43%;"><%= scene.artifact.nil? ? '' : "#{scene.artifact_name} - " %><%= scene.place.empty? ? '' : "#{scene.place&.to_plain_text}" %></td>
       <% if print_name %>
         </td></tr><tr><td></td><td colspan="6">  <br> <%= (short_labels ? scene.name : scene.plain_name) %></td>
       <% end %>
