@@ -15,7 +15,6 @@
         <td width="16%;">  <%= scene.time_to_text %></td>
         <td width="1%;">  <%= (scene.title_scene? ? '*' : ' ') %> </td>
         <td width="2%;">  <%= (scene.check? ? fa_icon('check') : ' ') %> </td>
-        <td width="3%;">  <%= long ? number_with_delimiter(scene.characters.size, :delimiter => ',') : '' %></td>
         <td width="5%;">
           <% if target.nil? %>
             <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene)) : scene.abc) %></td>
@@ -26,7 +25,7 @@
       <% unless scene.section.nil? %>
         <td width="25%;">  <strong><i><%= scene.section.name %></i></strong></td>
       <% end %>
-      <td width="5%;">
+      <td class="text-end" width="5%;">
         <% if long %>
         <span style="background-color: #<%= count_color(wc) %>">
           <%=  number_with_delimiter(wc, :delimiter => ',') %>
