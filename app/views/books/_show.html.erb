@@ -15,7 +15,7 @@
 <% @notes = {} -%>
 
 <% if book.is_fiction? %>
-  <% scenes = Scene.get_scenes(book, 'off') %>
+  <% scenes = Scene.get_scenes_wi_to_array(book, 'off') %>
   <%= render partial: 'shared/scenes', locals: { scenes: scenes, op: 'view', outline: outline, pdf: pdf, long: long } %>
 <% else %>
   <%# chapters.includes(partition: { :rich_text_body }, chapter: { :rich_text_body }, aside: { :rich_text_body }).each do |chapter| -%>

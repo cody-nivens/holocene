@@ -29,14 +29,17 @@ class ScenesController < ApplicationController
     end
 
     @year = params[:year]
-    @scenes = @no_scene ? nil : Scene.get_scenes(@situated, @toggle)
+    @scenes = Scene.get_scenes_wi_to_array(@situated, @toggle)
     unless @scenes.nil?
-      @years =  @scenes.keys.sort
+    if 1 == 0
+      @years =  @scenes.sort
       if @year.nil?
         @scenes = @scenes
         @year = @years[0] if @year.nil?
       end
 
+    end
+    @years = []
       @year_options = []
       @years.each do |year|
         @year_options << [year, year]
@@ -61,7 +64,8 @@ class ScenesController < ApplicationController
   # GET /scenes/1.json
   def show
     @title = @scene.name
-    @situated = @scene.situated
+    @situated = @scene.book
+    @scenes_wi = Scene.get_scenes_wi_to_array(@situated, @toggle)
   end
 
   def move

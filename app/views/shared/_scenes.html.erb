@@ -3,12 +3,14 @@
 <% inserted_scenes = [] %>
 <% last_scene = nil %>
 
-<% scenes.keys.sort.each do |year| %>
-  <% scenes[year].keys.sort.each do |month| %>
-    <% scenes[year][month].keys.sort.each do |day| %>
-      <% scenes[year][month][day].keys.sort.each do |hour| %>
-        <% scenes[year][month][day][hour].keys.sort.each do |minute| %>
-          <% scenes[year][month][day][hour][minute].each do |scene| %>
+<%# scenes.keys.sort.each do |year| %>
+  <%# scenes[year].keys.sort.each do |month| %>
+    <%# scenes[year][month].keys.sort.each do |day| %>
+      <%# scenes[year][month][day].keys.sort.each do |hour| %>
+        <%# scenes[year][month][day][hour].keys.sort.each do |minute| %>
+          <%# scenes[year][month][day][hour][minute].each do |scene_id| %>
+            <% scenes.each do |scene_id| %>
+            <% scene = Scene.find(scene_id) %>
             <% case op %>
             <% when 'words' %>
               <% next unless scene.section.nil? or (scene.section.word_count <= high.to_i and scene.section.word_count > low.to_i) %>
@@ -49,16 +51,16 @@
                 <% end %>
               <% end %>
             <% when 'view' %>
-              <% next if inserted_scenes.include?(scene.id) %>
-              <% insert_scenes = Scene.where(insert_scene_id: scene.id) %>
-              <% insert_scenes.each do |iscene| %>
-                <% next if inserted_scenes.include?(iscene.id) %>
-                <% next unless iscene.key_point.scripted.publish? %>
-                <% inserted_scenes << iscene.id %>
+              <%# next if inserted_scenes.include?(scene.id) %>
+              <%# insert_scenes = Scene.where(insert_scene_id: scene.id) %>
+              <%# insert_scenes.each do |iscene| %>
+                <%# next if inserted_scenes.include?(iscene.id) %>
+                <%# next unless iscene.key_point.scripted.publish? %>
+                <%# inserted_scenes << iscene.id %>
 
-                <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: iscene, outline: outline, pdf: nil, long: long } %>
-                <% line_count += 1 if outline %>
-              <% end %>
+                <%#= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: iscene, outline: outline, pdf: nil, long: long } %>
+                <%# line_count += 1 if outline %>
+              <%# end %>
               <% if scene.title_scene and scene.situated.title_page? %>
                 <div style="display:block; clear:both; page-break-after:always;"></div>
                 <h2><%= scene.situated.title %></h2>
@@ -72,7 +74,7 @@
                 <% end %>
               <% end %>
 
-              <% unless inserted_scenes.include?(scene.id) %>
+              <%# unless inserted_scenes.include?(scene.id) %>
                 <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline, pdf: nil, long: long } %>
                 <% if outline %>
                   <% if line_count == 50 %>
@@ -82,11 +84,11 @@
                     <% line_count += 1 if outline %>
                   <% end %>
                 <% end %>
-              <% end %>
+              <%# end %>
             <% end %>
-          <% end %>
-        <% end %>
-      <% end %>
-    <% end %>
-  <% end %>
+          <%# end %>
+        <%# end %>
+      <%# end %>
+    <%# end %>
+  <%# end %>
 <% end %>

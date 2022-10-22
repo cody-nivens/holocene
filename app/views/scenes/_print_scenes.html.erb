@@ -8,7 +8,8 @@
     <% scenes[year][month].keys.sort.each do |day| %>
       <% scenes[year][month][day].keys.sort.each do |hour| %>
         <% scenes[year][month][day][hour].keys.sort.each do |minute| %>
-          <% scenes[year][month][day][hour][minute].each do |scene| %>
+          <% scenes[year][month][day][hour][minute].each do |scene_id| %>
+            <% scene = Scene.find(scene_id) %>
             <%# next if scene.section.nil? %>
             <% next if inserted_scenes.include?(scene.id) %>
             <% insert_scenes = Scene.where(insert_scene_id: scene.id) %>

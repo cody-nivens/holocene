@@ -6,10 +6,20 @@
 </h2>
 
 <%= render partial: 'scenes/stats', locals: { object: @scene } %>
+<%= tabs do |c| %>
+  <% c.tab "Body" do %>
+  <% unless @scene.section.nil? %>
+    <% values = @scene.set_values %>
+    <% text = @scene.section.body %>
+    <%== highlight(text.to_s, Regexp.new(KeyWord.where(book_id: values[0].id).collect(&:key_word).join('|'))) %>
+  <% end %>
+<% end %>
+  <% c.tab "summary" do %>
 <p>
   <%= @scene.summary %>
 </p>
-
+<% end %>
+  <% c.tab "Plot" do %>
 <% unless @scene.goal_reaction.blank? %>
   <p>
     <strong>Goal/Reaction:</strong>
@@ -67,8 +77,9 @@
   </p>
 <% end %>
 
+<% end %>
+  <% c.tab "Scenes" do %>
 <% scenes = Scene.where(insert_scene_id: @scene.id).order(:date_string, :abc) %>
-<p>
   <% unless scenes.size == 0 %>
     <strong>Scenes:</strong>
     <br>
@@ -80,12 +91,8 @@
       <% end %>
     </ul>
   <% end %>
-  <hr>
-  <% unless @scene.section.nil? %>
-    <% values = @scene.set_values %>
-    <% text = @scene.section.body %>
-    <%== highlight(text.to_s, Regexp.new(KeyWord.where(book_id: values[0].id).collect(&:key_word).join('|'))) %>
-  <% end %>
+<% end %>
+<% end %>
 </p>
 
 <% if @scene.section.nil? %>
@@ -97,17 +104,20 @@
 <% add_to_footer('Move', polymorphic_path([@scene, :move])) %>
 <% add_to_footer('Destroy', scene_path(@scene), method: :delete, data: { confirm: 'Are you sure?' }) %>
 <% add_to_footer('Back', (@scene.key_point.nil? ? polymorphic_path([@situated, :scenes]) : key_point_path(@scene.key_point))) %>
-<% prev_scene = @scene %>
-<% loop do prev_scene = prev_scene.previous(field: :date_string) %>
-<% break if prev_scene.nil? or prev_scene.book_id == @scene.book_id %>
+
+<% scene_index = @scenes_wi.find_index(@scene.id) %>
+<%# prev_scene = @scene %>
+<%# loop do prev_scene = prev_scene.previous(field: :date_string) %>
+<%# break if prev_scene.nil? or prev_scene.book_id == @scene.book_id %>
+<%# end %>
+<% unless scene_index.nil? or scene_index == 0 %>
+  <% add_to_footer('<', scene_path(id: @scenes_wi[scene_index - 1]), classes: 'btn icon-ok icon-white') %>
 <% end %>
-<% unless prev_scene.nil? %>
-  <% add_to_footer('<', scene_path(prev_scene), classes: 'btn icon-ok icon-white') %>
-<% end %>
-<% next_scene = @scene %>
-<% loop do next_scene = next_scene.next(field: :date_string) %>
-<% break if next_scene.nil? or next_scene.book_id == @scene.book_id %>
-<% end %>
-<% unless next_scene.nil? %>
-  <% add_to_footer('>', scene_path(next_scene), classes: 'btn icon-ok icon-white') %>
+
+<%# next_scene = @scene %>
+<%# loop do next_scene = next_scene.next(field: :date_string) %>
+<%# break if next_scene.nil? or next_scene.book_id == @scene.book_id %>
+<%# end %>
+<% unless scene_index.nil? or scene_index == @scenes_wi.length - 1 %>
+  <% add_to_footer('>', scene_path(id: @scenes_wi[scene_index + 1]), classes: 'btn icon-ok icon-white') %>
 <% end %>

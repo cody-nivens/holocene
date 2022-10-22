@@ -42,7 +42,7 @@ class Section < ApplicationRecord
 
   def word_count(publish = false)
     return 0 if publish and !sectioned.publish?
-        val = $redis.get("section_#{id}")
+    val = $redis.get("section_#{id}")
     if val.nil?
       values = { updated_at: nil, count: 0 }
     else
