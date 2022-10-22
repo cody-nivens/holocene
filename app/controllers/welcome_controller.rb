@@ -1,22 +1,25 @@
 class WelcomeController < ApplicationController
   def index
     @title = "Progress"
-    @today_mod        = Metric.today(:date).where(user_id: current_user.id).order(date: :desc)
-    @today_create     = Metric.today.where(user_id: current_user.id).order(created_at: :desc)
+    @start_date       = params[:start_date]
+    @today_date = @start_date.nil? ? Date.today : Date.parse(@start_date)
 
-    @yesterday_mod    = Metric.yesterday(:date).where(user_id: current_user.id).order(date: :desc)
-    @yesterday_create = Metric.yesterday.where(user_id: current_user.id).order(created_at: :desc)
+    @today_mod        = Metric.by_day(@today_date, field: :date).where(user_id: current_user.id).order(date: :desc)
+    @today_create     = Metric.by_day(@today_date).where(user_id: current_user.id).order(created_at: :desc)
 
-    @last_fortnight_mod    = Metric.past_fortnight(:date).where(user_id: current_user.id).order(date: :desc)
-    @last_fortnight_create = Metric.past_fortnight.where(user_id: current_user.id).order(created_at: :desc)
+    @yesterday_mod    = Metric.by_day(@today_date - 1.day, field: :date).where(user_id: current_user.id).order(date: :desc)
+    @yesterday_create = Metric.by_day(@today_date - 1.day).where(user_id: current_user.id).order(created_at: :desc)
+
+    @last_fortnight_mod    = Metric.between_dates(@today_date - 2.weeks, @today_date, field: :date).where(user_id: current_user.id).order(date: :desc)
+    @last_fortnight_create = Metric.between_dates(@today_date - 2.weeks, @today_date).where(user_id: current_user.id).order(created_at: :desc)
 
     items = {}
     @dates_counts = {}
-    #metrics = Metric.past_fortnight(:date).where(user_id: current_user.id).order(date: :desc)
-    metrics = Metric.past_month.where(user_id: current_user.id).order(date: :desc)
+
+    metrics = Metric.between_dates(@today_date - 35.days, @today_date).where(user_id: current_user.id).order(date: :desc)
     metrics.pluck(:metrized_id).sort.uniq.each do |item|
       #Metric.past_fortnight(:date).where(metrized_id: item).each do |y|
-      Metric.past_month.where(metrized_id: item).each do |y|
+      Metric.between_dates(@today_date - 35.days, @today_date).where(metrized_id: item).each do |y|
         items[y.date] = [] if items[y.date].nil?
         items[y.date] << [y.id, y.metrized_id] unless items[y.date].include?([y.id, y.metrized_id])
       end
