@@ -2,6 +2,7 @@
 <% line_count = 0 %>
 <% inserted_scenes = [] %>
 <% last_scene = nil %>
+<% pdf ||= nil %>
 
 <%# scenes.keys.sort.each do |year| %>
   <%# scenes[year].keys.sort.each do |month| %>
@@ -14,10 +15,10 @@
             <% case op %>
             <% when 'words' %>
               <% next unless scene.section.nil? or (scene.section.word_count <= high.to_i and scene.section.word_count > low.to_i) %>
-              <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, target: :_blank, long: long } %>
+              <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: pdf, target: :_blank, long: long } %>
             <% when 'chars' %>
               <% next if scene.characters.size > 0 %>
-              <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, target: :_blank, long: long } %>
+              <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: pdf, target: :_blank, long: long } %>
             <% when 'scenes' %>
               <% next if option == "no_section" && !scene.section.nil? %>
               <% next if option == "only_section" && scene.section.nil? %>
@@ -45,7 +46,7 @@
                 <% values = scene.set_values %>
                 <div class='float-left'><%= (scene.section.nil? ? '*' : ' ') -%></div>
                 <% if print.nil? %>
-                  <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, target: :_blank, long: long } %>
+                  <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: pdf, target: :_blank, long: long } %>
                 <% else %>
                   <%= values.compact.collect(&:name).join('|') -%>
                 <% end %>
@@ -75,7 +76,7 @@
               <% end %>
 
               <%# unless inserted_scenes.include?(scene.id) %>
-                <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline, pdf: nil, long: long } %>
+                <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline, pdf: pdf, long: long } %>
                 <% if outline %>
                   <% if line_count == 50 %>
                     <% line_count = 0 %>

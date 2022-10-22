@@ -6,6 +6,14 @@
 <strong>Copyright:</strong><%= Date.today.strftime("%Y") %>
 <% if outline.nil? %>
 <p>
+<%== epub_friendly(book.publisher) %>
+</p>
+<% end %>
+
+
+<% if outline.nil? %>
+<div style="display:block; clear:both; page-break-after:always;"></div>
+<p>
 <%== epub_friendly(book.body) %>
 </p>
 <% end %>

@@ -9,6 +9,11 @@
 <table style="width:100%">
   <tbody>
     <tr>
+    <% if pdf and !long %>
+      <td width="20%;">  <%= scene.time_to_text %></td>
+      <td width="25%;">  <strong><i><%= scene.section.name %></i></strong></td>
+      <td width="55%;"><%= scene.artifact.nil? ? '' : "#{scene.artifact_name} - " %><%= scene.place.empty? ? '' : "#{scene.place&.to_plain_text}" %></td>
+    <% else %>
       <% if inline_date %>
         <td colspan="7"><%= scene.time_to_text %> :</td>
       <% else %>
@@ -36,6 +41,7 @@
       <% if print_name %>
         </td></tr><tr><td></td><td colspan="6">  <br> <%= (short_labels ? scene.name : scene.plain_name) %></td>
       <% end %>
+    <% end %>
     </tr>
   </tbody>
 </table>
