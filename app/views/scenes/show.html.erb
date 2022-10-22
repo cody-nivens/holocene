@@ -97,12 +97,17 @@
 <% add_to_footer('Move', polymorphic_path([@scene, :move])) %>
 <% add_to_footer('Destroy', scene_path(@scene), method: :delete, data: { confirm: 'Are you sure?' }) %>
 <% add_to_footer('Back', (@scene.key_point.nil? ? polymorphic_path([@situated, :scenes]) : key_point_path(@scene.key_point))) %>
-
-<% prev_scene = @scene.set_prev %>
+<% prev_scene = @scene %>
+<% loop do prev_scene = prev_scene.previous(field: :date_string) %>
+<% break if prev_scene.nil? or prev_scene.book_id == @scene.book_id %>
+<% end %>
 <% unless prev_scene.nil? %>
   <% add_to_footer('<', scene_path(prev_scene), classes: 'btn icon-ok icon-white') %>
 <% end %>
-<% next_scene = @scene.set_next %>
+<% next_scene = @scene %>
+<% loop do next_scene = next_scene.next(field: :date_string) %>
+<% break if next_scene.nil? or next_scene.book_id == @scene.book_id %>
+<% end %>
 <% unless next_scene.nil? %>
   <% add_to_footer('>', scene_path(next_scene), classes: 'btn icon-ok icon-white') %>
 <% end %>

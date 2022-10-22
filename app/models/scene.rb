@@ -1,7 +1,7 @@
 class Scene < ApplicationRecord
   include SharedMethods
   include Rails.application.routes.url_helpers
-  include RankedModel
+  #include RankedModel
 
   ThinkingSphinx::Callbacks.append(
     self, behaviours: [:sql]
@@ -14,7 +14,7 @@ class Scene < ApplicationRecord
   belongs_to :book
   belongs_to :key_point, optional: true
   acts_as_list scope: :key_point
-  ranks :position, with_same: [:key_point_id, :selector]
+  #ranks :position, with_same: [:key_point_id, :selector]
 
   belongs_to :artifact, optional: true
   belongs_to :situated, polymorphic: true

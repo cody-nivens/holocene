@@ -4,7 +4,7 @@
   <div class="chapter_outer-sortable" style="cursor: grab;">
     <%= content_tag 'div', id: "key_point-#{key_point.id}", data: { id: key_point.id, model_name: key_point.class.name.underscore, update_url: key_point_sort_path(key_point) } do %>
       <div class="scene-sortable" style="cursor: grab; min-height: 10px;">
-        <% scenes.rank(:position).each do |scene| %>
+        <% scenes.each do |scene| %>
           <%= content_tag 'div', id: "scene-#{scene.id}", data: { model_name: scene.class.name.underscore, update_url: polymorphic_path([scene, :sort]) } do %>
             <%= render partial: 'scenes/scene', formats: [:html], locals: { scene: scene, scripted: scripted, key_point: key_point, pdf: pdf } %>
           <% end %>
