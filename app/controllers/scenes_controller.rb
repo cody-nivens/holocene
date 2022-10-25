@@ -76,6 +76,7 @@ class ScenesController < ApplicationController
   def moved
     @situated = @scene.situated
     @key_point = @scene.key_point
+    @scene.book = @key_point.scripted.book
     @selector = params[:selector]
     @new_selector = params[:new_selector]
     title = @key_point.selector_value(@selector)
@@ -125,7 +126,11 @@ class ScenesController < ApplicationController
     @scene = Scene.new(scene_params)
     @key_point = @scene.key_point
     @situated = @scene.situated
+    @scene.book = @key_point.scripted.book
     @scene.date_string = '%04d' % params['t_years'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i + '-%02d' % params['t']['hour'].to_i + '-%02d' % params['t']['minute'].to_i
+
+    $redis.set("book_scenes_#{@scene.book.id}", nil)
+    $redis.set("story_scenes_#{@situated.id}", nil)
 
     respond_to do |format|
       if @scene.save
@@ -143,6 +148,9 @@ class ScenesController < ApplicationController
   def update
     @scene.date_string = '%04d' % params['t_years'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i + '-%02d' % params['t']['hour'].to_i + '-%02d' % params['t']['minute'].to_i
     @situated = @scene.situated
+
+    $redis.set("book_scenes_#{@scene.book.id}", nil)
+    $redis.set("story_scenes_#{@situated.id}", nil)
 
     respond_to do |format|
       if @scene.update(scene_params)
