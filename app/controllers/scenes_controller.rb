@@ -14,7 +14,8 @@ class ScenesController < ApplicationController
     if @button_action == "Reset Checked" and @situated.class.name == 'Book'
       scenes = Scene.get_scenes_to_array(@situated)
       scenes.each do |scene|
-        scene.update_attribute(:check, false)
+        my_scene = Scene.find(scene)
+        my_scene.update_attribute(:check, false)
       end
     end
 
@@ -130,7 +131,7 @@ class ScenesController < ApplicationController
     @key_point = @scene.key_point
     @situated = @scene.situated
     @scene.book = @key_point.scripted.book
-    @scene.date_string = '%04d' % params['t']['t_years'].to_i + '-%02d' % params['t']['t_month'].to_i + '-%02d' % params['t']['t_day'].to_i + '-%02d' % params['t']['t_hour'].to_i + '-%02d' % params['t']['t_minute'].to_i
+    @scene.date_string = '%04d' % params['t_years'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i + '-%02d' % params['t']['hour'].to_i + '-%02d' % params['t']['minute'].to_i
 
     $redis.set("book_scenes_#{@scene.book.id}", nil)
     $redis.set("story_scenes_#{@situated.id}", nil)
@@ -149,7 +150,7 @@ class ScenesController < ApplicationController
   # PATCH/PUT /scenes/1
   # PATCH/PUT /scenes/1.json
   def update
-    @scene.date_string = '%04d' % params['t']['t_years'].to_i + '-%02d' % params['t']['t_month'].to_i + '-%02d' % params['t']['t_day'].to_i + '-%02d' % params['t']['t_hour'].to_i + '-%02d' % params['t']['t_minute'].to_i
+    @scene.date_string = '%04d' % params['t_years'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i + '-%02d' % params['t']['hour'].to_i + '-%02d' % params['t']['minute'].to_i
     @situated = @scene.situated
 
     $redis.set("book_scenes_#{@scene.book.id}", nil)

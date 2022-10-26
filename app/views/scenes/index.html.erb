@@ -49,6 +49,11 @@
         <legend class="w-auto px-2">Report</legend>
         <div class='form-check'>
           <label class='checkbox'>
+            <%= radio_button_tag :option, :all, @all, class: 'checkbox inline' %> All
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
             <%= radio_button_tag :option, :no_section, @no_section, class: 'checkbox inline' %> No Section
           </label>
         </div>
