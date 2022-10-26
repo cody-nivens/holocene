@@ -82,6 +82,9 @@ class ScenesController < ApplicationController
     title = @key_point.selector_value(@selector)
     @scene.save
 
+    $redis.set("book_scenes_#{@scene.book.id}", nil)
+    $redis.set("story_scenes_#{@situated.id}", nil)
+
     respond_to do |format|
       if params[:new_key_point_id].present? && @scene.update({ key_point_id: params[:new_key_point_id],
                                                                selector: @new_selector })
