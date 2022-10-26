@@ -110,10 +110,12 @@ module ActiveSupport
     end
 
     def setup
+      $redis.flushall
     end
 
     def teardown
       Capybara.reset_sessions!
+      $redis.flushall
     end
 
     def after_run

@@ -45,8 +45,8 @@ class StoriesFlowTest < ActionDispatch::IntegrationTest
     key_point = KeyPoint.last
 
     assert_difference('Scene.count') do
-      post polymorphic_url([story, :scenes]), params: { scene: { key_point_id: key_point.id, situated_type: story.class.name, situated_id: story.id, abc: @scene.abc, check: @scene.check, scene_sequel: @scene.scene_sequel, date_string: @scene.date_string },
-                                                        t: { t_years: '', t_month: '', t_day: '' } }
+      post polymorphic_url([story, :scenes]), params: { scene: { key_point_id: key_point.id, situated_type: story.class.name, situated_id: story.id, abc: @scene.abc, check: @scene.check, scene_sequel: @scene.scene_sequel, date_string: @scene.date_string, book_id: @scene.book_id },
+                                                        t: { t_years: '99', t_month: '8', t_day: '23', t_hour: '8', t_minute: '23' } }
     end
 
     assert_response :redirect

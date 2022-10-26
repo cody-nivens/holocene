@@ -17,6 +17,7 @@
     <%= hidden_field_tag :selector, selector %>
     <% kp_value = (key_point.nil? ? nil : key_point.id) -%>
     <%= f.hidden_field :key_point_id, value: (scene.key_point.nil? ? kp_value : scene.key_point.id) %>
+    <%= f.hidden_field :book_id %>
     <%= f.hidden_field :situated_id %>
     <%= f.hidden_field :situated_type %>
     <%= f.hidden_field :selector, value: (scene.selector.nil? ? selector.to_i : scene.selector) %>

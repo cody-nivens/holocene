@@ -130,7 +130,7 @@ class ScenesController < ApplicationController
     @key_point = @scene.key_point
     @situated = @scene.situated
     @scene.book = @key_point.scripted.book
-    @scene.date_string = '%04d' % params['t_years'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i + '-%02d' % params['t']['hour'].to_i + '-%02d' % params['t']['minute'].to_i
+    @scene.date_string = '%04d' % params['t']['t_years'].to_i + '-%02d' % params['t']['t_month'].to_i + '-%02d' % params['t']['t_day'].to_i + '-%02d' % params['t']['t_hour'].to_i + '-%02d' % params['t']['t_minute'].to_i
 
     $redis.set("book_scenes_#{@scene.book.id}", nil)
     $redis.set("story_scenes_#{@situated.id}", nil)
@@ -149,7 +149,7 @@ class ScenesController < ApplicationController
   # PATCH/PUT /scenes/1
   # PATCH/PUT /scenes/1.json
   def update
-    @scene.date_string = '%04d' % params['t_years'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i + '-%02d' % params['t']['hour'].to_i + '-%02d' % params['t']['minute'].to_i
+    @scene.date_string = '%04d' % params['t']['t_years'].to_i + '-%02d' % params['t']['t_month'].to_i + '-%02d' % params['t']['t_day'].to_i + '-%02d' % params['t']['t_hour'].to_i + '-%02d' % params['t']['t_minute'].to_i
     @situated = @scene.situated
 
     $redis.set("book_scenes_#{@scene.book.id}", nil)
@@ -198,7 +198,7 @@ class ScenesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def scene_params
     params.require(:scene).permit(:abc, :check, :summary, :place, :time, :scene_sequel, :goal_reaction, :conflict_dilemma, :disaster_decision, 
-                                  :short_term_goal, :long_term_goal, :over_arching_goal, :situated_id,
+                                  :short_term_goal, :long_term_goal, :over_arching_goal, :situated_id, :book_id,
                                   :situated_type, :selector, :key_point_id, :section_id, :insert_scene_id, :before_flag, :artifact_id, :position_position, :title_scene)
   end
 end

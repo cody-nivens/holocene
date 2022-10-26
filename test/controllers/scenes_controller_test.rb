@@ -90,7 +90,7 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create scene' do
     assert_difference('Scene.count') do
-      post polymorphic_url([@situated, :scenes]), params: { scene: { key_point_id: @scene.key_point.id, situated_type: @situated.class.name, situated_id: @situated.id, abc: @scene.abc, artifact_id: nil, check: @scene.check, scene_sequel: @scene.scene_sequel, date_string: @scene.date_string },
+      post polymorphic_url([@situated, :scenes]), params: { scene: { key_point_id: @scene.key_point.id, situated_type: @situated.class.name, situated_id: @situated.id, abc: @scene.abc, artifact_id: nil, check: @scene.check, scene_sequel: @scene.scene_sequel, date_string: @scene.date_string, book_id: @scene.book_id },
                                                             t: { t_years: '', t_month: '', t_day: '' } }
     end
 
@@ -99,8 +99,8 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should not create scene' do
     assert_difference('Scene.count', 0) do
-      post polymorphic_url([@situated, :scenes]), params: { scene: { situated_type: @situated.class.name, situated_id: @situated.id, abc: '', check: @scene.check, scene_sequel: @scene.scene_sequel, date_string: '' },
-                                                            t: { t_years: '', t_month: '', t_day: '' } }
+      post polymorphic_url([@situated, :scenes]), params: { scene: { situated_type: @situated.class.name, situated_id: @situated.id, abc: '', check: @scene.check, scene_sequel: @scene.scene_sequel, date_string: '', book_id: @scene.book_id, key_point_id: @scene.key_point.id },
+                                                            t: { t_years: '99', t_month: '8', t_day: '23', t_hour: '8', t_minute: '23' } }
     end
 
     assert_response :success
