@@ -30,4 +30,4 @@
 <br>
 
 <% add_to_footer('New Signet', new_polymorphic_path([@sigged, :signet])) %>
-<% add_to_footer('Back', polymorphic_path([@sigged, :signets])) %>
+<% add_to_footer('Back', polymorphic_path(@sigged)) %>

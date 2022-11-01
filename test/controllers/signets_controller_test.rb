@@ -4,6 +4,7 @@ require 'test_helper'
 
 class SignetsControllerTest < ActionDispatch::IntegrationTest
   setup do
+    @book = books(:book_1)
     @signet = signets(:signet_1)
     @chapter = chapters(:chapter_1)
     @chapter_sig = signets(:signet_2)
@@ -20,7 +21,7 @@ class SignetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should get index 2' do
-    get signets_url
+    get book_signets_url(@book)
     assert_response :success
   end
 
