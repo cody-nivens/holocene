@@ -80,19 +80,24 @@ class ScenesController < ApplicationController
     @scene.book = @key_point.scripted.book
     @selector = params[:selector]
     @new_selector = params[:new_selector]
-    title = @key_point.selector_value(@selector)
-    @scene.save
+     
+    
+    new_story = Story.find(params[:story_id])
+
+    @key_point = KeyPoint.find(params[:new_key_point_id])
+    @scene.key_point = @key_point
+    @scene.situated = new_story
+    @scene.book = new_story.book
 
     $redis.set("book_scenes_#{@scene.book.id}", nil)
     $redis.set("story_scenes_#{@situated.id}", nil)
 
+
     respond_to do |format|
-      if params[:new_key_point_id].present? && @scene.update({ key_point_id: params[:new_key_point_id],
-                                                               selector: @new_selector })
+      if @scene.save
+        title = @key_point.selector_value(@selector)
         @scene.key_point.selector_value_set(@new_selector, title)
         @scene.key_point.save
-        @scene.situated = @key_point.scripted
-        @scene.save
         format.html { redirect_to polymorphic_path(@scene), notice: 'Scene was successfully moved.' }
       else
         format.html do

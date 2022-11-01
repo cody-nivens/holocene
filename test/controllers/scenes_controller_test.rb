@@ -45,17 +45,11 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
   test 'should move scene' do
     [[1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 1]].each do |x, y|
       post polymorphic_url([@scene, :moved]),
-           params: { new_key_point_id: @key_point_2.id, new_selector: y, selector: x }
+        params: { new_key_point_id: @key_point_2.id, new_selector: y, selector: x, story_id: @scene.situated.id }
 
       assert_response :redirect
       assert_redirected_to polymorphic_url(@scene)
     end
-  end
-
-  test 'should not move scene' do
-    post polymorphic_url([@scene, :moved]), params: { new_selector: 3 }
-
-    assert_response :success
   end
 
   test 'should get index 2' do
