@@ -84,9 +84,9 @@ class BooksController < ApplicationController
       end
     end
 
-    Scene.includes([:situated]).order(:abc).each_with_index do |x, i|
-      x.update({ position: i })
-    end
+    #Scene.includes([:situated]).order(:abc).each_with_index do |x, i|
+    #  x.update({ position: i })
+    #end
 
     respond_to do |format|
       format.html { redirect_to book_stories_path(@book), notice: 'Stories were successfully resynced.' }
