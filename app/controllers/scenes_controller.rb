@@ -171,6 +171,8 @@ class ScenesController < ApplicationController
   # DELETE /scenes/1.json
   def destroy
     @situated = @scene.situated
+    $redis.set("book_scenes_#{@scene.book.id}", nil)
+    $redis.set("story_scenes_#{@situated.id}", nil)
     @scene.destroy
     respond_to do |format|
       format.html { redirect_to polymorphic_url([@situated, :scenes]), notice: 'Scene was successfully destroyed.' }

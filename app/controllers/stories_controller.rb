@@ -21,8 +21,10 @@ class StoriesController < ApplicationController
     @stories = Story.includes([:key_points]).where(book_id: @book.id).order(:position)
     @stories.each do |story|
       story.update_attribute(publish: true)
+      $redis.set("story_scenes_#{story.id}", nil)
     end
 
+    $redis.set("book_scenes_#{@book.id}", nil)
     respond_to do |format|
       format.html { render :index, locals: { all: all, long: long } }
     end
@@ -99,7 +101,13 @@ class StoriesController < ApplicationController
   end
 
   def moved
-    @story.update({ book_id: params[:new_book_id] })
+    book = @story.book
+    new_book = Book.find(params[:new_book_id] )
+    @story.update({ book_id: new_book.id })
+    $redis.set("book_scenes_#{book.id}", nil)
+    $redis.set("book_scenes_#{new_book.id}", nil)
+    $redis.set("story_scenes_#{@story.id}", nil)
+
     @book = @story.book
 
     respond_to do |format|
@@ -121,6 +129,8 @@ class StoriesController < ApplicationController
 
   def resync_scenes
     @story.resync_key_points(@story.book)
+    $redis.set("book_scenes_#{@story.book.id}", nil)
+    $redis.set("story_scenes_#{@story.id}", nil)
 
     respond_to do |format|
       format.html { redirect_to story_path(@story), notice: 'Story was successfully resynced.' }
@@ -143,6 +153,8 @@ class StoriesController < ApplicationController
 
     respond_to do |format|
       if @story.save
+        $redis.set("book_scenes_#{@story.book.id}", nil)
+        $redis.set("story_scenes_#{@story.id}", nil)
         format.html { redirect_to story_path(@story), notice: 'Story was successfully created.' }
         format.json { render :show, status: :created, location: @story }
       else
@@ -155,8 +167,13 @@ class StoriesController < ApplicationController
   # PATCH/PUT /stories/1
   # PATCH/PUT /stories/1.json
   def update
+    old_publish = @story.publish
     respond_to do |format|
       if @story.update(story_params)
+        if old_publish != @story.publish
+          $redis.set("book_scenes_#{@story.book.id}", nil)
+          $redis.set("story_scenes_#{@story.id}", nil)
+        end
         format.html { redirect_to story_url(@story), notice: 'Story was successfully updated.' }
         format.json { render :show, status: :ok, location: @story }
       else
@@ -169,6 +186,8 @@ class StoriesController < ApplicationController
   # DELETE /stories/1
   # DELETE /stories/1.json
   def destroy
+    $redis.set("book_scenes_#{@story.book.id}", nil)
+    $redis.set("story_scenes_#{@story.id}", nil)
     @story.destroy
     respond_to do |format|
       format.html { redirect_to book_stories_url(book_id: @book.id), notice: 'Story was successfully destroyed.' }

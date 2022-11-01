@@ -75,8 +75,10 @@ class BooksController < ApplicationController
 
   def resync_stories
     @book.resync_stories
+    $redis.set("book_scenes_#{@book.id}", nil)
 
     @book.stories.includes([:character_stories, :characters]).each do |story|
+      $redis.set("story_scenes_#{story.id}", nil)
       story.characters.each do |character|
         @book.characters << character unless @book.characters.include?(character)
       end
