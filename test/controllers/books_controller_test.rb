@@ -57,6 +57,11 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'should publish all stories' do
+    get book_publish_url(@book_2)
+    assert_response :success
+  end
+
   test 'should show book I' do
     get book_url(@book)
     assert_response :success

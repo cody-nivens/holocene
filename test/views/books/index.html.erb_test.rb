@@ -18,7 +18,9 @@ class BooksIndexHtmlErbTest < ActionDispatch::IntegrationTest
 
     assert_select 'a[text()=?]', 'New Book'
     assert_select 'a[href=?]', new_book_path
-    assert_select '.footer>div>a', 1
+    assert_select 'a[text()=?]', 'Long View'
+    assert_select 'a[href=?]', books_path(long: true)
+    assert_select '.footer>div>a', 2
     assert_template 'books/index'
 
     assert_select 'h2', 'Books'

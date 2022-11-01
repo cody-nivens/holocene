@@ -1,11 +1,8 @@
 <dt>
   <%= link_to book.name, book_path(book) %><%= link_to (fa_icon 'edit'), edit_book_path(book), title: 'Edit' %>
   <%= link_to (fa_icon 'sticky-note'), book_signets_path(book), title: 'Signets' %>
-<%= link_to (fa_icon 'book'), book_epub_path(book), title: 'EPub' %>
-<%= link_to (fa_icon 'file-pdf'), book_path(book, format: :pdf), title: 'PDF' %>
 <%= link_to (fa_icon 'trash'), book, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
+<% if @long %>
 <%= render partial: 'books/book_stats', locals: { book: book } %>
+<% end %>
 </dt>
-<dd>
-  <%= book.body %>
-</dd>

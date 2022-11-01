@@ -9,6 +9,7 @@ class Book < ApplicationRecord
   ranks :position, with_same: :user_id
 
   has_rich_text :body
+  has_rich_text :summary
   has_rich_text :publisher
 
   has_many :key_words, dependent: :destroy

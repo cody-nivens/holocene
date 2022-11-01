@@ -6,10 +6,11 @@
   <%= f.check_box :show_events %>
   <%= f.check_box :fiction %>
   <%= f.text_field :copyright %>
+  <%= f.rich_text_area :publisher, class: 'form-control' %>
 
   <%= f.hidden_field :user_id %>
   <%= f.rich_text_area :body, class: 'form-control customized-min-height' %>
-  <%= f.rich_text_area :publisher, class: 'form-control customized-min-height' %>
+  <%= f.rich_text_area :summary, class: 'form-control customized-min-height' %>
 
   <%= f.primary command_label.to_s %>
 <% end %>

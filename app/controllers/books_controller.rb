@@ -1,14 +1,26 @@
 class BooksController < ApplicationController
   before_action :set_book,
-                only: %i[view show chars stats timeline resync_stories toc epub export pdf edit update destroy]
+                only: %i[publish view show chars stats timeline resync_stories toc epub export pdf edit update destroy]
 
   # GET /books
   # GET /books.json
   def index
+    @long = params[:long]
     @books = Book.where(user_id: current_user.id).order(:position)
   end
 
   def stats; end
+
+  def publish
+    @stories = @book.stories.order(:position)
+    @stories.each do |story|
+      story.update_attribute(:publish, true)
+    end
+
+    respond_to do |format|
+      format.html { render :show, locals: { long: false } }
+    end
+  end
 
   def chars
     @characters = @book.characters
@@ -207,7 +219,7 @@ class BooksController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def book_params
-    params.require(:book).permit(:name, :body, :user_id, :show_events, :copyright, :sub_name, :publisher, :fiction,
+    params.require(:book).permit(:name, :body, :summary, :user_id, :show_events, :copyright, :sub_name, :publisher, :fiction,
                                  :position_position)
   end
 end

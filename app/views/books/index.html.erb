@@ -18,3 +18,8 @@
 <% end %>
 
 <% add_to_footer('New Book', new_book_path) %>
+<% if @long %>
+<% add_to_footer('Short View', books_path) %>
+<% else %>
+<% add_to_footer('Long View', books_path(long: true)) %>
+<% end %>
