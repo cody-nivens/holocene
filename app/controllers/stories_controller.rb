@@ -111,7 +111,7 @@ class StoriesController < ApplicationController
     @book = @story.book
     @story.key_points.each do |kp|
       kp.scenes.each do |scene|
-        scene.update_attribute(book_id: new_book.id)
+        scene.update_attribute(:book_id, new_book.id)
       end
     end
 
