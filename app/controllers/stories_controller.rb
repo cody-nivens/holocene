@@ -6,11 +6,25 @@ class StoriesController < ApplicationController
   # GET /stories.json
   def index
     long = params[:long]
+    all = params[:all]
 
-    @title = "Stories#{long.nil? ? '' : ', Long'}"
+    @title = "Stories#{all.nil? ? '' : ', All'}#{long.nil? ? '' : ', Long'}"
     @stories = Story.includes([:key_points]).where(book_id: @book.id).order(:position)
     respond_to do |format|
-      format.html { render :index, locals: { long: long } }
+      format.html { render :index, locals: { all: all, long: long } }
+    end
+  end
+
+  def publish
+    long = false
+    all = true
+    @stories = Story.includes([:key_points]).where(book_id: @book.id).order(:position)
+    @stories.each do |story|
+      story.update_attribute(publish: true)
+    end
+
+    respond_to do |format|
+      format.html { render :index, locals: { all: all, long: long } }
     end
   end
 

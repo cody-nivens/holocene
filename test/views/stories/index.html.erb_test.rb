@@ -21,7 +21,7 @@ class StoriesIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_select 'a[href=?]', new_polymorphic_path([@book, :story])
     assert_select 'a[text()=?]', 'Back'
     assert_select 'a[href=?]', book_path(@book)
-    assert_select '.footer>div>a', 5
+    assert_select '.footer>div>a', 6
     assert_template 'stories/index'
 
     assert_select 'h2', 'Stories'

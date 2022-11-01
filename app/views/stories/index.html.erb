@@ -1,6 +1,7 @@
 <% @title = "Stories" %>
 <h2>Stories</h2>
 
+<% if long %>
 <% z_count = 0 %>
 <% @book.stories.each do |story| %>
   <% word_counts = story.word_counts %>
@@ -10,11 +11,17 @@
 <% word_count = @book.word_count %>
 <% scene_count = @book.scene_count %>
 <% word_avg = word_count / (scene_count - z_count) %>
+<% else %>
+<% word_count = 0 %>
+<% scene_count = 0 %>
+<% word_avg = 0 %>
+<% end %>
 
 <%= render partial: 'stories/index', formats: [:html], locals: { stories: @stories, book: @book, long: long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
 
 <% add_to_footer('New Story', new_book_story_path(book_id: @book.id)) %>
 <% add_to_footer('Scenes', book_scenes_path(id: @book.id)) %>
+<% add_to_footer('Publish All', book_publish_path(id: @book.id)) %>
 <% add_to_footer('Timeline', book_timeline_path(id: @book.id)) %>
 <% add_to_footer('Resync Stories', book_resync_stories_path(id: @book.id)) %>
 <% add_to_footer('Back', book_path(@book)) %>
