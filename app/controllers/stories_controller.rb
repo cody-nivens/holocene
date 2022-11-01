@@ -109,6 +109,11 @@ class StoriesController < ApplicationController
     $redis.set("story_scenes_#{@story.id}", nil)
 
     @book = @story.book
+    @story.key_points.each do |kp|
+      kp.scenes.each do |scene|
+        scene.update_attribute(book_id: new_book.id)
+      end
+    end
 
     respond_to do |format|
       format.html { redirect_to polymorphic_url(@book), notice: 'Story successfully moved.' }
