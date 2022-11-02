@@ -84,14 +84,14 @@ class ScenesController < ApplicationController
     
     new_story = Story.find(params[:story_id])
 
-    @key_point = KeyPoint.find(params[:new_key_point_id])
-    @scene.key_point = @key_point
+    @new_key_point = KeyPoint.find(params[:new_key_point_id])
+    @scene.key_point = @new_key_point
     @scene.situated = new_story
+    @scene.selector = @new_selector
     @scene.book = new_story.book
 
     $redis.set("book_scenes_#{@scene.book.id}", nil)
     $redis.set("story_scenes_#{@situated.id}", nil)
-
 
     respond_to do |format|
       if @scene.save
