@@ -14,12 +14,12 @@
     <%== highlight(text.to_s, Regexp.new(KeyWord.where(book_id: values[0].id).collect(&:key_word).join('|'))) %>
   <% end %>
 <% end %>
-  <% c.tab "summary" do %>
+  <% c.tab "Summary" do %>
 <p>
   <%= @scene.summary %>
 </p>
 <% end %>
-  <% c.tab "Plot" do %>
+  <% c.tab "Plot/Characters" do %>
 <% unless @scene.goal_reaction.blank? %>
   <p>
     <strong>Goal/Reaction:</strong>
