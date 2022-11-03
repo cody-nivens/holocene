@@ -4,6 +4,7 @@
 <% last_scene = nil %>
 <% pdf ||= nil %>
 <% total_wc = 0 %>
+<% wc_total = scenes.collect{|x| Scene.find(x).word_count }.sum %>
 
 <% scenes.each do |scene_id| %>
   <% scene = Scene.find(scene_id) %>
@@ -59,7 +60,7 @@
         <% just_printed_page_break = true %>
       <% end %>
     <% end %>
-    <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline, pdf: pdf, long: long } %>
+    <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline, pdf: pdf, long: long, total_wc: total_wc, wc_total: wc_total } %>
     <% total_wc += scene.word_count %>
     <% if outline %>
       <% if line_count == 50 %>
