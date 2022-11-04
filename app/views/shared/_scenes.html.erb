@@ -1,5 +1,4 @@
 <% old_date = '' %>
-<% line_count = 0 %>
 <% inserted_scenes = [] %>
 <% last_scene = nil %>
 <% pdf ||= nil %>
@@ -51,23 +50,15 @@
     <% if scene.title_scene and scene.situated.title_page? %>
       <div style="display:block; clear:both; page-break-after:always;"></div>
       <h2><%= scene.situated.title %><%= outline ? " - WC: #{number_with_delimiter total_wc}" : "" %></h2>
-      <% just_printed_page_break = true %>
     <% end %>
     <% if scene.title_scene and scene.situated.print_summary? %>
       <% if !outline %>
         <%= scene.situated.summary_body %>
         <div style="display:block; clear:both; page-break-after:always;"></div>
-        <% just_printed_page_break = true %>
       <% end %>
     <% end %>
+    <div style="display:block; clear:both; page-break-after:always;"></div>
     <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline, pdf: pdf, long: long, total_wc: total_wc, wc_total: wc_total } %>
     <% total_wc += scene.word_count %>
-    <% if outline %>
-      <% if line_count == 50 %>
-        <% line_count = 0 %>
-      <% else %>
-        <% line_count += 1 if outline %>
-      <% end %>
-    <% end %>
   <% end %>
 <% end %>
