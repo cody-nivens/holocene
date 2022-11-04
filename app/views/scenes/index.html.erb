@@ -10,13 +10,18 @@
   <% end %>
 </h2>
 
+  <% scene_wc_counts = @scenes.collect{|x| Scene.find(x).word_count } %>
+  <% mean = scene_wc_counts.sum(0.0) / @scenes.length %>
+  <% sum = scene_wc_counts.sum(0.0) { |element| (element - mean) ** 2 } %>
+  <% variance = sum / (@scenes.length - 1) %>
+  <% standard_deviation = Math.sqrt(variance) %>
 
 <%= form_with model: Scene.new, url: (@situated.instance_of?(Book) ? book_scenes_path(@situated) : polymorphic_path([@situated, :scenes])), method: :get, id: 'my-form', remote: true, format: :js, class: 'form-inline' do %>
   <%= hidden_field_tag :situated_id, @situated.id %>
   <%= hidden_field_tag :situated_type, @situated.class.name %>
 
   <div class="row hide-print">
-    <div class='col-md-4'>
+    <div class='col-md-3'>
       <fieldset class="form-group border p-3">
         <legend class="w-auto px-2">Listing</legend>
         <div class="form-group">
@@ -39,17 +44,21 @@
       </div>
       <div class='col-md-2'>
         <%= submit_tag 'Go', type: 'submit', name: 'button_action', value: 'Go' %>
-        <%= submit_tag 'Reset Checked', type: 'submit', name: 'button_action', value: 'Reset Checked' %>
       </div>
     </fieldset>
   </div>
-  <div class='col-md-4'>
+  <div class='col-md-3'>
   <div class='row'>
       <fieldset class="form-group border p-3">
         <legend class="w-auto px-2">Report</legend>
         <div class='form-check'>
           <label class='checkbox'>
             <%= radio_button_tag :option, :all, @all, class: 'checkbox inline' %> All
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :chars, @chars, class: 'checkbox inline' %> Zero Charcters
           </label>
         </div>
         <div class='form-check'>
@@ -72,6 +81,12 @@
             <%= radio_button_tag :option, :has_inserts, @has_inserts, class: 'checkbox inline' %> Has Inserts
           </label>
         </div>
+      </fieldset>
+    </div>
+  </div>
+  <div class='col-md-3'>
+      <fieldset class="form-group border p-3">
+        <legend class="w-auto px-2">Checked</legend>
         <div class='form-check'>
           <label class='checkbox'>
             <%= radio_button_tag :option, :not_checked, @not_checked, class: 'checkbox inline' %> Not Checked
@@ -82,27 +97,22 @@
             <%= radio_button_tag :option, :checked, @checked, class: 'checkbox inline' %> Checked
           </label>
         </div>
-        <div class='form-check'>
-          <label class='checkbox'>
-            <%= radio_button_tag :option, :chars, @chars, class: 'checkbox inline' %> Zero Charcters
-          </label>
-        </div>
+        <%= submit_tag 'Reset Checked', type: 'submit', name: 'button_action', value: 'Reset Checked' %>
       </fieldset>
-    </div>
   </div>
-  <div class='col-md-4'>
+  <div class='col-md-3'>
     <fieldset class="form-group border p-3">
       <legend class="w-auto px-2">Word Counts</legend>
       <div class='field'>
-        <label class="form-label" for="form12">Low</label>
+        <label class="form-label" for="form12">Low: <%= mean.to_i - standard_deviation.to_i %></label>
         <%= text_field_tag :low_wc, @low_wc %>
       </div>
       <div class='field'>
-        <label class="form-label" for="form12">Mid</label>
+        <label class="form-label" for="form12">Mid: <%= mean.to_i %></label>
         <%= text_field_tag :mid_wc, @mid_wc %>
       </div>
       <div class='field'>
-        <label class="form-label" for="form12">Better</label>
+        <label class="form-label" for="form12">Better: <%= mean.to_i + standard_deviation.to_i %></label>
         <%= text_field_tag :better_wc, @better_wc %>
       </div>
       <div class='form-check'>

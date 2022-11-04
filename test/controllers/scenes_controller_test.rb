@@ -59,7 +59,7 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should get index 3' do
-    get polymorphic_url([@book, :scenes])
+    get polymorphic_url([@book_2, :scenes])
 
     assert_response :success
   end
