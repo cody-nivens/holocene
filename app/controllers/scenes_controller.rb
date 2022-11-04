@@ -30,7 +30,7 @@ class ScenesController < ApplicationController
     end
 
     @year = params[:year]
-    @scenes = Scene.get_scenes_wi_to_array(@situated, @toggle)
+    @scenes = Scene.get_scenes_wi_to_array(@situated)
     unless @scenes.nil?
     if 1 == 0
       @years =  @scenes.sort
@@ -66,7 +66,7 @@ class ScenesController < ApplicationController
   def show
     @title = @scene.name
     @situated = @scene.book
-    @scenes_wi = Scene.get_scenes_wi_to_array(@situated, @toggle)
+    @scenes_wi = Scene.get_scenes_wi_to_array(@situated)
   end
 
   def move

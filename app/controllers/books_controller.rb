@@ -104,6 +104,7 @@ class BooksController < ApplicationController
       else
         @stories = @book.stories.where(publish: true).order(:position)
       end
+      @scenes = Scene.get_scenes_wi_to_array(@book)
     else
       @chapters = @book.chapters.includes({ holocene_events: :rich_text_body })
     end

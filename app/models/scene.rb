@@ -115,7 +115,7 @@ class Scene < ApplicationRecord
     (section.nil? ? 0 : section.word_count)
   end
 
-  def self.get_scenes(situated, toggle = "off", scene_year = nil, force: false)
+  def self.get_scenes(situated, scene_year = nil, force: false)
     if !force
       stories = nil
       val = nil
@@ -200,8 +200,8 @@ class Scene < ApplicationRecord
 
   end
 
-  def self.get_scenes_to_array(situated, toggle = "off", scene_year = nil)
-    scenes = get_scenes(situated, toggle, scene_year)
+  def self.get_scenes_to_array(situated, scene_year = nil)
+    scenes = get_scenes(situated, scene_year)
     items = []
     scenes.keys.sort.each do |year|
       scenes[year].keys.sort.each do |month|
@@ -219,8 +219,8 @@ class Scene < ApplicationRecord
     return items
   end
 
-  def self.get_scenes_wi_to_array(situated, toggle = "off", scene_year = nil)
-    scenes = get_scenes(situated, toggle, scene_year)
+  def self.get_scenes_wi_to_array(situated, scene_year = nil)
+    scenes = get_scenes(situated, scene_year)
     items = []
     inserted_scenes = []
     scenes.keys.sort.each do |year|

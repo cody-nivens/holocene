@@ -69,7 +69,7 @@
   </div>
 
   <div class='field'>
-    <%= f.select :insert_scene_id, Scene.get_scenes_to_array(@situated.book,"off").collect { |p| [Scene.find(p).full_name, p] }, { include_blank: true } %>
+    <%= f.select :insert_scene_id, Scene.get_scenes_to_array(@situated.book).collect { |p| [Scene.find(p).full_name, p] }, { include_blank: true } %>
   </div>
 
   <div class='field'>

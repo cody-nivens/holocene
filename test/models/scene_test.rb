@@ -17,12 +17,12 @@ class SceneTest < ActiveSupport::TestCase
   end
 
   test 'should count the scenes' do
-    scenes = Scene.get_scenes(books(:book_2), 'off')
+    scenes = Scene.get_scenes(books(:book_2))
     assert_equal 2, scenes.keys.length
   end
 
   test 'should count the scenes 2' do
-    scenes = Scene.get_scenes(books(:book_2), 'off', 100)
+    scenes = Scene.get_scenes(books(:book_2), 100)
     assert_equal 1, scenes.keys.length
   end
 
