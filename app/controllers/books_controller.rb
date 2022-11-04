@@ -114,6 +114,7 @@ class BooksController < ApplicationController
         render pdf: 'export',
                disposition: 'attachment',
                header: { right: '[page] of [topage]' },
+               margin: { top: 26, bottom: 26, right: 26, left: 26 },
                outline: { outline: false,
                           outline_depth: 2 },
                toc: {
