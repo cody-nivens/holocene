@@ -132,9 +132,13 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def view
-    @chapters = @book.chapters.includes({ holocene_events: :rich_text_body })
-    @scripted = @book
-    @stories = @book.stories.where(publish: true).order(:position) if @book.is_fiction?
+    if @book.is_fiction?
+      @scripted = @book
+      @stories = @book.stories.where(publish: true).order(:position) if @book.is_fiction?
+      @scenes = Scene.get_scenes_wi_to_array(@book)
+    else
+      @chapters = @book.chapters.includes({ holocene_events: :rich_text_body })
+    end
     long = params[:long]
     outline = params[:outline]
 

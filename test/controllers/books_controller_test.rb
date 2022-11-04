@@ -72,6 +72,16 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'should view book I' do
+    get book_view_url(@book)
+    assert_response :success
+  end
+
+  test 'should view book II' do
+    get book_view_url(@book_2)
+    assert_response :success
+  end
+
   test 'should show stats' do
     get book_stats_url(@book_2)
     assert_response :success
