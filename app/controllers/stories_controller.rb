@@ -15,21 +15,6 @@ class StoriesController < ApplicationController
     end
   end
 
-  def publish
-    long = false
-    all = true
-    @stories = Story.includes([:key_points]).where(book_id: @book.id).order(:position)
-    @stories.each do |story|
-      story.update_attribute(publish: true)
-      $redis.set("story_scenes_#{story.id}", nil)
-    end
-
-    $redis.set("book_scenes_#{@book.id}", nil)
-    respond_to do |format|
-      format.html { render :index, locals: { all: all, long: long } }
-    end
-  end
-
   def chars
     @book = @story.book
     @characters = @story.characters
