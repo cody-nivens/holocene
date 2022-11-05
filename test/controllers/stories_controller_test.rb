@@ -26,6 +26,11 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'should get index 2' do
+    get book_stories_url(book_id: @book.id, all: true)
+    assert_response :success
+  end
+
   test 'should get resync_scenes' do
     get story_resync_scenes_url(id: @story.id)
     assert_redirected_to story_url(@story)
@@ -59,6 +64,21 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'should view story' do
+    get story_view_url(@story)
+    assert_response :success
+  end
+
+  test 'should view story outline' do
+    get story_view_url(@story, outline: true)
+    assert_response :success
+  end
+
+  test 'should moved story' do
+    post story_moved_url(@story), params: { new_book_id: books(:book_3).id }
+    assert_redirected_to book_url(books(:book_3).id)
+  end
+
   test 'should show story' do
     get story_url(@story)
     assert_response :success
@@ -86,9 +106,11 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy story' do
-    if ENV['PARALLEL_WORKERS'] == 1
-      assert_difference('Story.count', -1) do
-        delete story_url(@story)
+    if ENV['PARALLEL_WORKERS'] == "1"
+      ThinkingSphinx::Test.run do
+        assert_difference('Story.count', -1) do
+          delete story_url(@story)
+        end
       end
 
       assert_redirected_to book_stories_url(book_id: @book.id)

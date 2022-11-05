@@ -130,9 +130,11 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy section' do
-    if ENV['PARALLEL_WORKERS'] == 1
-      assert_difference('Section.count', -1) do
-        delete section_url(@section)
+    if ENV['PARALLEL_WORKERS'] == "1"
+      ThinkingSphinx::Test.run do
+        assert_difference('Section.count', -1) do
+          delete section_url(@section)
+        end
       end
 
       assert_redirected_to polymorphic_url(@sectioned_1)
@@ -140,9 +142,11 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy section 2' do
-    if ENV['PARALLEL_WORKERS'] == 1
-      assert_difference('Section.count', -1) do
-        delete section_url(@section)
+    if ENV['PARALLEL_WORKERS'] == "1"
+      ThinkingSphinx::Test.run do
+        assert_difference('Section.count', -1) do
+          delete section_url(@section)
+        end
       end
 
       assert_redirected_to polymorphic_url(@sectioned_2)

@@ -143,9 +143,11 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy scene' do
-    if ENV['PARALLEL_WORKERS'] == 1
-      assert_difference('Scene.count', -1) do
-        delete scene_url(@scene)
+    if ENV['PARALLEL_WORKERS'] == "1"
+      ThinkingSphinx::Test.run do
+        assert_difference('Scene.count', -1) do
+          delete scene_url(@scene)
+        end
       end
 
       assert_redirected_to polymorphic_url([@situated, :scenes])

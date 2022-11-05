@@ -57,9 +57,11 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should promote chapter' do
-    if ENV['PARALLEL_WORKERS'] == 1
-      assert_difference('Chapter.count', 1) do
-        get chapter_section_promote_url(id: @chapter_4.id, section_id: @chapter_4.sections[1].id)
+    if ENV['PARALLEL_WORKERS'] == "1"
+      ThinkingSphinx::Test.run do
+        assert_difference('Chapter.count', 1) do
+          get chapter_section_promote_url(id: @chapter_4.id, section_id: @chapter_4.sections[1].id)
+        end
       end
 
       assert_redirected_to polymorphic_url([@scripted_1, :chapters])
@@ -140,9 +142,11 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy chapter' do
-    if ENV['PARALLEL_WORKERS'] == 1
-      assert_difference('Chapter.count', -1) do
-        delete chapter_url(@chapter)
+    if ENV['PARALLEL_WORKERS'] == "1"
+      ThinkingSphinx::Test.run do
+        assert_difference('Chapter.count', -1) do
+          delete chapter_url(@chapter)
+        end
       end
 
       assert_redirected_to polymorphic_url([@scripted_1, :chapters])

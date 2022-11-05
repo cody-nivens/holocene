@@ -94,6 +94,11 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'should view key_point' do
+    get key_point_view_url(@key_point)
+    assert_response :success
+  end
+
   test 'should show key_point' do
     get key_point_url(@key_point)
     assert_response :success
@@ -140,9 +145,11 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy key_point' do
-    if ENV['PARALLEL_WORKERS'] == 1
-      assert_difference('KeyPoint.count', -1) do
-        delete key_point_url(@key_point)
+    if ENV['PARALLEL_WORKERS'] == "1"
+      ThinkingSphinx::Test.run do
+        assert_difference('KeyPoint.count', -1) do
+          delete key_point_url(@key_point)
+        end
       end
 
       assert_redirected_to polymorphic_url([@scripted, :key_points])

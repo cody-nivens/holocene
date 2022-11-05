@@ -33,6 +33,11 @@ class CitiesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'should get tours' do
+    post tour_tours_path(@tour), params: { city: { tour_id: @tour.id, tour_type: "Tour", activated: [@city.id] }, commit: "Add Cities", tour_id: @tour.id }
+    assert_redirected_to tour_path(@tour)
+  end
+
   test 'should get add_city' do
     get tour_add_city_url(@tour),
         params: { city: { activated: [cities(:city_1).id, cities(:city_2).id, cities(:city_3).id] } }
