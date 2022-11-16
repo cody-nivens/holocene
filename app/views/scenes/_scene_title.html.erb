@@ -41,7 +41,7 @@
       <% end %>
       <td class="text-end" width="5%;">
       <% if total_wc > 0%>
-        <%=  number_to_percentage(total_wc.to_f/wc_total.to_f*100) %>
+        <%=  number_to_percentage(total_wc.to_f/wc_total.to_f*100, precision: 1) %>
       <% end %>
       </td>
       <% if print_name %>
