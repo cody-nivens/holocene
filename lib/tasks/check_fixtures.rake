@@ -1,4 +1,3 @@
-require "byebug"
 require "active_support"
 
 module CFRakeHelper
@@ -82,9 +81,6 @@ namespace :check_fixtures do
             next if data[key].keys.include?(attribute)
 
             reflect_found = false
-            #debugger if attribute == "before_flag"
-            #next unless model.name == 'Metric'
-            #debugger if model.name == 'Namer'
 
             column = model.column_for_attribute(attribute.to_sym)
             if (model.type_for_attribute(attribute.to_sym).instance_of?(ActiveModel::Type::Boolean) and (column.default == "0" or column.default == "1")) or
