@@ -5,8 +5,9 @@
 </div>
 
 <hr>
-<% add_to_footer('Stats', welcome_stats_path) %>
 <% add_to_footer('Progress', welcome_index_path) %>
+<% add_to_footer('Stats', welcome_stats_path) %>
+<% add_to_footer('History', welcome_stats_path) %>
 <% unless @book.nil? %>
   <% add_to_footer('Back', book_path(@book)) %>
 <% end %>

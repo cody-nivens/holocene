@@ -185,7 +185,9 @@ Rails.application.routes.draw do
   get '/welcome/index'
   get '/welcome/show'
   get '/welcome/stats'
+  get '/welcome/history'
   get '/stats', to: 'welcome#stats'
+  get '/history', to: 'welcome#history'
   get '/tags', to: 'welcome#tags', as: :welcome_tags
   resources :holocene_events
   resources :regions
