@@ -48,16 +48,20 @@
     <% end %>
   <% when 'view' %>
     <% if scene.title_scene and scene.situated.title_page? %>
-      <div style="display:block; clear:both; page-break-after:always;"></div>
+      <% unless outline %>
+        <div style="display:block; clear:both; page-break-after:always;"></div>
+      <% end %>
       <h2><%= scene.situated.title %><%= outline ? " - WC: #{number_with_delimiter total_wc}" : "" %></h2>
     <% end %>
     <% if scene.title_scene and scene.situated.print_summary? %>
-      <% if !outline %>
+      <% unless outline %>
         <%= scene.situated.summary_body %>
         <div style="display:block; clear:both; page-break-after:always;"></div>
       <% end %>
     <% end %>
-    <div style="display:block; clear:both; page-break-after:always;"></div>
+    <% unless outline %>
+      <div style="display:block; clear:both; page-break-after:always;"></div>
+    <% end %>
     <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline, pdf: pdf, long: long, total_wc: total_wc, wc_total: wc_total } %>
     <% total_wc += scene.word_count %>
   <% end %>
