@@ -14,6 +14,11 @@ class HoloceneEvent < ApplicationRecord
   has_and_belongs_to_many :sections
   # has_and_belongs_to_many :holocene_events, as: :parents
 
+  belongs_to :related, class_name: "HoloceneEvent", optional: true
+
+  has_many :relatable, class_name: "HoloceneEvent", foreign_key: :related_id
+
+
   has_many :footnotes, -> { where('slug != ?', '') }, as: :noted
   has_many :signets, as: :sigged
 
@@ -26,6 +31,10 @@ class HoloceneEvent < ApplicationRecord
   delegate :name, to: :region, prefix: true
 
   validates :name, presence: true
+
+  def title
+    "#{start_year} #{name}"
+  end
 
   #
   # Generate json for TimelineJS

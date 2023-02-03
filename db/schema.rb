@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_07_022410) do
+ActiveRecord::Schema.define(version: 2023_02_02_203851) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -360,6 +360,10 @@ ActiveRecord::Schema.define(version: 2022_09_07_022410) do
     t.integer "user_id"
     t.decimal "lat", precision: 10, scale: 6
     t.decimal "lng", precision: 10, scale: 6
+    t.bigint "related_id"
+    t.boolean "related_endpoint", default: false
+    t.integer "start_related_offset", default: 0
+    t.integer "end_related_offset", default: 0
     t.index ["region_id"], name: "index_holocene_events_on_region_id"
     t.index ["user_id"], name: "index_holocene_events_on_user_id"
   end

@@ -4,6 +4,7 @@ class HoloceneEventsGrid < BaseGrid
   end
 
   attr_accessor(:object)
+  attr_accessor(:command)
 
   filter(:start_year, :integer, range: true, default: [-15_000, nil])
 

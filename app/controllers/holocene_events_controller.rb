@@ -29,7 +29,7 @@ class HoloceneEventsController < ApplicationController
   def display
     @events = @object.holocene_events.includes([:event_types]).order(:start_year)
     ids = @object.holocene_events.pluck(:id)
-    @command = if ids.size == 0
+    @command = if ids.size == 0 || params[:commit] == 'Search'
                  'Add Events'
                else
                  'Delete Events'
@@ -39,8 +39,12 @@ class HoloceneEventsController < ApplicationController
                    else
                      (@object.instance_of?(Section) ? @object.sectioned.sections.order(:name) : nil)
                    end)
-    @grid = HoloceneEventsGrid.new(grid_params.merge({ id: ids, object: @object })) do |scope|
-      scope.includes([:event_types, :region, :rich_text_body]).page(params[:page])
+    @grid = HoloceneEventsGrid.new(grid_params.merge({ object: @object, command: @command })) do |scope|
+      if @command == 'Add Events'
+        scope.includes([:event_types, :region, :rich_text_body]).page(params[:page])
+      else
+        scope.where(id: ids).includes([:event_types, :region, :rich_text_body]).page(params[:page])
+      end
     end
   end
 
@@ -49,7 +53,7 @@ class HoloceneEventsController < ApplicationController
     event_ids = add_background_events(@object)
     ids = event_ids - @object.holocene_events.ids
     @command = 'Add Events'
-    @grid = HoloceneEventsGrid.new(grid_params.merge({ id: ids, object: @object })) do |scope|
+    @grid = HoloceneEventsGrid.new(grid_params.merge({ id: ids, object: @object, command: @command })) do |scope|
       scope.includes([:event_types, :region, :rich_text_body]).page(params[:page])
     end
     respond_to do |format|
@@ -61,10 +65,13 @@ class HoloceneEventsController < ApplicationController
   def new
     @holocene_event = HoloceneEvent.new
     @holocene_event.user_id = current_user.id
+    @related_events = HoloceneEvent.where(user_id: current_user.id).all.order(:start_year)
   end
 
   # GET /holocene_events/1/edit
-  def edit; end
+  def edit
+    @related_events = HoloceneEvent.where(user_id: current_user.id).all.order(:start_year)
+  end
 
   def objects
     @object = params[:holocene_event][:object_type].classify.constantize.find(params[:holocene_event][:object_id])
@@ -113,6 +120,7 @@ class HoloceneEventsController < ApplicationController
     params.delete(:seen)
     params.delete(:object_id)
     params.delete(:object_type)
+    @related_events = HoloceneEvent.where(user_id: current_user.id).all.order(:start_year)
     @holocene_event = HoloceneEvent.new(holocene_event_params)
 
     respond_to do |format|
@@ -133,6 +141,8 @@ class HoloceneEventsController < ApplicationController
     params[:holocene_event].delete(:seen)
     params[:holocene_event].delete(:object_id)
     params[:holocene_event].delete(:object_type)
+    @related_events = HoloceneEvent.where(user_id: current_user.id).all.order(:start_year)
+    @holocene_event.related_endpoint = params[:related_endpoint] == 'Start' ? false : true
     respond_to do |format|
       if @holocene_event.update(holocene_event_params)
         format.html { redirect_to @holocene_event, notice: 'Holocene event was successfully updated.' }
@@ -181,6 +191,7 @@ class HoloceneEventsController < ApplicationController
   def holocene_event_params
     params.require(:holocene_event).permit(:name, :start_year, :end_year, :start_year_uncert, :start_year_mod,
                                            :end_year_uncert, :end_year_mod, :body, :region_id, :tag_list, :citations,
-                                           :user_id, :activated, :seen, :object_id, :object_type, :url, :image, event_type_ids: [])
+                                           :user_id, :activated, :seen, :object_id, :object_type, :url, :image,
+                                           :related_id, :related_endpoint, :start_related_offset, :end_related_offset, event_type_ids: [])
   end
 end

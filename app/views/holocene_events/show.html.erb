@@ -8,6 +8,27 @@
   <strong> - </strong> <%= convert_ad(@holocene_event.end_year) %>
 </p>
 
+<% if @holocene_event.related.present? %>
+  <p>
+  <strong>Related Event:</strong>
+  <%= link_to @holocene_event.related.title, @holocene_event.related %>
+  </p>
+
+  <p>
+  <strong>Related Endpoint:</strong>
+  <%= @holocene_event.related_endpoint ? "Start" : "End" %>
+  </p>
+
+  <p>
+  <strong>Start Related Offset:</strong>
+  <%= @holocene_event.start_related_offset %>
+  </p>
+  <p>
+  <strong>End Related Offset:</strong>
+  <%= @holocene_event.end_related_offset %>
+  </p>
+  
+<% end %>
 <p>
   <strong>Event type:</strong>
   <%== event_types_to_s(@holocene_event.event_types, false) %>
@@ -32,6 +53,31 @@
   <%= @holocene_event.lng %>
 </p>
 <% end -%>
+
+<% unless @holocene_event.relatable.size == 0 %>
+  <p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Event</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @holocene_event.relatable.each do |he| %>
+      <tr>
+        <td><%= he.title %></td>
+
+          <% year = he.related_endpoint ? @holocene_event.start_year : @holocene_event.end_year %>
+        <% year = year.nil? ? @holocene_event.start_year : year %>
+        <td><%= year + he.start_related_offset %></td>
+        <td><%= year + he.end_related_offset %></td>
+      </tr>
+<% end %>
+    </tbody>
+  </table>
+  </p>
+<% end %>
+
 <p>
   <% if @slugs.nil? -%>
       <% @slugs = [] -%>
@@ -43,7 +89,9 @@
 <% @slugs += @footnotes[1] -%>
 <% end -%>
 
+<% unless @holocene_event.tag_list.length == 0 %>
 <p>Tags: <%== @holocene_event.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></p>
+<% end %>
 
 <% add_to_footer('Edit', edit_holocene_event_path(@holocene_event)) %>
 <% add_to_footer('Map', geo_map_holocene_event_path(@holocene_event)) %>
