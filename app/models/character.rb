@@ -94,6 +94,10 @@ class Character < ApplicationRecord
     use_honorific_only
   end
 
+  def main?
+    main
+  end
+
   def required_for_step?(my_step)
     return true if form_step.nil?
     return true if form_steps.index(my_step.to_s) <= form_steps.index(form_step.to_s)

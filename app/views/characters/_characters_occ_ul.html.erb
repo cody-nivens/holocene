@@ -16,7 +16,11 @@
 <% object.characters.order(:occupation_class).pluck(:occupation_class).map { |x| x || '' }.uniq.sort.each do |occ_class| %>
   <tr><th colspan="4"><%= (occ_class == '' ? '<blank>' : occ_class) %></th></tr>
     <% object.characters.where(occupation_class: occ_class).order(:occupation_class, :last_name, :first_name).distinct.each do |character| %>
+      <% if character.main? %>
+      <tr class="table-primary">
+      <% else %>
       <tr>
+      <% end %>
         <td width="15%">
         <%= link_to character.full_name, polymorphic_path([object, character]) %>
         </td><td>

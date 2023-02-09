@@ -1,6 +1,6 @@
 <% pdf ||= nil %>
 
-<h3><%= character.full_name %></h3>
+<h3><%= character.full_name %> <%= character.main? ? " (Main)" : '' %></h3>
 <p>
   <% unless character.birth_year.nil? %>
     b. <%= character.birth_year %> - d. <%= character.death_year %>, Age: <%= character.death_year - character.birth_year %><br>

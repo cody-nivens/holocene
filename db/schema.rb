@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_02_02_203851) do
+ActiveRecord::Schema.define(version: 2023_02_09_172957) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -255,6 +255,7 @@ ActiveRecord::Schema.define(version: 2023_02_02_203851) do
     t.boolean "use_honorific_only", default: false
     t.bigint "mother_id"
     t.integer "sex", default: 0
+    t.boolean "main", default: false
     t.index ["father_id"], name: "index_characters_on_father_id"
     t.index ["mother_id"], name: "index_characters_on_mother_id"
   end

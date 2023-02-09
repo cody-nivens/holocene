@@ -15,6 +15,7 @@ class CharactersGrid < BaseGrid
     where('LOWER( first_name ) like ?', "%#{value}%")
   end
 
+  filter(:main, :boolean)
   filter(:no_ethnicity, :boolean, default: false, dummy: true)
 
   filter(:ethnicity, :enum, select: proc {

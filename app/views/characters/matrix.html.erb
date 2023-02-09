@@ -1,0 +1,41 @@
+<% @title = "Matrix, #{@object.name}" %>
+<h3>Matrix of Main Characters</h3>
+<% characters = [] %>
+<div class="overflow-auto">
+<table class='table'>
+  <thead>
+    <tr>
+      <th>Scene</th>
+      <% @object.characters.where(main: true).each do |character| %>
+        <th><%= character.name %></th>
+        <% characters << character %>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% unless characters.length == 0 %>
+    <% width = (100/characters.length).to_i %>
+    <% scenes = Scene.get_scenes_to_array(@object) %>
+    <% scenes.each do |scene_id| %>
+    <% scene = Scene.find(scene_id) %>
+    <tr>
+      <th><%= scene.abc %></th>
+      <% characters.each do |ref_char| %>
+        <% char2 = scene.characters.where(id: ref_char.id) %>
+        <% if char2.length > 0 %>
+          <td width="<%= width %>%">
+            <%= char2[0].character_scenes.where(scene_id: scene.id)[0].summary %>
+          </td>
+        <% else %>
+          <td></td>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+  <% end %>
+  </tbody>
+</table>
+</div>
+<% add_to_footer('Characters', polymorphic_path([@object, :characters])) %>
+<% add_to_footer('Back', polymorphic_path(@object)) %>
+

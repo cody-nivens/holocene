@@ -1,6 +1,6 @@
 class CharactersController < ApplicationController
   before_action :set_character, only: %i[lineage edit update]
-  before_action :set_object, only: %i[lineage index add list edit show create update destroy]
+  before_action :set_object, only: %i[matrix lineage index add list edit show create update destroy]
 
   # GET /characters
   # GET /characters.json
@@ -77,6 +77,10 @@ class CharactersController < ApplicationController
 
   # GET /characters/1/list
   def list; end
+
+  # GET /characters/1/matrix
+  def matrix
+  end
 
   # GET /characters/1/add
   def add
@@ -211,7 +215,8 @@ class CharactersController < ApplicationController
   def character_params
     params.require(:character).permit(:name, :reason_for_name, :nickname, :reason_for_nickname, :ethnicity, :occupation_class,
                                       :social_class, :first_name, :middle_name, :last_name, :suffix, :birth_year, :death_year,
-                                      :age_at_son, :father_id, :honorific, :grouping, :use_honorific_only, :background, :mother_id, :sex)
+                                      :age_at_son, :father_id, :honorific, :grouping, :use_honorific_only, :background, :mother_id,
+                                      :sex, :main)
   end
 
   # Only allow a list of trusted parameters through.

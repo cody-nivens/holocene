@@ -69,6 +69,12 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
     assert_template 'datagrid/_table'
   end
 
+  test 'should get index 9' do
+    get book_characters_url(book_id: @book.id, main: 1)
+    assert_response :success
+    assert_template 'datagrid/_table'
+  end
+
   test 'should get attributes' do
     get characters_attributes_url(book_id: @book.id, characters_grid: { category: character_categories(:character_category_1).id }),
         xhr: true
@@ -98,6 +104,11 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get list' do
     get polymorphic_url([@book, :characters, :list])
+    assert_response :success
+  end
+
+  test 'should get matrix' do
+    get character_matrix_url(@book)
     assert_response :success
   end
 
