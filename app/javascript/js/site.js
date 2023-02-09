@@ -11,7 +11,7 @@ require('jquery-ui/themes/base/sortable.css');
 
 import 'popper.js';
 require('@fortawesome/fontawesome-free/js/all');
-import 'bootstrap/dist/js/bootstrap';
+import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle';
 
 require('trix');
 require('@rails/actiontext');
@@ -21,8 +21,17 @@ import 'js/jquery.jvectormap.min';
 import 'js/jquery-jvectormap-world-mill-en';
 
 $(document).ready(function() {
-  $("a[data-bs-toggle='tooltip']").tooltip({ html: true, container: 'body', trigger: 'hover' });
-  //$("[data-toggle='popover']").popover();
+
+  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+  var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+    return new bootstrap.Popover(popoverTriggerEl)
+  })
+
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+
 
 //$("#new_key_point_id").prop("disabled", true); // second dropdown is disable while first dropdown is empty
 $("#story_id").change(function(){

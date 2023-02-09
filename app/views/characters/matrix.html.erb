@@ -19,7 +19,7 @@
     <% scenes.each do |scene_id| %>
     <% scene = Scene.find(scene_id) %>
     <tr>
-      <th><%= link_to(scene.abc, scene_path(scene)) %></th>
+      <th><%= link_to(scene.abc, scene_path(scene), data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-title": scene.name }) %></th>
       <% characters.each do |ref_char| %>
         <% char2 = scene.characters.where(id: ref_char.id) %>
         <% if char2.length > 0 %>
