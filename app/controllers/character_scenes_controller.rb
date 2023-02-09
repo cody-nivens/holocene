@@ -16,7 +16,7 @@ class CharacterScenesController < ApplicationController
     respond_to do |format|
       if @character_scene.update(character_scene_params)
         format.html do
-          redirect_to scene_path(@character_scene.scene), notice: 'Character scene was successfully updated.'
+          redirect_to return_or_default_path(scene_path(@character_scene.scene)), notice: 'Character scene was successfully updated.'
         end
         format.json { render :show, status: :ok, location: @character_scene }
       else

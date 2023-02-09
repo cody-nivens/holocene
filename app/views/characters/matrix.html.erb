@@ -19,12 +19,16 @@
     <% scenes.each do |scene_id| %>
     <% scene = Scene.find(scene_id) %>
     <tr>
-      <th><%= scene.abc %></th>
+      <th><%= link_to(scene.abc, scene_path(scene)) %></th>
       <% characters.each do |ref_char| %>
         <% char2 = scene.characters.where(id: ref_char.id) %>
         <% if char2.length > 0 %>
           <td width="<%= width %>%">
-            <%= char2[0].character_scenes.where(scene_id: scene.id)[0].summary %>
+            <% character_scene = char2[0].character_scenes.where(scene_id: scene.id)[0] %>
+            <% unless character_scene.nil? %>
+              <%= character_scene.summary %>
+              <%= link_to fa_icon("plus"),edit_character_scene_path(character_scene) %>
+            <% end %>
           </td>
         <% else %>
           <td></td>

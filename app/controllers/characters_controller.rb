@@ -80,6 +80,7 @@ class CharactersController < ApplicationController
 
   # GET /characters/1/matrix
   def matrix
+    session[:return_to] = request.fullpath
   end
 
   # GET /characters/1/add

@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   before_action :set_book_from_session
   before_action :set_wcs_from_session
 
-  after_action :set_return_to_location
+  #after_action :set_return_to_location
 
   REDIRECT_CONTROLLER_BLACKLIST = %w(
     sessions
