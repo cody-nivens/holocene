@@ -1,0 +1,41 @@
+<% width = 200 %>
+<table class='table table-fixed'>
+  <thead>
+    <tr>
+      <th>Scene</th>
+      <% chars[start_pos..end_pos].each do |char_info| %>
+        <% character = Character.find(char_info[0]) %>
+        <th width="<%= width %>px">
+          <%= link_to character.full_last_first, polymorphic_path([object, character]) %>
+        </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% unless chars.length == 0 %>
+    <% scenes = Scene.get_scenes_to_array(object) %>
+    <% scenes.each do |scene_id| %>
+    <% scene = Scene.find(scene_id) %>
+    <tr>
+      <th width="<%= width %>px">
+        <%= link_to(scene.section.present? ? scene.section.name : scene.full_name, scene_path(scene), data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-title": scene.name }) %>
+      </th>
+      <% chars[start_pos..end_pos].each do |ref_char| %>
+        <% char2 = scene.characters.where(id: ref_char[0]) %>
+        <% if char2.length > 0 %>
+          <td width="<%= width %>px">
+            <% character_scene = char2[0].character_scenes.where(scene_id: scene.id)[0] %>
+            <% unless character_scene.nil? %>
+              <%= character_scene.summary %>
+              <%= link_to fa_icon("plus"),edit_character_scene_path(character_scene), data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-title": character_scene.character.name } %>
+            <% end %>
+          </td>
+        <% else %>
+          <td></td>
+        <% end %>
+      <% end %>
+    </tr>
+  <% end %>
+  <% end %>
+  </tbody>
+</table>

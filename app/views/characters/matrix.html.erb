@@ -3,47 +3,31 @@
 <% scenes = Scene.get_scenes_to_array(@object) %>
 <% characters = @object.characters.joins(:scenes).where("scenes.book_id = ?", @object.id).where("scenes.id",scenes).group("characters.id").count %>
 <% chars = characters.sort {|a1,a2| a2[1]<=>a1[1]} %>
-<div class="overflow-auto">
-<table class='table'>
-  <thead>
-    <tr>
-      <th>Scene</th>
-      <% chars[0..19].each do |char_info| %>
-        <% character = Character.find(char_info[0]) %>
-        <th>
-          <%= link_to character.full_last_first, polymorphic_path([@object, character]) %>
-        </th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <% unless chars.length == 0 %>
-    <% width = chars.length < 19 ? (100/chars.length).to_i : 5 %>
-    <% scenes = Scene.get_scenes_to_array(@object) %>
-    <% scenes.each do |scene_id| %>
-    <% scene = Scene.find(scene_id) %>
-    <tr>
-      <th><%= link_to(scene.abc, scene_path(scene), data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-title": scene.name }) %></th>
-      <% chars[0..19].each do |ref_char| %>
-        <% char2 = scene.characters.where(id: ref_char[0]) %>
-        <% if char2.length > 0 %>
-          <td width="<%= width %>%">
-            <% character_scene = char2[0].character_scenes.where(scene_id: scene.id)[0] %>
-            <% unless character_scene.nil? %>
-              <%= character_scene.summary %>
-              <%= link_to fa_icon("plus"),edit_character_scene_path(character_scene), data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-title": character_scene.character.name } %>
-            <% end %>
-          </td>
-        <% else %>
-          <td></td>
-        <% end %>
-      <% end %>
-    </tr>
+<%= tabs do |c| %>
+  <% c.tab "Main Characters" do %>
+    <%= render partial: 'characters/character_scenes', locals: { chars: chars, object: @object, start_pos: 0, end_pos: 4 } %>
   <% end %>
+
+  <% if chars.length >= 5 %>
+    <% c.tab "Secondary Characters" do %>
+      <%= render partial: 'characters/character_scenes', locals: { chars: chars, object: @object, start_pos: 5, end_pos: 9 } %>
+    <% end %>
   <% end %>
-  </tbody>
-</table>
-</div>
+
+  <% if chars.length >= 10 %>
+    <% c.tab "Third Level Characters" do %>
+      <%= render partial: 'characters/character_scenes', locals: { chars: chars, object: @object, start_pos: 10, end_pos: 14 } %>
+    <% end %>
+  <% end %>
+
+  <% if chars.length >= 15 %>
+    <% c.tab "Fourth Level Characters" do %>
+      <%= render partial: 'characters/character_scenes', locals: { chars: chars, object: @object, start_pos: 15, end_pos: 19 } %>
+    <% end %>
+  <% end %>
+
+<% end %>
+
 <% add_to_footer('Characters', polymorphic_path([@object, :characters])) %>
 <% add_to_footer('Back', polymorphic_path(@object)) %>
 

@@ -109,7 +109,7 @@ body > .outer-container > .container {
   position: relative;
   width: rem-calc(1200);
   min-height: 100%;
-  overflow-x: auto;
+  /* overflow-x: auto; */
 }
 
 .container {
@@ -697,8 +697,25 @@ nav + .breadcrumb, .float-left {
   display: block;
   float: left;
 }
-th:first-child, td:first-child{
-    position: sticky;
-    left: 0px;
-    /*z-index: 1;*/
+.table-fixed table {
+
+    display: block;
 }
+
+.table-fixed thead, tbody {
+    display: block;
+}
+.table-fixed tbody {
+    position: absolute;
+    height: 650px;
+    overflow-y: scroll;
+}
+.table-fixed td, th {
+    min-width: 100px !important;
+    height: 25px !important;
+    overflow:hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 200px !important;
+  margin-bottom: 2em;
+}
+
