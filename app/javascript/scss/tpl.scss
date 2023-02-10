@@ -702,7 +702,7 @@ nav + .breadcrumb, .float-left {
     display: block;
 }
 
-.table-fixed thead, tbody {
+.table-fixed thead, .table-fixed tbody {
     display: block;
 }
 .table-fixed tbody {
@@ -710,7 +710,7 @@ nav + .breadcrumb, .float-left {
     height: 650px;
     overflow-y: scroll;
 }
-.table-fixed td, th {
+.table-fixed td, .table-fixed th {
     min-width: 100px !important;
     height: 25px !important;
     overflow:hidden !important;
