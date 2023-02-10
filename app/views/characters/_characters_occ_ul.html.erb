@@ -1,10 +1,9 @@
   <table class='table'>
     <thead>
       <tr>
+        <th>&nbsp;</th>
         <th>Name</th>
         <th>Group</th>
-        <th>Height</th>
-        <th>Weight</th>
         <th>Hair Color</th>
         <th>Eye Color</th>
         <th>Gender</th>
@@ -14,13 +13,14 @@
     </thead>
     <tbody>
 <% object.characters.order(:occupation_class).pluck(:occupation_class).map { |x| x || '' }.uniq.sort.each do |occ_class| %>
-  <tr><th colspan="4"><%= (occ_class == '' ? '<blank>' : occ_class) %></th></tr>
+  <tr><th colspan="9"><%= (occ_class == '' ? '<blank>' : occ_class) %></th></tr>
     <% object.characters.where(occupation_class: occ_class).order(:occupation_class, :last_name, :first_name).distinct.each do |character| %>
       <% if character.main? %>
-      <tr class="table-primary">
+        <tr class="table-primary">
       <% else %>
-      <tr>
+        <tr>
       <% end %>
+        <td></td>
         <td width="15%">
         <%= link_to character.full_name, polymorphic_path([object, character]) %>
         </td><td>
@@ -38,7 +38,15 @@
           <% character_scene = CharacterScene.where(character_id: character.id, scene_id: object.id) %>
           <%= link_to (fa_icon 'plus'), edit_character_scene_path(character_scene[0]), title: 'Edit character role in scene' %>
           <% unless character_scene[0].summary.nil? %>
-          </td></tr><tr><td></td><td colspan="4">
+          </td>
+        </tr>
+        <% if character.main? %>
+          <tr class="table-primary">
+        <% else %>
+          <tr>
+        <% end %>
+        <td></td>
+        <td colspan="8">
             <%= character_scene[0].summary.to_plain_text %>
           <% end %>
           <% end %>

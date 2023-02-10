@@ -233,6 +233,7 @@ module ApplicationHelper
     ht      = CharacterValue.where(character_id: character.id, character_attribute_id: phy_ht.id).first
     wt      = CharacterValue.where(character_id: character.id, character_attribute_id: phy_wt.id).first
 
-"<td>#{ht.nil? ? '' : ht.value}</td> <td>#{wt.nil? ? '' : wt.value}</td> <td>#{hc.nil? ? '' : hc.value}</td> <td>#{ec.nil? ? '' : ec.value}</td> <td>#{gen.nil? ? '' : gen.value}</td>"
+#"<td>#{ht.nil? ? '' : ht.value}</td> <td>#{wt.nil? ? '' : wt.value}</td> <td>#{hc.nil? ? '' : hc.value}</td> <td>#{ec.nil? ? '' : ec.value}</td> <td>#{gen.nil? ? '' : gen.value}</td>"
+    return "<td>#{hc.nil? ? '' : hc.value}</td> <td>#{ec.nil? ? '' : ec.value}</td> <td>#{gen.nil? ? '' : gen.value}</td>"
   end
 end
