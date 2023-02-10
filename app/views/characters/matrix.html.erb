@@ -1,27 +1,28 @@
 <% @title = "Matrix, #{@object.name}" %>
 <h3>Matrix of Main Characters</h3>
-<% characters = [] %>
+<% characters = @object.characters.joins(:scenes).where("scenes.book_id = ?", @object.id).group("characters.id").count %>
+<% chars = characters.sort {|a1,a2| a2[1]<=>a1[1]} %>
 <div class="overflow-auto">
 <table class='table'>
   <thead>
     <tr>
       <th>Scene</th>
-      <% @object.characters.where(main: true).each do |character| %>
+      <% chars[0..19].each do |char_info| %>
+        <% character = Character.find(char_info[0]) %>
         <th><%= character.name %></th>
-        <% characters << character %>
       <% end %>
     </tr>
   </thead>
   <tbody>
-    <% unless characters.length == 0 %>
-    <% width = (100/characters.length).to_i %>
+    <% unless chars.length == 0 %>
+    <% width = chars.length < 19 ? (100/chars.length).to_i : 5 %>
     <% scenes = Scene.get_scenes_to_array(@object) %>
     <% scenes.each do |scene_id| %>
     <% scene = Scene.find(scene_id) %>
     <tr>
       <th><%= link_to(scene.abc, scene_path(scene), data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-title": scene.name }) %></th>
-      <% characters.each do |ref_char| %>
-        <% char2 = scene.characters.where(id: ref_char.id) %>
+      <% chars[0..9].each do |ref_char| %>
+        <% char2 = scene.characters.where(id: ref_char[0]) %>
         <% if char2.length > 0 %>
           <td width="<%= width %>%">
             <% character_scene = char2[0].character_scenes.where(scene_id: scene.id)[0] %>
