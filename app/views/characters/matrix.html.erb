@@ -9,7 +9,9 @@
       <th>Scene</th>
       <% chars[0..19].each do |char_info| %>
         <% character = Character.find(char_info[0]) %>
-        <th><%= character.name %></th>
+        <th>
+          <%= link_to character.full_last_first, polymorphic_path([@object, character]) %>
+        </th>
       <% end %>
     </tr>
   </thead>
