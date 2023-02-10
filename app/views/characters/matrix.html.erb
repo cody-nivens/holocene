@@ -21,7 +21,7 @@
     <% scene = Scene.find(scene_id) %>
     <tr>
       <th><%= link_to(scene.abc, scene_path(scene), data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-title": scene.name }) %></th>
-      <% chars[0..9].each do |ref_char| %>
+      <% chars[0..19].each do |ref_char| %>
         <% char2 = scene.characters.where(id: ref_char[0]) %>
         <% if char2.length > 0 %>
           <td width="<%= width %>%">
