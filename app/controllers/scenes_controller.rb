@@ -67,6 +67,7 @@ class ScenesController < ApplicationController
     @title = @scene.name
     @situated = @scene.book
     @scenes_wi = Scene.get_scenes_wi_to_array(@situated)
+    session[:return_to] = request.fullpath
   end
 
   def move
