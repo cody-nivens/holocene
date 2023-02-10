@@ -1,6 +1,7 @@
 <% @title = "Matrix, #{@object.name}" %>
 <h3>Matrix of Main Characters</h3>
-<% characters = @object.characters.joins(:scenes).where("scenes.book_id = ?", @object.id).group("characters.id").count %>
+<% scenes = Scene.get_scenes_to_array(@object) %>
+<% characters = @object.characters.joins(:scenes).where("scenes.book_id = ?", @object.id).where("scenes.id",scenes).group("characters.id").count %>
 <% chars = characters.sort {|a1,a2| a2[1]<=>a1[1]} %>
 <div class="overflow-auto">
 <table class='table'>
