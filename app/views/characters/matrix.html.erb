@@ -31,7 +31,7 @@
             <% character_scene = char2[0].character_scenes.where(scene_id: scene.id)[0] %>
             <% unless character_scene.nil? %>
               <%= character_scene.summary %>
-              <%= link_to fa_icon("plus"),edit_character_scene_path(character_scene) %>
+              <%= link_to fa_icon("plus"),edit_character_scene_path(character_scene), data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-title": character_scene.character.name } %>
             <% end %>
           </td>
         <% else %>
