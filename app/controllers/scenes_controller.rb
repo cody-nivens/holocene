@@ -1,5 +1,5 @@
 class ScenesController < ApplicationController
-  before_action :set_scene, only: %i[moved move show edit update destroy]
+  before_action :set_scene, only: %i[check moved move show edit update destroy]
   before_action :set_situated, only: %i[timeline index new]
 
   # GET /scenes
@@ -52,6 +52,11 @@ class ScenesController < ApplicationController
       format.json {}
       format.js {}
     end
+  end
+
+  # PUT /scenes/1/check
+  def check
+      @scene.update_attribute(:check, params[:check])
   end
 
   def sort

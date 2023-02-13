@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   post '/stories/:story_id/key_points/:id/add', to: 'key_points#add', as: :story_key_point_add
   post '/books/:book_id/key_points/:id/moved', to: 'key_points#moved', as: :book_key_point_moved
   post '/scenes/:id/moved', to: 'scenes#moved', as: :scene_moved
+  put '/scenes/:id/check', to: 'scenes#check', as: :scene_check
 
   resources :cities
   namespace :character do

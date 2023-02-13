@@ -30,6 +30,15 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'should check scene' do
+    checked = @scene_2.check
+
+    put scene_check_path(id: @scene_2.id), xhr: true,
+                                               params: { check: !checked }
+    assert_response :success
+    assert_equal !checked, @scene_2.reload.check
+  end
+
   test 'should get index' do
     get polymorphic_url([@situated, :scenes])
 
