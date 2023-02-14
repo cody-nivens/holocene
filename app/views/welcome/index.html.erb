@@ -9,11 +9,7 @@
     <%= column_chart data, stacked: true %>
     <%= month_calendar do |date| %>
       <% counts = @dates_counts[date.in_time_zone] %>
-      <% if counts.nil? %>
-        <%= date %>
-      <% else %>
-        <%= link_to date, welcome_show_path(:date => date.to_s) %>
-      <% end %>
+      <%= link_to date, welcome_show_path(:date => date.to_s) %>
       <% unless counts.nil? %>
         <br>
         <% unless counts[0].zero? %>
