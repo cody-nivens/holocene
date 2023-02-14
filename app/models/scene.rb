@@ -45,6 +45,14 @@ class Scene < ApplicationRecord
 
   validates :abc, presence: true
 
+  def characters_short_list
+    s = ""
+    characters.order(last_name: :asc).each do |character|
+      s += "#{character.full_name}<br>"
+    end
+    return s
+  end
+
   def title_scene?
     title_scene
   end
