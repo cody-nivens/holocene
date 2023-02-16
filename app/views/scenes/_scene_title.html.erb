@@ -48,7 +48,7 @@
           </strong>
         </td>
         <td width="2%">
-          <%= scene.characters.size %>
+          <%= link_to scene.characters.size, scene_characters_path(scene_id: scene.id), target: :_blank %>
         <td>
         <% if scene.signets.size > 0 %>
           <% value = "##{Signet.color(scene.signets.first.color)}" %>
@@ -56,7 +56,7 @@
         <% else %>
           <td width="2%">
         <% end %>
-          <%= scene.signets.size %>
+          <%= link_to scene.signets.size, scene_signets_path(scene_id: scene.id), target: :_blank %>
         <td>
       <% end %>
       <td width="43%"><%= scene.artifact.nil? ? '' : "#{scene.artifact_name} - " %><%= scene.place.empty? ? '' : "#{scene.place&.to_plain_text}" %></td>
