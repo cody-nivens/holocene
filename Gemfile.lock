@@ -670,7 +670,7 @@ DEPENDENCIES
   puma (~> 5)
   rack (>= 2.2.3)
   rack-mini-profiler (~> 2.0)
-  rails (~> 6.1.4, >= 6.1.4.1)
+  rails (~> 6.1.7, >= 6.1.7.1)
   rails-bootstrap-tabs!
   rails-controller-testing
   rails-erd
