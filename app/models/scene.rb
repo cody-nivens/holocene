@@ -58,7 +58,7 @@ class Scene < ApplicationRecord
     signets.order(color: :asc).each do |signet|
       s += "<span style='background: ##{Signet.color(signet.color)};'>#{signet.message}</span><br>"
     end
-    return s
+    return s.blank? ? "None" : s
   end
 
   def title_scene?
