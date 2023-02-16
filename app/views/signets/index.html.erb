@@ -1,6 +1,7 @@
 <% @title = "Signets" %>
 <h2><%= @sigged.class.name %>: <%= (@sigged.class.name == 'Scene' && @sigged.section.present?) ? @sigged.section.name : @sigged.name %></h2>
 
+<% unless @signets.nil? %>
 <table class='table'>
   <thead>
     <tr>
@@ -18,7 +19,7 @@
   </tbody>
 </table>
 
-<br>
+<% end %>
 
 <% add_to_footer('New Signet', new_polymorphic_path([@sigged, :signet])) %>
 <% add_to_footer('Back', polymorphic_path(@sigged)) %>

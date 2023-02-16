@@ -67,7 +67,7 @@ class SignetsControllerTest < ActionDispatch::IntegrationTest
           params: { chapter_id: @chapter.id,
                     signet: { color: @signet.color, message: @signet.message, sigged_id: @signet.sigged_id,
                               sigged_type: @signet.sigged_type } }
-    assert_redirected_to polymorphic_url([@chapter, @signet])
+    assert_response :success
   end
 
   test 'should not update signet' do
