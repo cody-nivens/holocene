@@ -1,4 +1,4 @@
-<h2><%= @date.to_date %></h2>
+<% @title = @date.to_date %>
 
 <%= render partial: 'shared/metric', formats: [:html], locals: { objects: @metrics, title: "Items for #{@date.to_s}" } %>
 
