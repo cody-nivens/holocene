@@ -34,10 +34,11 @@ class SignetsController < ApplicationController
   def create
     @signet = Signet.new(signet_params)
     @sigged = @signet.sigged
+    @signets = @sigged.signets
 
     respond_to do |format|
       if @signet.save
-        format.html { redirect_to polymorphic_path([@sigged, @signet]), notice: 'Signet was successfully created.' }
+        format.html { render :index, notice: 'Signet was successfully created.' }
         format.json { render :show, status: :created, location: @signet }
       else
         format.html { render :new }
@@ -53,7 +54,7 @@ class SignetsController < ApplicationController
     respond_to do |format|
       if @signet.update(signet_params)
         format.html { redirect_to polymorphic_path([@sigged, @signet]), notice: 'Signet was successfully updated.' }
-        format.json { render :show, status: :ok, location: @signet }
+        format.json { render :index, status: :ok, location: @signet }
       else
         format.html { render :edit, "#{@sigged.class.name.underscore}_id".to_sym => @sigged.id }
         format.json { render json: @signet.errors, status: :unprocessable_entity }

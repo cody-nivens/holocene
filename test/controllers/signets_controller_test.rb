@@ -38,7 +38,7 @@ class SignetsControllerTest < ActionDispatch::IntegrationTest
                                sigged_type: @signet.sigged_type } }
     end
 
-    assert_redirected_to polymorphic_url([@chapter, Signet.last])
+    assert_response :success
   end
 
   test 'should not create signet' do
