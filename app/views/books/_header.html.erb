@@ -3,6 +3,7 @@
   <%== breadcrumb(book, link: true) %>
   <%= link_to (fa_icon 'edit', type: :regular), edit_book_path(book), title: 'Edit' %>
   <%= link_to (fa_icon 'sticky-note', type: :regular), book_signets_path(book), title: 'Signets' %>
+  <%= link_to (fa_icon 'sticky-note', type: :regular), book_notes_path(book), title: 'Notes' %>
   <% if long %>
   <%= link_to (fa_icon 'list', type: :solid), book_path(book), title: 'Show' %>
   <% else %>

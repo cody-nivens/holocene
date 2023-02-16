@@ -1,0 +1,37 @@
+<% @title = "Notes" %>
+
+<h2>Notes <%= @sigged.class.name %>: <%= @sigged.name %></h2>
+<table class='table'>
+  <thead>
+    <tr>
+      <th>Scene</th>
+      <th>Signet</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @signets.each do |signet| %>
+      <tr>
+        <td></td>
+        <%= render partial: 'signets/signet_line', locals: { signet: signet, sigged: @sigged } %>
+      </tr>
+    <% end %>
+<% if (@sigged.class.name == 'Book' and @sigged.is_fiction?) or @sigged.class.name == 'Story' %>
+    <% scenes = Scene.get_scenes_to_array(@sigged) %>
+    <% scenes.each do |scene_id| %>
+      <% scene = Scene.find(scene_id) %>
+      <% scene.signets.each do |signet| %>
+        <tr>
+          <td><%= scene.section.present? ? scene.section.name : scene.name %></td>
+        <%= render partial: 'signets/signet_line', locals: { signet: signet, sigged: scene } %>
+        </tr>
+      <% end %>
+    <% end %>
+<% end %>
+  </tbody>
+</table>
+
+<br>
+
+<% add_to_footer('Back', polymorphic_path(@sigged)) %>

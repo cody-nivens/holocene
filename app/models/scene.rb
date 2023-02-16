@@ -53,6 +53,14 @@ class Scene < ApplicationRecord
     return s
   end
 
+  def signets_short_list
+    s = ""
+    signets.order(color: :asc).each do |signet|
+      s += "<span style='background: ##{Signet.color(signet.color)};'>#{signet.message}</span><br>"
+    end
+    return s
+  end
+
   def title_scene?
     title_scene
   end

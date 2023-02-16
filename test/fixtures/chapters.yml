@@ -1,6 +1,6 @@
 ---
 chapter_1:
-  name: 'Cultural Events '
+  name: 'Cultural Events'
   position: 1
   slug: 4tWrCAXQXx
   scripted: book_1 (Book)
@@ -10,7 +10,7 @@ chapter_1:
   holocene_events:
       - holocene_event_1
 chapter_2:
-  name: 'Chapter Two Stuff '
+  name: 'Chapter Two Stuff'
   position: 3
   slug: tE3vUMrsN3
   scripted: book_1 (Book)
@@ -20,7 +20,7 @@ chapter_2:
   holocene_events:
       - holocene_event_2
 chapter_3:
-  name: 'Chapter Three Stuff '
+  name: 'Chapter Three Stuff'
   position: 5
   slug: tE3vUMrsN3
   scripted: book_1 (Book)
@@ -28,7 +28,7 @@ chapter_3:
   always_display_events: true
   display_title: true
 chapter_4:
-  name: 'Chapter Four Stuff '
+  name: 'Chapter Four Stuff'
   position: 7
   slug: tE3vUMrsN3
   holocene_events:
@@ -38,7 +38,7 @@ chapter_4:
   always_display_events: false
   display_title: true
 chapter_5:
-  name: 'Chapter Five Stuff '
+  name: 'Chapter Five Stuff'
   position: 1
   slug: xx3vUMrsN3
   scripted: book_4 (Book)
@@ -46,7 +46,7 @@ chapter_5:
   always_display_events: true
   display_title: true
 chapter_6:
-  name: 'Chapter Six Stuff '
+  name: 'Chapter Six Stuff'
   position: 2
   slug: tE3vUMrsN3
   scripted: book_4 (Book)

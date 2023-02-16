@@ -1,6 +1,6 @@
 class SignetsController < ApplicationController
   before_action :set_signet, only: %i[show edit update destroy]
-  before_action :set_sigged, only: %i[index new]
+  before_action :set_sigged, only: %i[notes index new]
 
   # GET /signets
   # GET /signets.json
@@ -12,6 +12,10 @@ class SignetsController < ApplicationController
   # GET /signets/1.json
   def show
     @sigged = @signet.sigged
+  end
+
+  def notes
+    @signets = @sigged.signets
   end
 
   # GET /signets/new
@@ -78,7 +82,7 @@ class SignetsController < ApplicationController
   end
 
   def set_sigged
-    klass = [Chapter, HoloceneEvent, Section, Book].detect { |c| params["#{c.name.underscore}_id"] }
+    klass = [Story, Scene, Chapter, HoloceneEvent, Section, Book].detect { |c| params["#{c.name.underscore}_id"] }
     @sigged = (klass.nil? ? nil : klass.find(params["#{klass.name.underscore}_id"]))
   end
 

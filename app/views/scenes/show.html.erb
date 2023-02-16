@@ -3,6 +3,9 @@
 <h2>
   <%== breadcrumb(@scene.key_point.scripted.book, @scene.key_point.scripted, @scene.key_point, @scene, @scene.section) %>
   <%= link_to (fa_icon 'edit'), edit_scene_path(@scene), title: 'Edit' %>
+  <%= link_to (fa_icon 'sticky-note'), scene_signets_path(scene_id: @scene.id),data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{@scene.signets_short_list}"},
+    title: 'Signets', class: "#{!@scene.signets.empty? ? Signet.color_class(@scene.signets[0].color) : ''}" %>
+
 </h2>
 
 <%= render partial: 'scenes/stats', locals: { object: @scene } %>

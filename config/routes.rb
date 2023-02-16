@@ -280,25 +280,45 @@ Rails.application.routes.draw do
   get '/books/:book_id/chapter/:id', to: 'chapters#move', as: :move_book_chapter
 
   get '/chapters/:chapter_id/signets',               to: 'signets#index', as: :chapter_signets
-  get '/sections/:section_id/signets',               to: 'signets#index', as: :section_signets
-  get '/books/:book_id/signets', to: 'signets#index', as: :book_signets
-  get '/holocene_events/:holocene_event_id/signets', to: 'signets#index', as: :holocene_event_signets
   get '/chapters/:chapter_id/signet/:id',               to: 'signets#show', as: :chapter_signet
-  get '/sections/:section_id/signet/:id',               to: 'signets#show', as: :section_signet
-  get '/books/:book_id/signet/:id', to: 'signets#show', as: :book_signet
-  get '/holocene_events/:holocene_event_id/signet/:id', to: 'signets#show', as: :holocene_event_signet
   get '/chapters/:chapter_id/signets/new',               to: 'signets#new', as: :new_chapter_signet
-  get '/sections/:section_id/signets/new',               to: 'signets#new', as: :new_section_signet
-  get '/books/:book_id/signets/new', to: 'signets#new', as: :new_book_signet
-  get '/holocene_events/:holocene_event_id/signets/new', to: 'signets#new', as: :new_holocene_event_signet
   patch '/chapters/:chapter_id/signet/:id',               to: 'signets#update', as: :chapter_signet_update
-  patch '/sections/:section_id/signet/:id',               to: 'signets#update', as: :section_signet_update
-  patch '/books/:book_id/signet/:id', to: 'signets#update', as: :book_signet_update
-  patch '/holocene_events/:holocene_event_id/signet/:id', to: 'signets#update', as: :holocene_event_signet_update
   post '/chapters/:chapter_id/signets',               to: 'signets#create', as: :chapter_signet_create
-  post '/sections/:section_id/signets',               to: 'signets#create', as: :section_signet_create
+
+
+  get '/stories/:story_id/signets',               to: 'signets#index', as: :story_signets
+  get '/stories/:story_id/signet/:id',               to: 'signets#show', as: :story_signet
+  get '/stories/:story_id/signets/new',               to: 'signets#new', as: :new_story_signet
+  patch '/stories/:story_id/signet/:id',               to: 'signets#update', as: :story_signet_update
+  post '/stories/:story_id/signets',               to: 'signets#create', as: :story_signet_create
+
+  get '/scenes/:scene_id/signets',               to: 'signets#index', as: :scene_signets
+  get '/scenes/:scene_id/signet/:id',               to: 'signets#show', as: :scene_signet
+  get '/scenes/:scene_id/signets/new',               to: 'signets#new', as: :new_scene_signet
+  patch '/scenes/:scene_id/signet/:id',               to: 'signets#update', as: :scene_signet_update
+  post '/scenes/:scene_id/signets',               to: 'signets#create', as: :scene_signet_create
+
+  get '/books/:book_id/notes', to: 'signets#notes', as: :book_notes
+  get '/stories/:story_id/notes', to: 'signets#notes', as: :story_notes
+  get '/chapters/:chapter_id/notes', to: 'signets#notes', as: :chapter_notes
+
+  get '/books/:book_id/signets', to: 'signets#index', as: :book_signets
+  get '/books/:book_id/signet/:id', to: 'signets#show', as: :book_signet
+  get '/books/:book_id/signets/new', to: 'signets#new', as: :new_book_signet
+  patch '/books/:book_id/signet/:id', to: 'signets#update', as: :book_signet_update
   post '/books/:book_id/signets', to: 'signets#create', as: :book_signet_create
+
+  get '/holocene_events/:holocene_event_id/signets', to: 'signets#index', as: :holocene_event_signets
+  get '/holocene_events/:holocene_event_id/signet/:id', to: 'signets#show', as: :holocene_event_signet
+  get '/holocene_events/:holocene_event_id/signets/new', to: 'signets#new', as: :new_holocene_event_signet
+  patch '/holocene_events/:holocene_event_id/signet/:id', to: 'signets#update', as: :holocene_event_signet_update
   post '/holocene_events/:holocene_event_id/signets', to: 'signets#create', as: :holocene_event_signet_create
+
+  get '/sections/:section_id/signet/:id',               to: 'signets#show', as: :section_signet
+  get '/sections/:section_id/signets/new',               to: 'signets#new', as: :new_section_signet
+  get '/sections/:section_id/signets',               to: 'signets#index', as: :section_signets
+  patch '/sections/:section_id/signet/:id',               to: 'signets#update', as: :section_signet_update
+  post '/sections/:section_id/signets',               to: 'signets#create', as: :section_signet_create
 
   root to: 'welcome#index'
 

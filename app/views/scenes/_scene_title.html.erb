@@ -11,16 +11,16 @@
   <tbody>
     <tr>
     <% if pdf and !long %>
-      <td width="20%;">  <%= scene.time_to_text %></td>
-      <td width="25%;">  <strong><i><%= scene.section.name %></i></strong></td>
-      <td width="55%;"><%= scene.artifact.nil? ? '' : "#{scene.artifact_name} - " %><%= scene.place.empty? ? '' : "#{scene.place&.to_plain_text}" %></td>
+      <td width="20%">  <%= scene.time_to_text %></td>
+      <td width="25%">  <strong><i><%= scene.section.name %></i></strong></td>
+      <td width="55%"><%= scene.artifact.nil? ? '' : "#{scene.artifact_name} - " %><%= scene.place.empty? ? '' : "#{scene.place&.to_plain_text}" %></td>
     <% else %>
       <% if inline_date %>
         <td colspan="7"><%= scene.time_to_text %> :</td>
       <% else %>
-        <td width="16%;">  <%= scene.time_to_text %></td>
-        <td width="1%;">  <%= (scene.title_scene? ? '*' : ' ') %> </td>
-        <td width="2%;">
+        <td width="16%">  <%= scene.time_to_text %></td>
+        <td width="1%">  <%= (scene.title_scene? ? '*' : ' ') %> </td>
+        <td width="2%">
           <% unless pdf %>
             <div id="scene-checkbox-<%= scene.id %>">
               <%= check_box_tag 'check', !scene.check, scene.check,
@@ -31,7 +31,7 @@
             </div>
           <% end %>
         </td>
-        <td width="5%;">
+        <td width="5%">
           <% if target.nil? %>
             <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene), data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.characters_short_list}"}) : scene.abc) %>
           <% else %>
@@ -40,9 +40,26 @@
         </td>
       <% end %>
       <% unless scene.section.nil? %>
-        <td width="25%;">  <strong><i><%= scene.section.name %></i></strong></td>
+        <td width="21%">
+          <strong>
+            <i>
+              <%= scene.section.name %>
+            </i>
+          </strong>
+        </td>
+        <td width="2%">
+          <%= scene.characters.size %>
+        <td>
+        <% if scene.signets.size > 0 %>
+          <% value = "##{Signet.color(scene.signets.first.color)}" %>
+          <td style="width:2%; background-color:<%= value %>">
+        <% else %>
+          <td width="2%">
+        <% end %>
+          <%= scene.signets.size %>
+        <td>
       <% end %>
-      <td width="43%;"><%= scene.artifact.nil? ? '' : "#{scene.artifact_name} - " %><%= scene.place.empty? ? '' : "#{scene.place&.to_plain_text}" %></td>
+      <td width="43%"><%= scene.artifact.nil? ? '' : "#{scene.artifact_name} - " %><%= scene.place.empty? ? '' : "#{scene.place&.to_plain_text}" %></td>
       <td class="text-end" width="5%;">
         <% if long %>
         <span style="background-color: #<%= count_color(wc) %>">

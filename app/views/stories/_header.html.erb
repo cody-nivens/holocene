@@ -1,6 +1,8 @@
 <h2>
   <%== breadcrumb(story.book, story) %>
   <%= link_to (fa_icon 'edit', type: :regular), edit_story_path(story), title: 'Edit' %>
+    <%= link_to (fa_icon 'sticky-note', type: :regular), story_signets_path(story), title: 'Signets' %>
+  <%= link_to (fa_icon 'sticky-note', type: :regular), story_notes_path(story), title: 'Notes' %>
    <% if long %>
   <%= link_to (fa_icon 'list', type: :solid), story_path(story), title: 'Show' %>
   <% else %>

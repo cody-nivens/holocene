@@ -1,27 +1,18 @@
 <% @title = "Signets" %>
-<h2>Signets</h2>
+<h2><%= @sigged.class.name %>: <%= (@sigged.class.name == 'Scene' && @sigged.section.present?) ? @sigged.section.name : @sigged.name %></h2>
 
 <table class='table'>
   <thead>
     <tr>
-      <th>Color</th>
-      <th>Message</th>
-      <th colspan="3"></th>
+      <th>Signet</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
-      <tr>
-        <td colspan="3"><%= (@sigged.nil? ? '' : @sigged.name) %></td>
-      </tr>
-
     <% @signets.each do |signet| %>
       <tr>
-        <td class="<%= Signet.color_class(signet.color) %>"><%= Signet.color_name(signet.color) %></td>
-        <td class="color-<%= Signet.color(signet.color) %>"><%= signet.message %></td>
-        <td><%= link_to (fa_icon 'tv'), signet, title: 'Show' %>
-        <%= link_to (fa_icon 'edit'), edit_signet_path("#{@sigged.class.name.underscore}_id".to_sym => @sigged.id, :id => signet.id), title: 'Edit' %>
-        <%= link_to (fa_icon 'trash'), signet, method: :delete, data: { confirm: 'Are you sure?', title: 'Delete' } %></td>
+        <%= render partial: 'signets/signet_line', locals: { signet: signet, sigged: @sigged } %>
       </tr>
     <% end %>
   </tbody>
