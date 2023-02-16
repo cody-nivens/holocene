@@ -34,7 +34,6 @@ class SignetsController < ApplicationController
   def create
     @signet = Signet.new(signet_params)
     @sigged = @signet.sigged
-    @signets = @sigged.signets.present? ? @sigged.signets : []
 
     respond_to do |format|
       if @signet.save
