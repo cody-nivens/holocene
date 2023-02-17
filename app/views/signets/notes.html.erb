@@ -24,7 +24,7 @@
       <% scene = Scene.find(scene_id) %>
       <% scene.signets.each do |signet| %>
         <tr>
-          <td><%= scene == old_scene ? "" : scene.section.present? ? scene.section.name : scene.name %></td>
+          <td><%= link_to (scene == old_scene ? "" : scene.section.present? ? scene.section.name : scene.name), scene_path(scene), target: :_blank %></td>
           <% old_scene = scene %>
           <%= render partial: 'signets/signet_line', locals: { signet: signet, sigged: scene } %>
         </tr>

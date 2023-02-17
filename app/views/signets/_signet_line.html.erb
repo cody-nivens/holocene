@@ -1,5 +1,6 @@
-<td style="background:#<%= Signet.color(signet.color) %>;"><%= signet.message %></td>
-<td><%= link_to (fa_icon 'tv'), signet, title: 'Show' %>
-    <%= link_to (fa_icon 'edit'), edit_signet_path("#{sigged.class.name.underscore}_id".to_sym => sigged.id, :id => signet.id), title: 'Edit' %>
+<td style="background:#<%= Signet.color(signet.color) %>;">
+    <%= link_to signet.message, edit_signet_path("#{sigged.class.name.underscore}_id".to_sym => sigged.id, :id => signet.id), title: 'Edit', target: :_blank %>
+</td>
+<td>
     <%= link_to (fa_icon 'trash'), signet, method: :delete, data: { confirm: 'Are you sure?', title: 'Delete' } %>
 </td>
