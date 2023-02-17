@@ -1,5 +1,5 @@
 <% @title = "Signets" %>
-<h2><%= @sigged.class.name %>: <%= (@sigged.class.name == 'Scene' && @sigged.section.present?) ? @sigged.section.name : @sigged.name %></h2>
+<h2>Signets - <%= @sigged.class.name %>: <%= @sigged.name %></h2>
 
 <% if @sigged.signets.size > 0 %>
 <table class='table'>

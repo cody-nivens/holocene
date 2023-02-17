@@ -115,7 +115,9 @@ class Scene < ApplicationRecord
   end
 
   def name
-    if summary.blank?
+    if section.present?
+      section.name
+    elsif summary.blank?
       abc
     else
       summary.to_plain_text[0..99].to_s
