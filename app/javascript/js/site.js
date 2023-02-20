@@ -22,16 +22,8 @@ import 'js/jquery-jvectormap-world-mill-en';
 
 $(document).ready(function() {
 
-  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-  var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-    return new bootstrap.Popover(popoverTriggerEl)
-  })
-
-  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl);
-  });
-
+$('[data-bs-toggle="tooltip"]').tooltip();
+$('[data-bs-toggle="popover"]').popover();
 
 //$("#new_key_point_id").prop("disabled", true); // second dropdown is disable while first dropdown is empty
 $("#story_id").change(function(){

@@ -16,7 +16,12 @@
   <% variance = sum / (@scenes.length - 1) %>
   <% standard_deviation = Math.sqrt(variance) %>
 
-<%= form_with model: Scene.new, url: (@situated.instance_of?(Book) ? book_scenes_path(@situated) : polymorphic_path([@situated, :scenes])), method: :get, id: 'my-form', remote: true, format: :js, class: 'form-inline' do %>
+  <%= form_with model: Scene.new, url: (@situated.instance_of?(Book) ? book_scenes_path(@situated) : polymorphic_path([@situated, :scenes])),
+    method: :get,
+    id: 'my-form',
+    remote: true,
+    format: :js,
+    class: 'form-inline' do %>
   <%= hidden_field_tag :situated_id, @situated.id %>
   <%= hidden_field_tag :situated_type, @situated.class.name %>
 

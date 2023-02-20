@@ -2,7 +2,7 @@ class WelcomeController < ApplicationController
   def index
     @title = "Progress"
     @start_date       = params[:start_date]
-    @today_date = @start_date.nil? ? Date.today : Date.parse(@start_date)
+    @today_date = @start_date.nil? ? Date.today.beginning_of_month.beginning_of_week : Date.parse(@start_date).beginning_of_month.beginning_of_week
 
     @today_mod        = Metric.by_day(@today_date, field: :date).where(user_id: current_user.id).order(date: :desc)
     @today_create     = Metric.by_day(@today_date).where(user_id: current_user.id).order(created_at: :desc)
@@ -16,10 +16,10 @@ class WelcomeController < ApplicationController
     items = {}
     @dates_counts = {}
 
-    metrics = Metric.between_dates(@today_date - 35.days, @today_date).where(user_id: current_user.id).order(date: :desc)
+    metrics = Metric.between_dates(@today_date, @today_date + 42.days).where(user_id: current_user.id).order(date: :desc)
     metrics.pluck(:metrized_id).sort.uniq.each do |item|
       #Metric.past_fortnight(:date).where(metrized_id: item).each do |y|
-      Metric.between_dates(@today_date - 35.days, @today_date).where(metrized_id: item).each do |y|
+      Metric.between_dates(@today_date, @today_date + 42.days).where(metrized_id: item).each do |y|
         items[y.date] = [] if items[y.date].nil?
         items[y.date] << [y.id, y.metrized_id] unless items[y.date].include?([y.id, y.metrized_id])
       end
