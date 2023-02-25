@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class CharactersMatrixHtmlErbTest < ActionDispatch::IntegrationTest
+class CharactersScenesHtmlErbTest < ActionDispatch::IntegrationTest
   setup do
     @character = characters(:character_1)
     @book = books(:book_2)
@@ -12,13 +12,13 @@ class CharactersMatrixHtmlErbTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
-  test 'should show matrix' do
-    get character_matrix_path(@book)
+  test 'should show scenes' do
+    get character_scenes_path(@book)
     assert_response :success
 
     assert_select 'a[text()=?]', 'Back'
     assert_select 'a[href=?]', polymorphic_path(@book)
     assert_select '.footer>div>a', 1
-    assert_template 'characters/matrix'
+    assert_template 'characters/scenes'
   end
 end

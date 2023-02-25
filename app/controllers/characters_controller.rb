@@ -1,6 +1,6 @@
 class CharactersController < ApplicationController
   before_action :set_character, only: %i[lineage edit update]
-  before_action :set_object, only: %i[matrix lineage index add list edit show create update destroy]
+  before_action :set_object, only: %i[scenes matrix lineage index add list edit show create update destroy]
 
   # GET /characters
   # GET /characters.json
@@ -80,6 +80,11 @@ class CharactersController < ApplicationController
 
   # GET /characters/1/matrix
   def matrix
+    session[:return_to] = request.fullpath
+  end
+
+  # GET /characters/1/scenes
+  def scenes
     session[:return_to] = request.fullpath
   end
 

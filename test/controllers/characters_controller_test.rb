@@ -107,6 +107,11 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'should get scenes' do
+    get character_scenes_url(@book)
+    assert_response :success
+  end
+
   test 'should get matrix' do
     get character_matrix_url(@book)
     assert_response :success

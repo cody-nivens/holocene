@@ -15,7 +15,16 @@
         <li class='nav-item'> <a class='nav-link' href='/cities'>Cities</a> </li>
       </ul>
     </li>
-    <li class='nav-item'> <a class='nav-link' href='/books/<%= @book.id %>/characters'>Characters</a> </li>
+    <li class='nav-item dropdown'>
+      <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown1' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+       Characters
+      </a>
+      <ul class='dropdown-menu' aria-labelledby='navbar_dropdown1'>
+        <li class='nav-item'> <a class='nav-link' href='/books/<%= @book.id %>/characters'>Characters</a> </li>
+        <li class='nav-item'> <a class='nav-link' href='/characters/<%= @book.id %>/matrix'>Matrix</a> </li>
+        <li class='nav-item'> <a class='nav-link' href='/characters/<%= @book.id %>/scenes'>Scenes</a> </li>
+      </ul>
+    </li>
   <% else %>
     <li class='nav-item dropdown'>
       <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown2' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>

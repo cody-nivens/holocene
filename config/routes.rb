@@ -73,6 +73,7 @@ Rails.application.routes.draw do
   get '/books/:book_id/scenes', to: 'scenes#index', format: :js, constraints: ->(request) { request.xhr? }
 
   get '/characters/:book_id/matrix', to: 'characters#matrix', as: :character_matrix
+  get '/characters/:book_id/scenes', to: 'characters#scenes', as: :character_scenes
 
   get '/books/:id/export', to: 'books#export', as: :book_export
   get '/books/:id/stats', to: 'books#stats', as: :book_stats

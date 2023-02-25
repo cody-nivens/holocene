@@ -10,7 +10,6 @@
 <% else %>
   <% add_to_footer('Add/Remove Characters', polymorphic_path([@object, :characters_list])) %>
 <% end -%>
-<% add_to_footer('Matrix', character_matrix_path(@object)) %>
 <% add_to_footer('Back', polymorphic_path(@object)) %>
 
 <script nonce="<%= request.content_security_policy_nonce %>" type="text/javascript">
