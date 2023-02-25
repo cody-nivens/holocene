@@ -1,6 +1,7 @@
-<% @title = @date.to_date %>
+<% date = @date.to_date %>
+<% @title = date %>
 
-<h2>History for <%= @date.to_date %></h2>
+<h2>History for <%= date %></h2>
 
 <% counts = @dates_counts[@date.in_time_zone] %>
 <% unless counts.nil? %>
@@ -20,6 +21,9 @@
 <% add_to_footer('Stats', welcome_stats_path) %>
 <% add_to_footer('History', welcome_history_path) %>
 <% add_to_footer('Tags', welcome_tags_path) %>
+<% add_to_footer('<', welcome_show_path(:date => (date - 1.day).to_s)) %>
+<% add_to_footer('>', welcome_show_path(:date => (date + 1.day).to_s)) %>
+
 <% unless @book.nil? %>
   <% add_to_footer('Back', welcome_index_path) %>
 <% end %>
