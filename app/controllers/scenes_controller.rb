@@ -8,6 +8,7 @@ class ScenesController < ApplicationController
     @toggle = params[:toggle]
     @print = params[:print]
     @option = params[:option]
+    @option = params[:option]
     @long = params[:long]
     @button_action = params[:button_action]
 

@@ -28,6 +28,16 @@
       </ul>
     <% end %>
   <% end %>
+<% elsif option == "has_signets" %>
+      <ul>
+  <% scenes.each do |scene_id| %>
+    <% scene = Scene.find_by_id(scene_id) %>
+    <% next unless scene.signets.size > 0 %>
+    <li>
+      <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, target: :_blank, long: long } %>
+    </li>
+  <% end %>
+  </ul>
 <% elsif option == "has_inserts" %>
   <% scenes2 = Scene.where.not(insert_scene_id: nil).order(:insert_scene_id) %>
   <% old_insert_scene = 0 %>
