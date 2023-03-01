@@ -222,7 +222,7 @@ class CharactersController < ApplicationController
     params.require(:character).permit(:name, :reason_for_name, :nickname, :reason_for_nickname, :ethnicity, :occupation_class,
                                       :social_class, :first_name, :middle_name, :last_name, :suffix, :birth_year, :death_year,
                                       :age_at_son, :father_id, :honorific, :grouping, :use_honorific_only, :background, :mother_id,
-                                      :sex, :main)
+                                      :sex, :main, :thumbnail)
   end
 
   # Only allow a list of trusted parameters through.

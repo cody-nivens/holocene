@@ -21,6 +21,7 @@ class Character < ApplicationRecord
   delegate :name, to: :mother, prefix: true
 
   has_rich_text :background
+  has_rich_text :thumbnail
 
   VALUES = [
     ['M', 1000],
@@ -88,6 +89,10 @@ class Character < ApplicationRecord
 
   def background?
     !background.blank?
+  end
+
+  def thumbnail?
+    !thumbnail.blank?
   end
 
   def use_honorific_only?

@@ -84,7 +84,7 @@
     </p>
   <% end %>
 </div>
-        <div class="col-md-4">
+      <div class="col-md-4">
           <% CharacterCategory.all.each do |category| %>
             <%= render partial: 'character_values/index_list', formats: [:html],
                        locals: { pdf: pdf, title: category.name, object: object,
@@ -92,17 +92,26 @@
           <% end %>
         </div>
       </div>
-            <div class="row">
-        <div class="col-md-8">
-  <% if character.background? %>
-    <p>
-      <strong>Background:</strong>
-      <%= character.background %>
-    </p>
-  <% end %>
-
+      <% if character.background? %>
+        <div class="row">
+          <div class="col-md-8">
+            <p>
+              <strong>Background:</strong>
+              <%= character.background %>
+            </p>
+          </div>
         </div>
-      </div>
+      <% end %>
+      <% if character.thumbnail? %>
+        <div class="row">
+          <div class="col-md-8">
+            <p>
+              <strong>Thumbnail:</strong>
+              <%= character.thumbnail%>
+            </p>
+          </div>
+        </div>
+      <% end %>
     </div>
   </span>
 <% end %>
