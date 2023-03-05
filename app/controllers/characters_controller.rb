@@ -19,7 +19,7 @@ class CharactersController < ApplicationController
       my_params[:grouping] = ['']
     end
 
-    @grid = CharactersGrid.new(my_params) do |scope|
+    @grid = CharactersGrid.new(my_params.merge(object: @object)) do |scope|
       if @attribute.present?
         if @value.blank?
           my_scope = scope.joins(:character_values).where('character_values.character_attribute_id = ?',

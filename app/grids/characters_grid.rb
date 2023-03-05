@@ -74,15 +74,17 @@ class CharactersGrid < BaseGrid
   # column(:social_class)
   # column(:created_at)
   # column(:updated_at)
-  column(:birth_year, order: 'birth_year asc, last_name asc, first_name asc',
+  column(:birth_year, if: ->(grid) { grid.object.class.name != 'Scene' }, order: 'birth_year asc, last_name asc, first_name asc',
                       order_desc: 'birth_year desc, last_name desc, first_name desc')
-  column(:death_year, order: 'death_year asc, last_name asc, first_name asc',
+  column(:death_year, if: ->(grid) { grid.object.class.name != 'Scene' }, order: 'death_year asc, last_name asc, first_name asc',
                       order_desc: 'death_year desc, last_name desc, first_name desc')
-
   # column(:father_id)
   # column(:age_at_son)
   # column(:mother_id)
 
+  column(:age, header: 'Age', html: true) do |character|
+    @object.class.name == 'Scene' ? @object.date_string[0..3].to_i - character.birth_year.to_i : ''
+  end
   column(:scenes, header: 'Scenes', html: true) do |character|
     character.scenes.size
   end
@@ -99,7 +101,7 @@ class CharactersGrid < BaseGrid
   end
   column(:ethnicity, order: 'ethnicity asc, last_name asc, first_name asc',
                      order_desc: 'ethnicity desc, last_name desc, first_name desc')
-  column(:char_scenes, header: 'Role', html: true) do |character|
+  column(:char_scenes, header: 'Role', if: ->(grid) { grid.object.class.name == 'Scene' }, html: true) do |character|
    character_scene = CharacterScene.where(character_id: character.id, scene_id: @object.id)
    link_to (fa_icon 'plus'), character_scene[0].nil? ? edit_character_scene_path(character.id, nil) : edit_character_scene_path(character_scene[0]), 
      data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{character_scene[0].nil? ? "Edit Character Scene" : character_scene[0].summary.to_plain_text}" }
