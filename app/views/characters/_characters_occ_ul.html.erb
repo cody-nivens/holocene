@@ -20,39 +20,39 @@
       <% else %>
         <tr>
       <% end %>
-        <td></td>
-        <td width="15%">
+      <td></td>
+      <td width="15%">
         <%= link_to character.full_name, polymorphic_path([object, character]) %>
-        </td><td>
+      </td><td>
         <%= (!character.grouping? ? '' : "#{character.grouping}").to_s %>
-        </td>
-        <%== physical_attributes(character) %>
-        <td>
+      </td>
+      <%== physical_attributes(character) %>
+      <td>
         <%= (!character.ethnicity? ? '' : "#{character.ethnicity}").to_s %>
-        </td><td>
+      </td><td>
         <% if object.class.name == 'Scene' %>
           <%= object.date_string[0..3].to_i - character.birth_year.to_i %>
         <% end %>
-        </td><td>
+      </td><td>
         <% if object.class.name == 'Scene' %>
           <% character_scene = CharacterScene.where(character_id: character.id, scene_id: object.id) %>
           <%= link_to (fa_icon 'plus'), edit_character_scene_path(character_scene[0]), title: 'Edit character role in scene' %>
           <% unless character_scene[0].summary.nil? %>
-          </td>
-        </tr>
-        <% if character.main? %>
-          <tr class="table-primary">
-        <% else %>
-          <tr>
-        <% end %>
-        <td></td>
-        <td colspan="8">
-            <%= character_scene[0].summary.to_plain_text %>
+            </td>
+            </tr>
+            <% if character.main? %>
+              <tr class="table-primary">
+            <% else %>
+              <tr>
+            <% end %>
+            <td></td>
+            <td colspan="8">
+              <%= character_scene[0].summary.to_plain_text %>
+            <% end %>
           <% end %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
+      </td>
+    </tr>
+  <% end %>
 <% end %>
-    </tbody>
-  </table>
+  </tbody>
+</table>

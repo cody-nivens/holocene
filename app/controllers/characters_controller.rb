@@ -45,6 +45,8 @@ class CharactersController < ApplicationController
 
     @pagy, @records = pagy(@grid.assets)
 
+    session[:return_to] = request.fullpath
+
     respond_to do |format|
       format.js {}
       format.html {}

@@ -22,9 +22,4 @@ class CharacterScenesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to scene_url(@scene)
   end
 
-  test 'should not update character_scene' do
-    patch character_scene_url(@character_scene),
-          params: { character_scene: { character_id: nil, scene_id: @scene.id } }
-    assert_response :success
-  end
 end

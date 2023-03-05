@@ -63,15 +63,9 @@ class CharactersGrid < BaseGrid
     link_to he.full_last_first, polymorphic_path([@object, he])
   end
   #column(:nickname)
-  column(:honorific)
-  column(:sex, html: true, order: 'sex asc, last_name asc, first_name asc',
-               order_desc: 'sex desc, last_name desc, first_name desc') do |value|
-    Character.sex_to_text(value.sex)
-  end
+  #column(:honorific)
   # column(:reason_for_name)
   # column(:reason_for_nickname)
-  column(:ethnicity, order: 'ethnicity asc, last_name asc, first_name asc',
-                     order_desc: 'ethnicity desc, last_name desc, first_name desc')
 
   column(:occupation_class, order: 'occupation_class asc, last_name asc, first_name asc',
                             order_desc: 'occupation_class desc, last_name desc, first_name desc')
@@ -89,11 +83,26 @@ class CharactersGrid < BaseGrid
   # column(:age_at_son)
   # column(:mother_id)
 
+  column(:scenes, header: 'Scenes', html: true) do |character|
+    character.scenes.size
+  end
+
+  column(:sex, html: true, order: 'sex asc, last_name asc, first_name asc',
+               order_desc: 'sex desc, last_name desc, first_name desc') do |value|
+    Character.sex_to_text(value.sex)
+  end
   column(:gender, header: 'Gender', html: true) do |character|
     character_values = character.character_values.where(character_attribute_id: CharacterAttribute.all.joins(:character_category).where(
       'character_categories.name = ? and character_attributes.name= ?', 'Gender', 'Gender'
     )[0].id)
     character_values[0].value unless character_values.empty?
+  end
+  column(:ethnicity, order: 'ethnicity asc, last_name asc, first_name asc',
+                     order_desc: 'ethnicity desc, last_name desc, first_name desc')
+  column(:char_scenes, header: 'Role', html: true) do |character|
+   character_scene = CharacterScene.where(character_id: character.id, scene_id: @object.id)
+   link_to (fa_icon 'plus'), character_scene[0].nil? ? edit_character_scene_path(character.id, nil) : edit_character_scene_path(character_scene[0]), 
+     data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{character_scene[0].nil? ? "Edit Character Scene" : character_scene[0].summary.to_plain_text}" }
   end
   column(:action2, header: '', html: true) do |character|
     link_to (fa_icon 'edit'), polymorphic_path([:edit,@object,character]), title: 'Edit'
