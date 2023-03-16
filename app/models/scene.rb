@@ -39,6 +39,8 @@ class Scene < ApplicationRecord
   has_one :section, as: :sectioned, dependent: :destroy
   has_many :signets, as: :sigged, dependent: :destroy
   #has_many :tours, dependent: :destroy
+  has_many :plot_point_scenes
+  has_many :plot_points, through: :plot_point_scenes
 
   delegate :abc, to: :insert_scene, prefix: true
   delegate :name, to: :artifact, prefix: true

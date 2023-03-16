@@ -83,6 +83,9 @@ Rails.application.routes.draw do
   get '/stories/:id/move', to: 'stories#move', as: :story_move
   post '/stories/:id/moved', to: 'stories#moved', as: :story_moved
 
+  post '/plot_points/:id/add', to: 'plot_points#add', as: :plot_points_add
+  get '/plot_points/:id/list', to: 'plot_points#list', as: :plot_points_list
+
   post '/books/:book_id/authors/add', to: 'authors#add', as: :book_authors_add
   get '/books/:book_id/authors/list', to: 'authors#list', as: :book_authors_list
   post '/books/:book_id/characters/add', to: 'characters#add', as: :book_characters_add
@@ -112,6 +115,7 @@ Rails.application.routes.draw do
   resources :footnotes
   resources :key_words, except: %i[index new create]
   resources :books, shallow: true do
+    resources :plot_points
     resources :key_words
     resources :artifacts
     resources :artifact_types

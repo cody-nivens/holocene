@@ -1,0 +1,6 @@
+<h1>Editing Plot Point</h1>
+
+<%= render 'form', plot_point: @plot_point, book: @book %>
+
+<% add_to_footer('Show', @plot_point) %> 
+<% add_to_footer('Back', book_plot_points_path(@book)) %>

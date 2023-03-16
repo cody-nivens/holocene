@@ -63,7 +63,7 @@ class BooksShowHtmlErbTest < ActionDispatch::IntegrationTest
     assert_select 'a[text()=?]', 'Authors'
     assert_select 'a[href=?]', book_authors_path(@book_2)
 
-    assert_select '.footer>div>a', 11
+    assert_select '.footer>div>a', 12
     assert_template 'books/show'
   end
 end

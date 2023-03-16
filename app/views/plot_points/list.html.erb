@@ -1,0 +1,22 @@
+<%= bootstrap_form_for :plot_point, url: plot_points_add_path(@plot_point) do |f| %>
+
+  <%= hidden_field "plot_point_id", value: @plot_point.id %>
+
+  <h2>Scenes for <%= @plot_point.name %></h2>
+
+<table class="table">
+  <tr>
+      <td style="width:40%">
+        <%= select_tag :scenes_ids, options_from_collection_for_select(@plot_point.scenes, :id, :name), prompt: 'Select Scenes', multiple: true, size: 20 %>
+      </td><td style="width:20%">
+          <%= f.submit class: 'btn btn-primary' %>
+      </td><td style="width:40%">
+        <% scenes_ids = Scene.get_scenes_to_array(@plot_point.book) %>
+        <%= select_tag :scenes_avail, plot_points_options_for_select(scenes_ids), prompt: 'Select Scenes', multiple: true, size: 20 %>
+      </td>
+  </tr>
+</table>
+
+<% end %>
+
+<% add_to_footer('Back', book_plot_points_path(@plot_point.book)) %>

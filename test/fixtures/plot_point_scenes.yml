@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  scene_id: scene_1
+  plot_point_id: plot_point_1
+
+two:
+  scene_id: scene_1
+  plot_point_id: plot_point_2

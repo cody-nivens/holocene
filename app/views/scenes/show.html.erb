@@ -81,7 +81,7 @@
 <% end %>
 
 <% end %>
-  <% c.tab "Scenes" do %>
+<% c.tab "Scenes" do %>
 <% scenes = Scene.where(insert_scene_id: @scene.id).order(:date_string, :abc) %>
   <% unless scenes.size == 0 %>
     <strong>Scenes:</strong>
@@ -93,6 +93,23 @@
         <% insert_scene = iscene %>
       <% end %>
     </ul>
+  <% end %>
+<% end %>
+<% c.tab "Plot Points" do %>
+  <% unless @scene.plot_points.size == 0 %>
+    <table class="table">
+      <thead>
+        <tr><th colspan="2">Plot Point</th></tr>
+      </thead>
+      <tbody>
+      <% @scene.plot_points.each do |plot_point| %>
+        <tr>
+          <td width="20%"><%= plot_point.name %></td>
+          <td><%= plot_point.body %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
   <% end %>
 <% end %>
 <% end %>

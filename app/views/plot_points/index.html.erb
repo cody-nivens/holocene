@@ -1,0 +1,12 @@
+<h2>Plot Points for <%= @book.name %></h2>
+
+<table class="table">
+  <tbody>
+    <% @plot_points.each do |plot_point| %>
+      <%= render partial: 'plot_points/index_plot_point', locals: { plot_point: plot_point } %>
+    <% end %>
+  </tbody>
+</table>
+
+<% add_to_footer('New Plot Point', new_book_plot_point_path(@book)) %>
+<% add_to_footer('Back', book_path(@book)) %>

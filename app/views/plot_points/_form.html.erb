@@ -1,0 +1,17 @@
+<%= bootstrap_form_for plot_point, url: { controller: :plot_points, action: (plot_point.id.nil? ? :create : :update) } do |f| %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= hidden_field :book_id, plot_point.book.id %>
+    <%= f.hidden_field :book_id, value: plot_point.book.id %>
+
+
+    <%= f.text_field :name %>
+    <%= f.rich_text_area :body, cols: '80', rows: '15', hide_label: true %>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, class: 'btn btn-primary' %>
+  </div>
+<% end %>

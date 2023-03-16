@@ -1,0 +1,18 @@
+<p>
+  <strong>Name:</strong>
+  <%= @plot_point.name %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @plot_point.body %>
+</p>
+
+<% unless @plot_point.scenes.size == 0 %>
+  <p>
+  <strong>Scenes:</strong>
+  <%== scenes_list_ul(@plot_point) %>
+  <p>
+<% end %>
+<% add_to_footer('Edit', edit_plot_point_path(@plot_point)) %> 
+<% add_to_footer('Back', book_plot_points_path(@plot_point.book)) %>
