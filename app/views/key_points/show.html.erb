@@ -5,6 +5,8 @@
                    else
                      (@scripted.instance_of?(Chapter) ? @scripted.scripted : @scripted.book)
                    end), @scripted, @key_point) %>
+</h2>
+<div>
   <%== link_to (fa_icon 'edit'), edit_key_point_path(@key_point), title: 'Edit' %>
   <%== link_to (fa_icon 'newspaper'), key_point_view_path(@key_point), title: 'View' %>
   <%== link_to (fa_icon 'trash'), key_point_path(@key_point), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
@@ -17,7 +19,7 @@
 <% unless next_key_point.nil? %>
   <%= link_to (fa_icon 'angle-right'), key_point_path(next_key_point), title: 'Next Key Point' %>
 <% end %>
-</h2>
+</div>
 
 <table class="table">
   <tr>

@@ -1,5 +1,7 @@
 <h2>
   <%== breadcrumb(story.book, story) %>
+</h2>
+<div>
   <%= link_to (fa_icon 'edit', type: :regular), edit_story_path(story), title: 'Edit' %>
     <%= link_to (fa_icon 'sticky-note', type: :regular), story_signets_path(story), title: 'Signets' %>
   <%= link_to (fa_icon 'sticky-note', type: :regular), story_notes_path(story), title: 'Notes' %>
@@ -13,5 +15,5 @@
   <%= link_to (fa_icon 'newspaper', type: :regular), story_view_path(story, outline: true, long: true), title: 'View, outline, long' %>
   <%= link_to (fa_icon 'file-pdf'), story_path(story, format: :pdf), title: 'PDF' %>
   <%= link_to (fa_icon 'file-pdf', type: :regular), story_path(story, format: :pdf, outline: true), title: 'PDF outline' %>
-</h2>
+</div>
 

@@ -11,3 +11,11 @@ $fa-font-path: '~font-awesome/fonts';
 @import 'bootstrap/dist/css/bootstrap.css';
 @import 'jquery-ui/themes/base/sortable.css';
 @import 'tpl';
+
+#scene_controls {
+  position: fixed;
+  left: 0;
+  top: 10%;
+  width: 8em;
+  margin-top: -2.5em;
+}
