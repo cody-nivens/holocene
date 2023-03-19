@@ -19,8 +19,6 @@ class BooksShowHtmlErbTest < ActionDispatch::IntegrationTest
 
     assert_select 'a[text()=?]', 'New Chapter'
     assert_select 'a[href=?]', new_polymorphic_path([@book, :chapter])
-    assert_select 'a[text()=?]', 'Back'
-    assert_select 'a[href=?]', books_path
     assert_select 'a[text()=?]', 'Chapters, TOC'
     assert_select 'a[href=?]', toc_path(@book)
     assert_select 'a[text()=?]', 'Key Words'
@@ -28,7 +26,6 @@ class BooksShowHtmlErbTest < ActionDispatch::IntegrationTest
     assert_select 'a[text()=?]', 'Authors'
     assert_select 'a[href=?]', book_authors_path(@book)
 
-    assert_select '.footer>div>a', 5
     assert_template 'books/show'
   end
 
@@ -40,14 +37,10 @@ class BooksShowHtmlErbTest < ActionDispatch::IntegrationTest
 
     assert_select 'a[href=?]', edit_book_path(@book_2)
 
-    assert_select 'a[text()=?]', 'Back'
-    assert_select 'a[href=?]', books_path
     assert_select 'a[text()=?]', 'New Story'
     assert_select 'a[href=?]', new_book_story_path(book_id: @book_2.id)
     assert_select 'a[text()=?]', 'All Stories'
     assert_select 'a[href=?]', book_stories_path(@book_2, all: true)
-    assert_select 'a[text()=?]', 'Characters'
-    assert_select 'a[href=?]', polymorphic_path([@book_2, :characters])
     assert_select 'a[text()=?]', 'Key Points'
     assert_select 'a[href=?]', polymorphic_path([@book_2, :key_points])
     assert_select 'a[text()=?]', 'Scenes'
@@ -63,7 +56,6 @@ class BooksShowHtmlErbTest < ActionDispatch::IntegrationTest
     assert_select 'a[text()=?]', 'Authors'
     assert_select 'a[href=?]', book_authors_path(@book_2)
 
-    assert_select '.footer>div>a', 12
     assert_template 'books/show'
   end
 end

@@ -8,6 +8,7 @@
   <%== link_to (fa_icon 'edit'), edit_key_point_path(@key_point), title: 'Edit' %>
   <%== link_to (fa_icon 'newspaper'), key_point_view_path(@key_point), title: 'View' %>
   <%== link_to (fa_icon 'trash'), key_point_path(@key_point), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
+  <%== link_to 'Move', polymorphic_path([@scripted, @key_point, :move]) %>
 </h2>
 
 <table class="table">
@@ -45,7 +46,6 @@
   <% end %>
 <% end %>
 
-<% add_to_footer('Move', polymorphic_path([@scripted, @key_point, :move])) %>
 <% add_to_footer('Back', polymorphic_path([@scripted], anchor: @key_point.anchor)) %>
 
 <% prev_key_point = @key_point.set_prev %>

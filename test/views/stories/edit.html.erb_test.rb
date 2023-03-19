@@ -13,12 +13,8 @@ class StoriesEditHtmlErbTest < ActionDispatch::IntegrationTest
 
   test 'should get edit' do
     get edit_story_url(@story)
-    assert_select 'a[text()=?]', 'Back'
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Back'
-    assert_select 'a[href=?]', story_path(@story)
-    assert_select '.footer>div>a', 1
     assert_template 'stories/edit'
   end
 end

@@ -1,17 +1,1 @@
-<% if book.is_fiction? %>
-  <% add_to_footer('New Story', new_book_story_path(book_id: book.id)) %>
-  <% add_to_footer('All Stories', book_stories_path(book, all: true)) %>
-  <% add_to_footer('Characters', polymorphic_path([book, :characters])) %>
-  <% add_to_footer('Key Points', polymorphic_path([book, :key_points])) %>
-  <% add_to_footer('Scenes', polymorphic_path([book, :scenes])) %>
-  <% add_to_footer('Stats', polymorphic_path([book, :stats])) %>
-  <% add_to_footer('Char List', book_chars_path(book)) %>
-  <% add_to_footer('Artifacts', book_artifacts_path(book)) %>
-  <% add_to_footer('Plot Points', book_plot_points_path(book)) %>
-<% else %>
-  <% add_to_footer('New Chapter', new_polymorphic_path([book, :chapter])) %>
-  <% add_to_footer('Chapters, TOC', toc_path(book)) %>
-<% end %>
-<% add_to_footer('Key Words', book_key_words_path(book)) %>
-<% add_to_footer('Authors', book_authors_path(book)) %>
-<% add_to_footer('Back', books_path) %>
+<%# add_to_footer('Back', books_path) %>

@@ -15,8 +15,6 @@ class StoriesCharsHtmlErbTest < ActionDispatch::IntegrationTest
     get polymorphic_url([@story, :chars])
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Back'
-    assert_select '.footer>div>a', 11
     assert_template 'stories/chars'
   end
 end

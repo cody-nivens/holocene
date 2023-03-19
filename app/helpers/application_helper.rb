@@ -12,6 +12,10 @@ module ApplicationHelper
     @footer_content << (link_to name, link, class: t_classes, method: method, data: data).to_s
   end
 
+  def make_menu_link(text, path)
+    "<li class='nav-item'> <a class='nav-link' href='#{path}'>#{text}</a></li>"
+  end
+
   def return_or_default_path(default_path = root_path)
       session[:return_to].present? && session[:return_to] != request.fullpath ?
         session[:return_to] : default_path

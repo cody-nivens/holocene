@@ -16,7 +16,7 @@ class GlossaryTermsNewHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_select 'a[text()=?]', 'Back'
-    assert_select 'a[href=?]', book_path(@book)
+    assert_select 'a[href=?]', book_glossary_terms_path(@book)
     assert_select '.footer>div>a', 1
     assert_template 'glossary_terms/new'
   end

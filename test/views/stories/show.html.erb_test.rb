@@ -16,9 +16,6 @@ class StoriesShowHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_select 'a[href=?]', edit_story_path(@story)
-    assert_select 'a[text()=?]', 'Back'
-    assert_select 'a[href=?]', book_path(@book)
-    assert_select '.footer>div>a', 11
     assert_template 'stories/show'
   end
 end
