@@ -11,9 +11,9 @@
 <%= link_to (fa_icon 'truck'), polymorphic_path([@scene, :move]), title: 'Move' %>
 <%= link_to (fa_icon 'trash'), scene_path(@scene), title: 'Delete', method: :delete, data: { confirm: 'Are you sure?' } %>
 <% if @scene.section.nil? %>
-  <%= link_to (fa_icon 'plus'), new_polymorphic_path([@scene, :section]), title: 'New Section' %>
+  <%= link_to (fa_icon 'plus'), new_polymorphic_path([@scene, :section]), title: 'Add Text' %>
 <% else %>
-  <%= link_to (fa_icon 'pen'), edit_section_path(@scene.section), title: 'Edit Section' %>
+  <%= link_to (fa_icon 'pen'), edit_section_path(@scene.section), title: 'Edit Text' %>
 <% end %>
 <% unless scene_index.nil? or scene_index == 0 %>
   <%= link_to (fa_icon 'angle-left'), scene_path(id: @scenes_wi[scene_index - 1]), classes: 'btn icon-ok icon-white', title: 'Previous Scene' %>
@@ -130,12 +130,16 @@
 <% end %>
 </p>
 
-<%# prev_scene = @scene %>
-<%# loop do prev_scene = prev_scene.previous(field: :date_string) %>
-<%# break if prev_scene.nil? or prev_scene.book_id == @scene.book_id %>
-<%# end %>
-
-<%# next_scene = @scene %>
-<%# loop do next_scene = next_scene.next(field: :date_string) %>
-<%# break if next_scene.nil? or next_scene.book_id == @scene.book_id %>
-<%# end %>
+<div>
+<% if @scene.section.nil? %>
+  <%= link_to (fa_icon 'plus'), new_polymorphic_path([@scene, :section]), title: 'Add Text' %>
+<% else %>
+  <%= link_to (fa_icon 'pen'), edit_section_path(@scene.section), title: 'Edit Text' %>
+<% end %>
+<% unless scene_index.nil? or scene_index == 0 %>
+  <%= link_to (fa_icon 'angle-left'), scene_path(id: @scenes_wi[scene_index - 1]), classes: 'btn icon-ok icon-white', title: 'Previous Scene' %>
+<% end %>
+<% unless scene_index.nil? or scene_index == @scenes_wi.length - 1 %>
+  <%= link_to (fa_icon 'angle-right'), scene_path(id: @scenes_wi[scene_index + 1]), classes: 'btn icon-ok icon-white', title: 'Next Scene' %>
+<% end %>
+</div>
