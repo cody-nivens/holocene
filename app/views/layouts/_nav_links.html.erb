@@ -20,14 +20,14 @@
           <%== make_menu_link('All Stories', book_stories_path(@book, all: true)) %>
           <%== make_menu_link('New Story', new_book_story_path(book_id: @book.id)) %>
           <%== make_menu_link('Scenes', polymorphic_path([@book, :scenes])) %>
-          <%== make_menu_link('Stats', polymorphic_path([@book, :stats])) %>
-          <%== make_menu_link('Stats', polymorphic_path([@book, :stats])) %>
+          <li><hr class="dropdown-divider"></li>
           <%== make_menu_link('Key Points', book_key_points_path(@book)) %>
           <%== make_menu_link('Plot Points', book_plot_points_path(@book)) %>
-          <li><hr class="dropdown-divider"></li>
-          <li class='nav-item'> <a class='nav-link' href='/books/<%= @book.id %>/artifacts'>Artifacts</a> </li>
-          <li class='nav-item'> <a class='nav-link' href='/books/<%= @book.id %>/artifact_types'>Artifact Types</a> </li>
-          <li class='nav-item'> <a class='nav-link' href='/books/<%= @book.id %>/key_words'>Key Words</a> </li>
+          <%== make_menu_link('Characters', polymorphic_path([@book, :characters])) %>
+          <%== make_menu_link('Artifacts', book_artifacts_path(@book)) %>
+          <%== make_menu_link('Artifact Types', book_artifact_types_path(@book)) %>
+          <%== make_menu_link('Key Words', book_key_words_path(@book)) %>
+          <%== make_menu_link('Stats', polymorphic_path([@book, :stats])) %>
           <%== make_menu_link('Authors', book_authors_path(@book)) %>
         <% end %>
       <% elsif controller_name == 'stories' %>
@@ -58,6 +58,7 @@
       </a>
       <ul class='dropdown-menu' aria-labelledby='navbar_dropdown1'>
      <% unless @book.nil? %>
+          <%== make_menu_link('Characters', polymorphic_path([@book, :characters])) %>
         <li class='nav-item'> <a class='nav-link' href='/characters/<%= @book.id %>/matrix'>Matrix</a> </li>
         <li class='nav-item'> <a class='nav-link' href='/characters/<%= @book.id %>/scenes'>Scenes</a> </li>
         <%== make_menu_link('Char List', book_chars_path(@book)) %>
