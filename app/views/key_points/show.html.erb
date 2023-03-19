@@ -8,7 +8,15 @@
   <%== link_to (fa_icon 'edit'), edit_key_point_path(@key_point), title: 'Edit' %>
   <%== link_to (fa_icon 'newspaper'), key_point_view_path(@key_point), title: 'View' %>
   <%== link_to (fa_icon 'trash'), key_point_path(@key_point), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
-  <%== link_to 'Move', polymorphic_path([@scripted, @key_point, :move]) %>
+  <%== link_to (fa_icon 'truck'), polymorphic_path([@scripted, @key_point, :move]) %>
+<% prev_key_point = @key_point.set_prev %>
+<% unless prev_key_point.nil? %>
+  <%= link_to (fa_icon 'angle-left'), key_point_path(prev_key_point), title: 'Previous Key Point' %>
+<% end %>
+<% next_key_point = @key_point.set_next %>
+<% unless next_key_point.nil? %>
+  <%= link_to (fa_icon 'angle-right'), key_point_path(next_key_point), title: 'Next Key Point' %>
+<% end %>
 </h2>
 
 <table class="table">
@@ -46,13 +54,5 @@
   <% end %>
 <% end %>
 
-<% add_to_footer('Back', polymorphic_path([@scripted], anchor: @key_point.anchor)) %>
+<%# add_to_footer('Back', polymorphic_path([@scripted], anchor: @key_point.anchor)) %>
 
-<% prev_key_point = @key_point.set_prev %>
-<% unless prev_key_point.nil? %>
-  <% add_to_footer('<', key_point_path(prev_key_point), class: 'btn icon-ok icon-white', title: 'Previous Key Point').to_s %>
-<% end %>
-<% next_key_point = @key_point.set_next %>
-<% unless next_key_point.nil? %>
-  <% add_to_footer('>', key_point_path(next_key_point), class: 'btn icon-ok icon-white', title: 'Next Key Point').to_s %>
-<% end %>

@@ -3,7 +3,7 @@
   <% if @book.fiction? %>
     <li class='nav-item dropdown'>
       <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown1' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-        <%= (@story.nil? ? (@book.nil? ? 'Items' : 'Book') : 'Story') %>
+        <%= (@scene.nil? ? (@key_point.nil? ? (@story.nil? ? (@book.nil? ? 'Items' : 'Book') : 'Story') : 'Key Point') : 'Scene') %>
       </a>
       <ul class='dropdown-menu' aria-labelledby='navbar_dropdown1'>
           <li class='nav-item'> <a class='nav-link' href='/books'>Books</a> </li>
@@ -43,6 +43,11 @@
           <%== make_menu_link('Char List', polymorphic_path([@story, :chars])) %>
           <%== make_menu_link('Timeline', polymorphic_path([@story, :timeline])) %>
           <%== make_menu_link('Tours', polymorphic_path([@story, :tours])) %>
+        <% end %>
+      <% elsif controller_name == 'key_points' %>
+      <% elsif controller_name == 'scenes' %>
+        <% if !@scene.nil? and !@scene&.id.nil? %>
+          <%== make_menu_link('Characters', polymorphic_path([@scene, :characters])) %>
         <% end %>
       <% end %>
       </ul>
