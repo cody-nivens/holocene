@@ -7,10 +7,15 @@
       </a>
       <ul class='dropdown-menu' aria-labelledby='navbar_dropdown1'>
           <li class='nav-item'> <a class='nav-link' href='/books'>Books</a> </li>
-      <% if controller_name == 'books' %>
         <% unless @book.nil? %>
           <%== make_menu_link(@book.name, book_path(@book)) %>
+          <% if !@story.nil? and !@story&.id.nil? %>
+            <%== make_menu_link(@story.name, story_path(@story)) %>
+          <% end %>
+        <% end %>
           <li><hr class="dropdown-divider"></li>
+      <% if controller_name == 'books' %>
+        <% unless @book.nil? %>
           <%== make_menu_link('Stories', book_stories_path(@book)) %>
           <%== make_menu_link('All Stories', book_stories_path(@book, all: true)) %>
           <%== make_menu_link('New Story', new_book_story_path(book_id: @book.id)) %>
@@ -27,9 +32,6 @@
         <% end %>
       <% elsif controller_name == 'stories' %>
         <% if !@story.nil? and !@story&.id.nil? %>
-          <%== make_menu_link(@book.name, book_path(@book)) %>
-          <%== make_menu_link(@story.name, story_path(@story)) %>
-          <li><hr class="dropdown-divider"></li>
           <%== make_menu_link('New Story', new_book_story_path(book_id: @book.id)) %>
           <%== make_menu_link('New Key Point', new_polymorphic_path([@story, KeyPoint])) %>
           <%== make_menu_link('Characters', polymorphic_path([@story, :characters])) %>

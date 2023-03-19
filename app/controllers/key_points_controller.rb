@@ -1,5 +1,5 @@
 class KeyPointsController < ApplicationController
-  before_action :set_key_point, only: %i[moved move list add edit update]
+  before_action :set_key_point, only: %i[show moved move list add edit update]
   before_action :set_scripted, only: %i[moved move index list add new]
 
   # GET /key_points
@@ -73,10 +73,11 @@ class KeyPointsController < ApplicationController
   # GET /key_points/1
   # GET /key_points/1.json
   def show
-    @key_point = KeyPoint.includes({ scenes: [:artifact, :rich_text_place, :rich_text_summary, :insert_scene, :characters, { section: :rich_text_body }, { character_scenes: [:character, :rich_text_summary] }]}).find(params[:id])
-    @klass = @scripted.class
+    #@key_point = KeyPoint.includes({ scenes: [:artifact, :rich_text_place, :rich_text_summary, :insert_scene, :characters, { section: :rich_text_body }, { character_scenes: [:character, :rich_text_summary] }]}).find(params[:id])
+    @klass = @key_point.scripted.class
     @title = @key_point.name
     @scripted = @key_point.scripted
+    instance_variable_set("@#{(@klass.name == 'Book' ? 'book' : (@klass.name == 'Story' ? 'story' : 'chapter'))}", @scripted)
     @long = params[:long]
   end
 
@@ -161,6 +162,7 @@ class KeyPointsController < ApplicationController
   def set_scripted
     @klass = [Book, Chapter, Story].detect { |c| params["#{c.name.underscore}_id"] }
     @scripted = @klass.find((params[:key_point].nil? || params[:key_point][:scripted_id].empty? ? params["#{@klass.name.underscore}_id"] : params[:key_point][:scripted_id]))
+    instance_variable_set("@#{(@klass.name == 'Book' ? 'book' : (@klass.name == 'Story' ? 'story' : 'chapter'))}", @scripted)
   end
 
   # Only allow a list of trusted parameters through.

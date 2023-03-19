@@ -72,6 +72,9 @@ class ScenesController < ApplicationController
   def show
     @title = @scene.name
     @situated = @scene.book
+    @book = @scene.book
+    @story = @scene.key_point.scripted
+
     @scenes_wi = Scene.get_scenes_wi_to_array(@situated)
     session[:return_to] = request.fullpath
   end
