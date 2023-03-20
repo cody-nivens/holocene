@@ -7,6 +7,7 @@
   <thead>
     <tr>
       <th>Character</th>
+      <th>Background</th>
       <th># of Scenes</th>
     </tr>
   </thead>
@@ -15,6 +16,7 @@
     <% character = Character.find(char_info[0]) %>
     <tr>
       <td><%= character.full_name %></td>
+      <td><%= character.background %></td>
       <td><%= char_info[1] %></td>
     </tr>
   <% end %>
