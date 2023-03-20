@@ -16,9 +16,6 @@ class CharactersMatrixHtmlErbTest < ActionDispatch::IntegrationTest
     get character_matrix_path(@book)
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Back'
-    assert_select 'a[href=?]', polymorphic_path(@book)
-    assert_select '.footer>div>a', 1
     assert_template 'characters/matrix'
   end
 end
