@@ -1,6 +1,8 @@
 <% @title = "Character Categories" %>
 <h2>Character Categories</h2>
-
+<div>
+<%= link_to (fa_icon 'plus'), new_character_category_path, title: 'New Character Category' %>
+</div>
 <ul>
   <div class="chapter_outer-sortable" style="cursor: grab;">
     <%= content_tag 'div'  do %>
@@ -19,7 +21,3 @@
   </div>
 </ul>
 
-<% add_to_footer('New Character Category', new_character_category_path) %>
-<% unless @book.nil? %>
-  <% add_to_footer('Back', book_path(@book)) %>
-<% end %>

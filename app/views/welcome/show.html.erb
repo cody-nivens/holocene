@@ -17,14 +17,9 @@
 
 <%= render partial: 'shared/metric', formats: [:html], locals: { objects: @metrics, title: "Items for #{@date.to_s}" } %>
 
-<% add_to_footer('Progress', welcome_index_path) %>
-<% add_to_footer('Stats', welcome_stats_path) %>
-<% add_to_footer('History', welcome_history_path) %>
-<% add_to_footer('Tags', welcome_tags_path) %>
-<% add_to_footer('<', welcome_show_path(:date => (date - 1.day).to_s)) %>
-<% add_to_footer('>', welcome_show_path(:date => (date + 1.day).to_s)) %>
 
-<% unless @book.nil? %>
-  <% add_to_footer('Back', welcome_index_path) %>
-<% end %>
+<div>
+  <%= link_to (fa_icon 'angle-left'), welcome_show_path(:date => (date - 1.day).to_s) %>
+  <%= link_to (fa_icon 'angle-right'), welcome_show_path(:date => (date + 1.day).to_s) %>
+</div>
 

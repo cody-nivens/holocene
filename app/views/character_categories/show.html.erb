@@ -2,10 +2,10 @@
 <p>
   <strong>Name:</strong>
   <%= @character_category.name %>
+  <div>
+<%= link_to (fa_icon 'edit'), edit_character_category_path(@character_category), title: 'Edit' %>
+<%= link_to (fa_icon 'plus'), new_character_category_character_attribute_path(character_category_id: @character_category.id), title: 'New Character Attribute' %>
 </p>
 
 <%= render partial: 'character_attributes/index', locals: { character_category: @character_category } %>
 
-<% add_to_footer('Edit', edit_character_category_path(@character_category)) %>
-<% add_to_footer('New Character Attribute', new_character_category_character_attribute_path(character_category_id: @character_category.id)) %>
-<% add_to_footer('Back', character_categories_path) %>

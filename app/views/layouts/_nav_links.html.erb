@@ -1,9 +1,20 @@
 <% @book ||= (session[:book_id].blank? ? nil : Book.find_by(id: session[:book_id])) %>
+<li class='nav-item dropdown'>
+  <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown0' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+    Welcome
+  </a>
+  <ul class='dropdown-menu' aria-labelledby='navbar_dropdown0'>
+    <%== make_menu_link('Progress', welcome_index_path) %>
+    <%== make_menu_link('Stats', welcome_stats_path) %>
+    <%== make_menu_link('Tags', welcome_tags_path) %>
+    <%== make_menu_link('History', welcome_history_path) %>
+  </ul>
+</li>
 <% unless @book.nil? %>
   <% if @book.fiction? %>
     <li class='nav-item dropdown'>
       <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown1' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-        <%= (@scene.nil? ? (@key_point.nil? ? (@story.nil? ? (@book.nil? ? 'Items' : 'Book') : 'Story') : 'Key Point') : 'Scene') %>
+        <%= menu_dropdown_title %>
       </a>
       <ul class='dropdown-menu' aria-labelledby='navbar_dropdown1'>
           <li class='nav-item'> <a class='nav-link' href='/books'>Books</a> </li>
@@ -20,6 +31,11 @@
           <%== make_menu_link('All Stories', book_stories_path(@book, all: true)) %>
           <%== make_menu_link('New Story', new_book_story_path(book_id: @book.id)) %>
           <%== make_menu_link('Scenes', polymorphic_path([@book, :scenes])) %>
+          <%== make_menu_link('Resync Stories', book_resync_stories_path(id: @book.id)) %>
+          <%== make_menu_link('Publish All', book_publish_path(id: @book.id)) %>
+          <%== make_menu_link('Timeline', book_timeline_path(id: @book.id)) %>
+
+
           <li><hr class="dropdown-divider"></li>
           <%== make_menu_link('Key Points', book_key_points_path(@book)) %>
           <%== make_menu_link('Plot Points', book_plot_points_path(@book)) %>

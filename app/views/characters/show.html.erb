@@ -5,4 +5,4 @@
 <% add_to_footer('Edit', edit_polymorphic_path([@object, @character])) %>
 <% add_to_footer('Attributes', polymorphic_path([@object, @character, :character_values])) %>
 <% add_to_footer('Lineage', polymorphic_path([@object, @character, :lineage])) %>
-<% add_to_footer('Back', polymorphic_path([@object, :characters])) %>
+<% add_to_footer('Back', return_or_default_path(polymorphic_path([@object, :characters]))) %>

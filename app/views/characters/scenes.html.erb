@@ -15,7 +15,7 @@
   <% chars.each do |char_info| %>
     <% character = Character.find(char_info[0]) %>
     <tr>
-      <td><%= character.full_name %></td>
+      <td><%= link_to character.full_name, polymorphic_path([@object, character]) %></td>
       <td><%= character.background %></td>
       <td><%= char_info[1] %></td>
     </tr>

@@ -16,9 +16,9 @@ class CitiesIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @cities = City.all
 
-    assert_select 'a[text()=?]', 'New City'
+    assert_select 'a[title=?]', 'New City'
     assert_select 'a[href=?]', new_city_path
-    assert_select '.footer>div>a', 1
+
     assert_template 'cities/index'
 
     assert_select 'h2', 'Cities'

@@ -1,6 +1,21 @@
 module ApplicationHelper
   include Pagy::Frontend
 
+  def menu_dropdown_title
+    case controller_name
+    when 'books'
+      return 'Book'
+    when 'stories'
+      return 'Story'
+    when 'scenes'
+      return 'Scene'
+    when 'key_point'
+      return 'Key Point'
+    else
+      return 'Item'
+    end
+  end
+
   def add_to_footer(name, link, options = {})
     print = options[:print] || true
     method = options[:method] || :get

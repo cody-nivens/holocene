@@ -1,6 +1,7 @@
 <p>
   <strong>Color:</strong>
   <%= Signet.color_name(@signet.color) %>
+<%= link_to (fa_icon 'edit'), edit_signet_path(@signet), title: 'Edit' %>
 </p>
 
 <p>
@@ -8,5 +9,3 @@
   <%= @signet.message %>
 </p>
 
-<% add_to_footer('Edit', edit_signet_path(@signet)) %>
-<% add_to_footer('Back', polymorphic_path(@sigged)) %>

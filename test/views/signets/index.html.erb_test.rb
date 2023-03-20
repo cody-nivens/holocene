@@ -17,9 +17,8 @@ class SignetsIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @signets = Signet.all
 
-    assert_select 'a[text()=?]', 'New Signet'
+    assert_select 'a[title=?]', 'New Signet'
     assert_select 'a[href=?]', new_polymorphic_path([@sigged, :signet])
-    assert_select '.footer>div>a', 2
     assert_template 'signets/index'
 
     assert_select 'h2', "Signets - #{@sigged.class.name}: #{@sigged.name}"

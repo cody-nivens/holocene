@@ -1,11 +1,10 @@
 <% @title = "Cities" %>
 <h2>Cities</h2>
 <%= datagrid_form_for @grid, method: :get, url: cities_path, partials: 'city_grid' %>
+<div>
+  <%= link_to (fa_icon 'plus'), new_city_path, title: 'New City' %>
+</div>
 <%== pagy_info(@pagy) %>
 <%= datagrid_table @grid, @records, partials: 'city_grid' %>
 <%== pagy_nav(@pagy) %>
 
-<% add_to_footer('New City', new_city_path) %>
-<% unless @book.nil? %>
-  <% add_to_footer('Back', book_path(@book)) %>
-<% end %>

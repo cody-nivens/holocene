@@ -74,10 +74,3 @@
     <tr><td>Authors</td><td><%= Author.where(user_id: current_user.id).size %></td></tr>
     <% end %>
 </table>
-<hr>
-<% add_to_footer('Progress', welcome_index_path) %>
-<% add_to_footer('History', welcome_history_path) %>
-<% add_to_footer('Tags', welcome_tags_path) %>
-<% unless @book.nil? %>
-  <% add_to_footer('Back', book_path(@book)) %>
-<% end %>

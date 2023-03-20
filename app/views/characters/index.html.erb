@@ -1,16 +1,18 @@
 <h2>Characters for <%= @object.class.name %>: <%= (@object.class.name == 'Scene' && !@object.section.nil? ? @object.section.name : @object.name) %></h2>
 <%= datagrid_form_for @grid, method: :get, url: polymorphic_path([@object, :characters]) %>
+<div>
+<% if @object.class.name == 'Book' %>
+  <%= link_to (fa_icon 'plus'), polymorphic_path([@object, :characters]), method: :post, title: 'Add Character' %>
+<% else %>
+  <%= link_to (fa_icon 'exchange-alt'), polymorphic_path([@object, :characters_list]), title: 'Add/Remove Characters' %>
+<% end -%>
+</div>
 
 <div id='character-grid'>
   <%= render partial: 'characters/index_grid', formats: [:html], locals: { grid: @grid, pagy: @pagy, records: @records } %>
 </div>
 
-<% if @object.class.name == 'Book' %>
-  <% add_to_footer('New Character', polymorphic_path([@object, :characters]), method: :post) %>
-<% else %>
-  <% add_to_footer('Add/Remove Characters', polymorphic_path([@object, :characters_list])) %>
-<% end -%>
-<% add_to_footer('Back', polymorphic_path(@object)) %>
+
 
 <script nonce="<%= request.content_security_policy_nonce %>" type="text/javascript">
 jQuery(function($) {

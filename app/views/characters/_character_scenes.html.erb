@@ -10,15 +10,6 @@
         </th>
       <% end %>
     </tr>
-    <tr>
-      <th width="<%= width %>px" class="align-top"></th>
-      <% chars[start_pos..end_pos].each do |char_info| %>
-        <% character = Character.find(char_info[0]) %>
-        <th width="<%= width %>px" class="align-top">
-          <%= character.background? ? character.background : '' %>
-        </th>
-      <% end %>
-    </tr>
   </thead>
   <tbody>
     <% unless chars.length == 0 %>

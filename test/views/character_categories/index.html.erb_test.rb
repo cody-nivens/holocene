@@ -16,9 +16,8 @@ class CharacterCategoriesIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @character_categories = CharacterCategory.all
 
-    assert_select 'a[text()=?]', 'New Character Category'
+    assert_select 'a[title=?]', 'New Character Category'
     assert_select 'a[href=?]', new_character_category_path
-    assert_select '.footer>div>a', 1
     assert_template 'character_categories/index'
 
     assert_select 'h2', 'Character Categories'

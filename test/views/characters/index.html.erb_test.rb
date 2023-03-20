@@ -18,14 +18,10 @@ class CharactersIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @characters = Character.all
 
-    assert_select 'a[text()=?]', 'New Character'
+    assert_select 'a[title=?]', 'Add Character'
     assert_select 'a[data-method=?]', 'post'
     assert_select 'a[href=?]', polymorphic_path([@book, :characters])
-    # assert_select "a[text()=?]",'Add/Remove Characters'
-    # assert_select "a[href=?]", polymorphic_path([@book, :characters_list])
-    assert_select 'a[text()=?]', 'Back'
-    assert_select 'a[href=?]', polymorphic_path(@book)
-    assert_select '.footer>div>a', 2
+
     assert_template 'characters/index'
 
     assert_select 'h2', "Characters for #{@book.class.name}: #{@book.name}"
@@ -42,12 +38,9 @@ class CharactersIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @characters = Character.all
 
-    assert_select 'a[text()=?]', 'Add/Remove Characters'
+    assert_select 'a[title=?]', 'Add/Remove Characters'
     assert_select 'a[href=?]', polymorphic_path([@story, :characters_list])
 
-    assert_select 'a[text()=?]', 'Back'
-    assert_select 'a[href=?]', polymorphic_path(@story)
-    assert_select '.footer>div>a', 2
     assert_template 'characters/index'
 
     assert_select 'h2', "Characters for #{@story.class.name}: #{@story.name}"
