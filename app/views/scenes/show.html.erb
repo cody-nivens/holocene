@@ -4,23 +4,23 @@
   <%== breadcrumb(@scene.key_point.scripted.book, @scene.key_point.scripted, @scene.key_point, @scene, @scene.section) %>
 </h2>
 
-<div id='scene_control'>
-  <%= link_to (fa_icon 'edit'), edit_scene_path(@scene), title: 'Edit' %>
+<div id='scene_controls'>
+  <%= link_to (fa_icon 'pencil-alt'), edit_scene_path(@scene), title: 'Edit Scene Data' %>
   <%= link_to (fa_icon 'sticky-note'), scene_signets_path(scene_id: @scene.id),data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{@scene.signets_short_list}"},
     title: 'Signets', class: "#{!@scene.signets.empty? ? Signet.color_class(@scene.signets[0].color) : ''}" %>
-<%= link_to (fa_icon 'truck'), polymorphic_path([@scene, :move]), title: 'Move' %>
-<%= link_to (fa_icon 'trash'), scene_path(@scene), title: 'Delete', method: :delete, data: { confirm: 'Are you sure?' } %>
-<% if @scene.section.nil? %>
-  <%= link_to (fa_icon 'plus'), new_polymorphic_path([@scene, :section]), title: 'Add Text' %>
-<% else %>
-  <%= link_to (fa_icon 'pen'), edit_section_path(@scene.section), title: 'Edit Text' %>
-<% end %>
-<% unless scene_index.nil? or scene_index == 0 %>
-  <%= link_to (fa_icon 'angle-left'), scene_path(id: @scenes_wi[scene_index - 1]), classes: 'btn icon-ok icon-white', title: 'Previous Scene' %>
-<% end %>
-<% unless scene_index.nil? or scene_index == @scenes_wi.length - 1 %>
-  <%= link_to (fa_icon 'angle-right'), scene_path(id: @scenes_wi[scene_index + 1]), classes: 'btn icon-ok icon-white', title: 'Next Scene' %>
-<% end %>
+  <%= link_to (fa_icon 'truck'), polymorphic_path([@scene, :move]), title: 'Move' %>
+  <%= link_to (fa_icon 'trash'), scene_path(@scene), title: 'Delete', method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% if @scene.section.nil? %>
+    <%= link_to (fa_icon 'plus'), new_polymorphic_path([@scene, :section]), title: 'Add Text' %>
+  <% else %>
+    <%= link_to (fa_icon 'edit'), edit_section_path(@scene.section), title: 'Edit Scene Text' %>
+  <% end %>
+  <% unless scene_index.nil? or scene_index == 0 %>
+    <%= link_to (fa_icon 'angle-left'), scene_path(id: @scenes_wi[scene_index - 1]), classes: 'btn icon-ok icon-white', title: 'Previous Scene' %>
+  <% end %>
+  <% unless scene_index.nil? or scene_index == @scenes_wi.length - 1 %>
+    <%= link_to (fa_icon 'angle-right'), scene_path(id: @scenes_wi[scene_index + 1]), classes: 'btn icon-ok icon-white', title: 'Next Scene' %>
+  <% end %>
 </div>
 
 <%= render partial: 'scenes/stats', locals: { object: @scene } %>
