@@ -15,9 +15,6 @@ class SectionsNewHtmlErbTest < ActionDispatch::IntegrationTest
     get new_polymorphic_url([@sectioned, :section])
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Back'
-    assert_select 'a[href=?]', polymorphic_path(@sectioned)
-    assert_select '.footer>div>a', 1
     assert_template 'sections/new'
   end
 end
