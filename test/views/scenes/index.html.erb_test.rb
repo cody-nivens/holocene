@@ -18,8 +18,6 @@ class ScenesIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @scenes = Scene.all
 
-    assert_select 'a[text()=?]', 'Back'
-    assert_select '.footer>div>a', 2
     assert_template 'scenes/index'
 
     assert_select 'h2', "#{@situated.book.name}#{@situated.name}"

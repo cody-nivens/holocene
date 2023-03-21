@@ -5,21 +5,21 @@
 </h2>
 
 <div id='scene_controls'>
-  <%= link_to (fa_icon 'pencil-alt'), edit_scene_path(@scene), title: 'Edit Scene Data' %>
+  <%= link_to (fa_icon 'pencil-alt'), edit_scene_path(@scene), title: 'Edit Scene Data', class: 'btn icon-ok icon-white' %>
   <%= link_to (fa_icon 'sticky-note'), scene_signets_path(scene_id: @scene.id),data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{@scene.signets_short_list}"},
-    title: 'Signets', class: "#{!@scene.signets.empty? ? Signet.color_class(@scene.signets[0].color) : ''}" %>
-  <%= link_to (fa_icon 'truck'), polymorphic_path([@scene, :move]), title: 'Move' %>
-  <%= link_to (fa_icon 'trash'), scene_path(@scene), title: 'Delete', method: :delete, data: { confirm: 'Are you sure?' } %>
+    title: 'Signets', class: "#{!@scene.signets.empty? ? Signet.color_class(@scene.signets[0].color) : ''}", class: 'btn icon-ok icon-white' %>
+  <%= link_to (fa_icon 'truck'), polymorphic_path([@scene, :move]), title: 'Move', class: 'btn icon-ok icon-white' %>
+  <%= link_to (fa_icon 'trash'), scene_path(@scene), title: 'Delete', method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn icon-ok icon-white' %>
   <% if @scene.section.nil? %>
-    <%= link_to (fa_icon 'plus'), new_polymorphic_path([@scene, :section]), title: 'Add Text' %>
+    <%= link_to (fa_icon 'plus'), new_polymorphic_path([@scene, :section]), title: 'Add Text', class: 'btn icon-ok icon-white'  %>
   <% else %>
-    <%= link_to (fa_icon 'edit'), edit_section_path(@scene.section), title: 'Edit Scene Text' %>
+    <%= link_to (fa_icon 'edit'), edit_section_path(@scene.section), title: 'Edit Scene Text', class: 'btn icon-ok icon-white'  %>
   <% end %>
   <% unless scene_index.nil? or scene_index == 0 %>
-    <%= link_to (fa_icon 'angle-left'), scene_path(id: @scenes_wi[scene_index - 1]), classes: 'btn icon-ok icon-white', title: 'Previous Scene' %>
+    <%= link_to (fa_icon 'angle-left'), scene_path(id: @scenes_wi[scene_index - 1]), class: 'btn icon-ok icon-white', title: 'Previous Scene' %>
   <% end %>
   <% unless scene_index.nil? or scene_index == @scenes_wi.length - 1 %>
-    <%= link_to (fa_icon 'angle-right'), scene_path(id: @scenes_wi[scene_index + 1]), classes: 'btn icon-ok icon-white', title: 'Next Scene' %>
+    <%= link_to (fa_icon 'angle-right'), scene_path(id: @scenes_wi[scene_index + 1]), class: 'btn icon-ok icon-white', title: 'Next Scene' %>
   <% end %>
 </div>
 

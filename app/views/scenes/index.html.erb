@@ -9,6 +9,9 @@
     <%== breadcrumb(@situated.scripted.book, @situated.scripted, @situated) %>
   <% end %>
 </h2>
+<div id="scene_controls">
+  <%= link_to 'Timeline', polymorphic_path([@situated, :timeline]), class: 'btn icon-ok icon-white' %>
+</div>
 
   <% scene_wc_counts = @scenes.collect{|x| Scene.find(x).word_count } %>
   <% mean = scene_wc_counts.sum(0.0) / @scenes.length %>
@@ -151,5 +154,3 @@
                                                                      date: @year, scripted: @scripted, long: @long } %>
 </div>
 
-<% add_to_footer('Timeline', polymorphic_path([@situated, :timeline])) %>
-<% add_to_footer('Back', polymorphic_path(@situated)) %>
