@@ -48,8 +48,10 @@
             <td></td>
             <td colspan="8">
               <%= character_scene[0].summary.to_plain_text %>
-            <% end %>
           <% end %>
+        <% else %>
+          <%= character.scenes.size %>
+        <% end %>
       </td>
     </tr>
   <% end %>
