@@ -26,7 +26,7 @@
   <p>
     <strong>Characters:</strong>
     <br>
-    <%= render partial: 'characters/characters_occ_ul', formats: [:html], locals: { object: scene } %>
+    <%= render partial: 'characters/characters_occ_ul', formats: [:html], locals: { object: scene, characters: scene.characters } %>
   </p>
 <% end %>
 

@@ -21,6 +21,7 @@ class StoriesController < ApplicationController
     @data = {}
     op = params[:op]
     op ||= false
+    long = params[:long]
 
     @characters.each do |character|
       @data[character.name] = { count: 0, scenes: [] }
@@ -31,7 +32,7 @@ class StoriesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { render :chars, locals: { story: @story, op: op} }
+      format.html { render :chars, locals: { story: @story, op: op, characters: @characters, long: long } }
     end
 
   end
@@ -50,6 +51,7 @@ class StoriesController < ApplicationController
     @story = Story.includes({ scenes: [:section, { key_point: :scenes }, :artifact, :rich_text_place, :rich_text_summary] }).find(params[:id])
     @book = @story.book
     @object = @story
+    @characters = @story.characters
     @title = @story.name
     @long = params[:long]
     respond_to do |format|

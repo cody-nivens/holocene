@@ -73,7 +73,7 @@
 
 <% c.tab 'Characters' do %>
   <span>
-    <%= render partial: 'characters/characters_occ_ul', formats: [:html], locals: { object: @story } %>
+    <%= render partial: 'characters/characters_occ_ul', formats: [:html], locals: { object: @story, characters: @story.characters } %>
   </span>
 <% end %>
 

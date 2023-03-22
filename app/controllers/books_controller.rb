@@ -23,10 +23,19 @@ class BooksController < ApplicationController
   end
 
   def chars
-    @characters = @book.characters
+    long = params[:long]
+
+    if long
+      @characters = @book.characters
+    else
+      scenes = Scene.get_scenes_to_array(@book)
+      @characters = @book.characters.joins(:scenes).where("scenes.book_id = ?", @book.id).where("scenes.id",scenes)
+    end
+
     @data = {}
     op = params[:op]
 
+if 1 == 0
     @characters.each do |character|
       @data[character.name] = { count: 0, scenes: [] }
       character.scenes.each do |scene|
@@ -34,9 +43,10 @@ class BooksController < ApplicationController
         @data[character.name][:count] += 1
       end
     end
+end
 
     respond_to do |format|
-      format.html { render :chars, locals: { book: @book, op: op } }
+      format.html { render :chars, locals: { book: @book, characters: @characters, op: op, long: long } }
     end
 
   end

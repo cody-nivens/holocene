@@ -12,9 +12,9 @@
         <th>Scene</th></tr>
     </thead>
     <tbody>
-<% object.characters.order(:occupation_class).pluck(:occupation_class).map { |x| x || '' }.uniq.sort.each do |occ_class| %>
+<% characters.order(:occupation_class).pluck(:occupation_class).map { |x| x || '' }.uniq.sort.each do |occ_class| %>
   <tr><th colspan="9"><%= (occ_class == '' ? '<blank>' : occ_class) %></th></tr>
-    <% object.characters.where(occupation_class: occ_class).order(:occupation_class, :last_name, :first_name).distinct.each do |character| %>
+    <% characters.where(occupation_class: occ_class).order(:occupation_class, :last_name, :first_name).distinct.each do |character| %>
       <% if character.main? %>
         <tr class="table-primary">
       <% else %>

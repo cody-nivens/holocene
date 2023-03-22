@@ -1,4 +1,4 @@
 <%= render partial: 'header', locals: { book: @book } %>
-<%= render partial: 'shared/chars', locals: { object: @book, op: op } %>
+<%= render partial: 'shared/chars', locals: { object: @book, characters: characters, op: op, long: long } %>
 <%= render partial: 'footer', locals: { book: @book } %>
 
