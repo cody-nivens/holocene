@@ -57,6 +57,7 @@
           <%== make_menu_link('Move', polymorphic_path([@story, :move])) %>
           <%== make_menu_link('Stats', polymorphic_path([@story, :stats])) %>
           <%== make_menu_link('Char List', polymorphic_path([@story, :chars])) %>
+          <%== make_menu_link('Char List, All', polymorphic_path([@story, :chars], long: true)) %>
           <%== make_menu_link('Timeline', polymorphic_path([@story, :timeline])) %>
           <%== make_menu_link('Tours', polymorphic_path([@story, :tours])) %>
         <% end %>
@@ -77,7 +78,8 @@
           <%== make_menu_link('Characters', polymorphic_path([@book, :characters])) %>
         <li class='nav-item'> <a class='nav-link' href='/characters/<%= @book.id %>/matrix'>Matrix</a> </li>
         <li class='nav-item'> <a class='nav-link' href='/characters/<%= @book.id %>/scenes'>Scenes</a> </li>
-        <%== make_menu_link('Char List', book_chars_path(@book)) %>
+        <%== make_menu_link('Char List', book_chars_path(@book))  %>
+        <%== make_menu_link('Char List, All', book_chars_path(@book, long: true)) %>
       <% end %>
       </ul>
     </li>
