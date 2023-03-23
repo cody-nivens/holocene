@@ -2,10 +2,11 @@
 <p>
   <strong>Name:</strong>
   <%= @character_category.name %>
-  <div>
-<%= link_to (fa_icon 'edit'), edit_character_category_path(@character_category), title: 'Edit' %>
-<%= link_to (fa_icon 'plus'), new_character_category_character_attribute_path(character_category_id: @character_category.id), title: 'New Character Attribute' %>
 </p>
+<div id="side_controls">
+<%= link_to (fa_icon 'edit'), edit_character_category_path(@character_category), title: 'Edit', class: 'btn icon-ok icon-white' %>
+<%= link_to (fa_icon 'plus'), new_character_category_character_attribute_path(character_category_id: @character_category.id), title: 'New Character Attribute', class: 'btn icon-ok icon-white' %>
+</div>
 
 <%= render partial: 'character_attributes/index', locals: { character_category: @character_category } %>
 

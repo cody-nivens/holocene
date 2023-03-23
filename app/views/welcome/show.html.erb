@@ -18,8 +18,8 @@
 <%= render partial: 'shared/metric', formats: [:html], locals: { objects: @metrics, title: "Items for #{@date.to_s}" } %>
 
 
-<div>
-  <%= link_to (fa_icon 'angle-left'), welcome_show_path(:date => (date - 1.day).to_s) %>
-  <%= link_to (fa_icon 'angle-right'), welcome_show_path(:date => (date + 1.day).to_s) %>
+<div id="side_controls">
+  <%= link_to (fa_icon 'angle-left'), welcome_show_path(:date => (date - 1.day).to_s), class: 'btn icon-ok icon-white' %>
+  <%= link_to (fa_icon 'angle-right'), welcome_show_path(:date => (date + 1.day).to_s), class: 'btn icon-ok icon-white' %>
 </div>
 

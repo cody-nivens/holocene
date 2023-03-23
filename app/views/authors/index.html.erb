@@ -27,8 +27,7 @@
   </tbody>
 </table>
 
-<br>
-
-<% add_to_footer('New Author', new_polymorphic_path([@object, :author])) %>
-<% add_to_footer('Add Author', polymorphic_path([@object, :authors_list])) %>
-<% add_to_footer('Back', polymorphic_path(@object)) %>
+<div id="side_controls">
+<%= link_to (fa_icon 'plus'), new_polymorphic_path([@object, :author]), class: 'btn icon-ok icon-white', title: "New Author" %>
+<%= link_to (fa_icon 'exchange-alt'), polymorphic_path([@object, :authors_list]), class: 'btn icon-ok icon-white', title: "Add Author" %>
+</div>

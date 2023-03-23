@@ -17,13 +17,6 @@ class AuthorsIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @authors = Author.all
 
-    assert_select 'a[text()=?]', 'New Author'
-    assert_select 'a[href=?]', new_polymorphic_path([@book, :author])
-    assert_select 'a[text()=?]', 'Add Author'
-    assert_select 'a[href=?]', polymorphic_path([@book, :authors_list])
-    assert_select 'a[text()=?]', 'Back'
-    assert_select 'a[href=?]', polymorphic_path(@book)
-    assert_select '.footer>div>a', 3
     assert_template 'authors/index'
 
     assert_select 'h2', 'Authors'
