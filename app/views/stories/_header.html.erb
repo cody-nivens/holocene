@@ -1,19 +1,18 @@
 <h2>
   <%== breadcrumb(story.book, story) %>
 </h2>
-<div>
-  <%= link_to (fa_icon 'edit', type: :regular), edit_story_path(story), title: 'Edit' %>
-    <%= link_to (fa_icon 'sticky-note', type: :regular), story_signets_path(story), title: 'Signets' %>
-  <%= link_to (fa_icon 'sticky-note', type: :regular), story_notes_path(story), title: 'Notes' %>
+<div id="side_controls">
+  <%= link_to (fa_icon 'edit', type: :regular), edit_story_path(story), title: 'Edit', class: 'btn icon-ok icon-white' %>
+    <%= link_to (fa_icon 'sticky-note', type: :regular), story_signets_path(story), title: 'Signets', class: 'btn icon-ok icon-white' %>
+  <%= link_to (fa_icon 'sticky-note', type: :regular), story_notes_path(story), title: 'Notes', class: 'btn icon-ok icon-white' %>
    <% if long %>
-  <%= link_to (fa_icon 'list', type: :solid), story_path(story), title: 'Show' %>
+  <%= link_to (fa_icon 'list', type: :solid), story_path(story), title: 'Show', class: 'btn icon-ok icon-white' %>
   <% else %>
-  <%= link_to (fa_icon 'list', type: :solid), story_path(story, long: true), title: 'Show' %>
+  <%= link_to (fa_icon 'list', type: :solid), story_path(story, long: true), title: 'Show', class: 'btn icon-ok icon-white' %>
   <% end %>
-  <%= link_to (fa_icon 'newspaper', type: :solid), story_view_path(story), title: 'View' %>
-  <%= link_to (fa_icon 'newspaper', type: :regular), story_view_path(story, outline: true), title: 'View, outline' %>
-  <%= link_to (fa_icon 'newspaper', type: :regular), story_view_path(story, outline: true, long: true), title: 'View, outline, long' %>
-  <%= link_to (fa_icon 'file-pdf'), story_path(story, format: :pdf), title: 'PDF' %>
-  <%= link_to (fa_icon 'file-pdf', type: :regular), story_path(story, format: :pdf, outline: true), title: 'PDF outline' %>
+  <%= link_to (fa_icon 'newspaper', type: :solid), story_view_path(story), title: 'View', class: 'btn icon-ok icon-white' %>
+  <%= link_to (fa_icon 'newspaper', type: :regular), story_view_path(story, outline: true), title: 'View, outline', class: 'btn icon-ok icon-white' %>
+  <%= link_to (fa_icon 'newspaper', type: :regular), story_view_path(story, outline: true, long: true), title: 'View, outline, long', class: 'btn icon-ok icon-white' %>
+  <%= link_to (fa_icon 'file-pdf'), story_path(story, format: :pdf), title: 'PDF', class: 'btn icon-ok icon-white' %>
 </div>
 
