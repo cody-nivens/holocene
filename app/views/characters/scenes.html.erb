@@ -6,9 +6,9 @@
 <table class='table'>
   <thead>
     <tr>
-      <th>Character</th>
-      <th>Background</th>
-      <th># of Scenes</th>
+      <th width="20%">Character</th>
+      <th width="50%">Background</th>
+      <th width="30%"># of Scenes</th>
     </tr>
   </thead>
   <tbody>
@@ -17,7 +17,9 @@
     <tr>
       <td><%= link_to character.full_name, polymorphic_path([@object, character]) %></td>
       <td><%= character.background %></td>
-      <td><%= char_info[1] %></td>
+      <td>
+        <%== scenes_list_ul(character,@object) %>
+      </td>
     </tr>
   <% end %>
   </tbody>

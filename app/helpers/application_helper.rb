@@ -16,6 +16,19 @@ module ApplicationHelper
     end
   end
 
+  def scenes_list_ul(provider,object)
+    s = "<ul>"
+    scenes_ids = Scene.get_scenes_to_array(object)
+    provider_scene_ids = provider.scenes.pluck(:id)
+    scenes_ids.each do |scene_id|
+      if provider_scene_ids.include?(scene_id)
+        scene = Scene.find_by_id(scene_id)
+        s += "<li>#{link_to scene.name, scene_path(scene)}</li>"
+      end
+    end
+    return s + "</ul>"
+  end
+
   def add_to_footer(name, link, options = {})
     print = options[:print] || true
     method = options[:method] || :get
