@@ -23,7 +23,7 @@ module ApplicationHelper
     scenes_ids.each do |scene_id|
       if provider_scene_ids.include?(scene_id)
         scene = Scene.find_by_id(scene_id)
-        s += "<li>#{link_to scene.name, scene_path(scene)}</li>"
+        s += "<li>#{link_to scene.name, scene_path(scene)}</li>" if scene.situated.book == object and scene.situated.publish?
       end
     end
     return s + "</ul>"

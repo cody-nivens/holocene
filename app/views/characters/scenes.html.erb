@@ -1,8 +1,5 @@
 <% @title = "Char Scenes, #{@object.name}" %>
 <h3>Characters with Scene Count</h3>
-<% scenes = Scene.get_scenes_to_array(@object) %>
-<% characters = @object.characters.joins(:scenes).where("scenes.book_id = ?", @object.id).where("scenes.id",scenes).group("characters.id").count %>
-<% chars = characters.sort {|a1,a2| a2[1]<=>a1[1]} %>
 <table class='table'>
   <thead>
     <tr>
@@ -12,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-  <% chars.each do |char_info| %>
+  <% @chars.each do |char_info| %>
     <% character = Character.find(char_info[0]) %>
     <tr>
       <td><%= link_to character.full_name, polymorphic_path([@object, character]) %></td>

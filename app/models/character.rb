@@ -43,6 +43,14 @@ class Character < ApplicationRecord
   validates :first_name, presence: true, if: -> { required_for_step?(:identity) }
   # validates :occupation_class,:social_class,  presence: true, if: -> { required_for_step?(:attributes) }
 
+  def published_scenes(book)
+    a = []
+    scenes.each do |scene|
+      a << scene if scene.situated.book == book and scene.situated.publish?
+    end
+    a
+  end
+
   def first_name?
     !first_name.nil?
   end

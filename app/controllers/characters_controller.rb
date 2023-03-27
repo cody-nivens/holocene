@@ -82,11 +82,15 @@ class CharactersController < ApplicationController
 
   # GET /characters/1/matrix
   def matrix
+    chars_list
+
     session[:return_to] = request.fullpath
   end
 
   # GET /characters/1/scenes
   def scenes
+    chars_list
+
     session[:return_to] = request.fullpath
   end
 
@@ -191,6 +195,18 @@ class CharactersController < ApplicationController
   end
 
   private
+
+  def chars_list
+    @scenes = Scene.get_scenes_to_array(@object)
+    characters = @object.characters.joins(:scenes).where("scenes.book_id = ?", @object.id).where("scenes.id",@scenes).group("characters.id")
+    chars = []
+    characters.each do |character|
+      scenes = character.published_scenes(@object)
+      chars << [character.id, scenes.length] if scenes.length > 0
+    end
+    chars = chars.sort {|a1,a2| a2[1]<=>a1[1]}
+    @chars = chars
+  end
 
   def update_character_lists(object, character)
     object.characters << character unless object.characters.include?(character)
