@@ -41,7 +41,11 @@
     <th>Stories(Publishable):</th>
     <td><%= book.stories.size %> (<%= book.stories.where(publish: true).size %>)</td>
     <th>Characters:</th>
-    <td><%= book.characters.size %></td></tr>
+    <td><%= book.characters.size %>
+    <% scenes = Scene.get_scenes_to_array(book) %>
+    <% characters = book.characters.joins(:scenes).where("scenes.book_id = ?", book.id).where("scenes.id", scenes).group("characters.id") %>
+    (<%= characters.length %>) 
+    </td></tr>
   <tr>
     <th>Scenes (Publishable)(Sections % Scenes):</th>
     <td>
