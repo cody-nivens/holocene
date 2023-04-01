@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get '/books/:id/view', to: 'books#view', as: :book_view
   get '/books/:id/publish', to: 'books#publish', as: :book_publish
   get '/books/:id/chars', to: 'books#chars', as: :book_chars
+  post '/books/:id/import_chars', to: 'books#import_chars', as: :book_import_chars
+  get '/books/:id/chars_import', to: 'books#chars_import', as: :book_chars_import
   get '/stories/:id/view', to: 'stories#view', as: :story_view
   get '/stories/:id/chars', to: 'stories#chars', as: :story_chars
   get '/key_points/:id/view', to: 'key_points#view', as: :key_point_view
