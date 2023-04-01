@@ -117,15 +117,15 @@
     <fieldset class="form-group border p-3">
       <legend class="w-auto px-2">Word Counts</legend>
       <div class='field'>
-        <label class="form-label" for="form12">Low: <%= mean.to_i - (standard_deviation.nan? ? 0 : standard_deviation.to_i) %></label>
+        <label class="form-label" for="form12">Low: <%= (mean.nan? ? 0 : mean.to_i) - (standard_deviation.nan? ? 0 : standard_deviation.to_i) %></label>
         <%= text_field_tag :low_wc, @low_wc %>
       </div>
       <div class='field'>
-        <label class="form-label" for="form12">Mid: <%= mean.to_i %></label>
+        <label class="form-label" for="form12">Mid: <%= mean.nan? ? '' : mean.to_i %></label>
         <%= text_field_tag :mid_wc, @mid_wc %>
       </div>
       <div class='field'>
-        <label class="form-label" for="form12">Better: <%= mean.to_i + (standard_deviation.nan? ? 0 : standard_deviation.to_i) %></label>
+        <label class="form-label" for="form12">Better: <%= (mean.nan? ? 0 : mean.to_i) + (standard_deviation.nan? ? 0 : standard_deviation.to_i) %></label>
         <%= text_field_tag :better_wc, @better_wc %>
       </div>
       <div class='form-check'>
