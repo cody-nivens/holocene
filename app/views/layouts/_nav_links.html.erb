@@ -80,6 +80,8 @@
         <li class='nav-item'> <a class='nav-link' href='/characters/<%= @book.id %>/scenes'>Scenes</a> </li>
         <%== make_menu_link('Char List', book_chars_path(@book))  %>
         <%== make_menu_link('Char List, All', book_chars_path(@book, long: true)) %>
+          <li><hr class="dropdown-divider"></li>
+        <%== make_menu_link('Import Chars', book_chars_import_path(@book))  %>
       <% end %>
       </ul>
     </li>

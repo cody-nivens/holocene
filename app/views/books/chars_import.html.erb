@@ -1,0 +1,28 @@
+<%= bootstrap_form_for :book , url: polymorphic_path([@book, :import_chars]) do |f| %>
+
+  <%= hidden_field "#{@book.class.name.underscore}_id", value: @book.id %>
+
+  <h2>Import Characters for <%= @book.name %></h2>
+
+<table class="table">
+  <tr>
+      <td>
+        <%= select_tag :char_book_id, options_from_collection_for_select(Book.where(user_id: current_user.id).order(:name), :id, :name), prompt: 'Select Book', multiple: false, size: 20 %>
+      </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="form-group">
+        <label class='checkbox'>
+          <%= check_box_tag :all, @all, @all, class: 'checkbox inline' %> All
+        </label>
+      </div>
+    </td>
+  </tr>
+</table>
+<%= f.submit class: 'btn btn-primary' %>
+
+<% end %>
+
+<% add_to_footer('Back', book_path(@book)) %>
+

@@ -51,6 +51,33 @@ end
 
   end
 
+  def import_chars
+    char_book_id = params[:char_book_id]
+    char_book = Book.find(char_book_id)
+    all = params[:all]
+
+    if all.nil?
+      scenes = Scene.get_scenes_to_array(char_book)
+      characters = char_book.characters.joins(:scenes).where("scenes.book_id = ?", char_book.id).where("scenes.id",scenes)
+    else
+      characters = char_book.characters
+    end
+
+    characters.each do |character|
+      @book.characters << character unless @book.characters.include?(character)
+    end
+
+    show
+  end
+
+  def chars_import
+
+    respond_to do |format|
+      format.html { render :chars_import, locals: { book: @book } }
+    end
+
+  end
+
   def sort
     @book = Book.find(params[:book_id])
     @book.update(book_params)
