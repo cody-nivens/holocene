@@ -5,24 +5,51 @@
   <h2>Import Characters for <%= @book.name %></h2>
 
 <table class="table">
+  <thead>
+    <tr><th>Book</th>
+      <th>Character</th>
+    </tr>
+  </thead>
+  <tbody>
   <tr>
       <td>
         <%= select_tag :char_book_id, options_from_collection_for_select(Book.where(user_id: current_user.id).order(:name), :id, :name), prompt: 'Select Book', multiple: false, size: 20 %>
+      </td>
+      <td id="characters_list">
+        <select class="attribute enum_filter" name="characters[]" id="chars_list" size="20"><option value="">Select Character</option>
+        </select>
       </td>
   </tr>
   <tr>
     <td>
       <div class="form-group">
-        <label class='checkbox'>
           <%= check_box_tag :all, @all, @all, class: 'checkbox inline' %> All
         </label>
       </div>
     </td>
   </tr>
+  </tbody>
 </table>
 <%= f.submit class: 'btn btn-primary' %>
 
 <% end %>
+
+<script>
+  $(document).ready(function() {
+
+    $('[data-bs-toggle="tooltip"]').tooltip();
+    $('[data-bs-toggle="popover"]').popover();
+
+    $("#char_book_id").change(function() {
+      var book = $(this).val();
+      $.ajax({
+        url: "/books/" + book + "/list_chars",
+        method: "GET",
+        data: {char_book_id: book },
+      })
+    });
+  })
+</script>
 
 <% add_to_footer('Back', book_path(@book)) %>
 

@@ -53,6 +53,15 @@ class CharactersController < ApplicationController
     end
   end
 
+  def list_chars
+    char_book = Book.find(params[:char_book_id])
+    @characters = char_book.characters.order(:last_name, :first_name)
+
+    respond_to do |format|
+      format.js {}
+    end
+  end
+
   def attributes
     @attributes = CharacterAttribute.where(character_category_id: params[:category_id])
 

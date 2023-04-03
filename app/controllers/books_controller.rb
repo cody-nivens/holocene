@@ -53,14 +53,22 @@ end
 
   def import_chars
     char_book_id = params[:char_book_id]
+    chars = params[:characters]
     char_book = Book.find(char_book_id)
     all = params[:all]
+    characters = []
 
-    if all.nil?
-      scenes = Scene.get_scenes_to_array(char_book)
-      characters = char_book.characters.joins(:scenes).where("scenes.book_id = ?", char_book.id).where("scenes.id",scenes)
+    if chars.nil?
+      if all.nil?
+        scenes = Scene.get_scenes_to_array(char_book)
+        characters = char_book.characters.joins(:scenes).where("scenes.book_id = ?", char_book.id).where("scenes.id",scenes)
+      else
+        characters = char_book.characters
+      end
     else
-      characters = char_book.characters
+      chars.each do |char|
+        characters << Character.find(char)
+      end
     end
 
     characters.each do |character|

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
                                                                                                    }
 
   get '/books/:id/view', to: 'books#view', as: :book_view
+  get '/books/:id/list_chars', to: 'characters#list_chars', as: :characters_list_chars
   get '/books/:id/publish', to: 'books#publish', as: :book_publish
   get '/books/:id/chars', to: 'books#chars', as: :book_chars
   post '/books/:id/import_chars', to: 'books#import_chars', as: :book_import_chars
@@ -103,7 +104,7 @@ Rails.application.routes.draw do
 
   get '/stories/:id/stats', to: 'stories#stats', as: :story_stats
   get '/stories/:story_id/key_points/:id/move', to: 'key_points#move', as: :story_key_point_move
-  post '/stories/:story_id//key_points/:id/moved', to: 'key_points#moved', as: :story_key_point_moved
+  post '/stories/:story_id/key_points/:id/moved', to: 'key_points#moved', as: :story_key_point_moved
   get '/stories/:story_id/characters/list', to: 'characters#list', as: :story_characters_list
   post '/stories/:story_id/characters/add', to: 'characters#add', as: :story_characters_add
   get '/stories/:id/timeline', to: 'stories#timeline', as: :story_timeline

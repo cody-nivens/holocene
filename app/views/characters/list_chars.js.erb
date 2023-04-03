@@ -1,0 +1,1 @@
+$("#characters_list").html("<%= escape_javascript(render partial: 'characters/chars_list', formats: [:html], locals: { characters: @characters } ) %>");

@@ -22,36 +22,5 @@ import 'js/jquery-jvectormap-world-mill-en';
 
 $(document).ready(function() {
 
-$('[data-bs-toggle="tooltip"]').tooltip();
-$('[data-bs-toggle="popover"]').popover();
-
-//$("#new_key_point_id").prop("disabled", true); // second dropdown is disable while first dropdown is empty
-$("#story_id").change(function(){
-  	var story = $(this).val();
-//  	if(story == ''){
-//  		$("#new_key_point_id").prop("disabled", true);
-//  	}else{
-//  		$("#new_key_point_id").prop("disabled", false);
-//  	}
-  	$.ajax({
-	    url: "/stories/" + story + "/key_points",
-	    method: "GET",  
-	    dataType: "json",
-	    data: {story_id: story},
-	    error: function (xhr, status, error) {
-	      	console.error('AJAX Error: ' + status + error);
-	    },
-	    success: function (response) {
-	      	console.log(response);
-	      	var key_points = response["key_points"];
-	      	$("#new_key_point_id").empty();
-
-	      	$("#new_key_point_id").append('<option>Select Key Point</option>');
-	      	for(var i = 0; i < key_points.length; i++){
-	      		$("#new_key_point_id").append('<option value="' + key_points[i]["id"] + '">' + key_points[i]["hook"] + '</option>');
-	      	}
-	    }
-  	});
-});
 })
 

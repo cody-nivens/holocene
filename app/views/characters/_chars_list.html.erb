@@ -1,0 +1,6 @@
+<select class="attribute enum_filter" name="characters[]" id="chars_list" size="20"><option value="">Select Character</option>
+  <% characters.each do |character| %>
+    <option value="<%= character.id %>"><%= character.full_last_first %></option>
+  <% end %>
+</select>
+
