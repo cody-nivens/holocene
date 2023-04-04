@@ -12,7 +12,7 @@
     <tr>
     <% if pdf and !long %>
       <td width="20%">  <%= scene.time_to_text %></td>
-      <td width="25%">  <strong><i><%= scene.section.name %></i></strong></td>
+      <td width="25%">  <strong><i><%= scene.section.present? ? scene.section.name : scene.name %></i></strong></td>
       <td width="55%"><%= scene.artifact.nil? ? '' : "#{scene.artifact_name} - " %><%= scene.place.empty? ? '' : "#{scene.place&.to_plain_text}" %></td>
     <% else %>
       <% if inline_date %>
