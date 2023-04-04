@@ -258,7 +258,7 @@ class Scene < ApplicationRecord
                  items << iscene.id
                end
 
-                items << scene unless items.include?(scene)
+               items << scene unless items.include?(scene) or Scene.find(scene).insert_scene.present?
               end
             end
           end
