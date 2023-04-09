@@ -1,8 +1,5 @@
 class Story < ApplicationRecord
   include RankedModel
-  ThinkingSphinx::Callbacks.append(
-    self, behaviours: [:sql]
-  )
   belongs_to :book
   ranks :position, with_same: :book_id
 
