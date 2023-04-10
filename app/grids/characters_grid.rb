@@ -82,11 +82,11 @@ class CharactersGrid < BaseGrid
   # column(:age_at_son)
   # column(:mother_id)
 
-  column(:age, header: 'Age', html: true) do |character|
+  column(:age, if: ->(grid) { grid.object.class.name == 'Scene' }, header: 'Age', html: true) do |character|
     @object.class.name == 'Scene' ? @object.date_string[0..3].to_i - character.birth_year.to_i : ''
   end
   column(:scenes, header: 'Scenes', html: true) do |character|
-    character.scenes.size
+    character.scenes.where(book_id: @book.id).size
   end
 
   column(:sex, html: true, order: 'sex asc, last_name asc, first_name asc',
