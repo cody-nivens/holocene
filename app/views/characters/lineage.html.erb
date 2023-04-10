@@ -4,30 +4,21 @@
 
   <h2>Lineage for <%= @character.full_name %></h2>
 
-  <ol>
-    <% last_person = @character %>
-  <% people = Character.where(father: last_person.id) %>
-  <% while people.size > 0 do %>
-   <% person = people[0] %>
-         <li><%= person.full_name %>: <%= person.birth_year %> - <%= person.death_year %></li>
-    <% people = Character.where(father: person.id) %>
-    <% if people.size == 0 %>
-      <% people = Character.where(father: last_person.id) - [person] %>
-      <% person = (people.size.positive? ? people[0] : nil) %>
-    <% end %>
-    <% last_person = person %>
+  <% family = [ @character ] %>
+  <% character = @character.father %>
+  <% while !character.nil? %>
+    <% family << character %>
+    <% character = character.father %>
   <% end %>
-  </ol>
 
-  <% names = @character.create_lineage(%w[George John James]) %>
+  <% family = family.reverse %>
 
-  <ol>
-    <% names.each do |name| %>
-      <li><%= name[:first_name] %> <%= name[:middle_name] %> <%= name[:suffix] %> <%= @character.last_name %>: <%= name[:birth_year] %> - <%= name[:death_year] %></li>
+    <% family.each do |character| %>
+      <ul>
+      <li><%= link_to character.full_name, polymorphic_path([@object, character]) %>: <%= character.birth_year %> - <%= character.death_year %></li>
     <% end %>
-  </ol>
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+    <%= render partial: "characters/descendents", locals: { character: @character } %>
+    <% family.each do |char| %>
+      </ul>
+    <% end %>
 <% end %>
-<% add_to_footer('Back', polymorphic_path([@object, @character])) %>

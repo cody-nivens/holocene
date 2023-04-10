@@ -66,14 +66,26 @@
   <% if character.father? %>
     <p>
       <strong>Father:</strong>
-      <%= (character.father.nil? ? '' : character.father_name) %>
+      <%= (character.father.nil? ? '' : link_to(character.father_name, polymorphic_path([object, character.father]))) %>
     </p>
   <% end %>
 
   <% if character.mother? %>
     <p>
       <strong>Mother:</strong>
-      <%= (character.mother.nil? ? '' : character.mother_name) %>
+      <%= (character.mother.nil? ? '' : link_to(character.mother_name, polymorphic_path([object, character.mother]))) %>
+    </p>
+  <% end %>
+
+  <% people = character.sex == 0 ? Character.where(father: character.id) : Character.where(mother: character.id) %>
+  <% if people.size > 0 %>
+    <p>
+      <strong>Children:</strong>
+      <ul>
+        <% people.each do |person| %>
+          <li><%= link_to(person.name, polymorphic_path([object, person])) %></li>
+        <% end %>
+      </ul>
     </p>
   <% end %>
 
