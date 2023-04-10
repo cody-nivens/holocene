@@ -85,8 +85,8 @@ class CharactersGrid < BaseGrid
   column(:age, if: ->(grid) { grid.object.class.name == 'Scene' }, header: 'Age', html: true) do |character|
     @object.class.name == 'Scene' ? @object.date_string[0..3].to_i - character.birth_year.to_i : ''
   end
-  column(:scenes, header: 'Scenes', html: true) do |character|
-    character.scenes.where(book_id: @book.id).size
+  column(:scenes, if: ->(grid) { grid.object.class.name != 'Scene' }, header: 'Scenes', html: true) do |character|
+    character.scenes.where(book_id: @object.id).size
   end
 
   column(:sex, html: true, order: 'sex asc, last_name asc, first_name asc',
