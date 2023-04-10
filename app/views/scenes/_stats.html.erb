@@ -1,19 +1,29 @@
-<table class='table'>
-  <tr>
-    <th>ABC:</th><td><%= object.abc %></td>
-    <th>Location:</th><td><%= object.artifact.nil? ? 'Unkown' : object.artifact_name %></td>
-    <th>Place:</th><td><%= object.place.to_plain_text %></td>
-  </tr>
-  <tr>
-    <th>Time:</th><td><%= object.time_to_text %></td>
-    <th>Scene/Sequel:</th><td><%= object.scene_sequel == 1 ? 'Sequel' : 'Scene' %></td>
-    <th>Selector:</th><td><%= selector_string(object.selector) %></td>
-  </tr>
-  <tr>
-    <th>Check:</th><td><%= object.check? ? fa_icon('check') : '' %></td>
-    <th>Title Scene:</th><td><%= object.title_scene? ? fa_icon('check') : '' %></td>
-    <th>Word Count:</th><td>
+<div class='container'>
+  <div class='row'>
+    <div class='col-sm-2'><strong><%= object.time_to_text %></strong></div>
+    <div class='col-sm-1'><strong><%= object.artifact.nil? ? 'Unkown' : object.artifact_name %></strong></div>
+    <div class='col-sm-1'><strong><%= object.place.to_plain_text %></strong></div>
+  </div>
+  <div class='row'>
+    <div class='col-sm-4'><strong><hr></strong></div>
+  </div>
+  <div class='row'>
+    <div class='col-sm-2'><strong><%= object.abc %></strong></div>
+    <div class='col-sm-1'><strong><%= object.check? ? fa_icon('check') : '' %></strong></div>
+    <div class='col-sm-1'><strong><%= object.title_scene? ? 'Title' : '' %></strong></div>
+  </div>
+  <div class='row'>
+    <div class='col-sm-2'><strong>Scene/Sequel:</strong></div>
+    <div class='col-sm-1'><%= object.scene_sequel == 1 ? 'Sequel' : 'Scene' %></div>
+  </div>
+  <div class='row'>
+    <div class='col-sm-2'><strong>Characters:</strong></div>
+    <div class='col-sm-1'><%= object.characters.size %></div>
+  </div>
+  <div class='row'>
+    <div class='col-sm-2'><strong>Word Count:</strong></div>
+    <div class='col-sm-1'>
       <span style="background-color: #<%= count_color(object.word_count) %>"><%=  number_with_delimiter(object.word_count, :delimiter => ',') %></span>
-    </td>
-  </tr>
-</table>
+    </div>
+  </div>
+</div>
