@@ -98,7 +98,9 @@ class StoriesController < ApplicationController
     @book = @story.book
     @story.key_points.each do |kp|
       kp.scenes.each do |scene|
-        scene.update_attribute(:book_id, new_book.id)
+        scene.situated = scene.key_point.scripted
+        scene.book = new_book
+        scene.save
       end
     end
 
