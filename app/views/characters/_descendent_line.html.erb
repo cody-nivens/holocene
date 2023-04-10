@@ -1,0 +1,1 @@
+<%= link_to character.full_name, polymorphic_path([@object, character]) %><%= character.sex == 0 ? 'Male' : 'Female' %> <%= character.gender %>: <%= character.birth_year %> - <%= character.death_year %>

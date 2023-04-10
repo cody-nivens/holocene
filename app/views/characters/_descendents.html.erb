@@ -1,7 +1,7 @@
 <ul>
   <% people = character.sex == 0 ? Character.where(father: character.id) : Character.where(mother: character.id) %>
-  <% people.each do |character| %>
-    <li><%= link_to character.full_name, polymorphic_path([@object, character]) %>: <%= character.birth_year %> - <%= character.death_year %></li>
+  <% people.order(:birth_year).each do |character| %>
+      <li><%= render partial: 'characters/descendent_line', locals: { character: character } %> </li>
     <%= render partial: "characters/descendents", locals: { character: character } %>
   <% end %>
 </ul>

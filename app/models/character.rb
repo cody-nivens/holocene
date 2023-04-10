@@ -51,6 +51,12 @@ class Character < ApplicationRecord
     a
   end
 
+  def gender
+    gender = CharacterAttribute.find_by_name('Gender')
+    char_value = CharacterValue.where(character: self, character_attribute: gender)
+    char_value.size == 0 ? '' : char_value[0].value
+  end
+
   def first_name?
     !first_name.nil?
   end

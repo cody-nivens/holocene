@@ -15,7 +15,7 @@
 
     <% family.each do |character| %>
       <ul>
-      <li><%= link_to character.full_name, polymorphic_path([@object, character]) %>: <%= character.birth_year %> - <%= character.death_year %></li>
+      <li><%= render partial: 'characters/descendent_line', locals: { character: character } %> </li>
     <% end %>
     <%= render partial: "characters/descendents", locals: { character: @character } %>
     <% family.each do |char| %>
