@@ -24,8 +24,9 @@ class CharactersGrid < BaseGrid
     end
   }, multiple: true)
 
+  filter(:no_occupation_class, :boolean, default: false, dummy: true)
   filter(:occupation_class, :enum, select: proc {
-                                             Character.all.pluck(:occupation_class).compact.sort.uniq.map do |c|
+                                             Character.where("occupation_class != ' '").pluck(:occupation_class).compact.sort.uniq.map do |c|
                                                [c, c]
                                              end
                                            }, multiple: true)

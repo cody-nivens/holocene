@@ -1,6 +1,6 @@
 class CharactersController < ApplicationController
   before_action :set_character, only: %i[lineage edit update]
-  before_action :set_object, only: %i[index scenes matrix lineage index add list edit show create update destroy]
+  before_action :set_object, only: %i[scenes matrix lineage index add list edit show create update destroy]
 
   # GET /characters
   # GET /characters.json
@@ -17,6 +17,10 @@ class CharactersController < ApplicationController
 
     if grid_params[:no_grouping].to_i == 1
       my_params[:grouping] = ['']
+    end
+
+    if grid_params[:no_occupation_class].to_i == 1
+      my_params[:occupation_class] = ['']
     end
 
     @grid = CharactersGrid.new(my_params.merge(object: @object)) do |scope|
