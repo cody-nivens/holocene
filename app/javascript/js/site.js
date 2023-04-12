@@ -22,5 +22,8 @@ import 'js/jquery-jvectormap-world-mill-en';
 
 $(document).ready(function() {
 
+    $('[data-bs-toggle="tooltip"]').tooltip();
+    $('[data-bs-toggle="popover"]').popover();
+
 })
 

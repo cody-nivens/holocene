@@ -52,7 +52,7 @@ class Scene < ApplicationRecord
     characters.order(last_name: :asc).each do |character|
       s += "#{character.full_name}<br>"
     end
-    return s
+    return s.blank? ? "None" : s
   end
 
   def signets_short_list
