@@ -50,7 +50,7 @@
               <%= character_scene[0].summary.to_plain_text %>
           <% end %>
         <% else %>
-          <%= character.scenes.size %>
+          <%= character.scenes.where(book: object.id).size %>
         <% end %>
       </td>
     </tr>
