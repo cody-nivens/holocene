@@ -35,16 +35,6 @@ class BooksController < ApplicationController
     @data = {}
     op = params[:op]
 
-if 1 == 0
-    @characters.each do |character|
-      @data[character.name] = { count: 0, scenes: [] }
-      character.scenes.each do |scene|
-        next unless scene.situated.book == @book
-        @data[character.name][:count] += 1
-      end
-    end
-end
-
     respond_to do |format|
       format.html { render :chars, locals: { book: @book, characters: @characters, op: op, long: long } }
     end
