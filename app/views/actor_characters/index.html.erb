@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Actor Characters</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Character</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @actor_characters.each do |actor_character| %>
+      <tr>
+        <td><%= actor_character.character.name %></td>
+        <td><%= link_to 'Show', actor_character %></td>
+        <td><%= link_to 'Edit', edit_actor_character_path(actor_character) %></td>
+        <td><%= link_to 'Destroy', actor_character, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Actor Character', new_actor_actor_character_path(@actor) %>

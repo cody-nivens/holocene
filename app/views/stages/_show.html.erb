@@ -1,0 +1,72 @@
+<% check ||= nil %>
+
+<% if check.nil? %>
+  <%= tabs do |d| %>
+    <% @stage.segments.each do |segment| %>
+      <% d.tab "#{segment.name}" do %>
+        <%= link_to (fa_icon 'edit'), edit_segment_path(segment), title: "Edit #{segment.name}" %>
+        <%= render partial: "segments/show", locals: { segment: segment, op: @op } %>
+      <% end %>
+    <% end %>
+    <%= link_to (fa_icon 'plus'), new_stage_segment_path(@stage), title: "New Segment" %>
+  <% end %>
+<% else %>
+  <% segs = @stage.segments.pluck(:id) %>
+  <% locs = LocationTime.where(segment_id: segs).includes(:location).pluck("locations.id").sort.uniq %>
+  <% locations = Location.where(id: locs).order(:name) %>
+  <% loc_times = LocationTime.where(segment_id: segs) %>
+  <% actors = Actor.where(book_id: @stage.act.book.id).includes(:location_times).where("actor_location_times.location_time_id": loc_times).order("actors.name").uniq %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <% if @op == 'locations' %>
+          <% locations.each do |location| %>
+            <th><%= location.name %></th>
+          <% end %>
+        <% else %>
+          <% actors.each do |actor| %>
+            <th>
+              <%= actor.name %>
+            </th>
+          <% end %>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+    <% locs = LocationTime.where(segment_id: segs) %>
+    <% loc_times = locs.pluck(:date_string).sort.uniq %>
+    <% loc_times.each do |time| %>
+      <tr>
+        <th><%= time %></th>
+        <% if @op == 'locations' %>
+          <% locations.each do |location| %>
+            <% my_locs = locs.where(location_id: location.id, date_string: time) %>
+              <td>
+            <% if my_locs.size > 0 %>
+                <ul>
+                <% my_locs.each do |my_loc| %>
+                  <%= render partial: "location_times/show3", locals: { location_time: my_loc } %>
+                <% end %>
+                </ul>
+            <% end %>
+            </td>
+          <% end %>
+        <% else %>
+          <% actors.each do |actor| %>
+            <td>
+              <ul>
+                <% my_act_locs = ActorLocationTime.includes(:location_time).where("location_times.date_string": time, actor_id: actor.id) %>
+                <% my_act_locs.each do |act_loc| %>
+                  <li><%= act_loc.location_time.location.name %>: <%= act_loc.role.to_plain_text %>
+                  </li>
+                <% end %>
+              </ul>
+            </td>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>

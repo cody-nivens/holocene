@@ -13,6 +13,8 @@ class Character < ApplicationRecord
   has_many :artifacts, dependent: :destroy
 
   has_many :signets, as: :sigged
+  
+  has_many :actor_characters
 
 
   belongs_to :father, class_name: 'Character', optional: true

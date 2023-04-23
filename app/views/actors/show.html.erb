@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @actor.name %>
+</p>
+
+<p>
+  <%= @actor.desc %>
+</p>
+
+<div>
+  <strong>Characters:</strong>
+<%= link_to (fa_icon 'plus'), new_actor_actor_character_path(@actor) %>
+  <ul>
+<% @actor.actor_characters.each do |actor_character| %>
+ <li><%= link_to actor_character.character.name, character_path(actor_character.character) %></li>
+ <% end %>
+  </ul>
+</div>
+
+
+<div>
+  <strong>Location Times:</strong>
+  <ul>
+<% @actor.actor_location_times.includes(:location_time).order("location_times.date_string").each do |actor_location| %>
+  <li> <%= link_to actor_location.location_time.date_string, stage_path(actor_location.location_time.segment.stage) %> :
+  <%= actor_location.location_time.location.name %> : <%= actor_location.title %></li>
+ <% end %>
+  </ul>
+</div>
+
+
+<div>
+<%= link_to 'Edit', edit_actor_path(@actor), :class => "btn" %>
+<%= link_to 'Back', book_actors_path(@book), :class => "btn" %>
+</div>

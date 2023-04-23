@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+actor_character_1:
+  actor: actor_1 
+  character: character_1 
+
+actor_character_2:
+  actor: actor_1
+  character: character_2

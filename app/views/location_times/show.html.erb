@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @location_time.location.name %>
+</p>
+
+<p>
+  <strong>Loc time:</strong>
+  <%= @location_time.date_string %>
+</p>
+
+<div class='container-fluid'>
+  <div class='row'>
+    <div class='col-sm-2'>
+     Actors 
+      <%= link_to (fa_icon 'plus'), new_location_time_actor_location_time_path(@location_time), title: 'New Actor' %>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-sm-4'>
+      <ul>
+    <% @location_time.actor_location_times.each do |actor_time| %>
+        <li><%= link_to actor_time.actor.name, actor_location_time_path(actor_time)  %></li>
+    <% end %>
+    </ul>
+    </div>
+  </div>
+  </div>
+
+
+  <div>
+<%= link_to 'Edit', edit_location_time_path(@location_time), :class => "btn" %>
+<%= link_to 'Back', segment_location_times_path(@segment), :class => "btn" %>
+  </div>

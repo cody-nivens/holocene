@@ -1,0 +1,15 @@
+<%= bootstrap_form_for segment, url: { controller: :segments, action: (segment.id.nil? ? :create : :update) } do |f| %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= hidden_field :stage_id, @stage.id %>
+    <%= f.hidden_field :stage_id, value: @stage.id %>
+
+    <%= f.text_field :name %>
+    <%= f.rich_text_area :desc %>
+  </div>
+
+  <div class="form-segments">
+    <%= f.submit nil, class: 'btn btn-primary' %>
+  </div>
+<% end %>

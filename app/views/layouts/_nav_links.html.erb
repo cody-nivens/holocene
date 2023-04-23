@@ -39,12 +39,6 @@
           <li><hr class="dropdown-divider"></li>
           <%== make_menu_link('Key Points', book_key_points_path(@book)) %>
           <%== make_menu_link('Plot Points', book_plot_points_path(@book)) %>
-          <%== make_menu_link('Characters', polymorphic_path([@book, :characters])) %>
-          <%== make_menu_link('Artifacts', book_artifacts_path(@book)) %>
-          <%== make_menu_link('Artifact Types', book_artifact_types_path(@book)) %>
-          <%== make_menu_link('Key Words', book_key_words_path(@book)) %>
-          <%== make_menu_link('Stats', polymorphic_path([@book, :stats])) %>
-          <%== make_menu_link('Authors', book_authors_path(@book)) %>
         <% end %>
       <% elsif controller_name == 'stories' %>
         <% if !@story.nil? and !@story&.id.nil? %>
@@ -90,6 +84,16 @@
         Support
       </a>
       <ul class='dropdown-menu' aria-labelledby='navbar_dropdown4'>
+          <%== make_menu_link('Acts', book_acts_path(@book)) %>
+          <%== make_menu_link('Locations', book_locations_path(@book)) %>
+          <%== make_menu_link('Actors', book_actors_path(@book)) %>
+          <li><hr class="dropdown-divider"></li>
+          <%== make_menu_link('Artifacts', book_artifacts_path(@book)) %>
+          <%== make_menu_link('Artifact Types', book_artifact_types_path(@book)) %>
+          <%== make_menu_link('Key Words', book_key_words_path(@book)) %>
+          <%== make_menu_link('Stats', polymorphic_path([@book, :stats])) %>
+          <%== make_menu_link('Authors', book_authors_path(@book)) %>
+          <li><hr class="dropdown-divider"></li>
         <li class='nav-item'> <a class='nav-link' href='/character_categories'>Character Categories</a> </li>
         <li class='nav-item'> <a class='nav-link' href='/cities'>Cities</a> </li>
       </ul>

@@ -21,6 +21,9 @@ class Book < ApplicationRecord
   has_many :scenes, dependent: :destroy
   has_many :artifacts, dependent: :destroy
   has_many :artifact_types, dependent: :destroy
+  has_many :acts
+  has_many :actors
+  has_many :locations
 
   has_and_belongs_to_many :authors, dependent: :nullify
   has_and_belongs_to_many :characters, dependent: :nullify

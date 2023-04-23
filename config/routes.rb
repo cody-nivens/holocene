@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   post '/books/:book_id/key_points/:id/moved', to: 'key_points#moved', as: :book_key_point_moved
   post '/scenes/:id/moved', to: 'scenes#moved', as: :scene_moved
   put '/scenes/:id/check', to: 'scenes#check', as: :scene_check
+  get '/stages/:id/check', to: 'stages#check', as: :stage_check
 
   resources :cities
   namespace :character do
@@ -122,6 +123,19 @@ Rails.application.routes.draw do
     resources :key_words
     resources :artifacts
     resources :artifact_types
+    resources :actors, shallow: true do
+      resources :actor_characters
+    end
+    resources :locations
+    resources :acts, shallow: true do
+      resources :stages, shallow: true do
+        resources :segments, shallow: true do
+          resources :location_times, shallow: true do
+            resources :actor_location_times
+          end
+        end
+      end
+    end
     put :sort
     concerns :scripted, scripted_type: 'Book'
     resources :key_points do

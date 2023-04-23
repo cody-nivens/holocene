@@ -1,0 +1,12 @@
+<% ops ||=nil %>
+
+<% location_time.actor_location_times.includes(:actor).order("actors.name").each do |actor_loc| %>
+  <li>
+    <%= actor_loc.actor.name %>
+    <% if ops %>
+    <%= link_to (fa_icon 'edit'), edit_actor_location_time_path(actor_loc) %>
+    <%= link_to (fa_icon 'trash'), actor_loc, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
+  <% end %>
+ - <%= actor_loc.title %>
+  </li>
+<% end %>

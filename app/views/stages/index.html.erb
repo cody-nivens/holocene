@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Stages</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stages.each do |stage| %>
+      <tr>
+        <td><%= stage.name %></td>
+        <td><%= link_to 'Show', stage %></td>
+        <td><%= link_to 'Edit', edit_stage_path(stage) %></td>
+        <td><%= link_to 'Destroy', stage, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<div>
+<%= link_to 'New Stage', new_act_stage_path(@act), :class => "btn" %>
+<%= link_to 'Back', act_path(@act), :class => "btn" %>
+</div>

@@ -1,0 +1,15 @@
+<%= bootstrap_form_for location, url: { controller: :locations, action: (location.id.nil? ? :create : :update) } do |f| %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= hidden_field :book_id, @book.id %>
+    <%= f.hidden_field :book_id, value: @book.id %>
+
+    <%= f.text_field :name %>
+    <%= f.rich_text_area :desc %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, class: 'btn btn-primary' %>
+  </div>
+<% end %>

@@ -1,0 +1,10 @@
+<%= tabs do |d| %>
+  <% stage.segments.each do |segment| %>
+    <% d.tab "#{segment.name}" do %>
+      <%= render partial: "segments/tab_show", locals: { segment: segment } %>
+    <% end %>
+  <% end %>
+  <% d.tab link_to fa_icon('plus'), new_stage_segment_path(stage) do %>
+  <% end %>
+<% end %>
+

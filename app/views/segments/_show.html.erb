@@ -1,0 +1,53 @@
+<% op ||= nil %>
+<p>
+  <%= segment.desc %>
+</p>
+<% locs = segment.location_times.includes(:location).pluck("locations.name").sort.uniq %>
+<% if op == "locations" %>
+<strong>Location Times:</strong>
+<%= link_to (fa_icon 'plus'), new_segment_location_time_path(segment_id: segment.id), title: 'New Location Time' %>
+<% end %>
+<table>
+  <thead>
+  <% if op == "actors" %>
+    <tr>
+      <th></th>
+    <% locs.each do |loc| %>
+      <th><%= loc %></th>
+    <% end %>
+    </tr>
+  <% end %>
+  </thead>
+  <tbody>
+  <% if op == "locations" %>
+    <% locs.each do |loc| %>
+      <tr>
+        <th><%= loc %></th>
+        <td>
+          <%= render partial: "location_times/show2", locals: { location: loc, segment: segment } %>
+        </td>
+      </tr>
+    <% end %>
+  <% else %>
+    <% actor_ids = ActorLocationTime.where(location_time_id: segment.location_times).pluck(:actor_id).sort.uniq %>
+    <% actors = Actor.where(id: actor_ids) %>
+    <% actors.order("name").each do |actor| %>
+      <tr>
+        <th><%= actor.name %></th>
+        <% locs.each do |loc| %>
+          <td>
+            <% my_loc = Location.where(name: loc)[0] %>
+          <% act_locs = ActorLocationTime.where(actor_id: actor.id).includes(:location_time).where("location_times.location_id": my_loc).order("location_times.date_string") %>
+          <ul>
+            <% act_locs.each do |act_loc| %>
+              <li><%= act_loc.location_time.date_string %>: <%= act_loc.role.to_plain_text %></li>
+            <% end %>
+          </ul>
+          <%#= render partial: "location_times/show2", locals: { location: loc, segment: segment } %>
+        </td>
+      <% end %>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>

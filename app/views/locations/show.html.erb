@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @location.name %>
+</p>
+
+<p>
+  <strong>Desc:</strong>
+  <%= @location.desc %>
+</p>
+
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Location Time</th>
+        <th>Segment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @location.location_times.order(:date_string).each do |loc_time| %>
+        <tr><td><%= loc_time.date_string %></td>
+          <td><%= link_to loc_time.segment.name, loc_time.segment.stage %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<div>
+<%= link_to 'Edit', edit_location_path(@location), :class => "btn" %>
+<%= link_to 'Back', book_locations_path(@book), :class => "btn" %>
+</div>
