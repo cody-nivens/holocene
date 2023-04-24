@@ -1,0 +1,32 @@
+<% op ||= nil %>
+<% locs = LocationTime.where(segment_id: segments).includes(:location).pluck("locations.name").sort.uniq %>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 100px;"></th>
+    <% locs.each do |loc| %>
+      <th style="width: 100px;"><%= loc %></th>
+    <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% loc_times = LocationTime.where(segment_id: segments) %>
+    <% actor_ids = ActorLocationTime.where(location_time_id: loc_times).pluck(:actor_id).sort.uniq %>
+    <% actors = Actor.where(id: actor_ids) %>
+    <% actors.order("name").each do |actor| %>
+      <tr>
+        <th><%= actor.name %></th>
+        <% locs.each do |loc| %>
+          <td>
+            <% my_loc = Location.where(name: loc)[0] %>
+          <% act_locs = ActorLocationTime.where(actor_id: actor.id).includes(:location_time).where("location_times.location_id": my_loc).order("location_times.date_string") %>
+            <% act_locs.each do |act_loc| %>
+              <!-- <li title="<%= act_loc.role.to_plain_text %>"><%= act_loc.location_time.date_string %></li> -->
+              <div><%= act_loc.location_time.date_string %>: <%= act_loc.role.to_plain_text %></div>
+            <% end %>
+        </td>
+      <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

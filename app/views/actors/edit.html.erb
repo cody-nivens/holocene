@@ -2,5 +2,7 @@
 
 <%= render 'form', actor: @actor %>
 
-<%= link_to 'Show', @actor %> |
-<%= link_to 'Back', book_actors_path(@book) %>
+<div>
+<%= link_to 'Show', @actor, :class => "btn" %>
+<%= link_to 'Back', book_actors_path(@book), :class => "btn" %>
+</div>

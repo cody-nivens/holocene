@@ -4,8 +4,8 @@
 </p>
 <% locs = segment.location_times.includes(:location).pluck("locations.name").sort.uniq %>
 <% if op == "locations" %>
-<strong>Location Times:</strong>
-<%= link_to (fa_icon 'plus'), new_segment_location_time_path(segment_id: segment.id), title: 'New Location Time' %>
+  <strong>Location Times:</strong>
+  <%= link_to (fa_icon 'plus'), new_segment_location_time_path(segment_id: segment.id), title: 'New Location Time' %>
 <% end %>
 <table>
   <thead>
@@ -43,7 +43,6 @@
               <li><%= act_loc.location_time.date_string %>: <%= act_loc.role.to_plain_text %></li>
             <% end %>
           </ul>
-          <%#= render partial: "location_times/show2", locals: { location: loc, segment: segment } %>
         </td>
       <% end %>
       </tr>

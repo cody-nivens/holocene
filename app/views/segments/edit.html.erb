@@ -2,5 +2,7 @@
 
 <%= render 'form', segment: @segment %>
 
-<%= link_to 'Show', @segment %> |
-<%= link_to 'Back', stage_segments_path(@stage) %>
+<div>
+<%= link_to 'Show', @segment, :class => "btn" %>
+<%= link_to 'Back', stage_segments_path(@stage), :class => "btn" %>
+</div>
