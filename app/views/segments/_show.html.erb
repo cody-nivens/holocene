@@ -7,7 +7,7 @@
   <strong>Location Times:</strong>
   <%= link_to (fa_icon 'plus'), new_segment_location_time_path(segment_id: segment.id), title: 'New Location Time' %>
 <% end %>
-<table>
+<table style="width: 100%;overflow-x:auto">
   <thead>
   <% if op == "actors" %>
     <tr>
@@ -38,11 +38,15 @@
           <td>
             <% my_loc = Location.where(name: loc)[0] %>
           <% act_locs = ActorLocationTime.where(actor_id: actor.id).includes(:location_time).where("location_times.location_id": my_loc).order("location_times.date_string") %>
-          <ul>
+          <table class="table table-sm table-striped">
+            <tbody>
             <% act_locs.each do |act_loc| %>
-              <li><%= act_loc.location_time.date_string %>: <%= act_loc.role.to_plain_text %></li>
+              <tr>
+              <td><strong><%= act_loc.location_time.date_string %></strong>: <%= act_loc.role.to_plain_text %></td>
+              </tr>
             <% end %>
-          </ul>
+            </tbody>
+          </table>
         </td>
       <% end %>
       </tr>

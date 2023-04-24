@@ -3,5 +3,5 @@
 <%= render 'form', location_time: @location_time %>
 
 <div>
-<%= link_to 'Back', segment_location_times_path(@segment), :class => "btn" %>
+<%= link_to 'Back', return_or_default_path(segment_location_times_path(@segment)), :class => "btn" %>
 </div>

@@ -12,6 +12,7 @@ class StagesController < ApplicationController
     @op = params[:op] || "locations"
     @check = params[:check]
     session[:stage_view] = @check
+    session[:return_to] = request.fullpath
   end
   
   def check

@@ -1,23 +1,29 @@
 <% locs = segment.location_times.includes(:location).where("location.name": location).order(:date_string) %>
-<table>
+<table class="table table-sm table-striped">
+  <tbody>
   <% locs.each do |location_time| %>
-<tr>
-<td>
-  <%= link_to location_time.date_string, location_time_path(location_time) %>
-  <%= link_to (fa_icon 'trash'), location_time, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
-  <%= link_to (fa_icon 'plus'), new_location_time_actor_location_time_path(location_time) %>
-</td>
-<td>
-  <ol>
-    <% location_time.actor_location_times.includes(:actor).order("actors.name").each do |actor_loc| %>
-        <li>
-          <%= actor_loc.actor.name %>
-          <%= link_to (fa_icon 'edit'), edit_actor_location_time_path(actor_loc) %>
-          <%= link_to (fa_icon 'trash'), actor_loc, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %> - <%= actor_loc.title %>
-        </li>
-    <% end %>
-</ol>
-</td>
-</tr>
-<% end %>
+    <tr>
+      <td class="text-start" style="width: 90px">
+        <strong><%= link_to location_time.date_string, edit_location_time_path(location_time) %></strong>
+        <%= link_to (fa_icon 'trash'), location_time, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
+        <%= link_to (fa_icon 'plus'), new_location_time_actor_location_time_path(location_time) %>
+      </td>
+      <td class="text-start">
+        <table class="table table-sm table-striped">
+          <tbody>
+          <% location_time.actor_location_times.includes(:actor).order("actors.name").each do |actor_loc| %>
+            <tr>
+              <td class="text-start">
+                <strong><%= actor_loc.actor.name %></strong>
+                <%= link_to (fa_icon 'edit'), edit_actor_location_time_path(actor_loc) %>
+                <%= link_to (fa_icon 'trash'), actor_loc, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %> - <%= actor_loc.role.to_plain_text %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
 </table>

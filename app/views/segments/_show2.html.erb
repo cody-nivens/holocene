@@ -1,6 +1,6 @@
 <% op ||= nil %>
 <% locs = LocationTime.where(segment_id: segments).includes(:location).pluck("locations.name").sort.uniq %>
-<table>
+<table class="table table-sm table-striped" style="width: 100%;overflow-x:auto">
   <thead>
     <tr>
       <th style="width: 100px;"></th>
@@ -18,14 +18,19 @@
         <th><%= actor.name %></th>
         <% locs.each do |loc| %>
           <td>
-            <% my_loc = Location.where(name: loc)[0] %>
-          <% act_locs = ActorLocationTime.where(actor_id: actor.id).includes(:location_time).where("location_times.location_id": my_loc).order("location_times.date_string") %>
-            <% act_locs.each do |act_loc| %>
-              <!-- <li title="<%= act_loc.role.to_plain_text %>"><%= act_loc.location_time.date_string %></li> -->
-              <div><%= act_loc.location_time.date_string %>: <%= act_loc.role.to_plain_text %></div>
-            <% end %>
-        </td>
-      <% end %>
+            <table class="table table-sm table-striped">
+              <tbody>
+              <% my_loc = Location.where(name: loc)[0] %>
+              <% act_locs = ActorLocationTime.where(actor_id: actor.id).includes(:location_time).where("location_times.location_id": my_loc).order("location_times.date_string") %>
+              <% act_locs.each do |act_loc| %>
+                <tr>
+                  <td><strong><%= act_loc.location_time.date_string %></strong>: <%= act_loc.role.to_plain_text %></td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

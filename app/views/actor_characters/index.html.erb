@@ -24,4 +24,7 @@
 
 <br>
 
-<%= link_to 'New Actor Character', new_actor_actor_character_path(@actor) %>
+<div>
+<%= link_to 'New Actor Character', new_actor_actor_character_path(@actor), class: "btn" %>
+<%= link_to 'Back', actor_path(@actor), :class => "btn" %>
+</div>
