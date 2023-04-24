@@ -5,7 +5,7 @@ class LocationsController < ApplicationController
 
   # GET /locations or /locations.json
   def index
-    @locations = Location.where(book_id: @book.id)
+    @locations = Location.where(book_id: @book.id).order(:name)
   end
 
   # GET /locations/1 or /locations/1.json

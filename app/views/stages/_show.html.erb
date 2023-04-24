@@ -2,7 +2,7 @@
 
 <% if check.nil? %>
   <%= tabs do |d| %>
-    <% @stage.segments.each do |segment| %>
+    <% @stage.segments.order(:name).each do |segment| %>
       <% d.tab "#{segment.name}" do %>
         <%= link_to (fa_icon 'edit'), edit_segment_path(segment), title: "Edit #{segment.name}" %>
         <%= render partial: "segments/show", locals: { segment: segment, op: @op } %>

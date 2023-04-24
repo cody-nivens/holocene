@@ -5,7 +5,7 @@ class ActorsController < ApplicationController
 
   # GET /actors or /actors.json
   def index
-    @actors = Actor.where(book_id: @book.id)
+    @actors = Actor.where(book_id: @book.id).order(:name)
   end
 
   # GET /actors/1 or /actors/1.json
