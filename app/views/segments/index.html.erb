@@ -24,4 +24,7 @@
 
 <br>
 
-<%= link_to 'New Segment', new_stage_segment_path(@stage) %>
+<div>
+<%= link_to 'New Segment', new_stage_segment_path(@stage), :class => "btn" %>
+<%= link_to 'Back', stage_path(@stage), :class => "btn" %>
+</div>
