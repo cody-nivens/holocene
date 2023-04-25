@@ -4,7 +4,7 @@ class StagesController < ApplicationController
 
   # GET /stages or /stages.json
   def index
-    @stages = Stage.where(act_id: @act.id)
+    @stages = Stage.where(act_id: @act.id).order(:name)
   end
 
   # GET /stages/1 or /stages/1.json

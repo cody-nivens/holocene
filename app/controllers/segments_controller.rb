@@ -4,7 +4,7 @@ class SegmentsController < ApplicationController
 
   # GET /segments or /segments.json
   def index
-    @segments = Segment.where(stage_id: @stage.id)
+    @segments = Segment.where(stage_id: @stage.id).order(:name)
   end
 
   # GET /segments/1 or /segments/1.json

@@ -4,7 +4,7 @@ class ActsController < ApplicationController
 
   # GET /acts or /acts.json
   def index
-    @acts = Act.where(book_id: @book)
+    @acts = Act.where(book_id: @book).order(:name)
   end
 
   # GET /acts/1 or /acts/1.json
