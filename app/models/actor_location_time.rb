@@ -1,6 +1,8 @@
 class ActorLocationTime < ApplicationRecord
   belongs_to :actor
   belongs_to :location_time
+  has_one :location, through: :location_time
+
   has_rich_text :role
 
   def title

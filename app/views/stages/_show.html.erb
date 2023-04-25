@@ -64,7 +64,7 @@
             <td>
               <table class="table table-sm table-striped">
                 <tbody>
-                <% my_act_locs = ActorLocationTime.includes(:location_time).where("location_times.date_string": time, actor_id: actor.id) %>
+                <% my_act_locs = ActorLocationTime.includes(:location_time).includes(:location).where("location_times.date_string": time, actor_id: actor.id).order("locations.name") %>
                 <% my_act_locs.each do |act_loc| %>
                   <tr>
                     <td><strong><%= act_loc.location_time.location.name %></strong>: <%= act_loc.role.to_plain_text %></td>
