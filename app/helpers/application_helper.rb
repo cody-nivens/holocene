@@ -9,8 +9,10 @@ module ApplicationHelper
       return 'Story'
     when 'scenes'
       return 'Scene'
-    when 'key_point'
+    when 'key_points'
       return 'Key Point'
+    when 'stages'
+      return 'Stage'
     else
       return 'Item'
     end

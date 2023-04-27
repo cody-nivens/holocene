@@ -18,13 +18,14 @@
       </a>
       <ul class='dropdown-menu' aria-labelledby='navbar_dropdown1'>
           <li class='nav-item'> <a class='nav-link' href='/books'>Books</a> </li>
+          <li><hr class="dropdown-divider"></li>
         <% unless @book.nil? %>
           <%== make_menu_link(@book.name, book_path(@book)) %>
+          <li><hr class="dropdown-divider"></li>
           <% if !@story.nil? and !@story&.id.nil? %>
             <%== make_menu_link(@story.name, story_path(@story)) %>
           <% end %>
         <% end %>
-          <li><hr class="dropdown-divider"></li>
       <% if controller_name == 'books' %>
         <% unless @book.nil? %>
           <%== make_menu_link('Stories', book_stories_path(@book)) %>
@@ -56,6 +57,10 @@
           <%== make_menu_link('Tours', polymorphic_path([@story, :tours])) %>
         <% end %>
       <% elsif controller_name == 'key_points' %>
+      <% elsif controller_name == 'stages' %>
+          <%== make_menu_link('Time by Actor', stage_time_by_actor_path(@stage)) %>
+          <%== make_menu_link('Time by Location', stage_time_by_location_path(@stage)) %>
+          <%== make_menu_link('Actor by Location', stage_actor_by_location_path(@stage)) %>
       <% elsif controller_name == 'scenes' %>
         <% if !@scene.nil? and !@scene&.id.nil? %>
           <%== make_menu_link('Characters', polymorphic_path([@scene, :characters])) %>
@@ -70,10 +75,10 @@
       <ul class='dropdown-menu' aria-labelledby='navbar_dropdown1'>
      <% unless @book.nil? %>
           <%== make_menu_link('Characters', polymorphic_path([@book, :characters])) %>
-        <li class='nav-item'> <a class='nav-link' href='/characters/<%= @book.id %>/matrix'>Matrix</a> </li>
-        <li class='nav-item'> <a class='nav-link' href='/characters/<%= @book.id %>/scenes'>Scenes</a> </li>
-        <%== make_menu_link('Char List', book_chars_path(@book))  %>
-        <%== make_menu_link('Char List, All', book_chars_path(@book, long: true)) %>
+        <li class='nav-item'> <a class='nav-link' href='/characters/<%= @book.id %>/matrix'>Main Chars</a> </li>
+        <li class='nav-item'> <a class='nav-link' href='/characters/<%= @book.id %>/scenes'>Chars with Scenes</a> </li>
+        <%== make_menu_link('By Occupation', book_chars_path(@book))  %>
+        <%== make_menu_link('By Occupation, All', book_chars_path(@book, long: true)) %>
           <li><hr class="dropdown-divider"></li>
         <%== make_menu_link('Import Chars', book_chars_import_path(@book))  %>
       <% end %>
@@ -87,13 +92,6 @@
           <%== make_menu_link('Acts', book_acts_path(@book)) %>
           <%== make_menu_link('Locations', book_locations_path(@book)) %>
           <%== make_menu_link('Actors', book_actors_path(@book)) %>
-     <% unless @stage.nil? %>
-          <li><hr class="dropdown-divider"></li>
-          <%== make_menu_link('Time by Actor', stage_time_by_actor_path(@stage)) %>
-          <%== make_menu_link('Time by Location', stage_time_by_location_path(@stage)) %>
-          <%== make_menu_link('Actor by Location', stage_actor_by_location_path(@stage)) %>
-
-     <% end %>
           <li><hr class="dropdown-divider"></li>
           <%== make_menu_link('Artifacts', book_artifacts_path(@book)) %>
           <%== make_menu_link('Artifact Types', book_artifact_types_path(@book)) %>

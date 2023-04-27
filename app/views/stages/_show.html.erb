@@ -1,19 +1,19 @@
 <% check ||= nil %>
 
 <% if check.nil? %>
-  <% if @op == 'locations' %>
+  <% if op == 'locations' %>
     <%= tabs do |d| %>
       <% @stage.segments.order(:name).each do |segment| %>
         <% d.tab "#{segment.name}: #{segment.location_times.size}" do %>
           <%= link_to (fa_icon 'edit'), edit_segment_path(segment), title: "Edit #{segment.name}" %>
-          <%= render partial: "segments/show", locals: { segment: segment, op: @op } %>
+          <%= render partial: "segments/show", locals: { segment: segment, op: op } %>
         <% end %>
       <% end %>
       <%= link_to (fa_icon 'list'), stage_segments_path(@stage), title: "Segments List" %>
       <%= link_to (fa_icon 'plus'), new_stage_segment_path(@stage), title: "New Segment" %>
     <% end %>
   <% else %>
-    <%= render partial: "segments/show2", locals: { segments: @stage.segments, op: @op } %>
+    <%= render partial: "segments/show2", locals: { segments: @stage.segments, op: op } %>
   <% end %>
 <% else %>
   <% segs = @stage.segments.pluck(:id) %>
@@ -25,7 +25,7 @@
     <thead class="bg-light sticky-top">
       <tr>
         <th></th>
-        <% if @op == 'locations' %>
+        <% if op == 'locations' %>
           <% locations.each do |location| %>
             <th><%= location.name %></th>
           <% end %>
@@ -44,7 +44,7 @@
     <% loc_times.each do |time| %>
       <tr>
         <th><%= time %></th>
-        <% if @op == 'locations' %>
+        <% if op == 'locations' %>
           <% locations.each do |location| %>
             <% my_locs = locs.where(location_id: location.id, date_string: time) %>
               <td>
