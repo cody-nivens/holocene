@@ -14,7 +14,8 @@
 
 <br>
 
-<div>
-<%= link_to 'Edit', edit_stage_path(@stage), :class => "btn" %>
+<div id="side_controls">
+<%= link_to (fa_icon 'edit'), edit_stage_path(@stage), :class => "btn" %>
+<%= link_to (fa_icon 'list'), stage_report_path(@stage), :class => "btn" %>
 <%= link_to 'Back', act_stages_path(@act), :class => "btn" %>
 </div>

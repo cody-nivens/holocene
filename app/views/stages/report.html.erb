@@ -1,0 +1,22 @@
+<h2>Stage with Segment Information</h2>
+
+<table class="table">
+  <tbody>
+<% @stage.segments.order(:name).each do |segment| %>
+  <tr>
+    <td>
+  <%= "#{segment.name}: #{segment.location_times.size}" %>
+    <%= link_to (fa_icon 'edit'), edit_segment_path(segment), title: "Edit #{segment.name}" %>
+    <%= render partial: "segments/show", locals: { segment: segment, op: 'locations' } %>
+    </td>
+  </tr>
+<% end %>
+  </tbody>
+</table>
+
+<div id="side_controls">
+  <%= link_to (fa_icon 'eye'), stage_path(@stage), title: "Stage, Show", class: "btn" %>
+  <%= link_to (fa_icon 'list'), stage_segments_path(@stage), title: "Segments List", class: "btn" %>
+  <%= link_to (fa_icon 'plus'), new_stage_segment_path(@stage), title: "New Segment", class: "btn" %>
+</div>
+
