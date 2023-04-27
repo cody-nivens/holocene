@@ -5,7 +5,7 @@
 <% @stage.segments.order(:name).each do |segment| %>
   <tr>
     <td>
-  <%= "#{segment.name}: #{segment.location_times.size}" %>
+      <strong><%= "#{segment.name}: #{segment.location_times.size}" %></strong>
     <%= link_to (fa_icon 'edit'), edit_segment_path(segment), title: "Edit #{segment.name}" %>
     <%= render partial: "segments/show", locals: { segment: segment, op: 'locations' } %>
     </td>
