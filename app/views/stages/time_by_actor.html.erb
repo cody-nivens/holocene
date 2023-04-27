@@ -1,0 +1,10 @@
+<h2>Staging: Time by Actors</h2>
+
+<div id="stage-text">
+  <%= render partial: "stages/show", locals: { stage: @stage, check: true, op: 'actors' } %>
+</div>
+
+<div>
+<%= link_to 'Back', stage_path(@stage), :class => "btn" %>
+</div>
+

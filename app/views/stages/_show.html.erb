@@ -4,7 +4,7 @@
   <% if @op == 'locations' %>
     <%= tabs do |d| %>
       <% @stage.segments.order(:name).each do |segment| %>
-        <% d.tab "#{segment.name}" do %>
+        <% d.tab "#{segment.name}: #{segment.location_times.size}" do %>
           <%= link_to (fa_icon 'edit'), edit_segment_path(segment), title: "Edit #{segment.name}" %>
           <%= render partial: "segments/show", locals: { segment: segment, op: @op } %>
         <% end %>
@@ -21,8 +21,8 @@
   <% locations = Location.where(id: locs).order(:name) %>
   <% loc_times = LocationTime.where(segment_id: segs) %>
   <% actors = Actor.where(book_id: @stage.act.book.id).includes(:location_times).where("actor_location_times.location_time_id": loc_times).order("actors.name").uniq %>
-  <table class="table table-sm table-striped" style="overflow-x:auto">
-    <thead>
+  <table class="table table-sm table-striped table-responsive"  style="width:auto">
+    <thead class="bg-light sticky-top">
       <tr>
         <th></th>
         <% if @op == 'locations' %>
@@ -50,11 +50,9 @@
               <td>
             <% if my_locs.size > 0 %>
               <table class="table table-sm table-striped">
-                <tbody>
                 <% my_locs.each do |my_loc| %>
                   <%= render partial: "location_times/show3", locals: { location_time: my_loc } %>
                 <% end %>
-                </tbody>
               </table>
             <% end %>
             </td>
@@ -62,16 +60,16 @@
         <% else %>
           <% actors.each do |actor| %>
             <td>
+              <% my_act_locs = ActorLocationTime.includes(:location_time).includes(:location).where("location_times.date_string": time, actor_id: actor.id).order("locations.name") %>
+              <% unless my_act_locs.size == 0 %>
               <table class="table table-sm table-striped">
-                <tbody>
-                <% my_act_locs = ActorLocationTime.includes(:location_time).includes(:location).where("location_times.date_string": time, actor_id: actor.id).order("locations.name") %>
                 <% my_act_locs.each do |act_loc| %>
                   <tr>
                     <td><strong><%= act_loc.location_time.location.name %></strong>: <%= act_loc.role.to_plain_text %></td>
                   </tr>
                 <% end %>
-                </tbody>
               </table>
+              <% end %>
             </td>
           <% end %>
         <% end %>

@@ -1,0 +1,10 @@
+<h2>Staging: Actor by Location</h2>
+
+<div id="stage-text">
+  <%= render partial: "stages/show", locals: { stage: @stage, check: nil, op: 'actors' } %>
+</div>
+
+<div>
+<%= link_to 'Back', stage_path(@stage), :class => "btn" %>
+</div>
+

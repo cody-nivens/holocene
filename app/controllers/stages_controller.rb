@@ -1,5 +1,5 @@
 class StagesController < ApplicationController
-  before_action :set_stage, only: %i[ check show edit update destroy ]
+  before_action :set_stage, only: %i[ time_by_location time_by_actor actor_by_location check show edit update destroy ]
   before_action :set_act, only: %i[index new]
 
   # GET /stages or /stages.json
@@ -19,6 +19,15 @@ class StagesController < ApplicationController
     @op = params[:op]
     @check = params[:check]
     session[:stage_view] = @check
+  end
+
+  def time_by_location
+  end
+
+  def time_by_actor
+  end
+
+  def actor_by_location
   end
 
   # GET /stages/new

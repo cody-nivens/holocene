@@ -1,7 +1,7 @@
 <% op ||= nil %>
 <% locs = LocationTime.where(segment_id: segments).includes(:location).pluck("locations.name").sort.uniq %>
-<table class="table table-sm table-striped" style="width: 100%;overflow-x:auto">
-  <thead>
+<table class="table table-sm table-striped table-responsive" style="width: auto">
+  <thead class="bg-light sticky-top">
     <tr>
       <th style="width: 100px;"></th>
     <% locs.each do |loc| %>
@@ -24,7 +24,7 @@
               <% act_locs = ActorLocationTime.where(actor_id: actor.id).includes(:location_time).where("location_times.location_id": my_loc).order("location_times.date_string") %>
               <% act_locs.each do |act_loc| %>
                 <tr>
-                  <td><strong><%= act_loc.location_time.date_string %></strong>: <%= act_loc.role.to_plain_text %></td>
+                  <td><strong><%= act_loc.location_time.date_string %>: <%= act_loc.location_time.location.name %></strong>: <%= act_loc.role.to_plain_text %></td>
                 </tr>
               <% end %>
               </tbody>

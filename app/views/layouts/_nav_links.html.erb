@@ -87,6 +87,13 @@
           <%== make_menu_link('Acts', book_acts_path(@book)) %>
           <%== make_menu_link('Locations', book_locations_path(@book)) %>
           <%== make_menu_link('Actors', book_actors_path(@book)) %>
+     <% unless @stage.nil? %>
+          <li><hr class="dropdown-divider"></li>
+          <%== make_menu_link('Time by Actor', stage_time_by_actor_path(@stage)) %>
+          <%== make_menu_link('Time by Location', stage_time_by_location_path(@stage)) %>
+          <%== make_menu_link('Actor by Location', stage_actor_by_location_path(@stage)) %>
+
+     <% end %>
           <li><hr class="dropdown-divider"></li>
           <%== make_menu_link('Artifacts', book_artifacts_path(@book)) %>
           <%== make_menu_link('Artifact Types', book_artifact_types_path(@book)) %>

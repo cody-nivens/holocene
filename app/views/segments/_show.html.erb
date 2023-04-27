@@ -7,8 +7,8 @@
   <strong>Location Times:</strong>
   <%= link_to (fa_icon 'plus'), new_segment_location_time_path(segment_id: segment.id), title: 'New Location Time' %>
 <% end %>
-<table style="width: 100%;overflow-x:auto">
-  <thead>
+<table class="table table-sm table-responsive table-striped" style="width:auto">
+  <thead class="bg-light sticky-top">
   <% if op == "actors" %>
     <tr>
       <th></th>

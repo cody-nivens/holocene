@@ -37,6 +37,9 @@ Rails.application.routes.draw do
   post '/scenes/:id/moved', to: 'scenes#moved', as: :scene_moved
   put '/scenes/:id/check', to: 'scenes#check', as: :scene_check
   get '/stages/:id/check', to: 'stages#check', as: :stage_check
+  get '/stages/:id/time_by_location', to: 'stages#time_by_location', as: :stage_time_by_location
+  get '/stages/:id/time_by_actor', to: 'stages#time_by_actor', as: :stage_time_by_actor
+  get '/stages/:id/actor_by_location', to: 'stages#actor_by_location', as: :stage_actor_by_location
 
   resources :cities
   namespace :character do
