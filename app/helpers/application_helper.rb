@@ -12,7 +12,7 @@ module ApplicationHelper
     when 'key_points'
       return 'Key Point'
     when 'stages'
-      return 'Stage'
+      return 'Item'
     else
       return 'Item'
     end
