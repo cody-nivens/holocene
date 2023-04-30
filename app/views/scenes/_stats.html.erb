@@ -2,19 +2,13 @@
   <div class='row'>
     <div class='col-sm-2'><strong><%= object.time_to_text %></strong></div>
     <div class='col-sm-1'><strong><%= object.artifact.nil? ? 'Unkown' : object.artifact_name %></strong></div>
-    <div class='col-sm-1'><strong><%= object.place.to_plain_text %></strong></div>
-  </div>
-  <div class='row'>
-    <div class='col-sm-4'><strong><hr></strong></div>
+    <div class='col-sm-4'><strong><%= object.place.to_plain_text %></strong></div>
   </div>
   <div class='row'>
     <div class='col-sm-2'><strong><%= object.abc %></strong></div>
+    <div class='col-sm-1'><%= object.scene_sequel == 1 ? 'Sequel' : 'Scene' %></div>
     <div class='col-sm-1'><strong><%= object.check? ? fa_icon('check') : '' %></strong></div>
     <div class='col-sm-1'><strong><%= object.title_scene? ? 'Title' : '' %></strong></div>
-  </div>
-  <div class='row'>
-    <div class='col-sm-2'><strong>Scene/Sequel:</strong></div>
-    <div class='col-sm-1'><%= object.scene_sequel == 1 ? 'Sequel' : 'Scene' %></div>
   </div>
   <div class='row'>
     <div class='col-sm-2'><strong>Characters:</strong></div>
