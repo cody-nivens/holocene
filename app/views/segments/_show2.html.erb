@@ -24,7 +24,7 @@
               <% act_locs = ActorLocationTime.where(actor_id: actor.id).includes(:location_time).where("location_times.location_id": my_loc).order("location_times.date_string") %>
               <% act_locs.each do |act_loc| %>
                 <tr>
-                  <td><strong><%= act_loc.location_time.date_string %>: <%= act_loc.location_time.location.name %></strong>: <%= act_loc.role.to_plain_text %></td>
+                  <td><strong><%= act_loc.location_time.date_string %>: <%= act_loc.location_time.location.name %></strong>:<%= link_to (fa_icon 'plus'), new_location_time_actor_location_time_path(act_loc.location_time) %> <%= act_loc.role.to_plain_text %><%= link_to (fa_icon 'edit'), edit_actor_location_time_path(act_loc) %></td>
                 </tr>
               <% end %>
               </tbody>

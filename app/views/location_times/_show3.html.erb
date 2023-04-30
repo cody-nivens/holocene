@@ -3,7 +3,7 @@
 <% location_time.actor_location_times.includes(:actor).order("actors.name").each do |actor_loc| %>
   <tr>
   <td>
-    <strong><%= actor_loc.actor.name %></strong>: <%= actor_loc.role.to_plain_text %>
+    <strong><%= actor_loc.actor.name %></strong>:<%= link_to (fa_icon 'plus'), new_location_time_actor_location_time_path(actor_loc.location_time) %> <%= actor_loc.role.to_plain_text %><%= link_to (fa_icon 'edit'), edit_actor_location_time_path(actor_loc) %>
   </td>
   </tr>
 <% end %>
