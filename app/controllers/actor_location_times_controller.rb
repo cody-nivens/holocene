@@ -28,7 +28,7 @@ class ActorLocationTimesController < ApplicationController
 
     respond_to do |format|
       if @actor_location_time.save
-        format.html { redirect_to stage_url(@actor_location_time.location_time.segment.stage), notice: "Actor location time was successfully created." }
+        format.html { redirect_to return_or_default_path(stage_url(@actor_location_time.location_time.segment.stage)), notice: "Actor location time was successfully created." }
         format.json { render :show, status: :created, location: @actor_location_time }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,7 +41,7 @@ class ActorLocationTimesController < ApplicationController
   def update
     respond_to do |format|
       if @actor_location_time.update(actor_location_time_params)
-        format.html { redirect_to stage_url(@actor_location_time.location_time.segment.stage), notice: "Actor location time was successfully updated." }
+        format.html { redirect_to return_or_default_path(stage_url(@actor_location_time.location_time.segment.stage)), notice: "Actor location time was successfully updated." }
         format.json { render :show, status: :ok, location: @actor_location_time }
       else
         format.html { render :edit, status: :unprocessable_entity }

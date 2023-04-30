@@ -22,15 +22,19 @@ class StagesController < ApplicationController
   end
 
   def list
+    session[:return_to] = request.fullpath
   end
 
   def time_by_location
+    session[:return_to] = request.fullpath
   end
 
   def time_by_actor
+    session[:return_to] = request.fullpath
   end
 
   def actor_by_location
+    session[:return_to] = request.fullpath
   end
 
   # GET /stages/new
@@ -86,6 +90,7 @@ class StagesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_stage
       @stage = Stage.find(params[:id])
+      session[:stage_id] = @stage.id
       @act = @stage.act
     end
 

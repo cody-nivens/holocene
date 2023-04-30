@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_title
   before_action :set_book_from_session
+  before_action :set_stage_from_session
   before_action :set_wcs_from_session
 
   #after_action :set_return_to_location
@@ -57,6 +58,15 @@ class ApplicationController < ActionController::Base
       Book.find_by_id(session[:book_id])
            end
     @book = book
+  end
+
+  def set_stage_from_session
+    stage = if session[:stage_id].nil?
+             nil
+           else
+      Stage.find_by_id(session[:stage_id])
+           end
+    @stage = stage
   end
 
   def about; end
