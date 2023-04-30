@@ -28,7 +28,7 @@ class LocationTimesController < ApplicationController
 
     respond_to do |format|
       if @location_time.save
-        format.html { redirect_to stage_url(@location_time.segment.stage), notice: "Location time was successfully created." }
+        format.html { redirect_to return_or_default_path(stage_url(@location_time.segment.stage)), notice: "Location time was successfully created." }
         format.json { render :show, status: :created, location: @location_time }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,7 +41,7 @@ class LocationTimesController < ApplicationController
   def update
     respond_to do |format|
       if @location_time.update(location_time_params)
-        format.html { redirect_to stage_url(@location_time.segment.stage), notice: "Location time was successfully updated." }
+        format.html { redirect_to return_or_default_path(stage_url(@location_time.segment.stage)), notice: "Location time was successfully updated." }
         format.json { render :show, status: :ok, location: @location_time }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -55,7 +55,7 @@ class LocationTimesController < ApplicationController
     @location_time.destroy
 
     respond_to do |format|
-      format.html { redirect_to stage_url(@segment.stage), notice: "Location time was successfully destroyed." }
+      format.html { redirect_to return_or_default_path(stage_url(@segment.stage)), notice: "Location time was successfully destroyed." }
       format.json { head :no_content }
     end
   end

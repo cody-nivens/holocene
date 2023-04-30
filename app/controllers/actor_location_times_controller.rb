@@ -55,7 +55,7 @@ class ActorLocationTimesController < ApplicationController
     @actor_location_time.destroy
 
     respond_to do |format|
-      format.html { redirect_to stage_url(@location_time.segment.stage), notice: "Actor location time was successfully destroyed." }
+      format.html { redirect_to return_or_default_path(stage_url(@location_time.segment.stage)), notice: "Actor location time was successfully destroyed." }
       format.json { head :no_content }
     end
   end
