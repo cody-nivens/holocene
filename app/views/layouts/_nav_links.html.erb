@@ -58,14 +58,24 @@
         <% end %>
       <% elsif controller_name == 'key_points' %>
       <% elsif controller_name == 'stages' %>
-          <%== make_menu_link('Stage List', stage_list_path(@stage)) %>
-          <%== make_menu_link('Time by Actor', stage_time_by_actor_path(@stage)) %>
-          <%== make_menu_link('Time by Location', stage_time_by_location_path(@stage)) %>
-          <%== make_menu_link('Actor by Location', stage_actor_by_location_path(@stage)) %>
       <% elsif controller_name == 'scenes' %>
         <% if !@scene.nil? and !@scene&.id.nil? %>
           <%== make_menu_link('Characters', polymorphic_path([@scene, :characters])) %>
         <% end %>
+      <% end %>
+      </ul>
+    </li>
+    <li class='nav-item dropdown'>
+      <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown1' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+      Stage
+      </a>
+      <ul class='dropdown-menu' aria-labelledby='navbar_dropdown1'>
+     <% unless @stage.nil? %>
+          <%== make_menu_link('Stage', stage_path(@stage)) %>
+          <%== make_menu_link('Stage List', stage_list_path(@stage)) %>
+          <%== make_menu_link('Time by Actor', stage_time_by_actor_path(@stage)) %>
+          <%== make_menu_link('Time by Location', stage_time_by_location_path(@stage)) %>
+          <%== make_menu_link('Actor by Location', stage_actor_by_location_path(@stage)) %>
       <% end %>
       </ul>
     </li>
