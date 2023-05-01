@@ -1,7 +1,7 @@
 <% op ||= nil %>
 <% locs = LocationTime.where(segment_id: segments).includes(:location).pluck("locations.name").sort.uniq %>
 <table class="table table-sm table-striped table-responsive" style="width: auto">
-  <thead class="bg-light sticky-top">
+  <thead class="bg-light sticky-top" style="position: sticky;top: 0" >
     <tr>
       <th style="width: 100px;"></th>
     <% locs.each do |loc| %>
