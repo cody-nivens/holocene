@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_22_181726) do
+ActiveRecord::Schema.define(version: 2023_05_02_145348) do
 
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -64,28 +64,29 @@ ActiveRecord::Schema.define(version: 2023_04_22_181726) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "actor_characters", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "actor_characters", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.bigint "actor_id"
     t.bigint "character_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "actor_location_times", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "actor_location_times", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.bigint "actor_id"
     t.bigint "location_time_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "check", default: false
   end
 
-  create_table "actors", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "actors", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "book_id"
   end
 
-  create_table "acts", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "acts", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.string "name"
     t.bigint "book_id"
     t.datetime "created_at", precision: 6, null: false
@@ -451,7 +452,7 @@ ActiveRecord::Schema.define(version: 2023_04_22_181726) do
     t.index ["book_id"], name: "index_key_words_on_book_id"
   end
 
-  create_table "location_times", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "location_times", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.bigint "location_id"
     t.bigint "action_id"
     t.string "date_string"
@@ -460,7 +461,7 @@ ActiveRecord::Schema.define(version: 2023_04_22_181726) do
     t.bigint "segment_id"
   end
 
-  create_table "locations", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "locations", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -576,11 +577,12 @@ ActiveRecord::Schema.define(version: 2023_04_22_181726) do
     t.index ["user_id"], name: "index_sections_on_user_id"
   end
 
-  create_table "segments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "segments", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.bigint "stage_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
+    t.bigint "scene_id"
   end
 
   create_table "signets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -593,7 +595,7 @@ ActiveRecord::Schema.define(version: 2023_04_22_181726) do
     t.index ["sigged_id", "sigged_type"], name: "index_signets_on_sigged_id_and_sigged_type"
   end
 
-  create_table "stages", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "stages", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

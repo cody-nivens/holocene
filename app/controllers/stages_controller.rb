@@ -1,5 +1,5 @@
 class StagesController < ApplicationController
-  before_action :set_stage, only: %i[ time_by_location time_by_actor actor_by_location list check show edit update destroy ]
+  before_action :set_stage, only: %i[ scenes time_by_location time_by_actor actor_by_location list check show edit update destroy ]
   before_action :set_act, only: %i[index new]
 
   # GET /stages or /stages.json
@@ -34,6 +34,10 @@ class StagesController < ApplicationController
   end
 
   def actor_by_location
+    session[:return_to] = request.fullpath
+  end
+
+  def scenes
     session[:return_to] = request.fullpath
   end
 

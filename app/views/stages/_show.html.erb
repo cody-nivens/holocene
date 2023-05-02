@@ -65,7 +65,9 @@
               <table class="table table-sm table-striped">
                 <% my_act_locs.each do |act_loc| %>
                   <tr>
-                    <td><strong><%= act_loc.location_time.location.name %></strong>: <%= link_to (fa_icon 'plus'), new_location_time_actor_location_time_path(act_loc.location_time) %> <%= act_loc.role.to_plain_text %><%= link_to (fa_icon 'edit'), edit_actor_location_time_path(act_loc) %></td>
+                    <td>
+                       <%= render partial: "actor_location_times/list_line", locals: { act_loc: act_loc, skip_date: true } %>
+                    </td>
                   </tr>
                 <% end %>
               </table>

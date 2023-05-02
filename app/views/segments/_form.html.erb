@@ -6,6 +6,7 @@
     <%= f.hidden_field :stage_id, value: @stage.id %>
 
     <%= f.text_field :name %>
+    <%= f.select :scene_id, Scene.get_scenes_to_array(@stage.act.book).collect { |p| [Scene.find(p).full_name, p] }, { include_blank: true } %>
     <%= f.rich_text_area :desc %>
   </div>
 

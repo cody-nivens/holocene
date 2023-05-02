@@ -1,5 +1,5 @@
 class ActorLocationTimesController < ApplicationController
-  before_action :set_actor_location_time, only: %i[ show edit update destroy ]
+  before_action :set_actor_location_time, only: %i[ check show edit update destroy ]
   before_action :set_location_time, only: %i[index new]
 
   # GET /actor_location_times or /actor_location_times.json
@@ -20,6 +20,12 @@ class ActorLocationTimesController < ApplicationController
   # GET /actor_location_times/1/edit
   def edit
   end
+
+    # PUT /scenes/1/check
+  def check
+      @actor_location_time.update_attribute(:check, params[:check])
+  end
+
 
   # POST /actor_location_times or /actor_location_times.json
   def create
@@ -73,6 +79,6 @@ class ActorLocationTimesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def actor_location_time_params
-      params.require(:actor_location_time).permit(:actor_id, :location_time_id, :role)
+      params.require(:actor_location_time).permit(:actor_id, :location_time_id, :role, :check)
     end
 end

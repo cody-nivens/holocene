@@ -41,6 +41,8 @@ Rails.application.routes.draw do
   get '/stages/:id/time_by_actor', to: 'stages#time_by_actor', as: :stage_time_by_actor
   get '/stages/:id/actor_by_location', to: 'stages#actor_by_location', as: :stage_actor_by_location
   get '/stages/:id/list', to: 'stages#list', as: :stage_list
+  get '/stages/:id/scenes', to: 'stages#scenes', as: :stage_scenes
+  put '/actor_location_times/:id/check', to: 'actor_location_times#check', as: :actor_location_times_check
 
   resources :cities
   namespace :character do

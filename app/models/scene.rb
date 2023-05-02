@@ -42,6 +42,8 @@ class Scene < ApplicationRecord
   has_many :plot_point_scenes
   has_many :plot_points, through: :plot_point_scenes
 
+  has_many :segments
+
   delegate :abc, to: :insert_scene, prefix: true
   delegate :name, to: :artifact, prefix: true
 

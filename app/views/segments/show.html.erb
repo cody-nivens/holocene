@@ -4,8 +4,8 @@
 </p>
 
 <p>
-  <strong>Desc:</strong>
-  <%= @segment.desc %>
+  <strong>Scene:</strong>
+  <%= @segment.scene.nil? ? '' : @segment.scene.name %>
 </p>
 
 <%= render partial: "segments/show", locals: { segment: @segment } %>

@@ -1,4 +1,4 @@
-<h2>Segments</h2>
+<h2>Scene by Segments</h2>
 
 <table class="table">
   <thead>
@@ -11,7 +11,7 @@
   </thead>
 
   <tbody>
-    <% @segments.each do |segment| %>
+    <% @stage.segments.where("scene_id is not null").order(:name).each do |segment| %>
       <tr>
         <td><%= segment.name %></td>
         <td><%= segment.scene.nil? ? '' : segment.scene.name %></td>

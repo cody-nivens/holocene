@@ -73,6 +73,6 @@ class SegmentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def segment_params
-      params.require(:segment).permit(:stage_id, :name, :desc)
+      params.require(:segment).permit(:stage_id, :name, :desc, :scene_id)
     end
 end
