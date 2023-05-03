@@ -14,7 +14,7 @@
           <% location_time.actor_location_times.includes(:actor).order("actors.name").each do |actor_loc| %>
             <tr>
               <td class="text-start">
-                <%= render partial: "actor_location_times/list_line", locals: { act_loc: actor_loc } %>
+                <%= render partial: "actor_location_times/list_line", locals: { act_loc: actor_loc, skip_date: true } %>
               </td>
             </tr>
           <% end %>
