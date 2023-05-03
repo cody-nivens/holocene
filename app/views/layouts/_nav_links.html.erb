@@ -10,15 +10,15 @@
     <%== make_menu_link('History', welcome_history_path) %>
   </ul>
 </li>
-<% unless @book.nil? %>
+<% if @book.nil? %>
+  <li class='nav-item'> <a class='nav-link' href='/books'>Books</a> </li>
+<% else %>
   <% if @book.fiction? %>
     <li class='nav-item dropdown'>
       <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown1' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
         <%= menu_dropdown_title %>
       </a>
       <ul class='dropdown-menu' aria-labelledby='navbar_dropdown1'>
-          <li class='nav-item'> <a class='nav-link' href='/books'>Books</a> </li>
-          <li><hr class="dropdown-divider"></li>
         <% unless @book.nil? %>
           <%== make_menu_link(@book.name, book_path(@book)) %>
           <li><hr class="dropdown-divider"></li>
@@ -26,6 +26,7 @@
             <%== make_menu_link(@story.name, story_path(@story)) %>
           <% end %>
         <% end %>
+      <li class='nav-item'> <a class='nav-link' href='/books'>Books</a> </li>
       <% if controller_name == 'books' %>
         <% unless @book.nil? %>
           <%== make_menu_link('Stories', book_stories_path(@book)) %>

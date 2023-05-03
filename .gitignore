@@ -29,6 +29,7 @@
 /coverage
 .*.swp
 codys_book*
+config/database.yml
 
 /public/packs
 /public/packs-test

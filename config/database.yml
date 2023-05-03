@@ -20,11 +20,11 @@ default: &default
   encoding: utf8mb4
   collation: utf8mb4_unicode_ci
 
-  socket: /var/run/mysqld/mysqld.sock
+  socket: /var/lib/mysql/mysql.sock
 
 development:
   <<: *default
-  socket: /var/run/mysqld/mysqld.sock
+  socket: /var/lib/mysql/mysql.sock
   database: holocene_development
 
 # Warning: The database defined as "test" will be erased and

@@ -636,7 +636,7 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
   end
 
   create_table "tags", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "name", collation: "utf8mb3_bin"
+    t.string "name", collation: "utf8_bin"
     t.integer "taggings_count", default: 0
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
