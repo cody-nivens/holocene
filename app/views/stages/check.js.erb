@@ -1,5 +1,5 @@
 $("#stage-text").html(
-  "<%= escape_javascript(render partial: "stages/show.html", locals: { stage: @stage, check: @check }) %>"
+  "<%= escape_javascript(render partial: "stages/show", locals: { stage: @stage, check: @check, op: @op }) %>"
 );
 
 

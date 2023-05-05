@@ -26,6 +26,15 @@ class ActorsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to actor_url(Actor.last)
   end
 
+  test "should not create actor" do
+    assert_difference('Actor.count', 0) do
+      post book_actors_url(@book), params: { actor: { name: '', book_id: @book.id } }
+    end
+
+    assert_response :unprocessable_entity
+    assert_template :new
+  end
+
   test "should show actor" do
     get actor_url(@actor)
     assert_response :success
@@ -39,6 +48,13 @@ class ActorsControllerTest < ActionDispatch::IntegrationTest
   test "should update actor" do
     patch actor_url(@actor), params: { actor: { name: @actor.name } }
     assert_redirected_to actor_url(@actor)
+  end
+
+  test "should not update actor" do
+    patch actor_url(@actor), params: { actor: { name: nil } }
+
+    assert_response :unprocessable_entity
+    assert_template :edit
   end
 
   test "should destroy actor" do

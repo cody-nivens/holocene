@@ -62,6 +62,16 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'should import characters' do
+    post book_import_chars_url(@book_2), params: { characters: [characters(:character_2).id], char_book_id: @book_3.id }
+    assert_response :success
+  end
+
+  test 'should char imports' do
+    get book_chars_import_url(@book_2)
+    assert_response :success
+  end
+
   test 'should show book I' do
     get book_url(@book)
     assert_response :success
@@ -143,7 +153,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy book' do
-    if ENV['PARALLEL_WORKERS'] == "1"
+    if ["0","1"].include?(ENV['PARALLEL_WORKERS'])
       ThinkingSphinx::Test.run do
         assert_difference('Book.count', -1) do
           delete book_url(@book)

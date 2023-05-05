@@ -4,4 +4,5 @@ class Location < ApplicationRecord
 
   has_rich_text :desc
 
+  validates :name, presence: true
 end

@@ -84,6 +84,11 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'should show chars' do
+    get story_chars_url(@story)
+    assert_response :success
+  end
+
   test 'should show pdf book' do
     get story_url(@story, format: :pdf)
     assert_response :success
@@ -106,7 +111,7 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy story' do
-    if ENV['PARALLEL_WORKERS'] == "1"
+    if ["0","1"].include?(ENV['PARALLEL_WORKERS'])
       ThinkingSphinx::Test.run do
         assert_difference('Story.count', -1) do
           delete story_url(@story)

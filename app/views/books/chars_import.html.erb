@@ -1,4 +1,4 @@
-<%= bootstrap_form_for :book , url: polymorphic_path([@book, :import_chars]) do |f| %>
+<%= bootstrap_form_for :book , url: book_import_chars_path(@book) do |f| %>
 
   <%= hidden_field "#{@book.class.name.underscore}_id", value: @book.id %>
 

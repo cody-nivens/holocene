@@ -26,6 +26,15 @@ class ActsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to act_url(Act.last)
   end
 
+  test "should not create act" do
+    assert_difference('Act.count', 0) do
+      post book_acts_url(@book), params: { act: { book_id: @act.book_id, name: '' } }
+    end
+
+    assert_response :unprocessable_entity
+    assert_template :new
+  end
+
   test "should show act" do
     get act_url(@act)
     assert_response :success
@@ -39,6 +48,13 @@ class ActsControllerTest < ActionDispatch::IntegrationTest
   test "should update act" do
     patch act_url(@act), params: { act: { book_id: @act.book_id, name: @act.name } }
     assert_redirected_to act_url(@act)
+  end
+
+  test "should not update act" do
+    patch act_url(@act), params: { act: { book_id: @act.book_id, name: '' } }
+
+    assert_response :unprocessable_entity
+    assert_template :edit
   end
 
   test "should destroy act" do

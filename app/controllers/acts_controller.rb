@@ -24,6 +24,7 @@ class ActsController < ApplicationController
   # POST /acts or /acts.json
   def create
     @act = Act.new(act_params)
+    @book = @act.book
 
     respond_to do |format|
       if @act.save

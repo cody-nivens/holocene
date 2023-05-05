@@ -14,6 +14,11 @@ class WelcomeControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'should get history' do
+    get welcome_history_url
+    assert_response :success
+  end
+
   test 'should get show' do
     get welcome_show_url(@section,date: Date.today.beginning_of_day)
     assert_response :success

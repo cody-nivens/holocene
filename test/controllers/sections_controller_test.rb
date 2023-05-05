@@ -130,7 +130,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy section' do
-    if ENV['PARALLEL_WORKERS'] == "1"
+    if ["0","1"].include?(ENV['PARALLEL_WORKERS'])
       ThinkingSphinx::Test.run do
         assert_difference('Section.count', -1) do
           delete section_url(@section)
@@ -142,7 +142,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy section 2' do
-    if ENV['PARALLEL_WORKERS'] == "1"
+    if ["0","1"].include?(ENV['PARALLEL_WORKERS'])
       ThinkingSphinx::Test.run do
         assert_difference('Section.count', -1) do
           delete section_url(@section)

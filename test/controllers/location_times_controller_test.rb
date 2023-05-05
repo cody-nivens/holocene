@@ -26,6 +26,15 @@ class LocationTimesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to stage_url(@segment.stage)
   end
 
+  test "should not create location_time" do
+    assert_difference('LocationTime.count', 0) do
+      post segment_location_times_url(@segment), params: { location_time: { date_string: '', location_id: @location_time.location_id, segment_id: @segment.id } }
+    end
+
+    assert_response :unprocessable_entity
+    assert_template :new
+  end
+
   test "should show location_time" do
     get location_time_url(@location_time)
     assert_response :success
@@ -39,6 +48,13 @@ class LocationTimesControllerTest < ActionDispatch::IntegrationTest
   test "should update location_time" do
     patch location_time_url(@location_time), params: { location_time: { date_string: @location_time.date_string, location_id: @location_time.location_id, segment_id: @segment.id } }
     assert_redirected_to stage_url(@location_time.segment.stage)
+  end
+
+  test "should not update location_time" do
+    patch location_time_url(@location_time), params: { location_time: { date_string: '', location_id: @location_time.location_id, segment_id: @segment.id } }
+
+    assert_response :unprocessable_entity
+    assert_template :edit
   end
 
   test "should destroy location_time" do

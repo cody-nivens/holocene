@@ -97,6 +97,7 @@ class PlotPointsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_plot_point
       @plot_point = PlotPoint.find(params[:id])
+      @book = @plot_point.book
     end
 
     def set_book

@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book,
-                only: %i[publish view show chars stats timeline resync_stories toc epub export pdf edit update destroy]
+                only: %i[chars_import import_chars publish view show chars stats timeline resync_stories toc epub export pdf edit update destroy]
 
   # GET /books
   # GET /books.json

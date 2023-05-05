@@ -3,4 +3,6 @@ class Stage < ApplicationRecord
   has_many :segments, dependent: :destroy
 
   has_rich_text :desc
+
+  validates :name, presence: true
 end

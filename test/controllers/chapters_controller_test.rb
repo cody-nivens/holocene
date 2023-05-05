@@ -57,7 +57,7 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should promote chapter' do
-    if ENV['PARALLEL_WORKERS'] == "1"
+    if ["0","1"].include?(ENV['PARALLEL_WORKERS'])
       ThinkingSphinx::Test.run do
         assert_difference('Chapter.count', 1) do
           get chapter_section_promote_url(id: @chapter_4.id, section_id: @chapter_4.sections[1].id)
@@ -142,7 +142,7 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy chapter' do
-    if ENV['PARALLEL_WORKERS'] == "1"
+    if ["0","1"].include?(ENV['PARALLEL_WORKERS'])
       ThinkingSphinx::Test.run do
         assert_difference('Chapter.count', -1) do
           delete chapter_url(@chapter)

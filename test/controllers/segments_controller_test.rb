@@ -26,6 +26,15 @@ class SegmentsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to segment_url(Segment.last)
   end
 
+  test "should not create segment" do
+    assert_difference('Segment.count', 0) do
+      post stage_segments_url(@stage), params: { segment: { name: "", stage_id: @segment.stage_id } }
+    end
+
+    assert_response :unprocessable_entity
+    assert_template :new
+  end
+
   test "should show segment" do
     get segment_url(@segment)
     assert_response :success
@@ -39,6 +48,13 @@ class SegmentsControllerTest < ActionDispatch::IntegrationTest
   test "should update segment" do
     patch segment_url(@segment), params: { segment: { name: "Test 2", stage_id: @segment.stage_id } }
     assert_redirected_to segment_url(@segment)
+  end
+
+  test "should not update segment" do
+    patch segment_url(@segment), params: { segment: { name: "", stage_id: @segment.stage_id } }
+
+    assert_response :unprocessable_entity
+    assert_template :edit
   end
 
   test "should destroy segment" do

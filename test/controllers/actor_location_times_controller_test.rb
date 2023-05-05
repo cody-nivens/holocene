@@ -18,12 +18,30 @@ class ActorLocationTimesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+   test 'should check scene' do
+    checked = @actor_location_time.check
+
+    put actor_location_times_check_path(id: @actor_location_time.id), xhr: true,
+                                               params: { check: !checked }
+    assert_response :success
+    assert_equal !checked, @actor_location_time.reload.check
+  end
+
   test "should create actor_location_time" do
     assert_difference('ActorLocationTime.count') do
       post location_time_actor_location_times_url(@actor_location_time), params: { actor_location_time: { actor_id: @actor_location_time.actor_id, location_time_id: @actor_location_time.location_time_id } }
     end
 
     assert_redirected_to stage_url(ActorLocationTime.last.location_time.segment.stage)
+  end
+
+  test "should not create actor_location_time" do
+    assert_difference('ActorLocationTime.count', 0) do
+      post location_time_actor_location_times_url(@actor_location_time), params: { actor_location_time: { actor_id: nil, location_time_id: @actor_location_time.location_time_id } }
+    end
+
+    assert_response :unprocessable_entity
+    assert_template :new
   end
 
   test "should show actor_location_time" do
@@ -39,6 +57,13 @@ class ActorLocationTimesControllerTest < ActionDispatch::IntegrationTest
   test "should update actor_location_time" do
     patch actor_location_time_url(@actor_location_time), params: { actor_location_time: { actor_id: @actor_location_time.actor_id, location_time_id: @actor_location_time.location_time_id } }
     assert_redirected_to stage_url(@actor_location_time.location_time.segment.stage)
+  end
+
+  test "should not update actor_location_time" do
+    patch actor_location_time_url(@actor_location_time), params: { actor_location_time: { actor_id: nil, location_time_id: @actor_location_time.location_time_id } }
+
+    assert_response :unprocessable_entity
+    assert_template :edit
   end
 
   test "should destroy actor_location_time" do

@@ -32,6 +32,38 @@ class StagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should list stage" do
+    get stage_list_url(@stage)
+    assert_response :success
+  end
+
+  test "should show time by location" do
+    get stage_time_by_location_url(@stage)
+    assert_response :success
+  end
+
+  test "should show time by actor" do
+    get stage_time_by_actor_url(@stage)
+    assert_response :success
+  end
+
+  test "should show actor by location" do
+    get stage_actor_by_location_url(@stage)
+    assert_response :success
+  end
+
+  test "should show scenes" do
+    get stage_scenes_url(@stage)
+    assert_response :success
+  end
+
+    test 'should check scene' do
+
+    get stage_check_path(id: @stage.id), xhr: true,
+                                               params: { check: true, op: 'actors' }
+    assert_response :success
+  end
+
   test "should get edit" do
     get edit_stage_url(@stage)
     assert_response :success

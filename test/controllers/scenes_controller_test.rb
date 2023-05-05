@@ -152,7 +152,7 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy scene' do
-    if ENV['PARALLEL_WORKERS'] == "1"
+    if ["0","1"].include?(ENV['PARALLEL_WORKERS'])
       ThinkingSphinx::Test.run do
         assert_difference('Scene.count', -1) do
           delete scene_url(@scene)
