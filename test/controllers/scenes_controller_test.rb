@@ -40,7 +40,7 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should get index' do
-    get polymorphic_url([@situated, :scenes])
+    get polymorphic_url([@situated, :scenes]), params: { button_action: "Reset Checked", low_wc: 1200, mid_wc: 2400, better_wc: 3400 }
 
     assert_response :success
   end

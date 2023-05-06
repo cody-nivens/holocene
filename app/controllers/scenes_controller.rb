@@ -12,7 +12,7 @@ class ScenesController < ApplicationController
     @long = params[:long]
     @button_action = params[:button_action]
 
-    if @button_action == "Reset Checked" and @situated.class.name == 'Book'
+    if @button_action == "Reset Checked"
       scenes = Scene.get_scenes_to_array(@situated)
       scenes.each do |scene|
         my_scene = Scene.find(scene)
