@@ -5,6 +5,7 @@
     <%= tabs do |d| %>
       <% @stage.segments.order(:name).each do |segment| %>
         <% d.tab "#{segment.name}: #{segment.location_times.size}" do %>
+          <%= link_to (fa_icon 'eye'), segment, title: "Show #{segment.name}" %>
           <%= link_to (fa_icon 'edit'), edit_segment_path(segment), title: "Edit #{segment.name}" %>
           <%= render partial: "segments/show", locals: { segment: segment, op: op } %>
         <% end %>

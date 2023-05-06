@@ -1,25 +1,36 @@
-<h2>Scene by Segments</h2>
+<h2>Scenes with Segments</h2>
 
 <table class="table">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Scene</th>
-      <th>Location Times</th>
-      <th colspan="3"></th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @stage.segments.where("scene_id is not null").order(:name).each do |segment| %>
-      <tr>
-        <td><%= segment.name %></td>
-        <td><%= segment.scene.nil? ? '' : segment.scene.name %></td>
-        <td><%= segment.location_times.size %></td>
-        <td><%= link_to 'Show', segment %></td>
-        <td><%= link_to 'Edit', edit_segment_path(segment) %></td>
-        <td><%= link_to 'Destroy', segment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <% scenes = Scene.get_scenes_to_array(@stage.act.book) %>
+    <% scenes.each do |scene_id| %>
+      <% scene = Scene.find(scene_id) %>
+      <% if scene.segments.size > 0 %>
+        <tr>
+          <td colspan="2"><%= link_to scene.full_name, scene %></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table>
+              <tbody>
+                <% scene.segments.each do |segment| %>
+                  <tr>
+                    <td width="20%"></td>
+                    <td><%= link_to segment.name, segment %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
@@ -27,6 +38,5 @@
 <br>
 
 <div>
-<%= link_to 'New Segment', new_stage_segment_path(@stage), :class => "btn" %>
-<%= link_to 'Back', stage_path(@stage), :class => "btn" %>
+<%= link_to 'Back', stage_path(@stage), :class => "btn", title: "Back to stage" %>
 </div>

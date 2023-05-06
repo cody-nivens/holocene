@@ -1,14 +1,15 @@
 <p>
+  <strong>
+    <%= @segment.name %>
+  </strong>
+</p>
+
+<p>
   <strong>Stage:</strong>
   <%= @segment.stage.name %>
 </p>
 
-<p>
-  <strong>Scene:</strong>
-  <%= @segment.scene.nil? ? '' : @segment.scene.name %>
-</p>
-
-<%= render partial: "segments/show", locals: { segment: @segment } %>
+<%= render partial: "segments/show", locals: { segment: @segment, op: 'locations' } %>
 <div>
 <%= link_to 'Edit', edit_segment_path(@segment), :class => "btn" %>
 <%= link_to 'Back', stage_path(@stage), :class => "btn" %>
