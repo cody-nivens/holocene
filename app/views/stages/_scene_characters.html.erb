@@ -1,0 +1,58 @@
+<table class="table table-sm table-responsive" style="width: auto">
+  <thead>
+    <tr>
+      <th style="width:20%">Name</th>
+      <th style="width:20%">Segment Characters</th>
+      <th style="width:20%">Scene Characters</th>
+      <th style="width:20%">Only in Scene</th>
+      <th style="width:20%">Only in Segment</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% data.each do |info| %>
+      <tr>
+        <th><%= info[0].name %></th>
+        <td>
+          <table class="table table-sm">
+            <% info[1].each do |character| %>
+              <tr><td><%= character.full_last_first %></td></tr>
+            <% end %>
+          </table>
+        </td>
+        <td>
+          <table class="table table-sm">
+            <% info[0].characters.order(:last_name, :first_name).each do |character| %>
+              <tr><td><%= character.full_last_first %></td></tr>
+            <% end %>
+          </table>
+        </td>
+        <td>
+        <% not_in = [] %>
+        <% info[0].characters.each do |character| %>
+          <% not_in << character if !info[1].include?(character) and !not_in.include?(info[0]) %>
+        <% end %>
+          <table class="table table-sm">
+            <% t = not_in.sort_by {|x| [x.last_name,x.first_name]} %>
+            <% t.each do |character| %>
+              <tr><td><%= character.full_last_first %></td></tr>
+            <% end %>
+          </table>
+        </td>
+        <td>
+        <% not_in = [] %>
+        <% info[1].each do |character| %>
+          <% not_in << character if !info[0].characters.include?(character) and !not_in.include?(character) %>
+        <% end %>
+          <table class="table table-sm">
+            <% t = not_in.sort_by {|x| [x.last_name,x.first_name]} %>
+            <% t.each do |character| %>
+              <tr><td><%= character.full_last_first %></td></tr>
+            <% end %>
+          </table>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

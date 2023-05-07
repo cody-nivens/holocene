@@ -9,7 +9,7 @@
   <%= link_to (fa_icon 'sticky-note'), scene_signets_path(scene_id: @scene.id),data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{@scene.signets_short_list}"},
     title: 'Signets', class: "btn icon-ok icon-white #{!@scene.signets.empty? ? Signet.color_class(@scene.signets[0].color) : ''}" %>
   <%= link_to (fa_icon 'truck'), polymorphic_path([@scene, :move]), title: 'Move', class: 'btn icon-ok icon-white' %>
-  <%= link_to (fa_icon 'users'), polymorphic_path([@scene, :characters]), title: 'Characters', class: 'btn icon-ok icon-white' %>
+  <%= link_to (fa_icon 'users'), polymorphic_path([@scene, :characters_list]), title: 'Characters', class: 'btn icon-ok icon-white' %>
   <%= link_to (fa_icon 'trash'), scene_path(@scene), title: 'Delete', method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn icon-ok icon-white' %>
   <% if @scene.section.nil? %>
     <%= link_to (fa_icon 'plus'), new_polymorphic_path([@scene, :section]), title: 'Add Text', class: 'btn icon-ok icon-white'  %>

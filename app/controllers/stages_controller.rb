@@ -1,5 +1,5 @@
 class StagesController < ApplicationController
-  before_action :set_stage, only: %i[ scenes time_by_location time_by_actor actor_by_location list check show edit update destroy ]
+  before_action :set_stage, only: %i[ characters add_characters scenes time_by_location time_by_actor actor_by_location list check show edit update destroy ]
   before_action :set_act, only: %i[index new]
 
   # GET /stages or /stages.json
@@ -35,6 +35,69 @@ class StagesController < ApplicationController
 
   def actor_by_location
     session[:return_to] = request.fullpath
+  end
+
+  def characters
+    session[:return_to] = request.fullpath
+
+    @data = {}
+    @characters = []
+
+    scenes = Scene.get_scenes_to_array(@stage.act.book)
+    scenes.each do |scene_id|
+      scene = Scene.find(scene_id)
+      characters = []
+      if scene.segments.size > 0
+        scene.segments.each do |segment|
+          segment.location_times.includes(:location).order("locations.name").each do |location_time|
+            location_time.actor_location_times.includes(:actor).order("actors.name").each do |actor_location_time|
+              actor_location_time.actor.characters.order(:last_name, :first_name).each do |actor|
+                @characters << actor unless @characters.include?(actor)
+                characters << actor unless characters.include?(actor)
+              end
+            end
+          end
+        end
+      end
+      @data[scene] = characters.sort_by do |x|
+        [x.last_name, x.first_name]
+      end
+    end
+    chars = @characters.sort_by do |x|
+      [x.last_name, x.first_name]
+    end
+    @characters = chars
+  end
+
+  def add_characters
+
+    @data = {}
+    @characters = []
+
+    scenes = Scene.get_scenes_to_array(@stage.act.book)
+    scenes.each do |scene_id|
+      scene = Scene.find(scene_id)
+      characters = []
+      if scene.segments.size > 0
+        scene.segments.each do |segment|
+          segment.location_times.includes(:location).order("locations.name").each do |location_time|
+            location_time.actor_location_times.includes(:actor).order("actors.name").each do |actor_location_time|
+              actor_location_time.actor.characters.order(:last_name, :first_name).each do |character|
+                characters << character if !scene.characters.include?(character) and !characters.include?(character)
+              end
+            end
+          end
+        end
+      end
+
+      characters.each do |character|
+        scene.characters << character unless scene.characters.include?(character)
+      end
+    end
+    respond_to do |format|
+      format.html { redirect_to stage_characters_url(@stage), notice: "Characters were successfully synced." }
+    end
+
   end
 
   def scenes

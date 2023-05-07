@@ -15,6 +15,10 @@ class CharactersGrid < BaseGrid
     where('LOWER( first_name ) like ?', "%#{value}%")
   end
 
+  filter(:nickname, :string, header: 'Nickname LIKE') do |value|
+    where('LOWER( nickname ) like ?', "%#{value}%")
+  end
+
   filter(:main, :boolean)
   filter(:no_ethnicity, :boolean, default: false, dummy: true)
 

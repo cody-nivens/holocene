@@ -1,0 +1,17 @@
+<h2>Scenes with Characters</h2>
+
+<%= tabs do |d| %>
+  <% d.tab "Scene Characters" do %>
+    <%= render partial: "stages/scene_characters", locals: { data: @data, characters: @characters } %>
+  <% end %>
+
+  <% d.tab "Characters" do %>
+    <%= render partial: "stages/characters", locals: { characters: @characters } %>
+  <% end %>
+<% end %>
+
+<div id="side_controls">
+<%= link_to 'Sync', stages_add_characters_path(@stage), class: "btn", title: "Back to Stages List", method: "put" %>
+<%= link_to 'Back', stage_path(@stage), :class => "btn", title: "Back to Stages List" %>
+</div>
+
