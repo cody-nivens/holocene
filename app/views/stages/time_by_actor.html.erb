@@ -4,7 +4,7 @@
   <%= render partial: "stages/show", locals: { stage: @stage, check: true, op: 'actors' } %>
 </div>
 
-<div id="side_controls">
+<div id="side_controls" class="hide-print">
   <%= link_to (fa_icon 'eye'), stage_path(@stage), title: "Stage, Show", class: "btn" %>
   <%= link_to (fa_icon 'list'), stage_segments_path(@stage), title: "Segments List", class: "btn" %>
 </div>

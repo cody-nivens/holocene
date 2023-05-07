@@ -11,7 +11,7 @@
 
 <br>
 
-<div id="side_controls">
+<div id="side_controls" class="hide-print">
 <%= link_to (fa_icon 'edit'), edit_stage_path(@stage), :class => "btn", title: "Edit Stage" %>
 <%= link_to (fa_icon 'list'), stage_list_path(@stage), :class => "btn", title: "List Stage" %>
 <%= link_to 'Back', act_stages_path(@act), :class => "btn", title: "Back to Stages List" %>

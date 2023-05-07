@@ -4,7 +4,7 @@
   <%== breadcrumb(@scene.key_point.scripted.book, @scene.key_point.scripted, @scene.key_point, @scene, @scene.section) %>
 </h2>
 
-<div id='side_controls'>
+<div id="side_controls" class="hide-print">
   <%= link_to (fa_icon 'pencil-alt'), edit_scene_path(@scene), title: 'Edit Scene Data', class: 'btn icon-ok icon-white' %>
   <%= link_to (fa_icon 'sticky-note'), scene_signets_path(scene_id: @scene.id),data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{@scene.signets_short_list}"},
     title: 'Signets', class: "btn icon-ok icon-white #{!@scene.signets.empty? ? Signet.color_class(@scene.signets[0].color) : ''}" %>

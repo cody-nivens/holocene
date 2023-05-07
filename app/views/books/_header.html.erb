@@ -2,7 +2,7 @@
 <h2>
   <%== breadcrumb(book, link: true) %>
 </h2>
-<div id="side_controls">
+<div id="side_controls" class="hide-print">
   <%= link_to (fa_icon 'edit', type: :regular), edit_book_path(book), title: 'Edit', class: 'btn icon-ok icon-white' %>
   <%= link_to (fa_icon 'sticky-note', type: :regular), book_signets_path(book), title: 'Signets', class: 'btn icon-ok icon-white' %>
   <%= link_to (fa_icon 'sticky-note', type: :regular), book_notes_path(book), title: 'Notes', class: 'btn icon-ok icon-white' %>

@@ -6,7 +6,7 @@
                      (@scripted.instance_of?(Chapter) ? @scripted.scripted : @scripted.book)
                    end), @scripted, @key_point) %>
 </h2>
-<div id="side_controls">
+<div id="side_controls" class="hide-print">
   <%== link_to (fa_icon 'edit'), edit_key_point_path(@key_point), title: 'Edit', class: 'btn icon-ok icon-white' %>
   <%== link_to (fa_icon 'newspaper'), key_point_view_path(@key_point), title: 'View', class: 'btn icon-ok icon-white' %>
   <%== link_to (fa_icon 'trash'), key_point_path(@key_point), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy', class: 'btn icon-ok icon-white' %>

@@ -27,7 +27,7 @@
   </tbody>
 </table>
 
-<div id="side_controls">
+<div id="side_controls" class="hide-print">
 <%= link_to (fa_icon 'plus'), new_polymorphic_path([@object, :author]), class: 'btn icon-ok icon-white', title: "New Author" %>
 <%= link_to (fa_icon 'exchange-alt'), polymorphic_path([@object, :authors_list]), class: 'btn icon-ok icon-white', title: "Add Author" %>
 </div>

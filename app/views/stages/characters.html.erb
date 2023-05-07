@@ -10,7 +10,7 @@
   <% end %>
 <% end %>
 
-<div id="side_controls">
+<div id="side_controls" class="hide-print">
 <%= link_to 'Sync', stages_add_characters_path(@stage), class: "btn", title: "Back to Stages List", method: "put" %>
 <%= link_to 'Back', stage_path(@stage), :class => "btn", title: "Back to Stages List" %>
 </div>
