@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 ---
 actor_location_time_1:
-  actor: actor_1
-  location_time: location_time_1 
+  actor_id: <%= ActiveRecord::FixtureSet.identify(:actor_1) %>
+  location_time_id: <%= ActiveRecord::FixtureSet.identify(:location_time_1 ) %>
 
 actor_location_time_2:
-  actor: actor_2 
-  location_time: location_time_1
+  actor_id: <%= ActiveRecord::FixtureSet.identify(:actor_2 ) %>
+  location_time_id: <%= ActiveRecord::FixtureSet.identify(:location_time_1) %>

@@ -1,19 +1,19 @@
 ---
 Impact:
   name: Impact
-  user: users_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
 Volcanic:
   name: Volcanic
-  user: users_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
 Climate:
   name: Climate
-  user: users_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
 Epidemic:
   name: Epidemic
-  user: users_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
 Cultural:
   name: Cultural
-  user: users_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
 Earth:
   name: Earth
-  user: users_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>

@@ -2,8 +2,8 @@
 
 location_1:
   name: waiting for jones
-  book: book_2
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
 
 location_2:
   name: The ghost of giliad
-  book: book_2
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>

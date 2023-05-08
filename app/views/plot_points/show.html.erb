@@ -11,7 +11,7 @@
 <% unless @plot_point.scenes.size == 0 %>
   <p>
   <strong>Scenes:</strong>
-  <%== scenes_list_ul(@plot_point) %>
+  <%== scenes_list_ul(@plot_point, @plot_point.book) %>
   <p>
 <% end %>
 <% add_to_footer('Edit', edit_plot_point_path(@plot_point)) %> 

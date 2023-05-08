@@ -1,4 +1,4 @@
 ---
 segment_1:
   name: test 1
-  stage: stage_1
+  stage_id: <%= ActiveRecord::FixtureSet.identify(:stage_1) %>

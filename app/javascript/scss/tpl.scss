@@ -363,7 +363,7 @@ a {
 }
 #content {
 clear: both;
-width: 9rem-calc(50);
+width: rem-calc(950);
 padding-bottom: rem-calc(10);
 overflow:hidden;
 }
@@ -385,7 +385,7 @@ div#aside {
   float: right;
   overflow-x:hidden; overflow-y:visible;
   padding:2%;
-  height:1rem-calc(50);
+  height:rem-calc(150);
   border:rem-calc(10) double yellowgreen;
   background-color:#d7e5f7;
 }

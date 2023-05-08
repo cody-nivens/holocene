@@ -2,8 +2,8 @@
 
 partition_1:
   name: Timelines
-  chapter: chapter_1
+  chapter_id: <%= ActiveRecord::FixtureSet.identify(:chapter_1) %>
 
 partition_2:
   name: MyString
-  chapter: chapter_1
+  chapter_id: <%= ActiveRecord::FixtureSet.identify(:chapter_1) %>

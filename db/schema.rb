@@ -10,15 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_02_145348) do
-
+ActiveRecord::Schema[7.0].define(version: 2023_05_08_144601) do
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
     t.string "record_type", null: false
     t.bigint "record_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
   end
 
@@ -29,8 +28,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.bigint "resource_id"
     t.string "author_type"
     t.bigint "author_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
@@ -41,7 +40,7 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
-    t.datetime "created_at", null: false
+    t.datetime "created_at", precision: nil, null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -52,8 +51,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.string "content_type"
     t.text "metadata"
     t.bigint "byte_size", null: false
-    t.string "checksum", null: false
-    t.datetime "created_at", null: false
+    t.string "checksum"
+    t.datetime "created_at", precision: nil, null: false
     t.string "service_name", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
@@ -67,37 +66,37 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
   create_table "actor_characters", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.bigint "actor_id"
     t.bigint "character_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "actor_location_times", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.bigint "actor_id"
     t.bigint "location_time_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "check", default: false
   end
 
   create_table "actors", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "book_id"
   end
 
   create_table "acts", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.string "name"
     t.bigint "book_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "artifact_types", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.bigint "book_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "location"
     t.index ["book_id"], name: "index_artifact_types_on_book_id"
   end
@@ -106,8 +105,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.string "name"
     t.bigint "character_id", null: false
     t.bigint "book_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "artifact_type_id", null: false
     t.bigint "parent_id"
     t.index ["artifact_type_id"], name: "index_artifacts_on_artifact_type_id"
@@ -118,8 +117,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
 
   create_table "asides", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "chapter_id"
     t.index ["chapter_id"], name: "index_asides_on_chapter_id"
   end
@@ -127,8 +126,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
   create_table "authors", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
     t.index ["user_id"], name: "index_authors_on_user_id"
   end
@@ -154,8 +153,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.string "copyright_holder"
     t.string "publisher"
     t.text "releaseinfo"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
     t.integer "book_id"
     t.index ["book_id"], name: "index_biblioentries_on_book_id"
@@ -164,8 +163,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
 
   create_table "books", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
     t.boolean "show_events", default: true
     t.string "sub_name"
@@ -186,8 +185,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.string "name"
     t.integer "position"
     t.string "slug"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "show_events", default: true
     t.boolean "always_display_events", default: false
     t.string "scripted_type", null: false
@@ -221,8 +220,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.string "name"
     t.bigint "character_category_id", null: false
     t.integer "related_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "position"
     t.index ["character_category_id"], name: "index_character_attributes_on_character_category_id"
     t.index ["related_id"], name: "index_character_attributes_on_related_id"
@@ -230,16 +229,16 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
 
   create_table "character_categories", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "position"
   end
 
   create_table "character_scenes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "character_id", null: false
     t.bigint "scene_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["character_id", "scene_id"], name: "index_scene_character_1"
     t.index ["scene_id", "character_id"], name: "index_scene_character_2"
   end
@@ -255,8 +254,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.bigint "character_id", null: false
     t.bigint "character_attribute_id", null: false
     t.string "value"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["character_attribute_id"], name: "index_character_values_on_character_attribute_id"
     t.index ["character_id"], name: "index_character_values_on_character_id"
   end
@@ -269,8 +268,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.string "ethnicity"
     t.string "occupation_class"
     t.string "social_class"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "birth_year"
     t.integer "death_year"
     t.integer "father_id"
@@ -301,8 +300,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.string "capital"
     t.bigint "population"
     t.bigint "simple_map_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "epochs", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -310,8 +309,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.integer "start_date"
     t.integer "end_date"
     t.text "body"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
     t.index ["user_id"], name: "index_epochs_on_user_id"
   end
@@ -325,8 +324,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
 
   create_table "event_types", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
     t.index ["user_id"], name: "index_event_types_on_user_id"
   end
@@ -350,8 +349,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.string "noted_type"
     t.bigint "noted_id"
     t.bigint "biblioentry_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["biblioentry_id"], name: "index_footnotes_on_biblioentry_id"
     t.index ["noted_type", "noted_id"], name: "index_footnotes_on_noted_type_and_noted_id"
   end
@@ -364,8 +363,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.integer "acronym_id"
     t.integer "user_id"
     t.integer "book_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "term"
     t.index ["acronym_id"], name: "index_glossary_terms_on_acronym_id"
     t.index ["book_id"], name: "index_glossary_terms_on_book_id"
@@ -385,8 +384,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.bigint "region_id"
     t.string "url"
     t.string "slug"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
     t.decimal "lat", precision: 10, scale: 6
     t.decimal "lng", precision: 10, scale: 6
@@ -418,8 +417,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.bigint "city_id", null: false
     t.integer "position"
     t.integer "stay", default: 0
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["city_id"], name: "index_itineraries_on_city_id"
     t.index ["tour_id"], name: "index_itineraries_on_tour_id"
   end
@@ -434,8 +433,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.string "second_pinch_point"
     t.string "third_plot_point"
     t.string "climax"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "scripted_type"
     t.bigint "scripted_id"
     t.integer "position"
@@ -447,8 +446,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
   create_table "key_words", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "key_word"
     t.bigint "book_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["book_id"], name: "index_key_words_on_book_id"
   end
 
@@ -456,26 +455,26 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.bigint "location_id"
     t.bigint "action_id"
     t.string "date_string"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "segment_id"
   end
 
   create_table "locations", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "book_id"
   end
 
   create_table "metrics", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "count"
-    t.datetime "date"
+    t.datetime "date", precision: nil
     t.bigint "user_id", null: false
     t.string "metrized_type", null: false
     t.bigint "metrized_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["metrized_type", "metrized_id"], name: "index_metrics_on_metrized_type_and_metrized_id"
     t.index ["user_id"], name: "index_metrics_on_user_id"
   end
@@ -490,36 +489,36 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.decimal "latino_mixed", precision: 5, scale: 3
     t.decimal "latino", precision: 5, scale: 3
     t.string "gender"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "partitions", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.integer "chapter_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["chapter_id"], name: "index_partitions_on_chapter_id"
   end
 
   create_table "plot_point_scenes", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.bigint "scene_id"
     t.bigint "plot_point_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "plot_points", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.string "name"
     t.bigint "book_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "regions", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
     t.index ["user_id"], name: "index_regions_on_user_id"
   end
@@ -528,8 +527,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.string "name"
     t.string "resource_type"
     t.bigint "resource_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["name"], name: "index_roles_on_name"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
@@ -539,8 +538,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.string "abc"
     t.boolean "check"
     t.integer "scene_sequel"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "key_point_id"
     t.string "situated_type", null: false
     t.bigint "situated_id", null: false
@@ -566,8 +565,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.integer "position"
     t.string "slug"
     t.integer "chapter_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "embed", default: 0
     t.string "sectioned_type", null: false
     t.bigint "sectioned_id", null: false
@@ -579,8 +578,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
 
   create_table "segments", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.bigint "stage_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "name"
     t.bigint "scene_id"
   end
@@ -590,23 +589,23 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.string "message"
     t.string "sigged_type"
     t.integer "sigged_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["sigged_id", "sigged_type"], name: "index_signets_on_sigged_id_and_sigged_type"
   end
 
   create_table "stages", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "act_id"
   end
 
   create_table "stories", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "title"
     t.integer "book_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "position"
     t.string "scene_character"
     t.boolean "publish", default: true
@@ -623,7 +622,7 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.string "tagger_type"
     t.integer "tagger_id"
     t.string "context", limit: 128
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["context"], name: "index_taggings_on_context"
     t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
     t.index ["tag_id"], name: "index_taggings_on_tag_id"
@@ -644,8 +643,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
   create_table "timelines", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
     t.index ["user_id"], name: "index_timelines_on_user_id"
   end
@@ -653,8 +652,8 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
   create_table "tours", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
     t.bigint "story_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["story_id"], name: "index_tours_on_story_id"
   end
 
@@ -662,10 +661,10 @@ ActiveRecord::Schema.define(version: 2023_05_02_145348) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

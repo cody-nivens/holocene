@@ -2,8 +2,8 @@
 
 actor_1:
   name: Smith
-  book: book_2
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
 
 actor_2:
   name: Jones
-  book: book_2
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>

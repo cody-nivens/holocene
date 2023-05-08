@@ -2,12 +2,12 @@
 timeline_1:
   name: Main
   description: Main - contains all events
-  user: users_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
 Domestication:
   name: Domestication
   description: Domestication events
-  user: users_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
 Agriculture:
   name: Agriculture
   description: Agriculture events
-  user: users_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>

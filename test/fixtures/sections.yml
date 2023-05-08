@@ -5,7 +5,7 @@ section_1:
   position: 0
   slug: FBz8kjcBbN
   sectioned: chapter_1 (Chapter)
-  user: user_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
   holocene_events:
       - holocene_event_5
       - holocene_event_6
@@ -16,7 +16,7 @@ section_2:
   position: 1
   slug: HJct7pHDDe
   sectioned: chapter_1 (Chapter)
-  user: user_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
   holocene_events:
       - holocene_event_5
 section_3:
@@ -25,7 +25,7 @@ section_3:
   position: 0
   slug: FBz8kjcBbN
   sectioned: chapter_3 (Chapter)
-  user: user_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
   holocene_events:
       - holocene_event_5
 section_4:
@@ -34,14 +34,14 @@ section_4:
   position: 1
   slug: HJct7pHDDe
   sectioned: chapter_3 (Chapter)
-  user: user_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
 section_5:
   name: 'Domestication of the strawberry'
   display_name:
   position: 0
   slug: FBz8kjcBbN
   sectioned: chapter_4 (Chapter)
-  user: user_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
   holocene_events:
       - holocene_event_5
 section_6:
@@ -50,21 +50,21 @@ section_6:
   position: 1
   slug: HJct7pHDDe
   sectioned: chapter_4 (Chapter)
-  user: user_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
 section_7:
   name: 'Vinoculture'
   display_name:
   position: 0
   slug: HJct7pHDDe
   sectioned: chapter_2 (Chapter)
-  user: user_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
 section_8:
   name: 'Domestication of the Animals 2'
   display_name:
   position: 2
   slug: FBz8kjcBbN
   sectioned: chapter_2 (Chapter)
-  user: user_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
   holocene_events:
       - holocene_event_5
 section_9:
@@ -73,39 +73,39 @@ section_9:
   position: 4
   slug: HJct7pHDDe
   sectioned: chapter_2 (Chapter)
-  user: user_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
 section_10:
   name: 'Tasty things'
   display_name:
   position: 6
   slug: HJct7pHDDe
   sectioned: chapter_2 (Chapter)
-  user: user_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
 section_11:
   name: 'Dark and stormy night'
   display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_1 (Scene)
-  user: user_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
 section_12:
   name: 'Dark and stormy night'
   display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_2 (Scene)
-  user: user_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
 section_13:
   name: 'Another dark and stormy night'
   display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_2 (Scene)
-  user: user_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
 section_14:
   name: 'Just another dark and stormy night'
   display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_14 (Scene)
-  user: user_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>

@@ -2,7 +2,7 @@
 
 story_1:
   title: The Beginnings
-  book: book_2
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
   scene_character: A
   position: 1
   publish: true
@@ -10,7 +10,7 @@ story_1:
 
 story_2:
   title: The Endings
-  book: book_2
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
   scene_character: B
   position: 2
   publish: true
@@ -18,7 +18,7 @@ story_2:
 
 story_3:
   title: The Middles I
-  book: book_3
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_3) %>
   scene_character: C
   position: 1
   publish: false
@@ -26,7 +26,7 @@ story_3:
 
 story_4:
   title: The Middles II
-  book: book_2
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
   scene_character: C
   position: 3
   publish: true
@@ -34,7 +34,7 @@ story_4:
 
 story_5:
   title: The Middles III
-  book: book_2
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
   scene_character: C
   position: 4
   publish: true
@@ -42,7 +42,7 @@ story_5:
 
 story_6:
   title: The Middles IV
-  book: book_2
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
   scene_character: C
   position: 5
   publish: true
@@ -50,7 +50,7 @@ story_6:
 
 story_7:
   title: The Middles V
-  book: book_2
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
   scene_character: C
   position: 6
   publish: true
@@ -58,7 +58,7 @@ story_7:
 
 story_8:
   title: The Middles VI
-  book: book_2
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
   scene_character: C
   position: 7
   publish: true
@@ -66,7 +66,7 @@ story_8:
 
 story_9:
   title: The Middles VII
-  book: book_2
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
   scene_character: C
   position: 8
   publish: true
@@ -74,7 +74,7 @@ story_9:
 
 story_10:
   title: The Middles VIII
-  book: book_2
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
   scene_character: C
   position: 9
   publish: true
@@ -82,7 +82,7 @@ story_10:
 
 story_11:
   title: The Middles IX
-  book: book_2
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
   scene_character: C
   position: 10
   publish: true
@@ -90,7 +90,7 @@ story_11:
 
 story_12:
   title: The Middles X
-  book: book_2
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
   scene_character: C
   position: 11
   publish: false
@@ -98,7 +98,7 @@ story_12:
 
 story_14:
   title: The Beginnings 2
-  book: book_3
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_3) %>
   scene_character: A
   position: 1
   publish: true
@@ -106,7 +106,7 @@ story_14:
 
 story_15:
   title: The Middles XI
-  book: book_3
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_3) %>
   scene_character: C
   position: 3
   publish: true
@@ -114,7 +114,7 @@ story_15:
 
 story_16:
   title: The Middles XX
-  book: book_2
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
   scene_character: C
   position: 12
   publish: false

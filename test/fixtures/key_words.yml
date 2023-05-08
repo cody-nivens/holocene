@@ -2,8 +2,8 @@
 
 key_word_1:
   key_word: agriculture
-  book: book_1
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_1) %>
 
 key_word_2:
   key_word: stormy
-  book: book_2
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>

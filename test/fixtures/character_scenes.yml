@@ -5,18 +5,18 @@
 # below each fixture, per the syntax in the comments below
 #
 character_scene_1:
-  character: :character_1
-  scene: scene_2
+  character_id: <%= ActiveRecord::FixtureSet.identify(:character_1) %>
+  scene_id: <%= ActiveRecord::FixtureSet.identify(:scene_2) %>
 
 character_scene_2:
-  character: :character_2
-  scene: scene_1
+  character_id: <%= ActiveRecord::FixtureSet.identify(:character_2) %>
+  scene_id: <%= ActiveRecord::FixtureSet.identify(:scene_1) %>
 
 character_scene_3:
-  character: :character_4
-  scene: scene_8
+  character_id: <%= ActiveRecord::FixtureSet.identify(:character_4) %>
+  scene_id: <%= ActiveRecord::FixtureSet.identify(:scene_8) %>
 
 character_scene_4:
-  character: :character_5
-  scene: scene_1
+  character_id: <%= ActiveRecord::FixtureSet.identify(:character_5) %>
+  scene_id: <%= ActiveRecord::FixtureSet.identify(:scene_1) %>
 

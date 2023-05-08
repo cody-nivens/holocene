@@ -7,10 +7,10 @@ scene_1:
   date_string: "0099-01-01-08-23"
   scene_sequel: 1
   situated: story_1 (Story)
-  key_point: key_point_1
+  key_point_id: <%= ActiveRecord::FixtureSet.identify(:key_point_1) %>
   selector: 1
   position: 1
-  book: books(:book_2)
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
 
 scene_2:
   abc: A00002
@@ -19,10 +19,10 @@ scene_2:
   date_string: "0100-06-01-08-23"
   scene_sequel: 1
   situated: story_2 (Story)
-  key_point: key_point_2
+  key_point_id: <%= ActiveRecord::FixtureSet.identify(:key_point_2) %>
   selector: 1
   position: 2
-  book: books(:book_2)
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
 
 scene_3:
   abc: A00003
@@ -31,11 +31,11 @@ scene_3:
   scene_sequel: 1
   date_string: "0101-01-01-08-23"
   situated: story_2 (Story)
-  key_point: key_point_2
+  key_point_id: <%= ActiveRecord::FixtureSet.identify(:key_point_2) %>
   selector: 3
   insert_scene: scene_2
   position: 3
-  book: books(:book_2)
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
 
 scene_4:
   abc: B00001
@@ -44,10 +44,10 @@ scene_4:
   date_string: "0100-06-01-08-23"
   scene_sequel: 1
   situated: story_2 (Story)
-  key_point: key_point_5
+  key_point_id: <%= ActiveRecord::FixtureSet.identify(:key_point_5) %>
   selector: 1
   position: 2
-  book: books(:book_2)
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
 
 scene_5:
   abc: C00001
@@ -56,10 +56,10 @@ scene_5:
   date_string: "0100-06-01-08-23"
   scene_sequel: 1
   situated: story_3 (Story)
-  key_point: key_point_6
+  key_point_id: <%= ActiveRecord::FixtureSet.identify(:key_point_6) %>
   selector: 1
   position: 2
-  book: books(:book_3)
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_3) %>
 
 scene_6:
   abc: A00004
@@ -68,7 +68,7 @@ scene_6:
   date_string: "0101-06-01-08-23"
   scene_sequel: 1
   situated: story_2 (Story)
-  key_point: key_point_7
+  key_point_id: <%= ActiveRecord::FixtureSet.identify(:key_point_7) %>
   insert_scene: scene_2
   selector: 1
   position: 1
@@ -80,10 +80,10 @@ scene_7:
   date_string: "0101-06-01-08-23"
   scene_sequel: 1
   situated: story_2 (Story)
-  key_point: key_point_8
+  key_point_id: <%= ActiveRecord::FixtureSet.identify(:key_point_8) %>
   selector: 1
   position: 1
-  book: books(:book_2)
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
 
 scene_8:
   abc: A00008
@@ -92,11 +92,11 @@ scene_8:
   date_string: "0100-06-01-08-23"
   scene_sequel: 1
   situated: story_2 (Story)
-  key_point: key_point_8
+  key_point_id: <%= ActiveRecord::FixtureSet.identify(:key_point_8) %>
   insert_scene: scene_7
   selector: 2
   position: 2
-  book: books(:book_2)
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
 
 scene_9:
   abc: A00009
@@ -105,9 +105,9 @@ scene_9:
   date_string: "0100-06-01-08-23"
   scene_sequel: 1
   situated: story_1 (Story)
-  key_point: key_point_1
+  key_point_id: <%= ActiveRecord::FixtureSet.identify(:key_point_1) %>
   selector: 0
-  book: books(:book_2)
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
 
 scene_10:
   abc: A00010
@@ -116,10 +116,10 @@ scene_10:
   date_string: "0099-01-01-08-23"
   scene_sequel: 1
   situated: story_1 (Story)
-  key_point: key_point_9
+  key_point_id: <%= ActiveRecord::FixtureSet.identify(:key_point_9) %>
   selector: 1
   position: 2
-  book: books(:book_2)
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
 
 scene_11:
   abc: A00011
@@ -128,10 +128,10 @@ scene_11:
   date_string: "0099-01-01-08-23"
   scene_sequel: 1
   situated: story_1 (Story)
-  key_point: key_point_1
+  key_point_id: <%= ActiveRecord::FixtureSet.identify(:key_point_1) %>
   selector: 1
   position: 2
-  book: books(:book_2)
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
 
 scene_12:
   abc: A00012
@@ -140,10 +140,10 @@ scene_12:
   date_string: "0099-02-01-08-23"
   scene_sequel: 1
   situated: story_1 (Story)
-  key_point: key_point_1
+  key_point_id: <%= ActiveRecord::FixtureSet.identify(:key_point_1) %>
   selector: 2
   position: 3
-  book: books(:book_2)
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
 
 scene_13:
   abc: A00013
@@ -152,10 +152,10 @@ scene_13:
   date_string: "0099-02-01-08-23"
   scene_sequel: 1
   situated: story_1 (Story)
-  key_point: key_point_1
+  key_point_id: <%= ActiveRecord::FixtureSet.identify(:key_point_1) %>
   selector: 1
   position: 3
-  book: books(:book_2)
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
 
 scene_14:
   abc: C00014
@@ -164,7 +164,7 @@ scene_14:
   date_string: "0099-02-01-08-23"
   scene_sequel: 1
   situated: story_12 (Story)
-  key_point: key_point_10
+  key_point_id: <%= ActiveRecord::FixtureSet.identify(:key_point_10) %>
   selector: 1
   position: 3
-  book: books(:book_2)
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>

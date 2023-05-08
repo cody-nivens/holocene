@@ -2,8 +2,8 @@
 
 aside_1:
   name: Surprise!
-  chapter: chapter_1
+  chapter_id: <%= ActiveRecord::FixtureSet.identify(:chapter_1) %>
 
 aside_2:
   name: No Dogs
-  chapter: chapter_2
+  chapter_id: <%= ActiveRecord::FixtureSet.identify(:chapter_2) %>

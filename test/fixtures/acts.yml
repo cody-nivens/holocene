@@ -2,8 +2,8 @@
 
 act_1:
   name: MyString
-  book: book_2 
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2 ) %>
 
 act_2:
   name: MyString
-  book: book_2 
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2 ) %>

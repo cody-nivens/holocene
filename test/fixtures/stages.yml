@@ -2,8 +2,8 @@
 
 stage_1:
   name: MyString
-  act: act_1
+  act_id: <%= ActiveRecord::FixtureSet.identify(:act_1) %>
 
 stage_2:
   name: MyString
-  act: act_1
+  act_id: <%= ActiveRecord::FixtureSet.identify(:act_1) %>

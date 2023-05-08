@@ -2,10 +2,10 @@
 
 artifact_type_1:
   name: Palladium Bar
-  book: book_2
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
   location: 0
 
 artifact_type_2:
   name: Ship
-  book: book_2
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
   location: 1

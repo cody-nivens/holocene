@@ -2,8 +2,8 @@
 
 plot_point_1:
   name: MyString
-  book: book_2
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
 
 plot_point_2:
   name: MyString
-  book: book_2
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>

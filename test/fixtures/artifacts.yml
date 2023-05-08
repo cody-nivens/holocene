@@ -2,13 +2,12 @@
 
 artifact_1:
   name: Ship
-  character: character_1
-  book: book_1
-  artifact_type: artifact_type_1
-  character: character_1
+  character_id: <%= ActiveRecord::FixtureSet.identify(:character_1) %>
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_1) %>
+  artifact_type_id: <%= ActiveRecord::FixtureSet.identify(:artifact_type_1) %>
 
 artifact_2:
   name: Sword
-  character: character_1
-  book: book_2
-  artifact_type: artifact_type_2
+  character_id: <%= ActiveRecord::FixtureSet.identify(:character_1) %>
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
+  artifact_type_id: <%= ActiveRecord::FixtureSet.identify(:artifact_type_2) %>

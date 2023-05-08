@@ -6,8 +6,8 @@ glossary_1:
   see_id: 
   seealso_id: 1
   acronym_id: 1
-  user: users_1
-  book: book_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_1) %>
 
 glossary_2:
   name: MyString
@@ -15,5 +15,5 @@ glossary_2:
   see_id: 
   seealso_id: 1
   acronym_id: 1
-  user: users_1
-  book: book_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_1) %>

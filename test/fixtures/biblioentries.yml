@@ -6,10 +6,11 @@ biblioentry_1:
   copyright_holder: Mike Baillie
   publisher: B. T. Batsford Ltd
   releaseinfo: 
-  user: users_1
-  book: book_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_1) %>
   authors:
       - authors_2
+
 biblioentry_2:
   name: 'Medieval Sourcebook: Annales Camriae 447-954 (The Annals of Wales)'
   xreflabel: AnnalesCambriae
@@ -18,8 +19,9 @@ biblioentry_2:
   publisher: ''
   releaseinfo: "<a href='http://www.fordham.edu/halsall/source/annalescambriae.asp'>Medieval
     Sourcebook: Annales Camriae 447-954 (The Annals of Wales)</a>"
-  user: users_1
-  book: book_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_1) %>
+
 biblioentry_3:
   name: 'Corpus of Electronic Texts: The Annals of Ulster'
   xreflabel: AnnalesUlster
@@ -28,5 +30,5 @@ biblioentry_3:
   publisher: ''
   releaseinfo: "<a href='http://www.ucc.ie/celt/published/t100001A/'>Corpus of Electronic
     Texts: The Annals of Ulster</a>"
-  user: users_1
-  book: book_1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_1) %>

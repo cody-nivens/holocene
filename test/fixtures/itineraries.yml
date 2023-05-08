@@ -2,14 +2,14 @@
 
 itinerary_1:
   name: Sushi is Rice
-  tour: tour_1
-  city: city_1
+  tour_id: <%= ActiveRecord::FixtureSet.identify(:tour_1) %>
+  city_id: <%= ActiveRecord::FixtureSet.identify(:city_1) %>
   position: 1
   stay: 1
 
 itinerary_2:
   name: Way Too Many People
-  tour: tour_2
-  city: city_2
+  tour_id: <%= ActiveRecord::FixtureSet.identify(:tour_2) %>
+  city_id: <%= ActiveRecord::FixtureSet.identify(:city_2) %>
   position: 1
   stay: 1

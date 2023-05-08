@@ -1,4 +1,4 @@
 ---
 character_story_1:
-  story: story_2
-  character: character_4
+  story_id: <%= ActiveRecord::FixtureSet.identify(:story_2) %>
+  character_id: <%= ActiveRecord::FixtureSet.identify(:character_4) %>

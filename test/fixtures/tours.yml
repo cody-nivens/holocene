@@ -2,8 +2,8 @@
 
 tour_1:
   name: Mr. Toad's Wild Ride
-  story: story_1
+  story_id: <%= ActiveRecord::FixtureSet.identify(:story_1) %>
 
 tour_2:
   name: The Puss in Boots
-  story: story_2
+  story_id: <%= ActiveRecord::FixtureSet.identify(:story_2) %>
