@@ -1,18 +1,22 @@
 # Pin npm packages by running ./bin/importmap
 
 pin "application", preload: true
-pin "trix", to: "https://ga.jspm.io/npm:trix@2.0.4/dist/trix.esm.min.js"
 
 pin "sortable", to: "js/sortable.js", preload: true
 pin "jquery.jvectormap.min", to: "js/jquery.jvectormap.min.js", preload: true
 pin "jquery-jvectormap-world-mill-en", to: "js/jquery-jvectormap-world-mill-en.js", preload: true
-
 pin "jquery", to: "jquery.min.js", preload: true
 pin "jquery_ujs", to: "jquery_ujs.js", preload: true
 pin "jquery-ui", to: "jquery-ui.min.js", preload: true
+pin "bootstrap", to: "bootstrap.js", preload: true
+pin "chartkick", to: "chartkick.js"
+pin "Chart.bundle", to: "Chart.bundle.js"
+pin "@hotwired/stimulus", to: "stimulus.min.js", preload: true
+pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
+
+pin "trix", to: "https://ga.jspm.io/npm:trix@2.0.4/dist/trix.esm.min.js"
 pin "@rails/actiontext", to: "https://ga.jspm.io/npm:@rails/actiontext@7.0.4-3/app/assets/javascripts/actiontext.js"
 pin "@rails/ujs", to: "https://ga.jspm.io/npm:@rails/ujs@7.0.4-3/lib/assets/compiled/rails-ujs.js", preload: true
-pin "bootstrap", to: "bootstrap.js", preload: true
 pin "@popperjs/core", to: "https://ga.jspm.io/npm:@popperjs/core@2.11.7/lib/index.js", preload: true
 pin "bootstrap-tooltip", to: "https://ga.jspm.io/npm:bootstrap-tooltip@3.1.1/index.js"
 pin "popper.js", to: "popper.js", preload: true
@@ -27,10 +31,7 @@ pin "@knight-lab/timelinejs", to: "https://ga.jspm.io/npm:@knight-lab/timelinejs
 pin "dompurify", to: "https://ga.jspm.io/npm:dompurify@2.4.5/dist/purify.js"
 pin "wicg-inert", to: "https://ga.jspm.io/npm:wicg-inert@3.1.2/dist/inert.esm.js"
 pin "@rails/actioncable", to: "https://ga.jspm.io/npm:@rails/actioncable@7.0.4-3/app/assets/javascripts/actioncable.esm.js"
-pin "chartkick", to: "chartkick.js"
-pin "Chart.bundle", to: "Chart.bundle.js"
-pin "@hotwired/stimulus", to: "stimulus.min.js", preload: true
-pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
+
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin_all_from "app/javascript/js", under: "js"
 
