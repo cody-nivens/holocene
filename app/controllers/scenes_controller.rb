@@ -58,6 +58,7 @@ class ScenesController < ApplicationController
   # PUT /scenes/1/check
   def check
       @scene.update_attribute(:check, params[:check])
+      render json: { message: "Success" }
   end
 
   def sort

@@ -24,9 +24,9 @@
           <% unless pdf %>
             <div id="scene-checkbox-<%= scene.id %>">
               <%= check_box_tag 'check', !scene.check, scene.check,
-                :data => {:remote => true, 
-                          :url => url_for( :controller => 'scenes', :action => 'check', :id => scene.id),
-                          :method => :put},
+                :data => {
+                          id: scene.id,
+                          action: "scenes#toggle" },
                           :class => 'input-large' %>
             </div>
           <% end %>

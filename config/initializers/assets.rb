@@ -13,4 +13,4 @@ Rails.application.config.assets.version = '1.0'
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 #Rails.application.config.assets.precompile += %w( timeline.js timeline.css pdf.css number_pages.js jquery-jvectormap.css jquery-1.js jquery.jvectormap.min.js jquery.jvectormap.js jquery-jvectormap-world-mill-en.js jquery-ui-1.css images/* )
-Rails.application.config.assets.precompile += %w( site.css bootstrap.js popper.js sortable.js pdf.css number_pages.js js/sortable.js jquery.min.js jquery_ujs.js jquery-ui.min.js )
+Rails.application.config.assets.precompile += %w( stimulus.min.js stimulus-loading.js bootstrap.js popper.js js/sortable.js pdf.css number_pages.js jquery.min.js jquery_ujs.js jquery-ui.min.js )

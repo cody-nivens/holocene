@@ -20,7 +20,7 @@
       <%= render partial: 'application/header' %>
       <%= render partial: 'layouts/messages' %>
       <div class="container">
-        <div id="content-wrap">
+        <div id="content-wrap" data-controller="scenes">
           <%= yield %>
         </div>
         <%= render partial: 'application/footer', locals: { footer_content: @footer_content } %>
