@@ -7,11 +7,5 @@ import "jquery"
 import 'popper.js'
 import 'bootstrap'
 
-import './js/sortable'
-import './js/jquery.jvectormap.min'
-import './js/jquery-jvectormap-world-mill-en'
-//import "font-awesome" ???
-
-import './js/site'
-
+import "./site.js"
 import "controllers"
