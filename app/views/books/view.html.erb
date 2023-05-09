@@ -3,12 +3,3 @@
 <%= render partial: 'header', locals: { book: @book, long: long } %>
 <%= render partial: 'books/show', formats: [:html], locals: { outline: params[:outline], pdf: false, book: @book, chapters: @chapters, long: long } %>
 <%= render partial: 'footer', locals: { book: @book } %>
-
-<script>
-  $(document).ready(function() {
-
-    $('[data-bs-toggle="tooltip"]').tooltip();
-    $('[data-bs-toggle="popover"]').popover();
-
-  })
-</script>

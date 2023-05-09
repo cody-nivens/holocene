@@ -10,8 +10,6 @@
           <%= render partial: "segments/show", locals: { segment: segment, op: op } %>
         <% end %>
       <% end %>
-      <%= link_to (fa_icon 'list'), stage_segments_path(@stage), title: "Segments List" %>
-      <%= link_to (fa_icon 'plus'), new_stage_segment_path(@stage), title: "New Segment" %>
     <% end %>
   <% else %>
     <%= render partial: "segments/show2", locals: { segments: @stage.segments, op: op } %>

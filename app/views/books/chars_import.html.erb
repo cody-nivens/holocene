@@ -30,7 +30,7 @@
   </tr>
   </tbody>
 </table>
-<%= f.submit class: 'btn btn-primary' %>
+<%= f.submit 'Save Character(s)', class: 'btn btn-primary' %>
 
 <% end %>
 
@@ -51,5 +51,7 @@
   })
 </script>
 
-<% add_to_footer('Back', book_path(@book)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_path(@book), :class => "btn", title: "Back" %>
 
+</div>

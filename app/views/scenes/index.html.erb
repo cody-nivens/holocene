@@ -10,7 +10,7 @@
   <% end %>
 </h2>
 <div id="side_controls" class="hide-print">
-  <%= link_to 'Timeline', polymorphic_path([@situated, :timeline]), class: 'btn icon-ok icon-white' %>
+  <%= link_to (fa_icon 'calendar-alt', class: 'fa-fw'), polymorphic_path([@situated, :timeline]), class: 'btn icon-ok icon-white' %>
 </div>
 
   <% scene_wc_counts = @scenes.collect{|x| Scene.find(x).word_count } %>

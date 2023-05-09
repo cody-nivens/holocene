@@ -1,7 +1,4 @@
-<p>
-  <strong>Name:</strong>
-  <%= @actor.name %>
-</p>
+<h2> <%= @actor.name %></h2>
 
 <p>
   <%= @actor.desc %>
@@ -12,7 +9,7 @@
 <%= link_to (fa_icon 'plus'), new_actor_actor_character_path(@actor) %>
   <ul>
 <% @actor.actor_characters.each do |actor_character| %>
- <li><%= link_to actor_character.character.name, character_path(actor_character.character) %></li>
+ <li><%= link_to actor_character.character.name, book_character_path(@book, actor_character.character) %></li>
  <% end %>
   </ul>
 </div>
@@ -29,7 +26,8 @@
 </div>
 
 
-<div>
-<%= link_to 'Edit', edit_actor_path(@actor), :class => "btn" %>
-<%= link_to 'Back', book_actors_path(@book), :class => "btn" %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_actor_path(@actor), :class => "btn", title: 'Edit' %>
+<%= link_to (fa_icon 'users', class: 'fa-fw'), actor_actor_characters_path(@actor), :class => "btn", title: 'Characters' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_actors_path(@book), :class => "btn", title: 'Back' %>
 </div>

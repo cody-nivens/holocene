@@ -24,7 +24,7 @@
       <% end %>
     </tbody>
   </table>
-<div>
-<%= link_to 'Edit', edit_location_path(@location), :class => "btn" %>
-<%= link_to 'Back', book_locations_path(@book), :class => "btn" %>
+<div  id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_location_path(@location), :class => "btn", title: "Edit Location" %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_locations_path(@book), :class => "btn", title: "Back" %>
 </div>

@@ -5,22 +5,22 @@
 </h2>
 
 <div id="side_controls" class="hide-print">
-  <%= link_to (fa_icon 'pencil-alt'), edit_scene_path(@scene), title: 'Edit Scene Data', class: 'btn icon-ok icon-white' %>
-  <%= link_to (fa_icon 'sticky-note'), scene_signets_path(scene_id: @scene.id),data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{@scene.signets_short_list}"},
+  <%= link_to (fa_icon 'pencil-alt', class: 'fa-fw'), edit_scene_path(@scene), title: 'Edit Scene Data', class: 'btn icon-ok icon-white' %>
+  <%= link_to (fa_icon 'sticky-note', class: 'fa-fw'), scene_signets_path(scene_id: @scene.id),data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{@scene.signets_short_list}"},
     title: 'Signets', class: "btn icon-ok icon-white #{!@scene.signets.empty? ? Signet.color_class(@scene.signets[0].color) : ''}" %>
-  <%= link_to (fa_icon 'truck'), polymorphic_path([@scene, :move]), title: 'Move', class: 'btn icon-ok icon-white' %>
-  <%= link_to (fa_icon 'users'), polymorphic_path([@scene, :characters_list]), title: 'Characters', class: 'btn icon-ok icon-white' %>
-  <%= link_to (fa_icon 'trash'), scene_path(@scene), title: 'Delete', method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn icon-ok icon-white' %>
+  <%= link_to (fa_icon 'truck', class: 'fa-fw'), polymorphic_path([@scene, :move]), title: 'Move', class: 'btn icon-ok icon-white' %>
+  <%= link_to (fa_icon 'users', class: 'fa-fw'), polymorphic_path([@scene, :characters_list]), title: 'Characters', class: 'btn icon-ok icon-white' %>
+  <%= link_to (fa_icon 'trash', class: 'fa-fw'), scene_path(@scene), title: 'Delete', method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn icon-ok icon-white' %>
   <% if @scene.section.nil? %>
-    <%= link_to (fa_icon 'plus'), new_polymorphic_path([@scene, :section]), title: 'Add Text', class: 'btn icon-ok icon-white'  %>
+    <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([@scene, :section]), title: 'Add Text', class: 'btn icon-ok icon-white'  %>
   <% else %>
-    <%= link_to (fa_icon 'edit'), edit_section_path(@scene.section), title: 'Edit Scene Text', class: 'btn icon-ok icon-white'  %>
+    <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_section_path(@scene.section), title: 'Edit Scene Text', class: 'btn icon-ok icon-white'  %>
   <% end %>
   <% unless scene_index.nil? or scene_index == 0 %>
-    <%= link_to (fa_icon 'angle-left'), scene_path(id: @scenes_wi[scene_index - 1]), class: 'btn icon-ok icon-white', title: 'Previous Scene' %>
+    <%= link_to (fa_icon 'angle-left', class: 'fa-fw'), scene_path(id: @scenes_wi[scene_index - 1]), class: 'btn icon-ok icon-white', title: 'Previous Scene' %>
   <% end %>
   <% unless scene_index.nil? or scene_index == @scenes_wi.length - 1 %>
-    <%= link_to (fa_icon 'angle-right'), scene_path(id: @scenes_wi[scene_index + 1]), class: 'btn icon-ok icon-white', title: 'Next Scene' %>
+    <%= link_to (fa_icon 'angle-right', class: 'fa-fw'), scene_path(id: @scenes_wi[scene_index + 1]), class: 'btn icon-ok icon-white', title: 'Next Scene' %>
   <% end %>
 </div>
 
@@ -30,7 +30,8 @@
   <% unless @scene.section.nil? %>
     <% values = @scene.set_values %>
     <% text = @scene.section.body %>
-    <%== highlight(text.to_s, Regexp.new(KeyWord.where(book_id: values[0].id).collect(&:key_word).join('|'))) %>
+    <%= text %>
+    <%#== highlight(text.to_s, Regexp.new(KeyWord.where(book_id: values[0].id).collect(&:key_word).join('|'))) %>
   <% end %>
 <% end %>
   <% c.tab "Summary" do %>

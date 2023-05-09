@@ -1,3 +1,4 @@
+<% if book.is_fiction? %>
   <% bt_count = g_count = o_count = b_count = z_count = words_total = pot_word_count = 0 %>
   <% scene_wc_counts = @scenes.collect{|x| Scene.find(x).word_count } %>
   <% mean = scene_wc_counts.sum(0.0) / @scenes.length %>
@@ -62,3 +63,5 @@
     <th>Standard deviation:</th><td><%= standard_deviation.nan? ? '' : number_with_delimiter(standard_deviation.to_i, delimiter: ',') %></td>
   </tr>
 </table>
+<% else %>
+<% end %>

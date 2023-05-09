@@ -25,3 +25,6 @@ pin "wicg-inert", to: "https://ga.jspm.io/npm:wicg-inert@3.1.2/dist/inert.esm.js
 pin "@rails/actioncable", to: "https://ga.jspm.io/npm:@rails/actioncable@7.0.4-3/app/assets/javascripts/actioncable.esm.js"
 pin "chartkick", to: "chartkick.js"
 pin "Chart.bundle", to: "Chart.bundle.js"
+pin "@hotwired/stimulus", to: "stimulus.min.js", preload: true
+pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
+pin_all_from "app/javascript/controllers", under: "controllers"

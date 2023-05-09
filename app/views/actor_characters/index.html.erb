@@ -11,10 +11,9 @@
   <tbody>
     <% @actor_characters.each do |actor_character| %>
       <tr>
-        <td><%= actor_character.character.name %></td>
-        <td><%= link_to 'Show', actor_character %></td>
-        <td><%= link_to 'Edit', edit_actor_character_path(actor_character) %></td>
-        <td><%= link_to 'Destroy', actor_character, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to actor_character.character.name, actor_character %></td>
+        <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_actor_character_path(actor_character), title: 'Edit' %>
+        <%= link_to (fa_icon 'trash', class: 'fa-fw'), actor_character, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -22,7 +21,7 @@
 
 <br>
 
-<div>
-<%= link_to 'New Actor Character', new_actor_actor_character_path(@actor), class: "btn" %>
-<%= link_to 'Back', actor_path(@actor), :class => "btn" %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_actor_actor_character_path(@actor), class: "btn", title: 'New Actor Character' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), actor_path(@actor), :class => "btn", title: "Back" %>
 </div>

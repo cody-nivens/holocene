@@ -13,12 +13,11 @@
   <tbody>
     <% @segments.each do |segment| %>
       <tr>
-        <td><%= segment.name %></td>
-        <td><%= segment.scene.nil? ? '' : segment.scene.name %></td>
+        <td><%= link_to segment.name, segment %></td>
+        <td><%= segment.scene.nil? ? '' : link_to(segment.scene.name, segment.scene) %></td>
         <td><%= segment.location_times.size %></td>
-        <td><%= link_to 'Show', segment %></td>
-        <td><%= link_to 'Edit', edit_segment_path(segment) %></td>
-        <td><%= link_to 'Destroy', segment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_segment_path(segment), title: 'Edit' %>
+        <%= link_to (fa_icon 'trash', class: 'fa-fw'), segment, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,7 +25,7 @@
 
 <br>
 
-<div>
-<%= link_to 'New Segment', new_stage_segment_path(@stage), :class => "btn" %>
-<%= link_to 'Back', stage_path(@stage), :class => "btn" %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_stage_segment_path(@stage), :class => "btn" %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), stage_path(@stage), :class => "btn" %>
 </div>

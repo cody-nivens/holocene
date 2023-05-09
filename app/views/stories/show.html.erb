@@ -80,13 +80,3 @@
 <% end %>
 
 <%= render partial: 'stories/footer', locals: { book: @book, story: @story } %>
-
-<script>
-  $(document).ready(function() {
-
-    $('[data-bs-toggle="tooltip"]').tooltip();
-    $('[data-bs-toggle="popover"]').popover();
-
-  })
-</script>
-

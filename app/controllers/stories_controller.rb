@@ -59,6 +59,7 @@ class StoriesController < ApplicationController
       format.pdf do
         render pdf: 'export',
                disposition: 'attachment',
+               margin: { top: 26, bottom: 26, right: 26, left: 26 },
                header: { right: '[page] of [topage]' },
                outline: { outline: false,
                           outline_depth: 2 },

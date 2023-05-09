@@ -1,4 +1,3 @@
-//import '@fortawesome/fontawesome-free/js/all'
 import 'jquery-ui'
 //import 'jquery-ui/ui/widget'
 //import './jquery-ui/ui/data'

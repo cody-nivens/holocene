@@ -2,7 +2,9 @@
 
 <%= render partial: 'characters/show', locals: { pdf: pdf, character: @character, object: @object, scripted: @scripted } %>
 
-<% add_to_footer('Edit', edit_polymorphic_path([@object, @character])) %>
-<% add_to_footer('Attributes', polymorphic_path([@object, @character, :character_values])) %>
-<% add_to_footer('Lineage', polymorphic_path([@object, @character, :lineage])) %>
-<% add_to_footer('Back', return_or_default_path(polymorphic_path([@object, :characters]))) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_polymorphic_path([@object, @character]), class: 'btn', title: 'Edit' %>
+<%= link_to (fa_icon 'list', class: 'fa-fw'), polymorphic_path([@object, @character, :character_values]), class: 'btn', title: 'Attributes' %>
+<%= link_to (fa_icon 'stream', class: 'fa-fw'), polymorphic_path([@object, @character, :lineage]), class: 'btn', title: 'Lineage' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), return_or_default_path(polymorphic_path([@object, :characters])), class: 'btn', title: 'Back' %>
+</div>

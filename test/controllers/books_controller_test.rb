@@ -26,6 +26,11 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'should get index 2' do
+    get books_url, params: { long: true }
+    assert_response :success
+  end
+
   test 'should get toc' do
     get toc_url(@book.id)
     assert_response :success

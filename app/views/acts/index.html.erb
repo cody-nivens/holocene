@@ -5,18 +5,17 @@
     <tr>
       <th>Name</th>
       <th>Stages</th>
-      <th colspan="3"></th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @acts.each do |act| %>
       <tr>
-        <td><%= act.name %></td>
+        <td><%= link_to act.name, act %></td>
         <td><%= act.stages.size %></td>
-        <td><%= link_to 'Show', act %></td>
-        <td><%= link_to 'Edit', edit_act_path(act) %></td>
-        <td><%= link_to 'Destroy', act, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_act_path(act), title: 'Edit' %>
+        <%= link_to (fa_icon 'trash', class: 'fa-fw'), act, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,6 +23,6 @@
 
 <br>
 
-<div>
-<%= link_to 'New Act', new_book_act_path(@book), :class => "btn" %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_book_act_path(@book), :class => "btn", title: 'New Act' %>
 </div>

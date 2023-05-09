@@ -3,16 +3,15 @@
   <%== breadcrumb(book, link: true) %>
 </h2>
 <div id="side_controls" class="hide-print">
-  <%= link_to (fa_icon 'edit', type: :regular), edit_book_path(book), title: 'Edit', class: 'btn icon-ok icon-white' %>
-  <%= link_to (fa_icon 'sticky-note', type: :regular), book_signets_path(book), title: 'Signets', class: 'btn icon-ok icon-white' %>
-  <%= link_to (fa_icon 'sticky-note', type: :regular), book_notes_path(book), title: 'Notes', class: 'btn icon-ok icon-white' %>
+  <%= link_to (fa_icon 'edit', type: :regular, class: 'fa-fw'), edit_book_path(book), title: 'Edit', class: 'btn' %>
+  <%= link_to (fa_icon 'sticky-note', type: :regular, class: 'fa-fw'), book_signets_path(book), title: 'Signets', class: 'btn' %>
+  <%= link_to (fa_icon 'sticky-note', type: :regular, class: 'fa-fw'), book_notes_path(book), title: 'Notes', class: 'btn' %>
   <% if long %>
-  <%= link_to (fa_icon 'list', type: :solid), book_path(book), title: 'Show', class: 'btn icon-ok icon-white' %>
+  <%= link_to (fa_icon 'minus', type: :solid, class: 'fa-fw'), book_path(book), title: 'Show', class: 'btn' %>
   <% else %>
-  <%= link_to (fa_icon 'list', type: :solid), book_path(book, long: true), title: 'Show', class: 'btn icon-ok icon-white' %>
+  <%= link_to (fa_icon 'expand', type: :solid, class: 'fa-fw'), book_path(book, long: true), title: 'Show, long', class: 'btn' %>
   <% end %>
-  <%= link_to (fa_icon 'newspaper', type: :solid), book_view_path(book), title: 'View', class: 'btn icon-ok icon-white' %>
-  <%= link_to (fa_icon 'newspaper', type: :regular), book_view_path(book, outline: true), title: 'View, outline', class: 'btn icon-ok icon-white' %>
-  <%= link_to (fa_icon 'newspaper', type: :regular), book_view_path(book, outline: true, long: true), title: 'View, outline, long', class: 'btn icon-ok icon-white' %>
-  <%= link_to (fa_icon 'file-pdf', type: :solid), book_path(book, format: :pdf), title: 'PDF', class: 'btn icon-ok icon-white' %>
+  <%= link_to (fa_icon 'newspaper', type: :solid, class: 'fa-fw'), book_view_path(book), title: 'View', class: 'btn' %>
+  <%= link_to (fa_icon 'newspaper', type: :regular, class: 'fa-fw'), book_view_path(book, outline: true, long: true), title: 'View, outline', class: 'btn' %>
+  <%= link_to (fa_icon 'file-pdf', type: :solid, class: 'fa-fw'), book_path(book, format: :pdf), title: 'PDF', class: 'btn' %>
 </div>

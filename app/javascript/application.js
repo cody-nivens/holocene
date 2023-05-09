@@ -14,3 +14,4 @@ import './js/jquery-jvectormap-world-mill-en'
 
 import './js/site'
 
+import "controllers"

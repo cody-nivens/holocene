@@ -107,7 +107,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update section 2' do
-    assert_difference('Metric.count', 0) do
+    assert_difference('Metric.count', 1) do
       patch section_url(@section_2), params: { scene_id: @sectioned_2.scripted.id, section: { body: @section_2.body, name: @section_2.name, position: @section_2.position,
                                                                                               sectioned_type: @sectioned_2.class.name, sectioned_id: @sectioned_2.id, user_id: @user.id } }
     end
@@ -115,7 +115,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update section 3' do
-    assert_difference('Metric.count', 0) do
+    assert_difference('Metric.count', 1) do
       patch section_url(@section_2), params: { chapter_id: @sectioned_2.scripted.id, section: { body: @section_2.body, name: @section_2.name, position: @section_2.position,
                                                                                                 sectioned_type: @sectioned_1.class.name, sectioned_id: @sectioned_1.id, user_id: @user.id } }
     end
