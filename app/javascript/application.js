@@ -23,9 +23,9 @@ import 'trix'
 import '@rails/actiontext'
 import "chartkick"
 import "Chart.bundle"
-import './js/sortable';
-import './js/jquery.jvectormap.min';
-import './js/jquery-jvectormap-world-mill-en';
+import './js/sortable.js';
+import './js/jquery.jvectormap.min.js';
+import './js/jquery-jvectormap-world-mill-en.js';
 
 $(document).ready(function() {
 
