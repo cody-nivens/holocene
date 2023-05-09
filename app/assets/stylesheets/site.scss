@@ -1,15 +1,12 @@
-// app/javascript/scss/site.scss
 
-$fa-font-path: '~font-awesome/fonts';
-@import '~font-awesome/scss/font-awesome';
-@import '@fortawesome/fontawesome-free/scss/fontawesome';
+ $fa-font-path: 'font-awesome/fonts';
+@import 'font-awesome';
 
 @import 'variables';
-@import 'bootstrap/scss/_functions';
-@import 'bootstrap/scss/_variables';
-@import 'bootstrap/scss/mixins/_clearfix.scss';
-@import 'bootstrap/dist/css/bootstrap.css';
-@import 'jquery-ui/themes/base/sortable.css';
+@import 'bootstrap/_functions';
+@import 'bootstrap/_variables';
+@import 'bootstrap/mixins/_clearfix';
+@import 'jquery-ui/sortable.css';
 @import 'tpl';
 
 #side_controls {

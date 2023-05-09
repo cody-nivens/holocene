@@ -1,4 +1,27 @@
 // your sass here
+@import 'bootstrap/mixins/_clearfix';
+
+// sass variable overrides
+$body-bg: aliceblue;
+$body-color: #111;
+
+$navbar-default-bg: #312312;
+$light-orange: #ff8c00;
+$navbar-default-color: $light-orange;
+$theme-colors: ( "bootstrap": $body-bg, "simpleform": #00617f );
+$fa-font-path: "font-awesome/fonts" !default;
+$font-base: 16;
+
+@function rem-calc($pixel) {
+  $rem: $pixel / $font-base;
+  @return #{$rem}rem;
+}
+
+//$navbar-border-radius:            $border-radius !default;
+
+$navbar-height: rem-calc(50) !default;
+
+//$grid-float-breakpoint:     nth($grid-breakpoints, 1) !default;
 
 /*
 The challenge:
@@ -717,5 +740,16 @@ nav + .breadcrumb, .float-left {
     text-overflow: ellipsis !important;
     max-width: 200px !important;
   margin-bottom: 2em;
+}
+div#side_controls {
+  position: fixed;
+  left: 1em;
+  top: 20%;
+  width: 4em;
+  margin-top: -2.5em;
+}
+
+#stage-text {
+ height: 700px;
 }
 

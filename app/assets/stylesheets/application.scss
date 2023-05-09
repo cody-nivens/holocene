@@ -13,16 +13,16 @@
  */
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
-// @import "style4";
-@import "bootstrap-sprockets";
+@import "bootstrap";
 @import "datagrid";
 
-//@import 'font-awesome-sprockets';
+@import 'font-awesome';
 @import 'timelineJS/timeline';
 @import 'jquery-jvectormap';
-@import 'trix/dist/trix.css';
 
 @import "bootstrap-toggle";
 @import "simple_calendar";
+
+@import "./site";
 
 //@import "timelineJS/fonts/font.pt";

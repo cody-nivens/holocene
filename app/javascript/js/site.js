@@ -1,24 +1,23 @@
-import $ from 'jquery';
+//import '@fortawesome/fontawesome-free/js/all'
+import 'jquery-ui'
+//import 'jquery-ui/ui/widget'
+//import './jquery-ui/ui/data'
+//import './jquery-ui/ui/disable-selection'
+//import './jquery-ui/ui/scroll-parent'
+//import './jquery-ui/ui/widgets/sortable'
+//import './jquery-ui/ui/widgets/mouse'
+//import './jquery-ui/themes/base/core.css'
+//import './jquery-ui/themes/base/sortable.css'
 
-require('jquery-ui/ui/widget');
-require('jquery-ui/ui/data');
-require('jquery-ui/ui/disable-selection');
-require('jquery-ui/ui/scroll-parent');
-require('jquery-ui/ui/widgets/sortable');
-require('jquery-ui/ui/widgets/mouse');
-require('jquery-ui/themes/base/core.css');
-require('jquery-ui/themes/base/sortable.css');
+// import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle';
 
-import 'popper.js';
-require('@fortawesome/fontawesome-free/js/all');
-import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle';
-
-require('trix');
-require('@rails/actiontext');
-import 'chartkick/chart.js';
-import 'js/sortable';
-import 'js/jquery.jvectormap.min';
-import 'js/jquery-jvectormap-world-mill-en';
+import 'trix'
+import '@rails/actiontext'
+import "chartkick"
+import "Chart.bundle"
+import '../js/sortable';
+import '../js/jquery.jvectormap.min';
+import '../js/jquery-jvectormap-world-mill-en';
 
 $(document).ready(function() {
 
@@ -26,4 +25,11 @@ $(document).ready(function() {
     $('[data-bs-toggle="popover"]').popover();
 
 })
+
+// JS
+// import 'js/site';
+
+// Images
+//const images = require.context('../images', true);
+//const imagePath = (name) => images(name, true);
 
