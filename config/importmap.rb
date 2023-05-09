@@ -2,7 +2,9 @@
 
 pin "application", preload: true
 pin "trix", to: "https://ga.jspm.io/npm:trix@2.0.4/dist/trix.esm.min.js"
-pin "sortable", to: "sortable.js", preload: true
+pin "sortable", to: "app/javascript/js/sortable.js", preload: true
+pin "jquery.jvectormap.min", to: "app/javascript/js/jquery.jvectormap.min.js", preload: true
+pin "jquery-jvectormap-world-mill-en", to: "app/javascript/js/jquery-jvectormap-world-mill-en.js", preload: true
 pin "jquery", to: "jquery.min.js", preload: true
 pin "jquery_ujs", to: "jquery_ujs.js", preload: true
 pin "jquery-ui", to: "jquery-ui.min.js", preload: true

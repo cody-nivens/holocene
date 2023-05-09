@@ -24,6 +24,7 @@ class ActorLocationTimesController < ApplicationController
     # PUT /scenes/1/check
   def check
       @actor_location_time.update_attribute(:check, params[:check])
+      render json: { message: "Success" }
   end
 
 

@@ -1,8 +1,0 @@
-$("#act_loc-checkbox-<%= @actor_location_time.id %>").html('  <%=h link_to (fa_icon 'plus'), new_location_time_actor_location_time_path(@actor_location_time.location_time) %> ' +
- '<%=h check_box_tag 'check', !@actor_location_time.check, @actor_location_time.check, 
-    :data => {:remote => true, 
-              :url => url_for( :controller => 'actor_location_times', :action => 'check', :id => @actor_location_time.id), 
-              :method => :put}, 
-              :class => 'input-large' %> ' +
-'<%=h @actor_location_time.role.to_plain_text %>' +
-'<%= link_to (fa_icon 'edit'), edit_actor_location_time_path(@actor_location_time) %>');

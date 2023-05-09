@@ -3,9 +3,10 @@
 <div id="act_loc-checkbox-<%= act_loc.id %>">
 <%= link_to (fa_icon 'plus'), new_location_time_actor_location_time_path(act_loc.location_time) %>
   <%= check_box_tag 'check', !act_loc.check, act_loc.check,
-    :data => {:remote => true,
-    :url => url_for( :controller => 'actor_location_times', :action => 'check', :id => act_loc.id),
-    :method => :put},
+    :data => {
+      action: 'actor-location-times#toggle',
+      id: act_loc.id
+    },
     :class => 'input-large' %>
 <%= act_loc.role.to_plain_text %>
 <%= link_to (fa_icon 'edit'), edit_actor_location_time_path(act_loc) %>

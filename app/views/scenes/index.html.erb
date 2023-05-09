@@ -148,7 +148,7 @@
 </div>
 <% end %>
 
-<div id='scenes-list'>
+<div id='scenes-list'  data-controller="scenes">
     <%= render partial: 'scenes/scenes', formats: [:html], locals: { scenes: @scenes, print: @print, situated: @situated,
                                                                      option: @option, years: @years, 
                                                                      date: @year, scripted: @scripted, long: @long } %>

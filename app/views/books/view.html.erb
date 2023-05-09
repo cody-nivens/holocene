@@ -2,6 +2,8 @@
 
 <%= render partial: 'header', locals: { book: @book, long: long } %>
 
+<div data-controller="scenes">
 <%= render partial: 'books/show', formats: [:html], locals: { outline: params[:outline], pdf: false, book: @book, chapters: @chapters, long: long } %>
+</div>
 
 <%= render partial: 'footer', locals: { book: @book } %>
