@@ -19,4 +19,6 @@
 
 <% end %>
 
-<% add_to_footer('Back', book_plot_points_path(@plot_point.book)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_plot_points_path(@plot_point.book), class: 'btn', title: 'Back' %>
+</div>

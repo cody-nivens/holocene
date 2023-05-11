@@ -46,5 +46,8 @@
   <%= @artifact.summary %>
 </p>
 <% end %>
-<% add_to_footer('Edit', edit_artifact_path(@artifact)) %>
-<% add_to_footer('Back', book_artifacts_path(@book)) %>
+
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_artifact_path(@artifact), class: 'btn', title: 'Edit' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_artifacts_path(@book), class: 'btn', title: 'Back' %>
+</div>

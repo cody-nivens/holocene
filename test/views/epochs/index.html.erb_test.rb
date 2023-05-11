@@ -16,9 +16,8 @@ class EpochsIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @epoches = Epoch.all
 
-    assert_select 'a[text()=?]', 'New Epoch'
+    assert_select 'a[title=?]', 'New Epoch'
     assert_select 'a[href=?]', new_epoch_path
-    assert_select '.footer>div>a', 1
     assert_template 'epochs/index'
 
     assert_select 'h2', 'Epochs'

@@ -19,7 +19,7 @@
 
 
 <div id="side_controls" class="hide-print">
-  <%= link_to (fa_icon 'angle-left'), welcome_show_path(:date => (date - 1.day).to_s), class: 'btn icon-ok icon-white' %>
-  <%= link_to (fa_icon 'angle-right'), welcome_show_path(:date => (date + 1.day).to_s), class: 'btn icon-ok icon-white' %>
+  <%= link_to (fa_icon 'angle-left', class: 'fa-fw'), welcome_show_path(:date => (date - 1.day).to_s), class: 'btn' %>
+  <%= link_to (fa_icon 'angle-right', class: 'fa-fw'), welcome_show_path(:date => (date + 1.day).to_s), class: 'btn' %>
 </div>
 

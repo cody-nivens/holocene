@@ -2,4 +2,6 @@
 
 <%= render 'form', book: @book, command_label: 'Create Book' %>
 
-<% add_to_footer('Back',  return_or_default_path(books_path)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(books_path), class: 'btn', title: 'Back' %>
+</div>

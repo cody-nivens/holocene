@@ -10,4 +10,6 @@
   <% end %></p>
 <% end %>
 
-<% add_to_footer('Back', holocene_events_path) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), holocene_events_path, class: 'btn', title: 'Back' %>
+</div>

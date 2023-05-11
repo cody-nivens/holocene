@@ -2,5 +2,7 @@
 
 <%= render 'form', city: @city %>
 
-<% add_to_footer('Show', city_path(@city)) %>
-<% add_to_footer('Back',  return_or_default_path(cities_path)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'search', class: 'fa-fw'), city_path(@city), class: 'btn', title: 'Show' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(cities_path), class: 'btn', title: 'Back' %>
+</div>

@@ -12,14 +12,12 @@ class TimelinesEditHtmlErbTest < ActionDispatch::IntegrationTest
 
   test 'should get edit' do
     get edit_timeline_url(@timeline)
-    assert_select 'a[text()=?]', 'Back'
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Show'
+    assert_select 'a[title=?]', 'Show'
     assert_select 'a[href=?]', timeline_path(@timeline)
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', timelines_path
-    assert_select '.footer>div>a', 2
     assert_template 'timelines/edit'
   end
 end

@@ -6,5 +6,7 @@
 <%= datagrid_table @grid, @records, partials: 'itinerary_grid' %>
 <%== pagy_nav(@pagy) %>
 
-<% add_to_footer('New Itinerary', new_tour_itinerary_path(@tour)) %>
-<% add_to_footer('Back', tour_path(@tour)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_tour_itinerary_path(@tour), class: 'btn', title: 'New Itinerary' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), tour_path(@tour), class: 'btn', title: 'Back' %>
+</div>

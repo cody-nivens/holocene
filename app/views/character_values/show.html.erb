@@ -8,5 +8,7 @@
   <%= @character_value.value %>
 </p>
 
-<% add_to_footer('Edit', edit_book_character_character_value_path(@object, @character, @character_value)) %>
-<% add_to_footer('Back', polymorphic_path([@object, @character, :character_values])) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_book_character_character_value_path(@object, @character, @character_value), class: 'btn', title: 'Edit' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path([@object, @character, :character_values]), class: 'btn', title: 'Back' %>
+</div>

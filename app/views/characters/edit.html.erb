@@ -2,5 +2,7 @@
 
 <%= render 'form', character: @character, year: @year, object: @object %>
 
-<% add_to_footer('Show', polymorphic_path([@object, @character])) %>
-<% add_to_footer('Back',  return_or_default_path(polymorphic_path([@object, :characters]))) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'search', class: 'fa-fw'), polymorphic_path([@object, @character]), class: 'btn', title: 'Show' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(polymorphic_path([@object, :characters])), class: 'btn', title: 'Back' %>
+</div>

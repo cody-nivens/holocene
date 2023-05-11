@@ -10,4 +10,7 @@
 </h2>
 
 <%= render partial: 'key_points/view', formats: [:html], locals: { pdf: false, key_point: @key_point, long: @long } %>
-<% add_to_footer('Back', @key_point) %>
+
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), @key_point, class: 'btn', title: 'Back' %>
+</div>

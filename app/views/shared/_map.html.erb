@@ -1,7 +1,7 @@
 <div id="world-map" style="width: 720px; height: 400px"></div>
 
 <script nonce="<%= request.content_security_policy_nonce %>" type="text/javascript">
-  $(document).on('turbolinks:load', function() {
+  $(document).on('turbo:load', function() {
     var map_locs = <%== object.map_locs.to_json %>
     $('#world-map').vectorMap({
       map: 'world_mill_en',

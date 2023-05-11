@@ -17,7 +17,7 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should sort stories' do
-    put story_sort_url(story_id: @story.id), xhr: true, params: { story: { id: @story.id, book_id: @story.book.id } }
+    patch story_sort_url(story_id: @story.id), xhr: true, params: { story: { id: @story.id, book_id: @story.book.id } }
     assert_response :success
   end
 

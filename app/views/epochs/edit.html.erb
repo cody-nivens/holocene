@@ -2,5 +2,7 @@
 
 <%= render 'form', epoch: @epoch, command_label: 'Update Epoch' %>
 
-<% add_to_footer('Show', @epoch) %>
-<% add_to_footer('Back',  return_or_default_path(epochs_path)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), @epoch, class: 'btn', title: 'Show' %>
+<%= link_to (fa_icon 'plus', class: 'fa-fw'),  return_or_default_path(epochs_path), class: 'btn', title: 'Back' %>
+</div>

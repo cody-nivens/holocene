@@ -1,3 +1,6 @@
 <%= render 'shared/map', object: @object %>
-<% add_to_footer('Display', event_type_path(@event_type)) %>
-<% add_to_footer('Back', event_type_path(@event_type)) %>
+
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'list-alt', class: 'fa-fw'), event_type_path(@event_type), class: 'btn', title: 'Display' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), event_type_path(@event_type), class: 'btn', title: 'Back' %>
+</div>

@@ -2,5 +2,7 @@
 
 <%= render 'form', plot_point: @plot_point, book: @book %>
 
-<% add_to_footer('Show', @plot_point) %> 
-<% add_to_footer('Back', book_plot_points_path(@book)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'search', class: 'fa-fw'), @plot_point, class: 'btn', title: 'Show' %> 
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_plot_points_path(@book), class: 'btn', title: 'Back' %>
+</div>

@@ -14,12 +14,11 @@ class TimelinesDisplayHtmlErbTest < ActionDispatch::IntegrationTest
     get timeline_display_url(timeline_id: @timeline.id)
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Timeline'
+    assert_select 'a[title=?]', 'Timeline'
     assert_select 'a[href=?]', timeline_timeline_path(@timeline)
-    assert_select 'a[text()=?]', 'Map'
+    assert_select 'a[title=?]', 'Map'
     assert_select 'a[href=?]', geo_map_timeline_path(@timeline)
-    assert_select 'a[text()=?]', 'Back'
-    assert_select '.footer>div>a', 3
+    assert_select 'a[title=?]', 'Back'
     assert_template 'holocene_events/display'
   end
 end

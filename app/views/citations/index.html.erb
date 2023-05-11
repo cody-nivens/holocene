@@ -19,4 +19,6 @@
   </table>
 <% end %>
 
-<% add_to_footer('Back', chapter_path(@chapter)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), chapter_path(@chapter), class: 'btn', title: 'Back' %>
+</div>

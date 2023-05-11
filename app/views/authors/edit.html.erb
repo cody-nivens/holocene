@@ -2,5 +2,7 @@
 
 <%= render 'form', user: current_user, author: @author, command_label: 'Update Author', object: @object %>
 
-<% add_to_footer('Show', polymorphic_path([@object, @author])) %>
-<% add_to_footer('Back',  return_or_default_path(polymorphic_path([@object, :authors]))) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'search', class: 'fa-fw'), polymorphic_path([@object, @author]), class: 'btn', title: 'Show' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), return_or_default_path(polymorphic_path([@object, :authors])), class: 'btn', title: 'Back' %>
+</div>

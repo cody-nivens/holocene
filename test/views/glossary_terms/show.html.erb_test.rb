@@ -15,11 +15,10 @@ class GlossaryTermsShowHtmlErbTest < ActionDispatch::IntegrationTest
     get glossary_term_path(@glossary_term)
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Edit'
+    assert_select 'a[title=?]', 'Edit'
     assert_select 'a[href=?]', edit_glossary_term_path(@glossary_term)
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', book_glossary_terms_path(@book)
-    assert_select '.footer>div>a', 2
     assert_template 'glossary_terms/show'
   end
 end

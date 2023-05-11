@@ -17,9 +17,8 @@ class BiblioentriesIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @biblioentries = Biblioentry.all
 
-    assert_select 'a[text()=?]', 'New Biblioentry'
+    assert_select 'a[title=?]', 'New Biblioentry'
     assert_select 'a[href=?]', new_polymorphic_path([@book, :biblioentry])
-    assert_select '.footer>div>a', 2
     assert_template 'biblioentries/index'
 
     assert_select 'h2', 'Biblioentries'

@@ -121,7 +121,7 @@
   <% str += "$('##{key.to_s.gsub(/ /, '_')}').val('#{attributes[key]}');" %>
 <% end %>
 <script nonce="<%= request.content_security_policy_nonce %>" type='text/javascript'>
-  $(document).on('turbolinks:load', function() {
+  $(document).on('turbo:load', function() {
     <%== str %>
     $(document).on('change', 'input#death_age', function(e){
       var year = $('#year').val();

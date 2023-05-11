@@ -2,4 +2,6 @@
 
 <%= render 'form', scene: @scene, situated: @situated, selector: @selector, key_point: @key_point %>
 
-<% add_to_footer('Back',  return_or_default_path((@scene.key_point.nil? ? polymorphic_path(@situated) : polymorphic_path([@situated, @scene.key_point, :list])))) %>
+<div id="side_controls" class="hide-print">
+
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path((@scene.key_point.nil? ? polymorphic_path(@situated) : polymorphic_path([@situated, @scene.key_point, :list]))), class: 'btn', title: 'Back' %>

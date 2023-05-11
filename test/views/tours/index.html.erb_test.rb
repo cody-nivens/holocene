@@ -17,11 +17,10 @@ class ToursIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @tours = Tour.all
 
-    assert_select 'a[text()=?]', 'New Tour'
+    assert_select 'a[title=?]', 'New Tour'
     assert_select 'a[href=?]', new_polymorphic_path([@story, :tour])
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', story_path(@story)
-    assert_select '.footer>div>a', 2
     assert_template 'tours/index'
 
     assert_select 'h2', "Tours for #{@story.name}"

@@ -15,9 +15,8 @@ class ArtifactTypesNewHtmlErbTest < ActionDispatch::IntegrationTest
     get new_polymorphic_url([@book, :artifact_type])
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', book_artifact_types_path(@book)
-    assert_select '.footer>div>a', 1
     assert_template 'artifact_types/new'
   end
 end

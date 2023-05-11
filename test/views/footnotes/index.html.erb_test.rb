@@ -17,9 +17,7 @@ class FootnotesIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @footnotes = Footnote.all
 
-    assert_select 'a[text()=?]', 'New Footnote'
-    # assert_select "a[href=?]", new_polymorphic_path([@noted, :footnote], :slug=>'test23')
-    assert_select '.footer>div>a', 2
+    assert_select 'a[title=?]', 'New Footnote'
     assert_template 'footnotes/index'
 
     assert_select 'h2', 'Footnotes'

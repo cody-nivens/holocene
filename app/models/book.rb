@@ -1,12 +1,11 @@
 class Book < ApplicationRecord
-  include RankedModel
 
   ThinkingSphinx::Callbacks.append(
     self, behaviours: [:sql]
   )
 
   belongs_to :user
-  ranks :position, with_same: :user_id
+  acts_as_list
 
   has_rich_text :body
   has_rich_text :summary

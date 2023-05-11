@@ -41,8 +41,9 @@ class StoriesController < ApplicationController
 
   def sort
     @story = Story.find(params[:story_id])
-    @story.update(story_params)
-    render body: nil
+    @story.set_list_position(params[:story][:position].to_i)
+    @story.save
+    render json: { message: "Success" }
   end
 
   # GET /stories/1

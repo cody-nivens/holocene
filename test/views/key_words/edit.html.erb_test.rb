@@ -13,14 +13,13 @@ class KeyWordsEditHtmlErbTest < ActionDispatch::IntegrationTest
 
   test 'should get edit' do
     get edit_key_word_url(@key_word)
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Show'
+    assert_select 'a[title=?]', 'Show'
     assert_select 'a[href=?]', key_word_path(@key_word)
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', polymorphic_path([@book, :key_words])
-    assert_select '.footer>div>a', 2
     assert_template 'key_words/edit'
   end
 end

@@ -14,10 +14,9 @@ class TimelinesTimelineHtmlErbTest < ActionDispatch::IntegrationTest
     get timeline_timeline_url(timeline_id: @timeline.id)
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Display'
+    assert_select 'a[title=?]', 'Display'
     assert_select 'a[href=?]', timeline_display_path(@timeline)
-    assert_select 'a[text()=?]', 'Back'
-    assert_select '.footer>div>a', 2
+    assert_select 'a[title=?]', 'Back'
     assert_template 'timelines/timeline'
   end
 end

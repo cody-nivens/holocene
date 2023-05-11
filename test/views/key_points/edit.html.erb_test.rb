@@ -15,9 +15,8 @@ class KeyPointsEditHtmlErbTest < ActionDispatch::IntegrationTest
     get edit_key_point_url(@key_point)
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', key_point_path(@key_point)
-    assert_select '.footer>div>a', 1
     assert_template 'key_points/edit'
   end
 end

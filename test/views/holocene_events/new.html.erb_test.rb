@@ -15,9 +15,8 @@ class HoloceneEventsNewHtmlErbTest < ActionDispatch::IntegrationTest
     get new_holocene_event_url
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', holocene_events_path
-    assert_select '.footer>div>a', 1
     assert_template 'holocene_events/new'
   end
 end

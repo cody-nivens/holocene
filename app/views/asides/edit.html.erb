@@ -2,6 +2,8 @@
 
 <%= render 'form', aside: @aside, book: @book, chapter: @chapter %>
 
-<% add_to_footer('Show', aside_path(@aside)) %>
-<% add_to_footer('Destroy', aside_path(@aside), method: :delete, data: { confirm: 'Are you sure?' }) %>
-<% add_to_footer('Back',  return_or_default_path(chapter_path(@chapter))) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'search', class: 'fa-fw'), aside_path(@aside), class: 'btn', title: 'Show' %>
+<%= link_to (fa_icon 'trash', class: 'fa-fw'), aside_path(@aside), data: { confirm: 'Are you sure?' }, class: 'btn', title: 'Destroy', method: :delete %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(chapter_path(@chapter)), class: 'btn', title: 'Back' %>
+</div>

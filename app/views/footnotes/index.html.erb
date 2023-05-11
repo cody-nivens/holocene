@@ -3,5 +3,7 @@
 
 <%= render 'footnotes/index', footnotes: @footnotes, noted: @noted %>
 
-<% add_to_footer('New Footnote', "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnotes/#{Footnote.random_slug}") %>
-<% add_to_footer('Back', polymorphic_path(@noted)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnotes/#{Footnote.random_slug}", class: 'btn', title: 'New Footnote' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@noted), class: 'btn', title: 'Back' %>
+</div>

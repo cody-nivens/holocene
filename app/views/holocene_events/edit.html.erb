@@ -2,5 +2,7 @@
 
 <%= render 'form', holocene_event: @holocene_event, command_label: 'Update Holocene event' %>
 
-<% add_to_footer('Show', @holocene_event) %>
-<% add_to_footer('Back',  return_or_default_path(holocene_events_path)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'search', class: 'fa-fw'), @holocene_event, class: 'btn', title: 'Show' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(holocene_events_path), class: 'btn', title: 'Back' %>
+</div>

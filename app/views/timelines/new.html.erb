@@ -2,4 +2,6 @@
 
 <%= render 'form', timeline: @timeline, command_label: 'Create Timeline' %>
 
-<% add_to_footer('Back',  return_or_default_path(timelines_path)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(timelines_path), class: 'btn', title: 'Back' %>
+</div>

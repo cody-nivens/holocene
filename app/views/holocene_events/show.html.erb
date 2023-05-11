@@ -93,7 +93,9 @@
 <p>Tags: <%== @holocene_event.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></p>
 <% end %>
 
-<% add_to_footer('Edit', edit_holocene_event_path(@holocene_event)) %>
-<% add_to_footer('Map', geo_map_holocene_event_path(@holocene_event)) %>
-<% add_to_footer('Footnotes', holocene_event_footnotes_path(@holocene_event)) %>
-<% add_to_footer('Back', holocene_events_path) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_holocene_event_path(@holocene_event), class: 'btn', title: 'Edit' %>
+<%= link_to (fa_icon 'map', class: 'fa-fw'), geo_map_holocene_event_path(@holocene_event), class: 'btn', title: 'Map' %>
+<%= link_to (fa_icon 'asterisk', class: 'fa-fw'), holocene_event_footnotes_path(@holocene_event), class: 'btn', title: 'Footnotes' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), holocene_events_path, class: 'btn', title: 'Back' %>
+</div>

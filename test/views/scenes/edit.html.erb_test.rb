@@ -13,12 +13,10 @@ class ScenesEditHtmlErbTest < ActionDispatch::IntegrationTest
 
   test 'should get edit' do
     get edit_scene_url(@scene)
-    assert_select 'a[text()=?]', 'Back'
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', scene_path(@scene)
-    assert_select '.footer>div>a', 1
     assert_template 'scenes/edit'
   end
 end

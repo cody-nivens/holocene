@@ -15,10 +15,9 @@ class AuthorsShowHtmlErbTest < ActionDispatch::IntegrationTest
     get polymorphic_path([@book, @author])
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Edit'
+    assert_select 'a[title=?]', 'Edit'
     assert_select 'a[href=?]', edit_polymorphic_path([@book, @author])
-    assert_select 'a[text()=?]', 'Back'
-    assert_select '.footer>div>a', 2
+    assert_select 'a[title=?]', 'Back'
     assert_template 'authors/show'
   end
 end

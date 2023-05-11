@@ -16,11 +16,10 @@ class CharacterValuesEditHtmlErbTest < ActionDispatch::IntegrationTest
     get edit_book_character_character_value_url(@book, @character, @character_value)
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Show'
+    assert_select 'a[title=?]', 'Show'
     assert_select 'a[href=?]', book_character_character_value_path(@book, @character, @character_value)
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', polymorphic_path([@book, @character, :character_values])
-    assert_select '.footer>div>a', 2
     assert_template 'character_values/edit'
   end
 end

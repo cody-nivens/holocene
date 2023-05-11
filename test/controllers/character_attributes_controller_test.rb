@@ -31,7 +31,7 @@ class CharacterAttributesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should sort character_attributes' do
-    put character_attribute_sort_url(character_attribute_id: @character_attribute.id), xhr: true,
+    patch character_attribute_sort_url(character_attribute_id: @character_attribute.id), xhr: true,
                                                                                     params: { character_attribute: { id: @character_attribute.id } }
     assert_response :success
   end

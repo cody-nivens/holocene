@@ -17,9 +17,8 @@ class HoloceneEventsIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @holocene_events = HoloceneEvent.all
 
-    assert_select 'a[text()=?]', 'New Holocene Event'
+    assert_select 'a[title=?]', 'New Holocene Event'
     assert_select 'a[href=?]', new_holocene_event_path
-    assert_select '.footer>div>a', 1
     assert_template 'holocene_events/index'
     assert_template 'holocene_event_grid/_table'
 

@@ -16,9 +16,8 @@ class RegionsIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @regions = Region.all
 
-    assert_select 'a[text()=?]', 'New Region'
+    assert_select 'a[title=?]', 'New Region'
     assert_select 'a[href=?]', new_region_path
-    assert_select '.footer>div>a', 1
     assert_template 'regions/index'
 
     assert_select 'h2', 'Regions'

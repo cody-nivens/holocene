@@ -2,4 +2,6 @@
 
 <%= render 'form', character_attribute: @character_attribute, character_category: @character_category %>
 
-<% add_to_footer('Back',  return_or_default_path(character_category_path(@character_category))) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(character_category_path(@character_category)), class: 'btn', title: 'Back' %>
+</div>

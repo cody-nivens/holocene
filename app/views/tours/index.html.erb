@@ -6,18 +6,17 @@
     <tr>
       <th>Story</th>
       <th>Name</th>
-      <th colspan="3"></th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @tours.each do |tour| %>
       <tr>
-        <td><%= tour.story.name %></td>
+        <td><%= link_to tour.story.name, tour_path(tour) %></td>
         <td><%= tour.name %></td>
-        <td><%= link_to 'Show', tour_path(tour) %></td>
-        <td><%= link_to 'Edit', edit_tour_path(tour) %></td>
-        <td><%= link_to 'Destroy', tour_path(tour), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_tour_path(tour), title: 'Edit' %>
+        <%= link_to (fa_icon 'trash', class: 'fa-fw'), tour_path(tour), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -25,5 +24,7 @@
 
 <br>
 
-<% add_to_footer('New Tour', new_story_tour_path(@story)) %>
-<% add_to_footer('Back', story_path(@story)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_story_tour_path(@story), class: 'btn', title: 'New Tour' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), story_path(@story), class: 'btn', title: 'Back' %>
+</div>

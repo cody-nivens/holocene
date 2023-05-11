@@ -13,11 +13,6 @@ class WelcomesTagsHtmlErbTest < ActionDispatch::IntegrationTest
 
     assert_response 200
 
-    assert_select 'a[text()=?]', 'Progress'
-    assert_select 'a[href=?]', welcome_index_path
-    assert_select 'a[text()=?]', 'Stats'
-    assert_select 'a[href=?]', welcome_stats_path
-
     assert_template 'welcome/tags'
 
     ['layouts/_nav_links', '_nav_links', 'layouts/_nav_links_for_auth', '_nav_links_for_auth',

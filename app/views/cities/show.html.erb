@@ -57,5 +57,7 @@
 <% @object = @city %>
 <%= render 'shared/map', object: @city %>
 
-<% add_to_footer('Edit', edit_city_path(@city)) %>
-<% add_to_footer('Back', cities_path) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_city_path(@city), class: 'btn', title: 'Edit' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), cities_path, class: 'btn', title: 'Back' %>
+</div>

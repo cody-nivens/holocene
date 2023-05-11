@@ -78,7 +78,8 @@ class BooksController < ApplicationController
 
   def sort
     @book = Book.find(params[:book_id])
-    @book.update(book_params)
+    @book.set_list_position(params[:book][:position].to_i)
+    @book.save
     render body: nil
   end
 
@@ -263,6 +264,6 @@ class BooksController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def book_params
     params.require(:book).permit(:name, :body, :summary, :user_id, :show_events, :copyright, :sub_name, :publisher, :fiction,
-                                 :position_position)
+                                 :position)
   end
 end

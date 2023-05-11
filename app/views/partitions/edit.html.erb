@@ -2,5 +2,7 @@
 
 <%= render 'form', partition: @partition, book: @book, chapter: @chapter %>
 
-<% add_to_footer('Show', partition_path(@partition)) %>
-<% add_to_footer('Back',  return_or_default_path(chapter_path(@chapter))) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'search', class: 'fa-fw'), partition_path(@partition), class: 'btn', title: 'Show' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(chapter_path(@chapter)), class: 'btn', title: 'Back' %>
+</div>

@@ -10,7 +10,9 @@
 <%= datagrid_table @grid %>
 <%= paginate(@grid.assets) %>
 
-<% add_to_footer('Edit', edit_event_type_path(@event_type)) %>
-<% add_to_footer('Timeline', event_type_timeline_path(@event_type)) %>
-<% add_to_footer('Map', geo_map_event_type_path(@event_type)) %>
-<% add_to_footer('Back', event_types_path) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_event_type_path(@event_type), class: 'btn', title: 'Edit' %>
+<%= link_to (fa_icon 'stream', class: 'fa-fw'), event_type_timeline_path(@event_type), class: 'btn', title: 'Timeline' %>
+<%= link_to (fa_icon 'map', class: 'fa-fw'), geo_map_event_type_path(@event_type), class: 'btn', title: 'Map' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), event_types_path, class: 'btn', title: 'Back' %>
+</div>

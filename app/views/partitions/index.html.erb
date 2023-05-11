@@ -7,23 +7,24 @@
       <th>Name</th>
       <th>Body</th>
       <th>Chapter</th>
-      <th colspan="3"></th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @partitions.each do |partition| %>
       <tr>
-        <td><%= partition.name %></td>
+        <td><%= link_to partition.name, partition_url(partition) %></td>
         <td><%= partition.body %></td>
         <td><%= partition.chapter_name %></td>
-        <td><%= link_to 'Show', partition_url(partition) %></td>
-        <td><%= link_to 'Edit', edit_partition_path(partition) %></td>
-        <td><%= link_to 'Destroy', partition_url(partition), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_partition_path(partition), title: 'Edit' %>
+        <%= link_to (fa_icon 'trash', class: 'fa-fw'), partition_url(partition), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<% add_to_footer('New Partition', new_chapter_partition_path(@chapter)) %>
-<% add_to_footer('Back', chapter_path(@chapter)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_chapter_partition_path(@chapter), class: 'btn', title: 'New Partition' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), chapter_path(@chapter), class: 'btn', title: 'Back' %>
+</div>

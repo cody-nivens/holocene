@@ -4,7 +4,10 @@
 </p>
 
 <%= render 'shared/map', object: @object %>
-<% add_to_footer('Timeline', section_timeline_path(section_id: @section.id)) %>
-<% add_to_footer('Display', section_display_path(section_id: @section.id)) %>
-<% add_to_footer('Back', polymorphic_path(@object.sectioned)) %>
+
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'stream', class: 'fa-fw'), section_timeline_path(section_id: @section.id), class: 'btn', title: 'Timeline' %>
+<%= link_to (fa_icon 'list-alt', class: 'fa-fw'), section_display_path(section_id: @section.id), class: 'btn', title: 'Display' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@object.sectioned), class: 'btn', title: 'Back' %>
+</div>
 ~

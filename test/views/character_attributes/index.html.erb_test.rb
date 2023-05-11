@@ -17,9 +17,8 @@ class CharacterAttributesIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @character_attributes = CharacterAttribute.all
 
-    assert_select 'a[text()=?]', 'New Character Attribute'
+    assert_select 'a[title=?]', 'New Character Attribute'
     assert_select 'a[href=?]', new_polymorphic_path([@character_category, :character_attribute])
-    assert_select '.footer>div>a', 2
     assert_template 'character_attributes/index'
 
     assert_select 'h2', 'Character Attributes'

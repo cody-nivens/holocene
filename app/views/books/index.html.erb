@@ -2,19 +2,12 @@
 
 <% unless @books.empty? %>
 <% pdf ||= nil %>
-<dl>
-<div class="chapter_outer-sortable" style="cursor: grab;">
-  <%= content_tag 'div', id: "user-#{current_user.id}", data: { id: current_user.id, model_name: current_user.class.name.underscore, update_url: polymorphic_path([@books.first, :sort]) } do %>
-    <div class="book-sortable" style="cursor: grab; min-height: 10px;">
-      <% @books.includes([:rich_text_body]).rank(:position).each do |book| %>
-        <%= content_tag 'div', id: "book-#{book.id}", data: { model_name: book.class.name.underscore, update_url: polymorphic_path([book, :sort]) } do %>
-          <%= render partial: 'books/book', formats: [:html], locals: { book: book, pdf: pdf } %>
-        <% end %>
-      <% end %>
-    </div>
+<ul data-controller="sortable" data-sortable-resource-name-value="book">
+  <% @books.each do |book| %>
+    <li data-sortable-update-url="<%= book_sort_path(book) %>">
+      <%= render partial: 'books/book', formats: [:html], locals: { book: book, pdf: pdf } %>
+    </li>
   <% end %>
-</div>
-</dl>
 <% end %>
 
 <div id="side_controls" class="hide-print">

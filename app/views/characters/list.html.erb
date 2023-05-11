@@ -19,5 +19,7 @@
 
 <% end %>
 
-<% add_to_footer('New Character', polymorphic_path([@object, :characters]), method: :post) %>
-<% add_to_footer('Back', polymorphic_path(@object)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), polymorphic_path([@object, :characters]), method: :post, class: 'btn', title: 'New Character' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@object), class: 'btn', title: 'Back' %>
+</div>

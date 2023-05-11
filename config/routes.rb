@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   post '/stories/:story_id/key_points/:id/add', to: 'key_points#add', as: :story_key_point_add
   post '/books/:book_id/key_points/:id/moved', to: 'key_points#moved', as: :book_key_point_moved
   post '/scenes/:id/moved', to: 'scenes#moved', as: :scene_moved
-  put '/scenes/:id/check', to: 'scenes#check', as: :scene_check
+  patch '/scenes/:id/check', to: 'scenes#check', as: :scene_check
   get '/stages/:id/check', to: 'stages#check', as: :stage_check
   get '/stages/:id/time_by_location', to: 'stages#time_by_location', as: :stage_time_by_location
   get '/stages/:id/time_by_actor', to: 'stages#time_by_actor', as: :stage_time_by_actor
@@ -43,8 +43,8 @@ Rails.application.routes.draw do
   get '/stages/:id/list', to: 'stages#list', as: :stage_list
   get '/stages/:id/scenes', to: 'stages#scenes', as: :stage_scenes
   get '/stages/:id/characters', to: 'stages#characters', as: :stage_characters
-  put '/actor_location_times/:id/check', to: 'actor_location_times#check', as: :actor_location_times_check
-  put '/stages/:id/add_characters', to: 'stages#add_characters', as: :stages_add_characters
+  patch '/actor_location_times/:id/check', to: 'actor_location_times#check', as: :actor_location_times_check
+  patch '/stages/:id/add_characters', to: 'stages#add_characters', as: :stages_add_characters
 
   resources :cities
   namespace :character do
@@ -74,9 +74,9 @@ Rails.application.routes.draw do
   resources :embeds
   resources :character_categories, shallow: true do
     resources :character_attributes do
-      put :sort
+      patch :sort
     end
-    put :sort
+    patch :sort
   end
 
   get '/books/:book_id/characters', to: 'characters#index', format: :js, constraints: lambda { |request|
@@ -119,7 +119,7 @@ Rails.application.routes.draw do
   get '/stories/:id/timeline', to: 'stories#timeline', as: :story_timeline
   get '/stories/:id/resync_scenes', to: 'stories#resync_scenes', as: :story_resync_scenes
   get '/stories/:story_id/character/:id/lineage', to: 'characters#lineage', as: :story_character_lineage
-  put '/sections/:section_id/sort', to: 'sections#sort', as: :section_sort
+  patch '/sections/:section_id/sort', to: 'sections#sort', as: :section_sort
 
 
   devise_for :users
@@ -144,7 +144,7 @@ Rails.application.routes.draw do
         end
       end
     end
-    put :sort
+    patch :sort
     concerns :scripted, scripted_type: 'Book'
     resources :key_points do
       resources :sections
@@ -155,7 +155,7 @@ Rails.application.routes.draw do
     resources :glossary_terms
     resources :biblioentries
     resources :stories do
-      put :sort
+      patch :sort
     end
   end
   resources :biblioentries do
@@ -170,14 +170,14 @@ Rails.application.routes.draw do
   end
   resources :stories, shallow: true do
     concerns :situated, scripted_type: 'Story'
-    put :sort
+    patch :sort
     resources :tours do
       resources :itineraries
     end
     resources :scenes
     resources :characters
     resources :key_points do
-      put :sort
+      patch :sort
       resources :scenes
     end
     resources :chapters
@@ -201,14 +201,14 @@ Rails.application.routes.draw do
     concerns :sectioned, sectioned_type: 'Chapter'
     resources :scenes
     resources :sections
-    put :sort
+    patch :sort
   end
   resources :chapters, shallow: true do
     resources :asides
     resources :partitions
   end
   resources :scenes, shallow: true do
-    put :sort
+    patch :sort
     concerns :located, located_type: 'Book'
     resources :sections
     resources :character_scenes, only: %i[show edit update]

@@ -13,6 +13,8 @@ module ApplicationHelper
       return 'Key Point'
     when 'stages'
       return 'Item'
+    when 'chapters'
+      return 'Chapter'
     else
       return 'Item'
     end

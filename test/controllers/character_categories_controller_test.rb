@@ -15,7 +15,7 @@ class CharacterCategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should sort character_categories' do
-    put character_category_sort_url(character_category_id: @character_category.id), xhr: true,
+    patch character_category_sort_url(character_category_id: @character_category.id), xhr: true,
                                                                                     params: { character_category: { id: @character_category.id } }
     assert_response :success
   end

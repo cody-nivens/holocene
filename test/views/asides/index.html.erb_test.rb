@@ -17,9 +17,8 @@ class AsidesIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @asides = Aside.all
 
-    assert_select 'a[text()=?]', 'New Aside'
+    assert_select 'a[title=?]', 'New Aside'
     assert_select 'a[href=?]', new_polymorphic_path([@chapter, :aside])
-    assert_select '.footer>div>a', 1
     assert_template 'asides/index'
 
     assert_select 'h2', 'Asides'

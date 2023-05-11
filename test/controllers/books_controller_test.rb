@@ -12,7 +12,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should sort books' do
-    put book_sort_url(book_id: @book_2.id), xhr: true, params: { book: { id: @book_2.id, user_id: @book_2.user_id } }
+    patch book_sort_url(book_id: @book_2.id), xhr: true, params: { book: { id: @book_2.id, user_id: @book_2.user_id } }
     assert_response :success
   end
 

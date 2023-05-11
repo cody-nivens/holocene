@@ -2,5 +2,7 @@
 
 <%= render 'form', itinerary: @itinerary, cities: @cities %>
 
-<% add_to_footer('Show', itinerary_path(@itinerary)) %>
-<% add_to_footer('Back',  return_or_default_path(tour_path(@tour))) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'search', class: 'fa-fw'), itinerary_path(@itinerary), class: 'btn', title: 'Show' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(tour_path(@tour)), class: 'btn', title: 'Back' %>
+</div>

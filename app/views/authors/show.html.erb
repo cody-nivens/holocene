@@ -10,5 +10,7 @@
 
 <%= render 'biblioentries/index', biblioentries: @author.biblioentries %>
 
-<% add_to_footer('Edit', edit_polymorphic_path([@object, @author])) %>
-<% add_to_footer('Back', polymorphic_path(@object)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_polymorphic_path([@object, @author]), class: 'btn', title: 'Edit' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@object), class: 'btn', title: 'Back' %>
+</div>

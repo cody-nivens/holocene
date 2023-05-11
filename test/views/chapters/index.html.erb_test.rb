@@ -19,16 +19,11 @@ class ChaptersIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @chapters = Chapter.all
 
-    assert_select 'a[text()=?]', 'New Chapter'
+    assert_select 'a[title=?]', 'New Chapter'
     assert_select 'a[href=?]', new_polymorphic_path([@scripted, :chapter])
-    assert_select 'a[text()=?]', 'Chapters, Details'
-    assert_select 'a[href=?]', polymorphic_path([@scripted, :chapters])
-    assert_select 'a[text()=?]', 'Chapters, TOC'
-    assert_select 'a[href=?]', toc_path(@chapter.scripted)
-    assert_select 'a[text()=?]', 'Back'
-    assert_select 'a[href=?]', polymorphic_path([@scripted, :chapters])
+    assert_select 'a[title=?]', 'Back'
+    assert_select 'a[href=?]', polymorphic_path(@scripted)
 
-    assert_select '.footer>div>a', 4
     assert_template 'chapters/index'
 
     assert_select 'h2', 'Chapters'
@@ -44,15 +39,10 @@ class ChaptersIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response :success
     @chapters = Chapter.all
 
-    assert_select 'a[text()=?]', 'New Chapter'
+    assert_select 'a[title=?]', 'New Chapter'
     assert_select 'a[href=?]', new_polymorphic_path([@scripted_2, Chapter])
-    assert_select 'a[text()=?]', 'Chapters, Details'
-    assert_select 'a[href=?]', polymorphic_path([@scripted_2, :chapters])
-    assert_select 'a[text()=?]', 'Chapters, TOC'
-    assert_select 'a[href=?]', toc_path(@scripted_2)
-    assert_select 'a[text()=?]', 'Back'
-    assert_select 'a[href=?]', polymorphic_path([@scripted_2, :chapters])
-    assert_select '.footer>div>a', 4
+    assert_select 'a[title=?]', 'Back'
+    assert_select 'a[href=?]', polymorphic_path(@scripted_2)
     assert_template 'chapters/index'
   end
 end

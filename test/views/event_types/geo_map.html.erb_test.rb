@@ -14,10 +14,9 @@ class EventTypesGeoMapHtmlErbTest < ActionDispatch::IntegrationTest
     get geo_map_event_type_url(id: @event_type.id)
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Display'
+    assert_select 'a[title=?]', 'Display'
     assert_select 'a[href=?]', event_type_path(@event_type)
-    assert_select 'a[text()=?]', 'Back'
-    assert_select '.footer>div>a', 2
+    assert_select 'a[title=?]', 'Back'
     assert_template 'event_types/geo_map'
   end
 end

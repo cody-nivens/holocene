@@ -16,13 +16,7 @@ class ChaptersShowHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_select 'a[href=?]', edit_chapter_path(@chapter)
-    assert_select 'a[text()=?]', 'Back'
-    assert_select 'a[href=?]', polymorphic_path([@scripted, :chapters])
-    assert_select 'a[text()=?]', 'Footnotes'
-    assert_select 'a[href=?]', chapter_footnotes_path(@chapter)
-    assert_select 'a[text()=?]', 'Citations'
-    assert_select 'a[href=?]', chapter_citations_path(@chapter)
-    assert_select '.footer>div>a', 12
+    assert_select 'a[title=?]', 'Back'
     assert_template 'chapters/show'
   end
 end

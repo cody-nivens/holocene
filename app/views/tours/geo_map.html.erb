@@ -1,2 +1,5 @@
 <%= render 'shared/map', object: @object %>
-<% add_to_footer('Back', tour_path(@tour)) %>
+
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), tour_path(@tour), class: 'btn', title: 'Back' %>
+</div>

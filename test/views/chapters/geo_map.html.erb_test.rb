@@ -15,11 +15,9 @@ class ChaptersGeoMapHtmlErbTest < ActionDispatch::IntegrationTest
     get geo_map_chapter_url(id: @chapter.id)
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Display'
+    assert_select 'a[title=?]', 'Display'
     assert_select 'a[href=?]', chapter_display_path(@chapter)
-    assert_select 'a[text()=?]', 'Back'
-    # assert_select "a[href=?]", back_path
-    assert_select '.footer>div>a', 2
+    assert_select 'a[title=?]', 'Back'
     assert_template 'chapters/geo_map'
   end
 end

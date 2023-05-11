@@ -1,34 +1,25 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import "@hotwired/turbo-rails"
+import "@rails/request.js"
 import "jquery"
-
-//import $ from 'jquery';
 
 import 'popper.js'
 import 'bootstrap'
 
 import 'jquery-ui'
-//import 'jquery-ui/ui/widget'
-//import './jquery-ui/ui/data'
-//import './jquery-ui/ui/disable-selection'
-//import './jquery-ui/ui/scroll-parent'
-//import './jquery-ui/ui/widgets/sortable'
-//import './jquery-ui/ui/widgets/mouse'
-//import './jquery-ui/themes/base/core.css'
-//import './jquery-ui/themes/base/sortable.css'
-
-// import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle';
 
 import 'trix'
 import '@rails/actiontext'
 import "chartkick"
 import "Chart.bundle"
-// import './js/sortable.js';
-// import './js/jquery.jvectormap.min.js';
-// import './js/jquery-jvectormap-world-mill-en.js';
-import 'sortable';
 import 'jquery.jvectormap.min';
 import 'jquery-jvectormap-world-mill-en';
+
+import { Application } from '@hotwired/stimulus'
+import Sortable from 'stimulus-sortable'
+
+const application = Application.start()
+application.register('sortable', Sortable)
 
 $(document).ready(function() {
 
@@ -37,11 +28,5 @@ $(document).ready(function() {
 
 })
 
-// JS
-// import 'js/site';
-
-// Images
-//const images = require.context('../images', true);
-//const imagePath = (name) => images(name, true);
 
 import "controllers"

@@ -17,15 +17,14 @@ class KeyPointsIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @key_points = KeyPoint.all
 
-    assert_select 'a[text()=?]', 'New Key Point'
+    assert_select 'a[title=?]', 'New Key Point'
     assert_select 'a[href=?]', new_polymorphic_path([@scripted, :key_point])
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', polymorphic_path(@scripted)
-    assert_select 'a[text()=?]', 'Timeline'
+    assert_select 'a[title=?]', 'Timeline'
     assert_select 'a[href=?]', polymorphic_path([@scripted, :timeline])
-    assert_select 'a[text()=?]', 'Scenes'
+    assert_select 'a[title=?]', 'Scenes'
     assert_select 'a[href=?]', polymorphic_path([@scripted, :scenes])
-    assert_select '.footer>div>a', 4
     assert_template 'key_points/index'
 
     assert_select 'h2', 'Key Points'

@@ -2,4 +2,6 @@
 
 <%= render 'form', user: current_user, author: @author, command_label: 'Create Author', object: @object %>
 
-<% add_to_footer('Back',  return_or_default_path(polymorphic_path([@object, :authors]))) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(polymorphic_path([@object, :authors])), class: 'btn', title: 'Back' %>
+</div>

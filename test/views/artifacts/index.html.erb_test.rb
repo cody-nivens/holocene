@@ -17,9 +17,8 @@ class ArtifactsIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @artifacts = Artifact.all
 
-    assert_select 'a[text()=?]', 'New Artifact'
+    assert_select 'a[title=?]', 'New Artifact'
     assert_select 'a[href=?]', new_polymorphic_path([@book, :artifact])
-    assert_select '.footer>div>a', 2
     assert_template 'artifacts/index'
 
     assert_select 'h2', 'Artifacts'

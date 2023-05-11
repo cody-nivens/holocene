@@ -13,14 +13,12 @@ class AuthorsEditHtmlErbTest < ActionDispatch::IntegrationTest
 
   test 'should get edit' do
     get edit_polymorphic_url([@book, @author])
-    assert_select 'a[text()=?]', 'Back'
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Show'
+    assert_select 'a[title=?]', 'Show'
     assert_select 'a[href=?]', polymorphic_path([@book, @author])
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', polymorphic_path([@book, :authors])
-    assert_select '.footer>div>a', 2
     assert_template 'authors/edit'
   end
 end

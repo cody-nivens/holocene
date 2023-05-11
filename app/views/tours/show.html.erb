@@ -16,7 +16,9 @@
 <%= datagrid_table @grid, @records, partials: 'itinerary_grid' %>
 <%== pagy_nav(@pagy) %>
 
-<% add_to_footer('Edit', edit_tour_path(@tour)) %>
-<% add_to_footer('Itinerary', tour_itineraries_path(@tour)) %>
-<% add_to_footer('Map', geo_map_tour_path(@tour)) %>
-<% add_to_footer('Back', story_tours_path(@story)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_tour_path(@tour), class: 'btn', title: 'Edit' %>
+<%= link_to (fa_icon 'list', class: 'fa-fw'), tour_itineraries_path(@tour), class: 'btn', title: 'Itinerary' %>
+<%= link_to (fa_icon 'map', class: 'fa-fw'), geo_map_tour_path(@tour), class: 'btn', title: 'Map' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), story_tours_path(@story), class: 'btn', title: 'Back' %>
+</div>

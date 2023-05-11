@@ -28,7 +28,7 @@ class Footnote < ApplicationRecord
     my_body = object.body.to_s.gsub(/&nbsp;/, '')
     while my_m = my_body.match(/\[\[([^ ]*)\]\]/)
       my_body.gsub!(/\[\[#{my_m[1]}\]\]/,
-                    "<sup><a href=\"#fn#{index}\" data-turbolinks='false' id=\"ref#{index}\">[#{index}]</a></sup>")
+                    "<sup><a href=\"#fn#{index}\" data-turbo='false' id=\"ref#{index}\">[#{index}]</a></sup>")
       footnote_slugs << [my_m[1], object, index]
       index += 1
     end
@@ -45,7 +45,7 @@ class Footnote < ApplicationRecord
         str += "<a href='/#{slug[1].class.name.underscore.pluralize}/#{slug[1].id}/footnotes/#{slug[0]}'>Missing footnote</a><br/>"
       else
         footnote = (my_footnote[0].biblioentry.nil? ? my_footnote[0].body.to_plain_text : my_footnote[0].biblioentry.name)
-        str += "<sup id='fn#{index}'>#{index}. [#{footnote}]<a href='#ref#{index}' data-turbolinks='false' title='Jump back to footnote #{index} in the text.'>↩</a></sup><br/>"
+        str += "<sup id='fn#{index}'>#{index}. [#{footnote}]<a href='#ref#{index}' data-turbo='false' title='Jump back to footnote #{index} in the text.'>↩</a></sup><br/>"
       end
     end
     str

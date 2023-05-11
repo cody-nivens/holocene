@@ -13,11 +13,10 @@
   <tbody>
     <% @asides.each do |aside| %>
       <tr>
-        <td><%= aside.name %></td>
+        <td><%= link_to aside.name, aside_path(aside) %></td>
         <td><%= aside.body %></td>
-        <td><%= link_to 'Show', aside_path(aside) %></td>
-        <td><%= link_to 'Edit', edit_aside_path(aside) %></td>
-        <td><%= link_to 'Destroy', aside_path(aside), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_aside_path(aside), class: 'btn', title: 'Edit' %>
+        <%= link_to (fa_icon 'trash', class: 'fa-fw'), aside_path(aside), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn', title: 'Destroy' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -25,4 +24,7 @@
 
 <br>
 
-<% add_to_footer('New Aside', new_chapter_aside_path(@chapter)) %>
+<div id="side_controls" class="hide-print">
+
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_chapter_aside_path(@chapter), class: 'btn', title: 'New Aside' %>
+</div>

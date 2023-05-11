@@ -15,10 +15,9 @@ class ArtifactTypesShowHtmlErbTest < ActionDispatch::IntegrationTest
     get artifact_type_path(@artifact_type)
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Edit'
+    assert_select 'a[title=?]', 'Edit'
     assert_select 'a[href=?]', edit_artifact_type_path(@artifact_type)
-    assert_select 'a[text()=?]', 'Back'
-    assert_select '.footer>div>a', 2
+    assert_select 'a[title=?]', 'Back'
     assert_template 'artifact_types/show'
   end
 end

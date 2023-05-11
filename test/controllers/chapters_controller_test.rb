@@ -26,7 +26,7 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should sort chapters' do
-    put chapter_sort_url(chapter_id: @chapter.id), xhr: true, params: { chapter: { id: @chapter.id } }
+    patch chapter_sort_url(chapter_id: @chapter.id), xhr: true, params: { chapter: { id: @chapter.id } }
     assert_response :success
   end
 

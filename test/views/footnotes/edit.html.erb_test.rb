@@ -16,9 +16,8 @@ class FootnotesEditHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select 'h2', 'Editing Footnote'
 
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', polymorphic_path([@noted, :footnotes])
-    assert_select '.footer>div>a', 2
     assert_template 'footnotes/edit'
   end
 end

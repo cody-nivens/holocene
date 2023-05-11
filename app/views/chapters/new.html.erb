@@ -2,4 +2,6 @@
 
 <%= render 'form', scripted: @scripted, chapter: @chapter, command_label: 'Create Chapter' %>
 
-<% add_to_footer('Back',  return_or_default_path(polymorphic_path([@scripted, :chapters]))) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'backwar', class: 'fa-fw'),  return_or_default_path(polymorphic_path([@scripted, :chapters])), class: 'btn', title: 'Back' %>
+</div>

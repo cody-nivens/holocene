@@ -6,18 +6,17 @@
     <tr>
       <th>Name</th>
       <th>Location</th>
-      <th colspan="3"></th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @artifact_types.each do |artifact_type| %>
       <tr>
-        <td><%= artifact_type.name %></td>
+        <td><%= link_to artifact_type.name, artifact_type_path(artifact_type) %></td>
         <td><%= artifact_type.location %></td>
-        <td><%= link_to 'Show', artifact_type_path(artifact_type) %></td>
-        <td><%= link_to 'Edit', edit_artifact_type_path(artifact_type) %></td>
-        <td><%= link_to 'Destroy', artifact_type_path(artifact_type), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_artifact_type_path(artifact_type), class: 'fa-fw', title: 'Edit' %>
+        <%= link_to (fa_icon 'trash', class: 'fa-fw'), artifact_type_path(artifact_type), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn', title: 'Destroy' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -25,5 +24,7 @@
 
 <br>
 
-<% add_to_footer('New Artifact Type', new_polymorphic_path([@book, :artifact_type])) %>
-<% add_to_footer('Back', book_path(@book)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([@book, :artifact_type]), class: 'btn', title: 'New Artifact Type' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_path(@book), class: 'btn', title: 'Back' %>
+</div>

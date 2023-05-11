@@ -16,9 +16,8 @@ class EventTypesIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @event_types = EventType.all
 
-    assert_select 'a[text()=?]', 'New Event Type'
+    assert_select 'a[title=?]', 'New Event Type'
     assert_select 'a[href=?]', new_event_type_path
-    assert_select '.footer>div>a', 1
     assert_template 'event_types/index'
 
     assert_select 'h2', 'Event Types'

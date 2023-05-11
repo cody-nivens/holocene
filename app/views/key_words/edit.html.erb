@@ -2,5 +2,7 @@
 
 <%= render 'form', key_word: @key_word, book: @book %>
 
-<% add_to_footer('Show', @key_word) %>
-<% add_to_footer('Back',  return_or_default_path(book_key_words_path(book_id: @book.id))) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'search', class: 'fa-fw'), @key_word, class: 'btn', title: 'Show' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(book_key_words_path(book_id: @book.id)), class: 'btn', title: 'Back' %>
+</div>

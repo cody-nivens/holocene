@@ -15,9 +15,8 @@ class SignetsNewHtmlErbTest < ActionDispatch::IntegrationTest
     get new_polymorphic_url([@sigged, :signet])
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', polymorphic_path([@sigged, :signets])
-    assert_select '.footer>div>a', 1
     assert_template 'signets/new'
   end
 end

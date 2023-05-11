@@ -14,14 +14,13 @@ class EpochsShowHtmlErbTest < ActionDispatch::IntegrationTest
     get epoch_path(@epoch)
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Edit'
+    assert_select 'a[title=?]', 'Edit'
     assert_select 'a[href=?]', edit_epoch_path(@epoch)
-    assert_select 'a[text()=?]', 'Timeline'
+    assert_select 'a[title=?]', 'Timeline'
     assert_select 'a[href=?]', epoch_timeline_path(@epoch)
-    assert_select 'a[text()=?]', 'Map'
+    assert_select 'a[title=?]', 'Map'
     assert_select 'a[href=?]', geo_map_epoch_path(@epoch)
-    assert_select 'a[text()=?]', 'Back'
-    assert_select '.footer>div>a', 4
+    assert_select 'a[title=?]', 'Back'
     assert_template 'epochs/show'
   end
 end

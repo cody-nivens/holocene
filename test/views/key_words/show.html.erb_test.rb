@@ -16,11 +16,10 @@ class KeyWordsShowHtmlErbTest < ActionDispatch::IntegrationTest
       get key_word_path(@key_word)
       assert_response :success
 
-      assert_select 'a[text()=?]', 'Edit'
+      assert_select 'a[title=?]', 'Edit'
       assert_select 'a[href=?]', edit_key_word_path(@key_word)
-      assert_select 'a[text()=?]', 'Back'
+      assert_select 'a[title=?]', 'Back'
       assert_select 'a[href=?]', book_key_words_path(@book)
-      assert_select '.footer>div>a', 2
       assert_template 'key_words/show'
     end
   end

@@ -13,13 +13,12 @@ class GlossaryTermsEditHtmlErbTest < ActionDispatch::IntegrationTest
 
   test 'should get edit' do
     get edit_glossary_term_url(@glossary_term)
-    assert_select 'a[text()=?]', 'Back'
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Show'
+    assert_select 'a[title=?]', 'Show'
     assert_select 'a[href=?]', glossary_term_path(@glossary_term)
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', book_glossary_terms_path(@book)
-    assert_select '.footer>div>a', 2
     assert_template 'glossary_terms/edit'
   end
 end

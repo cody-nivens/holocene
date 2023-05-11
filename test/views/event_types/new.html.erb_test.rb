@@ -14,9 +14,8 @@ class EventTypesNewHtmlErbTest < ActionDispatch::IntegrationTest
     get new_event_type_url
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', event_types_path
-    assert_select '.footer>div>a', 1
     assert_template 'event_types/new'
   end
 end

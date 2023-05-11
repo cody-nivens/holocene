@@ -17,9 +17,8 @@ class TimelinesIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @timelines = Timeline.all
 
-    assert_select 'a[text()=?]', 'New Timeline'
+    assert_select 'a[title=?]', 'New Timeline'
     assert_select 'a[href=?]', new_timeline_path
-    assert_select '.footer>div>a', 1
     assert_template 'timelines/index'
 
     assert_select 'h2', 'Timelines'

@@ -15,9 +15,8 @@ class CharacterAttributesNewHtmlErbTest < ActionDispatch::IntegrationTest
     get new_polymorphic_url([@character_category, :character_attribute])
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', character_category_path(@character_category)
-    assert_select '.footer>div>a', 1
     assert_template 'character_attributes/new'
   end
 end

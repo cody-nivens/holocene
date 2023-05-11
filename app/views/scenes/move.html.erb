@@ -71,4 +71,7 @@
     });
   })
 </script>
-<% add_to_footer('Back', polymorphic_path(@situated)) %>
+
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@situated), class: 'btn', title: 'Back' %>
+</div>

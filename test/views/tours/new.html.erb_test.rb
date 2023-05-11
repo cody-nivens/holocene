@@ -15,9 +15,8 @@ class ToursNewHtmlErbTest < ActionDispatch::IntegrationTest
     get new_polymorphic_url([@story, :tour])
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', story_tours_path(@story)
-    assert_select '.footer>div>a', 1
     assert_template 'tours/new'
   end
 end

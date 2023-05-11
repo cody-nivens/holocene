@@ -15,9 +15,8 @@ class AuthorsNewHtmlErbTest < ActionDispatch::IntegrationTest
     get new_polymorphic_url([@book, :author])
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', book_authors_path(@book)
-    assert_select '.footer>div>a', 1
     assert_template 'authors/new'
   end
 end

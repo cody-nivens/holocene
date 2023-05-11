@@ -14,5 +14,7 @@
 </p>
 <% end %>
 
-<% add_to_footer('Edit', edit_polymorphic_path([@noted, @footnote])) %>
-<% add_to_footer('Back', polymorphic_path([@noted, :footnotes])) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_polymorphic_path([@noted, @footnote]), class: 'btn', title: 'Edit' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path([@noted, :footnotes]), class: 'btn', title: 'Back' %>
+</div>

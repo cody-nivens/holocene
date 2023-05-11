@@ -15,18 +15,17 @@ class ToursShowHtmlErbTest < ActionDispatch::IntegrationTest
     get tour_path(@tour)
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Edit'
+    assert_select 'a[title=?]', 'Edit'
     assert_select 'a[href=?]', edit_tour_path(@tour)
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', story_tours_path(@story)
-    assert_select 'a[text()=?]', 'Itinerary'
+    assert_select 'a[title=?]', 'Itinerary'
     assert_select 'a[href=?]', tour_itineraries_path(@tour)
-    assert_select 'a[text()=?]', 'Map'
+    assert_select 'a[title=?]', 'Map'
     assert_select 'a[href=?]', geo_map_tour_path(@tour)
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', story_tours_path(@story)
 
-    assert_select '.footer>div>a', 4
     assert_template 'tours/show'
   end
 end

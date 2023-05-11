@@ -12,6 +12,8 @@
 <%= datagrid_table @grid, partials: 'holocene_event_grid' %>
 <%= paginate(@grid.assets) %>
 
-<% add_to_footer('Timeline', url_for(controller: 'timelines', action: 'timeline', "#{@object.class.name.underscore}_id".to_sym => @object.id)) %>
-<% add_to_footer('Map', "/#{@object.class.name.underscore.pluralize}/#{@object.id}/geo_map") %>
-<% add_to_footer('Back', polymorphic_path(@object)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'stream', class: 'fa-fw'), url_for(controller: 'timelines', action: 'timeline', "#{@object.class.name.underscore}_id".to_sym => @object.id), title: "Timeline", class: 'btn' %>
+<%= link_to (fa_icon 'map', class: 'fa-fw'), "/#{@object.class.name.underscore.pluralize}/#{@object.id}/geo_map", title: "Map", class: 'btn' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@object), title: 'Back', class: 'btn' %>
+</div>

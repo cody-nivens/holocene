@@ -8,5 +8,7 @@
   </tbody>
 </table>
 
-<% add_to_footer('New Plot Point', new_book_plot_point_path(@book)) %>
-<% add_to_footer('Back', book_path(@book)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_book_plot_point_path(@book), class: 'btn', title: 'New Plot Point' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_path(@book), class: 'btn', title: 'Back' %>
+</div>

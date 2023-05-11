@@ -1,9 +1,11 @@
 <% @title = "Cities" %>
 <h2>Cities</h2>
-<%= datagrid_form_for @grid, method: :get, url: cities_path, partials: 'city_grid' %>
-<div>
-  <%= link_to (fa_icon 'plus'), new_city_path, title: 'New City' %>
+
+
+<div id="side_controls" class="hide-print">
+  <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_city_path, class: 'btn', title: 'New City' %>
 </div>
+<%= datagrid_form_for @grid, method: :get, url: cities_path, partials: 'city_grid' %>
 <%== pagy_info(@pagy) %>
 <%= datagrid_table @grid, @records, partials: 'city_grid' %>
 <%== pagy_nav(@pagy) %>

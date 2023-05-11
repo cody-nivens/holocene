@@ -5,8 +5,9 @@
   <% @key_words.each do |key_word| %>
     <% c.tab key_word.key_word do %>
       <span>
-        <div><%= link_to key_word.key_word, key_word_path(key_word) %><%= link_to (fa_icon 'edit'), edit_key_word_path(key_word), title: 'Edit' %>
-          <%= link_to (fa_icon 'trash'), key_word_path(key_word), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete' %>
+        <div><%= link_to key_word.key_word, key_word_path(key_word) %>
+        <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_key_word_path(key_word), title: 'Edit' %>
+          <%= link_to (fa_icon 'trash', class: 'fa-fw'), key_word_path(key_word), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete' %>
           <%= render partial: 'key_words/key_words', locals: { book: @book, key_word: key_word } %></div>
       </span>
     <% end %>
@@ -14,5 +15,7 @@
 <% end %>
 <br>
 
-<% add_to_footer('New Key Word', new_polymorphic_path([@book, :key_word])) %>
-<% add_to_footer('Back', book_path(@book)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([@book, :key_word]), class: 'btn', title: 'New Key Word' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_path(@book), class: 'btn', title: 'Back' %>
+</div>

@@ -13,14 +13,12 @@ class ArtifactTypesEditHtmlErbTest < ActionDispatch::IntegrationTest
 
   test 'should get edit' do
     get edit_artifact_type_url(@artifact_type)
-    assert_select 'a[text()=?]', 'Back'
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Show'
+    assert_select 'a[title=?]', 'Show'
     assert_select 'a[href=?]', artifact_type_path(@artifact_type)
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', polymorphic_path([@book, :artifact_types])
-    assert_select '.footer>div>a', 2
     assert_template 'artifact_types/edit'
   end
 end

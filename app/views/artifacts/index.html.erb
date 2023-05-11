@@ -37,5 +37,7 @@
 
 <br>
 
-<% add_to_footer('New Artifact', new_book_artifact_path(@book)) %>
-<% add_to_footer('Back', book_path(@book)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_book_artifact_path(@book), class: 'btn', title: 'New Artifact' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_path(@book), class: 'btn', title: 'Back' %>
+</div>

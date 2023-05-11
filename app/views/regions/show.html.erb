@@ -14,5 +14,7 @@
 <%= datagrid_table @grid %>
 <%= paginate(@grid.assets) %>
 
-<% add_to_footer('Edit', edit_region_path(@region)) %>
-<% add_to_footer('Back', regions_path) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_region_path(@region), class: 'btn', title: 'Edit' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), regions_path, class: 'btn', title: 'Back' %>
+</div>

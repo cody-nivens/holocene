@@ -5,5 +5,6 @@
 
 <%== @aside.body %>
 
-<% add_to_footer('Edit', edit_aside_path(@aside)) %>
-<% add_to_footer('Back', return_or_default_path(chapter_path(@chapter))) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_aside_path(@aside), class: 'btn', title: 'Edit' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), return_or_default_path(chapter_path(@chapter)), class: 'btn', title: 'Back' %>

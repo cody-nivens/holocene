@@ -1,7 +1,7 @@
 class Story < ApplicationRecord
-  include RankedModel
+  acts_as_list
+
   belongs_to :book
-  ranks :position, with_same: :book_id
 
   has_rich_text :summary_body
 

@@ -37,13 +37,19 @@
 <% priv_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position - 1) -%>
 <% next_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position + 1) -%>
 
-<% add_to_footer('Edit', edit_section_path(@section)) %>
-<% add_to_footer('<', section_path(priv_section.first), class: 'btn icon-ok icon-white', title: 'Previous section').to_s unless priv_section.size.zero? %>
-<% add_to_footer('>', section_path(next_section.first), class: 'btn icon-ok icon-white', title: 'Next section').to_s unless next_section.size.zero? %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_section_path(@section), class: 'btn', title: 'Edit' %>
+<% unless priv_section.size.zero? %>
+<%= link_to (fa_icon 'arrow-left', class: 'fa-fw'), section_path(priv_section.first), class: 'btn', title: 'Previous section' %>
+<% end %>
+<% unless next_section.size.zero? %>
+<%= link_to (fa_icon 'arrow-right', class: 'fa-fw'), section_path(next_section.first), class: 'btn' , title: 'Next section' %>
+<% end %>
 <% if @section.sectioned_type == "Chapter" %>
-  <% add_to_footer('Timeline', section_timeline_path(section_id: @section.id), class: 'btn icon-ok icon-white').to_s %>
-  <% add_to_footer('Display', section_display_path(section_id: @section.id), class: 'btn icon-ok icon-white').to_s %>
-  <% add_to_footer('Map', geo_map_section_path(@section), class: 'btn icon-ok icon-white').to_s %>
-  <% add_to_footer('Footnotes', section_footnotes_path(@section)) %>
+  <%= link_to (fa_icon 'stream', class: 'fa-fw'), section_timeline_path(section_id: @section.id).to_s, class: 'btn', title: 'Timeline' %>
+  <%= link_to (fa_icon 'list-alt', class: 'fa-fw'), section_display_path(section_id: @section.id).to_s, class: 'btn', title: 'Display' %>
+  <%= link_to (fa_icon 'map', class: 'fa-fw'), geo_map_section_path(@section).to_s, class: 'btn', title: 'Map' %>
+  <%= link_to (fa_icon 'list', class: 'fa-fw'), section_footnotes_path(@section), class: 'btn', title: 'Footnotes' %>
 <% end -%>
-<% add_to_footer('Back', polymorphic_path(@sectioned)) %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@sectioned), class: 'btn', title: 'Back' %>
+</div>

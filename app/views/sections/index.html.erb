@@ -2,5 +2,7 @@
 
 <%= render partial: 'sections/index', locals: { sections: @sections, sectioned: @sectioned } %>
 
-<% add_to_footer('New Section', new_polymorphic_path([@sectioned, :section])) %>
-<% add_to_footer('Back', polymorphic_path(@sectioned)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([@sectioned, :section]), class: 'btn', title: 'New Section' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@sectioned), class: 'btn', title: 'Back' %>
+</div>

@@ -15,9 +15,8 @@ class ChaptersNewHtmlErbTest < ActionDispatch::IntegrationTest
     get new_polymorphic_url([@scripted, :chapter])
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', polymorphic_path([@scripted, :chapters])
-    assert_select '.footer>div>a', 1
     assert_template 'chapters/new'
   end
 end

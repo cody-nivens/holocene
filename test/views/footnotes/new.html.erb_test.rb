@@ -15,9 +15,8 @@ class FootnotesNewHtmlErbTest < ActionDispatch::IntegrationTest
     get new_polymorphic_url([@noted, :footnote], slug: 'test23')
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', polymorphic_path([@noted, :footnotes])
-    assert_select '.footer>div>a', 1
     assert_template 'footnotes/new'
   end
 end

@@ -15,9 +15,8 @@ class KeyWordsNewHtmlErbTest < ActionDispatch::IntegrationTest
     get new_polymorphic_url([@book, :key_word])
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', book_key_words_path(@book)
-    assert_select '.footer>div>a', 1
     assert_template 'key_words/new'
   end
 end

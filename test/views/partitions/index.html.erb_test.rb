@@ -17,9 +17,8 @@ class PartitionsIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @partitions = Partition.all
 
-    assert_select 'a[text()=?]', 'New Partition'
+    assert_select 'a[title=?]', 'New Partition'
     assert_select 'a[href=?]', new_polymorphic_path([@chapter, :partition])
-    assert_select '.footer>div>a', 2
     assert_template 'partitions/index'
 
     assert_select 'h2', 'Partitions'

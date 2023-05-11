@@ -25,7 +25,7 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should sort scenes' do
-    put scene_sort_url(scene_id: @scene_2.id), xhr: true,
+    patch scene_sort_url(scene_id: @scene_2.id), xhr: true,
                                                params: { scene: { id: @scene_2.id, key_point_id: @scene_2.key_point_id } }
     assert_response :success
   end
@@ -33,7 +33,7 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
   test 'should check scene' do
     checked = @scene_2.check
 
-    put scene_check_path(id: @scene_2.id), xhr: true,
+    patch scene_check_path(id: @scene_2.id), xhr: true,
                                                params: { check: !checked }
     assert_response :success
     assert_equal !checked, @scene_2.reload.check

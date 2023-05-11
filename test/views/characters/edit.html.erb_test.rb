@@ -14,27 +14,23 @@ class CharactersEditHtmlErbTest < ActionDispatch::IntegrationTest
 
   test 'should get edit I' do
     get edit_polymorphic_url([@book, @character])
-    assert_select 'a[text()=?]', 'Back'
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Show'
+    assert_select 'a[title=?]', 'Show'
     assert_select 'a[href=?]', polymorphic_path([@book, @character])
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', polymorphic_path([@book, :characters])
-    assert_select '.footer>div>a', 2
     assert_template 'characters/edit'
   end
 
   test 'should get edit II' do
     get edit_polymorphic_url([@story, @character])
-    assert_select 'a[text()=?]', 'Back'
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Show'
+    assert_select 'a[title=?]', 'Show'
     assert_select 'a[href=?]', polymorphic_path([@story, @character])
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', polymorphic_path([@story, :characters])
-    assert_select '.footer>div>a', 2
     assert_template 'characters/edit'
   end
 end

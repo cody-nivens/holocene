@@ -2,4 +2,6 @@
 
 <%= render 'form', key_point: @key_point, scripted: @scripted, klass: @klass %>
 
-<% add_to_footer('Back',  return_or_default_path(polymorphic_path([@scripted, :key_points]))) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(polymorphic_path([@scripted, :key_points])), class: 'btn', title: 'Back' %>
+</div>

@@ -18,11 +18,10 @@ class KeyWordsIndexHtmlErbTest < ActionDispatch::IntegrationTest
       assert_response 200
       @key_words = KeyWord.all
 
-      assert_select 'a[text()=?]', 'New Key Word'
+      assert_select 'a[title=?]', 'New Key Word'
       assert_select 'a[href=?]', new_polymorphic_path([@book, :key_word])
-      assert_select 'a[text()=?]', 'Back'
+      assert_select 'a[title=?]', 'Back'
       assert_select 'a[href=?]', book_path(@book)
-      assert_select '.footer>div>a', 2
       assert_template 'key_words/index'
 
       assert_select 'h2', 'Key Words'

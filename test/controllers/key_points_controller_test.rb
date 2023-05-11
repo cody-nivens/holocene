@@ -17,7 +17,7 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should sort key_points' do
-    put key_point_sort_url(@key_point_2), xhr: true,
+    patch key_point_sort_url(@key_point_2), xhr: true,
                                           params: { key_point: { id: @key_point_2.id, scripted_id: @key_point_2.scripted_id } }
     assert_response :success
   end

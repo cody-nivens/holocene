@@ -2,4 +2,6 @@
 
 <%= render 'form', footnote: @footnote, command_label: 'Create Footnote', noted: @noted %>
 
-<% add_to_footer('Back',  return_or_default_path(polymorphic_path([@noted, :footnotes]))) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(polymorphic_path([@noted, :footnotes])), class: 'btn', title: 'Back' %>
+</div>

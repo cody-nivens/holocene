@@ -2,5 +2,7 @@
 
 <%= render 'form', book: @book, biblioentry: @biblioentry, command_label: 'Update Biblioentry' %>
 
-<% add_to_footer('Show', biblioentry_path(@biblioentry)) %>
-<% add_to_footer('Back',  return_or_default_path(book_biblioentries_path(@book))) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'search', class: 'fa-fw'), biblioentry_path(@biblioentry), class: 'btn', title: 'Show' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(book_biblioentries_path(@book)), class: 'btn', title: 'Back' %>
+</div>

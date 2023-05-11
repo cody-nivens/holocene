@@ -13,16 +13,14 @@ class AsidesEditHtmlErbTest < ActionDispatch::IntegrationTest
 
   test 'should get edit' do
     get edit_aside_url(@aside)
-    assert_select 'a[text()=?]', 'Back'
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Show'
+    assert_select 'a[title=?]', 'Show'
     assert_select 'a[href=?]', aside_path(@aside)
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', chapter_path(@chapter)
-    assert_select 'a[text()=?]', 'Destroy'
+    assert_select 'a[title=?]', 'Destroy'
     assert_select 'a[href=?]', aside_path(@aside)
-    assert_select '.footer>div>a', 3
     assert_template 'asides/edit'
   end
 end

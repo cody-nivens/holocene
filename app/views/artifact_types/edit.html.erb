@@ -2,5 +2,7 @@
 
 <%= render 'form', artifact_type: @artifact_type, book: @artifact_type.book %>
 
-<% add_to_footer('Show', artifact_type_path(@artifact_type)) %>
-<% add_to_footer('Back',  return_or_default_path(book_artifact_types_path(@artifact_type.book))) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'search', class: 'fa-fw'), artifact_type_path(@artifact_type), class: 'btn', title: 'Show' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(book_artifact_types_path(@artifact_type.book)), class: 'btn', title: 'Back' %>
+</div>

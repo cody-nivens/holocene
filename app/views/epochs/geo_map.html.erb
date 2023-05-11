@@ -1,5 +1,7 @@
 <%= render 'shared/map', object: @object %>
 
-<% add_to_footer('Timeline', url_for(controller: 'timelines', action: 'timeline', "#{@object.class.name.underscore}_id".to_sym => @object.id)) %>
-<% add_to_footer('Display', "/#{@object.class.name.underscore.pluralize}/display/#{@object.id}") %>
-<% add_to_footer('Back', polymorphic_path(@object)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'stream', class: 'fa-fw'), url_for(controller: 'timelines', action: 'timeline', "#{@object.class.name.underscore}_id".to_sym => @object.id), class: 'btn', title: 'Timeline' %>
+<%= link_to (fa_icon 'list-alt', class: 'fa-fw'), "/#{@object.class.name.underscore.pluralize}/display/#{@object.id}", class: 'btn', title: 'Display' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@object), class: 'btn', title: 'Back' %>
+</div>

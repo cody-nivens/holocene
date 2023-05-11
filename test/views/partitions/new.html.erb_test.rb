@@ -15,9 +15,8 @@ class PartitionsNewHtmlErbTest < ActionDispatch::IntegrationTest
     get new_polymorphic_url([@chapter, :partition])
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', chapter_path(@chapter)
-    assert_select '.footer>div>a', 1
     assert_template 'partitions/new'
   end
 end

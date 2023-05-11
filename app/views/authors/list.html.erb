@@ -18,5 +18,7 @@
 
 <% end %>
 
-<% add_to_footer('New Author', new_polymorphic_path([@object, :author])) %>
-<% add_to_footer('Back', polymorphic_path([@object, :authors])) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([@object, :author]), class: 'btn', title: 'New Author' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path([@object, :authors]), class: 'btn', title: 'Back' %>
+</div>

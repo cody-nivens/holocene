@@ -17,11 +17,10 @@ class GlossaryTermsIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @glossary_terms = GlossaryTerm.all
 
-    assert_select 'a[text()=?]', 'New Glossary Term'
+    assert_select 'a[title=?]', 'New Glossary Term'
     assert_select 'a[href=?]', new_polymorphic_path([@book, :glossary_term])
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', book_path(@book)
-    assert_select '.footer>div>a', 2
     assert_template 'glossary_terms/index'
 
     assert_select 'h2', 'Glossary Terms'

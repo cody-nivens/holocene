@@ -14,12 +14,11 @@ class EpochsGeoMapHtmlErbTest < ActionDispatch::IntegrationTest
     get geo_map_epoch_url(id: @epoch.id)
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Timeline'
+    assert_select 'a[title=?]', 'Timeline'
     assert_select 'a[href=?]', epoch_timeline_path(@epoch)
-    assert_select 'a[text()=?]', 'Display'
+    assert_select 'a[title=?]', 'Display'
     assert_select 'a[href=?]', epoch_display_path(@epoch)
-    assert_select 'a[text()=?]', 'Back'
-    assert_select '.footer>div>a', 3
+    assert_select 'a[title=?]', 'Back'
     assert_template 'epochs/geo_map'
   end
 end

@@ -4,6 +4,8 @@
  <%= @character_scene.summary %>
 </p>
 
-<% add_to_footer('Edit',  edit_character_scene_path(@character_scene)) %>
-<% add_to_footer('Back',  return_or_default_path(polymorphic_path(@character_scene.scene))) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'edit', class: 'fa-fw'),  edit_character_scene_path(@character_scene), class: 'btn', title: 'Edit' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(polymorphic_path(@character_scene.scene)), class: 'btn', title: 'Back' %>
+</div>
 

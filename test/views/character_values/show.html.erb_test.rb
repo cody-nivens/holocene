@@ -16,11 +16,10 @@ class CharacterValuesShowHtmlErbTest < ActionDispatch::IntegrationTest
     get book_character_character_value_path(@book, @character, @character_value)
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Edit'
+    assert_select 'a[title=?]', 'Edit'
     assert_select 'a[href=?]', edit_book_character_character_value_path(@book, @character, @character_value)
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', book_character_character_values_path(@book,@character)
-    assert_select '.footer>div>a', 2
     assert_template 'character_values/show'
   end
 end

@@ -30,5 +30,7 @@
 <%= render 'holocene_events/index', formats: [:html], holocene_events: HoloceneEvent.tagged_with(@glossary_term.name).order(:start_year), epub: false, chapter: nil, noted: @noted %>
 </p>
 
-<% add_to_footer('Edit', edit_glossary_term_path(@glossary_term)) %>
-<% add_to_footer('Back', book_glossary_terms_path(@glossary_term.book)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_glossary_term_path(@glossary_term), class: 'btn', title: 'Edit' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_glossary_terms_path(@glossary_term.book), class: 'btn', title: 'Back' %>
+</div>

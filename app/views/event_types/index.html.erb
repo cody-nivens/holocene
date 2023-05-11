@@ -26,4 +26,6 @@
 
 <br>
 
-<% add_to_footer('New Event Type', new_event_type_path) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_event_type_path, class: 'btn', title: 'New Event Type' %>
+</div>

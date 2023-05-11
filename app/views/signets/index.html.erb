@@ -1,8 +1,8 @@
 <% @title = "Signets" %>
 <h2>Signets - <%= @sigged.class.name %>: <%= @sigged.name %></h2>
 
-<div>
-<%= link_to (fa_icon 'plus'), new_polymorphic_path([@sigged, :signet]), title: 'New Signet' %>
+<div id="side_controls" class="hide-print">
+  <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([@sigged, :signet]), class: 'btn', title: 'New Signet' %>
 </div>
 <% if @sigged.signets.size > 0 %>
 <table class='table'>

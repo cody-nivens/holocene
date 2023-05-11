@@ -18,11 +18,10 @@ class CharacterValuesIndexHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response 200
     @character_values = CharacterValue.all
 
-    assert_select 'a[text()=?]', 'New Character Value'
+    assert_select 'a[title=?]', 'New Character Value'
     assert_select 'a[href=?]', new_polymorphic_path([@book, @character, :character_value])
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', book_character_path(@book, @character)
-    assert_select '.footer>div>a', 2
     assert_template 'character_values/index'
 
     assert_select 'h2', 'Character Values'

@@ -14,9 +14,8 @@ class CitiesNewHtmlErbTest < ActionDispatch::IntegrationTest
     get new_city_url
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Back'
+    assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', cities_path
-    assert_select '.footer>div>a', 1
     assert_template 'cities/new'
   end
 end

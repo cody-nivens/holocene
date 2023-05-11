@@ -15,4 +15,6 @@
   <% end %></p>
 <% end %>
 
-<% add_to_footer('Back', book_artifacts_path(@book)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_artifacts_path(@book), class: 'btn', title: 'Back' %>
+</div>

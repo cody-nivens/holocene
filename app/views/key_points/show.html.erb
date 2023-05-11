@@ -6,20 +6,6 @@
                      (@scripted.instance_of?(Chapter) ? @scripted.scripted : @scripted.book)
                    end), @scripted, @key_point) %>
 </h2>
-<div id="side_controls" class="hide-print">
-  <%== link_to (fa_icon 'edit', class: 'fa-fw'), edit_key_point_path(@key_point), title: 'Edit', class: 'btn icon-ok icon-white' %>
-  <%== link_to (fa_icon 'newspaper', class: 'fa-fw'), key_point_view_path(@key_point), title: 'View', class: 'btn icon-ok icon-white' %>
-  <%== link_to (fa_icon 'trash', class: 'fa-fw'), key_point_path(@key_point), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy', class: 'btn icon-ok icon-white' %>
-  <%== link_to (fa_icon 'truck', class: 'fa-fw'), polymorphic_path([@scripted, @key_point, :move]), class: 'btn icon-ok icon-white' %>
-<% prev_key_point = @key_point.set_prev %>
-<% unless prev_key_point.nil? %>
-  <%= link_to (fa_icon 'angle-left', class: 'fa-fw'), key_point_path(prev_key_point), title: 'Previous Key Point', class: 'btn icon-ok icon-white' %>
-<% end %>
-<% next_key_point = @key_point.set_next %>
-<% unless next_key_point.nil? %>
-  <%= link_to (fa_icon 'angle-right', class: 'fa-fw'), key_point_path(next_key_point), title: 'Next Key Point', class: 'btn icon-ok icon-white' %>
-<% end %>
-</div>
 
 <table class="table">
   <tr>
@@ -56,5 +42,17 @@
   <% end %>
 <% end %>
 
-<%# add_to_footer('Back', polymorphic_path([@scripted], anchor: @key_point.anchor)) %>
-
+<div id="side_controls" class="hide-print">
+  <%== link_to (fa_icon 'edit', class: 'fa-fw'), edit_key_point_path(@key_point), title: 'Edit', class: 'btn icon-ok icon-white' %>
+  <%== link_to (fa_icon 'newspaper', class: 'fa-fw'), key_point_view_path(@key_point), title: 'View', class: 'btn icon-ok icon-white' %>
+  <%== link_to (fa_icon 'trash', class: 'fa-fw'), key_point_path(@key_point), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy', class: 'btn icon-ok icon-white' %>
+  <%== link_to (fa_icon 'truck', class: 'fa-fw'), polymorphic_path([@scripted, @key_point, :move]), class: 'btn icon-ok icon-white' %>
+<% prev_key_point = @key_point.set_prev %>
+<% unless prev_key_point.nil? %>
+  <%= link_to (fa_icon 'angle-left', class: 'fa-fw'), key_point_path(prev_key_point), title: 'Previous Key Point', class: 'btn icon-ok icon-white' %>
+<% end %>
+<% next_key_point = @key_point.set_next %>
+<% unless next_key_point.nil? %>
+  <%= link_to (fa_icon 'angle-right', class: 'fa-fw'), key_point_path(next_key_point), title: 'Next Key Point', class: 'btn icon-ok icon-white' %>
+<% end %>
+</div>

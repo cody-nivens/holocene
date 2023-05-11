@@ -14,14 +14,13 @@ class HoloceneEventsShowHtmlErbTest < ActionDispatch::IntegrationTest
     get holocene_event_path(@holocene_event)
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Edit'
+    assert_select 'a[title=?]', 'Edit'
     assert_select 'a[href=?]', edit_holocene_event_path(@holocene_event)
-    assert_select 'a[text()=?]', 'Map'
+    assert_select 'a[title=?]', 'Map'
     assert_select 'a[href=?]', geo_map_holocene_event_path(@holocene_event)
-    assert_select 'a[text()=?]', 'Footnotes'
+    assert_select 'a[title=?]', 'Footnotes'
     assert_select 'a[href=?]', holocene_event_footnotes_path(@holocene_event)
-    assert_select 'a[text()=?]', 'Back'
-    assert_select '.footer>div>a', 4
+    assert_select 'a[title=?]', 'Back'
     assert_template 'holocene_events/show'
   end
 end

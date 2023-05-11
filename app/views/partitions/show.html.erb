@@ -4,5 +4,8 @@
   <%== @partition.body %>
 </p>
 
-<% add_to_footer('Edit', edit_partition_path(@partition)) %>
-<% add_to_footer('Back', chapter_path(@partition.chapter)) %>
+<div id="side_controls" class="hide-print">
+
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_partition_path(@partition), class: 'btn', title: 'Edit' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), chapter_path(@partition.chapter), class: 'btn', title: 'Back' %>
+</div>

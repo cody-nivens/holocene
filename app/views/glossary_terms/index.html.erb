@@ -17,7 +17,9 @@
     <% @glossary_terms.each do |glossary_term| %>
       <tr>
           <td>
-          <dt><%= glossary_term.name %></dt>
+            <dt>
+              <%= link_to glossary_term.name, glossary_term_url(glossary_term), title: 'Show' %>
+            </dt>
           <dd><%= glossary_term.body %></dd>
       </td>
       <td>
@@ -30,7 +32,6 @@
     </td>
 
       <td>
-          <%= link_to (fa_icon 'search-plus'), glossary_term_url(glossary_term), title: 'Show' %><br>
           <%= link_to (fa_icon 'edit'), edit_glossary_term_path(glossary_term), title: 'Edit' %><br>
           <%= link_to (fa_icon 'trash'), glossary_term_url(glossary_term), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
     </td>
@@ -39,5 +40,7 @@
   </tbody>
 </table>
 
-<% add_to_footer('New Glossary Term', new_book_glossary_term_path(@book)) %>
-<% add_to_footer('Back', book_path(@book)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_book_glossary_term_path(@book), class: 'btn', title: 'New Glossary Term' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_path(@book), class: 'btn', title: 'Back' %>
+</div>

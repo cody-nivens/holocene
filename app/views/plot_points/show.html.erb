@@ -14,5 +14,8 @@
   <%== scenes_list_ul(@plot_point, @plot_point.book) %>
   <p>
 <% end %>
-<% add_to_footer('Edit', edit_plot_point_path(@plot_point)) %> 
-<% add_to_footer('Back', book_plot_points_path(@plot_point.book)) %>
+
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_plot_point_path(@plot_point), class: 'btn', title: 'Edit' %> 
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_plot_points_path(@plot_point.book), class: 'btn', title: 'Back' %>
+</div>

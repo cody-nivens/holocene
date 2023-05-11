@@ -15,10 +15,9 @@ class AsidesShowHtmlErbTest < ActionDispatch::IntegrationTest
     get aside_path(@aside)
     assert_response :success
 
-    assert_select 'a[text()=?]', 'Edit'
+    assert_select 'a[title=?]', 'Edit'
     assert_select 'a[href=?]', edit_aside_path(@aside)
-    assert_select 'a[text()=?]', 'Back'
-    assert_select '.footer>div>a', 2
+    assert_select 'a[title=?]', 'Back'
     assert_template 'asides/show'
   end
 end

@@ -6,4 +6,6 @@
 <%= datagrid_table @grid, partials: 'holocene_event_grid' %>
 <%= paginate(@grid.assets) %>
 
-<% add_to_footer('New Holocene Event', new_holocene_event_path) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_holocene_event_path, class: 'btn', title: 'New Holocene Event' %>
+</div>

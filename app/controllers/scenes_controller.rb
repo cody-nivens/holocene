@@ -58,14 +58,14 @@ class ScenesController < ApplicationController
   # PUT /scenes/1/check
   def check
       @scene.update_attribute(:check, params[:check])
-      render json: { message: "Success" }
+    render json: { message: "Success" }
   end
 
   def sort
     # @list = List.find(params[:list_id])
     @scene = Scene.find(params[:scene_id])
     @scene.update(scene_params)
-    render body: nil
+    render json: { message: "Success" }
   end
 
   # GET /scenes/1

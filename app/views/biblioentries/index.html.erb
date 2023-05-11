@@ -8,25 +8,25 @@
       <th>Xreflabel</th>
       <th>Authors</th>
       <th># Citations</th>
-      <th># Events</th>
-      <th colspan="3"></th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @biblioentries.each do |biblioentry| %>
       <tr>
-        <td><%= biblioentry.name %></td>
+        <td><%= link_to biblioentry.name, biblioentry_path(biblioentry), title: 'Show' %></td>
         <td><%= biblioentry.xreflabel %></td>
         <td><%= format_biblio_authors(biblioentry.authors) %></td>
         <td><%= biblioentry.footnotes.size %></td>
-        <td><%= link_to (fa_icon 'search-plus'), biblioentry_path(biblioentry), title: 'Show' %></td>
-        <td><%= link_to (fa_icon 'edit'), edit_biblioentry_path(biblioentry), title: 'Edit' %></td>
-        <td><%= link_to (fa_icon 'trash'), biblioentry_path(biblioentry), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
+        <td style="width: 7%"><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_biblioentry_path(biblioentry), title: 'Edit' %>
+        <%= link_to (fa_icon 'trash', class: 'fa-fw'), biblioentry_path(biblioentry), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<% add_to_footer('New Biblioentry', new_book_biblioentry_path(@book)) %>
-<% add_to_footer('Back', book_path(@book)) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_book_biblioentry_path(@book), class: 'btn', title: 'New Biblioentry' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_path(@book), class: 'btn', title: 'Back' %>
+</div>

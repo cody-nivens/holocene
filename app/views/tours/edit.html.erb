@@ -2,5 +2,7 @@
 
 <%= render 'form', tour: @tour, story: @story %>
 
-<% add_to_footer('Show', tour_path(@tour)) %>
-<% add_to_footer('Back',  return_or_default_path(story_tours_path(@story))) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'search', class: 'fa-fw'), tour_path(@tour), class: 'btn', title: 'Show' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(story_tours_path(@story)), class: 'btn', title: 'Back' %>
+</div>
