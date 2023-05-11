@@ -11,6 +11,8 @@ pin "popper.js", to: "popper.js", preload: true
 pin "bootstrap", to: "bootstrap.js", preload: true
 pin "chartkick", to: "chartkick.js"
 pin "Chart.bundle", to: "Chart.bundle.js"
+pin "timeline", to: "js/timeline.js", preload: true
+
 pin "@hotwired/stimulus", to: "https://ga.jspm.io/npm:@hotwired/stimulus@3.2.1/dist/stimulus.js"
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
 

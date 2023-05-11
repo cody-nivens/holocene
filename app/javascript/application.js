@@ -14,6 +14,7 @@ import "chartkick"
 import "Chart.bundle"
 import 'jquery.jvectormap.min';
 import 'jquery-jvectormap-world-mill-en';
+import 'timeline'
 
 import { Application } from '@hotwired/stimulus'
 import Sortable from 'stimulus-sortable'
@@ -27,6 +28,5 @@ $(document).ready(function() {
     $('[data-bs-toggle="popover"]').popover();
 
 })
-
 
 import "controllers"

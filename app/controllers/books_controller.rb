@@ -148,7 +148,7 @@ class BooksController < ApplicationController
     respond_to do |format|
       format.html { render :show, locals: { long: long } }
       format.pdf do
-        render pdf: 'export',
+        render pdf: @book.name.gsub(/[:,]/,'').underscore,
                disposition: 'attachment',
                header: { right: '[page] of [topage]' },
                margin: { top: 26, bottom: 26, right: 26, left: 26 },

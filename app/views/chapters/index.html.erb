@@ -9,7 +9,6 @@
 <%= render 'chapters/index', chapters: @chapters %>
 
 <div id="side_controls" class="hide-print">
-
 <% if @scripted.class.name == 'Book' %>
   <%= link_to (fa_icon 'edit', type: :regular, class: 'fa-fw'), edit_book_path(@scripted), class: 'btn', title: 'Edit' %>
   <%= link_to (fa_icon 'sticky-note', type: :regular, class: 'fa-fw'), book_signets_path(@scripted), class: 'btn', title: 'Signets' %>
