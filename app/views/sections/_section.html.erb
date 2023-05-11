@@ -1,3 +1,4 @@
+<li data-sortable-update-url="<%= section_sort_path(section) %>">
 <dt>
   <div class='title'> <%= section.name %> </div>
   <div class='medium'> <strong>Display name: <%= (section.display_name ? 'Y' : 'N') %></strong> </div>
@@ -9,3 +10,4 @@
 <dd>
   <%= render partial: 'shared/summary', locals: { object: section } %>
 </dd>
+</li>

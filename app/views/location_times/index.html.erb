@@ -22,4 +22,6 @@
 
 <br>
 
-<%= link_to 'New Location Time', new_segment_location_time_path(@segment) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_segment_location_time_path(@segment), class: 'btn', title: 'New Location Time' %>
+</div>

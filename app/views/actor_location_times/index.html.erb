@@ -4,19 +4,20 @@
   <thead>
     <tr>
       <th>Actor</th>
-      <th>Location time</th>
-      <th colspan="3"></th>
+      <th>Date</th>
+      <th>Location</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @actor_location_times.each do |actor_location_time| %>
       <tr>
-        <td><%= actor_location_time.actor_id %></td>
-        <td><%= actor_location_time.location_time_id %></td>
-        <td><%= link_to 'Show', actor_location_time %></td>
-        <td><%= link_to 'Edit', edit_actor_location_time_path(actor_location_time) %></td>
-        <td><%= link_to 'Destroy', actor_location_time, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to actor_location_time.actor.name, actor_location_time %></td>
+        <td><%= actor_location_time.location_time.date_string %></td>
+        <td><%= actor_location_time.location_time.location.name %></td>
+        <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_actor_location_time_path(actor_location_time), title: 'Edit' %>
+        <%= link_to (fa_icon 'trash', class: 'fa-fw'), actor_location_time, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +25,6 @@
 
 <br>
 
-<%= link_to 'New Actor Location Time', new_location_time_actor_location_time_path(@location_time) %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_location_time_actor_location_time_path(@location_time), class: 'btn', title: 'New Actor Location Time' %>
+</div>

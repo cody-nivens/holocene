@@ -2,6 +2,6 @@
 
 <%= render 'form', actor_location_time: @actor_location_time %>
 
-<div>
-<%= link_to 'Back', return_or_default_path(location_time_actor_location_times_path(@location_time)), :class => "btn" %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), return_or_default_path(location_time_actor_location_times_path(@location_time)), class: "btn", title: 'Back' %>
 </div>

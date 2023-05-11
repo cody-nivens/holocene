@@ -5,18 +5,17 @@
     <tr>
       <th>Name</th>
       <th>Segments</th>
-      <th colspan="3"></th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @stages.each do |stage| %>
       <tr>
-        <td><%= stage.name %></td>
+        <td><%= link_to stage.name , stage %></td>
         <td><%= stage.segments.size %></td>
-        <td><%= link_to 'Show', stage %></td>
-        <td><%= link_to 'Edit', edit_stage_path(stage) %></td>
-        <td><%= link_to 'Destroy', stage, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_stage_path(stage), title: 'Edit' %>
+        <%= link_to (fa_icon 'edit', class: 'fa-fw'), stage, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,7 +23,7 @@
 
 <br>
 
-<div>
-<%= link_to 'New Stage', new_act_stage_path(@act), :class => "btn" %>
-<%= link_to 'Back', act_path(@act), :class => "btn" %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_act_stage_path(@act), class: "btn", title: 'New Stage' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), act_path(@act), class: "btn", title: 'Back' %>
 </div>

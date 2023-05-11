@@ -1,3 +1,4 @@
+<li data-sortable-update-url="<%= key_point_sort_path(key_point) %>">
 <dt><%= link_to key_point.hook, key_point_path(key_point) %></dt>
 <dd>
  <%= key_point.key_element %>
@@ -6,3 +7,4 @@
  <%= link_to 'Show', key_point_path(key_point) %>
  <%= link_to 'Edit', edit_key_point_path(key_point) %>
  <%= link_to 'Destroy', key_point_path(key_point), method: :delete, data: { confirm: 'Are you sure?' } %></dd>
+</li>

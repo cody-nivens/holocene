@@ -40,23 +40,16 @@
 <%= tabs do |c| %>
 
 <% c.tab 'Key Points' do %>
-  <span>
-    <ul>
-      <div class="chapter_outer-sortable" style="cursor: grab;">
-        <%= content_tag 'div', id: "scripted-#{@story.id}", data: { id: @story.id, model_name: @story.class.name.underscore, update_url: polymorphic_path([@story, :sort]) } do %>
-          <div class="key_point-sortable" style="cursor: grab; min-height: 10px;">
-            <% @story.key_points.rank(:position).each do |key_point| %>
-              <%= content_tag 'div', id: "key_point-#{key_point.id}", data: { model_name: key_point.class.name.underscore, update_url: key_point_sort_path(key_point) } do %>
-                <li><%= link_to key_point.hook, key_point_path(key_point), id: key_point.anchor %> - <%= link_to key_point.key_element, key_point_path(key_point) %>
+    <div data-controller="scenes">
+      <ul data-controller="sortable" data-sortable-resource-name-value="key_point">
+            <% @story.key_points.order(:position).each do |key_point| %>
+               <li data-sortable-update-url="<%= key_point_sort_path(key_point) %>">
+                <%= link_to key_point.hook, key_point_path(key_point), id: key_point.anchor %> - <%= link_to key_point.key_element, key_point_path(key_point) %>
                 <%= render partial: 'key_points/list', formats: [:html], locals: { scripted: @story, key_point: key_point, long: @long } %>
                 </li>
-              <% end %>
             <% end %>
-          </div>
-        <% end %>
-      </div>
     </ul>
-  </span>
+  </div>
 <% end %>
 
 <% c.tab 'Summary' do %>

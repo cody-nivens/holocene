@@ -2,6 +2,6 @@
 
 <%= render 'form', stage: @stage %>
 
-<div>
-<%= link_to 'Back', @stage, :class => "btn" %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), @stage, class: "btn", title: 'Back' %>
 </div>

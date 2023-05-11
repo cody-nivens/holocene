@@ -12,6 +12,6 @@
 <%= render partial: "segments/show", locals: { segment: @segment, op: 'locations' } %>
 
 <div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_segment_path(@segment), :class => "btn" %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), stage_path(@stage), :class => "btn" %>
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_segment_path(@segment), class: "btn" %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), stage_path(@stage), class: "btn" %>
 </div>

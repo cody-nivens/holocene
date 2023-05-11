@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   post '/stories/:story_id/key_points/:id/add', to: 'key_points#add', as: :story_key_point_add
   post '/books/:book_id/key_points/:id/moved', to: 'key_points#moved', as: :book_key_point_moved
   post '/scenes/:id/moved', to: 'scenes#moved', as: :scene_moved
-  patch '/scenes/:id/check', to: 'scenes#check', as: :scene_check
+  put '/scenes/:id/check', to: 'scenes#check', as: :scene_check
   get '/stages/:id/check', to: 'stages#check', as: :stage_check
   get '/stages/:id/time_by_location', to: 'stages#time_by_location', as: :stage_time_by_location
   get '/stages/:id/time_by_actor', to: 'stages#time_by_actor', as: :stage_time_by_actor
@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   get '/stages/:id/list', to: 'stages#list', as: :stage_list
   get '/stages/:id/scenes', to: 'stages#scenes', as: :stage_scenes
   get '/stages/:id/characters', to: 'stages#characters', as: :stage_characters
-  patch '/actor_location_times/:id/check', to: 'actor_location_times#check', as: :actor_location_times_check
+  put '/actor_location_times/:id/check', to: 'actor_location_times#check', as: :actor_location_times_check
   patch '/stages/:id/add_characters', to: 'stages#add_characters', as: :stages_add_characters
 
   resources :cities

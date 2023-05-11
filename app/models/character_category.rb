@@ -1,6 +1,5 @@
 class CharacterCategory < ApplicationRecord
-  include RankedModel
-  ranks :position
+  acts_as_list
 
   has_many :character_attributes, dependent: :destroy
 

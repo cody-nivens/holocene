@@ -2,9 +2,7 @@ class Section < ApplicationRecord
   ThinkingSphinx::Callbacks.append(
     self, behaviours: [:sql]
   )
-  include RankedModel
 
-  ranks :position, with_same: [:sectioned_id, :sectioned_type]
   acts_as_list scope: [:sectioned_id, :sectioned_type]
 
   has_rich_text :body

@@ -1,7 +1,6 @@
 class CharacterAttribute < ApplicationRecord
-  include RankedModel
 
-  ranks :position, with_same: :character_category_id
+  acts_as_list scope: :character_category_id
 
   belongs_to :character_category
   belongs_to :related, primary_key: :related_id, class_name: 'CharacterAttribute', optional: true

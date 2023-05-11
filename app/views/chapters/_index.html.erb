@@ -45,7 +45,7 @@
         <td class='text-end'><%= number_with_delimiter chapter.citations.size %></td>
         <td class='text-end'><%= HoloceneEvent.convert_ad(chapter.sections.map { |x| x.holocene_events.minimum('start_year') }.compact.min) %></td>
         <td class='text-end'><%= HoloceneEvent.convert_ad(chapter.sections.map { |x| x.holocene_events.maximum('start_year') }.compact.max) %></td>
-        <td><%= link_to (fa_icon 'arrow-down'), chapter_demote_path(chapter), title: 'Demote' %></td>
+        <td><%#= link_to (fa_icon 'arrow-down'), chapter_demote_path(chapter), title: 'Demote' %></td>
         <td><%= link_to (fa_icon 'map'), geo_map_chapter_path(chapter), title: 'Map' %></td>
         <td><%= link_to (fa_icon 'trash'), chapter_path(chapter), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete' %></td>
       </tr>
@@ -59,7 +59,7 @@
           <td class='text-end'><%= section.citations.size %></td>
           <td class='text-end'><%= HoloceneEvent.convert_ad(section.holocene_events.minimum('start_year')) %></td>
           <td class='text-end'><%= HoloceneEvent.convert_ad(section.holocene_events.maximum('start_year')) %></td>
-        <td><%= link_to (fa_icon 'arrow-up'), chapter_section_promote_path(chapter, section), title: 'Promote' %></td>
+        <td><%#= link_to (fa_icon 'arrow-up'), chapter_section_promote_path(chapter, section), title: 'Promote' %></td>
 
         <td colspan='6'></td>
           </tr>

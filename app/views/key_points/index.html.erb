@@ -1,18 +1,10 @@
 <% pdf ||= nil %>
 <h2>Key Points</h2>
-<dl>
-<div class='chapter_outer-sortable' style='cursor: grab;'>
-  <%= content_tag 'div', id: "scripted-#{@scripted.id}", data: { id: @scripted.id, model_name: @scripted.class.name.underscore, update_url: polymorphic_path([@scripted, :sort]) } do %>
-    <div class='key_point-sortable' style='cursor: grab; min-height: 10px;'>
-      <% @key_points.rank(:position).each do |key_point| %>
-        <%= content_tag 'div', id: "key_point-#{key_point.id}", data: { model_name: key_point.class.name.underscore, update_url: key_point_sort_path(key_point) } do %>
+<ul data-controller="sortable" data-sortable-resource-name-value="key_point">
+      <% @key_points.order(:position).each do |key_point| %>
           <%= render partial: 'key_points/key_point', formats: [:html], locals: { key_point: key_point, scripted: @scripted, pdf: pdf } %>
-        <% end %>
       <% end %>
-    </div>
-  <% end %>
-</div>
-</dl>
+</ul>
 
 <br>
 

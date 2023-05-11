@@ -1,13 +1,5 @@
-<dl>
-  <div class="chapter_outer-sortable" style="cursor: grab;">
-    <%= content_tag 'div', id: "sectioned-#{sectioned.id}", data: { id: sectioned.id, model_name: sectioned.class.name, update_url: polymorphic_path([sectioned, :sort]) } do %>
-      <div class="section-sortable" style="cursor: grab; min-height: 10px;">
-        <% sections.rank(:position).each do |section| %>
-          <%= content_tag 'div', id: "section-#{section.id}", data: { model_name: section.class.name.underscore, update_url: section_sort_path(section) } do %>
+<ul data-controller="sortable" data-sortable-resource-name-value="section">
+        <% sections.order(:position).each do |section| %>
             <%= render partial: 'sections/section', locals: { section: section, sectioned: sectioned } %>
-          <% end %>
         <% end %>
-      </div>
-    <% end %>
-  </div>
 </dl>

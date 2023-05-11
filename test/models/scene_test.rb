@@ -32,10 +32,10 @@ class SceneTest < ActiveSupport::TestCase
 
     assert_equal 'A00002', next_scene.abc
 
-    scene = scenes(:scene_2)
+    scene = scenes(:scene_6)
     next_scene = scene.set_next
 
-    assert_equal 'A00003', next_scene.abc
+    assert_equal 'A00002', next_scene.abc
 
     scene = scenes(:scene_3)
     next_scene = scene.set_next
@@ -54,7 +54,7 @@ class SceneTest < ActiveSupport::TestCase
     scene = scenes(:scene_3)
     prev_scene = scene.set_prev
 
-    assert_equal 'A00002', prev_scene.abc
+    assert_equal 'A00004', prev_scene.abc
 
     scene = scenes(:scene_2)
     prev_scene = scene.set_prev

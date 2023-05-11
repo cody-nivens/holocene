@@ -33,7 +33,7 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
   test 'should check scene' do
     checked = @scene_2.check
 
-    patch scene_check_path(id: @scene_2.id), xhr: true,
+    put scene_check_path(id: @scene_2.id), xhr: true,
                                                params: { check: !checked }
     assert_response :success
     assert_equal !checked, @scene_2.reload.check

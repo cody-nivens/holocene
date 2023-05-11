@@ -1,12 +1,11 @@
 class KeyPoint < ApplicationRecord
-  include RankedModel
   ThinkingSphinx::Callbacks.append(
     self, behaviours: [:sql]
   )
 
-  belongs_to :scripted, polymorphic: true
-  ranks :position, with_same: [:scripted_id, :scripted_type]
   acts_as_list scope: [:scripted_id, :scripted_type]
+
+  belongs_to :scripted, polymorphic: true
 
   has_many :scenes, dependent: :destroy
 

@@ -3,7 +3,9 @@
 
 <div id="side_controls" class="hide-print">
   <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([@sigged, :signet]), class: 'btn', title: 'New Signet' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@sigged), class: "btn", title: "Back" %>
 </div>
+
 <% if @sigged.signets.size > 0 %>
 <table class='table'>
   <thead>
@@ -23,4 +25,3 @@
 </table>
 
 <% end %>
-

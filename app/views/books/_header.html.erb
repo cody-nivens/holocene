@@ -11,6 +11,7 @@
   <% else %>
   <%= link_to (fa_icon 'expand', type: :solid, class: 'fa-fw'), book_path(book, long: true), title: 'Show, long', class: 'btn' %>
   <% end %>
+  <%= link_to (fa_icon 'list', type: :solid, class: 'fa-fw'), toc_path(book), title: 'Table of Contents', class: 'btn' %>
   <%= link_to (fa_icon 'newspaper', type: :solid, class: 'fa-fw'), book_view_path(book), title: 'View', class: 'btn' %>
   <%= link_to (fa_icon 'newspaper', type: :regular, class: 'fa-fw'), book_view_path(book, outline: true, long: true), title: 'View, outline', class: 'btn' %>
   <%= link_to (fa_icon 'file-pdf', type: :solid, class: 'fa-fw'), book_path(book, format: :pdf), title: 'PDF', class: 'btn' %>

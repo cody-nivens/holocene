@@ -2,7 +2,7 @@
 
 <%= render 'form', segment: @segment %>
 
-<div>
-<%= link_to 'Show', @segment, :class => "btn" %>
-<%= link_to 'Back', return_or_default_path(stage_segments_path(@stage)), :class => "btn" %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'search', class: 'fa-fw'), @segment, class: "btn", title: 'Show' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), return_or_default_path(stage_segments_path(@stage)), class: "btn", title: 'Back' %>
 </div>

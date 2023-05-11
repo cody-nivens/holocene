@@ -169,6 +169,6 @@ class KeyPointsController < ApplicationController
   def key_point_params
     params.require(:key_point).permit(:hook, :inciting_incident, :key_element, :first_plot_point, :first_pinch_point,
                                       :midpoint, :second_pinch_point, :third_plot_point, :climax, :scripted_id,
-                                      :scripted_type, :selector, :print_name, :print_points, :position_position)
+                                      :scripted_type, :selector, :print_name, :print_points, :position)
   end
 end

@@ -4,7 +4,7 @@
 <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_character_category_path, class: 'btn', title: 'New Character Category' %>
 </div>
 <ul data-controller="sortable" data-sortable-resource-name-value="character_category">
-  <% @character_categories.rank(:position).each do |character_category| %>
+  <% @character_categories.order(:position).each do |character_category| %>
     <li data-sortable-update-url="<%= character_category_sort_path(character_category) %>"> 
       <%= link_to character_category.name, character_category %>
       <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_character_category_path(character_category), title: 'Edit' %>

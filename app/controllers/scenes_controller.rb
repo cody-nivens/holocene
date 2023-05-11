@@ -218,6 +218,6 @@ class ScenesController < ApplicationController
   def scene_params
     params.require(:scene).permit(:abc, :check, :summary, :place, :time, :scene_sequel, :goal_reaction, :conflict_dilemma, :disaster_decision, 
                                   :short_term_goal, :long_term_goal, :over_arching_goal, :situated_id, :book_id,
-                                  :situated_type, :selector, :key_point_id, :section_id, :insert_scene_id, :before_flag, :artifact_id, :position_position, :title_scene)
+                                  :situated_type, :selector, :key_point_id, :section_id, :insert_scene_id, :before_flag, :artifact_id, :position, :title_scene)
   end
 end

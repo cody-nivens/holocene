@@ -12,7 +12,7 @@
   <div class='row'>
     <div class='col-sm-2'>
      Actors 
-      <%= link_to (fa_icon 'plus'), new_location_time_actor_location_time_path(@location_time), title: 'New Actor' %>
+      <%= link_to (fa_icon 'edit', class: 'fa-fw'), new_location_time_actor_location_time_path(@location_time), title: 'New Actor', title: (fa_icon 'plus') %>
     </div>
   </div>
   <div class='row'>
@@ -27,7 +27,7 @@
   </div>
 
 
-  <div>
-<%= link_to 'Edit', edit_location_time_path(@location_time), :class => "btn" %>
-<%= link_to 'Back', segment_location_times_path(@segment), :class => "btn" %>
+  <div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_location_time_path(@location_time), class: "btn", title: 'Edit' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), segment_location_times_path(@segment), class: "btn", title: 'Back' %>
   </div>

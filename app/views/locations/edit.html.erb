@@ -2,7 +2,7 @@
 
 <%= render 'form', location: @location %>
 
-<div>
-<%= link_to 'Show', @location, :class => "btn" %>
-<%= link_to 'Back', book_locations_path(@book), :class => "btn" %>
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'search', class: 'fa-fw'), @location, class: "btn", title: 'Show' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_locations_path(@book), class: "btn", title: 'Back' %>
 </div>

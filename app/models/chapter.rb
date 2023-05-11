@@ -1,7 +1,5 @@
 class Chapter < ApplicationRecord
-  include RankedModel
 
-  ranks :position, with_same: [:scripted_id, :scripted_type]
   acts_as_list scope: [:scripted_id, :scripted_type]
 
   has_rich_text :body
