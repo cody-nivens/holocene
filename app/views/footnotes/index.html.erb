@@ -1,9 +1,9 @@
 <% @title = "Footnotes" %>
 <h2>Footnotes</h2>
 
-<%= render 'footnotes/index', footnotes: @footnotes, noted: @noted %>
 
-<div id="side_controls" class="hide-print">
+<turbo-frame id="<%= dom_id @noted %>">
+<%= render 'footnotes/index', footnotes: @footnotes, noted: @noted %>
 <%= link_to (fa_icon 'plus', class: 'fa-fw'), "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnotes/#{Footnote.random_slug}", class: 'btn', title: 'New Footnote' %>
 <%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@noted), class: 'btn', title: 'Back' %>
-</div>
+</turbo-frame>

@@ -20,7 +20,7 @@ class ScenesIndexHtmlErbTest < ActionDispatch::IntegrationTest
 
     assert_template 'scenes/index'
 
-    assert_select 'h2', "#{@situated.book.name}#{@situated.name}"
+    assert_select 'h3', "#{@situated.book.name}#{@situated.name}"
 
     ['layouts/_nav_links', '_nav_links', 'layouts/_nav_links_for_auth', '_nav_links_for_auth',
      'application/_header', '_header', 'layouts/_messages', '_messages', 'application/_footer', '_footer'].each do |partial|

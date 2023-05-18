@@ -133,6 +133,7 @@ Rails.application.routes.draw do
     resources :artifact_types
     resources :actors, shallow: true do
       resources :actor_characters
+      resources :actor_location_times
     end
     resources :locations
     resources :acts, shallow: true do

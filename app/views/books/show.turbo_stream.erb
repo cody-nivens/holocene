@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "#{dom_id @book}" do %>
+  <%= render partial: 'books/book', formats: [:html], locals: { book: @book, pdf: false } %>
+  <%= render partial: "books/book_item", locals: { book:  @book } %>
+<% end %>

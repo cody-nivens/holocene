@@ -1,28 +1,7 @@
 <h2>Locations</h2>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Location Times</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @locations.each do |location| %>
-      <tr>
-        <td><%= link_to location.name , location %></td>
-        <td><%= location.location_times.size %></td>
-        <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_location_path(location), title: 'Edit' %>
-        <%= link_to (fa_icon 'trash', class: 'fa-fw'), location, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_book_location_path(@book), class: "btn", title: 'New Location' %>
+<div id="location-new">
+<%= render partial: "locations/new_link" %>
 </div>
+
+<%= render partial: "locations/locations" %>

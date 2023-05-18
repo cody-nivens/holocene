@@ -19,6 +19,13 @@ class AsidesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get new' do
     get new_chapter_aside_url(@chapter)
+
+    assert_select "turbo-frame" do |elements|
+      elements.each do |element|
+        assert_equal element["target"], "edit-aside"
+        assert_equal element["id"], "new_asides"
+      end
+    end
     assert_response :success
     assert_template 'asides/new'
   end
@@ -45,6 +52,12 @@ class AsidesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should show aside' do
     get aside_url(@aside)
+
+    assert_select "turbo-frame" do |elements|
+      elements.each do |element|
+        assert_equal element["id"], (dom_id @aside)
+      end
+    end
     assert_response :success
     assert_template 'asides/show'
   end
@@ -75,4 +88,50 @@ class AsidesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to chapter_url(@chapter)
     assert_template partial: false
   end
+
+
+  test "should show aside TS" do
+    get aside_url(@aside, format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "#{dom_id @aside}"
+    assert_response :success
+  end
+
+  test "should create aside TS" do
+    assert_difference('Aside.count') do
+      post chapter_asides_url(@chapter_3, format: :turbo_stream),
+           params: { aside: { body: @aside.body, name: @aside.name, chapter_id: @chapter_3.id } }
+    end
+    
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "new_asides"
+    assert_turbo_stream action: :replace, target: "edit_asides"
+    assert_turbo_stream action: :replace, target: "asides"
+    #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
+    #  assert_equal "<template>message_1</template>", selected.children.to_html
+    #end
+    assert_response :success
+  end
+
+  test "should update aside TS" do
+    patch aside_url(@aside, format: :turbo_stream), params: { aside: { body: @aside.body, name: @aside.name } }
+    label = dom_id @aside
+    assert_turbo_stream action: :replace, target: label do |selected|
+      #assert_equal "<template></template>", selected.children.to_html
+    end
+
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "#{dom_id @aside}"
+    assert_response :success
+  end
+
+  test "should destroy aside TS" do
+    assert_difference('Aside.count', -1) do
+      delete aside_url(@aside, format: :turbo_stream)
+    end
+
+    assert_turbo_stream action: :replace, target: "asides"
+    assert_response :success
+  end
+
 end

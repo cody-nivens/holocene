@@ -8,3 +8,4 @@
 //= link_tree ../../javascript/scss .css
 //= link_tree ../../../vendor/javascript .js
 //= link site.scss
+//= link_tree ../builds

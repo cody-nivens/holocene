@@ -1,3 +1,4 @@
+<turbo-frame id="<%= dom_id @scene %>">
 <%= form_with url: polymorphic_path([@scene, :moved]) do |f| %>
   <%= hidden_field "#{@situated.class.name.underscore}_id", value: @situated.id %>
   <%= hidden_field_tag :key_point_id, (@key_point.nil? ? nil : @key_point.id) %>
@@ -37,7 +38,8 @@
   </table>
 
   <div class='actions'>
-    <%= f.submit %>
+    <%= f.submit nil, class: 'btn btn-primary' %>
+    <%= link_to (fa_icon 'backward', class: 'fa-fw'), scene_path(@scene), class: 'btn', title: 'Back' %>
   </div>
 <% end %>
 
@@ -71,7 +73,8 @@
     });
   })
 </script>
+</turbo-frame>
 
 <div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@situated), class: 'btn', title: 'Back' %>
+    <%= link_to (fa_icon 'backward', class: 'fa-fw'), scene_path(@scene), class: 'btn', title: 'Back' %>
 </div>

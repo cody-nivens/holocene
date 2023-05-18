@@ -1,3 +1,4 @@
+<turbo-frame id="<%= dom_id @object %>">
 <%= bootstrap_form_for :character, url: polymorphic_path([@object, :characters_add]) do |f| %>
 
   <%= hidden_field "#{@object.class.name.underscore}_id", value: @object.id %>
@@ -17,7 +18,9 @@
   </tr>
 </table>
 
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@object), class: 'btn', title: 'Back' %>
 <% end %>
+</turbo-frame>
 
 <div id="side_controls" class="hide-print">
 <%= link_to (fa_icon 'plus', class: 'fa-fw'), polymorphic_path([@object, :characters]), method: :post, class: 'btn', title: 'New Character' %>

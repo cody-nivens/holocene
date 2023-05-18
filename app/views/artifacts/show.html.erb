@@ -4,10 +4,12 @@
   <%= @artifact.name %>
 </p>
 
+<% unless @artifact.character.nil? %>
 <p>
   <strong>Owner/Controller:</strong>
-  <%= @artifact.character_name %>
+  <%= @artifact.character.name %>
 </p>
+<% end %>
 
 <% unless @artifact.tag_list.empty? %>
 <p><strong>Tags:</strong> <%== @artifact.tag_list_s %></p>

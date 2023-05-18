@@ -1,6 +1,4 @@
+<turbo-frame id="<%= dom_id @chapter %>">
 <%= render 'form', scripted: @scripted, chapter: @chapter, command_label: 'Update Chapter' %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'search', class: 'fa-fw'), chapter_path(@chapter), class: 'btn', title: 'Show' %>
 <%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(polymorphic_path([@scripted, :chapters])), class: 'btn', title: 'Back' %>
-</div>
+</turbo-frame>

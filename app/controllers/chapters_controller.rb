@@ -4,6 +4,9 @@ class ChaptersController < ApplicationController
   before_action :set_scripted, only: %i[index create new]
 
   def index
+    @long = params[:long]
+
+    session[:return_to] = request.fullpath
     @chapters = @scripted.chapters.includes([ { partition: :rich_text_body }, { aside: :rich_text_body },
                                               :chapters_holocene_events, :holocene_events,
                                               { sections: :rich_text_body }, :rich_text_body]).order(:position).all
@@ -106,12 +109,15 @@ class ChaptersController < ApplicationController
   # GET /chapters/1
   # GET /chapters/1.json
   def show
+    @long = params[:long]
+    session[:return_to] = request.fullpath
     @chapter = Chapter.includes([{ holocene_events: [:region, :event_types, :rich_text_body] }]).find(params[:id])
     @title = @chapter.name
     @notes = {}
     @sections = @chapter.sections.order(:position)
     respond_to do |format|
       format.html { render :show, locals: { epub: false } }
+      format.turbo_stream { }
     end
   end
 
@@ -131,11 +137,15 @@ class ChaptersController < ApplicationController
   def create
     @chapter = Chapter.new(chapter_params)
 
+
     respond_to do |format|
       if @chapter.save
         @chapter.reload
+        @chapters = @chapter.scripted.chapters
+        @long = false
         format.html { redirect_to @chapter, notice: 'Chapter was successfully created.' }
         format.json { render :show, status: :created, location: @chapter }
+        format.turbo_stream { flash.now[:notice] = "Chapter was successfully created." }
       else
         format.html { render :new }
         format.json { render json: @chapter.errors, status: :unprocessable_entity }
@@ -151,6 +161,7 @@ class ChaptersController < ApplicationController
       if @chapter.update(chapter_params)
         format.html { redirect_to @chapter, notice: 'Chapter was successfully updated.' }
         format.json { render :show, status: :ok, location: @chapter }
+        format.turbo_stream { flash.now[:notice] = "Chapter was successfully updated." }
       else
         format.html { render :edit }
         format.json { render json: @chapter.errors, status: :unprocessable_entity }
@@ -163,10 +174,11 @@ class ChaptersController < ApplicationController
   def destroy
     @scripted = @chapter.scripted
     @chapter.destroy
+    @chapters = @scripted.chapters
+    @long = false
     respond_to do |format|
-      format.html do
-        redirect_to polymorphic_path([@scripted, :chapters]), notice: 'Chapter was successfully destroyed.'
-      end
+      format.html { redirect_to polymorphic_path([@scripted, :chapters]), notice: 'Chapter was successfully destroyed.' }
+      format.turbo_stream { flash.now[:notice] = "Chapter was successfully destroyed." }
       format.json { head :no_content }
     end
   end

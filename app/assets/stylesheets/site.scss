@@ -6,8 +6,12 @@
 @import 'bootstrap/_functions';
 @import 'bootstrap/_variables';
 @import 'bootstrap/mixins/_clearfix';
-@import 'jquery-ui/sortable.css';
 @import 'tpl';
+
+turbo-frame {
+  padding: 0.1em 0.1em;
+  margin: 0.5em 0;
+}
 
 #side_controls {
   position: fixed;

@@ -31,6 +31,7 @@ class LocationsController < ApplicationController
       if @location.save
         format.html { redirect_to location_url(@location), notice: "Location was successfully created." }
         format.json { render :show, status: :created, location: @location }
+        format.turbo_stream { flash.now[:notice] = "Location was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @location.errors, status: :unprocessable_entity }
@@ -44,6 +45,7 @@ class LocationsController < ApplicationController
       if @location.update(location_params)
         format.html { redirect_to location_url(@location), notice: "Location was successfully updated." }
         format.json { render :show, status: :ok, location: @location }
+        format.turbo_stream { flash.now[:notice] = "Location was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @location.errors, status: :unprocessable_entity }
@@ -58,6 +60,7 @@ class LocationsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to book_locations_url(@book), notice: "Location was successfully destroyed." }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:notice] = "Location was successfully destroyed." }
     end
   end
 

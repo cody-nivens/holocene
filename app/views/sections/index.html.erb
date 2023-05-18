@@ -1,6 +1,6 @@
 <h2>Sections for <%= @sectioned.class.name %> <%= @sectioned.name %></h2>
 
-<%= render partial: 'sections/index', locals: { sections: @sections, sectioned: @sectioned } %>
+<%= render partial: 'sections/sections', locals: { sections: @sections, sectioned: @sectioned } %>
 
 <div id="side_controls" class="hide-print">
 <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([@sectioned, :section]), class: 'btn', title: 'New Section' %>

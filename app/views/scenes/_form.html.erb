@@ -72,30 +72,6 @@
     <%= f.select :insert_scene_id, Scene.get_scenes_to_array(@situated.book).collect { |p| [Scene.find(p).full_name, p] }, { include_blank: true } %>
   </div>
 
-  <div class='field'>
-    <%= f.rich_text_area :goal_reaction %>
-  </div>
-
-  <div class='field'>
-    <%= f.rich_text_area :conflict_dilemma %>
-  </div>
-
-  <div class='field'>
-    <%= f.rich_text_area :disaster_decision %>
-  </div>
-
-  <div class='field'>
-    <%= f.rich_text_area :short_term_goal %>
-  </div>
-
-  <div class='field'>
-    <%= f.rich_text_area :long_term_goal %>
-  </div>
-
-  <div class='field'>
-    <%= f.rich_text_area :over_arching_goal %>
-  </div>
-
   <div class='actions'>
     <%= f.submit nil, class: 'btn btn-primary' %>
   </div>

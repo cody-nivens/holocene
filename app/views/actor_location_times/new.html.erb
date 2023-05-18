@@ -1,7 +1,9 @@
 <h2>New Actor Location Time</h2>
 
+<turbo-frame id="<%= dom_id (@klass.name == 'Actor' ? @actor_location_time.actor : @actor_location_time.location_time) %>">
 <%= render 'form', actor_location_time: @actor_location_time %>
+</turbo-frame>
 
 <div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), return_or_default_path(location_time_actor_location_times_path(@location_time)), class: "btn", title: 'Back' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), return_or_default_path((@klass.name == 'Actor' ? actor_actor_location_times_path(@connector) : location_time_actor_location_times_path(@connector))), class: "btn", title: 'Back' %>
 </div>

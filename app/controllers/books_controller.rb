@@ -5,6 +5,7 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
+    session[:return_to] = request.fullpath
     @long = params[:long]
     @books = Book.where(user_id: current_user.id).order(:position)
   end
@@ -23,9 +24,9 @@ class BooksController < ApplicationController
   end
 
   def chars
-    long = params[:long]
+    @long = params[:long]
 
-    if long
+    if @long.kind_of?(TrueClass) or @long == "true"
       @characters = @book.characters
     else
       scenes = Scene.get_scenes_to_array(@book)
@@ -33,10 +34,10 @@ class BooksController < ApplicationController
     end
 
     @data = {}
-    op = params[:op]
+    @op = params[:op]
 
     respond_to do |format|
-      format.html { render :chars, locals: { book: @book, characters: @characters, op: op, long: long } }
+      format.html { render :chars, locals: { book: @book, characters: @characters, op: @op, long: @long } }
     end
 
   end
@@ -91,7 +92,12 @@ class BooksController < ApplicationController
   end
 
   def toc
+    @long = params[:long]
     @chapters = @book.chapters.order(:position).all
+
+    respond_to do |format|
+      format.html { render :toc, locals: { book: @book } }
+    end
   end
 
   #      format.pdf {
@@ -132,10 +138,12 @@ class BooksController < ApplicationController
   # GET /books/1
   # GET /books/1.json
   def show
-    long = params[:long]
+    @long = params[:long]
+    session[:return_to] = request.fullpath
+    session[:book_id] = @book.id
 
     if @book.is_fiction?
-      if long
+      if @long
         @stories = @book.stories.where(publish: true).includes(:rich_text_summary_body).order(:position)
       else
         @stories = @book.stories.where(publish: true).order(:position)
@@ -146,7 +154,8 @@ class BooksController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { render :show, locals: { long: long } }
+      format.html { render :show, locals: { long: @long } }
+      format.turbo_stream { }
       format.pdf do
         render pdf: @book.name.gsub(/[:,]/,'').underscore,
                disposition: 'attachment',
@@ -221,6 +230,7 @@ class BooksController < ApplicationController
       if @book.save
         format.html { redirect_to @book, notice: 'Book was successfully created.' }
         format.json { render :show, status: :created, location: @book }
+        format.turbo_stream { flash.now[:notice] = "Book was successfully created." }
       else
         format.html { render :new }
         format.json { render json: @book.errors, status: :unprocessable_entity }
@@ -235,6 +245,7 @@ class BooksController < ApplicationController
       if @book.update(book_params)
         format.html { redirect_to @book, notice: 'Book was successfully updated.' }
         format.json { render :show, status: :ok, location: @book }
+        format.turbo_stream { flash.now[:notice] = "Book was successfully updated." }
       else
         format.html { render :edit }
         format.json { render json: @book.errors, status: :unprocessable_entity }
@@ -250,6 +261,7 @@ class BooksController < ApplicationController
     respond_to do |format|
       format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:notice] = "Book was successfully destroyed." }
     end
   end
 

@@ -16,7 +16,6 @@ class AsidesNewHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_select 'a[title=?]', 'Back'
-    assert_select 'a[href=?]', chapter_path(@chapter)
     assert_template 'asides/new'
   end
 end

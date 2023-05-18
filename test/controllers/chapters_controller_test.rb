@@ -37,6 +37,12 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get new' do
     get new_polymorphic_url([@scripted_1, :chapter])
+    assert_select "turbo-frame" do |elements|
+      elements.each do |element|
+        assert_equal element["target"], "edit-chapter"
+        assert_equal element["id"], "new_chapters"
+      end
+    end
     assert_response :success
   end
 
@@ -125,6 +131,11 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get edit' do
     get edit_chapter_url(@chapter)
+    assert_select "turbo-frame" do |elements|
+      elements.each do |element|
+        assert_equal element["id"], (dom_id @chapter)
+      end
+    end
     assert_response :success
   end
 
@@ -152,4 +163,53 @@ class ChaptersControllerTest < ActionDispatch::IntegrationTest
       assert_redirected_to polymorphic_url([@scripted_1, :chapters])
     end
   end
+
+
+  test "should show chapter TS" do
+    get chapter_url(@chapter, format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "#{dom_id @chapter}"
+    assert_response :success
+  end
+
+  test "should create chapter TS" do
+    assert_difference('Chapter.count') do
+      post polymorphic_url([@scripted_1, :chapters], format: :turbo_stream),
+           params: { chapter: { body: @chapter.body, name: 'Test', position: @chapter.position, scripted_type: 'Book',
+                                scripted_id: @chapter.scripted_id } }
+    end
+    
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "new_chapters"
+    assert_turbo_stream action: :replace, target: "edit_chapters"
+    assert_turbo_stream action: :replace, target: "chapters"
+    #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
+    #  assert_equal "<template>message_1</template>", selected.children.to_html
+    #end
+    assert_response :success
+  end
+
+  test "should update chapter TS" do
+    patch chapter_url(@chapter, format: :turbo_stream),
+          params: { chapter: { body: @chapter.body, name: @chapter.name, position: @chapter.position,
+                               scripted: @scripted_1 } }
+    label = dom_id @chapter
+    assert_turbo_stream action: :replace, target: label do |selected|
+      #assert_equal "<template></template>", selected.children.to_html
+    end
+
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "#{dom_id @chapter}"
+    assert_response :success
+  end
+
+  test "should destroy chapter TS" do
+    assert_difference('Chapter.count', -1) do
+      delete chapter_url(@chapter, format: :turbo_stream)
+    end
+
+    assert_turbo_stream action: :replace, target: "chapters"
+    assert_response :success
+  end
+
 end

@@ -1,10 +1,7 @@
 <% @title = "Stories" %>
 <h2>Stories</h2>
 
-<div>
-<%= link_to (fa_icon 'plus'), new_book_story_path(book_id: @book.id), title: 'New Story' %>
-</div>
-<% if long %>
+<% if @long %>
 <% z_count = 0 %>
 <% @book.stories.each do |story| %>
   <% word_counts = story.word_counts %>
@@ -20,5 +17,8 @@
 <% word_avg = 0 %>
 <% end %>
 
-<%= render partial: 'stories/index', formats: [:html], locals: { stories: @stories, book: @book, long: long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
+<%= link_to (fa_icon 'plus'), new_book_story_path(book_id: @book.id), data: { turbo_target: "stories" }, title: 'New Story' %>
+<turbo-frame id="stories">
+<%= render partial: 'stories/index', formats: [:html], locals: { stories: @stories, book: @book, long: @long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
+</turbo-frame>
 

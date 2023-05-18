@@ -1,21 +1,7 @@
 <% @title = "#{params[:long].nil? ? '' : 'Long: '} #{@book.name}" %>
 
-<%= render partial: 'header', locals: { book: @book, long: long } %>
+<%= render partial: 'header', locals: { book: @book, long: @long } %>
 
-<% unless @book.is_fiction? %>
-  <table class='table'>
-    <tr>
-      <th>Chapters:</th>
-      <td class='text-right'><%= @book.chapters.size %></td>
-      <th>Word Count:</th>
-      <td class='text-right'><%= number_with_delimiter(@book.word_count, delimiter: ',') %></td>
-    </tr>
-  </table>
-<% end %>
-
-<% if @book.is_fiction? %>
-  <%= render 'books/fiction', book: @book, stories: @stories, long: long %>
-<% else %>
-  <%= render 'chapters/index', chapters: @chapters %>
-<% end %>
-<%= render partial: 'footer', locals: { book: @book } %>
+<turbo-frame id="<%= dom_id @book %>">
+  <%= render partial: "books/book_item", locals: { book: @book } %>
+</turbo-frame>

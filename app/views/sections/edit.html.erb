@@ -1,4 +1,6 @@
 <h2>Editing Section</h2>
 
-<%= render 'form', scripted: @scripted, sectioned: @sectioned, section: @section, command_label: 'Update Section' %>
-
+<turbo-frame id="<%= dom_id @sectioned %>">
+  <%= render partial: 'form', locals: { sectioned: @sectioned, section: @section, command_label: 'Update Section' } %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  :back, class: 'btn', title: 'Back' %>
+</turbo-frame>

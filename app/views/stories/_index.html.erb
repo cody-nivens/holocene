@@ -1,9 +1,9 @@
 <% pdf ||= nil %>
 <% long ||= false %>
-  <ul data-controller="sortable" data-sortable-resource-name-value="story">
-    <% stories.order(:position).each do |story| %>
-      <li data-sortable-update-url="<%= story_sort_path(story) %>">
-        <%= render partial: 'stories/story', formats: [:html], locals: { story: story, pdf: pdf, long: long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
-      </li>
-    <% end %>
-  </ul>
+<turbo-frame id="stories">
+<% stories.order(:position).each do |story| %>
+  <turbo-frame id="<%= dom_id story %>">
+    <%= render partial: 'stories/story_item', formats: [:html], locals: { story: story, pdf: pdf, long: long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
+  </turbo-frame>
+<% end %>
+</turbo-frame>

@@ -55,8 +55,10 @@ class StoriesController < ApplicationController
     @characters = @story.characters
     @title = @story.name
     @long = params[:long]
+
     respond_to do |format|
       format.html { render :show }
+      format.turbo_stream { }
       format.pdf do
         render pdf: 'export',
                disposition: 'attachment',
@@ -136,16 +138,21 @@ class StoriesController < ApplicationController
   # GET /stories/new
   def new
     @story = Story.new
+    @story.book = @book
+    @long = params[:long]
   end
 
   # GET /stories/1/edit
-  def edit; end
+  def edit
+    @long = params[:long]
+  end
 
   # POST /stories
   # POST /stories.json
   def create
     @story = Story.new(story_params)
     @book = @story.book
+    @long = params[:long]
 
     respond_to do |format|
       if @story.save
@@ -153,6 +160,7 @@ class StoriesController < ApplicationController
         $redis.set("story_scenes_#{@story.id}", nil)
         format.html { redirect_to story_path(@story), notice: 'Story was successfully created.' }
         format.json { render :show, status: :created, location: @story }
+        format.turbo_stream { flash.now[:notice] = "Story was successfully created." }
       else
         format.html { render :new, book_id: @book.id }
         format.json { render json: @story.errors, status: :unprocessable_entity }
@@ -164,6 +172,8 @@ class StoriesController < ApplicationController
   # PATCH/PUT /stories/1.json
   def update
     old_publish = @story.publish
+    @long = params[:long]
+
     respond_to do |format|
       if @story.update(story_params)
         if old_publish != @story.publish
@@ -172,6 +182,7 @@ class StoriesController < ApplicationController
         end
         format.html { redirect_to story_url(@story), notice: 'Story was successfully updated.' }
         format.json { render :show, status: :ok, location: @story }
+        format.turbo_stream { flash.now[:notice] = "Story was successfully updated." }
       else
         format.html { render :edit, book_id: @book.id }
         format.json { render json: @story.errors, status: :unprocessable_entity }
@@ -188,6 +199,7 @@ class StoriesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to book_stories_url(book_id: @book.id), notice: 'Story was successfully destroyed.' }
       format.json { head :no_content }
+        format.turbo_stream { flash.now[:notice] = "Story was successfully destroyed." }
     end
   end
 

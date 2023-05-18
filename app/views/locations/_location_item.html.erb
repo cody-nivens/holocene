@@ -1,0 +1,15 @@
+  <div class="row">
+    <div class="col-sm-2">
+      <%= link_to location.name , location %>
+    </div>
+    <div class="col-sm-2">
+      <%= location.location_times.size %>
+    </div>
+    <div class="col-sm-2">
+      <%= location.desc.to_plain_text[0..34] %>
+    </div>
+    <div class="col-sm-2">
+      <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_location_path(location), title: 'Edit' %>
+      <%= link_to (fa_icon 'trash', class: 'fa-fw'), location, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?'}, title: 'Destroy' %>
+    </div>
+  </div>

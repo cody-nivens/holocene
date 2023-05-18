@@ -1,6 +1,8 @@
-<td style="background:#<%= Signet.color(signet.color) %>;">
+<div class="row">
+<div class="col-sm-2" style="background:#<%= Signet.color(signet.color) %>;">
     <%= link_to signet.message, edit_signet_path("#{sigged.class.name.underscore}_id".to_sym => sigged.id, :id => signet.id), title: 'Edit', target: :_blank %>
-</td>
-<td>
+</div>
+<div class="col-sm-2">
     <%= link_to (fa_icon 'trash'), signet, method: :delete, data: { confirm: 'Are you sure?', title: 'Delete' } %>
-</td>
+</div>
+</div>

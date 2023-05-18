@@ -23,7 +23,7 @@ a, a:hover, a:focus {
     /* transition: all 0.3s; */
 }
 
-.navbar {
+.xnavbar {
     padding: rem-calc(15) rem-calc(10);
     background: #fff;
     border: none;
@@ -31,7 +31,7 @@ a, a:hover, a:focus {
     box-shadow: rem-calc(1) rem-calc(1) rem-calc(3) rgba(0, 0, 0, 0.1);
 }
 
-.navbar-btn {
+.xnavbar-btn {
     box-shadow: none;
     outline: none !important;
     border: none;

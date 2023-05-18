@@ -1,7 +1,7 @@
 <h2>New Aside</h2>
 
+<turbo-frame id="new_asides" target="edit-aside">
 <%= render 'form', aside: @aside, book: @book, chapter: @chapter %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  :back, class: 'btn', title: 'Back' %>
+</turbo-frame>
 
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(chapter_path(@chapter)), class: 'btn', title: 'Back' %>
-</div>

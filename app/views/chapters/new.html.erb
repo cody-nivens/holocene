@@ -1,7 +1,6 @@
 <h2>New Chapter</h2>
 
-<%= render 'form', scripted: @scripted, chapter: @chapter, command_label: 'Create Chapter' %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backwar', class: 'fa-fw'),  return_or_default_path(polymorphic_path([@scripted, :chapters])), class: 'btn', title: 'Back' %>
-</div>
+<turbo-frame id="new_chapters" target="edit-chapter">
+  <%= render 'form', scripted: @scripted, chapter: @chapter, command_label: 'Create Chapter' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  :back, class: 'btn', title: 'Back' %>
+</turbo-frame>

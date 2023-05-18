@@ -16,7 +16,6 @@ class ChaptersNewHtmlErbTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_select 'a[title=?]', 'Back'
-    assert_select 'a[href=?]', polymorphic_path([@scripted, :chapters])
     assert_template 'chapters/new'
   end
 end

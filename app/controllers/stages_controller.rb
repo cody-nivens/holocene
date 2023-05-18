@@ -159,6 +159,7 @@ class StagesController < ApplicationController
       @stage = Stage.find(params[:id])
       session[:stage_id] = @stage.id
       @act = @stage.act
+      @book = @act.book
     end
 
     def set_act

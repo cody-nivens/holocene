@@ -61,15 +61,10 @@
             <td>
               <% my_act_locs = ActorLocationTime.includes(:location_time).includes(:location).where("location_times.date_string": time, actor_id: actor.id).order("locations.name") %>
               <% unless my_act_locs.size == 0 %>
-              <table class="table table-sm table-striped">
-                <% my_act_locs.each do |act_loc| %>
-                  <tr>
-                    <td>
-                       <%= render partial: "actor_location_times/list_line", locals: { act_loc: act_loc, skip_date: true } %>
-                    </td>
-                  </tr>
-                <% end %>
-              </table>
+                <turbo-frame id="<%= dom_id actor %>" class="block">
+                  <%= link_to (fa_icon 'plus'), new_actor_actor_location_time_path(actor, date_string: time) %>
+                </turbo-frame>
+                <%= render partial: "actor_location_times/table_actors", locals: { my_act_locs: my_act_locs } %>
               <% end %>
             </td>
           <% end %>

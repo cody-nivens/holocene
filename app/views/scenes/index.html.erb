@@ -1,16 +1,16 @@
 <% @title = "Scenes" %>
-<h2>
   <% case @situated.class.name %>
   <% when 'Book' %>
     <%= render partial: 'books/header', locals: { book: @situated, long: @long } %>
   <% when 'Story' %>
     <%= render partial: 'stories/header', locals: { book: @situated.book, story: @situated, long: @long } %>
   <% when 'KeyPoint' %>
-    <%== breadcrumb(@situated.scripted.book, @situated.scripted, @situated) %>
+    <h3>
+      <%== breadcrumb(@situated.scripted.book, @situated.scripted, @situated) %>
+    </h3>
   <% end %>
-</h2>
 <div id="side_controls" class="hide-print">
-  <%= link_to (fa_icon 'calendar-alt', class: 'fa-fw'), polymorphic_path([@situated, :timeline]), class: 'btn icon-ok icon-white' %>
+  <%= link_to (fa_icon 'calendar-alt', class: 'fa-fw'), polymorphic_path([@situated, :timeline]), class: 'btn' %>
 </div>
 
   <% scene_wc_counts = @scenes.collect{|x| Scene.find(x).word_count } %>

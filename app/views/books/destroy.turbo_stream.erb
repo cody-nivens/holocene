@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "books"  do %>
+  <%= render partial: "books/books" %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

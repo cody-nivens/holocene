@@ -4,8 +4,8 @@
   <%= @character_category.name %>
 </p>
 <div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_character_category_path(@character_category), title: 'Edit', class: 'btn icon-ok icon-white' %>
-<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_character_category_character_attribute_path(character_category_id: @character_category.id), title: 'New Character Attribute', class: 'btn icon-ok icon-white' %>
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_character_category_path(@character_category), title: 'Edit', class: 'btn' %>
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_character_category_character_attribute_path(character_category_id: @character_category.id), title: 'New Character Attribute', class: 'btn' %>
 </div>
 
 <%= render partial: 'character_attributes/index', locals: { character_category: @character_category } %>

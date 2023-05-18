@@ -1,0 +1,9 @@
+<%= turbo_stream.replace "#{dom_id @scene}" do %>
+  <%= render partial: "scenes/scene_item", locals: { scene:  @scene, scenes_wi: @scenes_wi } %>
+<% end %>
+<%= turbo_stream.replace "header" do %>
+  <%= render partial: 'scenes/header', locals: { scene: @scene, scenes_wi: @scenes_wi } %>
+<%= render partial: 'scenes/stats', locals: { scene: @scene, object: @scene } %>
+<%= link_to (fa_icon 'pencil-alt', class: 'fa-fw'), edit_scene_path(@scene), data: { turbo_target: "#{dom_id @scene}"}, methods: :get, title: 'Edit Scene Data', class: 'btn' %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

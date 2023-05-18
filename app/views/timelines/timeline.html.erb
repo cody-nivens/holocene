@@ -15,7 +15,9 @@
   <%= submit_tag 'Go' %>
 <% end %>
 
-<%= render partial: 'timelines/timeline', formats: [:html], locals: { object: @object, toggle: @toggle } %>
+<div data-controller="timelines">
+  <%= render partial: 'timelines/timeline', formats: [:html], locals: { object: @object, toggle: @toggle } %>
+</div>
 
 <div id="side_controls" class="hide-print">
 <%= link_to (fa_icon 'list-alt', class: 'fa-fw'), timeline_display_path(@object), class: 'btn', title: 'Display' %>

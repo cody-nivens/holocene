@@ -1,0 +1,61 @@
+<turbo-frame id="<%= dom_id scene %>">
+<div id="header">
+<%= render partial: 'scenes/header', locals: { scene: scene, scenes_wi: scenes_wi } %>
+<%= render partial: 'scenes/stats', locals: { scene: scene, object: scene } %>
+<%= link_to (fa_icon 'pencil-alt', class: 'fa-fw'), edit_scene_path(scene), data: { turbo_target: "#{dom_id scene}"}, methods: :get, title: 'Edit Scene Data', class: 'btn' %>
+</div>
+
+<%= tabs do |c| %>
+  <% c.tab "Body" do %>
+    <% if scene.section.nil? %>
+      <turbo-frame id="new_sections">
+      </turbo-frame>
+    <% else %>
+      <% values = scene.set_values %>
+      <turbo-frame id="<%= dom_id scene.section %>">
+        <%= render partial: "sections/section_item", locals: { section:  scene.section, header: false } %>
+      </turbo-frame>
+    <%#== highlight(text.to_s, Regexp.new(KeyWord.where(book_id: values[0].id).collect(&:key_word).join('|'))) %>
+    <% end %>
+  <% end %>
+  <% c.tab "Summary" do %>
+    <p>
+      <%= scene.summary %>
+    </p>
+  <% end %>
+  <% c.tab "Characters" do %>
+    <%= render partial: 'scenes/scene_characters', formats: [:html], locals: { scene: scene } %>
+  <% end %>
+  <% c.tab "Scenes" do %>
+    <% scenes = Scene.where(insert_scene_id: scene.id).order(:date_string, :abc) %>
+    <% unless scenes.size == 0 %>
+      <strong>Scenes:</strong>
+      <br>
+      <ul>
+      <% scenes.includes([:section, :rich_text_summary]).each do |iscene| %>
+        <% next unless iscene.key_point.scripted.publish? %>
+        <li><%= link_to(iscene.abc, scene_path(iscene)) %> <%= (iscene.section.nil? ? '' : '*') %><%= iscene.time_to_text %> : <%= iscene.name %></li>
+        <% insert_scene = iscene %>
+      <% end %>
+      </ul>
+    <% end %>
+  <% end %>
+  <% c.tab "Plot Points" do %>
+    <% unless scene.plot_points.size == 0 %>
+      <table class="table">
+        <thead>
+          <tr><th colspan="2">Plot Point</th></tr>
+        </thead>
+        <tbody>
+        <% scene.plot_points.each do |plot_point| %>
+          <tr>
+            <td width="20%"><%= plot_point.name %></td>
+            <td><%= plot_point.body %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  <% end %>
+<% end %>
+</turbo-frame>

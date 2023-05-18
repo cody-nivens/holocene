@@ -1,17 +1,12 @@
 <h2>Books</h2>
 
-<% unless @books.empty? %>
-<% pdf ||= nil %>
-<ul data-controller="sortable" data-sortable-resource-name-value="book">
-  <% @books.each do |book| %>
-    <li data-sortable-update-url="<%= book_sort_path(book) %>">
-      <%= render partial: 'books/book', formats: [:html], locals: { book: book, pdf: pdf } %>
-    </li>
-  <% end %>
-<% end %>
+<div id="book-new">
+<%= render partial: "books/new_link" %>
+</div>
+
+<%= render partial: 'books/books' %>
 
 <div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_book_path, class: 'btn', title: 'New Book' %>
 <% if @long %>
 <%= link_to (fa_icon 'minus', class: 'fa-fw'), books_path, class: 'btn', title: 'Short View' %>
 <% else %>

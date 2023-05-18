@@ -1,0 +1,4 @@
+%= turbo_stream.replace "#{dom_id @noted}" do %>
+  <%= render 'footnotes/index', footnotes: @footnotes, noted: @noted %>
+<% end %>
+

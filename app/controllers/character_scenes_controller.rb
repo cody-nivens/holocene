@@ -19,6 +19,7 @@ class CharacterScenesController < ApplicationController
           redirect_to return_or_default_path(scene_path(@character_scene.scene)), notice: 'Character scene was successfully updated.'
         end
         format.json { render :show, status: :ok, location: @character_scene }
+        format.turbo_stream { flash.now[:notice] = "Character scene was successfully updated." }
       else
         format.html { render :edit }
         format.json { render json: @character_scene.errors, status: :unprocessable_entity }

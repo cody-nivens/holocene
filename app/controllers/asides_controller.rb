@@ -35,8 +35,10 @@ class AsidesController < ApplicationController
 
     respond_to do |format|
       if @aside.save
+        @asides = Aside.all.includes([:rich_text_body])
         format.html { redirect_to chapter_path(@chapter), notice: 'Aside was successfully created.' }
         format.json { render :show, status: :created, location: @aside }
+        format.turbo_stream { flash.now[:notice] = "Aside was successfully created." }
       else
         format.html { render :new }
         format.json { render json: @aside.errors, status: :unprocessable_entity }
@@ -53,6 +55,7 @@ class AsidesController < ApplicationController
       if @aside.update(aside_params)
         format.html { redirect_to chapter_path(@chapter), notice: 'Aside was successfully updated.' }
         format.json { render :show, status: :ok, location: @aside }
+        format.turbo_stream { flash.now[:notice] = "Aside was successfully updated." }
       else
         format.html { render :edit }
         format.json { render json: @aside.errors, status: :unprocessable_entity }
@@ -65,10 +68,12 @@ class AsidesController < ApplicationController
   def destroy
     @chapter = @aside.chapter
     @scripted = @chapter.scripted
+    @asides = Aside.all.includes([:rich_text_body])
     @aside.destroy
     respond_to do |format|
       format.html { redirect_to chapter_path(@chapter), notice: 'Aside was successfully destroyed.' }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:notice] = "Aside was successfully destroyed." }
     end
   end
 

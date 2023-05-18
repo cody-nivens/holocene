@@ -29,7 +29,7 @@ class ActorLocationTimesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create actor_location_time" do
     assert_difference('ActorLocationTime.count') do
-      post location_time_actor_location_times_url(@actor_location_time), params: { actor_location_time: { actor_id: @actor_location_time.actor_id, location_time_id: @actor_location_time.location_time_id } }
+      post location_time_actor_location_times_url(@actor_location_time), params: { date_string: '100', actor_location_time: { actor_id: @actor_location_time.actor_id, location_time_id: @actor_location_time.location_time.id } }
     end
 
     assert_redirected_to stage_url(ActorLocationTime.last.location_time.segment.stage)
@@ -37,7 +37,7 @@ class ActorLocationTimesControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create actor_location_time" do
     assert_difference('ActorLocationTime.count', 0) do
-      post location_time_actor_location_times_url(@actor_location_time), params: { actor_location_time: { actor_id: nil, location_time_id: @actor_location_time.location_time_id } }
+      post location_time_actor_location_times_url(@actor_location_time), params: { date_string: "100", actor_location_time: { actor_id: nil, location_time_id: @actor_location_time.location_time.id } }
     end
 
     assert_response :unprocessable_entity
@@ -55,12 +55,12 @@ class ActorLocationTimesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update actor_location_time" do
-    patch actor_location_time_url(@actor_location_time), params: { actor_location_time: { actor_id: @actor_location_time.actor_id, location_time_id: @actor_location_time.location_time_id } }
+    patch actor_location_time_url(@actor_location_time), params: { date_string: '100', actor_location_time: { actor_id: @actor_location_time.actor_id, location_time_id: @actor_location_time.location_time.id } }
     assert_redirected_to stage_url(@actor_location_time.location_time.segment.stage)
   end
 
   test "should not update actor_location_time" do
-    patch actor_location_time_url(@actor_location_time), params: { actor_location_time: { actor_id: nil, location_time_id: @actor_location_time.location_time_id } }
+    patch actor_location_time_url(@actor_location_time), params: { date_string: "100", actor_location_time: { actor_id: nil, location_time_id: @actor_location_time.location_time.id } }
 
     assert_response :unprocessable_entity
     assert_template :edit

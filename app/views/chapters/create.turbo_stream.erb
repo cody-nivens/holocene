@@ -1,0 +1,10 @@
+<%= turbo_stream.replace "chapters"  do %>
+  <%= render partial: 'chapters/index', locals: { chapters: @chapters, long: @long }  %>
+<% end %>
+<%= turbo_stream.replace "edit_chapters"  do %>
+  <%= " " %>
+<% end %>
+<%= turbo_stream.replace "new_chapters"  do %>
+  <%= render partial: "chapters/new_link" %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

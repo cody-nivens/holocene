@@ -1,7 +1,7 @@
 <% skip_date ||= nil %>
+<turbo-frame id="<%= dom_id act_loc%>" class="block">
 <strong><%= skip_date.nil? ? "#{act_loc.location_time.date_string}: " : '' %><%= act_loc.location_time.location.name %></strong>:
 <div id="act_loc-checkbox-<%= act_loc.id %>">
-<%= link_to (fa_icon 'plus'), new_location_time_actor_location_time_path(act_loc.location_time) %>
   <%= check_box_tag 'check', !act_loc.check, act_loc.check,
     :data => {
       action: 'actor-location-times#toggle',
@@ -11,3 +11,4 @@
 <%= act_loc.role.to_plain_text %>
 <%= link_to (fa_icon 'edit'), edit_actor_location_time_path(act_loc) %>
 </div>
+</turbo-frame>

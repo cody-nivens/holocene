@@ -1,0 +1,20 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Body</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% asides.each do |aside| %>
+      <tr>
+        <td><%= link_to aside.name, aside_path(aside) %></td>
+        <td><%= aside.body %></td>
+        <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_aside_path(aside), class: 'btn', title: 'Edit' %>
+        <%= link_to (fa_icon 'trash', class: 'fa-fw'), aside_path(aside), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn', title: 'Destroy' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

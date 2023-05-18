@@ -20,4 +20,11 @@
       <span style="background-color: #<%= count_color(object.word_count) %>"><%=  number_with_delimiter(object.word_count, :delimiter => ',') %></span>
     </div>
   </div>
+  <% unless object.insert_scene.present? %>
+    <div class='row'>
+      <div class='col-sm-6'>
+        <strong>Insert Scene:</strong> <%= (object.insert_scene.nil? ? '' : object.insert_scene.full_name) %>
+      </div>
+    </div>
+  <% end %>
 </div>

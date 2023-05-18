@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-3">
+    <%= link_to character.full_name, polymorphic_path([object, character]) %>
+  </div>
+  <div class="col-sm-2">
+    <%= (!character.grouping? ? '' : "#{character.grouping}").to_s %>
+  </div>
+  <%== physical_attributes(character) %>
+  <div class="col-sm-1">
+    <%= (!character.ethnicity? ? '' : "#{character.ethnicity}").to_s %>
+  </div>
+  <div class="col-sm-1">
+    <% if object.class.name == 'Scene' %>
+      <%= object.date_string[0..3].to_i - character.birth_year.to_i %>
+    <% end %>
+  </div>
+  <div class="col-sm-1">
+    <% if object.class.name == 'Scene' %>
+      <% character_scene = CharacterScene.where(character_id: character.id, scene_id: object.id) %>
+      <%= link_to (fa_icon 'plus'), edit_character_scene_path(character_scene[0]), title: 'Edit character role in scene' %>
+
+      <% unless character_scene[0].summary.nil? %>
+            </div>
+          </div>
+        <div class="row">
+          <div class="col-sm-1"></div>
+            <div class="col-sm-8">
+              <%= character_scene[0].summary.to_plain_text %>
+      <% end %>
+    <% else %>
+      <%= character.scenes.where(book: object.id).size %>
+    <% end %>
+  </div>
+</div>

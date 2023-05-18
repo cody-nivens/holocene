@@ -13,7 +13,7 @@ pin "chartkick", to: "chartkick.js"
 pin "Chart.bundle", to: "Chart.bundle.js"
 pin "timeline", to: "js/timeline.js", preload: true
 
-pin "@hotwired/stimulus", to: "https://ga.jspm.io/npm:@hotwired/stimulus@3.2.1/dist/stimulus.js"
+pin "@hotwired/stimulus", to: "@hotwired--stimulus.js" # @3.2.1
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
 
 pin "trix", to: "https://ga.jspm.io/npm:trix@2.0.4/dist/trix.esm.min.js"
@@ -37,3 +37,4 @@ pin "@rails/request.js", to: "https://ga.jspm.io/npm:@rails/request.js@0.0.8/src
 pin "sortablejs", to: "https://ga.jspm.io/npm:sortablejs@1.15.0/modular/sortable.esm.js"
 
 pin_all_from "app/javascript/controllers", under: "controllers"
+pin "tailwindcss-stimulus-components" # @3.0.4

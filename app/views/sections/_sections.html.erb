@@ -1,0 +1,5 @@
+<ul data-controller="sortable" data-sortable-resource-name-value="section">
+  <% sections.order(:position).each do |section| %>
+    <%= render partial: 'sections/section', locals: { section: section, header: false } %>
+  <% end %>
+</dl>

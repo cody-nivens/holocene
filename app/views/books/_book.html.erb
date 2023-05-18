@@ -1,9 +1,16 @@
-<dt>
-  <%= link_to book.name, book_path(book) %><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_book_path(book), title: 'Edit' %>
+<div class="row">
+  <div class="col-sm-4">
+    <%= link_to book.name, book_path(book), data: { turbo: false }, rel: 'next' %>
+  </div>
+  <div class="col-sm-2">
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_book_path(book), title: 'Edit' %>
   <%= link_to (fa_icon 'sticky-note', class: 'fa-fw'), book_signets_path(book), title: 'Signets' %>
 <%= link_to (fa_icon 'trash', class: 'fa-fw'), book, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
+  </div>
+  <div class="col-sm-4">
 <% if @long %>
        <% @scenes = Scene.get_scenes_wi_to_array(book) %>
 <%= render partial: 'books/book_stats', locals: { book: book } %>
 <% end %>
-</dt>
+</div>
+</div>

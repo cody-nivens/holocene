@@ -4,6 +4,11 @@ class FootnotesController < ApplicationController
   def index
     @noted = find_notable
     @footnotes = @noted.footnotes
+
+    respond_to do |format|
+      format.html { render :index  }
+      format.turbo_stream { }
+    end
   end
 
   # GET /footnotes/1

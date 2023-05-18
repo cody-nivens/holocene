@@ -1,60 +1,25 @@
-  <table class='table'>
-    <thead>
-      <tr>
-        <th>&nbsp;</th>
-        <th>Name</th>
-        <th>Group</th>
-        <th>Hair Color</th>
-        <th>Eye Color</th>
-        <th>Gender</th>
-        <th>Ethnicity</th>
-        <th>Age</th>
-        <th>Scene</th></tr>
-    </thead>
-    <tbody>
+<div class="container" id="characters">
+      <div class="row">
+        <div class="col-sm-1"><strong>Class</strong></div>
+        <div class="col-sm-3"><strong>Name</strong></div>
+        <div class="col-sm-2"><strong>Group</strong></div>
+        <div class="col-sm-1"><strong>Hair Color</strong></div>
+        <div class="col-sm-1"><strong>Eye Color</strong></div>
+        <div class="col-sm-1"><strong>Gender</strong></div>
+        <div class="col-sm-1"><strong>Ethnicity</strong></div>
+        <div class="col-sm-1"><strong>Age</strong></div>
+        <div class="col-sm-1"><strong>Scene</strong></div></div>
 <% characters.order(:occupation_class).pluck(:occupation_class).map { |x| x || '' }.uniq.sort.each do |occ_class| %>
-  <tr><th colspan="9"><%= (occ_class == '' ? '<blank>' : occ_class) %></th></tr>
+  <div class="row"><div class="col-sm-8"><strong><%= (occ_class == '' ? '<blank>' : occ_class) %></strong></div></div>
     <% characters.where(occupation_class: occ_class).order(:occupation_class, :last_name, :first_name).distinct.each do |character| %>
-      <% if character.main? %>
-        <tr class="table-primary">
+    <% if object.class.name == 'Scene' %>
+      <% character_scene = CharacterScene.where(character_id: character.id, scene_id: object.id) %>
+      <turbo-frame id="<%= dom_id character_scene[0] %>" class="block">
       <% else %>
-        <tr>
+      <turbo-frame id="<%= dom_id character %>" class="block">
       <% end %>
-      <td></td>
-      <td width="15%">
-        <%= link_to character.full_name, polymorphic_path([object, character]) %>
-      </td><td>
-        <%= (!character.grouping? ? '' : "#{character.grouping}").to_s %>
-      </td>
-      <%== physical_attributes(character) %>
-      <td>
-        <%= (!character.ethnicity? ? '' : "#{character.ethnicity}").to_s %>
-      </td><td>
-        <% if object.class.name == 'Scene' %>
-          <%= object.date_string[0..3].to_i - character.birth_year.to_i %>
-        <% end %>
-      </td><td>
-        <% if object.class.name == 'Scene' %>
-          <% character_scene = CharacterScene.where(character_id: character.id, scene_id: object.id) %>
-          <%= link_to (fa_icon 'plus'), edit_character_scene_path(character_scene[0]), title: 'Edit character role in scene' %>
-          <% unless character_scene[0].summary.nil? %>
-            </td>
-            </tr>
-            <% if character.main? %>
-              <tr class="table-primary">
-            <% else %>
-              <tr>
-            <% end %>
-            <td></td>
-            <td colspan="8">
-              <%= character_scene[0].summary.to_plain_text %>
-          <% end %>
-        <% else %>
-          <%= character.scenes.where(book: object.id).size %>
-        <% end %>
-      </td>
-    </tr>
+      <%= render partial: "characters/character_item", locals: { character: character, object: object } %>
+    </turbo-frame>
   <% end %>
 <% end %>
-  </tbody>
-</table>
+</div>

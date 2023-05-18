@@ -6,6 +6,11 @@ class SignetsController < ApplicationController
   # GET /signets.json
   def index
     @signets = (@sigged.nil? ? [] : @sigged.signets)
+
+    respond_to do |format|
+      format.html { render :index  }
+      format.turbo_stream { }
+    end
   end
 
   # GET /signets/1
@@ -39,6 +44,7 @@ class SignetsController < ApplicationController
       if @signet.save
         format.html { render :index, notice: 'Signet was successfully created.' }
         format.json { render :index, status: :created, location: @signet }
+        format.turbo_stream { flash.now[:notice] = "Signet was successfully created." }
       else
         format.html { render :new }
         format.json { render json: @signet.errors, status: :unprocessable_entity }
@@ -54,6 +60,7 @@ class SignetsController < ApplicationController
       if @signet.update(signet_params)
         format.html { render :index, notice: 'Signet was successfully updated.' }
         format.json { render :index, status: :ok, location: @signet }
+        format.turbo_stream { flash.now[:notice] = "Signet was successfully created." }
       else
         format.html { render :edit, "#{@sigged.class.name.underscore}_id".to_sym => @sigged.id }
         format.json { render json: @signet.errors, status: :unprocessable_entity }
@@ -70,6 +77,7 @@ class SignetsController < ApplicationController
       format.html do
         redirect_to polymorphic_url([@sigged, :signets]), notice: 'Signet was successfully destroyed.'
       end
+      format.turbo_stream { flash.now[:notice] = "Signet was successfully destroyed." }
       format.json { head :no_content }
     end
   end

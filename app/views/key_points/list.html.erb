@@ -21,5 +21,5 @@
 
 <div id="side_controls" class="hide-print">
 <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_key_point_scene_path(@key_point, selector: @selector.to_i), class: 'btn', title: 'New Scene' %>
-<%= link_to (fa_icon 'backwar', class: 'fa-fw'), polymorphic_path([@scripted, :key_points]), class: 'btn', title: 'Back' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path([@scripted, :key_points]), class: 'btn', title: 'Back' %>
 </div>

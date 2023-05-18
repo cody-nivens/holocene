@@ -33,9 +33,9 @@
         </td>
         <td width="5%">
           <% if target.nil? %>
-            <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene), data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.characters_short_list}"}) : scene.abc) %>
+            <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene), data: { turbo: false, "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.characters_short_list}"}) : scene.abc) %>
           <% else %>
-            <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene), target: target, data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.characters_short_list}"}) : scene.abc) %>
+            <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene), target: target, data: { turbo: false, "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.characters_short_list}"}) : scene.abc) %>
           <% end %>
         </td>
       <% end %>

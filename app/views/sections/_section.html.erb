@@ -1,4 +1,4 @@
-<li data-sortable-update-url="<%= section_sort_path(section) %>">
+<% if header.kind_of?(TrueClass) or header == "true" %>
 <dt>
   <div class='title'> <%= section.name %> </div>
   <div class='medium'> <strong>Display name: <%= (section.display_name ? 'Y' : 'N') %></strong> </div>
@@ -7,7 +7,7 @@
   <div class='narrow'> <%= link_to (fa_icon 'trash'), section_path(section), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %> </div>
   <div style="clear:both"></div>
 </dt>
+<% end %>
 <dd>
   <%= render partial: 'shared/summary', locals: { object: section } %>
 </dd>
-</li>

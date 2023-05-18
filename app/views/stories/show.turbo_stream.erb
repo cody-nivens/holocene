@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "#{dom_id @story}" do %>
+<%= render partial: 'stories/header', locals: { story: @story, long: @long } %>
+<%= render partial: 'stories/story', locals: { story: @story, long: @long } %>
+<% end %>

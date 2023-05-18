@@ -39,12 +39,14 @@ class SectionsController < ApplicationController
     @section = Section.new(section_params)
     @section.user = current_user
     @sectioned = @section.sectioned
+    @sections = @sectioned.sections.includes([:rich_text_body]).order(:position)
 
     respond_to do |format|
       if @section.save
         update_metrics
         format.html { redirect_to polymorphic_path(@sectioned), notice: 'Section was successfully created.' }
         format.json { render :show, status: :created, location: @section }
+        format.turbo_stream { flash.now[:notice] = "Section was successfully created." }
       else
         format.html { render :new, sectioned_type: @sectioned.class.name, sectioned_id: @sectioned.id }
         format.json { render json: @section.errors, status: :unprocessable_entity }
@@ -61,6 +63,7 @@ class SectionsController < ApplicationController
         update_metrics
         format.html { redirect_to polymorphic_path(@sectioned), notice: 'Section was successfully updated.' }
         format.json { render :show, status: :ok, location: @section }
+        format.turbo_stream { flash.now[:notice] = "Section was successfully updated." }
       else
         format.html { render :edit }
         format.json { render json: @section.errors, status: :unprocessable_entity }
@@ -74,8 +77,10 @@ class SectionsController < ApplicationController
     @sectioned = @section.sectioned
     @section.destroy
     respond_to do |format|
+      @sections = @sectioned.sections.includes([:rich_text_body]).order(:position)
       format.html { redirect_to polymorphic_url(@sectioned), notice: 'Section was successfully destroyed.' }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:notice] = "Section was successfully destroyed." }
     end
   end
 

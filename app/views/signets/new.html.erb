@@ -1,7 +1,6 @@
 <h2>New Signet - <%= @sigged.class.name %>: <%= @sigged.name %></h2>
 
+<turbo-frame id="new_signets" target="edit-signet">
 <%= render 'form', signet: @signet, sigged: @sigged %>
-
-<div id="side_controls" class="hide-print">
 <%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(polymorphic_path([@sigged, :signets])), class: 'btn', title: 'Back' %>
-</div>
+</turbo-frame>

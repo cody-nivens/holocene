@@ -1,8 +1,0 @@
-<h2>New Character Scene</h2>
-
-<%= render 'form', character_scene: @character_scene, scene: @scene %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(polymorphic_path([@character_scene.scene, :character_scenes])), class: 'btn', title: 'Back' %>
-</div>
-

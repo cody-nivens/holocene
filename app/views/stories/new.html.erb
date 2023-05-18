@@ -1,7 +1,6 @@
 <h2>New Story</h2>
 
-<%= render 'form', story: @story, book: @book %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(book_path(@book)), class: 'btn', title: 'Back' %>
-</div>
+<turbo-frame id="new_stories" target="edit-story">
+<%= render 'form', story: @story, book: @book, long: @long %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  :back, class: 'btn', title: 'Back' %>
+</turbo-frame>

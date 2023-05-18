@@ -15,6 +15,13 @@ class ActorsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get new" do
     get new_book_actor_url(@book)
+
+    assert_select "turbo-frame" do |elements|
+      elements.each do |element|
+        assert_equal element["target"], "edit-actor"
+        assert_equal element["id"], "new_actors"
+      end
+    end
     assert_response :success
   end
 
@@ -64,4 +71,48 @@ class ActorsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to book_actors_url(@book)
   end
+
+  test "should show actor TS" do
+    get actor_url(@actor, format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "#{dom_id @actor}"
+    assert_response :success
+  end
+
+  test "should create actor TS" do
+    assert_difference('Actor.count') do
+      post book_actors_url(@book, format: 'turbo_stream'), params: { actor: { name: "Test 1", book_id: @actor.book.id } }
+    end
+    
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "new_actors"
+    assert_turbo_stream action: :replace, target: "edit_actors"
+    assert_turbo_stream action: :replace, target: "actors"
+    #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
+    #  assert_equal "<template>message_1</template>", selected.children.to_html
+    #end
+    assert_response :success
+  end
+
+  test "should update actor TS" do
+    patch actor_url(@actor, format: :turbo_stream), params: { actor: { name: @actor.name, book_id: @actor.book.id } }
+    label = dom_id @actor
+    assert_turbo_stream action: :replace, target: label do |selected|
+      #assert_equal "<template></template>", selected.children.to_html
+    end
+
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "#{dom_id @actor}"
+    assert_response :success
+  end
+
+  test "should destroy actor TS" do
+    assert_difference('Actor.count', -1) do
+      delete actor_url(@actor, format: :turbo_stream)
+    end
+
+    assert_turbo_stream action: :replace, target: "actors"
+    assert_response :success
+  end
+
 end

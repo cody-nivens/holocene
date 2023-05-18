@@ -1,0 +1,12 @@
+<table class="table table-sm table-striped">
+  <tbody>
+    <% my_act_locs.each do |act_loc| %>
+      <tr>
+        <td>
+          <% loc_time = act_loc.location_time %>
+          <%= render partial: "actor_location_times/list_line", locals: { act_loc: act_loc, skip_date: true } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

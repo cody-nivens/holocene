@@ -3,9 +3,9 @@
 location_time_1:
   segment_id: <%= ActiveRecord::FixtureSet.identify(:segment_1) %>
   location_id: <%= ActiveRecord::FixtureSet.identify(:location_1) %>
-  date_string: 2023-04-22 07:04:09
+  date_string: 100
 
 location_time_2:
   segment_id: <%= ActiveRecord::FixtureSet.identify(:segment_1) %>
   location_id: <%= ActiveRecord::FixtureSet.identify(:location_2) %>
-  date_string: 2023-04-22 07:04:09
+  date_string: 110

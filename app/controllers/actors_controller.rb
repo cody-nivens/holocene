@@ -33,6 +33,7 @@ class ActorsController < ApplicationController
       if @actor.save
         format.html { redirect_to actor_url(@actor), notice: "Actor was successfully created." }
         format.json { render :show, status: :created, location: @actor }
+        format.turbo_stream {  flash.now[:notice] = "Actor was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @actor.errors, status: :unprocessable_entity }
@@ -47,6 +48,7 @@ class ActorsController < ApplicationController
       if @actor.update(actor_params)
         format.html { redirect_to actor_url(@actor), notice: "Actor was successfully updated." }
         format.json { render :show, status: :ok, location: @actor }
+        format.turbo_stream {  flash.now[:notice] = "Actor was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @actor.errors, status: :unprocessable_entity }
@@ -62,6 +64,7 @@ class ActorsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to book_actors_url(@book), notice: "Actor was successfully destroyed." }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:notice] = "Actor was successfully destroyed." }
     end
   end
 

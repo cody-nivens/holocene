@@ -88,12 +88,20 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
   test 'should get new' do
     get new_polymorphic_url([@situated, :scene])
 
+    assert_select "turbo-frame" do |elements|
+      elements.each do |element|
+        assert_equal element["target"], "edit-scene"
+        assert_equal element["id"], "new_scenes"
+      end
+    end
     assert_response :success
   end
 
   test 'should create scene' do
     assert_difference('Scene.count') do
-      post polymorphic_url([@situated, :scenes]), params: { scene: { key_point_id: @scene.key_point.id, situated_type: @situated.class.name, situated_id: @situated.id, abc: @scene.abc, artifact_id: nil, check: @scene.check, scene_sequel: @scene.scene_sequel, date_string: @scene.date_string, book_id: @scene.book_id },
+      post polymorphic_url([@situated, :scenes]), params: { scene: { key_point_id: @scene.key_point.id, situated_type: @situated.class.name, situated_id: @situated.id, 
+                                                                     abc: @scene.abc, artifact_id: nil, check: @scene.check, scene_sequel: @scene.scene_sequel, 
+                                                                     date_string: @scene.date_string, book_id: @scene.book_id },
                                                             t: { t_years: '', t_month: '', t_day: '' } }
     end
 
@@ -111,7 +119,18 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should show scene' do
     get scene_url(@scene)
+    ids = ["#{dom_id @scene}", "#{dom_id @scene.section}"]
+    @scene.characters.each do |child|
+      child.character_scenes.each do |cs|
+        ids << "#{dom_id cs}"
+      end
+    end
 
+    assert_select "turbo-frame" do |elements|
+      elements.each do |element|
+        assert_includes ids, element["id"]
+      end
+    end
     assert_response :success
   end
 
@@ -162,4 +181,53 @@ class ScenesControllerTest < ActionDispatch::IntegrationTest
       assert_redirected_to polymorphic_url([@situated, :scenes])
     end
   end
+
+
+  test "should show scene TS" do
+    get scene_url(@scene, format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "#{dom_id @scene}"
+    assert_response :success
+  end
+
+  test "should create scene TS" do
+    assert_difference('Scene.count') do
+      post polymorphic_url([@situated, :scenes], format: :turbo_stream), params: { scene: { key_point_id: @scene.key_point.id, situated_type: @situated.class.name, situated_id: @situated.id, 
+                                                                     abc: @scene.abc, artifact_id: nil, check: @scene.check, scene_sequel: @scene.scene_sequel, 
+                                                                     date_string: @scene.date_string, book_id: @scene.book_id },
+                                                            t: { t_years: '', t_month: '', t_day: '' } }
+    end
+    
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "new_scenes"
+    assert_turbo_stream action: :replace, target: "edit_scenes"
+    assert_turbo_stream action: :replace, target: "scenes"
+    #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
+    #  assert_equal "<template>message_1</template>", selected.children.to_html
+    #end
+    assert_response :success
+  end
+
+  test "should update scene TS" do
+    patch scene_url(@scene, format: :turbo_stream), params: { scene: { abc: @scene.abc, check: @scene.check, scene_sequel: @scene.scene_sequel, date_string: @scene.date_string },
+                                       t: { t_years: '', t_month: '', t_day: '' } }
+    label = dom_id @scene
+    assert_turbo_stream action: :replace, target: label do |selected|
+      #assert_equal "<template></template>", selected.children.to_html
+    end
+
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "#{dom_id @scene}"
+    assert_response :success
+  end
+
+  test "should destroy scene TS" do
+    assert_difference('Scene.count', -1) do
+      delete scene_url(@scene, format: :turbo_stream)
+    end
+
+    assert_turbo_stream action: :replace, target: "scenes"
+    assert_response :success
+  end
+
 end

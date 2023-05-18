@@ -1,6 +1,6 @@
 <% @book ||= (session[:book_id].blank? ? nil : Book.find_by(id: session[:book_id])) %>
-<li class='nav-item dropdown'>
-  <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown0' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+<li class='mr-6'>
+  <a class='nav-link' href='#' id='navbar_dropdown0' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
     Welcome
   </a>
   <ul class='dropdown-menu' aria-labelledby='navbar_dropdown0'>
@@ -10,166 +10,145 @@
     <%== make_menu_link('History', welcome_history_path) %>
   </ul>
 </li>
-<% if @book.nil? %>
-  <li class='nav-item'> <a class='nav-link' href='/books'>Books</a> </li>
+<li class='mr-6 dropdown'>
+  <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown1' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+    <%= 'Book' %>
+  </a>
+  <ul class='flex dropdown-menu' aria-labelledby='navbar_dropdown1'>
+  <% unless @book.nil? or @book.new_record? %>
+    <%== make_menu_link(@book.name, book_path(@book)) %>
+    <li><hr class="dropdown-divider"></li>
+    <% if @book.is_fiction? %>
+      <% if !@story.nil? and !@story&.id.nil? %>
+        <%== make_menu_link(@story.name, story_path(@story)) %>
+      <% end %>
+    <% else %>
+      <% if !@chapter.nil? and !@chapter&.id.nil? %>
+        <%== make_menu_link(@chapter.name, chapter_path(@chapter)) %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <li class='mr-6'> <a class='nav-link' href='/books'>Books</a> </li>
+  <%== make_menu_link("New Book", books_path) %>
+  <% if !@book.nil? and !@book.new_record? %>
+    <% if @book.is_fiction? %>
+      <%== make_menu_link('Scenes', polymorphic_path([@book, :scenes])) %>
+      <%== make_menu_link('Resync Stories', book_resync_stories_path(id: @book.id)) %>
+      <%== make_menu_link('Publish All', book_publish_path(id: @book.id)) %>
+    <% else %>
+      <%== make_menu_link('Bibliography', book_biblioentries_path(@book)) %>
+      <%== make_menu_link('Timeline', book_timeline_path(id: @book.id)) %>
+    <% end %>
+  <% end %>
+  </ul>
+</li>
+<% if !@book.nil? and @book.is_fiction? %>
+  <li class='mr-6 dropdown'>
+    <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown1' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+      <%= 'Story' %>
+    </a>
+    <ul class='flex dropdown-menu' aria-labelledby='navbar_dropdown1'>
+        <%== make_menu_link('New Story', new_book_story_path(book_id: @book.id)) %>
+        <%== make_menu_link('Stories', book_stories_path(@book)) %>
+        <%== make_menu_link('All Stories', book_stories_path(@book, all: true)) %>
+      <% if !@story.nil? and !@story&.id.nil? %>
+        <%== make_menu_link('Characters', polymorphic_path([@story, :characters])) %>
+        <%== make_menu_link('Resync Scenes', story_resync_scenes_path(id: @story.id)) %>
+        <%== make_menu_link('New Key Point', new_polymorphic_path([@story, KeyPoint])) %>
+        <%== make_menu_link('Key Points', polymorphic_path([@story, :key_points])) %>
+        <%== make_menu_link('Scenes', polymorphic_path([@story, :scenes])) %>
+        <%== make_menu_link('Move', polymorphic_path([@story, :move])) %>
+        <%== make_menu_link('Stats', polymorphic_path([@story, :stats])) %>
+        <%== make_menu_link('Char List', polymorphic_path([@story, :chars])) %>
+        <%== make_menu_link('Char List, All', polymorphic_path([@story, :chars], long: true)) %>
+        <%== make_menu_link('Timeline', polymorphic_path([@story, :timeline])) %>
+        <%== make_menu_link('Tours', polymorphic_path([@story, :tours])) %>
+      <% end %>
+    </ul>
+  </li>
 <% else %>
-    <li class='nav-item dropdown'>
+  <li class='mr-6 dropdown'>
+    <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown1' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+      <%= 'Chapter' %>
+    </a>
+    <ul class='flex dropdown-menu' aria-labelledby='navbar_dropdown1'>
+      <% unless @book.nil? or @book.new_record? %>
+        <%== make_menu_link('New Chapter', new_polymorphic_path([@book, :chapter])) %>
+        <%== make_menu_link('Chapters, TOC', toc_path(@book)) %>
+      <% end %>
+      <% unless @chapter.nil? or @chapter.new_record? %>
+        <%== make_menu_link('Partition', (@chapter.partition.nil? or @chapter.partition.new_record? ? new_chapter_partition_path(@chapter) : edit_partition_path(@chapter.partition))) %>
+        <%== make_menu_link('Aside', (@chapter.aside.nil? or @chapter.aside.new_record? ? new_chapter_aside_path(chapter_id: @chapter.id) : edit_aside_path(@chapter.aside))) %>
+        <%== make_menu_link('Sections', chapter_sections_path(@chapter)) %>
+        <%== make_menu_link('Footnotes', chapter_footnotes_path(@chapter)) %>
+        <%== make_menu_link('Citations', chapter_citations_path(@chapter)) %>
+      <% end %>
+    </ul>
+  </li>
+  <% end %>
+
+  <% if !@book.nil? and @book.is_fiction? %>
+    <li class='mr-6 dropdown'>
       <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown1' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-        <%= menu_dropdown_title %>
+        Stage
       </a>
-      <ul class='dropdown-menu' aria-labelledby='navbar_dropdown1'>
-        <% unless @book.nil? or @book.new_record? %>
-          <%== make_menu_link(@book.name, book_path(@book)) %>
-          <li><hr class="dropdown-divider"></li>
-  <% if @book.fiction? %>
-          <% if !@story.nil? and !@story&.id.nil? %>
-            <%== make_menu_link(@story.name, story_path(@story)) %>
-          <% end %>
-          <% end %>
-        <% end %>
-      <li class='nav-item'> <a class='nav-link' href='/books'>Books</a> </li>
-      <% if controller_name == 'books' %>
-        <% if !@book.nil? %>
-  <% if @book.fiction? %>
-          <%== make_menu_link('Stories', book_stories_path(@book)) %>
-          <%== make_menu_link('All Stories', book_stories_path(@book, all: true)) %>
-          <%== make_menu_link('New Story', new_book_story_path(book_id: @book.id)) %>
-          <%== make_menu_link('Scenes', polymorphic_path([@book, :scenes])) %>
-          <%== make_menu_link('Resync Stories', book_resync_stories_path(id: @book.id)) %>
-          <%== make_menu_link('Publish All', book_publish_path(id: @book.id)) %>
-        <% else %>
-        <% end %>
-        <% unless @book.nil? or @book.new_record? %>
-          <%== make_menu_link('Timeline', book_timeline_path(id: @book.id)) %>
-        <% end %>
-
-
-  <% if @book.fiction? %>
-          <li><hr class="dropdown-divider"></li>
-          <%== make_menu_link('Key Points', book_key_points_path(@book)) %>
-          <%== make_menu_link('Plot Points', book_plot_points_path(@book)) %>
-        <% end %>
-        <% else %>
-            
-        <% end %>
-      <% elsif controller_name == 'stories' %>
-        <% if !@story.nil? and !@story&.id.nil? %>
-          <%== make_menu_link('New Story', new_book_story_path(book_id: @book.id)) %>
-          <%== make_menu_link('New Key Point', new_polymorphic_path([@story, KeyPoint])) %>
-          <%== make_menu_link('Characters', polymorphic_path([@story, :characters])) %>
-          <%== make_menu_link('Resync Scenes', story_resync_scenes_path(id: @story.id)) %>
-          <%== make_menu_link('Key Points', polymorphic_path([@story, :key_points])) %>
-          <%== make_menu_link('Scenes', polymorphic_path([@story, :scenes])) %>
-          <%== make_menu_link('Move', polymorphic_path([@story, :move])) %>
-          <%== make_menu_link('Stats', polymorphic_path([@story, :stats])) %>
-          <%== make_menu_link('Char List', polymorphic_path([@story, :chars])) %>
-          <%== make_menu_link('Char List, All', polymorphic_path([@story, :chars], long: true)) %>
-          <%== make_menu_link('Timeline', polymorphic_path([@story, :timeline])) %>
-          <%== make_menu_link('Tours', polymorphic_path([@story, :tours])) %>
-        <% end %>
-      <% elsif controller_name == 'key_points' %>
-      <% elsif controller_name == 'stages' %>
-      <% elsif controller_name == 'chapters' %>
-        <% unless @chapter.nil? or @chapter.new_record? %>
-          <%== make_menu_link('Partition', (@chapter.partition.nil? ? new_chapter_partition_path(@chapter) : edit_partition_path(@chapter.partition))) %>
-          <%== make_menu_link('Aside', (@chapter.aside.nil? ? new_chapter_aside_path(chapter_id: @chapter.id) : edit_aside_path(@chapter.aside))) %>
-          <%== make_menu_link('Sections', chapter_sections_path(@chapter)) %>
-          <%== make_menu_link('Footnotes', chapter_footnotes_path(@chapter)) %>
-          <%== make_menu_link('Citations', chapter_citations_path(@chapter)) %>
-        <% end %>
-          <%== make_menu_link('Bibliography', book_biblioentries_path(@book)) %>
-      <% elsif controller_name == 'scenes' %>
-        <% if !@scene.nil? and !@scene&.id.nil? %>
-          <%== make_menu_link('Characters', polymorphic_path([@scene, :characters])) %>
-        <% end %>
+      <ul class='flex dropdown-menu' aria-labelledby='navbar_dropdown1'>
+      <% unless @stage.nil? %>
+        <%== make_menu_link('Stage', stage_path(@stage)) %>
+        <%== make_menu_link('Stage List', stage_list_path(@stage)) %>
+        <%== make_menu_link('Scenes', stage_scenes_path(@stage)) %>
+        <%== make_menu_link('Scene Characters', stage_characters_path(@stage)) %>
+        <li><hr class="dropdown-divider"></li>
+        <%== make_menu_link('Time by Actor', stage_time_by_actor_path(@stage)) %>
+        <%== make_menu_link('Time by Location', stage_time_by_location_path(@stage)) %>
+        <%== make_menu_link('Actor by Location', stage_actor_by_location_path(@stage)) %>
       <% end %>
       </ul>
     </li>
-  <% if @book.fiction? %>
-    <li class='nav-item dropdown'>
+    <li class='mr-6 dropdown'>
       <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown1' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-      Stage
+        Characters
       </a>
-      <ul class='dropdown-menu' aria-labelledby='navbar_dropdown1'>
-     <% unless @stage.nil? %>
-          <%== make_menu_link('Stage', stage_path(@stage)) %>
-          <%== make_menu_link('Stage List', stage_list_path(@stage)) %>
-          <%== make_menu_link('Scenes', stage_scenes_path(@stage)) %>
-          <%== make_menu_link('Scene Characters', stage_characters_path(@stage)) %>
-          <li><hr class="dropdown-divider"></li>
-          <%== make_menu_link('Time by Actor', stage_time_by_actor_path(@stage)) %>
-          <%== make_menu_link('Time by Location', stage_time_by_location_path(@stage)) %>
-          <%== make_menu_link('Actor by Location', stage_actor_by_location_path(@stage)) %>
-      <% end %>
-      </ul>
-    </li>
-    <li class='nav-item dropdown'>
-      <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown1' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-      Characters
-      </a>
-      <ul class='dropdown-menu' aria-labelledby='navbar_dropdown1'>
-     <% unless @book.nil? %>
-          <%== make_menu_link('Characters', polymorphic_path([@book, :characters])) %>
-        <li class='nav-item'> <a class='nav-link' href='/characters/<%= @book.id %>/matrix'>Main Chars</a> </li>
-        <li class='nav-item'> <a class='nav-link' href='/characters/<%= @book.id %>/scenes'>Chars with Scenes</a> </li>
+      <ul class='flex dropdown-menu' aria-labelledby='navbar_dropdown1'>
+      <% unless @book.nil? or @book.new_record? %>
+        <%== make_menu_link('Characters', polymorphic_path([@book, :characters])) %>
+        <li class='mr-6'> <a class='nav-link' href='/characters/<%= @book.id %>/matrix'>Main Chars</a> </li>
+        <li class='mr-6'> <a class='nav-link' href='/characters/<%= @book.id %>/scenes'>Chars with Scenes</a> </li>
         <%== make_menu_link('By Occupation', book_chars_path(@book))  %>
         <%== make_menu_link('By Occupation, All', book_chars_path(@book, long: true)) %>
-          <li><hr class="dropdown-divider"></li>
+        <li><hr class="dropdown-divider"></li>
         <%== make_menu_link('Import Chars', book_chars_import_path(@book))  %>
       <% end %>
       </ul>
     </li>
-    <li class='nav-item dropdown'>
-      <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown4' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-        Support
-      </a>
-      <ul class='dropdown-menu' aria-labelledby='navbar_dropdown4'>
-          <%== make_menu_link('Acts', book_acts_path(@book)) %>
-          <%== make_menu_link('Locations', book_locations_path(@book)) %>
-          <%== make_menu_link('Actors', book_actors_path(@book)) %>
-          <li><hr class="dropdown-divider"></li>
-          <%== make_menu_link('Artifacts', book_artifacts_path(@book)) %>
-          <%== make_menu_link('Artifact Types', book_artifact_types_path(@book)) %>
-          <%== make_menu_link('Key Words', book_key_words_path(@book)) %>
-          <%== make_menu_link('Stats', polymorphic_path([@book, :stats])) %>
-          <%== make_menu_link('Authors', book_authors_path(@book)) %>
-          <li><hr class="dropdown-divider"></li>
-        <li class='nav-item'> <a class='nav-link' href='/character_categories'>Character Categories</a> </li>
-        <li class='nav-item'> <a class='nav-link' href='/cities'>Cities</a> </li>
-      </ul>
-    </li>
-  <% else %>
-    <li class='nav-item dropdown'>
-      <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown2' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-        Events
-      </a>
-      <ul class='dropdown-menu' aria-labelledby='navbar_dropdown2'>
-        <% %w[holocene_event timeline epoch].each do |form| %>
-          <li><%= link_to t("app.index.#{form}.link"), [form.pluralize.to_sym], class: 'nav-link' %></li>
-        <% end %>
-        <% if !@book.nil? and !@book&.id.nil? %>
-        <%== make_menu_link('New Chapter', new_polymorphic_path([@book, :chapter])) %>
-        <%== make_menu_link('Chapters, TOC', toc_path(@book)) %>
-        <%== make_menu_link('Authors', book_authors_path(@book)) %>
-        <% end %>
-      </ul>
-    </li>
-    <li class='nav-item dropdown'>
-      <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown3' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-        Support
-      </a>
-      <ul class='dropdown-menu' aria-labelledby='navbar_dropdown3'>
-        <% %w[event_type region].each do |form| %>
-          <li><%= link_to t("app.index.#{form}.link"), [form.pluralize.to_sym], class: 'nav-link' %> </li>
-        <% end %>
-        <% unless @book.nil? %>
-         <li class='nav-item'> <a class='nav-link' href='/books/<%= @book.id %>/key_words'>Key Words</a> </li>
-        <% end %>
-       <li class='nav-item'> <a class='nav-link' href='/cities'>Cities</a> </li>
-      </ul>
-    </li>
   <% end %>
-<% end %>
-  <% unless @book.nil? %>
-  <li class='nav-item'> <a class='nav-link' href='/books/<%= @book.id %>/authors'>Authors</a> </li>
-  <% end %>
+  <li class='mr-6 dropdown'>
+    <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown4' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+      Support
+    </a>
+    <ul class='flex dropdown-menu' aria-labelledby='navbar_dropdown4'>
+    <% unless @book.nil? or @book.new_record? %>
+      <% if @book.is_fiction? %>
+        <%== make_menu_link('Acts', book_acts_path(@book)) %>
+        <%== make_menu_link('Locations', book_locations_path(@book)) %>
+        <%== make_menu_link('Actors', book_actors_path(@book)) %>
+        <li><hr class="dropdown-divider"></li>
+        <%== make_menu_link('Artifacts', book_artifacts_path(@book)) %>
+        <%== make_menu_link('Artifact Types', book_artifact_types_path(@book)) %>
+        <%== make_menu_link('Key Words', book_key_words_path(@book)) %>
+        <%== make_menu_link('Stats', polymorphic_path([@book, :stats])) %>
+        <li><hr class="dropdown-divider"></li>
+        <%== make_menu_link('Key Points', book_key_points_path(@book)) %>
+        <%== make_menu_link('Plot Points', book_plot_points_path(@book)) %>
+      <% else %>
+        <li class='mr-6'> <a class='nav-link' href='/character_categories'>Character Categories</a> </li>
+        <li class='mr-6'> <a class='nav-link' href='/cities'>Cities</a> </li>
+      <% end %>
+      <%== make_menu_link('Key Words', book_key_words_path(@book)) %>
+      <%== make_menu_link('Authors', book_authors_path(@book)) %>
+    <% end %>
+    <% %w[event_type region holocene_event timeline epoch].each do |form| %>
+      <li><%= link_to t("app.index.#{form}.link"), [form.pluralize.to_sym], class: 'nav-link' %></li>
+    <% end %>
+    </ul>
+  </li>

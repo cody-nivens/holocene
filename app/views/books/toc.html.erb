@@ -1,11 +1,7 @@
-<h2>Chapters, TOC</h2>
+<% @title = "#{params[:long].nil? ? '' : 'Long: '} #{@book.name}" %>
 
-<%= render partial: 'header', locals: { book: @book, long: false } %>
+<%= render partial: 'header', locals: { book: @book, long: @long } %>
 
-<ul data-controller="sortable" data-sortable-resource-name-value="chapter">
-  <% @chapters.includes([:rich_text_body, :sections, :holocene_events, :chapters_holocene_events, { sections: [:holocene_events, :holocene_events_sections, :rich_text_body] }, { partition: :rich_text_body }, { aside: :rich_text_body }]).order(:position).each do |chapter| %>
-    <li data-sortable-update-url="<%= chapter_sort_path(chapter) %>">
-            <%= render partial: 'chapters/chapter', locals: { chapter: chapter } %>
-    </li>
-  <% end %>
-</ul>
+<turbo-frame id="<%= dom_id @book %>">
+  <%= render partial: "books/toc", locals: { book: @book } %>
+</turbo-frame>

@@ -1,0 +1,112 @@
+  <turbo-frame id="new_asides">
+<% if chapter.aside.nil? %>
+    <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_chapter_aside_path(chapter), class: 'btn', title: 'New Aside' %>
+<% else %>
+    <turbo-frame id="<%= dom_id chapter.aside %>">
+      <%= render partial: "asides/aside_item", locals: { aside: chapter.aside } %>
+      <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_aside_path(chapter.aside), class: 'btn', title: 'Edit' %>
+    </turbo-frame>
+<% end %>
+  </turbo-frame>
+
+<% @slugs = [] -%>
+<% @footnotes = Footnote.process_body(chapter, @slugs) -%>
+<%== @footnotes[0] %>
+<% @slugs += @footnotes[1] -%>
+
+<% if chapter.process_events? %>
+  <% if chapter.holocene_events.size != 0 -%>
+    <% chapter.holocene_events.order(:start_year).each do |he| -%>
+      <% unless he.body.blank? -%>
+        <% @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
+        <% @slugs += @footnotes[1] -%>
+      <% end -%>
+    <% end -%>
+    <%= render 'holocene_events/index', formats: [:html], holocene_events: chapter.holocene_events.order(:start_year).uniq, chapter: chapter, epub: false, slugs: @slugs %>
+  <% end -%>
+<% end -%>
+
+<% chapter.sections.includes([:signets, :rich_text_body]).order(:position).each do |section| -%>
+  <turbo-frame id="<%= dom_id section %>">
+  <% s = '' %>
+  <% if section.embed? %>
+    <div class='card border-primary border-dark mb3 pull-right float-right' style='width: 60%;'>
+      <div class='card-header bg-transparent border-primary'>
+        <h3 class='card-header card-title'>
+          <%= section.name %>
+          <%= link_to (fa_icon 'edit'), edit_section_path(section), title: 'Edit' %>
+          <%= link_to (fa_icon 'sticky-note'), section_signets_path(section_id: section.id), method: :get, title: 'Signets', class: "#{!section.signets.empty? ? Signet.color_class(sections.signets[0].color) : ''}" %>
+          <%= link_to (fa_icon 'list'), section_display_path(section_id: section.id), rel: 'next', title: 'Events' %>
+          <%= link_to (fa_icon 'calendar'), section_timeline_path(section_id: section.id), rel: 'next', title: 'Timeline' %>
+          <%= link_to (fa_icon 'map'), geo_map_section_path(section), rel: 'next', title: 'Map' %>
+          <%= link_to (fa_icon 'subscript', style: :light), section_footnotes_path(section_id: section.id), rel: 'next', title: 'Footnotes' %>
+        </h3>
+      </div>
+      <div class='card-body border'>
+        <% s = ' class=\'card-title\'' %>
+  <% end %>
+  <% unless section.embed? %>
+      <h3<%== s %>>
+        <%= section.name %>
+        <%= link_to (fa_icon 'edit'), edit_polymorphic_path([chapter, section]), title: 'Edit' %>
+        <%= link_to (fa_icon 'sticky-note'), section_signets_path(section_id: section.id), method: :get, title: 'Signets', class: "#{!section.signets.empty? ? Signet.color_class(section.signets[0].color) : ''}" %>
+        <%= link_to (fa_icon 'list'), section_display_path(section_id: section.id), rel: 'next', title: 'Events' %>
+        <%= link_to (fa_icon 'calendar'), section_timeline_path(section_id: section.id), rel: 'next', title: 'Timeline' %>
+        <%= link_to (fa_icon 'map'), geo_map_section_path(section), rel: 'next', title: 'Map' %>
+        <%= link_to (fa_icon 'subscript'), section_footnotes_path(section_id: section.id), rel: 'next', title: 'Footnotes' %>
+      </h3>
+  <% end %>
+
+  <% @footnotes = Footnote.process_body(section, @slugs, @footnotes[2]) -%>
+  <% @slugs += @footnotes[1] -%>
+  <%== @footnotes[0] %>
+
+  <% if chapter.process_events? %>
+    <% if section.holocene_events.size != 0 %>
+      <% section.holocene_events.includes([:event_types, :region, :rich_text_body]).order(:start_year).each do |he| -%>
+        <% unless he.body.blank? -%>
+          <% @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
+          <% @slugs += @footnotes[1] -%>
+        <% end -%>
+      <% end -%>
+      <%= render 'holocene_events/index', formats: [:html], holocene_events: section.holocene_events.order(:start_year).uniq, chapter: chapter, epub: false, slugs: @slugs %>
+    <% end -%>
+  <% end -%>
+  <% if section.embed? %>
+      </div>
+    </div>
+  <% end %>
+  </turbo-frame>
+<% end -%>
+
+<% unless @slugs.size == 0 -%>
+  <%== Footnote.write_footnotes(@slugs) %>
+<% end -%>
+
+<% unless chapter.citations.size == 0 -%>
+  <div style='clear: both'>
+    <hr>
+    <%== render 'footnotes/citations', slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: true, title: 'Citations' %>
+  </div>
+<% end -%>
+</turbo-frame>
+
+<div id="side_controls" class="hide-print">
+<%= link_to((fa_icon 'edit', class: 'fa-fw'), edit_chapter_path(chapter), class: 'btn', title: 'Edit') %>
+<% if chapter.scripted_type == 'Book' %>
+  <%= link_to((fa_icon 'sticky-note', class: 'fa-fw'), chapter_signets_path(chapter_id: chapter.id), title: 'Signets', class: "btn #{!chapter.signets.empty? ? Signet.color_class(chapter.signets[0].color) : ''}") %>
+  <%= link_to((fa_icon 'list', class: 'fa-fw'), chapter_display_path(chapter), rel: 'next', title: 'Events', class: 'btn') %>
+  <%= link_to((fa_icon 'calendar', class: 'fa-fw'), chapter_timeline_path(chapter), rel: 'next', title: 'Timeline', class: 'btn') %>
+  <%= link_to((fa_icon 'map', class: 'fa-fw'), geo_map_chapter_path(chapter), rel: 'next', title: 'Map', class: 'btn') %>
+<% else %>
+  <%= link_to('Scenes', polymorphic_path([chapter.scripted, chapter, :scenes]), rel: 'next') %>
+<% end %>
+<% prev_chapter = chapter.set_prev %>
+<% unless prev_chapter.nil? %>
+  <%= link_to((fa_icon 'angle-left', class: 'fa-fw'), chapter_path(prev_chapter), rel: 'next', class: 'btn', title: 'Previous') %>
+<% end %>
+<% next_chapter = chapter.set_next %>
+<% unless next_chapter.nil? %>
+  <%= link_to((fa_icon 'angle-right', class: 'fa-fw'), chapter_path(next_chapter), rel: 'next', class: 'btn', title: 'Next') %>
+<% end %>
+<%= link_to((fa_icon 'backward', class: 'fa-fw'), polymorphic_path([chapter.scripted, :chapters]), rel: 'next', class: 'btn', title: 'Back') %>

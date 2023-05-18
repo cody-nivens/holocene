@@ -43,6 +43,12 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get new' do
     get new_book_url
+    assert_select "turbo-frame" do |elements|
+      elements.each do |element|
+        assert_equal element["target"], "edit-book"
+        assert_equal element["id"], "new_books"
+      end
+    end
     assert_response :success
   end
 
@@ -79,6 +85,11 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
 
   test 'should show book I' do
     get book_url(@book)
+    assert_select "turbo-frame" do |elements|
+      elements.each do |element|
+        assert_equal element["id"], (dom_id @book)
+      end
+    end
     assert_response :success
   end
 
@@ -168,4 +179,50 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
       assert_redirected_to books_url
     end
   end
+
+
+
+  test "should show book TS" do
+    get book_url(@book, format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "#{dom_id @book}"
+    assert_response :success
+  end
+
+  test "should create book TS" do
+    assert_difference('Book.count') do
+      post books_url(format: :turbo_stream), params: { book: { body: @book.body, name: @book.name, user_id: @user.id } }
+    end
+    
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "new_books"
+    assert_turbo_stream action: :replace, target: "edit_books"
+    assert_turbo_stream action: :replace, target: "books"
+    #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
+    #  assert_equal "<template>message_1</template>", selected.children.to_html
+    #end
+    assert_response :success
+  end
+
+  test "should update book TS" do
+    patch book_url(@book, format: :turbo_stream), params: { book: { body: @book.body, name: @book.name, user_id: @user.id } }
+    label = dom_id @book
+    assert_turbo_stream action: :replace, target: label do |selected|
+      #assert_equal "<template></template>", selected.children.to_html
+    end
+
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "#{dom_id @book}"
+    assert_response :success
+  end
+
+  test "should destroy book TS" do
+    assert_difference('Book.count', -1) do
+      delete book_url(@book, format: :turbo_stream)
+    end
+
+    assert_turbo_stream action: :replace, target: "books"
+    assert_response :success
+  end
+
 end

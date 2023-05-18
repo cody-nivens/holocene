@@ -1,0 +1,19 @@
+<div>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Signet</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% sigged.signets.reload.each do |signet| %>
+        <tr>
+          <%= render partial: 'signets/signet_line', locals: { signet: signet, sigged: sigged } %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([sigged, :signet]), class: 'btn', title: 'New Signet' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), :back, class: "btn", title: "Back" %>
+</div>

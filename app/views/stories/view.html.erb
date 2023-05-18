@@ -1,3 +1,4 @@
+<turbo-frame id="<%= dom_id @story %>">
 <%= render partial: 'header', locals: { book: @book, story: @story, long: @long } %>
 <%= render partial: 'stories/view', formats: [:html], locals: { outline: params[:outline], pdf: nil, story: @story, long: @long } %>
-<%= render partial: 'footer', locals: { book: @book, story: @story } %>
+</turbo-frame>

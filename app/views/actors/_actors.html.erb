@@ -1,0 +1,25 @@
+<div class="container" id="actors">
+  <div class="row">
+    <div class="col-sm-2">
+      <strong>Name</strong>
+    </div>
+    <div class="col-sm-2">
+      <strong>Locations</strong>
+    </div>
+    <div class="col-sm-2">
+      <strong>Characters</strong>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div id="edit-actor">
+      </div>
+    </div>
+  </div>
+  <% @book.actors.order(:name).each do |actor| %>
+    <turbo-frame id="<%= dom_id actor %>" class="block">
+      <%= render partial: "actors/actor_item", locals: { actor: actor } %>
+    </turbo-frame>
+  <% end %>
+  </div>
+</div>

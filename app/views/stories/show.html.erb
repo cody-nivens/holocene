@@ -1,75 +1,7 @@
 <% @title = @story.name %>
 
-<%= render partial: 'stories/header', locals: { book: @book, story: @story, long: @long } %>
+<turbo-frame id="<%= dom_id @story %>">
+<%= render partial: 'stories/header', locals: { story: @story, long: @long } %>
+<%= render partial: 'stories/story', locals: { story: @story, long: @long } %>
+</turbo-frame>
 
-<% if @long %>
-<% items2 = wc_counts_info(@story) %>
-<table class="table">
-  <tr>
-    <th>Scene Character:</th> <td><%= @story.scene_character %></td>
-    <th>Characters:</th> <td><%= @story.characters.size %></td>
-  </tr>
-  <tr>
-    <th>Publish:</th> <td><%= (@story.publish? ? fa_icon('check') : '') %></td>
-    <th>Stand Alone:</th> <td><%= (@story.stand_alone? ? fa_icon('check') : '') %></td>
-    <th>Title Page:</th> <td><%= (@story.title_page? ? fa_icon('check') : '') %></td>
-  </tr>
-  <tr>
-    <th>Scenes(section % scenes):</th>
-    <td>
-      <div class="progress_bar">
-        <%= render partial: 'scenes/progress_bar', formats: [:html], locals: { object: @story } %>
-      </div>
-    </td>
-    <td>
-      <div class="progress_bar">
-        <%= render partial: 'shared/progress_bar', locals: { items: items2 } %>
-      </div>
-    </td>
-    </td>
-    <% word_count = @story.word_count %>
-    <th>Word Count (Potential):</th> <td>
-    <%== render partial: "shared/word_count", locals: { obj: @story } %>
-    </td>
-    <th>Print Summary:</th> <td><%= (@story.print_summary? ? fa_icon('check') : '') %></td>
-  </tr>
-</table>
-<% end %>
-
-<% pdf ||= nil %>
-<%= tabs do |c| %>
-
-<% c.tab 'Key Points' do %>
-    <div data-controller="scenes">
-      <ul data-controller="sortable" data-sortable-resource-name-value="key_point">
-            <% @story.key_points.order(:position).each do |key_point| %>
-               <li data-sortable-update-url="<%= key_point_sort_path(key_point) %>">
-                <%= link_to key_point.hook, key_point_path(key_point), id: key_point.anchor %> - <%= link_to key_point.key_element, key_point_path(key_point) %>
-                <%= render partial: 'key_points/list', formats: [:html], locals: { scripted: @story, key_point: key_point, long: @long } %>
-                </li>
-            <% end %>
-    </ul>
-  </div>
-<% end %>
-
-<% c.tab 'Summary' do %>
-  <span>
-    <div class='container-fluid'>
-      <div class='row'>
-        <div class='col-sm-12'>
-          <%= @story.summary_body %>
-        </div>
-      </div>
-    </div>
-  </span>
-<% end %>
-
-<% c.tab 'Characters' do %>
-  <span>
-    <%= render partial: 'characters/characters_occ_ul', formats: [:html], locals: { object: @story, characters: @story.characters } %>
-  </span>
-<% end %>
-
-<% end %>
-
-<%= render partial: 'stories/footer', locals: { book: @book, story: @story } %>

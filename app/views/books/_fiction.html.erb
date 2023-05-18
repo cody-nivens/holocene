@@ -1,5 +1,5 @@
 <% word_count = scene_count = word_avg = 0 %>
-<% if long %>
+<% if long.kind_of?(TrueClass) or long == "true" %>
   <% z_count = 0 %>
   <% book.stories.each do |story| %>
     <% word_counts = story.word_counts %>
@@ -15,9 +15,11 @@
 <%= tabs do |c| %>
 
 <% c.tab 'Stories' do %>
- <span>
+  <div id="story-new">
+    <%= render partial: "stories/new_link" %>
+  </div>
+
 <%= render partial: 'stories/index', formats: [:html], locals: { stories: stories, book: book, long: long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
- </span>
 <% end %>
 
 <% c.tab 'Summary' do %>
@@ -25,7 +27,6 @@
 <% end %>
 
 <% c.tab 'Body' do %>
-  <span>
     <div class='container-fluid'>
       <div class='row'>
         <div class='col-sm-12'>
@@ -41,7 +42,6 @@
         </div>
       </div>
     </div>
-  </span>
 <% end %>
 
 <% end %>

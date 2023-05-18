@@ -4,7 +4,7 @@ class ArtifactsController < ApplicationController
 
   # GET /artifacts or /artifacts.json
   def index
-    @artifacts = Artifact.where(book_id: @book.id).joins(:artifact_type).joins(:character).order('artifact_types.name, artifacts.name')
+    @artifacts = Artifact.where(book_id: @book.id).joins(:artifact_type).order('artifact_types.name, artifacts.name')
   end
 
   # GET /artifacts/1 or /artifacts/1.json

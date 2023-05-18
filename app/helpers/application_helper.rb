@@ -44,8 +44,8 @@ module ApplicationHelper
     @footer_content << (link_to name, link, class: t_classes, method: method, data: data).to_s
   end
 
-  def make_menu_link(text, path)
-    "<li class='nav-item'> <a class='nav-link' href='#{path}'>#{text}</a></li>"
+  def make_menu_link(text, path, disabled: false)
+    "<li class='#{disabled ? 'disabled' : 'mr-6'}'> <a class='nav-link' href='#{path}'>#{text}</a></li>"
   end
 
   def return_or_default_path(default_path = root_path)
@@ -270,6 +270,6 @@ module ApplicationHelper
     wt      = CharacterValue.where(character_id: character.id, character_attribute_id: phy_wt.id).first
 
 #"<td>#{ht.nil? ? '' : ht.value}</td> <td>#{wt.nil? ? '' : wt.value}</td> <td>#{hc.nil? ? '' : hc.value}</td> <td>#{ec.nil? ? '' : ec.value}</td> <td>#{gen.nil? ? '' : gen.value}</td>"
-    return "<td>#{hc.nil? ? '' : hc.value}</td> <td>#{ec.nil? ? '' : ec.value}</td> <td>#{gen.nil? ? '' : gen.value}</td>"
+    return "<div class='col-sm-1'>#{hc.nil? ? '' : hc.value}</div> <div class='col-sm-1'>#{ec.nil? ? '' : ec.value}</div> <div class='col-sm-1'>#{gen.nil? ? '' : gen.value}</div>"
   end
 end

@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "sections"  do %>
+  <%= render partial: "sections/sections", locals: { sections: @sections, sectioned: @sectioned } %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

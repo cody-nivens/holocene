@@ -1,13 +1,14 @@
 <% @title = @section.name %>
 
-<h2>
+<turbo-frame id="<%= @section %>">
+<h3>
   <% if @section.sectioned.class.name == 'Chapter' %>
     <%== breadcrumb(@section.sectioned.scripted, @section.sectioned, nil, nil, @section) %>
   <% else %>
     <%== breadcrumb(@section.sectioned.key_point.scripted.book, @section.sectioned.key_point.scripted, @section.sectioned.key_point, @section.sectioned, @section) %>
   <% end %>
   <%= link_to (fa_icon 'edit'), edit_polymorphic_path([@sectioned, @section]), title: 'Edit' %>
-</h2>
+</h3>
 <table class="table">
   <tr>
     <th>Word Count:</th><td><%= number_with_delimiter(@section.word_count, delimiter: ',') %></td>
@@ -36,6 +37,7 @@
 
 <% priv_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position - 1) -%>
 <% next_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position + 1) -%>
+</turbo-frame>
 
 <div id="side_controls" class="hide-print">
 <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_section_path(@section), class: 'btn', title: 'Edit' %>

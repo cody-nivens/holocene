@@ -6,7 +6,7 @@
     <%= f.hidden_field :book_id, value: book.id %>
 
     <%= f.text_field :name %>
-    <%= f.select :character_id, options_for_select(book.characters.order(:last_name, :first_name).collect { |mt| [mt.name, mt.id] }, selected: artifact.character_id) %>
+    <%= f.select :character_id, options_for_select(book.characters.order(:last_name, :first_name).collect { |mt| [mt.name, mt.id] }, selected: artifact.character_id), include_blank: true %>
     <%= f.select :parent_id, options_for_select(Artifact.all.order(:name).collect { |mt| [mt.name, mt.id] }, selected: artifact.parent_id), include_blank: true %>
 
     <%= f.select :artifact_type_id, options_for_select(ArtifactType.all.order(:name).collect { |mt| [mt.name, mt.id] }, selected: artifact.artifact_type_id), include_blank: true %>

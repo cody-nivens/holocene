@@ -3,7 +3,7 @@ class Artifact < ApplicationRecord
 
   acts_as_taggable_on :tags
 
-  belongs_to :character
+  belongs_to :character, optional: true
   belongs_to :book
   belongs_to :artifact_type
 
@@ -13,8 +13,8 @@ class Artifact < ApplicationRecord
 
   has_rich_text :summary
 
-  delegate :name, to: :character, prefix: true
-  delegate :name, to: :artifact_type, prefix: true
+  #delegate :name, to: :character, prefix: true
+  #delegate :name, to: :artifact_type, prefix: true
 
   validates :name, presence: true
 

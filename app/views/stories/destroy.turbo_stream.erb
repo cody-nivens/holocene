@@ -1,0 +1,23 @@
+<% word_count = scene_count = word_avg = 0 %>
+<% if @long.kind_of?(TrueClass) or @long == "true" %>
+  <% z_count = 0 %>
+  <% book.stories.each do |story| %>
+    <% word_counts = story.word_counts %>
+    <% z_count  += word_counts.collect{|x| x <= 10 ? 1 : 0 }.sum %>
+  <% end %>
+
+  <% word_count = book.word_count %>
+  <% scene_count = book.scene_count %>
+  <% word_avg = word_count / (scene_count - z_count) %>
+<% end %>
+
+<%= turbo_stream.replace "stories"  do %>
+  <%= render partial: 'stories/index', formats: [:html], locals: { stories: @book.stories, book: @book, long: @long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
+<% end %>
+<%= turbo_stream.replace "edit_stories"  do %>
+  <%= " " %>
+<% end %>
+<%= turbo_stream.replace "new_stories"  do %>
+  <%= render partial: "stories/new_link" %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

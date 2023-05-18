@@ -15,8 +15,6 @@ class ChaptersEditHtmlErbTest < ActionDispatch::IntegrationTest
     get edit_chapter_url(@chapter)
     assert_response :success
 
-    assert_select 'a[title=?]', 'Show'
-    assert_select 'a[href=?]', chapter_path(@chapter)
     assert_select 'a[title=?]', 'Back'
     assert_select 'a[href=?]', polymorphic_path([@scripted, :chapters])
     assert_template 'chapters/edit'

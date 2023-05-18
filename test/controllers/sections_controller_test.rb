@@ -20,6 +20,12 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get new' do
     get new_polymorphic_url([@sectioned_1, :section])
+    assert_select "turbo-frame" do |elements|
+      elements.each do |element|
+        assert_equal element["target"], "edit-section"
+        assert_equal element["id"], "new_sections"
+      end
+    end
     assert_response :success
   end
 
@@ -89,6 +95,11 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get edit' do
     get edit_section_url(@section)
+    assert_select "turbo-frame" do |elements|
+      elements.each do |element|
+        assert_equal element["id"], (dom_id @section.sectioned)
+      end
+    end
     assert_response :success
   end
 
@@ -152,4 +163,49 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
       assert_redirected_to polymorphic_url(@sectioned_2)
     end
   end
+
+  test "should show section TS" do
+    get section_url(@section, format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "#{dom_id @section}"
+    assert_response :success
+  end
+
+  test "should create section TS" do
+    assert_difference('Section.count') do
+      post polymorphic_url([@sectioned_2, :sections], format: :turbo_stream),
+             params: { section: { body: @section.body, sectioned_type: @sectioned_2.class.name, sectioned_id: @sectioned_2.id,
+                                  name: "#{@section.name}1", position: @section.position, user_id: @user.id } }
+    end
+    
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "new_sections"
+    assert_turbo_stream action: :replace, target: "edit_sections"
+    assert_turbo_stream action: :replace, target: "sections"
+    #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
+    #  assert_equal "<template>message_1</template>", selected.children.to_html
+    #end
+    assert_response :success
+  end
+
+  test "should update section TS" do
+    patch section_url(@section, format: :turbo_stream), params: { chapter_id: @sectioned_1.scripted.id, section: { body: @section.body, name: @section.name, position: @section.position,
+                                                                                              sectioned_type: @sectioned_1.class.name, sectioned_id: @sectioned_1.id, user_id: @user.id } }
+    label = dom_id @section
+    assert_turbo_stream action: :replace, target: label
+
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "#{dom_id @section}"
+    assert_response :success
+  end
+
+  test "should destroy section TS" do
+    assert_difference('Section.count', -1) do
+      delete section_url(@section, format: :turbo_stream)
+    end
+
+    assert_turbo_stream action: :replace, target: "sections"
+    assert_response :success
+  end
+
 end

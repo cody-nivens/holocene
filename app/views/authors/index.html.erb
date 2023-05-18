@@ -28,6 +28,6 @@
 </table>
 
 <div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([@object, :author]), class: 'btn icon-ok icon-white', title: "New Author" %>
-<%= link_to (fa_icon 'exchange-alt', class: 'fa-fw'), polymorphic_path([@object, :authors_list]), class: 'btn icon-ok icon-white', title: "Add Author" %>
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([@object, :author]), class: 'btn', title: "New Author" %>
+<%= link_to (fa_icon 'exchange-alt', class: 'fa-fw'), polymorphic_path([@object, :authors_list]), class: 'btn', title: "Add Author" %>
 </div>

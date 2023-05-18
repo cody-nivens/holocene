@@ -1,5 +1,6 @@
 <% @title = "Notes" %>
 
+<turbo-frame id="<%= dom_id @sigged %>">
 <h2>Notes <%= @sigged.class.name %>: <%= @sigged.name %></h2>
 <table class='table'>
   <thead>
@@ -33,4 +34,5 @@
 <% end %>
   </tbody>
 </table>
-
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), :back, class: "btn", title: "Back" %>
+</turbo-frame>
