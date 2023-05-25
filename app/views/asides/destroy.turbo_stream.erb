@@ -1,4 +1,7 @@
-<%= turbo_stream.replace "asides"  do %>
+<%= turbo_stream.replace "objects"  do %>
   <%= render partial: "asides/asides", locals: { asides: @asides } %>
+<% end %>
+<%= turbo_stream.replace "edit"  do %>
+  <%= " " %>
 <% end %>
 <%= render partial: "shared/send_flash" %>

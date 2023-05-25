@@ -5,11 +5,17 @@ class ArtifactsController < ApplicationController
   # GET /artifacts or /artifacts.json
   def index
     @artifacts = Artifact.where(book_id: @book.id).joins(:artifact_type).order('artifact_types.name, artifacts.name')
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /artifacts/1 or /artifacts/1.json
   def show
     @book = @artifact.book
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   def tagged
@@ -38,9 +44,12 @@ class ArtifactsController < ApplicationController
 
     respond_to do |format|
       if @artifact.save
-        format.html { redirect_to artifact_path(@artifact), notice: 'Artifact was successfully created.' }
+        @artifacts = Artifact.where(book_id: @book.id).joins(:artifact_type).order('artifact_types.name, artifacts.name')
+ #       format.html { redirect_to artifact_path(@artifact), notice: 'Artifact was successfully created.' }
         format.json { render :show, status: :created, location: @artifact }
+        format.turbo_stream { flash.now[:notice] = "Artifact was successfully created." }
       else
+        format.turbo_stream { render :error_message }
         format.html { render :new, book_id: @book.id, status: :unprocessable_entity }
         format.json { render json: @artifact.errors, status: :unprocessable_entity }
       end
@@ -53,8 +62,10 @@ class ArtifactsController < ApplicationController
     @book = @artifact.book
     respond_to do |format|
       if @artifact.update(artifact_params)
-        format.html { redirect_to artifact_path(@artifact), notice: 'Artifact was successfully updated.' }
+        @artifacts = Artifact.where(book_id: @book.id).joins(:artifact_type).order('artifact_types.name, artifacts.name')
+ #       format.html { redirect_to artifact_path(@artifact), notice: 'Artifact was successfully updated.' }
         format.json { render :show, status: :ok, location: @artifact }
+        format.turbo_stream { flash.now[:notice] = "Artifact was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @artifact.errors, status: :unprocessable_entity }
@@ -67,9 +78,11 @@ class ArtifactsController < ApplicationController
     @artifact = Artifact.find(params[:id])
     @book = @artifact.book
     @artifact.destroy
+    @artifacts = Artifact.where(book_id: @book.id).joins(:artifact_type).order('artifact_types.name, artifacts.name')
     respond_to do |format|
-      format.html { redirect_to book_artifacts_path(@book), notice: 'Artifact was successfully destroyed.' }
+ #     format.html { redirect_to book_artifacts_path(@book), notice: 'Artifact was successfully destroyed.' }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:notice] = "Artifact was successfully destroyed." }
     end
   end
 

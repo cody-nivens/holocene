@@ -1,9 +1,6 @@
-<div id='aside_content'>
-  <blockquote>
-    <h4><%= aside.name %></h4>
-    <blockquote>
-      <%== aside.body %>
-    </blockquote>
-    <hr>
-  </blockquote>
-</div>
+      <tr>
+        <td><%= link_to aside.name, aside_path(aside) %></td>
+        <td><%= aside.body %></td>
+        <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_aside_path(aside), class: 'btn', title: 'Edit' %>
+        <%= link_to (fa_icon 'trash', class: 'fa-fw'), aside_path(aside), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn', title: 'Destroy' %></td>
+      </tr>

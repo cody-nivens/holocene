@@ -1,10 +1,10 @@
-<%= turbo_stream.replace "signets"  do %>
+<%= turbo_stream.replace "objects"  do %>
   <%= render partial: "signets/signets", locals: { sigged: @sigged } %>
 <% end %>
-<%= turbo_stream.replace "edit_signets"  do %>
+<%= turbo_stream.replace "edit"  do %>
   <%= " " %>
 <% end %>
-<%= turbo_stream.replace "new_signets"  do %>
+<%= turbo_stream.replace "new_object"  do %>
   <%= render partial: "signets/new_link" %>
 <% end %>
 <%= render partial: "shared/send_flash" %>

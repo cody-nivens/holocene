@@ -1,7 +1,12 @@
 <h2>Locations</h2>
 
-<div id="location-new">
-<%= render partial: "locations/new_link" %>
-</div>
+<div id="edit"> </div>
 
-<%= render partial: "locations/locations" %>
+<turbo-frame id="new_object" target="edit" class="block">
+  <%= render partial: "locations/new_link" %>
+</turbo-frame>
+
+<turbo-frame id="objects">
+  <%= render partial: "locations/locations" %>
+</turbo-frame>
+

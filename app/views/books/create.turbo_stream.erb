@@ -1,10 +1,11 @@
-<%= turbo_stream.replace "books"  do %>
+<%= turbo_stream.replace "objects"  do %>
   <%= render partial: "books/books" %>
 <% end %>
-<%= turbo_stream.replace "edit_books"  do %>
-  <%= " " %>
+<%= turbo_stream.replace "edit"  do %>
+  <%= content_tag :div, id: "edit" do %>
+  <% end %>
 <% end %>
-<%= turbo_stream.replace "new_books"  do %>
+<%= turbo_stream.replace "new_object"  do %>
   <%= render partial: "books/new_link" %>
 <% end %>
 <%= render partial: "shared/send_flash" %>

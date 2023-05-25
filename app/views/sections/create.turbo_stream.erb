@@ -1,10 +1,12 @@
-<%= turbo_stream.replace "sections"  do %>
-  <%= render partial: "sections/sections", locals: { sections: @sections, sectioned: @sectioned } %>
+<%= turbo_stream.replace "objects"  do %>
+  <%= render partial: "#{@sectioned.class.name.underscore.pluralize}/#{@sectioned.class.name.underscore}_item", locals: { "#{@sectioned.class.name.underscore}": @sectioned } %>
 <% end %>
-<%= turbo_stream.replace "edit_sections"  do %>
+<%= turbo_stream.replace "edit"  do %>
   <%= " " %>
 <% end %>
-<%= turbo_stream.replace "new_sections"  do %>
-  <%= render partial: "sections/new_link" %>
+<%= turbo_stream.replace "new_object"  do %>
+  <%#= render partial: "sections/new_link", locals: { sectioned: @sectioned } %>
 <% end %>
 <%= render partial: "shared/send_flash" %>
+
+

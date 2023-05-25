@@ -1,0 +1,10 @@
+<tr>
+  <%= render partial: 'artifacts/artifact_index', formats: [:html], locals: { book: @book, artifact: artifact, parent: true } %>
+</tr>
+<% unless artifact.children.empty? %>
+  <% artifact.children.order(:name).each do |child| %>
+    <tr>
+      <%= render partial: 'artifacts/artifact_index', formats: [:html], locals: { book: @book, artifact: child, parent: false } %>
+    </tr>
+  <% end %>
+<% end %>

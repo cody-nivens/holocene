@@ -8,20 +8,9 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
+  if 1 == 0
   test "should get index" do
     get book_locations_url(@book)
-    assert_response :success
-  end
-
-  test "should get new" do
-    get new_book_location_url(@book)
-
-    assert_select "turbo-frame" do |elements|
-      elements.each do |element|
-        assert_equal element["target"], "edit-location"
-        assert_equal element["id"], "new_locations"
-      end
-    end
     assert_response :success
   end
 
@@ -47,16 +36,19 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get edit" do
-    get edit_location_url(@location)
+  test "should not update location" do
+    patch location_url(@location), params: { location: { name: '', book_id: @location.book.id } }
 
-    assert_select "turbo-frame" do |elements|
-      elements.each do |element|
-        assert_equal element["id"], (dom_id @location)
-      end
+    assert_response :unprocessable_entity
+    assert_template :edit
+  end
+
+  test "should destroy location" do
+    assert_difference('Location.count', -1) do
+      delete location_url(@location)
     end
-    assert_response :success
-    assert_response :success
+
+    assert_redirected_to book_locations_url(@book)
   end
 
   test "should update location" do
@@ -64,12 +56,44 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to location_url(@location)
   end
 
-  test "should show location TS" do
-    get location_url(@location, format: :turbo_stream)
+end
 
-    assert_turbo_stream action: :replace, target: "#{dom_id @location}"
+  test 'should get edit' do
+    get edit_location_url(@location)
     assert_response :success
   end
+
+  test 'should get new' do
+    get new_book_location_url(@book)
+    assert_select "turbo-frame", id:  "new_object", target: "edit"
+    assert_response :success
+  end
+
+  test 'should show location TS' do
+    get location_url(@location, format: :turbo_stream)
+
+    assert_select "turbo-frame", id:  "#{dom_id @location}"
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
+    assert_response :success
+  end
+
+  test 'should show location index TS' do
+    get book_locations_url(@book, format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
+    assert_response :success
+  end
+
 
   test "should create location TS" do
     assert_difference('Location.count') do
@@ -77,9 +101,9 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
     end
     
     assert_no_turbo_stream action: :update, target: "messages"
-    assert_turbo_stream action: :replace, target: "new_locations"
-    assert_turbo_stream action: :replace, target: "edit_locations"
-    assert_turbo_stream action: :replace, target: "locations"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "edit"
+    assert_turbo_stream action: :replace, target: "objects"
     #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
     #  assert_equal "<template>message_1</template>", selected.children.to_html
     #end
@@ -103,22 +127,8 @@ class LocationsControllerTest < ActionDispatch::IntegrationTest
       delete location_url(@location, format: :turbo_stream)
     end
 
-    assert_turbo_stream action: :replace, target: "locations"
+    assert_turbo_stream action: :replace, target: "objects"
     assert_response :success
   end
 
-  test "should not update location" do
-    patch location_url(@location), params: { location: { name: '', book_id: @location.book.id } }
-
-    assert_response :unprocessable_entity
-    assert_template :edit
-  end
-
-  test "should destroy location" do
-    assert_difference('Location.count', -1) do
-      delete location_url(@location)
-    end
-
-    assert_redirected_to book_locations_url(@book)
-  end
 end

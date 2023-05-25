@@ -5,13 +5,13 @@ class StoriesController < ApplicationController
   # GET /stories
   # GET /stories.json
   def index
-    long = params[:long]
-    all = params[:all]
+    @long = params[:long]
+    @all = params[:all]
 
-    @title = "Stories#{all.nil? ? '' : ', All'}#{long.nil? ? '' : ', Long'}"
+    @title = "Stories#{@all.nil? ? '' : ', All'}#{@long.nil? ? '' : ', Long'}"
     @stories = Story.includes([:key_points]).where(book_id: @book.id).order(:position)
     respond_to do |format|
-      format.html { render :index, locals: { all: all, long: long } }
+      format.html { render :index, locals: { all: @all, long: @long } }
     end
   end
 
@@ -55,9 +55,10 @@ class StoriesController < ApplicationController
     @characters = @story.characters
     @title = @story.name
     @long = params[:long]
+    session[:return_to] = request.fullpath
 
     respond_to do |format|
-      format.html { render :show }
+#      format.html { render :show }
       format.turbo_stream { }
       format.pdf do
         render pdf: 'export',
@@ -88,6 +89,7 @@ class StoriesController < ApplicationController
 
     respond_to do |format|
       format.html { render :view }
+      format.turbo_stream {}
     end
   end
 
@@ -158,7 +160,7 @@ class StoriesController < ApplicationController
       if @story.save
         $redis.set("book_scenes_#{@story.book.id}", nil)
         $redis.set("story_scenes_#{@story.id}", nil)
-        format.html { redirect_to story_path(@story), notice: 'Story was successfully created.' }
+#        format.html { redirect_to story_path(@story), notice: 'Story was successfully created.' }
         format.json { render :show, status: :created, location: @story }
         format.turbo_stream { flash.now[:notice] = "Story was successfully created." }
       else
@@ -180,7 +182,7 @@ class StoriesController < ApplicationController
           $redis.set("book_scenes_#{@story.book.id}", nil)
           $redis.set("story_scenes_#{@story.id}", nil)
         end
-        format.html { redirect_to story_url(@story), notice: 'Story was successfully updated.' }
+#        format.html { redirect_to story_url(@story), notice: 'Story was successfully updated.' }
         format.json { render :show, status: :ok, location: @story }
         format.turbo_stream { flash.now[:notice] = "Story was successfully updated." }
       else
@@ -197,7 +199,7 @@ class StoriesController < ApplicationController
     $redis.set("story_scenes_#{@story.id}", nil)
     @story.destroy
     respond_to do |format|
-      format.html { redirect_to book_stories_url(book_id: @book.id), notice: 'Story was successfully destroyed.' }
+#      format.html { redirect_to book_stories_url(book_id: @book.id), notice: 'Story was successfully destroyed.' }
       format.json { head :no_content }
         format.turbo_stream { flash.now[:notice] = "Story was successfully destroyed." }
     end

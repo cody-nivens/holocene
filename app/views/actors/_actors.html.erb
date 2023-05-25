@@ -10,12 +10,6 @@
       <strong>Characters</strong>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-4">
-      <div id="edit-actor">
-      </div>
-    </div>
-  </div>
   <% @book.actors.order(:name).each do |actor| %>
     <turbo-frame id="<%= dom_id actor %>" class="block">
       <%= render partial: "actors/actor_item", locals: { actor: actor } %>
@@ -23,3 +17,4 @@
   <% end %>
   </div>
 </div>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_path(@book), method: :get, class: "btn", title: 'Back' %>

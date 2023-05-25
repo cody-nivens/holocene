@@ -1,20 +1,22 @@
-<ul>
-  <% 1.upto(6).each do |selector| %>
-    <li>
-      <%= KeyPoint.selector_title(selector) %>
-      <dl>
-        <% if key_point.scenes.where(selector: selector).size == 0 %>
-          <dt><%= link_to (fa_icon 'plus'), polymorphic_path([scripted, key_point, :list], selector: selector), title: 'Add Scene' %> <%= key_point.selector_value(selector) %>
-          </dt>
-        <% else %>
-          <dt><%= link_to (fa_icon 'plus'), polymorphic_path([scripted, key_point, :list], selector: selector), title: 'Add Scene' %> <%= key_point.selector_value(selector) %><br>
-          </dt>
-          <% key_point.scenes.where(selector: selector).order(:position).each do |scene| %>
-            <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scripted, key_point: key_point, pdf: nil, print_name: false, short_labels: true, long: long } %>
-          <dd><%= scene.summary.to_plain_text %></dd>
-        <% end %>
-      </dl>
-    <% end %>
-    </li>
-  <% end %>
-  </ul>
+  <h2>Scenes for "<%= @key_point.name %>" in "<%= @scripted.name %>"</h2>
+<turbo-frame id="objects">
+<%= form_with url: polymorphic_path([@scripted, @key_point, :add]) do |f| %>
+
+  <%= f.hidden_field :selector, value: @selector %>
+  <%= hidden_field "#{@scripted.class.name.underscore}_id", value: @scripted.id %>
+
+
+<table class="table">
+  <tr>
+      <td style="width:40%">
+          <%= select_tag :scenes_ids, options_from_collection_for_select(@key_point.scenes.includes([:rich_text_summary]).where(selector: @selector), :id, :name), prompt: 'Select Scene', multiple: true, size: 20 %>
+      </td><td style="width:20%">
+          <%= f.submit class: 'btn btn-primary' %>
+      </td><td style="width:40%">
+          <%= select_tag :scenes_avail, options_from_collection_for_select(@scripted.scenes.includes([:rich_text_summary]).where(selector: 0), :id, :name), prompt: 'Select Scene', multiple: true, size: 20 %>
+      </td>
+  </tr>
+</table>
+
+<% end %>
+</turbo-frame>

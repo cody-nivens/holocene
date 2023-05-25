@@ -1,6 +1,6 @@
 <h2>New Aside</h2>
 
-<turbo-frame id="new_asides" target="edit-aside">
+<turbo-frame id="new_object" target="edit">
 <%= render 'form', aside: @aside, book: @book, chapter: @chapter %>
 <%= link_to (fa_icon 'backward', class: 'fa-fw'),  :back, class: 'btn', title: 'Back' %>
 </turbo-frame>

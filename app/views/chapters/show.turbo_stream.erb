@@ -1,3 +1,21 @@
-<%= turbo_stream.replace "#{dom_id @chapter}" do %>
-  <%= render partial: "chapters/chapter_item", locals: { chapter:  @chapter } %>
+<%= turbo_stream.replace "objects" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "objects" do %>
+    <%= render partial: "chapters/chapter", locals: { chapter:  @chapter } %>
+  <% end %>
 <% end %>
+<%= turbo_stream.replace "header"  do %>
+  <%= render partial: "chapters/header" %>
+<% end %>
+<%= turbo_stream.replace "new_object"  do %>
+  <%#= render partial: "chapters/new_link" %>
+<% end %>
+<%= turbo_stream.replace "side_controls" do %>
+  <%= render partial: 'chapters/side_controls', locals: { chapter: @chapter, long: @long } %>
+<% end %>
+<%= turbo_stream.replace "nav-bar" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "nav-bar" do %>
+    <%= render partial: "application/header" %>
+  <% end %>
+<% end %>
+<%= render partial: "shared/send_flash" %>
+

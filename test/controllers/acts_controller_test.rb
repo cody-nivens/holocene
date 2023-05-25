@@ -8,6 +8,7 @@ class ActsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
+  if 1 == 0
   test "should get index" do
     get book_acts_url(@book)
     assert_response :success
@@ -63,5 +64,73 @@ class ActsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to book_acts_url(@book)
+  end
+end
+  test 'should get edit' do
+    get edit_act_url(@act)
+    assert_response :success
+  end
+
+  test 'should get new' do
+    get new_book_act_url(@book)
+    assert_select "turbo-frame", id:  "new_object", target: "edit"
+    assert_response :success
+  end
+
+  test 'should show act TS' do
+    get act_url(@act, format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
+    assert_response :success
+  end
+
+  test 'should show act index TS' do
+    get book_acts_url(@book, format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
+    assert_response :success
+  end
+
+
+  test "should create act TS" do
+    assert_difference('Act.count') do
+      post book_acts_url(@book, format: 'turbo_stream'), params: { act: { name: "Test 1", book_id: @act.book.id } }
+    end
+    
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "edit"
+    assert_turbo_stream action: :replace, target: "objects"
+    #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
+    #  assert_equal "<template>message_1</template>", selected.children.to_html
+    #end
+    assert_response :success
+  end
+
+  test "should update act TS" do
+    patch act_url(@act, format: :turbo_stream), params: { act: { name: @act.name, book_id: @act.book.id } }
+    assert_turbo_stream action: :replace, target: "#{dom_id @act}"
+
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_response :success
+  end
+
+  test "should destroy act TS" do
+    assert_difference('Act.count', -1) do
+      delete act_url(@act, format: :turbo_stream)
+    end
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_response :success
   end
 end

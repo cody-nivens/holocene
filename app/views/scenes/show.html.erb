@@ -1,2 +1,17 @@
 <% @title = @scene.section.nil? ? @scene.name : @scene.section.name %>
-<%= render partial: "scenes/scene_item", locals: { scene: @scene, scenes_wi: @scenes_wi } %>
+<div id="header">
+  <%= render partial: 'scenes/scene_header', locals: { scene: @scene, scenes_wi: @scenes_wi } %>
+</div>
+
+  <%= render partial: 'scenes/header', locals: { scene: @scene, scenes_wi: @scenes_wi } %>
+<div id="edit"> </div>
+
+<turbo-frame id="new_object" target="edit" class="block">
+</turbo-frame>
+
+<turbo-frame id="objects" class="block">
+<turbo-frame id="<%= dom_id @scene %>">
+  <%= link_to (fa_icon 'pencil-alt', class: 'fa-fw'), edit_scene_path(@scene), data: { turbo_target: "#{dom_id @scene}"}, methods: :get, title: 'Edit Scene Data', class: 'btn' %>
+  <%= render partial: "scenes/scene_item", locals: { scene: @scene, scenes_wi: @scenes_wi } %>
+</turbo-frame>
+</turbo-frame>

@@ -1,77 +1,143 @@
-<% if @toggle == "on" %>
-  <table class="table">
-<% end %>
-<% if option == "no_scene" %>
-  <% stories = if situated.instance_of?(Book)
-                situated.stories.where(stand_alone: false, publish: true).includes([{ key_points: [:scripted, { scenes: [:section, :rich_text_summary] }] }]).order(:position)
-              else
-                [situated]
-              end %>
+<turbo-frame id="objects">
+  <div id="container2">
+  <% scene_wc_counts = @scenes.collect{|x| Scene.find(x).word_count } %>
+  <% mean = scene_wc_counts.sum(0.0) / @scenes.length %>
+  <% sum = scene_wc_counts.sum(0.0) { |element| (element - mean) ** 2 } %>
+  <% variance = sum / (@scenes.length - 1) %>
+  <% standard_deviation = Math.sqrt(variance) %>
 
-  <% scenes_h = {} %>
-  <% stories.each do |story| %>
-    <% story.key_points.each do |key_point| %>
-      <% output_header = false %>
-      <ul>
-      <% 1.upto(6).each do |selector| %>
-        <% scenes = key_point.scenes.where(selector: selector) %>
-        <% next unless scenes.size.zero? %>
-        <% next if key_point.selector_value(selector).blank? %>
-        <% unless output_header %>
-          <%== breadcrumb(situated, story, key_point, link: true) %> 
-          <% output_header = true %>
-        <% end %>
-        <li>
-          <%= KeyPoint.selector_title(selector) %>: <%= key_point.selector_value(selector) %>
-        </li>
-      <% end %>
-      </ul>
-    <% end %>
-  <% end %>
-<% elsif option == "has_signets" %>
-      <ul>
-  <% scenes.each do |scene_id| %>
-    <% scene = Scene.find_by_id(scene_id) %>
-    <% next unless scene.signets.size > 0 %>
-    <li>
-      <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, target: :_blank, long: long } %>
-    </li>
-  <% end %>
-  </ul>
-<% elsif option == "has_inserts" %>
-  <% scenes2 = Scene.where.not(insert_scene_id: nil).order(:insert_scene_id) %>
-  <% old_insert_scene = 0 %>
-      <ul>
-  <% scenes2.each do |scene| %>
-    <% next unless scene.situated.publish %>
-    <% if scene.insert_scene_id != old_insert_scene %>
-      <% unless old_insert_scene == 0 %>
-        </ul>
-      <% end %>
-      <% old_insert_scene = scene.insert_scene_id %>
-      <ul>
-    <% end %>
-    <li>
-      <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: nil, target: :_blank, long: long } %>
-    </li>
-  <% end %>
-  </ul>
-<% elsif option == "low_word_count" or option == "mid_word_count" or option == "better_word_count" %>
-  <% high = 0; low = 0 %>
-  <% if option == "low_word_count" %>
-    <% high = @low_wc; low = 0 %>
-  <% elsif option == "mid_word_count" %>
-    <% high = @mid_wc; low = @low_wc %>
-  <% else %>
-    <% high = @better_wc; low = @mid_wc %>
-  <% end %>
-  <%= render partial: 'shared/scenes', locals: { scenes: scenes, op: 'words', option: option, toggle: @toggle, high: high, low: low, long: long } %>
+  <%= form_with model: Scene.new, url: (@situated.instance_of?(Book) ? book_scenes_path(@situated) : polymorphic_path([@situated, :scenes])),
+    method: :get,
+    id: 'my-form',
+    remote: true,
+    format: :js,
+    class: 'form-inline' do %>
+  <%= hidden_field_tag :situated_id, @situated.id %>
+  <%= hidden_field_tag :situated_type, @situated.class.name %>
 
-<% elsif @option == "chars" %>
-   <%= render partial: 'shared/scenes', locals: { scenes: scenes, op: 'chars', option: option, toggle: @toggle, long: long } %>
-<% else %>
-   <%= render partial: 'shared/scenes', locals: { scenes: scenes, op: 'scenes', option: option, toggle: @toggle, long: long } %>
+  <div class="row hide-print">
+    <div class='col-md-3'>
+      <fieldset class="form-group border p-3">
+        <legend class="w-auto px-2">Listing</legend>
+        <div class="form-group">
+          <label class='checkbox'>
+            <%= check_box_tag :toggle, @toggle, @toggle, class: 'checkbox' %> Detail
+          </label>
+        </div>
+        <div class="form-group">
+          <label class='checkbox'>
+            <%= check_box_tag :print, @print, @print, class: 'checkbox' %> Print
+          </label>
+        </div>
+        <div class="form-group">
+          <label class='checkbox'>
+            <%= check_box_tag :long, @long, @long, class: 'checkbox' %> Long
+          </label>
+        </div>
+      <div class='field'>
+        <%= select_tag('year', options_for_select(@year_options), prompt: 'Please select an year:', class: 'form-control', onchange: 'javascript:this.form.commit.click();') %>
+      </div>
+      <div class='col-md-2'>
+        <%= submit_tag 'Go', type: 'submit', name: 'button_action', value: 'Go' %>
+      </div>
+    </fieldset>
+  </div>
+  <div class='col-md-3'>
+  <div class='row'>
+      <fieldset class="form-group border p-3">
+        <legend class="w-auto px-2">Report</legend>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :all, @all, class: 'checkbox' %> All
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :chars, @chars, class: 'checkbox' %> Zero Charcters
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :no_section, @no_section, class: 'checkbox' %> No Section
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :no_scene, @no_scene, class: 'checkbox' %> No Scene
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :only_section, @only_section, class: 'checkbox' %> Only Section
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :has_inserts, @has_inserts, class: 'checkbox' %> Has Inserts
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :has_signets, @has_signets, class: 'checkbox' %> Has Signets
+          </label>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div class='col-md-3'>
+      <fieldset class="form-group border p-3">
+        <legend class="w-auto px-2">Checked</legend>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :not_checked, @not_checked, class: 'checkbox' %> Not Checked
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :checked, @checked, class: 'checkbox' %> Checked
+          </label>
+        </div>
+        <%= submit_tag 'Reset Checked', type: 'submit', name: 'button_action', value: 'Reset Checked' %>
+      </fieldset>
+  </div>
+  <div class='col-md-3'>
+    <fieldset class="form-group border p-3">
+      <legend class="w-auto px-2">Word Counts</legend>
+      <div class='field'>
+        <label class="form-label" for="form12">Low: <%= (mean.nan? ? 0 : mean.to_i) - (standard_deviation.nan? ? 0 : standard_deviation.to_i) %></label>
+        <%= text_field_tag :low_wc, @low_wc %>
+      </div>
+      <div class='field'>
+        <label class="form-label" for="form12">Mid: <%= mean.nan? ? '' : mean.to_i %></label>
+        <%= text_field_tag :mid_wc, @mid_wc %>
+      </div>
+      <div class='field'>
+        <label class="form-label" for="form12">Better: <%= (mean.nan? ? 0 : mean.to_i) + (standard_deviation.nan? ? 0 : standard_deviation.to_i) %></label>
+        <%= text_field_tag :better_wc, @better_wc %>
+      </div>
+      <div class='form-check'>
+        <label class='checkbox'>
+          <%= radio_button_tag :option, :low_word_count, @low_word_count, class: 'checkbox' %> Low Word Count
+        </label>
+      </div>
+      <div class='form-check'>
+        <label class='checkbox'>
+          <%= radio_button_tag :option, :mid_word_count, @mid_word_count, class: 'checkbox' %> Mid Word Count
+        </label>
+      </div>
+      <div class='form-check'>
+        <label class='checkbox'>
+          <%= radio_button_tag :option, :better_word_count, @better_word_count, class: 'checkbox' %> Better Words
+        </label>
+      </div>
+    </fieldset>
+  </div>
+</div>
 <% end %>
-<% if @toggle == "on" %>
-  </table>
-<% end %>
+
+<div id='scenes-list'  data-controller="scenes">
+    <%= render partial: 'scenes/scene_item', formats: [:html], locals: { scenes: @scenes, print: @print, situated: @situated,
+                                                                     option: @option, years: @years, 
+                                                                     date: @year, scripted: @scripted, long: @long } %>
+</div>
+</turbo-frame>

@@ -1,0 +1,50 @@
+<% @title = @artifact.name %>
+<p>
+  <strong>Name:</strong>
+  <%= @artifact.name %>
+</p>
+
+<% unless @artifact.character.nil? %>
+<p>
+  <strong>Owner/Controller:</strong>
+  <%= @artifact.character.name %>
+</p>
+<% end %>
+
+<% unless @artifact.tag_list.empty? %>
+<p><strong>Tags:</strong> <%== @artifact.tag_list_s %></p>
+<% end %>
+
+<% unless @artifact.children.empty? %>
+<div id='tag_cloud'>
+  <% tag_cloud @artifact.children.tag_counts.order(:name), %w[s m l] do |tag, css_class| %>
+    <%= link_to tag.name, tag_artifacts_path(book_id: @book.id, tag: tag.name), class: css_class %>
+  <% end %>
+</div>
+
+<p>
+  <strong>Related Artifacts:</strong>
+  <ul>
+<% @artifact.children.order(:name).each do |child| %>
+  <li>
+    <div>
+      <div class='medium'>
+       <%=  link_to child.name, artifact_path(child) %>
+      </div>
+      <div class='title'>
+        <%== child.tag_list_s %>
+      </div>
+    </div>
+    <div style="clear:both"></div>
+  </li>
+<% end %>
+  </ul>
+</p>
+<% end %>
+
+<% unless @artifact.summary.blank? %>
+<p>
+<strong>Summary:</strong><br>
+  <%= @artifact.summary %>
+</p>
+<% end %>

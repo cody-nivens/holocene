@@ -151,6 +151,21 @@ module ActiveSupport
       find(".trix-content").set(with)
     end
 
+    def do_menu(master, sub_action)
+      assert_link master
+      click_on master
+      #within master do
+        assert_link sub_action
+        click_on sub_action
+      #end
+    end
+
+    def click_side(icon)
+      within "#side_controls" do
+        Capybara.page.find(".fa-#{icon}").click
+      end
+    end
+
     def wait_for_turbo_frame(selector = 'turbo-frame', timeout = nil)
       if has_selector?("#{selector}[busy]", visible: true, wait: (0.25).seconds)
         has_no_selector?("#{selector}[busy]", wait: timeout.presence || 5.seconds)

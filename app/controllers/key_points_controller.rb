@@ -6,12 +6,16 @@ class KeyPointsController < ApplicationController
   # GET /key_points.json
   def index
     @key_points = @scripted.key_points.order(:position)
+
     if request.xhr?
       respond_to do |format|
         format.json {
           render json: {key_points: @key_points }
         }
       end
+    end
+    respond_to do |format|
+      format.turbo_stream { render :index }
     end
   end
 
@@ -39,6 +43,12 @@ class KeyPointsController < ApplicationController
 
   def list
     @selector = (params[:selector].presence || 0)
+    @long = params[:long]
+
+    respond_to do |format|
+      format.turbo_stream {}
+    end
+
   end
 
   def add
@@ -93,11 +103,13 @@ class KeyPointsController < ApplicationController
   def new
     @key_point = KeyPoint.new
     @key_point.scripted = @scripted
+    @long = params[:long]
   end
 
   # GET /key_points/1/edit
   def edit
     @scripted = @key_point.scripted
+    @long = params[:long]
   end
 
   # POST /key_points
@@ -106,11 +118,14 @@ class KeyPointsController < ApplicationController
     @key_point = KeyPoint.new(key_point_params)
     @scripted = @key_point.scripted
     @klass = @scripted.class
+    @key_points = @scripted.key_points
+    @long = params[:long]
 
     respond_to do |format|
       if @key_point.save
         format.html { redirect_to key_point_url(@key_point), notice: 'Key point was successfully created.' }
         format.json { render :show, status: :created, location: @key_point }
+        format.turbo_stream { flash.now[:notice] = "Book was successfully created." }
       else
         format.html { render :new }
         format.json { render json: @key_point.errors, status: :unprocessable_entity }
@@ -122,10 +137,12 @@ class KeyPointsController < ApplicationController
   # PATCH/PUT /key_points/1.json
   def update
     @scripted = @key_point.scripted
+    @long = params[:long]
     respond_to do |format|
       if @key_point.update(key_point_params)
         format.html { redirect_to key_point_url(@key_point), notice: 'Key point was successfully updated.' }
         format.json { render :show, status: :ok, location: @key_point }
+        format.turbo_stream { flash.now[:notice] = "Book was successfully updated." }
       else
         format.html { render :edit }
         format.json { render json: @key_point.errors, status: :unprocessable_entity }
@@ -136,16 +153,19 @@ class KeyPointsController < ApplicationController
   # DELETE /key_points/1
   # DELETE /key_points/1.json
   def destroy
+    @long = params[:long]
     @key_point = KeyPoint.includes({ scenes: [:artifact, :rich_text_place, :rich_text_summary, :insert_scene, :characters,
                                               :rich_text_goal_reaction, :rich_text_conflict_dilemma, :rich_text_disaster_decision,
                                               :rich_text_short_term_goal, :rich_text_long_term_goal, :rich_text_over_arching_goal,
                                               { section: :rich_text_body }, { character_scenes: [:character, :rich_text_summary] }]}).find(params[:id])
     @scripted = @key_point.scripted
     @key_point.destroy
+    @key_points = @scripted.key_points
     respond_to do |format|
       format.html do
         redirect_to polymorphic_url([@scripted, :key_points]), notice: 'Key point was successfully destroyed.'
       end
+      format.turbo_stream { flash.now[:notice] = "Book was successfully destroyed." }
       format.json { head :no_content }
     end
   end

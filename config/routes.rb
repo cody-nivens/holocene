@@ -352,6 +352,7 @@ Rails.application.routes.draw do
   post '/sections/:section_id/signets',               to: 'signets#create', as: :section_signet_create
 
   root to: 'welcome#index'
+  #root to: 'books#index'
 
   get '/faq', to: 'application#faq', as: 'faq'
   get '/secret', to: 'application#secret', as: 'secret'

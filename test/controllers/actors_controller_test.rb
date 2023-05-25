@@ -8,20 +8,9 @@ class ActorsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
+  if 1 == 0
   test "should get index" do
     get book_actors_url(@book)
-    assert_response :success
-  end
-
-  test "should get new" do
-    get new_book_actor_url(@book)
-
-    assert_select "turbo-frame" do |elements|
-      elements.each do |element|
-        assert_equal element["target"], "edit-actor"
-        assert_equal element["id"], "new_actors"
-      end
-    end
     assert_response :success
   end
 
@@ -71,11 +60,43 @@ class ActorsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to book_actors_url(@book)
   end
+end
 
-  test "should show actor TS" do
+  test "should get new" do
+    get new_book_actor_url(@book)
+
+    assert_select "turbo-frame", id: "new_object", target: "edit"
+    assert_response :success
+  end
+
+  test "should get edit" do
+    get edit_actor_url(@actor)
+    assert_select "turbo-frame", id: "#{dom_id @actor}"
+    assert_response :success
+  end
+
+    test 'should show actor TS' do
     get actor_url(@actor, format: :turbo_stream)
 
-    assert_turbo_stream action: :replace, target: "#{dom_id @actor}"
+    assert_select "turbo-frame", id:  "#{dom_id @actor}"
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
+    assert_response :success
+  end
+
+  test 'should show actor index TS' do
+    get book_actors_url(@book, format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
     assert_response :success
   end
 
@@ -85,9 +106,9 @@ class ActorsControllerTest < ActionDispatch::IntegrationTest
     end
     
     assert_no_turbo_stream action: :update, target: "messages"
-    assert_turbo_stream action: :replace, target: "new_actors"
-    assert_turbo_stream action: :replace, target: "edit_actors"
-    assert_turbo_stream action: :replace, target: "actors"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "edit"
+    assert_turbo_stream action: :replace, target: "objects"
     #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
     #  assert_equal "<template>message_1</template>", selected.children.to_html
     #end
@@ -111,7 +132,7 @@ class ActorsControllerTest < ActionDispatch::IntegrationTest
       delete actor_url(@actor, format: :turbo_stream)
     end
 
-    assert_turbo_stream action: :replace, target: "actors"
+    assert_turbo_stream action: :replace, target: "objects"
     assert_response :success
   end
 

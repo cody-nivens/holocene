@@ -1,0 +1,9 @@
+<turbo-frame id="header">
+  <%= content_tag :h3 do %>
+  <%== breadcrumb((if @scripted.instance_of?(Book)
+                     @scripted
+                   else
+                     (@scripted.instance_of?(Chapter) ? @scripted.scripted : @scripted.book)
+                   end), @scripted, @key_point) %>
+  <% end %>
+</turbo-frame>

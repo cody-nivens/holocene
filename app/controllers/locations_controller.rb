@@ -6,10 +6,16 @@ class LocationsController < ApplicationController
   # GET /locations or /locations.json
   def index
     @locations = Location.where(book_id: @book.id).order(:name)
+    respond_to do |format|
+      format.turbo_stream {}
+    end
   end
 
   # GET /locations/1 or /locations/1.json
   def show
+    respond_to do |format|
+      format.turbo_stream {}
+    end
   end
 
   # GET /locations/new

@@ -30,7 +30,9 @@ class ScenesController < ApplicationController
     end
 
     @year = params[:year]
+    @years = []
     @scenes = Scene.get_scenes_wi_to_array(@situated)
+    @scenes_wi = @scenes
     unless @scenes.nil?
     if 1 == 0
       @years =  @scenes.sort
@@ -40,17 +42,14 @@ class ScenesController < ApplicationController
       end
 
     end
-    @years = []
-      @year_options = []
+    @year_options = []
       @years.each do |year|
         @year_options << [year, year]
       end
     end
 
     respond_to do |format|
-      format.html {}
-      #format.json {}
-      #format.js {}
+      format.turbo_stream {}
     end
   end
 
@@ -74,9 +73,14 @@ class ScenesController < ApplicationController
     @situated = @scene.book
     @book = @scene.book
     @story = @scene.key_point.scripted
+    @scripted = @story
+    @key_point = @scene.key_point
 
     @scenes_wi = Scene.get_scenes_wi_to_array(@situated)
-    session[:return_to] = request.fullpath
+    #session[:return_to] = request.fullpath
+    respond_to do |format|
+      format.turbo_stream {}
+    end
   end
 
   def move
@@ -155,13 +159,14 @@ class ScenesController < ApplicationController
     $redis.set("book_scenes_#{@scene.book.id}", nil)
     $redis.set("story_scenes_#{@situated.id}", nil)
 
-    @scenes = Scene.get_scenes_wi_to_array(@situated)
+    @scenes_wi = Scene.get_scenes_wi_to_array(@situated)
+    @scenes = @scenes_wi
     @option = params[:option]
     @long = params[:option]
 
     respond_to do |format|
       if @scene.save
-        format.html { redirect_to scene_path(@scene), notice: 'Scene was successfully created.' }
+#        format.html { redirect_to scene_path(@scene), notice: 'Scene was successfully created.' }
         format.json { render :show, status: :created, location: @scene }
         format.turbo_stream { flash.now[:notice] = "Scene was successfully created." }
       else
@@ -183,9 +188,10 @@ class ScenesController < ApplicationController
 
     respond_to do |format|
       if @scene.update(scene_params)
-        format.html { redirect_to scene_path(@scene), notice: 'Scene was successfully updated.' }
+        flash.now[:notice] = "Scene was successfully updated."
+#        format.html { redirect_to scene_path(@scene), notice: 'Scene was successfully updated.' }
         format.json { render :show, status: :ok, location: @scene }
-        format.turbo_stream { flash.now[:notice] = "Scene was successfully updated." }
+        format.turbo_stream { render 'show' }
       else
         format.html { render :edit, situated_type: @situated.class.name, situated_id: @situated.id }
         format.json { render json: @scene.errors, status: :unprocessable_entity }
@@ -201,11 +207,14 @@ class ScenesController < ApplicationController
     $redis.set("story_scenes_#{@situated.id}", nil)
     @option = params[:option]
     @long = params[:option]
+    @toggle = params[:toggle]
+    @print = params[:print]
+    @year_options = []
 
     @scene.destroy
     @scenes = Scene.get_scenes_wi_to_array(@situated)
     respond_to do |format|
-      format.html { redirect_to polymorphic_url([@situated, :scenes]),  status: :see_other, notice: 'Scene was successfully destroyed.' }
+#      format.html { redirect_to polymorphic_url([@situated, :scenes]),  status: :see_other, notice: 'Scene was successfully destroyed.' }
       format.json { head :no_content }
       format.turbo_stream { flash.now[:notice] = "Scene was successfully updated." }
     end
@@ -232,7 +241,7 @@ class ScenesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def scene_params
     params.require(:scene).permit(:abc, :check, :summary, :place, :time, :scene_sequel, :goal_reaction, :conflict_dilemma, :disaster_decision, 
-                                  :short_term_goal, :long_term_goal, :over_arching_goal, :situated_id, :book_id,
+                                  :short_term_goal, :long_term_goal, :over_arching_goal, :situated_id, :book_id, :date_string,
                                   :situated_type, :selector, :key_point_id, :section_id, :insert_scene_id, :before_flag, :artifact_id, :position, :title_scene)
   end
 end

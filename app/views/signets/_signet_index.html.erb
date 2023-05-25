@@ -1,4 +1,4 @@
-<div>
+<turbo-frame id="objects">
   <table class='table'>
     <thead>
       <tr>
@@ -14,6 +14,4 @@
       <% end %>
     </tbody>
   </table>
-  <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([sigged, :signet]), class: 'btn', title: 'New Signet' %>
-  <%= link_to (fa_icon 'backward', class: 'fa-fw'), :back, class: "btn", title: "Back" %>
-</div>
+</turbo-frame>

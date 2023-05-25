@@ -1,0 +1,11 @@
+<turbo-frame id="<%= dom_id author %>">
+  <tr>
+    <td><%= %></td>
+    <td><%= link_to author.first_name , polymorphic_path([@object, author]), method: :get, title: 'Show' %></td>
+    <td><%= author.last_name %></td>
+    <td><%= author.books.size %></td>
+    <td><%= author.biblioentries.size %></td>
+    <td><%= link_to (fa_icon 'edit'), edit_polymorphic_path([@object, author]), title: 'Edit' %>
+    <%= link_to (fa_icon 'trash'), polymorphic_path([@object, author]), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
+  </tr>
+</turbo-frame>

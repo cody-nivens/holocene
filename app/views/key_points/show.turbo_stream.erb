@@ -1,0 +1,25 @@
+<%= turbo_stream.replace "objects" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "objects" do %>
+    <%= render partial: "key_points/key_point", locals: { scripted: @scripted, key_point:  @key_point, long: @long } %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "new_link" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "new_link", locals: { scripted: @scripted } do %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "new_object"  do %>
+  <%= content_tag "turbo-frame", id: "new_object" do %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "header"  do %>
+  <%= render partial: "key_points/header", locals: { key_point: @key_point} %>
+<% end %>
+<%= turbo_stream.replace "side_controls" do %>
+  <%= render partial: 'key_points/side_controls', locals: { key_point: @key_point, long: @long } %>
+<% end %>
+<%= turbo_stream.replace "nav-bar" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "nav-bar" do %>
+    <%= render partial: "application/header" %>
+  <% end %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

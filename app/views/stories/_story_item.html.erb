@@ -1,3 +1,4 @@
+<% all ||= nil %>
 <% if long.kind_of?(TrueClass) or long == "true" %>
   <% scene_count = story.scene_count %>
   <% section_count = story.section_count %>
@@ -8,13 +9,13 @@
 
   <% items2 = wc_counts_info(story) %>
 <% end %>
-<div class="row">
+<div class="row <%= all.kind_of?(TrueClass) or all == "true" and !story.publish? ? 'bg-light' : '' %>">
   <div class="col-sm-1 text-end">
     <%= story.scene_min %> : <%= story.scene_max %>
   </div>
   <div class="col-sm-3">
     <%= story.scene_character %>
-    <%= long ? link_to(story.title, story_path(story, long: long), rel: 'next', data: { turbo: false }) : link_to(story.title, story_path(story), rel: 'next', data: { turbo: false }) %>
+    <%= long ? link_to(story.title, story_path(story, long: long), method: :get) : link_to(story.title, story_path(story), method: :get) %>
   </div>
   <div class="col-sm-1">
     <%= link_to (fa_icon 'edit'), edit_story_path(story, long: long), title: 'Edit' %>

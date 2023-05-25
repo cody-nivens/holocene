@@ -1,7 +1,6 @@
 <h2>New Act</h2>
 
+<turbo-frame id="objects" taget="edit">
 <%= render 'form', act: @act %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_acts_path(@book), class: "btn", title: 'Back' %>
-</div>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_acts_path(@book), method: :get, class: "btn", title: 'Back' %>
+</turbo-frame>

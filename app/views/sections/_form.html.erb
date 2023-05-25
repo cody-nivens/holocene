@@ -1,4 +1,3 @@
-<%= render partial: "#{section.sectioned_type.underscore.pluralize}/stats", locals: { object: section.sectioned } %>
 <%= bootstrap_form_for section, url: { controller: :sections, action: (section.id.nil? ? :create : :update) } do |f| %>
 <div class="container">
   <div class="row">

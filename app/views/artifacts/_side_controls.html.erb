@@ -1,0 +1,5 @@
+<div id="side_controls">
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_artifact_path(@artifact), class: 'btn', title: 'Edit' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  polymorphic_path([@book, :artifacts]), method: :get, class: 'btn', title: 'Back' %>
+</div>
+

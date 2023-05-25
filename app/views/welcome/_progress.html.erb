@@ -1,0 +1,34 @@
+<% @title = 'Progress' %>
+<% items = [@today_mod, @today_create, @yesterday_mod, @yesterday_create, @last_fortnight_mod, @last_fortnight_create] %>
+<% titles = ["Today's Modifications", "Today's Creations", "Yesterday's Modifications", "Yesterday's Creations", "Fortnight's Modifications", "Fortnight's Creations"] %>
+<% data = [{ name: 'Added', data: @dates_counts.collect { |key, x| [key.to_date, x[1]] } }, { name: 'Created', data: @dates_counts.collect { |key, x| [key.to_date, x[0]] } }] %>
+
+
+<%= tabs do |c| %>
+  <% c.tab "Progress" do %>
+    <%= column_chart data, stacked: true %>
+    <%= month_calendar do |date| %>
+      <% counts = @dates_counts[date.in_time_zone] %>
+      <%= link_to date, welcome_show_path(:date => date.to_s) %>
+      <% unless counts.nil? %>
+        <br>
+        <% unless counts[0].zero? %>
+           <%= "Created: #{number_with_delimiter(counts[0], delimiter: ',')}" %><br>
+        <% end %>
+        <% unless counts[1].zero? %>
+          <%= "Modified: #{number_with_delimiter(counts[1], delimiter: ',')}" %><br>
+        <% end %>
+        <%= "Items: #{Metric.where(date: date.in_time_zone).count}" %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% items.each_with_index do |item,index| %>
+    <% next if item.empty? %>
+    <% c.tab titles[index] do %>
+      <span>
+        <%= render partial: 'shared/metric', formats: [:html], locals: { objects: item, title: titles[index] } %>
+      </span>
+    <% end %>
+  <% end %>
+<% end %>
+

@@ -1,0 +1,6 @@
+<% pdf ||= nil %>
+<ul data-controller="sortable" data-sortable-resource-name-value="key_point">
+      <% @key_points.order(:position).each do |key_point| %>
+          <%= render partial: 'key_points/key_point_item', formats: [:html], locals: { key_point: key_point, scripted: @scripted, pdf: pdf } %>
+      <% end %>
+</ul>

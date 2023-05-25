@@ -1,23 +1,15 @@
-<div class="container" id="books">
+<turbo-frame id="objects">
   <div class="row">
     <div class="col-sm-2">
       <strong>Name</strong>
     </div>
     <div class="col-sm-2">
-      <strong>Location Times</strong>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-4">
-      <div id="edit-book">
-      </div>
     </div>
   </div>
   <% Book.where(user_id: current_user.id).order(:position).each do |book| %>
     <turbo-frame id="<%= dom_id book %>" class="block">
-      <%= render partial: "books/book", locals: { book: book, pdf: nil } %>
+      <%= render partial: "books/book_item", locals: { book: book, pdf: nil } %>
     </turbo-frame>
   <% end %>
   </div>
-</div>
-
+</turbo-frame>

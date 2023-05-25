@@ -6,4 +6,8 @@
   </h3>
 <% end %>
 
-<%= render partial: "chapters/chapter_item", locals: { chapter: @chapter } %>
+<div id="edit"></div>
+
+<turbo-frame id="objects">
+  <%= render partial: "chapters/chapter_item", locals: { chapter: @chapter } %>
+</turbo-frame>

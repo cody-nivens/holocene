@@ -1,5 +1,6 @@
 <%= turbo_stream.replace "#{dom_id @section}" do %>
-  <% sectioned = @section.sectioned %>
-  <%= render partial: "#{sectioned.class.name.underscore}s/#{sectioned.class.name.underscore}_item", locals: { "#{sectioned.class.name.underscore}": @section.sectioned } %>
+  <%= render partial: "sections/section_item", locals: { section:  @section, header: false } %>
+<% end %>
+<% turbo_stream.replace "new_sections" do %>
 <% end %>
 <%= render partial: "shared/send_flash" %>

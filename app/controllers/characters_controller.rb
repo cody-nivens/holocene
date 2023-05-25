@@ -91,7 +91,13 @@ class CharactersController < ApplicationController
   def lineage; end
 
   # GET /characters/1/list
-  def list; end
+  def list
+
+    respond_to do |format|
+      format.html {}
+      format.turbo_stream {}
+    end
+  end
 
   # GET /characters/1/matrix
   def matrix

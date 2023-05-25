@@ -1,5 +1,6 @@
 <%= turbo_stream.replace "#{dom_id @story}" do %>
-<%= render partial: 'stories/header', locals: { story: @story, long: @long } %>
-<%= render partial: 'stories/story', locals: { story: @story, long: @long } %>
+  <%= content_tag "turbo-frame", id: "#{dom_id @story}", class: "block" do %>
+    <%= render partial: 'stories/story', locals: { story: @story, long: @long } %>
+  <% end %>
 <% end %>
 <%= render partial: "shared/send_flash" %>

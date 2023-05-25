@@ -1,6 +1,6 @@
 <h2>New Section</h2>
 
-<turbo-frame id="new_sections" target="edit-section">
+<turbo-frame id="new_object" target="edit">
   <%= render partial: 'form', locals: { sectioned: @sectioned, section: @section, command_label: 'Create Section' } %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  :back, class: 'btn', title: 'Back' %>
 </turbo-frame>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  :back, class: 'btn', title: 'Back' %>

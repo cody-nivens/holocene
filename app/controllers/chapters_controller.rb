@@ -115,6 +115,8 @@ class ChaptersController < ApplicationController
     @title = @chapter.name
     @notes = {}
     @sections = @chapter.sections.order(:position)
+    @scripted = @chapter.scripted
+
     respond_to do |format|
       format.html { render :show, locals: { epub: false } }
       format.turbo_stream { }
@@ -141,7 +143,7 @@ class ChaptersController < ApplicationController
     respond_to do |format|
       if @chapter.save
         @chapter.reload
-        @chapters = @chapter.scripted.chapters
+        @chapters = @chapter.scripted.chapters.reload
         @long = false
         format.html { redirect_to @chapter, notice: 'Chapter was successfully created.' }
         format.json { render :show, status: :created, location: @chapter }
@@ -174,7 +176,7 @@ class ChaptersController < ApplicationController
   def destroy
     @scripted = @chapter.scripted
     @chapter.destroy
-    @chapters = @scripted.chapters
+    @chapters = @scripted.chapters.reload
     @long = false
     respond_to do |format|
       format.html { redirect_to polymorphic_path([@scripted, :chapters]), notice: 'Chapter was successfully destroyed.' }

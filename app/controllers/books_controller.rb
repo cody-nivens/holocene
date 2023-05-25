@@ -2,12 +2,17 @@ class BooksController < ApplicationController
   before_action :set_book,
                 only: %i[chars_import import_chars publish view show chars stats timeline resync_stories toc epub export pdf edit update destroy]
 
+  before_action :set_return, only: %i[show view index]
+
   # GET /books
   # GET /books.json
   def index
-    session[:return_to] = request.fullpath
     @long = params[:long]
     @books = Book.where(user_id: current_user.id).order(:position)
+
+    respond_to do |format|
+      format.turbo_stream { render :index }
+    end
   end
 
   def stats; end
@@ -139,8 +144,8 @@ class BooksController < ApplicationController
   # GET /books/1.json
   def show
     @long = params[:long]
-    session[:return_to] = request.fullpath
     session[:book_id] = @book.id
+    @scripted = @book
 
     if @book.is_fiction?
       if @long
@@ -154,7 +159,7 @@ class BooksController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { render :show, locals: { long: @long } }
+#      format.html { render :show, locals: { long: @long } }
       format.turbo_stream { }
       format.pdf do
         render pdf: @book.name.gsub(/[:,]/,'').underscore,
@@ -188,7 +193,8 @@ class BooksController < ApplicationController
     outline = params[:outline]
 
     respond_to do |format|
-      format.html { render :view, locals: { outline: outline, long: long } }
+#      format.html { render :view, locals: { outline: outline, long: long } }
+      format.turbo_stream {}
     end
   end
 
@@ -219,7 +225,9 @@ class BooksController < ApplicationController
   end
 
   # GET /books/1/edit
-  def edit; end
+  def edit
+     @long = params[:long]
+  end
 
   # POST /books
   # POST /books.json
@@ -228,7 +236,7 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       if @book.save
-        format.html { redirect_to @book, notice: 'Book was successfully created.' }
+#        format.html { redirect_to @book, notice: 'Book was successfully created.' }
         format.json { render :show, status: :created, location: @book }
         format.turbo_stream { flash.now[:notice] = "Book was successfully created." }
       else
@@ -241,11 +249,25 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
+     @long = params[:long]
+
+    if @book.is_fiction?
+      if @long
+        @stories = @book.stories.where(publish: true).includes(:rich_text_summary_body).order(:position)
+      else
+        @stories = @book.stories.where(publish: true).order(:position)
+      end
+      @scenes = Scene.get_scenes_wi_to_array(@book)
+    else
+      @chapters = @book.chapters.includes({ holocene_events: :rich_text_body })
+    end
+
     respond_to do |format|
       if @book.update(book_params)
-        format.html { redirect_to @book, notice: 'Book was successfully updated.' }
+        flash.now[:notice] = "Book was successfully updated."
+#        format.html { redirect_to @book, notice: 'Book was successfully updated.' }
         format.json { render :show, status: :ok, location: @book }
-        format.turbo_stream { flash.now[:notice] = "Book was successfully updated." }
+        format.turbo_stream { }
       else
         format.html { render :edit }
         format.json { render json: @book.errors, status: :unprocessable_entity }
@@ -259,7 +281,7 @@ class BooksController < ApplicationController
     @book.destroy
     session[:book_id] = nil
     respond_to do |format|
-      format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
+#      format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
       format.json { head :no_content }
       format.turbo_stream { flash.now[:notice] = "Book was successfully destroyed." }
     end
@@ -271,6 +293,10 @@ class BooksController < ApplicationController
   def set_book
     @book = Book.find(params[:id])
     session[:book_id] = @book.id
+  end
+
+  def set_return
+    session[:return_to] = request.fullpath
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

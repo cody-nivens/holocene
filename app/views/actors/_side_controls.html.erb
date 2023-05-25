@@ -1,0 +1,5 @@
+<div id="side_controls" class="hide-print">
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_actor_path(@actor), class: "btn", title: 'Edit' %>
+<%= link_to (fa_icon 'users', class: 'fa-fw'), actor_actor_characters_path(@actor), class: "btn", title: 'Characters' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_actors_path(@book), class: "btn", title: 'Back' %>
+</div>

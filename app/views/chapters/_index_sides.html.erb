@@ -1,0 +1,4 @@
+<div id="side_controls">
+  <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([@scripted, :chapter]), class: 'btn', title: "New Chapter" %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(polymorphic_path(@scripted)), method: :get, class: 'btn', title: 'Back' %>
+</div>

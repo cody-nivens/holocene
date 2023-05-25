@@ -1,10 +1,17 @@
-<%= turbo_stream.replace "actors"  do %>
-  <%= render partial: "actors/actors" %>
+<%= turbo_stream.replace "objects"  do %>
+  <%= content_tag "turbo-frame", id: "objects" do %>
+    <%= render partial: 'actors/actors' %>
+  <% end %>
 <% end %>
-<%= turbo_stream.replace "edit_actors"  do %>
+<%= turbo_stream.replace "new_object"  do %>
+  <%= content_tag "turbo-frame", id: "new_object" do %>
+    <%= render partial: 'actors/new_link' %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "edit"  do %>
+  <%= content_tag :div, id: "edit" do %>
   <%= " " %>
+  <% end %>
 <% end %>
-<%= turbo_stream.replace "new_actors"  do %>
-  <%= render partial: "actors/new_link" %>
-<% end %>
+
 <%= render partial: "shared/send_flash" %>

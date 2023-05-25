@@ -1,7 +1,3 @@
-<h2>Chapters, TOC</h2>
-
-<%= render partial: 'header', locals: { book: @book, long: false } %>
-
 <ul data-controller="sortable" data-sortable-resource-name-value="chapter">
   <% @chapters.includes([:rich_text_body, :sections, :holocene_events, :chapters_holocene_events, { sections: [:holocene_events, :holocene_events_sections, :rich_text_body] }, { partition: :rich_text_body }, { aside: :rich_text_body }]).order(:position).each do |chapter| %>
     <li data-sortable-update-url="<%= chapter_sort_path(chapter) %>">

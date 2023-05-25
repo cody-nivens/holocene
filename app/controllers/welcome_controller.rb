@@ -1,5 +1,6 @@
 class WelcomeController < ApplicationController
   def index
+    session[:return_to] = request.fullpath
     @title = "Progress"
     @start_date       = params[:start_date]
     @today_date = @start_date.nil? ? Date.today.beginning_of_month.beginning_of_week : Date.parse(@start_date).beginning_of_month.beginning_of_week

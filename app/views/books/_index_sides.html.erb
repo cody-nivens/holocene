@@ -1,0 +1,7 @@
+<div id="side_controls" class="hide-print">
+  <% if long.kind_of?(TrueClass) or long == "true" %>
+    <%= link_to (fa_icon 'minus', class: 'fa-fw'), books_path, class: 'btn', title: 'Short View', method: :get %>
+  <% else %>
+    <%= link_to (fa_icon 'expand', class: 'fa-fw'), books_path(long: true), class: 'btn', title: 'Long View', method: :get %>
+  <% end %>
+</div>

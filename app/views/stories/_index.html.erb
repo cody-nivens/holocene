@@ -1,9 +1,0 @@
-<% pdf ||= nil %>
-<% long ||= false %>
-<turbo-frame id="stories">
-<% stories.order(:position).each do |story| %>
-  <turbo-frame id="<%= dom_id story %>">
-    <%= render partial: 'stories/story_item', formats: [:html], locals: { story: story, pdf: pdf, long: long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
-  </turbo-frame>
-<% end %>
-</turbo-frame>

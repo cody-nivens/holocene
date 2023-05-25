@@ -1,0 +1,20 @@
+<turbo-frame id="objects">
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Stages</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @acts.each do |act| %>
+      <turbo-frame id="<%= dom_id act %>">
+        <%= render partial: "acts/act_item", locals: { act: act } %>
+      </turbo-frame>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</turbo-frame>

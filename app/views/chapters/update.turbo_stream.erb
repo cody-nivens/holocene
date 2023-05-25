@@ -1,4 +1,6 @@
 <%= turbo_stream.replace "#{dom_id @chapter}" do %>
-  <%= render partial: "chapters/chapter_item", locals: { chapter:  @chapter } %>
+  <%= content_tag "turbo-frame", id: "#{dom_id @chapter}", class: "block" do %>
+    <%= render partial: "chapters/chapter_item", locals: { chapter:  @chapter } %>
+  <% end %>
 <% end %>
 <%= render partial: "shared/send_flash" %>

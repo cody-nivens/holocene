@@ -1,8 +1,6 @@
 <h2>Editing Author</h2>
 
+<turbo-frame id="<%= dom_id @author %>">
 <%= render 'form', user: current_user, author: @author, command_label: 'Update Author', object: @object %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'search', class: 'fa-fw'), polymorphic_path([@object, @author]), class: 'btn', title: 'Show' %>
 <%= link_to (fa_icon 'backward', class: 'fa-fw'), return_or_default_path(polymorphic_path([@object, :authors])), class: 'btn', title: 'Back' %>
-</div>
+</turbo-frame>

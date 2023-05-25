@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "#{dom_id @author}" do %>
+  <%= render partial: "authors/author_item", locals: { author:  @author } %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

@@ -1,5 +1,7 @@
-<ul data-controller="sortable" data-sortable-resource-name-value="section">
-  <% sections.order(:position).each do |section| %>
-    <%= render partial: 'sections/section', locals: { section: section, header: false } %>
+<turbo-stream id="objects">
+  <% @sections.order(:position).each do |section| %>
+    <turbo-frame id="<%= dom_id section %>">
+      <%= render partial: 'sections/section', locals: { section: section, header: false } %>
+    </turbo-frame>
   <% end %>
-</dl>
+</turbo-frame>

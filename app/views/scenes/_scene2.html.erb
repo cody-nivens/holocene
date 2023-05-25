@@ -1,0 +1,53 @@
+<dt>
+  <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scripted, key_point: key_point, pdf: pdf } %>
+</dt>
+<dd>
+  <ul>
+    <% insert_scene = scene %>
+    <% loop do %>
+      <% scenes = Scene.where(insert_scene_id: insert_scene.id).order(:date_string, :abc) %>
+      <% break if scenes.empty? %>
+        <% scenes.each do |iscene| %>
+          <% if iscene.key_point.scripted.publish %>
+            <li><%= (pdf.nil? ? link_to(iscene.abc, scene_path(iscene)) : iscene.abc) %> <%= (iscene.section.nil? ? '' : '*') %><%= iscene.time_to_text %> : <%= iscene.name %></li>
+          <% end %>
+        <% insert_scene = iscene %>
+      <% end %>
+    <% end %>
+  </ul>
+  <% unless scene.insert_scene.nil? %>
+    <p>
+      <strong>Insert Scene:</strong> <%= (pdf.nil? ? link_to(scene.insert_scene_abc, scene_path(scene.insert_scene)) : scene.insert_scene_abc) %>:<%= scene.insert_scene.time_to_text %>
+      <%= scene.insert_scene.name %>
+    </p>
+  <% end %>
+
+  <% unless scene.characters.size == 0 %>
+  <p>
+    <strong>Characters:</strong>
+    <br>
+    <%= render partial: 'characters/characters_occ_ul', formats: [:html], locals: { object: scene, characters: scene.characters } %>
+  </p>
+<% end %>
+
+  <% if 1 == 0 %>
+  <%# unless scene.characters.empty? %>
+    <ul>
+      <% scene.character_scenes.joins(:character).order(:occupation_class, :last_name, :first_name).each do |character_scene| %>
+        <li><%= (if pdf.nil?
+                   link_to("#{character_scene.character_name}, #{scene.date_string[0..3].to_i - character_scene.character_birth_year.to_i}", polymorphic_path([scripted, character_scene.character]))
+                 else
+                   character_scene.character_name
+                 end) %>, <%= character_scene.character_occupation_class %><%= (character_scene.character_grouping.blank? ? '' : ", #{character_scene.character_grouping}") %>
+          <%= link_to (fa_icon 'plus'), edit_character_scene_path(character_scene), title: 'Edit character role in scene' %>
+          <% unless character_scene.summary.nil? %>
+            <%= character_scene.summary.to_plain_text %>
+          <% end %>
+        </li>
+     <% end %>
+    </ul>
+  <% end %>
+<% unless scene.section.nil? %>
+  <%= scene.section.body.to_plain_text[0..1000] %>
+<% end %>
+</dd>

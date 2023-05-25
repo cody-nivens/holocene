@@ -1,7 +1,6 @@
 <h2>Editing Act</h2>
 
+<turbo-frame id="<%= dom_id @act %>">
 <%= render 'form', act: @act %>
-
-<div id="side_controls" class="hide-print">
 <%= link_to (fa_icon 'backward', class: 'fa-fw'), book_acts_path(@book), class: "btn", title: 'Back' %>
-</div>
+</turbo-frame>

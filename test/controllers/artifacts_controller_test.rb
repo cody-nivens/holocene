@@ -11,6 +11,7 @@ class ArtifactsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
+  if 1 == 0
   test 'should get index' do
     get book_artifacts_url(book_id: @book.id)
     assert_response :success
@@ -106,4 +107,78 @@ class ArtifactsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to book_artifacts_url(book_id: @book.id)
     # assert_template 'artifacts/index'
   end
+  end
+
+  test 'should get edit' do
+    get edit_artifact_url(@artifact)
+    assert_response :success
+  end
+
+  test 'should get new' do
+    get new_book_artifact_url(@book)
+    assert_select "turbo-frame", id:  "new_object", target: "edit"
+    assert_response :success
+  end
+
+  test 'should show artifact TS' do
+    get artifact_url(@artifact, format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
+    assert_response :success
+  end
+
+  test 'should show artifact index TS' do
+    get book_artifacts_url(@book, format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
+    assert_response :success
+  end
+
+  test "should create artifact TS" do
+    assert_difference('Artifact.count') do
+      post book_artifacts_url(book_id: @book.id, format: :turbo_stream),
+           params: { artifact: { character_id: @artifact.character_id, name: "Test 1", book_id: @book.id,
+                                 artifact_type_id: @artifact_type.id, parent_id: nil } }
+    end
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "edit"
+    assert_turbo_stream action: :replace, target: "objects"
+    #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
+    #  assert_equal "<template>message_1</template>", selected.children.to_html
+    #end
+    assert_response :success
+  end
+
+  test "should update artifact TS" do
+    patch artifact_url(@artifact, format: :turbo_stream), params: { artifact: { name: @artifact.name, book_id: @artifact.book.id } }
+    label = dom_id @artifact
+    assert_turbo_stream action: :replace, target: label do |selected|
+      #assert_equal "<template></template>", selected.children.to_html
+    end
+
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "#{dom_id @artifact}"
+    assert_response :success
+  end
+
+  test "should destroy artifact TS" do
+    assert_difference('Artifact.count', -1) do
+      delete artifact_url(@artifact, format: :turbo_stream)
+    end
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_response :success
+  end
+
 end

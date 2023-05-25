@@ -1,0 +1,6 @@
+      <tr>
+        <td><%= link_to act.name, act, method: :get %></td>
+        <td><%= act.stages.size %></td>
+        <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_act_path(act), title: 'Edit' %>
+        <%= link_to (fa_icon 'trash', class: 'fa-fw'), act, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
+      </tr>

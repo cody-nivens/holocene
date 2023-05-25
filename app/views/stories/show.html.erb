@@ -1,7 +1,7 @@
-<% @title = @story.name %>
-
-<turbo-frame id="<%= dom_id @story %>">
-<%= render partial: 'stories/header', locals: { story: @story, long: @long } %>
-<%= render partial: 'stories/story', locals: { story: @story, long: @long } %>
+<turbo-frame id="objects">
+  <turbo-frame id="<%= dom_id @story %>">
+    <%= render partial: 'stories/story', locals: { story: @story, long: @long } %>
+    <%= link_to (fa_icon 'backward', class: 'fa-fw'), book_path(@story.book), class: 'btn', title: 'Back' %>
+  </turbo-frame>
 </turbo-frame>
 

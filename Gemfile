@@ -54,7 +54,7 @@ gem 'rack', '>= 2.2.3'
 
 gem "importmap-rails", "~> 1.1"
 gem 'requestjs-rails'
-gem 'tailwindcss-rails'
+#gem 'tailwindcss-rails'
 
 
 group :development, :test do

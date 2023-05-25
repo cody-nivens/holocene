@@ -1,7 +1,17 @@
 <% @title = "#{params[:long].nil? ? '' : 'Long: '} #{@book.name}" %>
 
+<h3>
+  <%== breadcrumb(@book, link: true) %>
+</h3>
+
 <%= render partial: 'header', locals: { book: @book, long: @long } %>
 
-<turbo-frame id="<%= dom_id @book %>">
-  <%= render partial: "books/book_item", locals: { book: @book } %>
+<div id="edit"> </div>
+
+<turbo-frame id="new_object" target="edit" class="block"> </turbo-frame>
+
+<turbo-frame id="objects">
+  <turbo-frame id="<%= dom_id @book %>">
+    <%= render partial: "books/book_item", locals: { book: @book } %>
+  </turbo-frame>
 </turbo-frame>

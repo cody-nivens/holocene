@@ -1,0 +1,10 @@
+  <% case @situated.class.name %>
+  <% when 'Book' %>
+    <%= render partial: 'books/header', locals: { book: @situated, long: @long } %>
+  <% when 'Story' %>
+    <%= render partial: 'stories/header', locals: { book: @situated.book, story: @situated, long: @long } %>
+  <% when 'KeyPoint' %>
+    <h3>
+      <%== breadcrumb(@situated.scripted.book, @situated.scripted, @situated) %>
+    </h3>
+  <% end %>

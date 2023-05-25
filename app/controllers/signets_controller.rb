@@ -8,7 +8,7 @@ class SignetsController < ApplicationController
     @signets = (@sigged.nil? ? [] : @sigged.signets)
 
     respond_to do |format|
-      format.html { render :index  }
+#      format.html { render :index  }
       format.turbo_stream { }
     end
   end
@@ -42,9 +42,10 @@ class SignetsController < ApplicationController
 
     respond_to do |format|
       if @signet.save
-        format.html { render :index, notice: 'Signet was successfully created.' }
+        flash.now[:notice] = "Signet was successfully created."
+#        format.html { render :index, notice: 'Signet was successfully created.' }
         format.json { render :index, status: :created, location: @signet }
-        format.turbo_stream { flash.now[:notice] = "Signet was successfully created." }
+        format.turbo_stream { render 'index' }
       else
         format.html { render :new }
         format.json { render json: @signet.errors, status: :unprocessable_entity }
@@ -58,9 +59,10 @@ class SignetsController < ApplicationController
     @sigged = @signet.sigged
     respond_to do |format|
       if @signet.update(signet_params)
-        format.html { render :index, notice: 'Signet was successfully updated.' }
+        flash.now[:notice] = "Signet was successfully created." 
+#        format.html { render :index, notice: 'Signet was successfully updated.' }
         format.json { render :index, status: :ok, location: @signet }
-        format.turbo_stream { flash.now[:notice] = "Signet was successfully created." }
+        format.turbo_stream { render 'index' }
       else
         format.html { render :edit, "#{@sigged.class.name.underscore}_id".to_sym => @sigged.id }
         format.json { render json: @signet.errors, status: :unprocessable_entity }
@@ -74,9 +76,9 @@ class SignetsController < ApplicationController
     @sigged = @signet.sigged
     @signet.destroy
     respond_to do |format|
-      format.html do
-        redirect_to polymorphic_url([@sigged, :signets]), notice: 'Signet was successfully destroyed.'
-      end
+#      format.html do
+#        redirect_to polymorphic_url([@sigged, :signets]), notice: 'Signet was successfully destroyed.'
+#      end
       format.turbo_stream { flash.now[:notice] = "Signet was successfully destroyed." }
       format.json { head :no_content }
     end

@@ -11,13 +11,13 @@
   <% word_avg = word_count / (scene_count - z_count) %>
 <% end %>
 
-<%= turbo_stream.replace "stories"  do %>
-  <%= render partial: 'stories/index', formats: [:html], locals: { stories: @book.stories, book: @book, long: @long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
+<%= turbo_stream.replace "objects"  do %>
+  <%= render partial: 'stories/stories', formats: [:html], locals: { stories: @book.stories, book: @book, long: @long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
 <% end %>
-<%= turbo_stream.replace "edit_stories"  do %>
+<%= turbo_stream.replace "edit"  do %>
   <%= " " %>
 <% end %>
-<%= turbo_stream.replace "new_stories"  do %>
+<%= turbo_stream.replace "new_object"  do %>
   <%= render partial: "stories/new_link" %>
 <% end %>
 <%= render partial: "shared/send_flash" %>

@@ -56,9 +56,11 @@ class AuthorsController < ApplicationController
 
     respond_to do |format|
       if @author.save
-        @object.authors << @author
-        format.html { redirect_to polymorphic_path([@object, @author]), notice: 'Author was successfully created.' }
+        @object.authors << @author unless @object.authors.include?(@author)
+        @authors = @object.authors
+#        format.html { redirect_to polymorphic_path([@object, @author]), notice: 'Author was successfully created.' }
         format.json { render :show, status: :created, location: @author }
+        format.turbo_stream { flash.now[:notice] = "Author was successfully created." }
       else
         format.html { render :new }
         format.json { render json: @author.errors, status: :unprocessable_entity }
@@ -72,6 +74,7 @@ class AuthorsController < ApplicationController
       if @author.update(author_params)
         format.html { redirect_to polymorphic_path([@object, @author]), notice: 'Author was successfully updated.' }
         format.json { render :show, status: :ok, location: @author }
+        format.turbo_stream { flash.now[:notice] = "Author was successfully updated." }
       else
         format.html { render :edit }
         format.json { render json: @author.errors, status: :unprocessable_entity }
@@ -82,9 +85,11 @@ class AuthorsController < ApplicationController
   # DELETE /books/:book_id/authors/:id(.:format)
   def destroy
     @author.destroy
+    @authors = @object.authors.order(:last_name)
     respond_to do |format|
       format.html { redirect_to polymorphic_url([@object, :authors]), notice: 'Author was successfully destroyed.' }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:notice] = "Author was successfully destroyed." }
     end
   end
 

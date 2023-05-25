@@ -39,11 +39,11 @@ class SectionsController < ApplicationController
     @section = Section.new(section_params)
     @section.user = current_user
     @sectioned = @section.sectioned
-    @sections = @sectioned.sections.includes([:rich_text_body]).order(:position)
 
     respond_to do |format|
       if @section.save
         update_metrics
+        @sections = @sectioned.class.name == "Scene" ? Section.where(id: [ @sectioned.section.id ]) : @sectioned.sections.includes([:rich_text_body]).order(:position)
         format.html { redirect_to polymorphic_path(@sectioned), notice: 'Section was successfully created.' }
         format.json { render :show, status: :created, location: @section }
         format.turbo_stream { flash.now[:notice] = "Section was successfully created." }

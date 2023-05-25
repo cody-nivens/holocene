@@ -1,17 +1,5 @@
-<h3>
-  <%== breadcrumb(story.book, story) %>
-</h3>
-<div id="side_controls" class="hide-print">
-  <%= link_to (fa_icon 'edit', type: :regular, class: 'fa-fw'), edit_story_path(story), data: {turbo_target: "#{dom_id story}"}, title: 'Edit', class: 'btn' %>
-  <%= link_to (fa_icon 'sticky-note', type: :regular, class: 'fa-fw'), story_signets_path(story), data: { turbo_frame: "#{dom_id story}" }, title: 'Signets', class: 'btn' %>
-  <%= link_to (fa_icon 'comments', type: :regular, class: 'fa-fw'), story_notes_path(story), data: { turbo_frame: "#{dom_id story}" }, title: 'Notes', class: 'btn' %>
-   <% if long %>
-  <%= link_to (fa_icon 'minus', type: :solid, class: 'fa-fw'), story_path(story), title: 'Show', class: 'btn' %>
-  <% else %>
-  <%= link_to (fa_icon 'expand', type: :solid, class: 'fa-fw'), story_path(story, long: true), title: 'Show', class: 'btn' %>
+<turbo-frame id="header">
+  <%= content_tag :h3 do %>
+    <%== breadcrumb(story.book, story) %>
   <% end %>
-  <%= link_to (fa_icon 'eye', type: :solid, class: 'fa-fw'), story_view_path(story), data: { turbo_frame: "#{dom_id story}" }, title: 'View', class: 'btn' %>
-  <%= link_to (fa_icon 'newspaper', type: :regular, class: 'fa-fw'), story_view_path(story, outline: true, long: true), data: { turbo_frame: "#{dom_id story}" }, title: 'View, outline', class: 'btn' %>
-  <%= link_to (fa_icon 'file-pdf', class: 'fa-fw'), story_path(story, format: :pdf), title: 'PDF', class: 'btn' %>
-</div>
-
+</turbo-frame>

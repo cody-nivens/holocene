@@ -1,19 +1,5 @@
-<h3>
-  <%== breadcrumb(book, link: true) %>
-</h3>
-<div id="side_controls" class="hide-print">
-  <%= link_to (fa_icon 'edit', type: :regular, class: 'fa-fw'), edit_book_path(book), data: { turbo_frame: "#{dom_id book}" }, title: 'Edit', class: 'btn' %>
-  <% if long %>
-  <%= link_to (fa_icon 'minus', type: :solid, class: 'fa-fw'), book_path(book), title: 'Show', class: 'btn' %>
-  <% else %>
-  <%= link_to (fa_icon 'expand', type: :solid, class: 'fa-fw'), book_path(book, long: true), title: 'Show, long', class: 'btn' %>
+<turbo-frame id="header">
+  <%= content_tag :h3 do %>
+    <%== breadcrumb(@book) %>
   <% end %>
-  <% if action_name == 'toc' %>
-  <%= link_to (fa_icon 'list', type: :solid, class: 'fa-fw'), book_path(book), title: 'Book View', class: 'btn' %>
-  <% else %>
-  <%= link_to (fa_icon 'list', type: :solid, class: 'fa-fw'), book.fiction? ? book_path(book) : toc_path(book), rel: 'next', title: 'Table of Contents', class: 'btn' %>
-  <% end %>
-  <%= link_to (fa_icon 'eye', type: :solid, class: 'fa-fw'), book_view_path(book), title: 'View', class: 'btn' %>
-  <%= link_to (fa_icon 'newspaper', type: :regular, class: 'fa-fw'), book_view_path(book, outline: true, long: true), title: 'View, outline', class: 'btn' %>
-  <%= link_to (fa_icon 'file-pdf', type: :solid, class: 'fa-fw'), book_path(book, format: :pdf), title: 'PDF', class: 'btn' %>
-</div>
+</turbo-frame>

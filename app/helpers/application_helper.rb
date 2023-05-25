@@ -48,6 +48,10 @@ module ApplicationHelper
     "<li class='#{disabled ? 'disabled' : 'mr-6'}'> <a class='nav-link' href='#{path}'>#{text}</a></li>"
   end
 
+  def make_menu_ts_link(text, path, disabled: false)
+    "<li class='#{disabled ? 'disabled' : 'mr-6'}'>#{ link_to text, path, class: 'nav-link', data: { 'turbo-frame': 'objects'}, method: :get}</li>"
+  end
+
   def return_or_default_path(default_path = root_path)
       session[:return_to].present? && session[:return_to] != request.fullpath ?
         session[:return_to] : default_path
@@ -107,15 +111,19 @@ module ApplicationHelper
     str = ''
     tag.nav aria: { label: 'breadcrumb' } do
       tag.ol class: 'breadcrumb' do
-        str = bc_book(book, story, link).to_s
-        str += bc_story(story, book, link, key_point).to_s
-        str += bc_key_point(key_point, scene, link).to_s
-        str += bc_scene(scene, section, link).to_s if section.blank?
-        case section.class.name
-        when "Section"
-          str += bc_section(section, link).to_s
-        when "CharacterScene"
-          str += bc_character_scene(section, link).to_s
+        if book.nil?
+          str = "Books"
+        else
+          str = bc_book(book, story, link).to_s
+          str += bc_story(story, book, link, key_point).to_s
+          str += bc_key_point(key_point, scene, link).to_s
+          str += bc_scene(scene, section, link).to_s if section.blank?
+          case section.class.name
+          when "Section"
+            str += bc_section(section, link).to_s
+          when "CharacterScene"
+            str += bc_character_scene(section, link).to_s
+          end
         end
         str
       end

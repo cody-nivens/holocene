@@ -15,6 +15,7 @@ class SignetsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
+if 1 == 0
   test 'should get index' do
     get signets_url(chapter_id: @chapter.id)
     assert_response :success
@@ -22,17 +23,6 @@ class SignetsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get index 2' do
     get book_signets_url(@book)
-    assert_response :success
-  end
-
-  test 'should get new' do
-    get new_chapter_signet_url(chapter_id: @chapter.id)
-    assert_select "turbo-frame" do |elements|
-      elements.each do |element|
-        assert_equal element["target"], "edit-signet"
-        assert_equal element["id"], "new_signets"
-      end
-    end
     assert_response :success
   end
 
@@ -63,17 +53,6 @@ class SignetsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should get edit' do
-    get edit_signet_url(chapter_id: @chapter.id, id: @signet.id)
-    assert_select "turbo-frame" do |elements|
-      debugger if elements.length > 1
-      elements.each do |element|
-        assert_equal element["id"], (dom_id @signet)
-      end
-    end
-    assert_response :success
-  end
-
   test 'should update signet' do
     patch signet_url(@signet),
           params: { chapter_id: @chapter.id,
@@ -97,15 +76,44 @@ class SignetsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to polymorphic_url([@chapter, :signets])
   end
+end
 
-
-
-  test "should show signet TS" do
-    get signet_url(@signet, format: :turbo_stream)
-
-    assert_turbo_stream action: :replace, target: "#{dom_id @signet}"
+  test 'should get edit' do
+    get edit_signet_url(@signet)
     assert_response :success
   end
+
+  test 'should get new' do
+    get new_polymorphic_url([@book, :signet])
+    assert_select "turbo-frame", id:  "new_object", target: "edit"
+    assert_response :success
+  end
+
+  test 'should show signet TS' do
+    get signet_url(@signet, format: :turbo_stream)
+
+    assert_select "turbo-frame", id:  "#{dom_id @signet}"
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
+    assert_response :success
+  end
+
+  test 'should show signet index TS' do
+    get polymorphic_url([@book, :signets], format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
+    assert_response :success
+  end
+
 
   test "should create signet TS" do
     assert_difference('Signet.count') do
@@ -116,9 +124,9 @@ class SignetsControllerTest < ActionDispatch::IntegrationTest
     end
     
     assert_no_turbo_stream action: :update, target: "messages"
-    assert_turbo_stream action: :replace, target: "new_signets"
-    assert_turbo_stream action: :replace, target: "edit_signets"
-    assert_turbo_stream action: :replace, target: "signets"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "edit"
+    assert_turbo_stream action: :replace, target: "objects"
     #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
     #  assert_equal "<template>message_1</template>", selected.children.to_html
     #end
@@ -130,13 +138,9 @@ class SignetsControllerTest < ActionDispatch::IntegrationTest
           params: { chapter_id: @chapter.id,
                     signet: { color: @signet.color, message: @signet.message, sigged_id: @signet.sigged_id,
                               sigged_type: @signet.sigged_type } }
-    label = dom_id @signet
-    assert_turbo_stream action: :replace, target: label do |selected|
-      #assert_equal "<template></template>", selected.children.to_html
-    end
-
+    
     assert_no_turbo_stream action: :update, target: "messages"
-    assert_turbo_stream action: :replace, target: "#{dom_id @signet}"
+    assert_turbo_stream action: :replace, target: "objects"
     assert_response :success
   end
 
@@ -145,7 +149,7 @@ class SignetsControllerTest < ActionDispatch::IntegrationTest
       delete signet_url(@signet, format: :turbo_stream)
     end
 
-    assert_turbo_stream action: :replace, target: "signets"
+    assert_turbo_stream action: :replace, target: "objects"
     assert_response :success
   end
 

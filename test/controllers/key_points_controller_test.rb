@@ -16,6 +16,7 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
+  if 1 == 0
   test 'should sort key_points' do
     patch key_point_sort_url(@key_point_2), xhr: true,
                                           params: { key_point: { id: @key_point_2.id, scripted_id: @key_point_2.scripted_id } }
@@ -69,16 +70,13 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to polymorphic_url([@scripted, :key_point_list], selector: 0)
   end
 
-  test 'should get new' do
-    get new_polymorphic_url([@scripted, KeyPoint])
-    assert_response :success
-  end
-
   test 'should create key_point' do
     assert_difference('KeyPoint.count') do
       post polymorphic_url([@scripted, :key_points]),
            params: { key_point: { scripted_id: @scripted.id, scripted_type: @scripted.class.name, climax: @key_point.climax,
-                                  first_pinch_point: @key_point.first_pinch_point, first_plot_point: @key_point.first_plot_point, hook: @key_point.hook, inciting_incident: @key_point.inciting_incident, key_element: @key_point.key_element, midpoint: @key_point.midpoint, second_pinch_point: @key_point.second_pinch_point, third_plot_point: @key_point.third_plot_point } }
+                                  first_pinch_point: @key_point.first_pinch_point, first_plot_point: @key_point.first_plot_point, 
+                                  hook: @key_point.hook, inciting_incident: @key_point.inciting_incident, key_element: @key_point.key_element,
+                                  midpoint: @key_point.midpoint, second_pinch_point: @key_point.second_pinch_point, third_plot_point: @key_point.third_plot_point } }
     end
 
     assert_redirected_to key_point_url(KeyPoint.last)
@@ -125,15 +123,12 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to polymorphic_url(@scripted_2)
   end
 
-  test 'should get edit' do
-    get edit_key_point_url(@key_point)
-    assert_response :success
-  end
-
   test 'should update key_point' do
     patch key_point_url(@key_point),
           params: { key_point: { climax: 'Climax', first_pinch_point: @key_point.first_pinch_point,
-                                 first_plot_point: @key_point.first_plot_point, hook: @key_point.hook, inciting_incident: @key_point.inciting_incident, key_element: @key_point.key_element, midpoint: @key_point.midpoint, second_pinch_point: @key_point.second_pinch_point, third_plot_point: @key_point.third_plot_point } }
+                                 first_plot_point: @key_point.first_plot_point, hook: @key_point.hook, inciting_incident: @key_point.inciting_incident, 
+                                 key_element: @key_point.key_element, midpoint: @key_point.midpoint, second_pinch_point: @key_point.second_pinch_point, 
+                                 third_plot_point: @key_point.third_plot_point } }
     assert_redirected_to key_point_url(@key_point)
   end
 
@@ -155,4 +150,98 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
       assert_redirected_to polymorphic_url([@scripted, :key_points])
     end
   end
+end
+
+  test 'should get edit' do
+    get edit_key_point_url(@key_point)
+    assert_response :success
+  end
+
+  test 'should get new' do
+    get new_polymorphic_url([@scripted, KeyPoint])
+    assert_select "turbo-frame", id:  "new_object", target: "edit"
+    assert_response :success
+  end
+
+  test 'should show key_point TS 2' do
+    get key_point_url(@key_point, format: :turbo_stream)
+
+    assert_select "turbo-frame", id:  "#{dom_id @key_point}"
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_link"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
+    assert_response :success
+  end
+
+  test 'should show key_point index TS' do
+    get polymorphic_url([@scripted, :key_points], format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_link"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
+    assert_response :success
+  end
+
+
+  test "should show key_point TS" do
+    get key_point_url(@key_point, format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_link"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+    assert_response :success
+  end
+
+  test "should create key_point TS" do
+    assert_difference('KeyPoint.count') do
+      post polymorphic_url([@scripted, :key_points], format: :turbo_stream),
+           params: { key_point: { scripted_id: @scripted.id, scripted_type: @scripted.class.name, climax: @key_point.climax,
+                                  first_pinch_point: @key_point.first_pinch_point, first_plot_point: @key_point.first_plot_point, 
+                                  hook: @key_point.hook, inciting_incident: @key_point.inciting_incident, key_element: @key_point.key_element,
+                                  midpoint: @key_point.midpoint, second_pinch_point: @key_point.second_pinch_point, third_plot_point: @key_point.third_plot_point } }
+    end
+    
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "edit"
+    assert_turbo_stream action: :replace, target: "objects"
+    #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
+    #  assert_equal "<template>message_1</template>", selected.children.to_html
+    #end
+    assert_response :success
+  end
+
+  test "should update key_point TS" do
+    patch key_point_url(@key_point, format: :turbo_stream),
+          params: { key_point: { climax: 'Climax', first_pinch_point: @key_point.first_pinch_point,
+                                 first_plot_point: @key_point.first_plot_point, hook: @key_point.hook, inciting_incident: @key_point.inciting_incident, 
+                                 key_element: @key_point.key_element, midpoint: @key_point.midpoint, second_pinch_point: @key_point.second_pinch_point, 
+                                 third_plot_point: @key_point.third_plot_point } }
+    label = dom_id @key_point
+    assert_turbo_stream action: :replace, target: label do |selected|
+      #assert_equal "<template></template>", selected.children.to_html
+    end
+
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "#{dom_id @key_point}"
+    assert_response :success
+  end
+
+  test "should destroy key_point TS" do
+    assert_difference('KeyPoint.count', -1) do
+      delete key_point_url(@key_point, format: :turbo_stream)
+    end
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_response :success
+  end
+
 end

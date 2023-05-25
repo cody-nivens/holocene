@@ -1,4 +1,4 @@
-  <div class="container" id="signets">
+<turbo-frame id="objects">
   <div class="row">
     <div class="col-sm-2">
       <strong>Signet</strong>
@@ -15,9 +15,7 @@
   </div>
   <% @sigged.signets.order(:message).each do |signet| %>
     <turbo-frame id="<%= dom_id signet %>" class="block">
-      <%= render partial: "signets/signet_line", locals: { signet: signet, sigged: sigged } %>
+      <%= render partial: "signets/signet_line", locals: { signet: signet, sigged: @sigged } %>
     </turbo-frame>
   <% end %>
-  </div>
-</div>
-
+</turbo-frame>

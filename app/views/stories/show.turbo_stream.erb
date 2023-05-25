@@ -1,4 +1,24 @@
-<%= turbo_stream.replace "#{dom_id @story}" do %>
-<%= render partial: 'stories/header', locals: { story: @story, long: @long } %>
-<%= render partial: 'stories/story', locals: { story: @story, long: @long } %>
+<%= turbo_stream.replace "objects" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "objects" do %>
+    <%= content_tag "turbo-frame", id: "#{dom_id @story}" do %>
+      <%= render partial: 'stories/story', locals: { story: @story, long: @long } %>
+    <% end %>
+  <% end %>
 <% end %>
+<%= turbo_stream.replace "new_object" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "new_object" do %>
+    <%= render partial: 'key_points/new_link', locals: { scripted: @story, long: @long } %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "header" do %>
+  <%= render partial: 'stories/header', locals: { story: @story } %>
+<% end %>
+<%= turbo_stream.replace "side_controls" do %>
+  <%= render partial: 'stories/side_controls', locals: { story: @story, long: @long } %>
+<% end %>
+<%= turbo_stream.replace "nav-bar" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "nav-bar" do %>
+    <%= render partial: "application/header" %>
+  <% end %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

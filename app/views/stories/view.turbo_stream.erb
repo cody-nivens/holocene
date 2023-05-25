@@ -1,0 +1,16 @@
+<%= turbo_stream.replace "objects" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "objects" do %>
+    <%= render partial: 'stories/view', formats: [:html], locals: { outline: params[:outline], pdf: false, story: @story, long: @long } %>
+    <%= link_to (fa_icon 'backward', class: 'fa-fw'),  story_path(@story, outline: true), method: :get, class: 'btn', title: 'Back' %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "header"  do %>
+  <%= render partial: "stories/header" %>
+<% end %>
+<%= turbo_stream.replace "new_object"  do %>
+  <%#= render partial: "stories/new_link" %>
+<% end %>
+<%= turbo_stream.replace "side_controls" do %>
+  <%= render partial: 'stories/side_controls', locals: { story: @story, long: @long } %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

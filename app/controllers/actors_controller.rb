@@ -6,11 +6,17 @@ class ActorsController < ApplicationController
   # GET /actors or /actors.json
   def index
     @actors = Actor.where(book_id: @book.id).order(:name)
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /actors/1 or /actors/1.json
   def show
     @book = @actor.book
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /actors/new
@@ -31,7 +37,7 @@ class ActorsController < ApplicationController
 
     respond_to do |format|
       if @actor.save
-        format.html { redirect_to actor_url(@actor), notice: "Actor was successfully created." }
+#        format.html { redirect_to actor_url(@actor), notice: "Actor was successfully created." }
         format.json { render :show, status: :created, location: @actor }
         format.turbo_stream {  flash.now[:notice] = "Actor was successfully created." }
       else
@@ -46,7 +52,7 @@ class ActorsController < ApplicationController
     @book = @actor.book
     respond_to do |format|
       if @actor.update(actor_params)
-        format.html { redirect_to actor_url(@actor), notice: "Actor was successfully updated." }
+#        format.html { redirect_to actor_url(@actor), notice: "Actor was successfully updated." }
         format.json { render :show, status: :ok, location: @actor }
         format.turbo_stream {  flash.now[:notice] = "Actor was successfully updated." }
       else
@@ -62,7 +68,7 @@ class ActorsController < ApplicationController
     @actor.destroy
 
     respond_to do |format|
-      format.html { redirect_to book_actors_url(@book), notice: "Actor was successfully destroyed." }
+#      format.html { redirect_to book_actors_url(@book), notice: "Actor was successfully destroyed." }
       format.json { head :no_content }
       format.turbo_stream { flash.now[:notice] = "Actor was successfully destroyed." }
     end

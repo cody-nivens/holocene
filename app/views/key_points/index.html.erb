@@ -5,12 +5,3 @@
           <%= render partial: 'key_points/key_point', formats: [:html], locals: { key_point: key_point, scripted: @scripted, pdf: pdf } %>
       <% end %>
 </ul>
-
-<br>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([@scripted, KeyPoint]), class: 'btn', title: 'New Key Point' %>
-<%= link_to (fa_icon 'list', class: 'fa-fw'), polymorphic_path([@scripted, :scenes]), class: 'btn', title: 'Scenes' %>
-<%= link_to (fa_icon 'stream', class: 'fa-fw'), polymorphic_path([@scripted, :timeline]), class: 'btn', title: 'Timeline' %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@scripted), class: 'btn', title: 'Back' %>
-</div>

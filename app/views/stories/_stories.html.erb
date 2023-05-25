@@ -1,0 +1,31 @@
+<% pdf ||= nil %>
+<% long ||= false %>
+<% all ||= nil %>
+<% if @long %>
+<% z_count = 0 %>
+<% @book.stories.each do |story| %>
+  <% word_counts = story.word_counts %>
+  <% z_count  += word_counts.collect{|x| x <= 10 ? 1 : 0 }.sum %>
+<% end %>
+
+<% word_count = @book.word_count %>
+<% scene_count = @book.scene_count %>
+<% word_avg = word_count / (scene_count - z_count) %>
+<% else %>
+<% word_count = 0 %>
+<% scene_count = 0 %>
+<% word_avg = 0 %>
+<% end %>
+
+
+<turbo-frame id="objects">
+<% stories.order(:position).each do |story| %>
+  <turbo-frame id="<%= dom_id story %>">
+    <%= render partial: 'stories/story_item', formats: [:html], locals: { story: story, pdf: pdf, long: long, all: all,
+                                                                          word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
+  </turbo-frame>
+<% end %>
+ <% if all.kind_of?(TrueClass) or all == "true" %>
+   <%= link_to (fa_icon 'backward', class: 'fa-fw'),  (stories.size > 0 ? book_path(stories[0].book) : :back), method: :get,  class: 'btn', title: 'Back' %>
+<% end %>
+</turbo-frame>

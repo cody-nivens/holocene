@@ -7,37 +7,8 @@
   <% end %>
 </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Associated</th>
-      <th>Owner/Controller</th>
-      <th>Type</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @artifacts.each do |artifact| %>
-      <% next if !artifact.parent.nil? && artifact.children.empty? %>
-      <tr>
-      <%= render partial: 'artifacts/artifact_index', formats: [:html], locals: { book: @book, artifact: artifact, parent: true } %>
-      </tr>
-      <% unless artifact.children.empty? %>
-        <% artifact.children.order(:name).each do |child| %>
-        <tr>
-          <%= render partial: 'artifacts/artifact_index', formats: [:html], locals: { book: @book, artifact: child, parent: false } %>
-        </tr>
-        <% end %>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_book_artifact_path(@book), class: 'btn', title: 'New Artifact' %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_path(@book), class: 'btn', title: 'Back' %>
-</div>
+<turbo-frame id="objects">
+  <%= render partial: "artifacts/artifacts" %>
+  <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_book_artifact_path(@book), data: { "turbo-frame": "objects" }, class: 'btn', title: 'New Artifact' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), book_path(@book), rel: 'next', class: 'btn', title: 'Back' %>
+</turbo-frame>

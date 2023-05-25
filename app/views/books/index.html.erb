@@ -1,15 +1,15 @@
 <h2>Books</h2>
 
-<div id="book-new">
-<%= render partial: "books/new_link" %>
-</div>
+<div data-controller="reset_frame">
+<div id="edit"> </div>
 
-<%= render partial: 'books/books' %>
+<turbo-frame id="new_object" target="edit" class="block">
+  <%= render partial: "books/new_link" %>
+</turbo-frame>
 
-<div id="side_controls" class="hide-print">
-<% if @long %>
-<%= link_to (fa_icon 'minus', class: 'fa-fw'), books_path, class: 'btn', title: 'Short View' %>
-<% else %>
-<%= link_to (fa_icon 'expand', class: 'fa-fw'), books_path(long: true), class: 'btn', title: 'Long View' %>
-<% end %>
+<turbo-frame id="objects">
+  <%= render partial: 'books/books' %>
+</turbo-frame>
+
+<%= render partial: "books/index_header", locals: { long: @long } %>
 </div>

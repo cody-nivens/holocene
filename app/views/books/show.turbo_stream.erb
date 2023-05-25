@@ -1,4 +1,22 @@
-<%= turbo_stream.replace "#{dom_id @book}" do %>
-  <%= render partial: 'books/book', formats: [:html], locals: { book: @book, pdf: false } %>
-  <%= render partial: "books/book_item", locals: { book:  @book } %>
+<%= turbo_stream.replace "objects" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "objects" do %>
+    <%= render partial: "books/book", locals: { book:  @book } %>
+  <% end %>
 <% end %>
+<%= turbo_stream.replace "new_object" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "new_object" do %>
+    <%= render partial: "stories/new_link", locals: { book:  @book } %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "header"  do %>
+  <%= render partial: "books/header", locals: { book: @book} %>
+<% end %>
+<%= turbo_stream.replace "side_controls" do %>
+  <%= render partial: 'books/side_controls', locals: { book: @book, long: @long } %>
+<% end %>
+<%= turbo_stream.replace "nav-bar" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "nav-bar" do %>
+    <%= render partial: "application/header" %>
+  <% end %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

@@ -1,13 +1,25 @@
-<% if header.kind_of?(TrueClass) or header == "true" %>
-<dt>
-  <div class='title'> <%= section.name %> </div>
-  <div class='medium'> <strong>Display name: <%= (section.display_name ? 'Y' : 'N') %></strong> </div>
-  <div class='narrow'> <%= link_to (fa_icon 'search-plus'), section_path(section), title: 'Show' %> </div>
-  <div class='narrow'> <%= link_to (fa_icon 'edit'), edit_section_path(section), title: 'Edit' %> </div>
-  <div class='narrow'> <%= link_to (fa_icon 'trash'), section_path(section), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %> </div>
-  <div style="clear:both"></div>
-</dt>
-<% end %>
-<dd>
-  <%= render partial: 'shared/summary', locals: { object: section } %>
-</dd>
+<table class="table">
+  <tr>
+    <th>Word Count:</th><td><%= number_with_delimiter(section.word_count, delimiter: ',') %></td>
+  </tr>
+</table>
+
+<% @slugs = [] -%>
+<% @footnotes = Footnote.process_body(section, @slugs) -%>
+<% values = section.set_values %>
+<%== highlight(@footnotes[0], Regexp.new(KeyWord.where(book_id: values[0].id).collect(&:key_word).join('|'))) %>
+<% @slugs += @footnotes[1] -%>
+
+<% unless section.holocene_events.size == 0 || section.sectioned.show_events? -%>
+  <% section.holocene_events.order(:start_year).each do |he| -%>
+    <% unless he.body.blank? -%>
+      <% @footnotes = Footnote.process_body(he, slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
+      <% @slugs += @footnotes[1] -%>
+    <% end -%>
+  <% end -%>
+  <%= render 'holocene_events/index', formats: [:html], holocene_events: section.holocene_events.order(:start_year), noted: @noted %>
+<% end -%>
+
+<% unless @slugs.size == 0 -%>
+  <%== Footnote.write_footnotes(@slugs) %>
+<% end -%>

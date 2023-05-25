@@ -1,7 +1,7 @@
 <h2>New Artifact</h2>
 
-<%= render 'form', artifact: @artifact, book: @book %>
 
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(return_or_default_path(book_artifacts_path(book_id: @book.id))), class: 'btn', title: 'Back' %>
-</div>
+<turbo-frame id="new_object" target="edit">
+  <%= render 'form', artifact: @artifact, book: @book %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  book_artifacts_path(book_id: @book.id), method: :get, class: 'btn', title: 'Back' %>
+</turbo-frame>

@@ -1,16 +1,21 @@
-<div class="row">
-  <div class="col-sm-4">
-    <%= link_to book.name, book_path(book), data: { turbo: false }, rel: 'next' %>
+<% if @book.is_fiction? %>
+  <%= render 'books/fiction', book: @book, stories: @stories, long: @long, all: @all %>
+<% else %>
+  <table class='table'>
+    <tr>
+      <th>Chapters:</th>
+      <td class='text-right'><%= @book.chapters.size %></td>
+      <th>Word Count:</th>
+      <td class='text-right'><%= number_with_delimiter(@book.word_count, delimiter: ',') %></td>
+    </tr>
+  </table>
+
+  <div id="<%= @book.is_fiction? ? 'stories' : 'chapters' %>">
+  <%# if @long.nil? or @long.kind_of?(FalseClass) or @long == "false" %>
+    <%#= render 'books/toc', chapters: @chapters %>
+  <%# else %>
+    <%= render 'chapters/index', chapters: @chapters %>
+  <%# end %>
   </div>
-  <div class="col-sm-2">
-<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_book_path(book), title: 'Edit' %>
-  <%= link_to (fa_icon 'sticky-note', class: 'fa-fw'), book_signets_path(book), title: 'Signets' %>
-<%= link_to (fa_icon 'trash', class: 'fa-fw'), book, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
-  </div>
-  <div class="col-sm-4">
-<% if @long %>
-       <% @scenes = Scene.get_scenes_wi_to_array(book) %>
-<%= render partial: 'books/book_stats', locals: { book: book } %>
 <% end %>
-</div>
-</div>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  books_path, method: :get, class: 'btn', title: 'Back' %>

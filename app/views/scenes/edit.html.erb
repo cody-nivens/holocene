@@ -1,10 +1,6 @@
 <h2>Editing Scene</h2>
 
 <turbo-frame id="<%= dom_id @scene %>">
-<%= render 'form', scene: @scene, situated: @situated, selector: @selector, key_point: @key_point %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  scene_path(@scene), class: 'btn', title: 'Back' %>
+  <%= render 'form', scene: @scene, situated: @situated, selector: @selector, key_point: @key_point %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  scene_path(@scene), method: :get, class: 'btn', title: 'Back' %>
 </turbo-frame>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(scene_path(@scene)), class: 'btn', title: 'Back' %>
-</div>

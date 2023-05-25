@@ -1,29 +1,29 @@
 <div class='container'>
   <div class='row'>
-    <div class='col-sm-2'><strong><%= object.time_to_text %></strong></div>
-    <div class='col-sm-1'><strong><%= object.artifact.nil? ? 'Unkown' : object.artifact_name %></strong></div>
-    <div class='col-sm-4'><strong><%= object.place.to_plain_text %></strong></div>
+    <div class='col-sm-2'><strong><%= scene.time_to_text %></strong></div>
+    <div class='col-sm-1'><strong><%= scene.artifact.nil? ? 'Unkown' : scene.artifact_name %></strong></div>
+    <div class='col-sm-4'><strong><%= scene.place.to_plain_text %></strong></div>
   </div>
   <div class='row'>
-    <div class='col-sm-2'><strong><%= object.abc %></strong></div>
-    <div class='col-sm-1'><%= object.scene_sequel == 1 ? 'Sequel' : 'Scene' %></div>
-    <div class='col-sm-1'><strong><%= object.check? ? fa_icon('check') : '' %></strong></div>
-    <div class='col-sm-1'><strong><%= object.title_scene? ? 'Title' : '' %></strong></div>
+    <div class='col-sm-2'><strong><%= scene.abc %></strong></div>
+    <div class='col-sm-1'><%= scene.scene_sequel == 1 ? 'Sequel' : 'Scene' %></div>
+    <div class='col-sm-1'><strong><%= scene.check? ? fa_icon('check') : '' %></strong></div>
+    <div class='col-sm-1'><strong><%= scene.title_scene? ? 'Title' : '' %></strong></div>
   </div>
   <div class='row'>
     <div class='col-sm-2'><strong>Characters:</strong></div>
-    <div class='col-sm-1'><%= object.characters.size %></div>
+    <div class='col-sm-1'><%= scene.characters.size %></div>
   </div>
   <div class='row'>
     <div class='col-sm-2'><strong>Word Count:</strong></div>
     <div class='col-sm-1'>
-      <span style="background-color: #<%= count_color(object.word_count) %>"><%=  number_with_delimiter(object.word_count, :delimiter => ',') %></span>
+      <span style="background-color: #<%= count_color(scene.word_count) %>"><%=  number_with_delimiter(scene.word_count, :delimiter => ',') %></span>
     </div>
   </div>
-  <% unless object.insert_scene.present? %>
+  <% unless scene.insert_scene.present? %>
     <div class='row'>
       <div class='col-sm-6'>
-        <strong>Insert Scene:</strong> <%= (object.insert_scene.nil? ? '' : object.insert_scene.full_name) %>
+        <strong>Insert Scene:</strong> <%= (scene.insert_scene.nil? ? '' : scene.insert_scene.full_name) %>
       </div>
     </div>
   <% end %>

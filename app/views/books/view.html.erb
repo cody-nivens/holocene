@@ -1,9 +1,17 @@
 <% @title = "View#{params[:outline].nil? ? '' : ' Outline'}, #{@book.name}" %>
 
-<%= render partial: 'header', locals: { book: @book, long: long } %>
+<%= render partial: 'books/header', locals: { book: @book, long: long } %>
 
-<div data-controller="scenes">
-<%= render partial: 'books/show', formats: [:html], locals: { outline: params[:outline], pdf: false, book: @book, chapters: @chapters, long: long } %>
-</div>
+<div data-controller="reset_frame">
+<div id="edit"> </div>
 
-<%= render partial: 'footer', locals: { book: @book } %>
+<turbo-frame id="new_object" target="edit" class="block">
+  <%= render partial: "books/new_link" %>
+</turbo-frame>
+
+<turbo-frame id="objects">
+  <div data-controller="scenes">
+    <%= render partial: 'books/show', formats: [:html], locals: { outline: params[:outline], pdf: false, book: @book, chapters: @chapters, long: long } %>
+  </div>
+</turbo-frame>
+

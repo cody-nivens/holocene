@@ -1,6 +1,6 @@
 <h2>New Book</h2>
 
-<turbo-frame id="new_books" target="edit-book">
-<%= render 'form', book: @book, command_label: 'Create Book' %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  books_path, class: 'btn', title: 'Back' %>
+<turbo-frame id="new_object" target="edit">
+  <%= render 'form', book: @book, command_label: 'Create Book' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  books_path, method: :get, class: 'btn', title: 'Back' %>
 </turbo-frame>

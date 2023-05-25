@@ -1,10 +1,10 @@
-<%= turbo_stream.replace "actors"  do %>
+<%= turbo_stream.replace "objects"  do %>
   <%= render partial: "actors/actors" %>
 <% end %>
-<%= turbo_stream.replace "edit_actors"  do %>
+<%= turbo_stream.replace "edit"  do %>
   <%= " " %>
 <% end %>
-<%= turbo_stream.replace "new_actors"  do %>
+<%= turbo_stream.replace "new_object"  do %>
   <%= render partial: "actors/new_link" %>
 <% end %>
 <%= render partial: "shared/send_flash" %>

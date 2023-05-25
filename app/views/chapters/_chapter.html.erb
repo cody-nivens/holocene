@@ -1,33 +1,92 @@
-<dt>
-  <div class='medium'>
-    <% if chapter.partition.nil? %>
-      <%= link_to (fa_icon 'plus'), new_chapter_partition_path(@book, chapter), title: 'Partition' %>
-    <% else %>
-      <%= link_to (fa_icon 'edit'), partition_path(chapter.partition), title: 'Partition' %>
-    <% end %>
-    <%== (chapter.partition.nil? ? '' : (link_to chapter.partition_name, partition_path(chapter.partition)).to_s) %>
+<turbo-frame id="<%= dom_id chapter %>">
+<% if chapter.aside.nil? %>
+    <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_chapter_aside_path(chapter), class: 'btn', title: 'New Aside' %>
+<% else %>
+    <turbo-frame id="<%= dom_id chapter.aside %>">
+      <%= render partial: "asides/aside_item", locals: { aside: chapter.aside } %>
+      <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_aside_path(chapter.aside), class: 'btn', title: 'Edit' %>
+    </turbo-frame>
+<% end %>
+  </turbo-frame>
+
+<% @slugs = [] -%>
+<% @footnotes = Footnote.process_body(chapter, @slugs) -%>
+<%== @footnotes[0] %>
+<% @slugs += @footnotes[1] -%>
+
+<% if chapter.process_events? %>
+  <% if chapter.holocene_events.size != 0 -%>
+    <% chapter.holocene_events.order(:start_year).each do |he| -%>
+      <% unless he.body.blank? -%>
+        <% @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
+        <% @slugs += @footnotes[1] -%>
+      <% end -%>
+    <% end -%>
+    <%= render 'holocene_events/index', formats: [:html], holocene_events: chapter.holocene_events.order(:start_year).uniq, chapter: chapter, epub: false, slugs: @slugs %>
+  <% end -%>
+<% end -%>
+
+<% chapter.sections.includes([:signets, :rich_text_body]).order(:position).each do |section| -%>
+  <turbo-frame id="<%= dom_id section %>">
+  <% s = '' %>
+  <% if section.embed? %>
+    <div class='card border-primary border-dark mb3 pull-right float-right' style='width: 60%;'>
+      <div class='card-header bg-transparent border-primary'>
+        <h3 class='card-header card-title'>
+          <%= section.name %>
+          <%= link_to (fa_icon 'edit'), edit_section_path(section), title: 'Edit' %>
+          <%= link_to (fa_icon 'sticky-note'), section_signets_path(section_id: section.id), method: :get, title: 'Signets', class: "#{!section.signets.empty? ? Signet.color_class(sections.signets[0].color) : ''}" %>
+          <%= link_to (fa_icon 'list'), section_display_path(section_id: section.id), rel: 'next', title: 'Events' %>
+          <%= link_to (fa_icon 'calendar'), section_timeline_path(section_id: section.id), rel: 'next', title: 'Timeline' %>
+          <%= link_to (fa_icon 'map'), geo_map_section_path(section), rel: 'next', title: 'Map' %>
+          <%= link_to (fa_icon 'subscript', style: :light), section_footnotes_path(section_id: section.id), rel: 'next', title: 'Footnotes' %>
+        </h3>
+      </div>
+      <div class='card-body border'>
+        <% s = ' class=\'card-title\'' %>
+  <% end %>
+  <% unless section.embed? %>
+      <h3<%== s %>>
+        <%= section.name %>
+        <%= link_to (fa_icon 'edit'), edit_polymorphic_path([chapter, section]), title: 'Edit' %>
+        <%= link_to (fa_icon 'sticky-note'), section_signets_path(section_id: section.id), method: :get, title: 'Signets', class: "#{!section.signets.empty? ? Signet.color_class(section.signets[0].color) : ''}" %>
+        <%= link_to (fa_icon 'list'), section_display_path(section_id: section.id), rel: 'next', title: 'Events' %>
+        <%= link_to (fa_icon 'calendar'), section_timeline_path(section_id: section.id), rel: 'next', title: 'Timeline' %>
+        <%= link_to (fa_icon 'map'), geo_map_section_path(section), rel: 'next', title: 'Map' %>
+        <%= link_to (fa_icon 'subscript'), section_footnotes_path(section_id: section.id), rel: 'next', title: 'Footnotes' %>
+      </h3>
+  <% end %>
+
+  <% @footnotes = Footnote.process_body(section, @slugs, @footnotes[2]) -%>
+  <% @slugs += @footnotes[1] -%>
+  <%== @footnotes[0] %>
+
+  <% if chapter.process_events? %>
+    <% if section.holocene_events.size != 0 %>
+      <% section.holocene_events.includes([:event_types, :region, :rich_text_body]).order(:start_year).each do |he| -%>
+        <% unless he.body.blank? -%>
+          <% @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
+          <% @slugs += @footnotes[1] -%>
+        <% end -%>
+      <% end -%>
+      <%= render 'holocene_events/index', formats: [:html], holocene_events: section.holocene_events.order(:start_year).uniq, chapter: chapter, epub: false, slugs: @slugs %>
+    <% end -%>
+  <% end -%>
+  <% if section.embed? %>
+      </div>
+    </div>
+  <% end %>
+  </turbo-frame>
+<% end -%>
+
+<% unless @slugs.size == 0 -%>
+  <%== Footnote.write_footnotes(@slugs) %>
+<% end -%>
+
+<% unless chapter.citations.size == 0 -%>
+  <div style='clear: both'>
+    <hr>
+    <%== render 'footnotes/citations', slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: true, title: 'Citations' %>
   </div>
-  <div class='title'>
-    <%= link_to (fa_icon 'edit'), edit_chapter_path(chapter), title: 'Edit' %>
-    <strong><%= link_to chapter.name, chapter_path(chapter), title: 'Show' %></strong>
-    <br>
-    <% if chapter.aside.nil? %>
-      <%= link_to (fa_icon 'plus'), new_chapter_aside_path(chapter), title: 'Aside' %>
-    <% else %>
-      <%= link_to chapter.aside_name, aside_path(chapter.aside), title: chapter.aside_name %>
-      <%= link_to (fa_icon 'edit'), edit_aside_path(chapter.aside), title: 'Edit Aside' %>
-    <% end %>
-  </div>
-  <div class='narrow-right'><%= number_with_delimiter chapter.word_count %></div>
-  <div class='narrow-right'><%= chapter.total_events %></div>
-  <div class='narrow-right'><%= number_with_delimiter chapter.footnotes.size %></div>
-  <div class='narrow-right'><%= number_with_delimiter chapter.citations.size %></div>
-  <div class='mid'><%= HoloceneEvent.convert_ad(chapter.sections.map { |x| x.holocene_events.minimum('start_year') }.compact.min) %></div>
-  <div class='mid'><%= HoloceneEvent.convert_ad(chapter.sections.map { |x| x.holocene_events.maximum('start_year') }.compact.max) %></div>
-  <div class='narrow'><%= link_to (fa_icon 'level-down'), chapter_demote_path(chapter), data: { confirm: 'Are you sure?' }, title: 'Demote' %></div>
-  <div class='narrow'><%= link_to (fa_icon 'trash'), chapter_path(chapter), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></div>
-  <div style="display:block; clear:both; page-break-after:always;"></div>
-</dt>
-<dd>
-  <hr>
-</dd>
+<% end -%>
+</turbo-frame>
