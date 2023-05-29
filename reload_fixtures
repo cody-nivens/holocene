@@ -1,0 +1,4 @@
+#!/bin/bash
+mv test/fixtures/active_storage/blobs.yml .
+rails db:fixtures:load
+mv blobs.yml test/fixtures/active_storage/
