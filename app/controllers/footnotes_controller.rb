@@ -6,7 +6,7 @@ class FootnotesController < ApplicationController
     @footnotes = @noted.footnotes
 
     respond_to do |format|
-      format.html { render :index  }
+#      format.html { render :index  }
       format.turbo_stream { }
     end
   end
@@ -15,6 +15,11 @@ class FootnotesController < ApplicationController
   # GET /footnotes/1.json
   def show
     @noted = @footnote.noted
+
+    respond_to do |format|
+#      format.html { render :index  }
+      format.turbo_stream { }
+    end
   end
 
   # GET /footnotes/section
@@ -44,12 +49,14 @@ class FootnotesController < ApplicationController
 
     respond_to do |format|
       if @footnote.save
-        format.html do
-          redirect_to "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnote/#{@footnote.id}",
-                      only_path: true,
-                      notice: 'Footnote was successfully created'
-        end
+        flash.now[:notice] = "Footnote was successfully created."
+#        format.html do
+#          redirect_to "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnote/#{@footnote.id}",
+#                      only_path: true,
+#                      notice: 'Footnote was successfully created'
+#        end
         format.json { render :show, status: :created, location: @footnote }
+        format.turbo_stream { render "#{@noted.class.name.underscore.pluralize}/show", locals: { "#{@noted.class.name.underscore}": @noted, long: nil } }
       else
         format.html { render :new }
         format.json { render json: @footnote.errors, status: :unprocessable_entity }
@@ -63,12 +70,13 @@ class FootnotesController < ApplicationController
     @noted = @footnote.noted
     respond_to do |format|
       if @footnote.update(footnote_params)
-        format.html do
-          redirect_to "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnote/#{@footnote.id}",
-                      only_path: true,
-                      notice: 'Footnote was successfully updated'
-        end
+#        format.html do
+#          redirect_to "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnote/#{@footnote.id}",
+#                      only_path: true,
+#                      notice: 'Footnote was successfully updated'
+#        end
         format.json { render :show, status: :ok, location: @footnote }
+        format.turbo_stream { flash.now[:notice] = "Footnote was successfully updated." }
       else
         format.html { render :edit }
         format.json { render json: @footnote.errors, status: :unprocessable_entity }
@@ -82,12 +90,13 @@ class FootnotesController < ApplicationController
     @noted = @footnote.noted
     @footnote.destroy
     respond_to do |format|
-      format.html do
-        redirect_to "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnotes",
-                    only_path: true,
-                    notice: 'Footnote was successfully destroyed'
-      end
+#      format.html do
+#        redirect_to "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnotes",
+#                    only_path: true,
+#                    notice: 'Footnote was successfully destroyed'
+#      end
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:notice] = "Footnote was successfully destroyed." }
     end
   end
 

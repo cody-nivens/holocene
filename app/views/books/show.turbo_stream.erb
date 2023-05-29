@@ -1,11 +1,17 @@
 <%= turbo_stream.replace "objects" do %>
   <%= content_tag "turbo-frame", class: "block", id: "objects" do %>
-    <%= render partial: "books/book", locals: { book:  @book } %>
+    <%= content_tag "turbo-frame", class: "block", id: "#{dom_id @book}" do %>
+      <%= render partial: "books/book", locals: { book:  @book } %>
+    <% end %>
   <% end %>
 <% end %>
 <%= turbo_stream.replace "new_object" do %>
   <%= content_tag "turbo-frame", class: "block", id: "new_object" do %>
-    <%= render partial: "stories/new_link", locals: { book:  @book } %>
+    <% if @book.is_fiction? %>
+      <%= render partial: "stories/new_link", locals: { book: @book } %>
+    <% else %>
+      <%= render partial: "chapters/new_link", locals: { book: @book } %>
+    <% end %>
   <% end %>
 <% end %>
 <%= turbo_stream.replace "header"  do %>

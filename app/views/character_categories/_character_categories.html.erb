@@ -1,0 +1,9 @@
+<turbo-frame id="objects">
+<ul data-controller="sortable" data-sortable-resource-name-value="character_category">
+  <% @character_categories.order(:position).each do |character_category| %>
+    <turbo-frame id="<%= dom_id character_category %>">
+      <%= render partial: "character_categories/character_category_item", locals: { character_category: character_category } %>
+    </turbo-frame>
+  <% end %>
+</ul>
+</turbo-frame>

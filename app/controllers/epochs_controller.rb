@@ -4,7 +4,10 @@ class EpochsController < ApplicationController
   # GET /epochs
   # GET /epochs.json
   def index
-    @epochs = Epoch.order(:start_date).all
+    @epochs = Epoch.all.order(:start_date)
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   def geo_map
@@ -16,6 +19,9 @@ class EpochsController < ApplicationController
   def show
     @grid = HoloceneEventsGrid.new(hgrid_params.merge({ start_year: [@epoch.start_date, @epoch.end_date] })) do |scope|
               scope.includes([:region, :rich_text_body, :event_types]).page(params[:page])
+    end
+    respond_to do |format|
+      format.turbo_stream { }
     end
   end
 
@@ -35,8 +41,10 @@ class EpochsController < ApplicationController
 
     respond_to do |format|
       if @epoch.save
-        format.html { redirect_to @epoch, notice: 'Epoch was successfully created.' }
+        @epochs = Epoch.all.order(:start_date)
+#        format.html { redirect_to @epoch, notice: 'Epoch was successfully created.' }
         format.json { render :show, status: :created, location: @epoch }
+        format.turbo_stream { flash.now[:notice] = "Epoch was successfully created." }
       else
         format.html { render :new }
         format.json { render json: @epoch.errors, status: :unprocessable_entity }
@@ -47,10 +55,12 @@ class EpochsController < ApplicationController
   # PATCH/PUT /epochs/1
   # PATCH/PUT /epochs/1.json
   def update
+    @epochs = Epoch.all.order(:start_date)
     respond_to do |format|
       if @epoch.update(epoch_params)
-        format.html { redirect_to @epoch, notice: 'Epoch was successfully updated.' }
+#        format.html { redirect_to @epoch, notice: 'Epoch was successfully updated.' }
         format.json { render :show, status: :ok, location: @epoch }
+        format.turbo_stream { flash.now[:notice] = "Epoch was successfully updated." }
       else
         format.html { render :edit }
         format.json { render json: @epoch.errors, status: :unprocessable_entity }
@@ -62,9 +72,11 @@ class EpochsController < ApplicationController
   # DELETE /epochs/1.json
   def destroy
     @epoch.destroy
+    @epochs = Epoch.all.order(:start_date)
     respond_to do |format|
-      format.html { redirect_to epochs_url, notice: 'Epoch was successfully destroyed.' }
+#      format.html { redirect_to epochs_url, notice: 'Epoch was successfully destroyed.' }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:notice] = "Epoch was successfully destroyed." }
     end
   end
 

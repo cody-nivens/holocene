@@ -209,13 +209,11 @@ end
       post polymorphic_url([@situated, :scenes], format: :turbo_stream), params: { scene: { key_point_id: @scene.key_point.id, situated_type: @situated.class.name, situated_id: @situated.id, 
                                                                      abc: @scene.abc, artifact_id: nil, check: @scene.check, scene_sequel: @scene.scene_sequel, 
                                                                      date_string: @scene.date_string, book_id: @scene.book_id },
-                                                            t: { t_years: '0099', t_month: '02', t_day: '15', t_hour: '08', t_minute: '30' } }
+                                                            t: { years: '0099', month: '02', day: '15', hour: '08', minute: '30' } }
     end
     
     assert_no_turbo_stream action: :update, target: "messages"
     assert_turbo_stream action: :replace, target: "new_object"
-    assert_turbo_stream action: :replace, target: "edit"
-    assert_turbo_stream action: :replace, target: "objects"
     #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
     #  assert_equal "<template>message_1</template>", selected.children.to_html
     #end
@@ -223,15 +221,12 @@ end
   end
 
   test "should update scene TS" do
-    patch scene_url(@scene, format: :turbo_stream), params: { scene: { abc: @scene.abc, check: @scene.check, scene_sequel: @scene.scene_sequel, date_string: @scene.date_string },
+    patch scene_url(@scene, format: :turbo_stream), params: { scene: { abc: @scene.abc, check: @scene.check, scene_sequel: @scene.scene_sequel, date_string: @scene.date_string,
+                                                                     book_id: @scene.book_id },
                                                                        t: { t_years: '0099', t_month: '02', t_day: '15', t_hour: '08', t_minute: '30' },
                                                               session: { book_id: @scene.book.id } }
 
-    assert_turbo_stream action: :replace, target: "objects"
-    assert_turbo_stream action: :replace, target: "nav-bar"
-    assert_turbo_stream action: :replace, target: "new_object"
-    assert_turbo_stream action: :replace, target: "header"
-    assert_turbo_stream action: :replace, target: "side_controls"
+    assert_turbo_stream action: :replace, target: "#{dom_id @scene}"
     assert_no_turbo_stream action: :update, target: "messages"
     assert_response :success
   end

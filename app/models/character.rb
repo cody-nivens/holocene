@@ -1,4 +1,8 @@
 class Character < ApplicationRecord
+  belongs_to :father, class_name: 'Character', optional: true
+  belongs_to :mother, class_name: 'Character', optional: true
+  belongs_to :user
+
   has_and_belongs_to_many :books, dependent: :nullify
 
   has_many :character_values
@@ -17,8 +21,6 @@ class Character < ApplicationRecord
   has_many :actor_characters
 
 
-  belongs_to :father, class_name: 'Character', optional: true
-  belongs_to :mother, class_name: 'Character', optional: true
   delegate :name, to: :father, prefix: true
   delegate :name, to: :mother, prefix: true
 

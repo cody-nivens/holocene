@@ -1,5 +1,5 @@
-<%= turbo_stream.replace "objects"  do %>
-<%= render partial: 'shared/scenes', locals: { scenes: @scenes, op: 'scenes', option: @option, toggle: @toggle, long: @long } %>
+<%= turbo_stream.replace "sub_objects"  do %>
+  <%= render partial: 'shared/scenes', locals: { scenes: @scenes, op: 'scenes', option: @option, toggle: @toggle, long: @long } %>
 <% end %>
 <%= turbo_stream.replace "edit"  do %>
   <%= " " %>
@@ -8,3 +8,4 @@
   <%= render partial: "scenes/new_link" %>
 <% end %>
 <%= render partial: "shared/send_flash" %>
+

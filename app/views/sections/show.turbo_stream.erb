@@ -1,5 +1,3 @@
-<%= turbo_stream.replace "#{dom_id @section}" do %>
-<% end %>
 <%= turbo_stream.replace "objects" do %>
   <%= content_tag "turbo-frame", class: "block", id: "objects" do %>
   <%= render partial: "sections/section", locals: { section:  @section } %>

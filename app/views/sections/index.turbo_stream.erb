@@ -5,7 +5,7 @@
 <% end %>
 <%= turbo_stream.replace "new_object"  do %>
   <%= content_tag "turbo-frame", id: "new_object" do %>
-    <%= render partial: 'sections/new_link' %>
+    <%= render partial: 'sections/new_link', locals: { sectioned: @sectioned } %>
   <% end %>
 <% end %>
 <%= turbo_stream.replace "edit"  do %>

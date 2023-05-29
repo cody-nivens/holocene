@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "objects"  do %>
+  <%= render partial: "segments/segments", locals: { segments: @segments } %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

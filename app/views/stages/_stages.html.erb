@@ -1,0 +1,17 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Segments</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stages.each do |stage| %>
+      <turbo-frame id="<%= dom_id stage %>">
+        <%= render partial: "stages/stage_item", locals: { stage: stage } %>
+      </turbo-frame>
+    <% end %>
+  </tbody>
+</table>

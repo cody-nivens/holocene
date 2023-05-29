@@ -22,7 +22,8 @@ end
                                       prompt_for_download: false,
                                       default_directory: DOWNLOADS_PATH)
 
-  options.add_preference(:capabilities, Selenium::WebDriver::Remote::Capabilities.chrome(
+  #options.add_preference(:capabilities, Selenium::WebDriver::Remote::Capabilities.chrome(
+  options.add_preference(:capabilities, Selenium::WebDriver::Chrome::Options.new(
         'chromeOptions' => {
           'prefs' => {
             'download.default_directory' => DOWNLOADS_PATH,
@@ -64,7 +65,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   def before_setup
     super
-    Selenium::WebDriver::Remote::Capabilities.chrome("goog:loggingPrefs": { browser: 'ALL' })
+    Selenium::WebDriver::Chrome::Options.new("goog:loggingPrefs": { browser: 'ALL' })
     #holocene_event = holocene_events(:holocene_event_1)
     #file = Rails.root.join('test', 'fixtures', 'files', 'image.jpg')
     ##holocene_event.image.attach(io: File.open(file), filename: 'image.jpg')

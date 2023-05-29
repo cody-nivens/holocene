@@ -3,5 +3,5 @@
 <%= render 'form', key_point: @key_point, scripted: @scripted, klass: @klass %>
 
 <div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(key_point_path(@key_point)), class: 'btn', title: 'Back' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  key_point_path(@key_point), method: :get, class: 'btn', title: 'Back' %>
 </div>

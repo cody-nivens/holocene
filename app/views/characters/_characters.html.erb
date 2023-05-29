@@ -1,0 +1,24 @@
+<%= datagrid_form_for @grid, method: :get, url: polymorphic_path([@object, :characters]) %>
+
+<div id='character-grid'>
+  <%= render partial: 'characters/index_grid', formats: [:html], locals: { grid: @grid, pagy: @pagy, records: @records } %>
+</div>
+
+<script nonce="<%= request.content_security_policy_nonce %>" type="text/javascript">
+jQuery(function($) {
+  $("#characters_grid_category").change(function() {
+  $.ajax({
+    url: '/characters/attributes',
+    type: "GET",
+    data: {category_id: $('#characters_grid_category option:selected').val() },
+  })
+});
+  $("#characters_grid_attribute").change(function() {
+  $.ajax({
+    url: '/characters/attribute_values',
+    type: "GET",
+    data: {attribute_id: $('#characters_grid_attribute option:selected').val() },
+  })
+});
+})
+</script>

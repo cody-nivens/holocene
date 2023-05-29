@@ -11,11 +11,12 @@
   </table>
 
   <div id="<%= @book.is_fiction? ? 'stories' : 'chapters' %>">
-  <%# if @long.nil? or @long.kind_of?(FalseClass) or @long == "false" %>
-    <%#= render 'books/toc', chapters: @chapters %>
-  <%# else %>
+    <turbo-frame id="sub_objects">
+  <% if @long.nil? or @long.kind_of?(FalseClass) or @long == "false" %>
     <%= render 'chapters/index', chapters: @chapters %>
-  <%# end %>
+  <% else %>
+    <%= render 'books/toc', chapters: @chapters %>
+  <% end %>
+    </turbo-frame>
   </div>
 <% end %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  books_path, method: :get, class: 'btn', title: 'Back' %>

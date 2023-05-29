@@ -1,6 +1,6 @@
 <%= turbo_stream.replace "objects"  do %>
   <%= content_tag "turbo-frame", id: "objects" do %>
-  <%= render 'footnotes/index', footnotes: @footnotes, noted: @noted %>
+    <%= render partial: 'footnotes/footnotes', locals: { footnotes: @footnotes, noted: @noted } %>
   <% end %>
 <% end %>
 <%= turbo_stream.replace "new_object"  do %>

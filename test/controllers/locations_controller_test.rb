@@ -112,13 +112,9 @@ end
 
   test "should update location TS" do
     patch location_url(@location, format: :turbo_stream), params: { location: { name: @location.name, book_id: @location.book.id } }
-    label = dom_id @location
-    assert_turbo_stream action: :replace, target: label do |selected|
-      #assert_equal "<template></template>", selected.children.to_html
-    end
 
+    assert_turbo_stream action: :replace, target: "objects"
     assert_no_turbo_stream action: :update, target: "messages"
-    assert_turbo_stream action: :replace, target: "#{dom_id @location}"
     assert_response :success
   end
 

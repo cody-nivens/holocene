@@ -1,7 +1,6 @@
 <h2>New Epoch</h2>
 
-<%= render 'form', epoch: @epoch, command_label: 'Create Epoch' %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(epochs_path), class: 'btn', title: 'Back' %>
-</div>
+<turbo-frame id="new_object">
+  <%= render 'form', epoch: @epoch, command_label: 'Create Epoch' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  epochs_path, method: :get,  class: 'btn', title: 'Back' %>
+</turbo-frame>

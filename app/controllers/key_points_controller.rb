@@ -89,6 +89,9 @@ class KeyPointsController < ApplicationController
     @scripted = @key_point.scripted
     instance_variable_set("@#{(@klass.name == 'Book' ? 'book' : (@klass.name == 'Story' ? 'story' : 'chapter'))}", @scripted)
     @long = params[:long]
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   def view
@@ -125,7 +128,7 @@ class KeyPointsController < ApplicationController
       if @key_point.save
         format.html { redirect_to key_point_url(@key_point), notice: 'Key point was successfully created.' }
         format.json { render :show, status: :created, location: @key_point }
-        format.turbo_stream { flash.now[:notice] = "Book was successfully created." }
+        format.turbo_stream { flash.now[:notice] = "Key Point was successfully created." }
       else
         format.html { render :new }
         format.json { render json: @key_point.errors, status: :unprocessable_entity }
@@ -142,7 +145,7 @@ class KeyPointsController < ApplicationController
       if @key_point.update(key_point_params)
         format.html { redirect_to key_point_url(@key_point), notice: 'Key point was successfully updated.' }
         format.json { render :show, status: :ok, location: @key_point }
-        format.turbo_stream { flash.now[:notice] = "Book was successfully updated." }
+        format.turbo_stream { flash.now[:notice] = "Key Point was successfully updated." }
       else
         format.html { render :edit }
         format.json { render json: @key_point.errors, status: :unprocessable_entity }
@@ -165,7 +168,7 @@ class KeyPointsController < ApplicationController
       format.html do
         redirect_to polymorphic_url([@scripted, :key_points]), notice: 'Key point was successfully destroyed.'
       end
-      format.turbo_stream { flash.now[:notice] = "Book was successfully destroyed." }
+      format.turbo_stream { flash.now[:notice] = "Key Point was successfully destroyed." }
       format.json { head :no_content }
     end
   end

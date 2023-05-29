@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_14_232558) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_27_164336) do
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
@@ -284,6 +284,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_14_232558) do
     t.bigint "mother_id"
     t.integer "sex", default: 0
     t.boolean "main", default: false
+    t.bigint "user_id"
     t.index ["father_id"], name: "index_characters_on_father_id"
     t.index ["mother_id"], name: "index_characters_on_mother_id"
   end

@@ -11,7 +11,7 @@ class BooksController < ApplicationController
     @books = Book.where(user_id: current_user.id).order(:position)
 
     respond_to do |format|
-      format.turbo_stream { render :index }
+      format.turbo_stream { }
     end
   end
 
@@ -34,7 +34,8 @@ class BooksController < ApplicationController
     if @long.kind_of?(TrueClass) or @long == "true"
       @characters = @book.characters
     else
-      scenes = Scene.get_scenes_to_array(@book)
+      scenes_wi = Scene.get_scenes_to_array(@book)
+      scenes = scenes_wi.collect{|x| Scene.find(x) }
       @characters = @book.characters.joins(:scenes).where("scenes.book_id = ?", @book.id).where("scenes.id",scenes)
     end
 
@@ -56,7 +57,8 @@ class BooksController < ApplicationController
 
     if chars.nil?
       if all.nil?
-        scenes = Scene.get_scenes_to_array(char_book)
+        scenes_wi = Scene.get_scenes_to_array(@book)
+        scenes = scenes_wi.collect{|x| Scene.find(x) }
         characters = char_book.characters.joins(:scenes).where("scenes.book_id = ?", char_book.id).where("scenes.id",scenes)
       else
         characters = char_book.characters
@@ -153,7 +155,8 @@ class BooksController < ApplicationController
       else
         @stories = @book.stories.where(publish: true).order(:position)
       end
-      @scenes = Scene.get_scenes_wi_to_array(@book)
+      @scenes_wi = Scene.get_scenes_to_array(@book)
+      @scenes = @scenes_wi.collect{|x| Scene.find(x) }
     else
       @chapters = @book.chapters.includes({ holocene_events: :rich_text_body })
     end
@@ -185,7 +188,8 @@ class BooksController < ApplicationController
     if @book.is_fiction?
       @scripted = @book
       @stories = @book.stories.where(publish: true).order(:position) if @book.is_fiction?
-      @scenes = Scene.get_scenes_wi_to_array(@book)
+      @scenes_wi = Scene.get_scenes_to_array(@book)
+      @scenes = @scenes_wi.collect{|x| Scene.find(x) }
     else
       @chapters = @book.chapters.includes({ holocene_events: :rich_text_body })
     end
@@ -257,7 +261,8 @@ class BooksController < ApplicationController
       else
         @stories = @book.stories.where(publish: true).order(:position)
       end
-      @scenes = Scene.get_scenes_wi_to_array(@book)
+      @scenes_wi = Scene.get_scenes_to_array(@book)
+      @scenes = @scenes_wi.collect{|x| Scene.find(x) }
     else
       @chapters = @book.chapters.includes({ holocene_events: :rich_text_body })
     end
@@ -267,7 +272,7 @@ class BooksController < ApplicationController
         flash.now[:notice] = "Book was successfully updated."
 #        format.html { redirect_to @book, notice: 'Book was successfully updated.' }
         format.json { render :show, status: :ok, location: @book }
-        format.turbo_stream { }
+        format.turbo_stream { render 'show' }
       else
         format.html { render :edit }
         format.json { render json: @book.errors, status: :unprocessable_entity }

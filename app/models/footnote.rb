@@ -42,10 +42,12 @@ class Footnote < ApplicationRecord
       my_footnote = slug[1].footnotes.where(slug: slug[0].gsub(/#{slug[1].slug}/, ''))
       index = slug[2]
       if my_footnote.length == 0
-        str += "<a href='/#{slug[1].class.name.underscore.pluralize}/#{slug[1].id}/footnotes/#{slug[0]}'>Missing footnote</a><br/>"
+        str += "<trubo-frame id='#{slug[0]}'>"
+        str += "<a href='/#{slug[1].class.name.underscore.pluralize}/#{slug[1].id}/footnotes/#{slug[0]}' data-turbo-frame='new_object'>Missing footnote</a><br/>"
+        str += "</trubo-frame>"
       else
         footnote = (my_footnote[0].biblioentry.nil? ? my_footnote[0].body.to_plain_text : my_footnote[0].biblioentry.name)
-        str += "<sup id='fn#{index}'>#{index}. [#{footnote}]<a href='#ref#{index}' data-turbo='false' title='Jump back to footnote #{index} in the text.'>↩</a></sup><br/>"
+        str += "<sup id='fn#{index}'>#{index}. [<a href='/#{slug[1].class.name.underscore.pluralize}/#{slug[1].id}/footnote/#{my_footnote[0].id}' data-method='get'>#{footnote}</a>]<a href='#ref#{index}' data-turbo='false' title='Jump back to footnote #{index} in the text.'>↩</a></sup><br/>"
       end
     end
     str

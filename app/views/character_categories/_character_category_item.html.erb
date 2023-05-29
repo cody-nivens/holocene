@@ -1,0 +1,5 @@
+    <li data-sortable-update-url="<%= character_category_sort_path(character_category) %>"> 
+      <%= link_to character_category.name, character_category, method: :get %>
+      <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_character_category_path(character_category), title: 'Edit' %>
+      <%= link_to (fa_icon 'trash', class: 'fa-fw'), character_category, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete' %>
+    </li>

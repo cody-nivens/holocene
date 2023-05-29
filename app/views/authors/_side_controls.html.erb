@@ -1,3 +1,4 @@
-<div id="side_controls">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  polymorphic_path([@object, :authors]), method: :get, class: 'btn', title: 'Back' %>
+<div id="side_controls" class="hide-print">
+  <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_polymorphic_path([@object, @author]), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'Edit' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path([@object, :authors]), method: :get, class: 'btn', title: 'Back' %>
 </div>

@@ -6,10 +6,7 @@
 <% wc = scene.word_count %>
 <% long ||= nil %>
 <% total_wc ||= 0 %>
-
-<table style="width:100%">
-  <tbody>
-    <tr>
+<tr>
     <% if pdf and !long %>
       <td width="20%">  <%= scene.time_to_text %></td>
       <td width="25%">  <strong><i><%= scene.section.present? ? scene.section.name : scene.name %></i></strong></td>
@@ -80,6 +77,4 @@
         </td></tr><tr><td></td><td colspan="7"><%= (short_labels ? scene.name : scene.plain_name) %></td>
       <% end %>
     <% end %>
-    </tr>
-  </tbody>
-</table>
+        </tr>

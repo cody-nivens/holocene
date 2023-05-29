@@ -1,6 +1,6 @@
 <%= turbo_stream.replace "#{dom_id @scene}" do %>
   <%= content_tag "turbo-frame", id: "#{dom_id @scene}" do %>
-    <%= render partial: "scenes/scene_item", locals: { scene:  @scene, scenes_wi: @scenes_wi } %>
+    <%= render partial: "scenes/scene_item", locals: { scene:  @scene, scenes: @scenes, scenes_wi: @scenes_wi, option: @option, long: @long } %>
   <% end %>
 <% end %>
 <%= render partial: "shared/send_flash" %>

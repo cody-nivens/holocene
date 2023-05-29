@@ -1,9 +1,9 @@
 <turbo-frame id="objects">
   <div id="container2">
-  <% scene_wc_counts = @scenes.collect{|x| Scene.find(x).word_count } %>
-  <% mean = scene_wc_counts.sum(0.0) / @scenes.length %>
+  <% scene_wc_counts = @scenes.collect{|x| x.word_count } %>
+  <% mean = scene_wc_counts.sum(0.0) / @scenes.size %>
   <% sum = scene_wc_counts.sum(0.0) { |element| (element - mean) ** 2 } %>
-  <% variance = sum / (@scenes.length - 1) %>
+  <% variance = sum / (@scenes.size - 1) %>
   <% standard_deviation = Math.sqrt(variance) %>
 
   <%= form_with model: Scene.new, url: (@situated.instance_of?(Book) ? book_scenes_path(@situated) : polymorphic_path([@situated, :scenes])),

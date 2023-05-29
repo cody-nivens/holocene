@@ -1,8 +1,10 @@
 <h2>Editing Character Category</h2>
 
+<turbo-frame id="new_object">
+  <turbo-frame id="<%= dom_id @character_category %>">
+
 <%= render 'form', character_category: @character_category %>
 
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'search', class: 'fa-fw'), @character_category, class: 'btn', title: 'Show' %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(character_categories_path), class: 'btn', title: 'Back' %>
-</div>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  character_categories_path, method: :get, class: 'btn', title: 'Back' %>
+</turbo-frame>
+</turbo-frame>

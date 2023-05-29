@@ -1,4 +1,6 @@
+<turbo-frame id="new_object">
 <turbo-frame id="<%= dom_id @chapter %>">
 <%= render 'form', scripted: @scripted, chapter: @chapter, command_label: 'Update Chapter' %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(polymorphic_path([@scripted, :chapters])), class: 'btn', title: 'Back' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(polymorphic_path([@scripted, :chapters])), method: :get, class: 'btn', title: 'Back' %>
+</turbo-frame>
 </turbo-frame>

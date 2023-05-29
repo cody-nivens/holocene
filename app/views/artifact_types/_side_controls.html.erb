@@ -1,0 +1,4 @@
+<div id="side_controls">
+  <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_artifact_type_path(@artifact_type), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'Edit' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), book_artifact_types_path(@book), method: :get, class: 'btn', title: 'Back' %>
+</div>

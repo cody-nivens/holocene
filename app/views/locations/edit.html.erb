@@ -1,6 +1,8 @@
 <h2>Editing Location</h2>
 
+<turbo-frame id="new_object">
 <turbo-frame id="<%= dom_id @location %>">
 <%= render 'form', location: @location %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_locations_path(@book), class: "btn", title: 'Back' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), location_path(@location), method: :get, class: "btn", title: 'Back' %>
+</turbo-frame>
 </turbo-frame>

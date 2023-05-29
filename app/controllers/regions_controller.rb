@@ -5,6 +5,9 @@ class RegionsController < ApplicationController
   # GET /regions.json
   def index
     @regions = Region.all
+    respond_to do |format|
+      format.turbo_stream { } 
+    end
   end
 
   # GET /regions/1
@@ -12,6 +15,9 @@ class RegionsController < ApplicationController
   def show
     @grid = HoloceneEventsGrid.new(hgrid_params) do |scope|
       scope.where(region_id: @region.id).page(params[:page])
+    end
+    respond_to do |format|
+      format.turbo_stream { } 
     end
   end
 
@@ -28,11 +34,13 @@ class RegionsController < ApplicationController
   # POST /regions.json
   def create
     @region = Region.new(region_params)
+    @regions = Region.all
 
     respond_to do |format|
       if @region.save
-        format.html { redirect_to @region, notice: 'Region was successfully created.' }
+#        format.html { redirect_to @region, notice: 'Region was successfully created.' }
         format.json { render :show, status: :created, location: @region }
+        format.turbo_stream { flash.now[:notice] = "Region was successfully created." }
       else
         format.html { render :new }
         format.json { render json: @region.errors, status: :unprocessable_entity }
@@ -43,10 +51,12 @@ class RegionsController < ApplicationController
   # PATCH/PUT /regions/1
   # PATCH/PUT /regions/1.json
   def update
+    @regions = Region.all
     respond_to do |format|
       if @region.update(region_params)
-        format.html { redirect_to @region, notice: 'Region was successfully updated.' }
+#        format.html { redirect_to @region, notice: 'Region was successfully updated.' }
         format.json { render :show, status: :ok, location: @region }
+        format.turbo_stream { flash.now[:notice] = "Region was successfully updated." }
       else
         format.html { render :edit }
         format.json { render json: @region.errors, status: :unprocessable_entity }
@@ -58,9 +68,11 @@ class RegionsController < ApplicationController
   # DELETE /regions/1.json
   def destroy
     @region.destroy
+    @regions = Region.all
     respond_to do |format|
-      format.html { redirect_to regions_url, notice: 'Region was successfully destroyed.' }
+#      format.html { redirect_to regions_url, notice: 'Region was successfully destroyed.' }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:notice] = "Region was successfully destroyed." }
     end
   end
 

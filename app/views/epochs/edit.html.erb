@@ -1,8 +1,8 @@
 <h2>Editing Epoch</h2>
 
-<%= render 'form', epoch: @epoch, command_label: 'Update Epoch' %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'search', class: 'fa-fw'), @epoch, class: 'btn', title: 'Show' %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(epochs_path), class: 'btn', title: 'Back' %>
-</div>
+<turbo-frame id="new_object">
+  <turbo-frame id="<%= dom_id @epoch %>">
+    <%= render 'form', epoch: @epoch, command_label: 'Update Epoch' %>
+    <%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(epochs_path), class: 'btn', title: 'Back' %>
+  </turbo-frame>
+</turbo-frame>

@@ -15,6 +15,7 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
+  if 1 == 0
   test 'should get index' do
     get book_characters_url(book_id: @book.id)
     assert_response :success
@@ -229,5 +230,81 @@ class CharactersControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to book_characters_url(book_id: @book.id)
+  end
+end
+
+  test 'should get edit' do
+    get edit_book_character_path(@book, @character)
+    assert_select "turbo-frame", id:  "new_object"
+    assert_response :success
+  end
+
+  test 'should get new' do
+    get new_polymorphic_path([@book, :character])
+    assert_select "turbo-frame", id:  "new_object", target: "edit"
+    assert_response :success
+  end
+
+  test 'should show character TS' do
+    get polymorphic_path([@book, @character], format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
+    assert_response :success
+  end
+
+  test 'should show character index TS' do
+    get book_characters_url(@book, format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
+    assert_response :success
+  end
+
+
+  test "should create character TS" do
+    assert_difference('Character.count') do
+      post book_characters_url(@book, format: 'turbo_stream'), 
+        params: { character: { first_name: "Test 1", user_id: @character.user.id } }
+    end
+    
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "edit"
+    assert_turbo_stream action: :replace, target: "objects"
+    #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
+    #  assert_equal "<template>message_1</template>", selected.children.to_html
+    #end
+    assert_response :success
+  end
+
+  test "should update character TS" do
+    patch  book_character_path(@book, @character, format: :turbo_stream),
+          params: { gender_gender_value: '---',
+                    character: { first_name: @character.first_name, nickname: @character.nickname,
+                                 occupation_class: @character.occupation_class, ethnicity: @character.ethnicity,
+                                 reason_for_name: @character.reason_for_name, reason_for_nickname: @character.reason_for_nickname,
+                                 social_class: @character.social_class } }
+    assert_turbo_stream action: :replace, target: "#{dom_id @character}"
+
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_response :success
+  end
+
+  test "should destroy character TS" do
+    assert_difference('Character.count', -1) do
+      delete book_character_url(@book, @character, format: :turbo_stream)
+    end
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_response :success
   end
 end

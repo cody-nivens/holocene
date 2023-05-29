@@ -46,6 +46,9 @@ Rails.application.routes.draw do
   put '/actor_location_times/:id/check', to: 'actor_location_times#check', as: :actor_location_times_check
   patch '/stages/:id/add_characters', to: 'stages#add_characters', as: :stages_add_characters
 
+  post '/character/:book_id/steps/create', to: 'character/steps#create', as: :character_steps_book
+  patch '/character/:book_id/steps', to: 'character/steps#show', as: :character_steps_show
+
   resources :cities
   namespace :character do
     get 'steps/show'

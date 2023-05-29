@@ -84,7 +84,6 @@ end
 
 ActiveSupport::Testing::Parallelization.after_fork_hook do |i|
   ENV['TEST_ENV_NUMBER'] = i.to_s
-  puts ENV['TEST_ENV_NUMBER']
 end
 
 def init_sphinx
@@ -151,18 +150,43 @@ module ActiveSupport
       find(".trix-content").set(with)
     end
 
+    def click_on_line(line,icon)
+      within(:xpath, "//a[text()='#{line}']/parent::*/parent::*") do
+        Capybara.page.find(".fa-#{icon}").click
+      end
+    end
+
     def do_menu(master, sub_action)
-      assert_link master
-      click_on master
-      #within master do
+      within "nav.navbar" do
+        assert_link master
+        click_on master
+
         assert_link sub_action
         click_on sub_action
-      #end
+      end
+    end
+
+    def click_new(icon)
+      within "#new_object" do
+        Capybara.page.find("a > i.fa-#{icon}").click
+      end
+    end
+
+    def assert_new(icon)
+      within "#new_object" do
+        assert_selector "a > i.fa-#{icon}"
+      end
     end
 
     def click_side(icon)
       within "#side_controls" do
-        Capybara.page.find(".fa-#{icon}").click
+        Capybara.page.find("a > i.fa-#{icon}").click
+      end
+    end
+
+    def assert_side(text)
+      within "#side_controls" do
+        assert_link text
       end
     end
 

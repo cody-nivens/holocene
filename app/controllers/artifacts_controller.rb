@@ -49,7 +49,6 @@ class ArtifactsController < ApplicationController
         format.json { render :show, status: :created, location: @artifact }
         format.turbo_stream { flash.now[:notice] = "Artifact was successfully created." }
       else
-        format.turbo_stream { render :error_message }
         format.html { render :new, book_id: @book.id, status: :unprocessable_entity }
         format.json { render json: @artifact.errors, status: :unprocessable_entity }
       end
@@ -63,9 +62,10 @@ class ArtifactsController < ApplicationController
     respond_to do |format|
       if @artifact.update(artifact_params)
         @artifacts = Artifact.where(book_id: @book.id).joins(:artifact_type).order('artifact_types.name, artifacts.name')
+        flash.now[:notice] = "Artifact was successfully updated."
  #       format.html { redirect_to artifact_path(@artifact), notice: 'Artifact was successfully updated.' }
         format.json { render :show, status: :ok, location: @artifact }
-        format.turbo_stream { flash.now[:notice] = "Artifact was successfully updated." }
+        format.turbo_stream { render 'show' }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @artifact.errors, status: :unprocessable_entity }

@@ -1,5 +1,7 @@
 <%= turbo_stream.replace "#{dom_id @location}" do %>
-  <%= render partial: "locations/location_item", locals: { location:  @location } %>
+  <%= content_tag "turbo-frame", id: "#{dom_id @location}", class: "block" do %>
+    <%= render partial: "locations/location_item", locals: { location:  @location } %>
+  <% end %>
 <% end %>
 <%= turbo_stream.replace "edit"  do %>
   <%= " " %>

@@ -5,6 +5,9 @@ class StagesController < ApplicationController
   # GET /stages or /stages.json
   def index
     @stages = Stage.where(act_id: @act.id).order(:name)
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /stages/1 or /stages/1.json
@@ -13,6 +16,9 @@ class StagesController < ApplicationController
     @check = params[:check]
     session[:stage_view] = @check
     session[:return_to] = request.fullpath
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
   
   def check
@@ -118,11 +124,13 @@ class StagesController < ApplicationController
   def create
     @stage = Stage.new(stage_params)
     @act = @stage.act
+    @stages = Stage.where(act_id: @act.id).order(:name)
 
     respond_to do |format|
       if @stage.save
-        format.html { redirect_to stage_url(@stage), notice: "Stage was successfully created." }
+#        format.html { redirect_to stage_url(@stage), notice: "Stage was successfully created." }
         format.json { render :show, status: :created, location: @stage }
+        format.turbo_stream { flash.now[:notice] = "Stage was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @stage.errors, status: :unprocessable_entity }
@@ -134,8 +142,10 @@ class StagesController < ApplicationController
   def update
     respond_to do |format|
       if @stage.update(stage_params)
-        format.html { redirect_to stage_url(@stage), notice: "Stage was successfully updated." }
+        @stages = Stage.where(act_id: @act.id).order(:name)
+#        format.html { redirect_to stage_url(@stage), notice: "Stage was successfully updated." }
         format.json { render :show, status: :ok, location: @stage }
+        format.turbo_stream { flash.now[:notice] = "Stage was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @stage.errors, status: :unprocessable_entity }
@@ -145,11 +155,14 @@ class StagesController < ApplicationController
 
   # DELETE /stages/1 or /stages/1.json
   def destroy
+    @act = @stage.act
     @stage.destroy
 
+    @stages = Stage.where(act_id: @act.id).order(:name)
     respond_to do |format|
-      format.html { redirect_to act_stages_url(@act), notice: "Stage was successfully destroyed." }
+#      format.html { redirect_to act_stages_url(@act), notice: "Stage was successfully destroyed." }
       format.json { head :no_content }
+        format.turbo_stream { flash.now[:notice] = "Stage was successfully destroyed." }
     end
   end
 

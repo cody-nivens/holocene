@@ -3,12 +3,9 @@
     <%= render partial: "key_points/list", locals: { scripted: @scripted, key_point:  @key_point, long: @long } %>
   <% end %>
 <% end %>
-<%= turbo_stream.replace "new_link" do %>
-  <%= content_tag "turbo-frame", class: "block", id: "new_link" do %>
-  <% end %>
-<% end %>
-<%= turbo_stream.replace "new_object"  do %>
-  <%= content_tag "turbo-frame", id: "new_object" do %>
+<%= turbo_stream.replace "new_object" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "new_object" do %>
+    <%= render partial: 'key_points/new_scene', locals: { scripted: @story, long: @long } %>
   <% end %>
 <% end %>
 <%= turbo_stream.replace "header"  do %>

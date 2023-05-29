@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "#{dom_id @artifact_type}" do %>
+  <%= render partial: "artifact_types/artifact_type_item", locals: { artifact_type:  @artifact_type } %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

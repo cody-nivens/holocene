@@ -1,0 +1,50 @@
+<%#= form_for @character, method: :put, url: wizard_path do |f| %>
+<%#= bootstrap_form_for(@character, url: '/character/step/show', layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10') do |f| %>
+<%= bootstrap_form_for(@character, url: cs_path, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10') do |f| %>
+
+  <% if f.object.errors.any? %>
+    <div class="error_messages">
+      <% f.object.errors.full_messages.each do |error| %>
+        <p><%= error %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <legend>Character Characteristics</legend>
+
+    <%= hidden_field_tag "#{@object.class.name.underscore}_id", @object.id %>
+    <%= hidden_field_tag "character_id", @character.id %>
+    <%= hidden_field_tag "wiz_step", wiz_step.to_s %>
+
+    <p>
+      <div class="form-inputs">
+       Person is <%= text_field_tag 'age', '', size: 5 %> in the year <%= text_field_tag 'year', @year, size: 5 %> and lived <%= text_field_tag 'death_age', '', size: 5 %> years.
+      </div>
+    </p>
+
+    <div class="form-inputs">
+      <%= f.text_field :ethnicity %>
+      <%= f.text_field :birth_year %>
+      <%= f.text_field :death_year %>
+      <%= f.select :sex, [['Male', 0], ['Female', 1], ['Non-Person', 2]], prompt: 'Select Sex', multiple: false, include_blank: false %>
+    </div>
+
+    <div>
+      <%= f.submit 'Next Step' %>
+    </div>
+  </fieldset>
+<% end %>
+
+<script>
+  $(document).ready(function(){
+    });
+    $(document).on("change", "input#death_age", function(e){
+        var year = $('#year').val();
+        var age = $('#age').val();
+        var death_age = $('#death_age').val();
+        $('#character_birth_year').val(year - age);
+        var birth_year = year - age;
+        $('#character_death_year').val(parseInt(birth_year) + parseInt(death_age));
+    });
+</script>

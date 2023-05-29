@@ -13,6 +13,7 @@ character_1:
   death_year: 108
   age_at_son: 23
   sex: 0
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
   books:
     - book_2
 
@@ -29,6 +30,7 @@ character_2:
   age_at_son: 23
   father: character_1
   sex: 0
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
   books:
     - book_2
 
@@ -44,6 +46,7 @@ character_3:
   birth_year: 105
   death_year: 179
   sex: 0
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
   age_at_son: 23
 
 character_4:
@@ -57,11 +60,13 @@ character_4:
   birth_year: 105
   death_year: 179
   sex: 0
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
   age_at_son: 23
 
 character_5:
   first_name: Counsel
   sex: 2
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
   books:
     - book_2
 
@@ -77,6 +82,7 @@ character_6:
   death_year: 179
   sex: 1
   age_at_son: 23
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
   books:
     - book_2
 
@@ -96,6 +102,7 @@ character_7:
   death_year: 179
   sex: 1
   age_at_son: 23
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
   stories:
     - story_2
 
@@ -114,6 +121,7 @@ character_8:
   birth_year: 105
   death_year: 179
   sex: 1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
   age_at_son: 23
   books:
     - book_2
@@ -130,6 +138,7 @@ character_9:
   death_year: 179
   sex: 1
   age_at_son: 23
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
   stories:
     - story_2
 
@@ -143,5 +152,6 @@ character_10:
   death_year: 179
   sex: 1
   age_at_son: 23
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
   stories:
     - story_2

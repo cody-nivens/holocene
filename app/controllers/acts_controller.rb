@@ -37,7 +37,7 @@ class ActsController < ApplicationController
         @acts = @book.acts
 #        format.html { redirect_to act_url(@act), notice: "Act was successfully created." }
         format.json { render :show, status: :created, location: @act }
-        format.turbo_stream { flash.now[:notice] = "Book was successfully created." }
+        format.turbo_stream { flash.now[:notice] = "Act was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @act.errors, status: :unprocessable_entity }
@@ -50,9 +50,10 @@ class ActsController < ApplicationController
     respond_to do |format|
       if @act.update(act_params)
         @acts = @book.acts
+         flash.now[:notice] = "Act was successfully updated."
 #        format.html { redirect_to act_url(@act), notice: "Act was successfully updated." }
         format.json { render :show, status: :ok, location: @act }
-        format.turbo_stream { flash.now[:notice] = "Book was successfully updated." }
+        format.turbo_stream { render 'show' }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @act.errors, status: :unprocessable_entity }
@@ -68,7 +69,7 @@ class ActsController < ApplicationController
     respond_to do |format|
 #      format.html { redirect_to book_acts_url(@book), notice: "Act was successfully destroyed." }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Book was successfully destroyed." }
+      format.turbo_stream { flash.now[:notice] = "Act was successfully destroyed." }
     end
   end
 

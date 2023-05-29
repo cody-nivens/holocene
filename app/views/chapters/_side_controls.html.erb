@@ -1,20 +1,20 @@
-
 <div id="side_controls" class="hide-print">
-<%= link_to((fa_icon 'edit', class: 'fa-fw'), edit_chapter_path(chapter), class: 'btn', title: 'Edit') %>
+  <%= link_to((fa_icon 'edit', class: 'fa-fw'), edit_chapter_path(chapter), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'Edit') %>
 <% if chapter.scripted_type == 'Book' %>
-  <%= link_to((fa_icon 'sticky-note', class: 'fa-fw'), chapter_signets_path(chapter_id: chapter.id), title: 'Signets', class: "btn #{!chapter.signets.empty? ? Signet.color_class(chapter.signets[0].color) : ''}") %>
-  <%= link_to((fa_icon 'list', class: 'fa-fw'), chapter_display_path(chapter), rel: 'next', title: 'Events', class: 'btn') %>
-  <%= link_to((fa_icon 'calendar', class: 'fa-fw'), chapter_timeline_path(chapter), rel: 'next', title: 'Timeline', class: 'btn') %>
-  <%= link_to((fa_icon 'map', class: 'fa-fw'), geo_map_chapter_path(chapter), rel: 'next', title: 'Map', class: 'btn') %>
+  <%= link_to((fa_icon 'sticky-note', class: 'fa-fw'), chapter_signets_path(chapter_id: chapter.id), method: :get, title: 'Signets', class: "btn #{!chapter.signets.empty? ? Signet.color_class(chapter.signets[0].color) : ''}") %>
+  <%= link_to((fa_icon 'list', class: 'fa-fw'), chapter_display_path(chapter), method: :get, title: 'Events', class: 'btn') %>
+  <%= link_to((fa_icon 'calendar', class: 'fa-fw'), chapter_timeline_path(chapter), method: :get, title: 'Timeline', class: 'btn') %>
+  <%= link_to((fa_icon 'map', class: 'fa-fw'), geo_map_chapter_path(chapter), method: :get, title: 'Map', class: 'btn') %>
 <% else %>
-  <%= link_to('Scenes', polymorphic_path([chapter.scripted, chapter, :scenes]), rel: 'next') %>
+  <%= link_to('Scenes', polymorphic_path([chapter.scripted, chapter, :scenes]), method: :get) %>
 <% end %>
 <% prev_chapter = chapter.set_prev %>
 <% unless prev_chapter.nil? %>
-  <%= link_to((fa_icon 'angle-left', class: 'fa-fw'), chapter_path(prev_chapter), rel: 'next', class: 'btn', title: 'Previous') %>
+  <%= link_to((fa_icon 'angle-left', class: 'fa-fw'), chapter_path(prev_chapter), method: :get, class: 'btn', title: 'Previous') %>
 <% end %>
 <% next_chapter = chapter.set_next %>
 <% unless next_chapter.nil? %>
-  <%= link_to((fa_icon 'angle-right', class: 'fa-fw'), chapter_path(next_chapter), rel: 'next', class: 'btn', title: 'Next') %>
+  <%= link_to((fa_icon 'angle-right', class: 'fa-fw'), chapter_path(next_chapter), method: :get, class: 'btn', title: 'Next') %>
 <% end %>
-<%= link_to((fa_icon 'backward', class: 'fa-fw'), polymorphic_path([chapter.scripted, :chapters]), rel: 'next', class: 'btn', title: 'Back') %>
+<%= link_to((fa_icon 'backward', class: 'fa-fw'), polymorphic_path([chapter.scripted, :chapters]), method: :get, class: 'btn', title: 'Back') %>
+</div>

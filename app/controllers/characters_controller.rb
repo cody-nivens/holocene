@@ -5,55 +5,14 @@ class CharactersController < ApplicationController
   # GET /characters
   # GET /characters.json
   def index
-    @category = grid_params[:category]
-    @attribute = grid_params[:attribute]
-    @value = grid_params[:value]
-
-    my_params = grid_params.except(:category, :attribute, :value)
-
-    if grid_params[:no_ethnicity].to_i == 1
-      my_params[:ethnicity] = ['']
-    end
-
-    if grid_params[:no_grouping].to_i == 1
-      my_params[:grouping] = ['']
-    end
-
-    if grid_params[:no_occupation_class].to_i == 1
-      my_params[:occupation_class] = ['']
-    end
-
-    @grid = CharactersGrid.new(my_params.merge(object: @object)) do |scope|
-      if @attribute.present?
-        if @value.blank?
-          my_scope = scope.joins(:character_values).where('character_values.character_attribute_id = ?',
-                                                          @attribute.to_i)
-        else
-          my_scope = scope.joins(:character_values).where(
-            'character_values.character_attribute_id = ? and character_values.value = ?', @attribute.to_i, @value
-          )
-        end
-      else
-        my_scope = scope
-      end
-      my_scope = case @object.class.name
-                 when 'Book'
-                   my_scope.joins(:books_characters).where('books_characters.book_id = ?', @object.id)
-                 when 'Story'
-                   my_scope.joins(:character_stories).where('character_stories.story_id = ?', @object.id)
-                 else
-                   # when "Scene"
-                   my_scope.joins(:character_scenes).where('character_scenes.scene_id = ?', @object.id)
-                 end
-    end
-
-    @pagy, @records = pagy(@grid.assets)
-
     session[:return_to] = request.fullpath
+
+    do_index
 
     respond_to do |format|
       format.js {}
-      format.html {}
+#      format.html {}
+      format.turbo_stream { }
     end
   end
 
@@ -86,6 +45,12 @@ class CharactersController < ApplicationController
   # GET /characters/1.json
   def show
     @character = Character.includes([{ scenes: :rich_text_summary },{ character_values: :character_attribute }]).find(params[:id])
+    @long = params[:long]
+
+    respond_to do |format|
+#      format.html {}
+      format.turbo_stream { render 'show', locals: { character: @character, object: @object, long: @long }}
+    end
   end
 
   def lineage; end
@@ -94,7 +59,6 @@ class CharactersController < ApplicationController
   def list
 
     respond_to do |format|
-      format.html {}
       format.turbo_stream {}
     end
   end
@@ -104,6 +68,10 @@ class CharactersController < ApplicationController
     chars_list
 
     session[:return_to] = request.fullpath
+
+    respond_to do |format|
+      format.turbo_stream {}
+    end
   end
 
   # GET /characters/1/scenes
@@ -111,6 +79,10 @@ class CharactersController < ApplicationController
     chars_list
 
     session[:return_to] = request.fullpath
+
+    respond_to do |format|
+      format.turbo_stream {}
+    end
   end
 
   # GET /characters/1/add
@@ -138,6 +110,7 @@ class CharactersController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to polymorphic_path([@object, :characters_list]) }
+#      format.turbo_stream { }
     end
   end
 
@@ -175,24 +148,29 @@ class CharactersController < ApplicationController
 
   # POST /characters
   # POST /characters.json
-  def create
+  def xcreate
     @character = Character.new
     @character.sex = rand(2)
+    @character.user = current_user
 
     @character.save(validate: false)
 
     update_character_lists(@object, @character)
-    redirect_to polymorphic_path([@object, @character, :step], id: Character.form_steps.first)
+    #redirect_to polymorphic_path([@object, @character, :step], id: Character.form_steps.first)
+    respond_to do |format|
+      format.turbo_stream { render "character/show", locals: { step: Character.form_steps.first } }
+    end
   end
 
   # PATCH/PUT /characters/1
   # PATCH/PUT /characters/1.json
-  def update
+  def xupdate
     update_values
     respond_to do |format|
       if @character.update(character_params)
-        format.html { redirect_to polymorphic_path([@object, @character]) }
+#        format.html { redirect_to polymorphic_path([@object, @character]) }
         format.json { render :show, status: :ok, location: @character }
+        format.turbo_stream { flash.now[:notice] = "Character was successfully updated." }
       else
         format.html { render :edit }
         format.json { render json: @character.errors, status: :unprocessable_entity }
@@ -205,15 +183,63 @@ class CharactersController < ApplicationController
   def destroy
     @character = Character.includes([{ artifacts: :taggings}]).find(params[:id])
     @character.destroy
+    do_index
     respond_to do |format|
-      format.html do
-        redirect_to polymorphic_url([@object, :characters]), notice: 'Character was successfully destroyed.'
-      end
+      flash.now[:notice] = "Character was successfully destroyed."
+#      format.html { redirect_to polymorphic_url([@object, :characters]), notice: 'Character was successfully destroyed.' }
+      format.turbo_stream { }
       format.json { head :no_content }
     end
   end
 
   private
+
+  def do_index
+    @category = grid_params[:category]
+    @attribute = grid_params[:attribute]
+    @value = grid_params[:value]
+
+    my_params = grid_params.except(:category, :attribute, :value)
+
+    if grid_params[:no_ethnicity].to_i == 1
+      my_params[:ethnicity] = ['']
+    end
+
+    if grid_params[:no_grouping].to_i == 1
+      my_params[:grouping] = ['']
+    end
+
+    if grid_params[:no_occupation_class].to_i == 1
+      my_params[:occupation_class] = ['']
+    end
+
+    @grid = CharactersGrid.new(my_params.merge(object: @object)) do |scope|
+      if @attribute.present?
+        if @value.blank?
+          my_scope = scope.joins(:character_values).where('character_values.character_attribute_id = ?',
+                                                          @attribute.to_i)
+        else
+          my_scope = scope.joins(:character_values).where(
+            'character_values.character_attribute_id = ? and character_values.value = ?', @attribute.to_i, @value
+          )
+        end
+      else
+        my_scope = scope
+      end
+      my_scope = my_scope.where(user_id: current_user.id)
+      my_scope = case @object.class.name
+                 when 'Book'
+                   my_scope.joins(:books_characters).where('books_characters.book_id = ?', @object.id)
+                 when 'Story'
+                   my_scope.joins(:character_stories).where('character_stories.story_id = ?', @object.id)
+                 else
+                   # when "Scene"
+                   my_scope.joins(:character_scenes).where('character_scenes.scene_id = ?', @object.id)
+                 end
+    end
+
+    @pagy, @records = pagy(@grid.assets)
+  end
 
   def chars_list
     @scenes = Scene.get_scenes_to_array(@object)

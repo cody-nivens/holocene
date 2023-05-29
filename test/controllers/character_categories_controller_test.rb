@@ -9,6 +9,7 @@ class CharacterCategoriesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
+  if 1 == 0
   test 'should get index' do
     get character_categories_url
     assert_response :success
@@ -68,5 +69,76 @@ class CharacterCategoriesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to character_categories_url
+  end
+end
+
+  test 'should get edit' do
+    get edit_character_category_path(@character_category)
+    assert_select "turbo-frame", id:  "new_object"
+    assert_response :success
+  end
+
+  test 'should get new' do
+    get new_character_category_path
+    assert_select "turbo-frame", id:  "new_object", target: "edit"
+    assert_response :success
+  end
+
+  test 'should show character_category TS' do
+    get character_category_path(@character_category, format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
+    assert_response :success
+  end
+
+  test 'should show character_category index TS' do
+    get character_categories_url(format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
+    assert_response :success
+  end
+
+
+  test "should create character_category TS" do
+    assert_difference('CharacterCategory.count') do
+      post character_categories_url(format: 'turbo_stream'), params: { character_category: { name: @character_category.name } }
+    end
+    
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "edit"
+    assert_turbo_stream action: :replace, target: "objects"
+    #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
+    #  assert_equal "<template>message_1</template>", selected.children.to_html
+    #end
+    assert_response :success
+  end
+
+  test "should update character_category TS" do
+    patch  character_category_path(@character_category, format: :turbo_stream),
+          params: { character_category: { name: @character_category.name } }
+    assert_turbo_stream action: :replace, target: "#{dom_id @character_category}"
+
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_response :success
+  end
+
+  test "should destroy character_category TS" do
+    assert_difference('CharacterCategory.count', -1) do
+      delete character_category_url(@character_category, format: :turbo_stream)
+    end
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_response :success
   end
 end

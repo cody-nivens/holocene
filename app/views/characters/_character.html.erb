@@ -1,0 +1,151 @@
+<% pdf ||= nil %>
+<p>
+  <% unless character.birth_year.nil? %>
+    b. <%= character.birth_year %> - d. <%= character.death_year %>, Age: <%= character.death_year - character.birth_year %><br>
+  <% end %>
+  <%= Character.sex_to_text(character.sex) %> <%= character.occupation_class %> - <%= character.grouping %>
+</p>
+
+<%= tabs do |c| %>
+<% c.tab 'Info' do %>
+  <span>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+  <% if character.reason_for_name? %>
+    <p>
+      <strong>Reason for name:</strong>
+      <%= character.reason_for_name %>
+    </p>
+  <% end %>
+
+  <% if character.nickname? %>
+    <p>
+      <strong>Nickname:</strong>
+      <%= character.nickname %>
+    </p>
+  <% end %>
+
+  <% if character.reason_for_nickname? %>
+    <p>
+      <strong>Reason for nickname:</strong>
+      <%= character.reason_for_nickname %>
+    </p>
+  <% end %>
+
+  <% if character.honorific? %>
+    <p>
+      <strong>Honorific:</strong>
+      <%= character.honorific %>
+    </p>
+  <% end %>
+
+  <% if character.ethnicity? %>
+    <p>
+      <strong>Race:</strong>
+      <%= character.ethnicity %>
+    </p>
+  <% end %>
+
+  <% if character.reign? %>
+    <p>
+      <strong>Reign:</strong>
+      <%= character.reign %>
+    </p>
+  <% end %>
+
+  <% if character.age_at_son? %>
+    <p>
+      <strong>Age at Son:</strong>
+      <%= character.age_at_son %>
+    </p>
+  <% end %>
+
+  <% if character.father? %>
+    <p>
+      <strong>Father:</strong>
+      <%= (character.father.nil? ? '' : link_to(character.father_name, polymorphic_path([object, character.father]))) %>
+    </p>
+  <% end %>
+
+  <% if character.mother? %>
+    <p>
+      <strong>Mother:</strong>
+      <%= (character.mother.nil? ? '' : link_to(character.mother_name, polymorphic_path([object, character.mother]))) %>
+    </p>
+  <% end %>
+
+  <% people = character.sex == 0 ? Character.where(father: character.id) : Character.where(mother: character.id) %>
+  <% if people.size > 0 %>
+    <p>
+      <strong>Children:</strong>
+      <ul>
+        <% people.each do |person| %>
+          <li><%= link_to(person.name, polymorphic_path([object, person])) %></li>
+        <% end %>
+      </ul>
+    </p>
+  <% end %>
+
+  <% if character.social_class? %>
+    <p>
+      <strong>Social class:</strong>
+      <%= character.social_class %>
+    </p>
+  <% end %>
+</div>
+      <div class="col-md-4">
+          <% CharacterCategory.all.each do |category| %>
+            <%= render partial: 'character_values/index_list', formats: [:html],
+                       locals: { pdf: pdf, title: category.name, object: object,
+                                 character_values: character.character_values.joins(:character_attribute).order(:name).where('character_category_id = ?', category.id) } %>
+          <% end %>
+        </div>
+      </div>
+      <% if character.background? %>
+        <div class="row">
+          <div class="col-md-8">
+            <p>
+              <strong>Background:</strong>
+              <%= character.background %>
+            </p>
+          </div>
+        </div>
+      <% end %>
+      <% if character.thumbnail? %>
+        <div class="row">
+          <div class="col-md-8">
+            <p>
+              <strong>Thumbnail:</strong>
+              <%= character.thumbnail%>
+            </p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </span>
+<% end %>
+
+<% c.tab 'Scenes' do %>
+  <span>
+    <% unless character.scenes.blank? %>
+      <p>
+        <ul>
+          <% character.scenes.order(:date_string, :abc).each do |scene| %>
+            <% next unless scene.situated.book == @object %>
+            <li>
+              <% if object.class.name == "Scene" %>
+                <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene)) : scene.abc) %>:
+              <% else %>
+                <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene)) : scene.abc) %>:
+              <% end %>
+              <%= (pdf.nil? ? link_to("#{scene.date_string}, #{scene.name}", scene_path(scene, format: :pdf)) : scene.name) %>
+
+            </li>
+          <% end %>
+        </ul>
+      </p>
+    <% end %>
+  </span>
+<% end %>
+<% end %>

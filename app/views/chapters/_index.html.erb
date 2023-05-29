@@ -18,22 +18,22 @@
     <% chapters.includes([:signets]).order(:position).each do |chapter| %>
       <tr>
     <% if chapter.partition.nil? %>
-      <td><%= link_to (fa_icon 'plus'), new_chapter_partition_path(chapter), title: 'Add Partition' %>
+      <td><%= link_to (fa_icon 'plus'), new_chapter_partition_path(chapter), data: { "turbo-frame": "new_object" }, title: 'Add Partition' %>
     <% else %>
-      <td><%= link_to (fa_icon 'edit'), partition_path(chapter.partition), title: 'Edit Partition' %>
+      <td><%= link_to (fa_icon 'edit'), edit_partition_path(chapter.partition), data: { "turbo-frame": "new_object" }, title: 'Edit Partition' %>
     <% end %>
-        <%== (chapter.partition.nil? ? '' : (link_to chapter.partition_name, partition_path(chapter.partition)).to_s) %></td>
+        <%== (chapter.partition.nil? ? '' : (link_to chapter.partition_name, partition_path(chapter.partition), method: :get).to_s) %></td>
       <td>
-        <strong><%= link_to chapter.name, chapter, title: 'Show' %></strong>
+        <strong><%= link_to chapter.name, chapter, method: :get, title: 'Show' %></strong>
     <% if chapter.aside.nil? %>
-      <%= link_to (fa_icon 'plus'), new_chapter_aside_path(chapter), title: 'Add Aside' %>
+      <%= link_to (fa_icon 'plus'), new_chapter_aside_path(chapter), data: { "turbo-frame": "new_object" }, title: 'Add Aside' %>
     <% else %>
         <br>
-        <%= link_to chapter.aside_name, aside_path(chapter.aside), title: chapter.aside_name %>
-        <%= link_to (fa_icon 'edit'), edit_aside_path(chapter.aside), title: 'Edit Aside' %>
+        <%= link_to chapter.aside_name, aside_path(chapter.aside), method: :get, title: chapter.aside_name %>
+        <%= link_to (fa_icon 'edit'), edit_aside_path(chapter.aside), data: { "turbo-frame": "new_object" }, title: 'Edit Aside' %>
     <% end %>
-        <%= link_to (fa_icon 'edit'), edit_chapter_path(chapter), title: 'Edit Chapter' %>
-        <%= link_to (fa_icon 'sticky-note'), chapter_signets_path(chapter_id: chapter.id), class: "#{!chapter.signets.empty? ? Signet.color_class(chapter.signets[0].color) : ''}", title: 'Signets' %></td>
+    <%= link_to (fa_icon 'edit'), edit_chapter_path(chapter), data: { "turbo-frame": "new_object" }, title: 'Edit Chapter' %>
+        <%= link_to (fa_icon 'sticky-note'), chapter_signets_path(chapter_id: chapter.id), method: :get, class: "#{!chapter.signets.empty? ? Signet.color_class(chapter.signets[0].color) : ''}", title: 'Signets' %></td>
         </td>
         <td>
         <td class='text-end'><%= number_with_delimiter chapter.word_count %>

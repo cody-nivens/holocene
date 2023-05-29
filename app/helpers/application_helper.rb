@@ -137,11 +137,11 @@ module ApplicationHelper
   def breadcrumb_link(name, my_link, blank=false)
     if blank
       return tag.li class: 'breadcrumb-item' do
-               link_to name, my_link, target: :_blank
+               link_to name, my_link, method: :get
              end
     else
       return tag.li class: 'breadcrumb-item' do
-               link_to name, my_link
+               link_to name, my_link, method: :get
              end
     end
   end

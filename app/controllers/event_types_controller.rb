@@ -5,6 +5,9 @@ class EventTypesController < ApplicationController
   # GET /event_types.json
   def index
     @event_types = EventType.all.includes([:rich_text_body]).order(:name)
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /event_types/1
@@ -12,6 +15,9 @@ class EventTypesController < ApplicationController
   def show
     @grid = HoloceneEventsGrid.new(hgrid_params) do |scope|
       scope.joins(:event_types).where('event_type_id = ?', @event_type.id.to_s).page(params[:page])
+    end
+    respond_to do |format|
+      format.turbo_stream { }
     end
   end
 
@@ -35,8 +41,10 @@ class EventTypesController < ApplicationController
 
     respond_to do |format|
       if @event_type.save
-        format.html { redirect_to @event_type, notice: 'Event type was successfully created.' }
+        @event_types = EventType.all.includes([:rich_text_body]).order(:name)
+#        format.html { redirect_to @event_type, notice: 'Event type was successfully created.' }
         format.json { render :show, status: :created, location: @event_type }
+        format.turbo_stream { flash.now[:notice] = "Event type was successfully created." }
       else
         format.html { render :new }
         format.json { render json: @event_type.errors, status: :unprocessable_entity }
@@ -49,8 +57,10 @@ class EventTypesController < ApplicationController
   def update
     respond_to do |format|
       if @event_type.update(event_type_params)
-        format.html { redirect_to @event_type, notice: 'Event type was successfully updated.' }
+        @event_types = EventType.all.includes([:rich_text_body]).order(:name)
+#        format.html { redirect_to @event_type, notice: 'Event type was successfully updated.' }
         format.json { render :show, status: :ok, location: @event_type }
+        format.turbo_stream { flash.now[:notice] = "Event type was successfully updated." }
       else
         format.html { render :edit }
         format.json { render json: @event_type.errors, status: :unprocessable_entity }
@@ -62,9 +72,11 @@ class EventTypesController < ApplicationController
   # DELETE /event_types/1.json
   def destroy
     @event_type.destroy
+    @event_types = EventType.all.includes([:rich_text_body]).order(:name)
     respond_to do |format|
-      format.html { redirect_to event_types_url, notice: 'Event type was successfully destroyed.' }
+#      format.html { redirect_to event_types_url, notice: 'Event type was successfully destroyed.' }
       format.json { head :no_content }
+        format.turbo_stream { flash.now[:notice] = "Event type was successfully destroyed." }
     end
   end
 

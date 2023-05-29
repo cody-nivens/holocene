@@ -1,10 +1,6 @@
 <%= turbo_stream.replace "objects" do %>
   <%= content_tag "turbo-frame", class: "block", id: "objects" do %>
-    <%= render partial: "key_points/key_point", locals: { scripted: @scripted, key_point:  @key_point, long: @long } %>
-  <% end %>
-<% end %>
-<%= turbo_stream.replace "new_link" do %>
-  <%= content_tag "turbo-frame", class: "block", id: "new_link", locals: { scripted: @scripted } do %>
+    <%= render partial: "key_points/key_point_item", locals: { scripted: @scripted, key_point:  @key_point, long: @long, link: true } %>
   <% end %>
 <% end %>
 <%= turbo_stream.replace "new_object"  do %>

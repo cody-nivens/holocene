@@ -3,10 +3,11 @@
 <% last_scene = nil %>
 <% pdf ||= nil %>
 <% total_wc = 0 %>
-<% wc_total = scenes.collect{|x| Scene.find(x).word_count }.sum %>
+<% wc_total = scenes.collect{|x| Scene.find(x.id).word_count }.sum %>
 
-<% scenes.each do |scene_id| %>
-  <% scene = Scene.find(scene_id) %>
+<table style="width: 100%"><tbody>
+<% scenes.each do |scene| %>
+  <%# scene = Scene.find(scene_id) %>
   <% case op %>
   <% when 'words' %>
     <% next unless scene.section.nil? or (scene.section.word_count <= high.to_i and scene.section.word_count > low.to_i) %>
@@ -39,12 +40,13 @@
       </tr>
     <% else %>
       <% values = scene.set_values %>
-      <div class='float-left'><%= (scene.section.nil? ? '*' : ' ') -%></div>
+      <tr><td><%= (scene.section.nil? ? '*' : ' ') -%></td>
       <% if print.nil? %>
         <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: pdf, target: :_blank, long: long } %>
       <% else %>
         <%= values.compact.collect(&:name).join('|') -%>
       <% end %>
+      </tr>
     <% end %>
   <% when 'view' %>
     <% if scene.title_scene and scene.situated.title_page? %>
@@ -66,3 +68,5 @@
     <% total_wc += scene.word_count %>
   <% end %>
 <% end %>
+</tbody></table>
+

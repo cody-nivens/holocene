@@ -119,7 +119,7 @@ end
 
   test "should update act TS" do
     patch act_url(@act, format: :turbo_stream), params: { act: { name: @act.name, book_id: @act.book.id } }
-    assert_turbo_stream action: :replace, target: "#{dom_id @act}"
+    assert_turbo_stream action: :replace, target: "objects"
 
     assert_no_turbo_stream action: :update, target: "messages"
     assert_response :success

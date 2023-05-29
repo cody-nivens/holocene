@@ -1,10 +1,9 @@
 <li data-sortable-update-url="<%= key_point_sort_path(key_point) %>">
-<dt><%= link_to key_point.hook, key_point_path(key_point) %></dt>
+<dt><%= link_to key_point.hook, key_point_path(key_point), method: :get %></dt>
 <dd>
  <%= key_point.key_element %>
  PN: <%= (key_point.print_name? ? 'Y' : 'N') %>
  PP: <%= (key_point.print_points? ? 'Y' : 'N') %>
- <%= link_to 'Show', key_point_path(key_point) %>
- <%= link_to 'Edit', edit_key_point_path(key_point) %>
+ <%= link_to 'Edit', edit_key_point_path(key_point), data: { "turbo-frame": "new_object" %>
  <%= link_to 'Destroy', key_point_path(key_point), method: :delete, data: { confirm: 'Are you sure?' } %></dd>
 </li>

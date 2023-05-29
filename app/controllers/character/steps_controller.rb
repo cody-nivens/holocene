@@ -1,9 +1,115 @@
 class Character::StepsController < ApplicationController
-  before_action :set_object, only: %i[show update finish_wizard_path]
+  before_action :set_object, only: %i[ create show update finish_wizard_path ]
 
-  include Wicked::Wizard
+  #include Wicked::Wizard
   # steps *Character.form_steps
-  steps :characteristics, :identity, :attributes
+  #steps :characteristics, :identity, :attributes
+
+  def create
+    @character = Character.new
+    @character.sex = rand(2)
+    @character.user = current_user
+
+    @character.save(validate: false)
+
+    update_character_lists(@object, @character)
+    @cs_path = "/character/#{@object.id}/steps"
+    #redirect_to polymorphic_path([@object, @character, :step], id: Character.form_steps.first)
+    respond_to do |format|
+      format.turbo_stream { render "character/show", locals: { cs_path: @cs_path, wiz_step: :characteristics } }
+    end
+  end
+
+  def show
+    @character = Character.find(params[:character_id])
+    wiz_step = params[:wiz_step].to_sym
+
+    @character.update(character_step_params(wiz_step))
+    update_values
+
+    @cs_path = "/character/#{@object.id}/steps"
+    respond_to do |format|
+      # case params[:id].to_sym
+      case wiz_step
+      when :characteristics
+        # NOTE: it's better to have a default value when params[:date] is empty
+        #       on initial request.
+        #       add links in step :one template with different date params
+        #       when you click them, just let the page render again, there is
+        #       no need to do anything else.
+        @user = current_user
+        set_attributes(:identity)
+        format.turbo_stream { render "character/show", locals: { cs_path: @cs_path, wiz_step: :identity } }
+      when :identity
+        set_attributes(:attributes)
+        format.turbo_stream { render "character/show", locals: { cs_path: @cs_path, wiz_step: :attributes } }
+      when :attributes
+        format.turbo_stream { render "characters/show", locals: { character: @character, object: @object, long: nil } }
+      end
+#      format.html { render_wizard }
+    end
+  end
+
+  def update
+    @character = Character.find(params[:character_id])
+    my_step = step
+    @character.update(character_params(step))
+    update_values
+    set_attributes(my_step)
+
+    @cs_path = "/character/#{@object.id}/steps"
+    respond_to do |format|
+      format.turbo_stream { render "character/show", locals: { cs_path: @cs_path, step: } }
+    end
+  end
+
+  def finish_wizard_path
+    @character = Character.find(params[:character_id])
+    case @object.class.name
+    when 'Book'
+      book_character_path(book_id: @object.id, id: @character.id)
+    when 'Scene'
+      scene_character_path(scene_id: @object.id, id: @character.id)
+    else
+      # when "Story"
+      story_character_path(story_id: @object.id, id: @character.id)
+    end
+  end
+
+  private
+
+  def update_character_lists(object, character)
+    object.characters << character unless object.characters.include?(character)
+    case object.class.name
+    when 'Story'
+      object.book.characters << character unless object.book.characters.include?(character)
+    when 'Scene'
+      unless object.key_point.scripted.book.characters.include?(character)
+        object.key_point.scripted.book.characters << character unless object.key_point.scripted.book.characters.include?(character)
+      end
+      object.key_point.scripted.characters << character unless object.key_point.scripted.characters.include?(character)
+    end
+  end
+
+  def update_values
+    CharacterCategory.all.each do |category|
+      character_values = @character.character_values.joins(:character_attribute).order(:name).where(
+        'character_category_id = ?', category.id
+      )
+      character_attributes = category.character_attributes
+      character_attributes.each do |character_attribute|
+        character_value = character_values.where(character_attribute_id: character_attribute.id)[0]
+        field_name = "#{category.name.underscore}_#{character_attribute.name.underscore}_value".to_sym
+
+        next if attribute_params[field_name].blank?
+
+        update_value = CharacterValue.where({ character_attribute_id: character_attribute.id,
+                                              character_id: @character.id }).first_or_create
+        update_value.value = attribute_params[field_name]
+        update_value.save
+      end
+    end
+  end
 
   def set_attributes(my_step)
     case my_step
@@ -45,63 +151,20 @@ class Character::StepsController < ApplicationController
     end
   end
 
-  def show
-    @character = Character.find(params[:character_id])
-    set_attributes(step)
-
-    render_wizard
-  end
-
-  def update_values
-    CharacterCategory.all.each do |category|
-      character_values = @character.character_values.joins(:character_attribute).order(:name).where(
-        'character_category_id = ?', category.id
-      )
-      character_attributes = category.character_attributes
-      character_attributes.each do |character_attribute|
-        character_value = character_values.where(character_attribute_id: character_attribute.id)[0]
-        field_name = "#{category.name.underscore}_#{character_attribute.name.underscore}_value".to_sym
-
-        next if attribute_params[field_name].blank?
-
-        update_value = CharacterValue.where({ character_attribute_id: character_attribute.id,
-                                              character_id: @character.id }).first_or_create
-        update_value.value = attribute_params[field_name]
-        update_value.save
-      end
-    end
-  end
-
-  def update
-    @character = Character.find(params[:character_id])
-    @character.update(character_params(step))
-    update_values
-    set_attributes(step)
-
-    render_wizard @character
-  end
-
-  def finish_wizard_path
-    @character = Character.find(params[:character_id])
-    case @object.class.name
-    when 'Book'
-      book_character_path(book_id: @object.id, id: @character.id)
-    when 'Scene'
-      scene_character_path(scene_id: @object.id, id: @character.id)
-    else
-      # when "Story"
-      story_character_path(story_id: @object.id, id: @character.id)
-    end
-  end
-
-  private
-
   def set_object
     klass = [Scene, Story, Book].detect { |c| params["#{c.name.underscore}_id"] }
     @object = klass.find(params["#{klass.name.underscore}_id"])
   end
 
-  def character_params(my_step)
+    # Only allow a list of trusted parameters through.
+  def character_params
+    params.require(:character).permit(:name, :reason_for_name, :nickname, :reason_for_nickname, :ethnicity, :occupation_class,
+                                      :social_class, :first_name, :middle_name, :last_name, :suffix, :birth_year, :death_year,
+                                      :age_at_son, :father_id, :honorific, :grouping, :use_honorific_only, :background, :mother_id,
+                                      :sex, :main, :thumbnail)
+  end
+
+  def character_step_params(my_step)
     permitted_attributes = case my_step
                            when :identity
                              %i[first_name middle_name last_name suffix reason_for_name

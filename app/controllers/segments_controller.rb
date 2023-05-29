@@ -5,10 +5,17 @@ class SegmentsController < ApplicationController
   # GET /segments or /segments.json
   def index
     @segments = Segment.where(stage_id: @stage.id).order(:name)
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /segments/1 or /segments/1.json
   def show
+    @segments = Segment.where(stage_id: @stage.id).order(:name)
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /segments/new
@@ -28,8 +35,10 @@ class SegmentsController < ApplicationController
 
     respond_to do |format|
       if @segment.save
-        format.html { redirect_to segment_url(@segment), notice: "Segment was successfully created." }
+        @segments = Segment.where(stage_id: @stage.id).order(:name)
+#        format.html { redirect_to segment_url(@segment), notice: "Segment was successfully created." }
         format.json { render :show, status: :created, location: @segment }
+        format.turbo_stream { flash.now[:notice] = "Segment was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @segment.errors, status: :unprocessable_entity }
@@ -39,10 +48,12 @@ class SegmentsController < ApplicationController
 
   # PATCH/PUT /segments/1 or /segments/1.json
   def update
+    @segments = Segment.where(stage_id: @stage.id).order(:name)
     respond_to do |format|
       if @segment.update(segment_params)
-        format.html { redirect_to segment_url(@segment), notice: "Segment was successfully updated." }
+#        format.html { redirect_to segment_url(@segment), notice: "Segment was successfully updated." }
         format.json { render :show, status: :ok, location: @segment }
+        format.turbo_stream { flash.now[:notice] = "Segment was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @segment.errors, status: :unprocessable_entity }
@@ -52,11 +63,14 @@ class SegmentsController < ApplicationController
 
   # DELETE /segments/1 or /segments/1.json
   def destroy
+    @stage = @segment.stage
     @segment.destroy
 
+    @segments = Segment.where(stage_id: @stage.id).order(:name)
     respond_to do |format|
       format.html { redirect_to stage_segments_url(@stage), notice: "Segment was successfully destroyed." }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:notice] = "Segment was successfully destroyed." }
     end
   end
 

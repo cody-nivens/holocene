@@ -1,0 +1,14 @@
+<%= turbo_stream.replace "objects"  do %>
+  <%= render partial: "footnotes/footnote_item", locals: { footnote: @footnote } %>
+<% end %>
+<%= turbo_stream.replace "edit"  do %>
+  <%= content_tag :div, id: "edit" do %>
+    <%= " " %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "new_object" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "new_object" do %>
+  <% end %>
+<% end %>
+
+<%= render partial: "shared/send_flash" %>

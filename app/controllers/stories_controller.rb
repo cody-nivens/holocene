@@ -12,6 +12,7 @@ class StoriesController < ApplicationController
     @stories = Story.includes([:key_points]).where(book_id: @book.id).order(:position)
     respond_to do |format|
       format.html { render :index, locals: { all: @all, long: @long } }
+      format.turbo_stream { }
     end
   end
 
@@ -182,9 +183,10 @@ class StoriesController < ApplicationController
           $redis.set("book_scenes_#{@story.book.id}", nil)
           $redis.set("story_scenes_#{@story.id}", nil)
         end
+         flash.now[:notice] = "Story was successfully updated."
 #        format.html { redirect_to story_url(@story), notice: 'Story was successfully updated.' }
         format.json { render :show, status: :ok, location: @story }
-        format.turbo_stream { flash.now[:notice] = "Story was successfully updated." }
+        format.turbo_stream { }
       else
         format.html { render :edit, book_id: @book.id }
         format.json { render json: @story.errors, status: :unprocessable_entity }

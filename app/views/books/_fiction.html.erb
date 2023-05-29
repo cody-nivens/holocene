@@ -1,5 +1,4 @@
 <% word_count = scene_count = word_avg = 0 %>
-<turbo-frame id="objects">
 <% if long.kind_of?(TrueClass) or long == "true" %>
   <% z_count = 0 %>
   <% book.stories.each do |story| %>
@@ -15,8 +14,10 @@
 <%= tabs do |c| %>
 
 <% c.tab 'Stories' do %>
+  <turbo-frame id="sub_objects">
   <%= render partial: 'stories/stories', formats: [:html], locals: { stories: stories, book: book, long: long, all: all,
                                                                    word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
+  </turbo-frame>
 <% end %>
 
 <% c.tab 'Summary' do %>
@@ -42,4 +43,3 @@
 <% end %>
 
 <% end %>
-</turbo-frame>

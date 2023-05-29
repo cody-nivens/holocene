@@ -1,9 +1,3 @@
-<table class="table">
-  <tr>
-    <th>Word Count:</th><td><%= number_with_delimiter(section.word_count, delimiter: ',') %></td>
-  </tr>
-</table>
-
 <% @slugs = [] -%>
 <% @footnotes = Footnote.process_body(section, @slugs) -%>
 <% values = section.set_values %>

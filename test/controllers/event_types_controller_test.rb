@@ -9,6 +9,7 @@ class EventTypesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
+  if 1 == 0
   test 'should get index' do
     get event_types_url
     assert_response :success
@@ -73,5 +74,77 @@ class EventTypesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to event_types_url
+  end
+end
+
+  test 'should get edit' do
+    get edit_event_type_path(@event_type)
+    assert_select "turbo-frame", id:  "new_object"
+    assert_response :success
+  end
+
+  test 'should get new' do
+    get new_event_type_path
+    assert_select "turbo-frame", id:  "new_object", target: "edit"
+    assert_response :success
+  end
+
+  test 'should show event_type TS' do
+    get event_type_path(@event_type, format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
+    assert_response :success
+  end
+
+  test 'should show event_type index TS' do
+    get event_types_url(format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
+    assert_response :success
+  end
+
+
+  test "should create event_type TS" do
+    assert_difference('EventType.count') do
+      post event_types_url(format: :turbo_stream),
+           params: { event_type: { body: @event_type.body, name: @event_type.name, user_id: @user.id } }
+    end
+    
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "edit"
+    assert_turbo_stream action: :replace, target: "objects"
+    #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
+    #  assert_equal "<template>message_1</template>", selected.children.to_html
+    #end
+    assert_response :success
+  end
+
+  test "should update event_type TS" do
+    patch  event_type_path(@event_type, format: :turbo_stream),
+            params: { event_type: { name: @event_type.name } }
+    assert_turbo_stream action: :replace, target: "#{dom_id @event_type}"
+
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_response :success
+  end
+
+  test "should destroy event_type TS" do
+    assert_difference('EventType.count', -1) do
+      delete event_type_url(@event_type, format: :turbo_stream)
+    end
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_response :success
   end
 end

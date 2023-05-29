@@ -21,7 +21,7 @@
   <tbody>
   <% @act.stages.each do |stage| %>
     <tr>
-      <td><%= link_to stage.name, stage_path(stage) %></td>
+      <td><%= link_to stage.name, stage_path(stage), method: :get %></td>
       <td><%= stage.segments.size %></td>
       <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_stage_path(stage), title: 'Edit' %>
       <%= link_to (fa_icon 'trash', class: 'fa-fw'), stage, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>

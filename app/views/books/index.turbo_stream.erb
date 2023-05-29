@@ -9,8 +9,10 @@
 <%= turbo_stream.replace "header"  do %>
     <%= render partial: "books/index_header", locals: { book: nil } %>
 <% end %>
-<%= turbo_stream.replace "new_object"  do %>
-  <%= render partial: "books/new_link" %>
+<%= turbo_stream.replace "new_object" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "new_object" do %>
+    <%= render partial: "books/new_link" %>
+  <% end %>
 <% end %>
 <%= turbo_stream.replace "side_controls" do %>
   <%= render partial: 'books/index_sides', locals: { long: @long } %>

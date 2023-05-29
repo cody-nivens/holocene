@@ -4,7 +4,7 @@
   <% else %>
     <td></td><td>
   <% end %>
-    <%= link_to artifact.name, artifact_path(artifact) %></td>
+  <%= link_to artifact.name, artifact_path(artifact), data: { "turbo-frame": "#{dom_id artifact}" }, method: :get %></td>
     <td><%= artifact.character.nil? ? '' : artifact.character.name %></td>
   <td><%= artifact.artifact_type.name %></td>
   <td><%= link_to (fa_icon 'edit'), edit_artifact_path(artifact), title: 'Edit' %>

@@ -1,0 +1,6 @@
+<%= turbo_stream.replace "#{dom_id @footnote}" do %>
+  <%= content_tag "turbo-frame", id: "#{dom_id @footnote}", class: "block" do %>
+    <%= render partial: "footnotes/footnote_item", locals: { footnote:  @footnote } %>
+  <% end %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

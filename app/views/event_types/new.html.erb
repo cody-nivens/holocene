@@ -1,7 +1,6 @@
 <h2>New Event Type</h2>
 
+<turbo-frame id="new_object">
 <%= render 'form', event_type: @event_type, command_label: 'Create Event type' %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(event_types_path), class: 'btn', title: 'Back' %>
-</div>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  event_types_path, method: :get, class: 'btn', title: 'Back' %>
+</turbo-frame>

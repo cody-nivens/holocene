@@ -2,5 +2,5 @@
 
 <turbo-frame id="new_object" target="edit">
   <%= render 'form', scene: @scene, situated: @situated, selector: @selector, key_point: @key_point %>
-  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path((@scene.key_point.nil? ? polymorphic_path(@situated) : polymorphic_path([@situated, @scene.key_point, :list]))), class: 'btn', title: 'Back' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  (@scene.key_point.nil? ? polymorphic_path(@situated) : polymorphic_path([@situated, @scene.key_point, :list])), class: 'btn', title: 'Back' %>
 </turbo-frame>

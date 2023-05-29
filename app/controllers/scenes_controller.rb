@@ -31,8 +31,8 @@ class ScenesController < ApplicationController
 
     @year = params[:year]
     @years = []
-    @scenes = Scene.get_scenes_wi_to_array(@situated)
-    @scenes_wi = @scenes
+    @scenes_wi = Scene.get_scenes_wi_to_array(@situated)
+    @scenes = @scenes_wi.collect{|x| Scene.find(x) }
     unless @scenes.nil?
     if 1 == 0
       @years =  @scenes.sort
@@ -75,8 +75,11 @@ class ScenesController < ApplicationController
     @story = @scene.key_point.scripted
     @scripted = @story
     @key_point = @scene.key_point
+    @option = params[:option]
+    @long = params[:option]
 
     @scenes_wi = Scene.get_scenes_wi_to_array(@situated)
+    @scenes = @scenes_wi.collect{|x| Scene.find(x) }
     #session[:return_to] = request.fullpath
     respond_to do |format|
       format.turbo_stream {}
@@ -154,21 +157,23 @@ class ScenesController < ApplicationController
     @long = false
 
     @scene.book = @key_point.scripted.book
-    @scene.date_string = '%04d' % params['t_years'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i + '-%02d' % params['t']['hour'].to_i + '-%02d' % params['t']['minute'].to_i
+    @scene.date_string = '%04d' % params['t']['years'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i + '-%02d' % params['t']['hour'].to_i + '-%02d' % params['t']['minute'].to_i
 
-    $redis.set("book_scenes_#{@scene.book.id}", nil)
-    $redis.set("story_scenes_#{@situated.id}", nil)
-
-    @scenes_wi = Scene.get_scenes_wi_to_array(@situated)
-    @scenes = @scenes_wi
     @option = params[:option]
     @long = params[:option]
 
+    $redis.set("book_scenes_#{@scene.book.id}", nil)
+    $redis.set("story_scenes_#{@situated.id}", nil)
     respond_to do |format|
       if @scene.save
+
+        @scenes_wi = Scene.get_scenes_wi_to_array(@situated)
+        @scenes = @scenes_wi.collect{|x| Scene.find(x) }
 #        format.html { redirect_to scene_path(@scene), notice: 'Scene was successfully created.' }
         format.json { render :show, status: :created, location: @scene }
-        format.turbo_stream { flash.now[:notice] = "Scene was successfully created." }
+        obj_name = @scripted.class.name.underscore
+        format.turbo_stream { render "key_points/show", locals: { key_point: @key_point } }
+        flash.now[:notice] = "Scene was successfully created."
       else
         format.html { render :new, situated_type: @situated.class.name, situated_id: @situated.id }
         format.json { render json: @scene.errors, status: :unprocessable_entity }
@@ -179,9 +184,12 @@ class ScenesController < ApplicationController
   # PATCH/PUT /scenes/1
   # PATCH/PUT /scenes/1.json
   def update
-    @scene.date_string = '%04d' % params['t_years'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i + '-%02d' % params['t']['hour'].to_i + '-%02d' % params['t']['minute'].to_i
+    @scene.date_string = '%04d' % params['t']['years'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i + '-%02d' % params['t']['hour'].to_i + '-%02d' % params['t']['minute'].to_i
     @situated = @scene.situated
     @scenes_wi = Scene.get_scenes_wi_to_array(@situated)
+    @scenes = @scenes_wi.collect{|x| Scene.find(x) }
+    @option = params[:option]
+    @long = params[:option]
 
     $redis.set("book_scenes_#{@scene.book.id}", nil)
     $redis.set("story_scenes_#{@situated.id}", nil)
@@ -191,7 +199,7 @@ class ScenesController < ApplicationController
         flash.now[:notice] = "Scene was successfully updated."
 #        format.html { redirect_to scene_path(@scene), notice: 'Scene was successfully updated.' }
         format.json { render :show, status: :ok, location: @scene }
-        format.turbo_stream { render 'show' }
+        format.turbo_stream { }
       else
         format.html { render :edit, situated_type: @situated.class.name, situated_id: @situated.id }
         format.json { render json: @scene.errors, status: :unprocessable_entity }
@@ -203,8 +211,6 @@ class ScenesController < ApplicationController
   # DELETE /scenes/1.json
   def destroy
     @situated = @scene.situated
-    $redis.set("book_scenes_#{@scene.book.id}", nil)
-    $redis.set("story_scenes_#{@situated.id}", nil)
     @option = params[:option]
     @long = params[:option]
     @toggle = params[:toggle]
@@ -212,7 +218,11 @@ class ScenesController < ApplicationController
     @year_options = []
 
     @scene.destroy
-    @scenes = Scene.get_scenes_wi_to_array(@situated)
+    $redis.set("book_scenes_#{@scene.book.id}", nil)
+    $redis.set("story_scenes_#{@situated.id}", nil)
+
+    @scenes_wi = Scene.get_scenes_wi_to_array(@situated)
+    @scenes = @scenes_wi.collect{|x| Scene.find(x) }
     respond_to do |format|
 #      format.html { redirect_to polymorphic_url([@situated, :scenes]),  status: :see_other, notice: 'Scene was successfully destroyed.' }
       format.json { head :no_content }

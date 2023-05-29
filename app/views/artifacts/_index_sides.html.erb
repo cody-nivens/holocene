@@ -1,4 +1,4 @@
 <div id="side_controls">
-  <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([@book, :artifact]), class: 'btn', title: "New Author" %>
+  <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([@book, :artifact]), class: 'btn', title: "New Artifact" %>
   <%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(polymorphic_path(@book)), method: :get, class: 'btn', title: 'Back' %>
 </div>

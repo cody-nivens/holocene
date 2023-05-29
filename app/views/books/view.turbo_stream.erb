@@ -7,8 +7,14 @@
 <%= turbo_stream.replace "header"  do %>
   <%= render partial: "books/header" %>
 <% end %>
-<%= turbo_stream.replace "new_object"  do %>
-  <%#= render partial: "stories/new_link" %>
+<%= turbo_stream.replace "new_object" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "new_object" do %>
+    <% if @book.is_fiction? %>
+      <%= render partial: "stories/new_link", locals: { book: @book } %>
+    <% else %>
+      <%= render partial: "chapters/new_link", locals: { book: @book } %>
+    <% end %>
+  <% end %>
 <% end %>
 <%= turbo_stream.replace "side_controls" do %>
   <%= render partial: 'books/side_controls', locals: { book: @book, long: @long } %>

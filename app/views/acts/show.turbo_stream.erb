@@ -5,6 +5,7 @@
 <% end %>
 <%= turbo_stream.replace "new_object" do %>
   <%= content_tag "turbo-frame", class: "block", id: "new_object" do %>
+    <%= render partial: "stages/new_link", locals: { act: @act } %>
   <% end %>
 <% end %>
 <%= turbo_stream.replace "header"  do %>

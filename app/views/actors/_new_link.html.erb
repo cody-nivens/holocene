@@ -1,1 +1,1 @@
-<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_book_actor_path(@book), class: "btn", title: 'New Actor' %>
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_book_actor_path(@book), data: { "turbo-frame": "new_object" }, class: "btn", title: 'New Actor' %>

@@ -117,13 +117,9 @@ end
 
   test "should update actor TS" do
     patch actor_url(@actor, format: :turbo_stream), params: { actor: { name: @actor.name, book_id: @actor.book.id } }
-    label = dom_id @actor
-    assert_turbo_stream action: :replace, target: label do |selected|
-      #assert_equal "<template></template>", selected.children.to_html
-    end
 
+    assert_turbo_stream action: :replace, target: "objects"
     assert_no_turbo_stream action: :update, target: "messages"
-    assert_turbo_stream action: :replace, target: "#{dom_id @actor}"
     assert_response :success
   end
 

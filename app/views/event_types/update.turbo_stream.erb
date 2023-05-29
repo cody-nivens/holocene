@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "#{dom_id @event_type}" do %>
+  <%= render partial: "event_types/event_type_item", locals: { event_type:  @event_type } %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

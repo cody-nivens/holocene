@@ -1,6 +1,6 @@
 <h2>New Act</h2>
 
-<turbo-frame id="objects" taget="edit">
-<%= render 'form', act: @act %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_acts_path(@book), method: :get, class: "btn", title: 'Back' %>
+<turbo-frame id="new_object">
+  <%= render 'form', act: @act %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), book_acts_path(@book), method: :get, class: "btn", title: 'Back' %>
 </turbo-frame>

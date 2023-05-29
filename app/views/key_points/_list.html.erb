@@ -1,13 +1,11 @@
-  <h2>Scenes for "<%= @key_point.name %>" in "<%= @scripted.name %>"</h2>
-<turbo-frame id="objects">
+<h3>List of Free Scenes</h3>
 <%= form_with url: polymorphic_path([@scripted, @key_point, :add]) do |f| %>
 
   <%= f.hidden_field :selector, value: @selector %>
   <%= hidden_field "#{@scripted.class.name.underscore}_id", value: @scripted.id %>
 
-
-<table class="table">
-  <tr>
+  <table class="table">
+    <tr>
       <td style="width:40%">
           <%= select_tag :scenes_ids, options_from_collection_for_select(@key_point.scenes.includes([:rich_text_summary]).where(selector: @selector), :id, :name), prompt: 'Select Scene', multiple: true, size: 20 %>
       </td><td style="width:20%">
@@ -15,8 +13,7 @@
       </td><td style="width:40%">
           <%= select_tag :scenes_avail, options_from_collection_for_select(@scripted.scenes.includes([:rich_text_summary]).where(selector: 0), :id, :name), prompt: 'Select Scene', multiple: true, size: 20 %>
       </td>
-  </tr>
-</table>
-
+    </tr>
+  </table>
 <% end %>
-</turbo-frame>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path([@scripted, :key_points]), method: :get, class: 'btn', title: 'Back' %>

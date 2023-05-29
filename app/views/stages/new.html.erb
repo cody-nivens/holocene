@@ -1,7 +1,6 @@
 <h2>New Stage</h2>
 
+<turbo-frame id="new_object">
 <%= render 'form', stage: @stage %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), act_stages_path(@act), class: "btn", title: 'Back' %>
-</div>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), act_stages_path(@act), method: :get, class: "btn", title: 'Back' %>
+</turbor-frame>

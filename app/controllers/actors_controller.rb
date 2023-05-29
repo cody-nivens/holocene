@@ -54,7 +54,8 @@ class ActorsController < ApplicationController
       if @actor.update(actor_params)
 #        format.html { redirect_to actor_url(@actor), notice: "Actor was successfully updated." }
         format.json { render :show, status: :ok, location: @actor }
-        format.turbo_stream {  flash.now[:notice] = "Actor was successfully updated." }
+        flash.now[:notice] = "Actor was successfully updated."
+        format.turbo_stream { render 'show' }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @actor.errors, status: :unprocessable_entity }

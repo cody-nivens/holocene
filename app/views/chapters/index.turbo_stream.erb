@@ -1,6 +1,6 @@
 <%= turbo_stream.replace "objects"  do %>
   <%= content_tag "turbo-frame", id: "objects" do %>
-    <%= render partial: 'chapters/chapters' %>
+    <%= render partial: 'chapters/chapters', locals: { long: @long } %>
   <% end %>
 <% end %>
 <%= turbo_stream.replace "new_object"  do %>

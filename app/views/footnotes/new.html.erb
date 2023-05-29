@@ -1,6 +1,6 @@
 <h2>New Footnote</h2>
 
-<turbo-frame id="new_object" target="edit">
+<turbo-frame id="new_object">
   <%= render 'form', footnote: @footnote, command_label: 'Create Footnote', noted: @noted %>
-  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  :back, class: 'btn', title: 'Back' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  polymorphic_path(@noted), method: :get, class: 'btn', title: 'Back' %>
 </turbo-frame>

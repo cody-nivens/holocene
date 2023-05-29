@@ -44,7 +44,7 @@ class SectionsController < ApplicationController
       if @section.save
         update_metrics
         @sections = @sectioned.class.name == "Scene" ? Section.where(id: [ @sectioned.section.id ]) : @sectioned.sections.includes([:rich_text_body]).order(:position)
-        format.html { redirect_to polymorphic_path(@sectioned), notice: 'Section was successfully created.' }
+#        format.html { redirect_to polymorphic_path(@sectioned), notice: 'Section was successfully created.' }
         format.json { render :show, status: :created, location: @section }
         format.turbo_stream { flash.now[:notice] = "Section was successfully created." }
       else
@@ -60,10 +60,13 @@ class SectionsController < ApplicationController
     @sectioned = @section.sectioned
     respond_to do |format|
       if @section.update(section_params)
+        @sections = @sectioned.class.name == "Scene" ? Section.where(id: [ @sectioned.section.id ]) : @sectioned.sections.includes([:rich_text_body]).order(:position)
+        flash.now[:notice] = "Section was successfully updated."
         update_metrics
-        format.html { redirect_to polymorphic_path(@sectioned), notice: 'Section was successfully updated.' }
+#        format.html { redirect_to polymorphic_path(@sectioned), notice: 'Section was successfully updated.' }
         format.json { render :show, status: :ok, location: @section }
-        format.turbo_stream { flash.now[:notice] = "Section was successfully updated." }
+        obj_name = @section.sectioned.class.name.underscore
+        format.turbo_stream { render "#{obj_name.pluralize}/show", locals: { "#{obj_name}": @section.sectioned, long: nil } }
       else
         format.html { render :edit }
         format.json { render json: @section.errors, status: :unprocessable_entity }
@@ -78,7 +81,7 @@ class SectionsController < ApplicationController
     @section.destroy
     respond_to do |format|
       @sections = @sectioned.sections.includes([:rich_text_body]).order(:position)
-      format.html { redirect_to polymorphic_url(@sectioned), notice: 'Section was successfully destroyed.' }
+#      format.html { redirect_to polymorphic_url(@sectioned), notice: 'Section was successfully destroyed.' }
       format.json { head :no_content }
       format.turbo_stream { flash.now[:notice] = "Section was successfully destroyed." }
     end

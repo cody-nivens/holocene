@@ -1,0 +1,5 @@
+<turbo-frame id="header">
+  <%= content_tag :h3 do %>
+   Characters for <%= @object.class.name %>: <%= (@object.class.name == 'Scene' && !@object.section.nil? ? link_to(@object.section.name, polymorphic_path(@object)) : link_to(@object.name, polymorphic_path(@object))) %>
+  <% end %>
+</turbo-frame>

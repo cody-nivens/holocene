@@ -1,0 +1,4 @@
+<div id="side_controls">
+  <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([@act, :stage]), class: 'btn', title: "New Stage" %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  act_path(@act), method: :get, class: 'btn', title: 'Back' %>
+</div>

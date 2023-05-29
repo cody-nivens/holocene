@@ -34,5 +34,5 @@
 <% end %>
   </tbody>
 </table>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), :back, class: "btn", title: "Back" %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@sigged), method: :get, class: "btn", title: "Back" %>
 </turbo-frame>

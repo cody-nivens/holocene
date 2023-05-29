@@ -1,0 +1,16 @@
+<p>
+  <strong>Name:</strong>
+  <%= @region.name %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @region.body %>
+</p>
+
+<%= datagrid_form_for @grid, method: :get, url: holocene_events_path %>
+
+<%= paginate(@grid.assets) %>
+<%= datagrid_table @grid %>
+<%= paginate(@grid.assets) %>
+

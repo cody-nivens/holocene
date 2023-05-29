@@ -1,6 +1,5 @@
 <turbo-frame id="<%= dom_id author %>">
   <tr>
-    <td><%= %></td>
     <td><%= link_to author.first_name , polymorphic_path([@object, author]), method: :get, title: 'Show' %></td>
     <td><%= author.last_name %></td>
     <td><%= author.books.size %></td>

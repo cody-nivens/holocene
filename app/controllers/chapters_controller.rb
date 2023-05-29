@@ -119,7 +119,7 @@ class ChaptersController < ApplicationController
 
     respond_to do |format|
       format.html { render :show, locals: { epub: false } }
-      format.turbo_stream { }
+      format.turbo_stream { render 'show', locals: { chapter: @chapter, long: @long } }
     end
   end
 
@@ -161,9 +161,10 @@ class ChaptersController < ApplicationController
     @scripted = @chapter.scripted
     respond_to do |format|
       if @chapter.update(chapter_params)
+        flash.now[:notice] = "Chapter was successfully updated."
         format.html { redirect_to @chapter, notice: 'Chapter was successfully updated.' }
         format.json { render :show, status: :ok, location: @chapter }
-        format.turbo_stream { flash.now[:notice] = "Chapter was successfully updated." }
+        format.turbo_stream { render 'show', locals: { chapter: @chapter, long: @long } }
       else
         format.html { render :edit }
         format.json { render json: @chapter.errors, status: :unprocessable_entity }
@@ -178,9 +179,10 @@ class ChaptersController < ApplicationController
     @chapter.destroy
     @chapters = @scripted.chapters.reload
     @long = false
+    flash.now[:notice] = "Chapter was successfully destroyed."
     respond_to do |format|
       format.html { redirect_to polymorphic_path([@scripted, :chapters]), notice: 'Chapter was successfully destroyed.' }
-      format.turbo_stream { flash.now[:notice] = "Chapter was successfully destroyed." }
+      format.turbo_stream { render 'index', locals: { chapters: @chapters, long: @long } }
       format.json { head :no_content }
     end
   end

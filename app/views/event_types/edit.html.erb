@@ -1,8 +1,8 @@
 <h2>Editing Event Type</h2>
 
-<%= render 'form', event_type: @event_type, command_label: 'Update Event type' %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'search', class: 'fa-fw'), @event_type, class: 'btn', title: 'Show' %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(event_types_path), class: 'btn', title: 'Back' %>
-</div>
+<turbo-frame id="new_object">
+  <turbo-frame id="<%= dom_id @event_type %>">
+    <%= render 'form', event_type: @event_type, command_label: 'Update Event type' %>
+    <%= link_to (fa_icon 'backward', class: 'fa-fw'),  event_types_path, method: :get, class: 'btn', title: 'Back' %>
+  </turbo-frame>
+</turbo-frame>

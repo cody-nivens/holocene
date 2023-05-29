@@ -51,7 +51,8 @@ class LocationsController < ApplicationController
       if @location.update(location_params)
         format.html { redirect_to location_url(@location), notice: "Location was successfully updated." }
         format.json { render :show, status: :ok, location: @location }
-        format.turbo_stream { flash.now[:notice] = "Location was successfully updated." }
+        flash.now[:notice] = "Location was successfully updated."
+        format.turbo_stream { render 'show' }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @location.errors, status: :unprocessable_entity }

@@ -1,10 +1,8 @@
 <h2>Editing Aside</h2>
 
-<turbo-frame id="<%= dom_id @aside %>">
-<%= render 'form', aside: @aside, book: @book, chapter: @chapter %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(chapter_path(@chapter)), class: 'btn', title: 'Back' %>
+<turbo-frame id="new_object">
+  <turbo-frame id="<%= dom_id @aside %>">
+    <%= render 'form', aside: @aside, book: @book, chapter: @chapter %>
+    <%= link_to (fa_icon 'backward', class: 'fa-fw'),  chapter_path(@chapter), method: :get, class: 'btn', title: 'Back' %>
+  </turbo-frame>
 </turbo-frame>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'trash', class: 'fa-fw'), aside_path(@aside), data: { confirm: 'Are you sure?' }, class: 'btn', title: 'Destroy', method: :delete %>
-</div>
