@@ -27,7 +27,7 @@ class CitiesGrid < BaseGrid
   end
 
   column(:name, html: true) do |he|
-    link_to he.name, "/cities/#{he.id}"
+    link_to he.name, city_path(he), method: :get
   end
 
   column(:lat)
@@ -40,9 +40,9 @@ class CitiesGrid < BaseGrid
   column(:population)
 
   column(:action2, header: '', html: true) do |city|
-    link_to (fa_icon 'edit'), edit_city_path(city), title: 'Edit'
+    link_to (fa_icon 'edit'), edit_city_path(city), data: { "turbo-frame": "new_object" }, title: 'Edit'
   end
   column(:action3, header: '', html: true) do |city|
-    link_to (fa_icon 'trash-o'), city, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy'
+    link_to (fa_icon 'trash'), city, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy'
   end
 end

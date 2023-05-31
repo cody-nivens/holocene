@@ -1,0 +1,9 @@
+<p>
+  <strong>Key word:</strong>
+  <%= key_word.key_word %>
+</p>
+
+<p>
+<%= render partial: 'key_words/key_word_item', locals: { book: key_word.book, key_word: key_word } %>
+</p>
+

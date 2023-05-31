@@ -1,0 +1,4 @@
+<div id="side_controls" class="hide-print">
+  <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([@book, :key_word]), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'New Key Word' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), book_path(@book), method: :get, class: 'btn', title: 'Back' %>
+</div>

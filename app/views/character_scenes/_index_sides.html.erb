@@ -1,0 +1,5 @@
+<div id="side_controls">
+  <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([@object, :character_scene]), class: 'btn', title: "New Character_scene" %>
+  <%= link_to (fa_icon 'exchange-alt', class: 'fa-fw'), polymorphic_path([@object, :character_scenes_list]), method: :get, class: 'btn', title: "Add Character_scene" %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(polymorphic_path(@object)), method: :get, class: 'btn', title: 'Back' %>
+</div>

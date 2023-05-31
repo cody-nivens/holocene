@@ -1,5 +1,5 @@
 class StoriesController < ApplicationController
-  before_action :set_story, only: %i[chars stats move moved resync_scenes edit update destroy]
+  before_action :set_story, only: %i[chars report move moved resync_scenes edit update destroy]
   before_action :set_book, only: %i[index new]
 
   # GET /stories
@@ -38,7 +38,26 @@ class StoriesController < ApplicationController
 
   end
 
-  def stats; end
+
+  def report
+    @report = params[:report]
+    @scenes_wi = Scene.get_scenes_to_array(@book)
+    @scenes = @scenes_wi.collect{|x| Scene.find(x) }
+
+    @toggle = params[:toggle]
+    @print = params[:print]
+    @option = params[:option]
+    @long = params[:long]
+
+    case @report
+    when "story/stats"
+      @op = "scenes"
+    end
+
+    respond_to do |format|
+      format.turbo_stream { }
+    end
+  end
 
   def sort
     @story = Story.find(params[:story_id])

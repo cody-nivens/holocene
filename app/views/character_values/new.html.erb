@@ -1,7 +1,6 @@
 <h2>New Character Value</h2>
 
+<turbo-frame id="new_object">
 <%= render 'form', character_value: @character_value, character_category: @character_category, character: @character %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(polymorphic_path([@object, @character, :character_values])), class: 'btn', title: 'Back' %>
-</div>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  polymorphic_path([@object, @character, :character_values]), method: :get, class: 'btn', title: 'Back' %>
+</turbo-frame>

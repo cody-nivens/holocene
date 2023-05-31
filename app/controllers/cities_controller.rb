@@ -1,9 +1,10 @@
 class CitiesController < ApplicationController
   before_action :set_city, only: %i[show edit update destroy]
-  before_action :set_tour, only: %i[index add_city]
+  before_action :set_tour, only: %i[add_city]
 
   # GET /cities or /cities.json
   def index
+    @long = params[:long]
     @command = 'Add City'
 
     if params[:cities_grid].present?
@@ -12,8 +13,12 @@ class CitiesController < ApplicationController
       params[:cities_grid].delete(:tour_id)
     end
 
-    @grid = CitiesGrid.new(grid_params.merge({ tour: @tour }))
+    @grid = CitiesGrid.new(grid_params)
     @pagy, @records = pagy(@grid.assets)
+
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   def itinerary
@@ -25,6 +30,10 @@ class CitiesController < ApplicationController
         he = City.find(he_id)
         @cities << he
       end
+    end
+
+    respond_to do |format|
+      format.turbo_stream { }
     end
   end
 
@@ -60,7 +69,12 @@ class CitiesController < ApplicationController
   end
 
   # GET /cities/1 or /cities/1.json
-  def show; end
+  def show
+
+    respond_to do |format|
+      format.turbo_stream { }
+    end
+  end
 
   # GET /cities/new
   def new
@@ -73,11 +87,16 @@ class CitiesController < ApplicationController
   # POST /cities or /cities.json
   def create
     @city = City.new(city_params)
+    @long = params[:long]
 
     respond_to do |format|
       if @city.save
-        format.html { redirect_to @city, notice: 'City was successfully created.' }
+         @grid = CitiesGrid.new(grid_params)
+         @pagy, @records = pagy(@grid.assets)
+#        format.html { redirect_to @city, notice: 'City was successfully created.' }
         format.json { render :show, status: :created, location: @city }
+        flash.now[:notice] = "City was successfully created."
+        format.turbo_stream { render 'index' }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @city.errors, status: :unprocessable_entity }
@@ -87,10 +106,14 @@ class CitiesController < ApplicationController
 
   # PATCH/PUT /cities/1 or /cities/1.json
   def update
+    @long = params[:long]
+    @grid = CitiesGrid.new(grid_params)
+    @pagy, @records = pagy(@grid.assets)
     respond_to do |format|
       if @city.update(city_params)
-        format.html { redirect_to @city, notice: 'City was successfully updated.' }
+#        format.html { redirect_to @city, notice: 'City was successfully updated.' }
         format.json { render :show, status: :ok, location: @city }
+        format.turbo_stream { flash.now[:notice] = "City was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @city.errors, status: :unprocessable_entity }
@@ -100,10 +123,14 @@ class CitiesController < ApplicationController
 
   # DELETE /cities/1 or /cities/1.json
   def destroy
+    @long = params[:long]
+    @grid = CitiesGrid.new(grid_params)
+    @pagy, @records = pagy(@grid.assets)
     @city.destroy
     respond_to do |format|
-      format.html { redirect_to cities_url, notice: 'City was successfully destroyed.' }
+#      format.html { redirect_to cities_url, notice: 'City was successfully destroyed.' }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:notice] = "City was successfully destroyed." }
     end
   end
 

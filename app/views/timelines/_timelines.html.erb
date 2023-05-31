@@ -1,0 +1,23 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Events</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @timelines.each do |timeline| %>
+      <tr>
+        <td><%= timeline.name %></td>
+        <td><%= timeline.holocene_events.size %></td>
+        <td><%= timeline.description %></td>
+        <td><%= link_to (fa_icon 'search-plus'), timeline, title: 'Show' %></td>
+        <td><%= link_to (fa_icon 'edit'), edit_timeline_path(timeline), title: 'Edit' %></td>
+        <td><%= link_to (fa_icon 'trash'), timeline, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

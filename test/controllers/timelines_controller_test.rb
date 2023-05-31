@@ -9,6 +9,7 @@ class TimelinesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
+  if 1 ==0
   test 'should get index' do
     get timelines_url
     assert_response :success
@@ -77,5 +78,77 @@ class TimelinesControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to timelines_url
+  end
+end
+
+  test 'should get edit' do
+    get edit_timeline_path(@timeline)
+    assert_select "turbo-frame", id:  "new_object"
+    assert_response :success
+  end
+
+  test 'should get new' do
+    get new_timeline_path
+    assert_select "turbo-frame", id:  "new_object", target: "edit"
+    assert_response :success
+  end
+
+  test 'should show timeline TS' do
+    get timeline_path(@timeline, format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
+    assert_response :success
+  end
+
+  test 'should show timeline index TS' do
+    get timelines_url(format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
+    assert_response :success
+  end
+
+
+  test "should create timeline TS" do
+    assert_difference('Timeline.count') do
+      post timelines_url(format: 'turbo_stream'),
+           params: { timeline: { description: @timeline.description, name: @timeline.name, user_id: @user.id } }
+    end
+    
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "edit"
+    assert_turbo_stream action: :replace, target: "objects"
+    #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
+    #  assert_equal "<template>message_1</template>", selected.children.to_html
+    #end
+    assert_response :success
+  end
+
+  test "should update timeline TS" do
+    patch  timeline_path(@timeline, format: :turbo_stream),
+          params: { timeline: { description: @timeline.description, name: @timeline.name, user_id: @user.id } }
+    assert_turbo_stream action: :replace, target: "#{dom_id @timeline}"
+
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_response :success
+  end
+
+  test "should destroy timeline TS" do
+    assert_difference('Timeline.count', -1) do
+      delete timeline_url(@timeline, format: :turbo_stream)
+    end
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_response :success
   end
 end

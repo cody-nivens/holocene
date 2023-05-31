@@ -1,4 +1,3 @@
-<% @title = 'Progress' %>
 <% items = [@today_mod, @today_create, @yesterday_mod, @yesterday_create, @last_fortnight_mod, @last_fortnight_create] %>
 <% titles = ["Today's Modifications", "Today's Creations", "Yesterday's Modifications", "Yesterday's Creations", "Fortnight's Modifications", "Fortnight's Creations"] %>
 <% data = [{ name: 'Added', data: @dates_counts.collect { |key, x| [key.to_date, x[1]] } }, { name: 'Created', data: @dates_counts.collect { |key, x| [key.to_date, x[0]] } }] %>

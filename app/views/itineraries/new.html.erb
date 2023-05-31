@@ -1,7 +1,6 @@
 <h2>New Itinerary</h2>
 
-<%= render 'form', itinerary: @itinerary, cities: @cities %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(tour_path(@tour)), class: 'btn', title: 'Back' %>
-</div>
+<turbo-frame id="new_object">
+  <%= render 'form', itinerary: @itinerary, cities: @cities %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  tour_path(@tour), method: :get, class: 'btn', title: 'Back' %>
+</turbo-frame>

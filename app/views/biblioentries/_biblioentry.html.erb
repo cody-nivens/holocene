@@ -1,0 +1,34 @@
+<p>
+  <strong>Name:</strong>
+  <%= @biblioentry.name %>
+</p>
+
+<p>
+  <strong>Xreflabel:</strong>
+  <%= @biblioentry.xreflabel %>
+</p>
+
+<p>
+  <strong>Authors:</strong>
+  <% @biblioentry.authors.each do |author| -%>
+      <%= "#{author.first_name} #{author.last_name}" %>
+  <% end -%>
+</p>
+
+<p>
+  <strong>Copyright year:</strong>
+  <%= @biblioentry.copyright_year %>
+
+  <strong>Holder:</strong>
+  <%= @biblioentry.copyright_holder %>
+</p>
+
+<% unless @biblioentry.publisher.empty? -%>
+<p>
+  <strong>Publisher:</strong>
+  <%= @biblioentry.publisher %>
+</p>
+<% end -%>
+
+<%= render 'footnotes/footnotes', footnotes: @biblioentry.footnotes, noted: @biblioentry %>
+

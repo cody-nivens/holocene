@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "objects"  do %>
+  <%= render partial: "character_attributes/character_attributes", locals: { character_category: @character_category } %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

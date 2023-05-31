@@ -5,6 +5,10 @@ class ToursController < ApplicationController
   # GET /tours or /tours.json
   def index
     @tours = Tour.where(story_id: @story.id)
+
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /tours/1 or /tours/1.json
@@ -16,11 +20,19 @@ class ToursController < ApplicationController
       scope.joins(:city).where('itineraries.tour_id = ?', @tour.id)
     end
     @pagy, @records = pagy(@grid.assets)
+
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   def geo_map
     @object = @tour
     @story = @tour.story
+
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /tours/new
@@ -41,8 +53,10 @@ class ToursController < ApplicationController
 
     respond_to do |format|
       if @tour.save
-        format.html { redirect_to tour_path(@tour), notice: 'Tour was successfully created.' }
+         @tours = Tour.where(story_id: @story.id)
+#        format.html { redirect_to tour_path(@tour), notice: 'Tour was successfully created.' }
         format.json { render :show, status: :created, location: @tour }
+        format.turbo_stream { flash.now[:notice] = "Tour was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @tour.errors, status: :unprocessable_entity }
@@ -53,10 +67,12 @@ class ToursController < ApplicationController
   # PATCH/PUT /tours/1 or /tours/1.json
   def update
     @story = @tour.story
+    @tours = Tour.where(story_id: @story.id)
     respond_to do |format|
       if @tour.update(tour_params)
-        format.html { redirect_to tour_path(@tour), notice: 'Tour was successfully updated.' }
+#        format.html { redirect_to tour_path(@tour), notice: 'Tour was successfully updated.' }
         format.json { render :show, status: :ok, location: @tour }
+        format.turbo_stream { flash.now[:notice] = "Tour was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @tour.errors, status: :unprocessable_entity }
@@ -68,9 +84,11 @@ class ToursController < ApplicationController
   def destroy
     @story = @tour.story
     @tour.destroy
+    @tours = Tour.where(story_id: @story.id)
     respond_to do |format|
       format.html { redirect_to story_tours_url(@story), notice: 'Tour was successfully destroyed.' }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:notice] = "Tour was successfully destroyed." }
     end
   end
 

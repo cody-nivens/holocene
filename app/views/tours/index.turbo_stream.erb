@@ -1,0 +1,27 @@
+<%= turbo_stream.replace "objects"  do %>
+  <%= content_tag "turbo-frame", id: "objects" do %>
+    <%= render partial: 'tours/tours', locals: { tours: @tours } %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "new_object"  do %>
+  <%= content_tag "turbo-frame", id: "new_object" do %>
+    <%= render partial: 'tours/new_link' %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "edit"  do %>
+  <%= content_tag :div, id: "edit" do %>
+    <%= " " %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "header"  do %>
+    <%= render partial: "tours/index_header" %>
+<% end %>
+<%= turbo_stream.replace "side_controls" do %>
+  <%= render partial: 'tours/index_sides', locals: { long: @long } %>
+<% end %>
+<%= turbo_stream.replace "nav-bar" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "nav-bar" do %>
+    <%= render partial: "application/header" %>
+  <% end %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

@@ -1,0 +1,7 @@
+<div id="side_controls" class="hide-print">
+  <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_tour_path(@tour), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'Edit' %>
+  <%= link_to (fa_icon 'list', class: 'fa-fw'), tour_itineraries_path(@tour), method: :get, class: 'btn', title: 'Itinerary' %>
+  <%= link_to (fa_icon 'map', class: 'fa-fw'), geo_map_tour_path(@tour), method: :get, class: 'btn', title: 'Map' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), story_tours_path(@story), method: :get, class: 'btn', title: 'Back' %>
+</div>
+

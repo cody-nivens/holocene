@@ -2,7 +2,7 @@
 
 <turbo-frame id="new_object">
   <turbo-frame id="<%= dom_id @event_type %>">
-    <%= render 'form', event_type: @event_type, command_label: 'Update Event type' %>
+    <%= render 'form', event_type: @event_type, command_label: 'Update Event Type' %>
     <%= link_to (fa_icon 'backward', class: 'fa-fw'),  event_types_path, method: :get, class: 'btn', title: 'Back' %>
   </turbo-frame>
 </turbo-frame>

@@ -2,6 +2,7 @@
 <% inserted_scenes = [] %>
 <% last_scene = nil %>
 <% pdf ||= nil %>
+<% long ||= nil %>
 <% total_wc = 0 %>
 <% wc_total = scenes.collect{|x| Scene.find(x.id).word_count }.sum %>
 

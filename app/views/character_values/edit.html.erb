@@ -1,8 +1,6 @@
 <h2>Editing Character Value</h2>
 
-<%= render 'form', character_value: @character_value, character_category: @character_category, character: @character %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'search', class: 'fa-fw'), book_character_character_value_path(@object, @character, @character_value), class: 'btn', title: 'Show' %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(polymorphic_path([@object, @character, :character_values])), class: 'btn', title: 'Back' %>
-</div>
+<turbo-frame id="<%= dom_id @character_value %>">
+  <%= render 'form', character_value: @character_value, character_category: @character_category, character: @character %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),   return_or_default_path(polymorphic_path([@object, @character, :character_values])), method: :get, class: 'btn', title: 'Back' %>
+</turbo-frame>

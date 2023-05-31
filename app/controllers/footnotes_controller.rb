@@ -89,6 +89,8 @@ class FootnotesController < ApplicationController
   def destroy
     @noted = @footnote.noted
     @footnote.destroy
+    @footnotes = @noted.footnotes
+
     respond_to do |format|
 #      format.html do
 #        redirect_to "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnotes",

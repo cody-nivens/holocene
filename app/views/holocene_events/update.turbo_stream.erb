@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "#{dom_id @holocene_event}" do %>
+  <%= render partial: "holocene_events/holocene_event", locals: { holocene_event:  @holocene_event } %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

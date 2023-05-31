@@ -1,0 +1,11 @@
+<turbo-frame id="objects">
+<table class="table">
+  <tbody>
+    <% @plot_points.each do |plot_point| %>
+      <turbo-frame id="<%= dom_id plot_point %>">
+      <%= render partial: 'plot_points/plot_point_item', locals: { plot_point: plot_point } %>
+      </turbo-frame>
+    <% end %>
+  </tbody>
+</table>
+</turbo-frame>

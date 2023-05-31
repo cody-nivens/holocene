@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "#{dom_id @plot_point}" do %>
+  <%= render partial: "plot_points/plot_point_item", locals: { plot_point:  @plot_point } %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

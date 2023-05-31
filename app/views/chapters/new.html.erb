@@ -2,5 +2,5 @@
 
 <turbo-frame id="new_object" target="edit">
   <%= render 'form', scripted: @scripted, chapter: @chapter, command_label: 'Create Chapter' %>
-  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  polymorphic_path(@scripted), method: :get, class: 'btn', title: 'Back' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(polymorphic_path(@scripted)), method: :get, class: 'btn', title: 'Back' %>
 </turbo-frame>

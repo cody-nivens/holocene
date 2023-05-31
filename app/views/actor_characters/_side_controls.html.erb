@@ -1,0 +1,4 @@
+<div id="side_controls" class="hide-print">
+  <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_actor_character_path(@actor_character), data: { "turbo-frame": "new_object" }, class: "btn", title: 'Edit' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), actor_actor_characters_path(@actor), method: :get, class: "btn", title: 'Back' %>
+</div>

@@ -1,0 +1,5 @@
+<div id="side_controls" class="hide-print">
+  <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_key_word_path(@key_word), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'Edit' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), book_key_words_path(book_id: @book.id), method: :get, class: 'btn', title: 'Back' %>
+</div>
+

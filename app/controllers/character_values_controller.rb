@@ -8,12 +8,18 @@ class CharacterValuesController < ApplicationController
   # GET /character_values.json
   def index
     @character_values = CharacterValue.where(character_id: @character.id)
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /character_values/1
   # GET /character_values/1.json
   def show
     @character = @character_value.character
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /character_values/new
@@ -37,11 +43,13 @@ class CharacterValuesController < ApplicationController
 
     respond_to do |format|
       if @character_value.save
-        format.html do
-          redirect_to polymorphic_path([@object, @character, :character_values]),
-                      notice: 'Character value was successfully created.'
-        end
+        @character_values = CharacterValue.where(character_id: @character.id)
+#        format.html do
+#          redirect_to polymorphic_path([@object, @character, :character_values]),
+#                      notice: 'Character value was successfully created.'
+#        end
         format.json { render :show, status: :created, location: @character_value }
+        format.turbo_stream { flash.now[:notice] = "Character Value was successfully created." }
       else
         @character_category = CharacterCategory.first
         format.html { render :new, character_id: @character.id }
@@ -56,11 +64,12 @@ class CharacterValuesController < ApplicationController
     @character = @character_value.character
     respond_to do |format|
       if @character_value.update(character_value_params)
-        format.html do
-          redirect_to polymorphic_path([@object, @character, :character_values]),
-                      notice: 'Character value was successfully updated.'
-        end
+#        format.html do
+#          redirect_to polymorphic_path([@object, @character, :character_values]),
+#                      notice: 'Character value was successfully updated.'
+#        end
         format.json { render :show, status: :ok, location: @character_value }
+        format.turbo_stream { flash.now[:notice] = "Character Value was successfully updated." }
       else
         @character_category = CharacterCategory.first
         format.html { render :edit, character_id: @character.id }
@@ -74,12 +83,14 @@ class CharacterValuesController < ApplicationController
   def destroy
     @character = @character_value.character
     @character_value.destroy
+    @character_values = CharacterValue.where(character_id: @character.id)
     respond_to do |format|
       format.html do
         redirect_to polymorphic_url([@object, @character, :character_values]),
                     notice: 'Character value was successfully destroyed.'
       end
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:notice] = "Character Value was successfully destroyed." }
     end
   end
 

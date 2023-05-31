@@ -44,7 +44,7 @@ class CharacterCategoriesController < ApplicationController
         @character_categories = CharacterCategory.order(:position)
 #        format.html { redirect_to @character_category, notice: 'Character category was successfully created.' }
         format.json { render :show, status: :created, character_category: @character_category }
-        format.turbo_stream { flash.now[:notice] = "Character category was successfully created." }
+        format.turbo_stream { flash.now[:notice] = "Character Category was successfully created." }
       else
         format.html { render :new }
         format.json { render json: @character_category.errors, status: :unprocessable_entity }
@@ -60,7 +60,7 @@ class CharacterCategoriesController < ApplicationController
       if @character_category.update(character_category_params)
 #        format.html { redirect_to @character_category, notice: 'Character category was successfully updated.' }
         format.json { render :show, status: :ok, character_category: @character_category }
-        format.turbo_stream { flash.now[:notice] = "Character category was successfully updated." }
+        format.turbo_stream { flash.now[:notice] = "Character Category was successfully updated." }
       else
         format.html { render :edit }
         format.json { render json: @character_category.errors, status: :unprocessable_entity }
@@ -78,7 +78,7 @@ class CharacterCategoriesController < ApplicationController
     respond_to do |format|
 #      format.html { redirect_to character_categories_url, notice: 'Character category was successfully destroyed.' }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Character category was successfully destroyed." }
+      format.turbo_stream { flash.now[:notice] = "Character Category was successfully destroyed." }
     end
   end
 

@@ -1,0 +1,18 @@
+<p>
+  <strong>Name:</strong>
+  <%= @tour.name %>
+</p>
+
+<p>
+  <strong>Story:</strong>
+  <%= @tour.story.name %>
+</p>
+
+<%= link_to 'Add City', url_for(controller: 'cities', action: 'add_city',
+                                "#{@tour.class.name.underscore}_id".to_sym => @tour.id), class: 'btn btn-secondary' %>
+
+<%= datagrid_form_for @grid, method: :get, url: tour_itineraries_path(@tour), partials: 'itinerary_grid' %>
+<%== pagy_info(@pagy) %>
+<%= datagrid_table @grid, @records, partials: 'itinerary_grid' %>
+<%== pagy_nav(@pagy) %>
+

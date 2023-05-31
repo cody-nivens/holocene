@@ -1,0 +1,6 @@
+<turbo-frame id="objects">
+<%= datagrid_form_for @grid, method: :get, url: cities_path, partials: 'city_grid' %>
+<%== pagy_info(@pagy) %>
+<%= datagrid_table @grid, @records, partials: 'city_grid' %>
+<%== pagy_nav(@pagy) %>
+</turbo-frame>

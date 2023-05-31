@@ -1,0 +1,5 @@
+<div id="side_controls" class="hide-print">
+  <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_city_path(@city), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'Edit' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), cities_path, method: :get, class: 'btn', title: 'Back' %>
+</div>
+

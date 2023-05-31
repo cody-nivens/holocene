@@ -44,7 +44,7 @@ class Character < ApplicationRecord
   attr_accessor :form_step
 
   # validates :ethnicity, :birth_year, :death_year, presence: true, if: -> { required_for_step?(:characteristics) }
-  validates :first_name, presence: true, if: -> { required_for_step?(:identity) }
+  # validates :first_name, presence: true, if: -> { required_for_step?(:identity) }
   # validates :occupation_class,:social_class,  presence: true, if: -> { required_for_step?(:attributes) }
 
   def published_scenes(book)
@@ -123,7 +123,9 @@ class Character < ApplicationRecord
 
   def required_for_step?(my_step)
     return true if form_step.nil?
+    return true if form_steps.index(form_step.to_s).nil?
     return true if form_steps.index(my_step.to_s) <= form_steps.index(form_step.to_s)
+    return true
   end
 
   def name

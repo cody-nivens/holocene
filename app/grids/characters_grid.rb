@@ -104,18 +104,20 @@ class CharactersGrid < BaseGrid
     )[0].id)
     character_values[0].value unless character_values.empty?
   end
+
   column(:ethnicity, order: 'ethnicity asc, last_name asc, first_name asc',
                      order_desc: 'ethnicity desc, last_name desc, first_name desc')
+
   column(:char_scenes, header: 'Role', if: ->(grid) { grid.object.class.name == 'Scene' }, html: true) do |character|
    character_scene = CharacterScene.where(character_id: character.id, scene_id: @object.id)
    link_to (fa_icon 'plus'), character_scene[0].nil? ? edit_character_scene_path(character.id, nil) : edit_character_scene_path(character_scene[0]), 
      data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{character_scene[0].nil? ? "Edit Character Scene" : character_scene[0].summary.to_plain_text}" }
   end
   column(:action2, header: '', html: true) do |character|
-    link_to (fa_icon 'edit'), polymorphic_path([:edit,@object,character]), title: 'Edit'
+    link_to (fa_icon 'edit'), polymorphic_path([:edit,@object,character]), data: { "turbo-frame": "new_object" }, title: 'Edit'
   end
   column(:action3, header: '', html: true) do |character|
     link_to (fa_icon 'trash'), polymorphic_path([@object, character]), method: :delete,
-                                                                         data: { confirm: 'Are you sure?' }, title: 'Destroy'
+                                                                         data: { confirm: 'Are you sure?' }, title: 'Destroy' 
   end
 end

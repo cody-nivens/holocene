@@ -1,7 +1,6 @@
 <h2>New Character Attribute</h2>
 
+<turbo-frame id="new_object">
 <%= render 'form', character_attribute: @character_attribute, character_category: @character_category %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(character_category_path(@character_category)), class: 'btn', title: 'Back' %>
-</div>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  character_category_path(@character_category), method: :get, class: 'btn', title: 'Back' %>
+</turbo-frame>

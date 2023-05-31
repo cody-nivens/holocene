@@ -1,8 +1,6 @@
 <h2>Editing Actor Character</h2>
 
+<turbo-frame id="<%= dom_id @actor_character %>">
 <%= render 'form', actor_character: @actor_character %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'search', class: 'fa-fw'), @actor_character, class: "btn", title: 'Show' %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), actor_actor_characters_path(@actor), class: "btn", title: 'Back' %>
-</div>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), actor_actor_characters_path(@actor), method: :get, class: "btn", title: 'Back' %>
+</turbo-frame>

@@ -8,7 +8,7 @@
         <div><%= link_to key_word.key_word, key_word_path(key_word) %>
         <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_key_word_path(key_word), title: 'Edit' %>
           <%= link_to (fa_icon 'trash', class: 'fa-fw'), key_word_path(key_word), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete' %>
-          <%= render partial: 'key_words/key_words', locals: { book: @book, key_word: key_word } %></div>
+          <%= render partial: 'key_words/key_words_item, locals: { book: @book, key_word: key_word } %></div>
       </span>
     <% end %>
   <% end %>

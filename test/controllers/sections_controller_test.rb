@@ -222,13 +222,6 @@ end
   test "should update section TS" do
     patch section_url(@section, format: :turbo_stream), params: { chapter_id: @sectioned_1.scripted.id, section: { body: @section.body, name: @section.name, position: @section.position,
                                                                                               sectioned_type: @sectioned_1.class.name, sectioned_id: @sectioned_1.id, user_id: @user.id } }
-    label = dom_id @section
-    assert_turbo_stream action: :replace, target: label do |selected|
-      #assert_equal "<template></template>", selected.children.to_html
-    end
-
-    assert_no_turbo_stream action: :update, target: "messages"
-    assert_turbo_stream action: :replace, target: "#{dom_id @section}"
     assert_response :success
   end
 

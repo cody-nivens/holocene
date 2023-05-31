@@ -31,6 +31,7 @@ class HoloceneEvent < ApplicationRecord
   delegate :name, to: :region, prefix: true
 
   validates :name, presence: true
+  validates :start_year, presence: true
 
   def title
     "#{start_year} #{name}"

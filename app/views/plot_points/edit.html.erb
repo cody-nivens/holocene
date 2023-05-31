@@ -1,8 +1,8 @@
 <h2>Editing Plot Point</h2>
 
-<%= render 'form', plot_point: @plot_point, book: @book %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'search', class: 'fa-fw'), @plot_point, class: 'btn', title: 'Show' %> 
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_plot_points_path(@book), class: 'btn', title: 'Back' %>
-</div>
+<turbo-frame id="new_object">
+  <turbo-frame id="<%= dom_id @plot_point %>">
+    <%= render 'form', plot_point: @plot_point, book: @book %>
+    <%= link_to (fa_icon 'backward', class: 'fa-fw'), return_or_default_path(book_plot_points_path(@book)), method: :get, class: 'btn', title: 'Back' %>
+  </turbo-frame>
+</turbo-frame>

@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book,
-                only: %i[chars_import import_chars publish view show chars stats timeline resync_stories toc epub export pdf edit update destroy]
+                only: %i[chars_import import_chars publish view show chars report timeline resync_stories toc epub export pdf edit update destroy]
 
   before_action :set_return, only: %i[show view index]
 
@@ -15,7 +15,30 @@ class BooksController < ApplicationController
     end
   end
 
-  def stats; end
+  def report
+    @report = params[:report]
+    @report_path = @report.gsub(/\//,'_')
+    @scenes_wi = Scene.get_scenes_to_array(@book)
+    @scenes = @scenes_wi.collect{|x| Scene.find(x) }
+
+    @toggle = params[:toggle]
+    @print = params[:print]
+    @option = params[:option]
+    @long = params[:long]
+
+    case @report
+    when "books/stats"
+      @op = "scenes"
+    when "books/scenes"
+      @scenes_wi = Scene.get_scenes_wi_to_array(@book)
+      @scenes = @scenes_wi.collect{|x| Scene.find(x) }
+      @op = "scenes"
+    end
+
+    respond_to do |format|
+      format.turbo_stream { }
+    end
+  end
 
   def publish
     @stories = @book.stories.order(:position)

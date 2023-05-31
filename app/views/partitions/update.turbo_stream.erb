@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "#{dom_id @partition}" do %>
+  <%= render partial: "partitions/partition_item", locals: { partition:  @partition } %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

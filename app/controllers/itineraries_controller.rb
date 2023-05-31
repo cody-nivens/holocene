@@ -14,11 +14,17 @@ class ItinerariesController < ApplicationController
       scope.where('itineraries.tour_id = ?', @tour.id)
     end
     @pagy, @records = pagy(@grid.assets)
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /itineraries/1 or /itineraries/1.json
   def show
     @tour = @itinerary.tour
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /itineraries/new
@@ -39,10 +45,16 @@ class ItinerariesController < ApplicationController
     @itinerary = Itinerary.new(itinerary_params)
     @tour = @itinerary.tour
 
+    @grid = ItinerariesGrid.new(itinerary_grid_params) do |scope|
+      scope.where('itineraries.tour_id = ?', @tour.id)
+    end
+    @pagy, @records = pagy(@grid.assets)
+
     respond_to do |format|
       if @itinerary.save
-        format.html { redirect_to itinerary_path(@itinerary), notice: 'Itinerary was successfully created.' }
+#        format.html { redirect_to itinerary_path(@itinerary), notice: 'Itinerary was successfully created.' }
         format.json { render :show, status: :created, location: @itinerary }
+        format.turbo_stream { flash.now[:notice] = "Itinerary was successfully created." }
       else
         format.html do
           @cities = City.all.order(:name)
@@ -58,8 +70,9 @@ class ItinerariesController < ApplicationController
     @tour = @itinerary.tour
     respond_to do |format|
       if @itinerary.update(itinerary_params)
-        format.html { redirect_to itinerary_path(@itinerary), notice: 'Itinerary was successfully updated.' }
+#        format.html { redirect_to itinerary_path(@itinerary), notice: 'Itinerary was successfully updated.' }
         format.json { render :show, status: :ok, location: @itinerary }
+        format.turbo_stream { flash.now[:notice] = "Itinerary was successfully updated." }
       else
         format.html do
           @cities = City.all.order(:name)
@@ -74,9 +87,15 @@ class ItinerariesController < ApplicationController
   def destroy
     @tour = @itinerary.tour
     @itinerary.destroy
+
+    @grid = ItinerariesGrid.new(itinerary_grid_params) do |scope|
+      scope.where('itineraries.tour_id = ?', @tour.id)
+    end
+    @pagy, @records = pagy(@grid.assets)
     respond_to do |format|
-      format.html { redirect_to tour_itineraries_url(@tour), notice: 'Itinerary was successfully destroyed.' }
+#      format.html { redirect_to tour_itineraries_url(@tour), notice: 'Itinerary was successfully destroyed.' }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:notice] = "Itinerary was successfully destroyed." }
     end
   end
 

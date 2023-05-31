@@ -1,5 +1,8 @@
 class WelcomeController < ApplicationController
   def index
+  end
+
+  def progress
     session[:return_to] = request.fullpath
     @title = "Progress"
     @start_date       = params[:start_date]
@@ -38,6 +41,11 @@ class WelcomeController < ApplicationController
         end
       end
     end
+    report = "welcome/progress"
+    report_path = report.gsub(/\//,'_')
+    respond_to do |format|
+      format.turbo_stream { render 'report', locals: { report: report, report_path: report_path } }
+    end
   end
 
   def history
@@ -67,6 +75,11 @@ class WelcomeController < ApplicationController
         end
       end
     end
+    report = "welcome/history"
+    report_path = report.gsub(/\//,'_')
+    respond_to do |format|
+      format.turbo_stream { render 'report', locals: { report: report, report_path: report_path } }
+    end
   end
 
   def show
@@ -95,13 +108,26 @@ class WelcomeController < ApplicationController
         end
       end
     end
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   def stats
     @title = "Stats"
+    report = "welcome/stats"
+    report_path = report.gsub(/\//,'_')
+    respond_to do |format|
+      format.turbo_stream { render 'report', locals: { report: report, report_path: report_path } }
+    end
   end
 
   def tags
     @title = "Tags"
+    report = "welcome/tags"
+    report_path = report.gsub(/\//,'_')
+    respond_to do |format|
+      format.turbo_stream { render 'report', locals: { report: report, report_path: report_path } }
+    end
   end
 end

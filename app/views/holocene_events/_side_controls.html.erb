@@ -1,0 +1,7 @@
+<div id="side_controls" class="hide-print">
+  <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_holocene_event_path(holocene_event), data: { "turbo-frame": "#{dom_id holocene_event}" }, class: 'btn', title: 'Edit' %>
+  <%= link_to (fa_icon 'map', class: 'fa-fw'), geo_map_holocene_event_path(holocene_event), method: :get, class: 'btn', title: 'Map' %>
+  <%= link_to (fa_icon 'asterisk', class: 'fa-fw'), holocene_event_footnotes_path(holocene_event), method: :get, class: 'btn', title: 'Footnotes' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), holocene_events_path, method: :get, class: 'btn', title: 'Back' %>
+</div>
+

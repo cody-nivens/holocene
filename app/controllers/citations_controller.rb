@@ -3,7 +3,7 @@ class CitationsController < ApplicationController
 
   # GET /citations
   # GET /citations.json
-  def index
+  def do_index
     @citation = Footnote.new
     @citations = @chapter.citations.includes(:biblioentry).order('biblioentries.name')
     @biblioentries = @citations.collect { |x| x.biblioentry }.sort.uniq
@@ -13,6 +13,13 @@ class CitationsController < ApplicationController
       unless @all_citations.include?(citation.biblioentry) || @biblioentries.include?(citation.biblioentry)
         @all_citations << citation.biblioentry
       end
+    end
+  end
+
+  def index
+    do_index
+    respond_to do |format|
+      format.turbo_stream { }
     end
   end
 
@@ -39,6 +46,11 @@ class CitationsController < ApplicationController
         redirect_to chapter_citations_url(chapter_id: @chapter.id), notice: 'Citations were successfully updated.'
       end
       format.json { render :show, status: :ok, location: @citation }
+      flash.now[:notice] = "Citation was successfully updated."
+      format.turbo_stream do
+        do_index
+        render 'index'
+      end
     end
   end
 

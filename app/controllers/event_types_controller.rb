@@ -44,7 +44,7 @@ class EventTypesController < ApplicationController
         @event_types = EventType.all.includes([:rich_text_body]).order(:name)
 #        format.html { redirect_to @event_type, notice: 'Event type was successfully created.' }
         format.json { render :show, status: :created, location: @event_type }
-        format.turbo_stream { flash.now[:notice] = "Event type was successfully created." }
+        format.turbo_stream { flash.now[:notice] = "Event Type was successfully created." }
       else
         format.html { render :new }
         format.json { render json: @event_type.errors, status: :unprocessable_entity }
@@ -60,7 +60,7 @@ class EventTypesController < ApplicationController
         @event_types = EventType.all.includes([:rich_text_body]).order(:name)
 #        format.html { redirect_to @event_type, notice: 'Event type was successfully updated.' }
         format.json { render :show, status: :ok, location: @event_type }
-        format.turbo_stream { flash.now[:notice] = "Event type was successfully updated." }
+        format.turbo_stream { flash.now[:notice] = "Event Type was successfully updated." }
       else
         format.html { render :edit }
         format.json { render json: @event_type.errors, status: :unprocessable_entity }
@@ -76,7 +76,7 @@ class EventTypesController < ApplicationController
     respond_to do |format|
 #      format.html { redirect_to event_types_url, notice: 'Event type was successfully destroyed.' }
       format.json { head :no_content }
-        format.turbo_stream { flash.now[:notice] = "Event type was successfully destroyed." }
+        format.turbo_stream { flash.now[:notice] = "Event Type was successfully destroyed." }
     end
   end
 

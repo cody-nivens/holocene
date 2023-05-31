@@ -1,0 +1,17 @@
+<p>
+  <strong>Name:</strong>
+  <%= @plot_point.name %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @plot_point.body %>
+</p>
+
+<% unless @plot_point.scenes.size == 0 %>
+  <p>
+  <strong>Scenes:</strong>
+  <%== scenes_list_ul(@plot_point, @plot_point.book) %>
+  <p>
+<% end %>
+

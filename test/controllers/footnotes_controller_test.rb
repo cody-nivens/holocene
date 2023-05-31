@@ -163,19 +163,19 @@ class FootnotesControllerTest < ActionDispatch::IntegrationTest
 end
 
   test 'should get edit' do
-    get edit_polymorphic_path([@book, @footnote])
+    get edit_footnote_path(@footnote)
     assert_select "turbo-frame", id:  "new_object"
     assert_response :success
   end
 
   test 'should get new' do
-    get chapter_footnotes_url(chapter_id: @chapter.id, slug: 'test2')
+    get new_chapter_footnote_url(chapter_id: @chapter.id, slug: 'test2')
     assert_select "turbo-frame", id:  "new_object", target: "edit"
     assert_response :success
   end
 
   test 'should show footnote TS' do
-    get polymorphic_path([@book, @footnote], format: :turbo_stream)
+    get footnote_path(@footnote, format: :turbo_stream)
 
     assert_turbo_stream action: :replace, target: "objects"
     assert_turbo_stream action: :replace, target: "nav-bar"
@@ -187,7 +187,7 @@ end
   end
 
   test 'should show footnote index TS' do
-    get book_footnotes_url(@book, format: :turbo_stream)
+    get chapter_footnotes_url(@chapter, format: :turbo_stream)
 
     assert_turbo_stream action: :replace, target: "objects"
     assert_turbo_stream action: :replace, target: "nav-bar"
@@ -208,7 +208,6 @@ end
     
     assert_no_turbo_stream action: :update, target: "messages"
     assert_turbo_stream action: :replace, target: "new_object"
-    assert_turbo_stream action: :replace, target: "edit"
     assert_turbo_stream action: :replace, target: "objects"
     #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
     #  assert_equal "<template>message_1</template>", selected.children.to_html

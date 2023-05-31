@@ -4,11 +4,17 @@ class PlotPointsController < ApplicationController
 
   # GET /plot_points or /plot_points.json
   def index
-    @plot_points = PlotPoint.all
+    @plot_points = PlotPoint.where(book_id: @book.id)
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /plot_points/1 or /plot_points/1.json
   def show
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /plot_points/new
@@ -24,6 +30,9 @@ class PlotPointsController < ApplicationController
 
   # GET /plot_points/1/list
   def list
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
     # GET /characters/1/add
@@ -60,8 +69,10 @@ class PlotPointsController < ApplicationController
 
     respond_to do |format|
       if @plot_point.save
-        format.html { redirect_to book_plot_points_url(@plot_point.book), notice: "Plot point was successfully created." }
+        @plot_points = PlotPoint.where(book_id: @book.id)
+#        format.html { redirect_to book_plot_points_url(@plot_point.book), notice: "Plot point was successfully created." }
         format.json { render :show, status: :created, location: @plot_point }
+        format.turbo_stream { flash.now[:notice] = "Plot Point was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @plot_point.errors, status: :unprocessable_entity }
@@ -71,10 +82,12 @@ class PlotPointsController < ApplicationController
 
   # PATCH/PUT /plot_points/1 or /plot_points/1.json
   def update
+    @plot_points = PlotPoint.where(book_id: @book.id)
     respond_to do |format|
       if @plot_point.update(plot_point_params)
         format.html { redirect_to plot_point_url(@plot_point), notice: "Plot point was successfully updated." }
         format.json { render :show, status: :ok, location: @plot_point }
+        format.turbo_stream { flash.now[:notice] = "Plot Point was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @plot_point.errors, status: :unprocessable_entity }
@@ -87,9 +100,12 @@ class PlotPointsController < ApplicationController
     @book = @plot_point.book
     @plot_point.destroy
 
+    @plot_points = PlotPoint.where(book_id: @book.id)
+
     respond_to do |format|
       format.html { redirect_to book_plot_points_url(@book), notice: "Plot point was successfully destroyed." }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:notice] = "Plot Point was successfully destroyed." }
     end
   end
 

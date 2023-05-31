@@ -4,7 +4,7 @@
     Welcome
   </a>
   <ul class='flex dropdown-menu' aria-labelledby='navbar_dropdown0'>
-    <%== make_menu_ts_link('Progress', welcome_index_path) %>
+    <%== make_menu_ts_link('Progress', welcome_progress_path) %>
     <%== make_menu_ts_link('Stats', welcome_stats_path) %>
     <%== make_menu_ts_link('Tags', welcome_tags_path) %>
     <%== make_menu_ts_link('History', welcome_history_path) %>
@@ -26,19 +26,20 @@
       <% end %>
     <% end %>
   <% end %>
-  <li class='mr-6'> <%= link_to 'Books', books_path, class: 'nav-link', method: :get %> </li>
+  <%== make_menu_ts_link('Books', books_path) %>
   <%== make_menu_ts_link("New Book", books_path) %>
   <% if !@book.nil? and !@book.new_record? %>
-    <%== make_menu_ts_link('Stats', polymorphic_path([@book, :stats])) %>
+    <%== make_menu_ts_link('Stats', book_report_path(@book, report: "books/stats")) %>
     <% if @book.is_fiction? %>
-      <%== make_menu_ts_link('Scenes', polymorphic_path([@book, :scenes])) %>
+      <%== make_menu_ts_link('Scenes', book_report_path(@book, report: "books/scenes")) %>
       <%== make_menu_ts_link('Resync Stories', book_resync_stories_path(id: @book.id)) %>
       <%== make_menu_ts_link('Publish All', book_publish_path(id: @book.id)) %>
+        <li><hr class="dropdown-divider"></li>
       <%== make_menu_ts_link('Key Points', book_key_points_path(@book)) %>
       <%== make_menu_ts_link('Plot Points', book_plot_points_path(@book)) %>
     <% else %>
       <%== make_menu_ts_link('Bibliography', book_biblioentries_path(@book)) %>
-      <%== make_menu_ts_link('Timeline', book_timeline_path(id: @book.id)) %>
+      <%== make_menu_ts_link('Timelines', book_timeline_path(id: @book.id)) %>
     <% end %>
   <% end %>
   </ul>
@@ -50,17 +51,18 @@
         <%== make_menu_ts_link('New Story', new_book_story_path(book_id: @book.id)) %>
         <%== make_menu_ts_link('Stories', book_stories_path(@book)) %>
         <%== make_menu_ts_link('All Stories', book_stories_path(@book, all: true)) %>
-      <% if !@story.nil? and !@story&.id.nil? %>
+      <% unless @story.nil? or @story.new_record? %>
         <%== make_menu_ts_link('Characters', polymorphic_path([@story, :characters])) %>
         <%== make_menu_ts_link('Resync Scenes', story_resync_scenes_path(id: @story.id)) %>
         <%#== make_menu_ts_link('New Key Point', new_polymorphic_path([@story, KeyPoint])) %>
-        <%== make_menu_ts_link('Key Points', polymorphic_path([@story, :key_points])) %>
         <%== make_menu_ts_link('Scenes', polymorphic_path([@story, :scenes])) %>
         <%== make_menu_ts_link('Move', polymorphic_path([@story, :move])) %>
-        <%== make_menu_ts_link('Stats', polymorphic_path([@story, :stats])) %>
+        <%== make_menu_ts_link('Stats', story_report_path(@story, report: "stories/stats")) %>
         <%== make_menu_ts_link('Char List', polymorphic_path([@story, :chars])) %>
         <%== make_menu_ts_link('Char List, All', polymorphic_path([@story, :chars], long: true)) %>
-        <%== make_menu_ts_link('Timeline', polymorphic_path([@story, :timeline])) %>
+        <li><hr class="dropdown-divider"></li>
+        <%== make_menu_ts_link('Key Points', polymorphic_path([@story, :key_points])) %>
+        <%== make_menu_ts_link('Timelines', polymorphic_path([@story, :timeline])) %>
         <%== make_menu_ts_link('Tours', polymorphic_path([@story, :tours])) %>
       <% end %>
     </ul>
@@ -101,9 +103,9 @@
       <% unless @stage.nil? or @stage.new_record? %>
         <%== make_menu_ts_link('Stage', stage_path(@stage)) %>
         <%== make_menu_ts_link('Stage List', stage_list_path(@stage)) %>
+        <li><hr class="dropdown-divider"></li>
         <%== make_menu_ts_link('Scenes', stage_scenes_path(@stage)) %>
         <%== make_menu_ts_link('Scene Characters', stage_characters_path(@stage)) %>
-        <li><hr class="dropdown-divider"></li>
         <%== make_menu_ts_link('Time by Actor', stage_time_by_actor_path(@stage)) %>
         <%== make_menu_ts_link('Time by Location', stage_time_by_location_path(@stage)) %>
         <%== make_menu_ts_link('Actor by Location', stage_actor_by_location_path(@stage)) %>
@@ -140,7 +142,7 @@
     <%== make_menu_ts_link('Character Categories', character_categories_path) %>
     <li><hr class="dropdown-divider"></li>
   <% end %>
-    <li class='mr-6'> <a class='nav-link' href='/cities'>Cities</a> </li>
+    <%== make_menu_ts_link('Cities', cities_path) %>
     <% %w[event_type region holocene_event timeline epoch].each do |form| %>
       <li><%= link_to t("app.index.#{form}.link").pluralize, [form.pluralize.to_sym], method: :get, class: 'nav-link' %></li>
     <% end %>

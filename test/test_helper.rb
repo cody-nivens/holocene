@@ -179,13 +179,13 @@ module ActiveSupport
     end
 
     def click_side(icon)
-      within "#side_controls" do
+      within "div#side_controls" do
         Capybara.page.find("a > i.fa-#{icon}").click
       end
     end
 
     def assert_side(text)
-      within "#side_controls" do
+      within "div#side_controls" do
         assert_link text
       end
     end

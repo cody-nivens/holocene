@@ -19,7 +19,7 @@ class ItinerariesGrid < BaseGrid
   end
 
   column(:name, html: true) do |he|
-    link_to he.name, itinerary_path(he)
+    link_to he.name, itinerary_path(he), method: :get
   end
 
   column(:city, order: 'cities.name asc', order_desc: 'cities.name desc') do |itinerary|
@@ -51,11 +51,11 @@ class ItinerariesGrid < BaseGrid
   end
 
   column(:action2, header: '', html: true) do |itinerary|
-    link_to (fa_icon 'edit'), edit_itinerary_path(itinerary), title: 'Edit'
+    link_to (fa_icon 'edit'), edit_itinerary_path(itinerary), data: { "turbo-frame": "new_object" }, title: 'Edit'
   end
 
   column(:action3, header: '', html: true) do |itinerary|
-    link_to (fa_icon 'trash-o'), itinerary_path(itinerary), method: :delete, data: { confirm: 'Are you sure?' },
+    link_to (fa_icon 'trash'), itinerary_path(itinerary), method: :delete, data: { confirm: 'Are you sure?' },
                                                             title: 'Destroy'
   end
 end

@@ -91,7 +91,7 @@ Rails.application.routes.draw do
   get '/characters/:book_id/scenes', to: 'characters#scenes', as: :character_scenes
 
   get '/books/:id/export', to: 'books#export', as: :book_export
-  get '/books/:id/stats', to: 'books#stats', as: :book_stats
+  get '/books/:id/report', to: 'books#report', as: :book_report
   get '/books/:id/epub', to: 'books#epub', as: :book_epub
   get '/books/:id/toc', to: 'books#toc', as: :toc
   get '/books/:book_id/key_points/:id/move', to: 'key_points#move', as: :book_key_point_move
@@ -114,7 +114,7 @@ Rails.application.routes.draw do
   get '/scenes/:scene_id/characters/list', to: 'characters#list', as: :scene_characters_list
   get '/scenes/:scene_id/character/:id/lineage', to: 'characters#lineage', as: :scene_character_lineage
 
-  get '/stories/:id/stats', to: 'stories#stats', as: :story_stats
+  get '/stories/:id/report', to: 'stories#report', as: :story_report
   get '/stories/:story_id/key_points/:id/move', to: 'key_points#move', as: :story_key_point_move
   post '/stories/:story_id/key_points/:id/moved', to: 'key_points#moved', as: :story_key_point_moved
   get '/stories/:story_id/characters/list', to: 'characters#list', as: :story_characters_list
@@ -135,7 +135,7 @@ Rails.application.routes.draw do
     resources :artifacts
     resources :artifact_types
     resources :actors, shallow: true do
-      resources :actor_characters
+      resources :actor_characters, except: %i[show]
       resources :actor_location_times
     end
     resources :locations
@@ -167,9 +167,13 @@ Rails.application.routes.draw do
   end
   resources :books do
     resources :authors
-    resources :characters, except: [:new] do
+    resources :characters, shallow: false, except: [:new] do
       resources :steps, only: %i[show update], controller: 'character/steps'
       resources :character_values
+      member do
+        get "edit_attribute/:attribute", action: :edit_attribute, as: :edit_attribute
+        patch "update_attribute/:attribute", action: :update_attribute, as: :update_attribute
+      end
     end
   end
   resources :stories, shallow: true do
@@ -222,9 +226,11 @@ Rails.application.routes.draw do
   get '/welcome/index'
   get '/welcome/show'
   get '/welcome/stats'
+  get '/welcome/progress'
   get '/welcome/history'
   get '/stats', to: 'welcome#stats'
   get '/history', to: 'welcome#history'
+  get '/progress', to: 'welcome#progress'
   get '/tags', to: 'welcome#tags', as: :welcome_tags
   resources :holocene_events
   resources :regions

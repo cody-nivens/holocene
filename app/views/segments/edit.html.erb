@@ -1,8 +1,6 @@
 <h2>Editing Segment</h2>
 
+<turbo-frame id="<%= dom_id @segment  %>">
 <%= render 'form', segment: @segment %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'search', class: 'fa-fw'), @segment, class: "btn", title: 'Show' %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), return_or_default_path(stage_segments_path(@stage)), class: "btn", title: 'Back' %>
-</div>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(stage_segments_path(@stage)), class: "btn", title: 'Back' %>
+</turbo-frame>

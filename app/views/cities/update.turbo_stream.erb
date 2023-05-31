@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "#{dom_id @city}" do %>
+  <%= render partial: "cities/city", locals: { city:  @city } %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

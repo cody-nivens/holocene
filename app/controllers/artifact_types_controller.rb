@@ -39,7 +39,7 @@ class ArtifactTypesController < ApplicationController
       if @artifact_type.save
 #        format.html { redirect_to artifact_type_url(@artifact_type), notice: 'Artifact type was successfully created.' }
         format.json { render :show, status: :created, location: @artifact_type }
-        format.turbo_stream { flash.now[:notice] = "Artifact type was successfully created." }
+        format.turbo_stream { flash.now[:notice] = "Artifact Type was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @artifact_type.errors, status: :unprocessable_entity }
@@ -55,7 +55,7 @@ class ArtifactTypesController < ApplicationController
       if @artifact_type.update(artifact_type_params)
 #        format.html { redirect_to artifact_type_url(@artifact_type), notice: 'Artifact type was successfully updated.' }
         format.json { render :show, status: :ok, location: @artifact_type }
-        format.turbo_stream { flash.now[:notice] = "Artifact type was successfully updated." }
+        format.turbo_stream { flash.now[:notice] = "Artifact Type was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @artifact_type.errors, status: :unprocessable_entity }
@@ -71,7 +71,7 @@ class ArtifactTypesController < ApplicationController
     respond_to do |format|
 #      format.html { redirect_to book_artifact_types_url(@book), notice: 'Artifact type was successfully destroyed.' }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Artifact type was successfully destroyed." }
+      format.turbo_stream { flash.now[:notice] = "Artifact Type was successfully destroyed." }
     end
   end
 

@@ -5,11 +5,18 @@ class BiblioentriesController < ApplicationController
   # GET /books/:book_id/biblioentries(.:format)
   def index
     @biblioentries = @book.biblioentries.includes([:authors]).order(:name)
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /books/:book_id/biblioentries/:id(.:format)
   def show
     @book = @biblioentry.book
+    @biblioentries = @book.biblioentries.includes([:authors]).order(:name)
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /books/:book_id/biblioentries/new(.:format)
@@ -31,8 +38,10 @@ class BiblioentriesController < ApplicationController
 
     respond_to do |format|
       if @biblioentry.save
-        format.html { redirect_to biblioentry_url(@biblioentry), notice: 'Biblioentry was successfully created.' }
+        @biblioentries = @book.biblioentries.includes([:authors]).order(:name)
+#        format.html { redirect_to biblioentry_url(@biblioentry), notice: 'Biblioentry was successfully created.' }
         format.json { render :show, status: :created, location: @biblioentry }
+        format.turbo_stream { flash.now[:notice] = "Book was successfully created." }
       else
         format.html { render :new }
         format.json { render json: @biblioentry.errors, status: :unprocessable_entity }
@@ -43,10 +52,12 @@ class BiblioentriesController < ApplicationController
   # PATCH/PUT /books/:book_id/biblioentries/:id(.:format)
   def update
     @book = @biblioentry.book
+    @biblioentries = @book.biblioentries.includes([:authors]).order(:name)
     respond_to do |format|
       if @biblioentry.update(biblioentry_params)
-        format.html { redirect_to biblioentry_url(@biblioentry), notice: 'Biblioentry was successfully updated.' }
+#        format.html { redirect_to biblioentry_url(@biblioentry), notice: 'Biblioentry was successfully updated.' }
         format.json { render :show, status: :ok, location: @biblioentry }
+        format.turbo_stream { flash.now[:notice] = "Book was successfully updated." }
       else
         format.html { render :edit }
         format.json { render json: @biblioentry.errors, status: :unprocessable_entity }
@@ -58,9 +69,11 @@ class BiblioentriesController < ApplicationController
   def destroy
     @book = @biblioentry.book
     @biblioentry.destroy
+    @biblioentries = @book.biblioentries.includes([:authors]).order(:name)
     respond_to do |format|
       format.html { redirect_to book_biblioentries_path(@book), notice: 'Biblioentry was successfully destroyed.' }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:notice] = "Book was successfully destroyed." }
     end
   end
 

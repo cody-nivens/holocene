@@ -15,17 +15,22 @@ class WelcomeControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should get history' do
-    get welcome_history_url
+    get welcome_history_url(format: :turbo_stream)
     assert_response :success
   end
 
   test 'should get show' do
-    get welcome_show_url(@section,date: Date.today.beginning_of_day)
+    get welcome_show_url(@section, date: Date.today.beginning_of_day, format: :turbo_stream)
     assert_response :success
   end
 
   test 'should get stats' do
-    get welcome_stats_url
+    get welcome_stats_url(format: :turbo_stream)
+    assert_response :success
+  end
+
+  test 'should get tags' do
+    get welcome_tags_url(format: :turbo_stream)
     assert_response :success
   end
 end

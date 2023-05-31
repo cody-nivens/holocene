@@ -40,7 +40,7 @@ class HoloceneEventsGrid < BaseGrid
   end
 
   column(:name, html: true) do |he|
-    link_to he.name, "/holocene_events/#{he.id}"
+    link_to he.name, holocene_event_path(he), method: :get
   end
 
   column(:event_type, html: true) do |he|
@@ -77,10 +77,10 @@ class HoloceneEventsGrid < BaseGrid
   #  link_to (fa_icon "search-plus"), holocene_event_path(holocene_event), :title => 'Show'
   # end
   column(:action2, header: '', html: true) do |holocene_event|
-    link_to (fa_icon 'edit'), edit_holocene_event_path(holocene_event), title: 'Edit'
+    link_to (fa_icon 'edit'), edit_holocene_event_path(holocene_event), data: { "turbo-frame": "new_object" }, title: 'Edit'
   end
   column(:action3, header: '', html: true) do |holocene_event|
-    link_to (fa_icon 'trash-o'), holocene_event, method: :delete, data: { confirm: 'Are you sure?' },
+    link_to (fa_icon 'trash'), holocene_event, method: :delete, data: { confirm: 'Are you sure?' },
                                                  title: 'Destroy'
   end
 end

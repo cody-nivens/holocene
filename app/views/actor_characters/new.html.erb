@@ -1,7 +1,6 @@
 <h2>New Actor Character</h2>
 
-<%= render 'form', actor_character: @actor_character %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), actor_actor_characters_path(@actor), class: "btn", title: 'Back' %>
-</div>
+<turbo-frame id="objects">
+  <%= render 'form', actor_character: @actor_character %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), actor_actor_characters_path(@actor), method: :get, class: "btn", title: 'Back' %>
+</turbo-frame>

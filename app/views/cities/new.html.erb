@@ -1,7 +1,6 @@
 <h2>New City</h2>
 
+<turbo-frame id="new_object">
 <%= render 'form', city: @city %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(cities_path), class: 'btn', title: 'Back' %>
-</div>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),   return_or_default_path(cities_path), method: :get,  class: 'btn', title: 'Back' %>
+</turbo-frame>

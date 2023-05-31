@@ -1,3 +1,4 @@
+<turbo-frame id="<%= dom_id @actor %>">
 <h2> <%= @actor.name %></h2>
 
 <p>
@@ -25,3 +26,4 @@
   </ul>
 </div>
 <%= link_to (fa_icon 'backward', class: 'fa-fw'), book_actors_path(@book), method: :get, class: "btn", title: 'Back' %>
+</turbo-frame>

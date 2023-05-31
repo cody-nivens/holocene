@@ -164,7 +164,7 @@ class CharactersController < ApplicationController
 
   # PATCH/PUT /characters/1
   # PATCH/PUT /characters/1.json
-  def xupdate
+  def update
     update_values
     respond_to do |format|
       if @character.update(character_params)

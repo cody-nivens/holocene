@@ -1,0 +1,5 @@
+<tr>
+  <td><%= link_to actor_character.character.name, actor_character, method: :get %></td>
+  <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_actor_character_path(actor_character), data: { "turbo-frame": "new_object" }, title: 'Edit' %>
+    <%= link_to (fa_icon 'trash', class: 'fa-fw'), actor_character, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
+</tr>

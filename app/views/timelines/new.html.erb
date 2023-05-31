@@ -1,7 +1,6 @@
 <h2>New Timeline</h2>
 
-<%= render 'form', timeline: @timeline, command_label: 'Create Timeline' %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(timelines_path), class: 'btn', title: 'Back' %>
-</div>
+<turbo-frame id="new_object">
+  <%= render 'form', timeline: @timeline, command_label: 'Create Timeline' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), return_or_default_path(timelines_path), method: :get, class: 'btn', title: 'Back' %>
+</turbo-frame>

@@ -22,7 +22,7 @@ class Character::StepsController < ApplicationController
 
   def show
     @character = Character.find(params[:character_id])
-    wiz_step = params[:wiz_step].to_sym
+    wiz_step = params[:wiz_step].nil? ? nil : params[:wiz_step].to_sym
 
     @character.update(character_step_params(wiz_step))
     update_values
@@ -176,7 +176,8 @@ class Character::StepsController < ApplicationController
                              %i[occupation_class social_class grouping father_id mother_id]
                            end
 
-    params.require(:character).permit(permitted_attributes).merge(form_step: my_step)
+      #.merge(form_step: my_step)
+    params.require(:character).permit(permitted_attributes)
   end
 
   # Only allow a list of trusted parameters through.

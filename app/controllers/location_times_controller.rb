@@ -5,10 +5,16 @@ class LocationTimesController < ApplicationController
   # GET /location_times or /location_times.json
   def index
     @location_times = LocationTime.where(segment_id: @segment.id)
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /location_times/1 or /location_times/1.json
   def show
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /location_times/new
@@ -28,8 +34,10 @@ class LocationTimesController < ApplicationController
 
     respond_to do |format|
       if @location_time.save
-        format.html { redirect_to return_or_default_path(stage_url(@location_time.segment.stage)), notice: "Location time was successfully created." }
+         @location_times = LocationTime.where(segment_id: @segment.id)
+#        format.html { redirect_to return_or_default_path(stage_url(@location_time.segment.stage)), notice: "Location time was successfully created." }
         format.json { render :show, status: :created, location: @location_time }
+        format.turbo_stream { flash.now[:notice] = "Location Time was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @location_time.errors, status: :unprocessable_entity }
@@ -39,10 +47,12 @@ class LocationTimesController < ApplicationController
 
   # PATCH/PUT /location_times/1 or /location_times/1.json
   def update
+    @location_times = LocationTime.where(segment_id: @segment.id)
     respond_to do |format|
       if @location_time.update(location_time_params)
-        format.html { redirect_to return_or_default_path(stage_url(@location_time.segment.stage)), notice: "Location time was successfully updated." }
+#        format.html { redirect_to return_or_default_path(stage_url(@location_time.segment.stage)), notice: "Location time was successfully updated." }
         format.json { render :show, status: :ok, location: @location_time }
+        format.turbo_stream { flash.now[:notice] = "Location Time was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @location_time.errors, status: :unprocessable_entity }
@@ -54,9 +64,11 @@ class LocationTimesController < ApplicationController
   def destroy
     @location_time.destroy
 
+    @location_times = LocationTime.where(segment_id: @segment.id)
     respond_to do |format|
-      format.html { redirect_to return_or_default_path(stage_url(@segment.stage)), notice: "Location time was successfully destroyed." }
+#      format.html { redirect_to return_or_default_path(stage_url(@segment.stage)), notice: "Location time was successfully destroyed." }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:notice] = "Location Time was successfully destroyed." }
     end
   end
 

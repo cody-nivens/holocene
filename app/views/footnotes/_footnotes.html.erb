@@ -12,7 +12,7 @@
   <tbody>
     <% footnotes.each do |footnote| %>
       <trubo-frame id="<%= dom_id footnote %>">
-        <%= render partial: 'footnotes/footnote_item', locals: { footnote: @footnote } %>
+        <%= render partial: 'footnotes/footnote_item', locals: { footnote: footnote } %>
       </turbo-frame>
     <% end %>
   </tbody>

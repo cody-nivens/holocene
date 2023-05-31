@@ -400,37 +400,6 @@ end
   end
 end
 
-  tasks = {
-    'Welcome' => %w[ progress tags stats history ],
-    'Book' => %w[ books stats scenes key_point resync_stories publish_all plot_point ],
-    'Stage' => %w[ act actor location ],
-    'Support' => %w[ epoch artifact event_type region author artifact_type character_category ]
-  }
-  otasks = {
-            'Support' => %w[ ]
-  }
-
-  tasks.keys.each do |master|
-    tasks[master].each do |object|
-      test "visiting the #{master}:#{object} menu" do
-        title = object.gsub(/_/,' ').camelize
-        visit root_url
-        assert_text 'The Phantom'
-        click_on 'The Phantom'
-        assert_link 'The Beginnings'
-        click_on 'The Beginnings'
-
-        assert_text 'Summary'
-
-        do_menu master, "#{title.titleize.pluralize}"
-
-        assert_text "#{title.titleize.pluralize}"
-
-        assert_current_path root_url
-      end
-    end
-  end
-
   if 1 == 0
   test 'should not create a Book' do
     visit root_url

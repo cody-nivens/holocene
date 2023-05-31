@@ -1,8 +1,8 @@
 <h2>Editing City</h2>
 
-<%= render 'form', city: @city %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'search', class: 'fa-fw'), city_path(@city), class: 'btn', title: 'Show' %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(cities_path), class: 'btn', title: 'Back' %>
-</div>
+<turbo-frame id="new_object">
+<turbo-frame id="<%= dom_id @city %>">
+  <%= render 'form', city: @city %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), return_or_default_path(cities_path), method: :get, class: 'btn', title: 'Back' %>
+</turbo-frame>
+</turbo-frame>

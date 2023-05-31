@@ -1,9 +1,12 @@
 class ActorCharactersController < ApplicationController
-  before_action :set_actor_character, only: %i[ show edit update destroy ]
+  before_action :set_actor_character, only: %i[ edit update destroy ]
   before_action :set_actor, only: %i[index new]
 
   def index
     @actor_characters = ActorCharacter.where(actor_id: @actor.id)
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /actor_characters/new
@@ -23,8 +26,10 @@ class ActorCharactersController < ApplicationController
 
     respond_to do |format|
       if @actor_character.save
+        @actor_characters = ActorCharacter.where(actor_id: @actor.id)
         format.html { redirect_to actor_actor_characters_url(@actor), notice: "Actor character was successfully created." }
         format.json { render :show, status: :created, location: @actor_character }
+        format.turbo_stream { flash.now[:notice] = "Actor Character was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @actor_character.errors, status: :unprocessable_entity }
@@ -36,8 +41,10 @@ class ActorCharactersController < ApplicationController
   def update
     respond_to do |format|
       if @actor_character.update(actor_character_params)
+        @actor_characters = ActorCharacter.where(actor_id: @actor.id)
         format.html { redirect_to actor_actor_characters_url(@actor), notice: "Actor character was successfully updated." }
         format.json { render :show, status: :ok, location: @actor_character }
+        format.turbo_stream { flash.now[:notice] = "Actor Character was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @actor_character.errors, status: :unprocessable_entity }
@@ -49,9 +56,12 @@ class ActorCharactersController < ApplicationController
   def destroy
     @actor_character.destroy
 
+    @actor_characters = ActorCharacter.where(actor_id: @actor.id)
+
     respond_to do |format|
       format.html { redirect_to actor_actor_characters_url(@actor), notice: "Actor character was successfully destroyed." }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:notice] = "Actor Character was successfully destroyed." }
     end
   end
 

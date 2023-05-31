@@ -1,0 +1,59 @@
+<turbo-frame id="<%= dom_id @city %>">
+<p>
+  <strong>Name:</strong>
+  <%= @city.name %>
+</p>
+
+<p>
+  <strong>Name ascii:</strong>
+  <%= @city.name_ascii %>
+</p>
+
+<p>
+  <strong>Lat:</strong>
+  <%= @city.lat %>
+</p>
+
+<p>
+  <strong>Lng:</strong>
+  <%= @city.lng %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @city.country %>
+</p>
+
+<p>
+  <strong>Iso2:</strong>
+  <%= @city.iso2 %>
+</p>
+
+<p>
+  <strong>Iso3:</strong>
+  <%= @city.iso3 %>
+</p>
+
+<p>
+  <strong>Admin name:</strong>
+  <%= @city.admin_name %>
+</p>
+
+<p>
+  <strong>Capital:</strong>
+  <%= @city.capital %>
+</p>
+
+<p>
+  <strong>Population:</strong>
+  <%= @city.population %>
+</p>
+
+<p>
+  <strong>Simple map:</strong>
+  <%= @city.simple_map_id %>
+</p>
+
+<% @object = @city %>
+<%= render 'shared/map', object: @city %>
+</turbo-frame>

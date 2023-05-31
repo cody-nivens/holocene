@@ -1,0 +1,18 @@
+<p>
+  <strong>Tour:</strong>
+  <%= @itinerary.tour_name %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @itinerary.city_name %>
+</p>
+
+<p>
+  <strong>Stay:</strong>
+  <%= @itinerary.stay %>
+</p>
+
+<% @object = @itinerary %>
+<%= render 'shared/map', object: @object %>
+

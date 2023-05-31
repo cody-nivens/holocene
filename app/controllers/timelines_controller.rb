@@ -4,7 +4,10 @@ class TimelinesController < ApplicationController
   # GET /timelines
   # GET /timelines.json
   def index
-    @timelines = Timeline.all.order(:name)
+    @timelines = Timeline.where(user_id: current_user.id).order(:name)
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /timelines/1
@@ -14,10 +17,16 @@ class TimelinesController < ApplicationController
     @grid = HoloceneEventsGrid.new(hgrid_params.merge({ id: ids })) do |scope|
       scope.includes([:event_types, :region, :rich_text_body]).page(params[:page])
     end
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   def geo_map
     @object = @timeline
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   def timeline
@@ -32,6 +41,9 @@ class TimelinesController < ApplicationController
           @object = Regexp.last_match(1).classify.constantize.includes([{ holocene_events: [:image_attachment, :rich_text_body] }]).find(value)
         end
       end
+    end
+    respond_to do |format|
+      format.turbo_stream { }
     end
   end
 
@@ -51,8 +63,10 @@ class TimelinesController < ApplicationController
 
     respond_to do |format|
       if @timeline.save
+        @timelines = Timeline.where(user_id: current_user.id).order(:name)
         format.html { redirect_to @timeline, notice: 'Timeline was successfully created.' }
         format.json { render :show, status: :created, location: @timeline }
+        format.turbo_stream { flash.now[:notice] = "Timeline was successfully created." }
       else
         format.html { render :new }
         format.json { render json: @timeline.errors, status: :unprocessable_entity }
@@ -63,10 +77,16 @@ class TimelinesController < ApplicationController
   # PATCH/PUT /timelines/1
   # PATCH/PUT /timelines/1.json
   def update
+    @timelines = Timeline.where(user_id: current_user.id).order(:name)
     respond_to do |format|
       if @timeline.update(timeline_params)
+        ids = @timeline.holocene_events.pluck(:id)
+        @grid = HoloceneEventsGrid.new(hgrid_params.merge({ id: ids })) do |scope|
+          scope.includes([:event_types, :region, :rich_text_body]).page(params[:page])
+        end
         format.html { redirect_to @timeline, notice: 'Timeline was successfully updated.' }
         format.json { render :show, status: :ok, location: @timeline }
+        format.turbo_stream { flash.now[:notice] = "Timeline was successfully updated." }
       else
         format.html { render :edit }
         format.json { render json: @timeline.errors, status: :unprocessable_entity }
@@ -78,9 +98,11 @@ class TimelinesController < ApplicationController
   # DELETE /timelines/1.json
   def destroy
     @timeline.destroy
+    @timelines = Timeline.where(user_id: current_user.id).order(:name)
     respond_to do |format|
       format.html { redirect_to timelines_url, notice: 'Timeline was successfully destroyed.' }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:notice] = "Timeline was successfully destroyed." }
     end
   end
 

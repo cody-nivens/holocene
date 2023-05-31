@@ -1,8 +1,6 @@
 <h2>Editing Timeline</h2>
 
-<%= render 'form', timeline: @timeline, command_label: 'Update Timeline' %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'search', class: 'fa-fw'), @timeline, class: 'btn', title: 'Show' %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(timelines_path), class: 'btn', title: 'Back' %>
-</div>
+<turbo-frame id="<%= dom_id @timeline %>">
+  <%= render 'form', timeline: @timeline, command_label: 'Update Timeline' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(timelines_path), method: :get, class: 'btn', title: 'Back' %>
+</turbo-frame>

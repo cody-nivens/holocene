@@ -1,0 +1,63 @@
+<ul>
+  <% search_results = key_word.convert_thinking_sphinx %>
+  <% search_results.keys.sort.each do |record_type| %>
+    <li><%= record_type %></li>
+    <ul>
+    <% search_results[record_type].keys.sort.each do |key0| %>
+        <% if !search_results[record_type][key0].instance_of? Hash %>
+          <% result = search_results[record_type][key0] %>
+          <% values = result.set_values %>
+          <% next unless values[0] == book && values[1].nil? %>
+          <li>
+            <%== surpress_first(breadcrumb(values[0], values[1], values[2], values[3], values[4], link: true)) %>
+          </li>
+        <% else %>
+      <% search_results[record_type][key0].keys.sort.each do |key1| %>
+        <% if !search_results[record_type][key0][key1].instance_of? Hash %>
+          <% result = search_results[record_type][key0][key1] %>
+          <% values = result.set_values %>
+          <% next unless values[0] == book %>
+          <li>
+            <%== surpress_first(breadcrumb(values[0], values[1], values[2], values[3], values[4], link: true)) %>
+          </li>
+        <% else %>
+          <% search_results[record_type][key0][key1].keys.sort.each do |key2| %>
+            <% if !search_results[record_type][key0][key1][key2].instance_of? Hash %>
+              <% result = search_results[record_type][key0][key1][key2] %>
+              <% values = result.set_values %>
+              <% next unless values[0] == book %>
+              <li>
+                <%== surpress_first(breadcrumb(values[0], values[1], values[2], values[3], values[4], link: true)) %>
+              </li>
+            <% else %>
+              <% search_results[record_type][key0][key1][key2].keys.sort.each do |key3| %>
+                <% if !search_results[record_type][key0][key1][key2][key3].instance_of? Hash %>
+                  <% result = search_results[record_type][key0][key1][key2][key3] %>
+                  <% values = result.set_values %>
+                  <% next unless values[0] == book %>
+                  <li>
+                    <%== surpress_first(breadcrumb(values[0], values[1], values[2], values[3], values[4], link: true)) %>
+                  </li>
+                <% else %>
+                  <% search_results[record_type][key0][key1][key2][key3].keys.sort.each do |key4| %>
+                    <% if !search_results[record_type][key0][key1][key2][key3][key4].instance_of? Hash %>
+                      <% result = search_results[record_type][key0][key1][key2][key3][key4] %>
+                      <% values = result.set_values %>
+                      <% next unless values[0] == book %>
+                      <li>
+                        <%== surpress_first(breadcrumb(values[0], values[1], values[2], values[3], values[4], link: true)) %>
+                      </li>
+                    <% else %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% end %>
+</ul>
+  <% end %>
+</ul>

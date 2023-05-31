@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "#{dom_id @character_attribute}" do %>
+  <%= render partial: "character_attributes/character_attribute", locals: { character_attribute:  @character_attribute } %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

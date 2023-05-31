@@ -1,7 +1,6 @@
 <h2>Editing Location Time</h2>
 
+<turbo-frame id="<%= dom_id @location_time %>">
 <%= render 'form', location_time: @location_time %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), return_or_default_path(segment_location_times_path(@segment)), class: "btn", title: 'Back' %>
-</div>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), segment_location_times_path(@segment), method: :get, class: "btn", title: 'Back' %>
+</turbo-frame>

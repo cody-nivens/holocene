@@ -6,12 +6,19 @@ class PartitionsController < ApplicationController
   # GET /partitions.json
   def index
     @partitions = Partition.all.includes([:chapter, :rich_text_body])
+
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /partitions/1
   # GET /partitions/1.json
   def show
     @chapter = @partition.chapter
+    respond_to do |format|
+      format.turbo_stream { }
+    end
   end
 
   # GET /partitions/new
@@ -33,10 +40,12 @@ class PartitionsController < ApplicationController
 
     respond_to do |format|
       if @partition.save
+        @partitions = Partition.all.includes([:chapter, :rich_text_body])
         format.html do
           redirect_to partition_url(@partition), notice: 'Partition was successfully created.'
         end
         format.json { render :show, status: :created, location: @partition }
+        format.turbo_stream { flash.now[:notice] = "Partition was successfully created." }
       else
         format.html { render :new }
         format.json { render json: @partition.errors, status: :unprocessable_entity }
@@ -54,6 +63,7 @@ class PartitionsController < ApplicationController
           redirect_to partition_url(@partition), notice: 'Partition was successfully updated.'
         end
         format.json { render :show, status: :ok, location: @partition }
+        format.turbo_stream { flash.now[:notice] = "Partition was successfully updated." }
       else
         format.html { render :edit }
         format.json { render json: @partition.errors, status: :unprocessable_entity }
@@ -66,9 +76,11 @@ class PartitionsController < ApplicationController
   def destroy
     @chapter = @partition.chapter
     @partition.destroy
+    @partitions = Partition.all.includes([:chapter, :rich_text_body])
     respond_to do |format|
       format.html { redirect_to chapter_partitions_url(@chapter), notice: 'Partition was successfully destroyed.' }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:notice] = "Partition was successfully destroyed." }
     end
   end
 

@@ -1,5 +1,15 @@
-<%= turbo_stream.append "#{dom_id @actor_location_time.actor}" do %>
-  <% my_act_locs = ActorLocationTime.includes(:location_time).includes(:location).where("location_times.date_string": @actor_location_time.location_time.date_string, actor_id: @actor_location_time.actor.id).order("locations.name") %>
-  <%= render partial: "actor_location_times/table_actors", locals: { my_act_locs:  my_act_locs %>
+<%= turbo_stream.replace "objects"  do %>
+  <%= render partial: "actor_location_times/actor_location_times" %>
 <% end %>
+<%= turbo_stream.replace "edit"  do %>
+  <%= content_tag :div, id: "edit" do %>
+    <%= " " %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "new_object" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "new_object" do %>
+    <%= render partial: "actor_location_times/new_link" %>
+  <% end %>
+<% end %>
+
 <%= render partial: "shared/send_flash" %>

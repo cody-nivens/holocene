@@ -1,7 +1,6 @@
 <h2>Editing Stage</h2>
 
+<turbo-frame id="<%= dom_id @stage %>">
 <%= render 'form', stage: @stage %>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), @stage, class: "btn", title: 'Back' %>
-</div>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), @stage, method: :get, class: "btn", title: 'Back' %>
+</turbo-frame>

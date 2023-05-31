@@ -1,1 +1,1 @@
-  <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_book_character_scene_path(@book), class: "btn", title: 'New Location' %>
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([@book, :character_scene]), data: { "turbo-frame": "new_object" }, class: "btn", title: 'New Character_scene' %>
