@@ -41,7 +41,8 @@ class StoriesController < ApplicationController
 
   def report
     @report = params[:report]
-    @scenes_wi = Scene.get_scenes_to_array(@book)
+    @report_path = @report.gsub(/\//,'_')
+    @scenes_wi = Scene.get_scenes_to_array(@story)
     @scenes = @scenes_wi.collect{|x| Scene.find(x) }
 
     @toggle = params[:toggle]
@@ -50,8 +51,12 @@ class StoriesController < ApplicationController
     @long = params[:long]
 
     case @report
-    when "story/stats"
+    when "stories/stats"
       @op = "scenes"
+    when "stories/scenes"
+      @situated = @story
+      @op = "scenes"
+      @year_options = [ ]
     end
 
     respond_to do |format|

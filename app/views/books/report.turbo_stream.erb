@@ -1,12 +1,6 @@
 <%= turbo_stream.replace "objects" do %>
   <%= content_tag "turbo-frame", class: "block", id: "objects" do %>
-    <%= content_tag "turbo-frame", class: "block", id: "#{dom_id @book}" do %>
-      <% if @report == 'books/scenes' %>
-        <%= render partial: "#{@report}", locals: { scenes: @scenes, long: @long }  %>
-      <% else %>
-        <%= render partial: "#{@report}"  %>
-      <% end %>
-    <% end %>
+      <%= render partial: "#{@report}"  %>
   <% end %>
 <% end %>
 <%= turbo_stream.replace "new_object" do %>

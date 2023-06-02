@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
   get '/cities/index', to: 'cities#index', format: :js, constraints: ->(request) { request.xhr? }
   get '/cities/index', to: 'cities#index'
+  post '/scenes/index', to: 'scenes#index'
   post '/cities/itinerary', to: 'cities#itinerary', as: :cities_itinerary
   get '/tours/add_city/:tour_id', to: 'cities#add_city', as: :tour_add_city
   get '/tours/:tour_id/cities', to: 'cities#index', as: :tour_citites

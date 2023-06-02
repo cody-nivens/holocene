@@ -157,6 +157,7 @@ module ActiveSupport
     end
 
     def do_menu(master, sub_action)
+      assert_selector "nav.navbar"
       within "nav.navbar" do
         assert_link master
         click_on master

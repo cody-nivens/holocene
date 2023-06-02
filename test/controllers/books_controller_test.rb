@@ -198,6 +198,18 @@ end
     assert_response :success
   end
 
+  test "should report book TS" do
+    [ "books/stats", "books/scenes"].each do |report|
+      get book_report_url(@book, format: :turbo_stream),
+        params: { report: report }
+
+      assert_turbo_stream action: :replace, target: "objects"
+      assert_turbo_stream action: :replace, target: "side_controls"
+
+      assert_response :success
+    end
+  end
+
   test "should create book TS" do
     assert_difference('Book.count') do
       post books_url(format: :turbo_stream), params: { book: { body: @book.body, name: @book.name, user_id: @user.id } }

@@ -1,10 +1,17 @@
 class ScenesController < ApplicationController
   before_action :set_scene, only: %i[check moved move show edit update destroy]
-  before_action :set_situated, only: %i[timeline index new]
+  before_action :set_situated, only: %i[timeline new]
 
   # GET /scenes
   # GET /scenes.json
   def index
+    case params[:scene][:situated_type]
+    when 'Book'
+      @situated = Book.find(params[:scene][:situated_id])
+    when 'Story'
+      @situated = Story.find(params[:scene][:situated_id])
+    end
+
     @toggle = params[:toggle]
     @print = params[:print]
     @option = params[:option]
@@ -49,6 +56,8 @@ class ScenesController < ApplicationController
     end
 
     respond_to do |format|
+      format.html {}
+      format.js {}
       format.turbo_stream {}
     end
   end

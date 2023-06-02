@@ -55,7 +55,7 @@
         <%== make_menu_ts_link('Characters', polymorphic_path([@story, :characters])) %>
         <%== make_menu_ts_link('Resync Scenes', story_resync_scenes_path(id: @story.id)) %>
         <%#== make_menu_ts_link('New Key Point', new_polymorphic_path([@story, KeyPoint])) %>
-        <%== make_menu_ts_link('Scenes', polymorphic_path([@story, :scenes])) %>
+        <%== make_menu_ts_link('Scenes', story_report_path(@story, report: "stories/scenes")) %>
         <%== make_menu_ts_link('Move', polymorphic_path([@story, :move])) %>
         <%== make_menu_ts_link('Stats', story_report_path(@story, report: "stories/stats")) %>
         <%== make_menu_ts_link('Char List', polymorphic_path([@story, :chars])) %>

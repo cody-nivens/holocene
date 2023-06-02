@@ -7,14 +7,18 @@ class MenuWalkTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  omenu_items = {
+  tmenu_items = {
+    'Book' => %w[ publish_all ]
+  }
+  menu_items = {
     'Welcome' => %w[ progress tags stats history ],
     'Book' => %w[ books stats scenes resync_stories publish_all ],
+    'Story' => %w[ stats scenes resync_scenes ],
     'Stage' => %w[ act actor location ]
   }
 
-  menu_items = {
-    'Stage' => %w[ act actor location ]
+  omenu_items = {
+    'Story' => %w[ stats scenes ]
   }
   menu_items.keys.each do |master|
     menu_items[master].each do |object|
@@ -26,7 +30,7 @@ class MenuWalkTest < ApplicationSystemTestCase
         assert_link 'The Beginnings'
         click_on 'The Beginnings'
 
-        assert_text 'Summary'
+        assert_text 'Climate Change'
 
         case object
         when 'history'
@@ -39,16 +43,22 @@ class MenuWalkTest < ApplicationSystemTestCase
 
 
         case object
+        when 'publish_all'
+          assert_text "All Stories marked publish"
         when 'resync_stories'
           assert_text "Stories were successfully resynced"
+        when 'resync_scenes'
+          assert_text "Story was successfully resynced"
         when 'scenes'
           assert_text 'No Section'
         when 'history'
-          assert_text "History"
+          assert_selector "div#chart-1"
         when 'act'
           assert_text "Stages"
         when 'location'
           assert_text 'Location Times'
+        when 'progress'
+          assert_text "Monthly"
         else
           assert_text "#{title.titleize.pluralize}"
         end

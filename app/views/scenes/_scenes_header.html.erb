@@ -1,0 +1,131 @@
+  <% scene_wc_counts = @scenes.collect{|x| x.word_count } %>
+  <% mean = scene_wc_counts.sum(0.0) / @scenes.size %>
+  <% sum = scene_wc_counts.sum(0.0) { |element| (element - mean) ** 2 } %>
+  <% variance = sum / (@scenes.size - 1) %>
+  <% standard_deviation = Math.sqrt(variance) %>
+
+<div data-controller="scenes-form">
+  <%#= form_with model: Scene.new, url: (@situated.instance_of?(Book) ? book_scenes_path(@situated) : polymorphic_path([@situated, :scenes])), class: 'form-inline' do %>
+  <%#= form_with model: Scene.new, url: '/scenes', method: :get, class: 'form-inline' do %>
+    <%= hidden_field_tag :situated_id, @situated.id, data: { "scenes_form-target": "situated_id" } %>
+    <%= hidden_field_tag :situated_type, @situated.class.name, data: { "scenes_form-target": "situated_type" } %>
+  <div class="row hide-print">
+    <div class='col-md-3'>
+      <fieldset class="form-group border p-3">
+        <legend class="w-auto px-2">Listing</legend>
+        <div class="form-group">
+          <label class='checkbox'>
+            <%= check_box_tag :toggle, @toggle, @toggle, class: 'checkbox', data: { "scenes_form-target": "toggle" } %> Detail
+          </label>
+        </div>
+        <div class="form-group">
+          <label class='checkbox'>
+            <%= check_box_tag :print, @print, @print, class: 'checkbox', data: { "scenes_form-target": "print" } %> Print
+          </label>
+        </div>
+        <div class="form-group">
+          <label class='checkbox'>
+            <%= check_box_tag :long, @long, @long, class: 'checkbox', data: { "scenes_form-target": "long" } %> Long
+          </label>
+        </div>
+      <div class='field'>
+        <%= select_tag('year', options_for_select(@year_options), prompt: 'Please select an year:', class: 'form-control', onchange: 'javascript:this.form.commit.click();', data: { "scenes_form-target": "year" }) %>
+      </div>
+      <div class='col-md-2'>
+        <%= submit_tag 'Go', type: 'submit', name: 'button_action', value: 'Go', data: { disable_with: false, action: "click->scenes-form#processQuery" } %>
+      </div>
+    </fieldset>
+  </div>
+  <div class='col-md-3'>
+  <div class='row'>
+      <fieldset class="form-group border p-3">
+        <legend class="w-auto px-2">Report</legend>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :all, @all, class: 'checkbox', data: { "scenes_form-target": "all" } %> All
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :chars, @chars, class: 'checkbox', data: { "scenes_form-target": "chars" } %> Zero Charcters
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :no_section, @no_section, class: 'checkbox', data: { "scenes_form-target": "no_section" } %> No Section
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :no_scene, @no_scene, class: 'checkbox', data: { "scenes_form-target": "no_scene" } %> No Scene
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :only_section, @only_section, class: 'checkbox', data: { "scenes_form-target": "only_section" } %> Only Section
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :has_inserts, @has_inserts, class: 'checkbox', data: { "scenes_form-target": "has_inserts" } %> Has Inserts
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :has_signets, @has_signets, class: 'checkbox', data: { "scenes_form-target": "has_signets" } %> Has Signets
+          </label>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div class='col-md-3'>
+      <fieldset class="form-group border p-3">
+        <legend class="w-auto px-2">Checked</legend>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :not_checked, @not_checked, class: 'checkbox', data: { "scenes_form-target": "not_checked" } %> Not Checked
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :option, :checked, @checked, class: 'checkbox', data: { "scenes_form-target": "checked" } %> Checked
+          </label>
+        </div>
+        <%= submit_tag 'Reset Checked', type: 'submit', name: 'button_action', value: 'Reset Checked', data: { "scenes_form-target": "print" } %>
+      </fieldset>
+  </div>
+  <div class='col-md-3'>
+    <fieldset class="form-group border p-3">
+      <legend class="w-auto px-2">Word Counts</legend>
+      <div class='field'>
+        <label class="form-label" for="form12">Low: <%= (mean.nan? ? 0 : mean.to_i) - (standard_deviation.nan? ? 0 : standard_deviation.to_i) %></label>
+        <%= text_field_tag :low_wc, @low_wc, data: { "scenes_form-target": "low_wc" } %>
+      </div>
+      <div class='field'>
+        <label class="form-label" for="form12">Mid: <%= mean.nan? ? '' : mean.to_i %></label>
+        <%= text_field_tag :mid_wc, @mid_wc, data: { "scenes_form-target": "mid_wc" } %>
+      </div>
+      <div class='field'>
+        <label class="form-label" for="form12">Better: <%= (mean.nan? ? 0 : mean.to_i) + (standard_deviation.nan? ? 0 : standard_deviation.to_i) %></label>
+        <%= text_field_tag :better_wc, @better_wc, data: { "scenes_form-target": "better_wc" } %>
+      </div>
+      <div class='form-check'>
+        <label class='checkbox'>
+          <%= radio_button_tag :option, :low_word_count, @low_word_count, class: 'checkbox', data: { "scenes_form-target": "low_word_count" } %> Low Word Count
+        </label>
+      </div>
+      <div class='form-check'>
+        <label class='checkbox'>
+          <%= radio_button_tag :option, :mid_word_count, @mid_word_count, class: 'checkbox', data: { "scenes_form-target": "mid_word_count" } %> Mid Word Count
+        </label>
+      </div>
+      <div class='form-check'>
+        <label class='checkbox'>
+          <%= radio_button_tag :option, :better_word_count, @better_word_count, class: 'checkbox', data: { "scenes_form-target": "better_word_count" } %> Better Words
+        </label>
+      </div>
+    </fieldset>
+  </div>
+</div>
+<%# end %>
+</div>

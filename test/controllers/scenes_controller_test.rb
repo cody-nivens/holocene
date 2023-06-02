@@ -192,13 +192,10 @@ end
   end
 
   test 'should show scene index TS' do
-    get polymorphic_url([@situated, :scenes], format: :turbo_stream)
+    get polymorphic_url([@situated, :scenes], format: :turbo_stream),
+      params: { scene: { situated_type: @situated.class.name, situated_id: @situated.id }, option: 'no_section' }
 
-    assert_turbo_stream action: :replace, target: "objects"
-    assert_turbo_stream action: :replace, target: "nav-bar"
-    assert_turbo_stream action: :replace, target: "new_object"
-    assert_turbo_stream action: :replace, target: "header"
-    assert_turbo_stream action: :replace, target: "side_controls"
+    assert_turbo_stream action: :replace, target: "sub_objects"
 
     assert_response :success
   end

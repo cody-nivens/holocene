@@ -4,7 +4,7 @@
 
 
 <%= tabs do |c| %>
-  <% c.tab "Progress" do %>
+  <% c.tab "Monthly" do %>
     <%= column_chart data, stacked: true %>
     <%= month_calendar do |date| %>
       <% counts = @dates_counts[date.in_time_zone] %>

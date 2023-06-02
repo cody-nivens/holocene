@@ -17,6 +17,7 @@ module Holocene
     config.assets.paths << Rails.root.join("app", "assets", "icons")
     config.assets.paths << Rails.root.join('node_modules')
 
+    config.action_view.form_with_generates_remote_forms = false
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #

@@ -30,9 +30,9 @@ class BooksController < ApplicationController
     when "books/stats"
       @op = "scenes"
     when "books/scenes"
-      @scenes_wi = Scene.get_scenes_wi_to_array(@book)
-      @scenes = @scenes_wi.collect{|x| Scene.find(x) }
+      @situated = @book
       @op = "scenes"
+      @year_options = [ ]
     end
 
     respond_to do |format|
@@ -46,8 +46,10 @@ class BooksController < ApplicationController
       story.update_attribute(:publish, true)
     end
 
+    flash.now[:notice] = "All Stories marked publish."
     respond_to do |format|
       format.html { render :show, locals: { long: false } }
+      format.turbo_stream { render 'show' }
     end
   end
 
