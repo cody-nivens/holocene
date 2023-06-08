@@ -6,7 +6,7 @@ class ActsController < ApplicationController
   def index
     @acts = Act.where(book_id: @book).order(:name)
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: Act.new, objects: @acts } }
     end
   end
 
@@ -14,7 +14,7 @@ class ActsController < ApplicationController
   def show
     @locations = Location.where(book_id: @book.id)
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @act } }
     end
   end
 
@@ -53,7 +53,7 @@ class ActsController < ApplicationController
          flash.now[:notice] = "Act was successfully updated."
 #        format.html { redirect_to act_url(@act), notice: "Act was successfully updated." }
         format.json { render :show, status: :ok, location: @act }
-        format.turbo_stream { render 'show' }
+        format.turbo_stream { render "shared/index", locals: { object: Act.new, objects: @acts } }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @act.errors, status: :unprocessable_entity }

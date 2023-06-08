@@ -20,6 +20,234 @@ class BooksTest < ApplicationSystemTestCase
 #    ThinkingSphinx::Test.clear
   end
 
+  [ 'Books', 'Stats', 'Scenes', 'Resync Stories', 'Publish All', 'Key Points', 'Plot Points', 'Glossary Terms', 'Timeline' ].each do |object|
+    test "visiting the Book:#{object} menu" do
+      setup_menu_page 'Book',object
+
+      unless ['Books', 'Publish All', 'Resync Stories'].include?(object)
+        assert_side 'backward'
+        click_side 'backward'
+        assert_current_path root_url
+        assert_no_text "Content missing", wait: 5
+      end
+    end
+  end
+
+  ['Stats' ].each do |object|
+    test "visiting the BookC:#{object} menu" do
+      setup_menu_page 'BookC', object
+    end
+  end
+
+  test 'creating a nonfictional Book flow' do
+    visit root_url
+
+    # Create book
+    #
+    click_on 'New Book'
+
+    fill_in 'Name', with: 'Test 1'
+    click_on 'Create Book'
+    assert_text 'Book was successfully created', wait: 5
+    assert_link 'Test 1', wait: 5
+    click_link 'Test 1'
+
+    assert_text 'Partition', wait: 5
+
+    # Create chapter
+    #
+    click_new 'plus'
+
+    assert_text 'Show events', wait: 5
+
+    fill_in 'Name', with: 'Chapter 1'
+    fill_in_rich_text_area 'chapter_body', with: '[[test99]]'
+    click_on 'Create Chapter'
+
+    assert_text 'Chapter was successfully created', wait: 5
+
+    assert_link "Chapter 1", wait: 5
+    click_on "Chapter 1"
+    assert_link 'Missing footnote', wait: 5
+
+    # Fix footnote
+    #
+    click_on 'Missing footnote'
+
+    assert_text 'Slug', wait: 5
+    fill_in_rich_text_area 'footnote_body', with: 'Now is the time for men to come to the aid of Man'
+    click_on 'Create Footnote'
+
+    assert_text 'Footnote was successfully created', wait: 5
+
+    assert_link "Now is the time", wait: 5
+    click_on "Now is the time"
+
+    click_side 'edit'
+    assert_text 'Slug:', wait: 5
+
+    click_new 'backward'
+
+    assert_current_path root_path
+    assert_no_text "Content missing", wait: 5
+    assert_text 'Slug', wait: 5
+
+    click_side 'backward'
+    # Add a section
+    #
+    assert_text "Now is the time", wait: 5
+    click_new 'plus'
+
+    assert_text 'Display name', wait: 5
+
+    fill_in 'Name', with: 'Test 1'
+    fill_in_rich_text_area 'section_body', with: 'Deeply the stormy mists'
+    click_on 'Create Section'
+
+    assert_text 'Section was successfully created', wait: 5
+    
+    assert_text 'Deeply the stormy mists', wait: 5
+
+    within(:xpath, "//turbo-frame[@id='#{dom_id Section.last}']") do
+        Capybara.page.find(".fa-edit").click
+    end
+ 
+    assert_text 'Display name', wait: 5
+    click_on 'Update Section'
+
+    assert_no_text 'Display name', wait: 5
+    assert_text 'Deeply the stormy mists', wait: 5
+
+    click_on_header 'Test 1', 'edit'
+    #within(:xpath, "//h3[contains(text(),'Test 1')]/..") do
+    #    Capybara.page.find("i.fa-edit").click
+    #  end
+
+    assert_text 'Display name', wait: 5
+    click_on 'Update Section'
+
+    assert_no_text 'Display name', wait: 5
+    assert_text 'Deeply the stormy mists', wait: 5
+
+    #take_screenshot
+  end
+
+  test 'looking at a scene' do
+    visit root_url
+    setup_page 'Story'
+
+    assert_text "A00001"
+    click_on "A00001"
+
+    assert_text "a dark and stormy night"
+
+    Capybara.page.find('.fa-backward').click
+    assert_current_path root_url
+  end
+
+  test 'creating a fictional Book flow' do
+    visit root_url
+    click_new 'plus'
+
+    fill_in 'Name', with: 'Test 1'
+    fill_in_rich_text_area 'book_body', with: 'Test 1'
+    find(:css, '#book_fiction').set(true)
+    click_on 'Create Book'
+
+    assert_text 'Book was successfully created'
+    assert_text 'Test 1'
+    click_on "Test 1"
+
+    assert_text "Stories"
+
+    click_new 'plus'
+
+    fill_in_rich_text_area 'story_summary_body', with: 'Chasing Gadout'
+    fill_in 'Title', with: 'The Impossible Dream'
+    click_on 'Create Story'
+    assert_text 'Story was successfully created'
+
+    assert_text 'The Impossible Dream'
+    click_on "The Impossible Dream"
+
+    assert_text "Key Points"
+    click_new 'plus'
+
+    fill_in 'Hook', with: 'Good points'
+    fill_in 'Inciting incident', with: 'Trying times'
+    fill_in 'Key element', with: 'Life'
+    fill_in 'First plot point', with: 'Snoopy chases the Red Baron'
+    click_on 'Create Key point'
+    assert_text 'Key Point was successfully created'
+
+    assert_text "Good points"
+    click_on "Good points"
+
+    assert_text "First Point"
+    within "#objects" do
+      Capybara.page.find('.fa-plus', match: :first).click
+    end
+
+    assert_text 'Select Scene'
+    assert_selector "a > i.fa-plus"
+    assert_selector "turbo-frame", id:  "new_object"
+
+    click_new 'plus'
+
+    assert_current_path root_path
+    assert_no_text "Content missing", wait: 5
+    assert_text 'Abc'
+
+    fill_in 'Abc', with: 'G00001'
+    fill_in 'Scene sequel', with: 0
+    fill_in 'Time', with: 103
+
+    click_on 'Create Scene'
+
+    assert_current_path root_path
+    assert_no_text "Content missing", wait: 5
+    assert_text 'Scene was successfully created'
+    assert_text "First Pinch Point"
+
+    click_on 'Back'
+
+    assert_text "G00001"
+    click_on "G00001"
+
+    assert_current_path root_path
+    assert_no_text "Content missing", wait: 5
+
+    assert_text "Word Count"
+
+    click_side 'pencil-alt'
+
+    assert_current_path root_path
+    assert_no_text "Content missing", wait: 5
+    within "#new_object" do
+      click_on 'Back'
+    end
+
+    assert_no_text "Artifact"
+
+    click_side 'plus'
+
+    assert_current_path root_path
+    assert_no_text "Content missing", wait: 5
+
+    fill_in_rich_text_area "section_body", with: "A dark and stormy night. Heat bleeding from the air."
+    fill_in "Name", with: "Poision Sting"
+
+    click_on 'Create Section'
+
+    assert_text "G00001"
+    assert_current_path root_path
+    assert_no_text "Content missing", wait: 5
+
+    # assert_text "Test 2"
+
+    #take_screenshot
+  end
+
   if 1 == 0
   test 'books show all stories' do
 #    visit All Stories
@@ -217,7 +445,6 @@ class BooksTest < ApplicationSystemTestCase
     assert_current_path root_url
   end
 
-if 1 == 0
   test 'sort books' do
     visit root_url
     assert_text 'The Phantom'
@@ -237,170 +464,7 @@ if 1 == 0
 
     assert_match /#{@book.name}.*#{@book_3.name}.*#{@book_2.name}/m, page.html
   end
-end
 
-  test 'creating a nonfictional Book flow' do
-    visit root_url
-
-    # Create book
-    #
-    click_on 'New Book'
-
-    fill_in 'Name', with: 'Test 1'
-    click_on 'Create Book'
-    assert_text 'Book was successfully created'
-    assert_link 'Test 1'
-    click_link 'Test 1'
-
-    assert_text 'Partition'
-
-    # Create chapter
-    #
-    click_new 'plus'
-
-    assert_text 'Show events'
-
-    fill_in 'Name', with: 'Chapter 1'
-    fill_in_rich_text_area 'chapter_body', with: '[[test99]]'
-    click_on 'Create Chapter'
-
-    assert_text 'Chapter was successfully created'
-
-    assert_link "Chapter 1"
-    click_on "Chapter 1"
-    assert_link 'Missing footnote'
-
-    # Fix footnote
-    #
-    click_on 'Missing footnote'
-
-    assert_text 'Slug'
-    fill_in_rich_text_area 'footnote_body', with: 'Now is the time for men to come to the aid of Man'
-    click_on 'Create Footnote'
-
-    assert_text 'Footnote was successfully created'
-
-    assert_link "Now is the time"
-    click_on "Now is the time"
-
-    click_side 'edit'
-
-    click_on 'Back'
-    assert_text 'Text'
-
-    # Add a section
-    #
-    click_new 'plus'
-
-    fill_in 'Name', with: 'Test 1'
-    fill_in_rich_text_area 'section_body', with: 'Deeply the stormy mists'
-    click_on 'Create Section'
-
-    assert_text 'Section was successfully created'
-    
-    assert_text 'Deeply the stormy mists'
-
-    within(:xpath, "//turbo-frame[@id='#{dom_id Section.last}']") do
-        Capybara.page.find(".fa-edit").click
-    end
- 
-    assert_text 'Text'
-    click_on 'Update Section'
-
-    assert_no_text 'Text'
-    assert_text 'Deeply the stormy mists'
-  end
-
-  test 'looking at a scene' do
-    visit root_url
-    assert_text "The Phantom"
-    click_on "The Phantom"
-    assert_text "The Beginnings"
-
-    click_side 'newspaper'
-
-    assert_text "A00001"
-    click_on "A00001"
-
-    assert_text "a dark and stormy night"
-
-    Capybara.page.find('.fa-backward').click
-    assert_current_path root_url
-  end
-
-  test 'creating a fictional Book flow' do
-    visit root_url
-    click_new 'plus'
-
-    fill_in 'Name', with: 'Test 1'
-    fill_in_rich_text_area 'book_body', with: 'Test 1'
-    find(:css, '#book_fiction').set(true)
-    click_on 'Create Book'
-
-    assert_text 'Book was successfully created'
-    assert_text 'Test 1'
-    click_on "Test 1"
-
-    assert_text "Stories"
-
-    click_new 'plus'
-
-    fill_in_rich_text_area 'story_summary_body', with: 'Chasing Gadout'
-    fill_in 'Title', with: 'The Impossible Dream'
-    click_on 'Create Story'
-    assert_text 'Story was successfully created'
-
-    assert_text 'The Impossible Dream'
-    click_on "The Impossible Dream"
-
-    assert_text "Key Points"
-    click_new 'plus'
-
-    fill_in 'Hook', with: 'Good points'
-    fill_in 'Inciting incident', with: 'Trying times'
-    fill_in 'Key element', with: 'Life'
-    fill_in 'First plot point', with: 'Snoopy chases the Red Baron'
-    click_on 'Create Key point'
-    assert_text 'Key Point was successfully created'
-
-    assert_text "Good points"
-    click_on "Good points"
-
-    within "#objects" do
-      Capybara.page.find('.fa-plus', match: :first).click
-    end
-
-    assert_text 'Select Scene'
-    assert_selector "a > i.fa-plus"
-    assert_selector "turbo-frame", id:  "new_object"
-
-    click_new 'plus'
-
-    assert_text 'Abc'
-     take_screenshot
-
-    fill_in 'Abc', with: 'G00001'
-    fill_in 'Scene sequel', with: 0
-    fill_in 'Time', with: 103
-
-    # fill_in_rich_text_area "scene_summary", with: "Test 2"
-    # assert_text "Test 2"
-     take_screenshot
-
-    click_on 'Create Scene'
-
-    assert_text 'Scene was successfully created'
-    assert_text "First Pinch Point"
-
-    take_screenshot
-    click_on 'Back'
-
-    assert_text "Summary"
-    take_screenshot
-  end
-end
-
-  if 1 == 0
   test 'should not create a Book' do
     visit root_url
     click_on 'New Book'

@@ -8,10 +8,14 @@
   <% end %>
 <% end %>
 <%= turbo_stream.replace "header"  do %>
-  <%= render partial: "characters/header", locals: { character: @character} %>
+  <%= content_tag :div, id: "header" do %>
+    <%= render partial: "characters/header", locals: { character: @character} %>
+  <% end %>
 <% end %>
 <%= turbo_stream.replace "side_controls" do %>
-  <%= render partial: 'characters/side_controls', locals: { character: @character, long: @long } %>
+  <%= content_tag :div, id: "side_controls", class: "block" do %>
+    <%= render partial: 'characters/side_controls', locals: { character: @character, long: @long } %>
+  <% end %>
 <% end %>
 <%= turbo_stream.replace "nav-bar" do %>
   <%= content_tag "turbo-frame", class: "block", id: "nav-bar" do %>

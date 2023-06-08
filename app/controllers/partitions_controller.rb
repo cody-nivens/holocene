@@ -8,7 +8,7 @@ class PartitionsController < ApplicationController
     @partitions = Partition.all.includes([:chapter, :rich_text_body])
 
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render 'shared/index', locals: { object: Partition.new, objects: @partitions } }
     end
   end
 
@@ -17,7 +17,7 @@ class PartitionsController < ApplicationController
   def show
     @chapter = @partition.chapter
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render 'shared/show', locals: { object: @partition } }
     end
   end
 

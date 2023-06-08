@@ -7,14 +7,14 @@ class LocationsController < ApplicationController
   def index
     @locations = Location.where(book_id: @book.id).order(:name)
     respond_to do |format|
-      format.turbo_stream {}
+      format.turbo_stream { render "shared/index", locals: { object: Location.new, objects: @locations } }
     end
   end
 
   # GET /locations/1 or /locations/1.json
   def show
     respond_to do |format|
-      format.turbo_stream {}
+      format.turbo_stream { render "shared/show", locals: { object: @location } }
     end
   end
 
@@ -52,7 +52,7 @@ class LocationsController < ApplicationController
         format.html { redirect_to location_url(@location), notice: "Location was successfully updated." }
         format.json { render :show, status: :ok, location: @location }
         flash.now[:notice] = "Location was successfully updated."
-        format.turbo_stream { render 'show' }
+        format.turbo_stream { render "shared/show", locals: { object: @location } }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @location.errors, status: :unprocessable_entity }

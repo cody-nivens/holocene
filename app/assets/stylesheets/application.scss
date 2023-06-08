@@ -17,7 +17,7 @@
 @import "datagrid";
 
 @import 'font-awesome';
-@import 'timelineJS/timeline';
+@import 'timeline';
 @import 'jquery-jvectormap';
 
 @import "bootstrap-toggle";
@@ -25,5 +25,6 @@
 @import "trix";
 
 @import "./site";
-
 //@import "timelineJS/fonts/font.pt";
+@import "TimelineJS3/src/css/icons/tl-icons.ttf"
+//@import "TimelineJS3/src/css/icons/tl-icons.woff2"

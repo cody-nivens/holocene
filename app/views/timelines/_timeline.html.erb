@@ -1,13 +1,6 @@
-<p>
-  <strong>Name:</strong>
-  <%= timeline.name %>
-</p>
-
-  <%== timeline.description %>
-
-<%= datagrid_form_for @grid, method: :get, url: holocene_events_path %>
-
-<%= paginate(@grid.assets) %>
-<%= datagrid_table @grid %>
-<%= paginate(@grid.assets) %>
-
+<div data-controller="timelines"
+     data-timelines-jsurl-value="<%= asset_path('timeline.js') %>"
+     data-timelines-url-value="<%= polymorphic_path([@object, :timelinejs]) %>">
+     <div id='timeline-embed' style="width: 100%; height: 600px">
+     </div>
+</div>

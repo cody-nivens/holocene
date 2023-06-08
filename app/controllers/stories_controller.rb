@@ -12,11 +12,11 @@ class StoriesController < ApplicationController
     @stories = Story.includes([:key_points]).where(book_id: @book.id).order(:position)
     respond_to do |format|
       format.html { render :index, locals: { all: @all, long: @long } }
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: Story.new, objects: @stories } }
     end
   end
 
-  def chars
+  def setup_chars
     @book = @story.book
     @characters = @story.characters
     @data = {}
@@ -31,17 +31,11 @@ class StoriesController < ApplicationController
         @data[character.name][:count] += 1
       end
     end
-
-    respond_to do |format|
-      format.html { render :chars, locals: { story: @story, op: op, characters: @characters, long: long } }
-    end
-
   end
 
 
   def report
-    @report = params[:report]
-    @report_path = @report.gsub(/\//,'_')
+    @report_path, @report = params[:report].split(/\//)
     @scenes_wi = Scene.get_scenes_to_array(@story)
     @scenes = @scenes_wi.collect{|x| Scene.find(x) }
 
@@ -51,16 +45,18 @@ class StoriesController < ApplicationController
     @long = params[:long]
 
     case @report
-    when "stories/stats"
+    when "stats"
       @op = "scenes"
-    when "stories/scenes"
+    when "scenes"
       @situated = @story
       @op = "scenes"
       @year_options = [ ]
+    when "chars"
+      setup_chars
     end
 
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render 'shared/report' }
     end
   end
 
@@ -75,8 +71,8 @@ class StoriesController < ApplicationController
   # GET /stories/1.json
   def show
     @story = Story.includes({ scenes: [:section, { key_point: :scenes }, :artifact, :rich_text_place, :rich_text_summary] }).find(params[:id])
+    @scripted = @story
     @book = @story.book
-    @object = @story
     @characters = @story.characters
     @title = @story.name
     @long = params[:long]
@@ -84,7 +80,7 @@ class StoriesController < ApplicationController
 
     respond_to do |format|
 #      format.html { render :show }
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @story, new_link_path: "key_points" } }
       format.pdf do
         render pdf: 'export',
                disposition: 'attachment',
@@ -183,6 +179,9 @@ class StoriesController < ApplicationController
 
     respond_to do |format|
       if @story.save
+        @scripted = @story
+        @long = nil
+        @link = nil
         $redis.set("book_scenes_#{@story.book.id}", nil)
         $redis.set("story_scenes_#{@story.id}", nil)
 #        format.html { redirect_to story_path(@story), notice: 'Story was successfully created.' }
@@ -203,6 +202,9 @@ class StoriesController < ApplicationController
 
     respond_to do |format|
       if @story.update(story_params)
+        @scripted = @story
+        @long = nil
+        @link = nil
         if old_publish != @story.publish
           $redis.set("book_scenes_#{@story.book.id}", nil)
           $redis.set("story_scenes_#{@story.id}", nil)

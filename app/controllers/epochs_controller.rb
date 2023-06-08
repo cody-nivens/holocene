@@ -6,7 +6,7 @@ class EpochsController < ApplicationController
   def index
     @epochs = Epoch.all.order(:start_date)
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: Epoch.new, objects: @epochs } }
     end
   end
 
@@ -21,7 +21,7 @@ class EpochsController < ApplicationController
               scope.includes([:region, :rich_text_body, :event_types]).page(params[:page])
     end
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @epoch } }
     end
   end
 

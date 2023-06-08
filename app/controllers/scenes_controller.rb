@@ -58,7 +58,7 @@ class ScenesController < ApplicationController
     respond_to do |format|
       format.html {}
       format.js {}
-      format.turbo_stream {}
+      format.turbo_stream { render "shared/index", locals: { object: Scene.new, objects: @scenes } }
     end
   end
 
@@ -81,6 +81,7 @@ class ScenesController < ApplicationController
     @title = @scene.name
     @situated = @scene.book
     @book = @scene.book
+    @object = @book
     @story = @scene.key_point.scripted
     @scripted = @story
     @key_point = @scene.key_point
@@ -91,7 +92,7 @@ class ScenesController < ApplicationController
     @scenes = @scenes_wi.collect{|x| Scene.find(x) }
     #session[:return_to] = request.fullpath
     respond_to do |format|
-      format.turbo_stream {}
+      format.turbo_stream { render "shared/show", locals: { object: @scene, no_new_link: true } }
     end
   end
 
@@ -181,7 +182,7 @@ class ScenesController < ApplicationController
 #        format.html { redirect_to scene_path(@scene), notice: 'Scene was successfully created.' }
         format.json { render :show, status: :created, location: @scene }
         obj_name = @scripted.class.name.underscore
-        format.turbo_stream { render "key_points/show", locals: { key_point: @key_point } }
+        format.turbo_stream { render "shared/show", locals: { object: @key_point, no_new_link: true } }
         flash.now[:notice] = "Scene was successfully created."
       else
         format.html { render :new, situated_type: @situated.class.name, situated_id: @situated.id }
@@ -208,7 +209,7 @@ class ScenesController < ApplicationController
         flash.now[:notice] = "Scene was successfully updated."
 #        format.html { redirect_to scene_path(@scene), notice: 'Scene was successfully updated.' }
         format.json { render :show, status: :ok, location: @scene }
-        format.turbo_stream { }
+        format.turbo_stream { render "shared/show", locals: { object: @scene, no_new_link: true  } }
       else
         format.html { render :edit, situated_type: @situated.class.name, situated_id: @situated.id }
         format.json { render json: @scene.errors, status: :unprocessable_entity }

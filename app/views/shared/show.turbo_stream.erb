@@ -1,0 +1,42 @@
+<% object_name ||= object.class.name.underscore %>
+<% part ||= 'show' %>
+<% path_name ||= object_name.pluralize %>
+<% new_link_path ||= path_name %>
+<% long ||= nil %>
+<% no_new_link ||= false %>
+<%= turbo_stream.replace "objects" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "objects" do %>
+    <%= content_tag "turbo-frame", id: "#{dom_id object}" do %>
+      <%== render partial: "#{path_name}/#{part}", locals: { "#{object_name}":  object } %>
+    <% end %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "new_object" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "new_object" do %>
+    <% if !no_new_link.kind_of?(TrueClass) and no_new_link != "true" %>
+      <%== render partial: "#{new_link_path}/new_link", locals: { "#{object_name}": object} %>
+    <% end %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "header"  do %>
+  <%= content_tag :div, id: "header", class: 'block' do %>
+    <%== render partial: "#{path_name}/#{part.nil? || part == 'show' ? '' : "#{part}_"}header", locals: { "#{object_name}": object} %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "side_controls" do %>
+  <%= content_tag :div, id: "side_controls", class: "block" do %>
+    <% if part == 'show' %>
+      <%== render partial: "#{path_name}/side_controls", locals: { "#{object_name}": object, long: long } %>
+    <% else %>
+    <%# if lookup_context.exists?("#{part.nil? ? '' : "#{part}"}_sides", [ "#{path_name}" ], true) %>
+      <%== render partial: "#{path_name}/#{part}_sides", locals: { "#{object_name}": object, long: long } %>
+    <%# elsif lookup_context.exists?("_side_controls", [ "#{path_name}" ], true) %>
+    <% end %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "nav-bar" do %>
+  <%= content_tag :div, class: "block", id: "nav-bar" do %>
+    <%== render partial: "application/header" %>
+  <% end %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

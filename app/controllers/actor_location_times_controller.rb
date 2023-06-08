@@ -8,14 +8,14 @@ class ActorLocationTimesController < ApplicationController
     @actor_location_times = ActorLocationTime.where(location_time_id: @location_time.id)
 
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: ActorLocationTime.new, objects: @actor_location_timess } }
     end
   end
 
   # GET /actor_location_times/1 or /actor_location_times/1.json
   def show
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @actor_location_time } }
     end
   end
 

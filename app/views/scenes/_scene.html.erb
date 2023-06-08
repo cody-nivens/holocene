@@ -7,7 +7,7 @@
       <turbo-frame id="sub_objects">
         <% values = scene.set_values %>
         <turbo-frame id="<%= dom_id scene.section %>">
-          <%= render partial: "sections/section_item", locals: { section:  scene.section, header: false } %>
+          <%= render partial: "sections/section_single", locals: { section:  scene.section, header: false } %>
         </turbo-frame>
       </turbo-frame>
     <%#== highlight(text.to_s, Regexp.new(KeyWord.where(book_id: values[0].id).collect(&:key_word).join('|'))) %>

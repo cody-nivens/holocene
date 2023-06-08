@@ -16,7 +16,7 @@ class CharacterAttributesController < ApplicationController
       end
     else
       respond_to do |format|
-        format.turbo_stream { }
+        format.turbo_stream { render "shared/index", locals: { object: CharacterAttribute.new, objects: @character_attributes } }
       end
     end
   end
@@ -32,7 +32,7 @@ class CharacterAttributesController < ApplicationController
   def show
     @character_category = @character_attribute.character_category
       respond_to do |format|
-        format.turbo_stream { }
+        format.turbo_stream { render "shared/show", locals: { object: @character_attribute } }
       end
   end
 

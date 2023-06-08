@@ -17,6 +17,13 @@ class CharactersTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  [ 'Character Grid', 'Main Characters', 'Characters with Scenes', 'By Occupation', 'By Occupation, All' ].each do |object|
+    test "visiting the Character:#{object.gsub(/ /,'_')} menu" do
+      setup_page 'Story'
+      setup_menu_page 'Characters', object
+    end
+  end
+
   test 'character_create' do 
     visit root_url
     assert_text 'The Phantom'

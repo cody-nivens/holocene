@@ -1,8 +1,8 @@
 <h2>Editing Footnote</h2>
 
 <turbo-frame id="new_object">
-  <turbo-frame id="<%= @footnote %>">
+  <turbo-frame id="<%= dom_id @footnote %>">
     <%= render 'form', footnote: @footnote, command_label: 'Update Footnote', noted: @noted %>
-    <%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@noted), method: :get, class: 'btn', title: 'Back' %>
+    <%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path([@noted, :footnotes]), method: :get, class: 'btn', title: 'Back' %>
   </turbo-frame>
 </turbo-frame>

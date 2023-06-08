@@ -5,6 +5,7 @@ ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
 require 'download_helpers'
+require 'holocene_minitests'
 require 'minitest/unit'
 require 'mocha/minitest'
 require 'sidekiq/testing'
@@ -69,6 +70,7 @@ module MiniTest
   end
 end
 
+
 def locked? lockfile_name
   f = File.open(lockfile_name, File::CREAT)
 
@@ -109,6 +111,7 @@ module ActiveSupport
 
     include ApplicationHelper
     include SphinxHelpers
+    include HoloceneMinitests
     include Devise::Test::IntegrationHelpers
 
     def self.prepare
@@ -134,14 +137,6 @@ module ActiveSupport
       File.delete(lock_file) if File.exist?(lock_file)
     end
 
-    def interactive_debug_session(log_in_as = nil)
-      return unless Capybara.current_driver == Capybara.javascript_driver
-      return unless current_url
-      login_as(log_in_as, scope: :user) if log_in_as.present?
-      Launchy.open(current_url)
-      binding.pry
-    end
-
     def fill_in_editor(id, with:)
       find(:css, ".#{id}").click.set(with)
     end
@@ -156,15 +151,19 @@ module ActiveSupport
       end
     end
 
-    def do_menu(master, sub_action)
-      assert_selector "nav.navbar"
-      within "nav.navbar" do
-        assert_link master
-        click_on master
-
-        assert_link sub_action
-        click_on sub_action
+    def click_on_header(text, icon)
+      within(:xpath, "//h3[contains(text(),'#{text}')]/..") do
+        Capybara.page.find("i.fa-#{icon}").click
       end
+    end
+
+    def do_menu(master, sub_action)
+      assert_selector "nav.navbar", wait: 5
+      assert has_xpath?("//*[@id='nav-bar']/nav/ul/li/a[text()='#{master}']"), wait: 5, msg: "Missing menu top '#{master}'"
+      find(:xpath, "//*[@id='nav-bar']/nav/ul/li/a[text()='#{master}']").click
+
+      assert has_xpath?("//*[@id='nav-bar']/nav/ul/li/a[text()='#{master}']/../ul/li/a[text()='#{sub_action}']"), wait: 5, msg: "'#{sub_action}' menu item is missing."
+      find(:xpath, "//*[@id='nav-bar']/nav/ul/li/a[text()='#{master}']/../ul/li/a[text()='#{sub_action}']").click
     end
 
     def click_new(icon)
@@ -185,9 +184,9 @@ module ActiveSupport
       end
     end
 
-    def assert_side(text)
+    def assert_side(icon)
       within "div#side_controls" do
-        assert_link text
+        assert_selector "a > i.fa-#{icon}"
       end
     end
 

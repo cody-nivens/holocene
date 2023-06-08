@@ -1,4 +1,4 @@
-<% attributes = CharacterAttribute.where(character_category: character_category) %>
+<% attributes = CharacterAttribute.where(character_category: @character_category) %>
 <ul data-controller="sortable" data-sortable-resource-name-value="character_attribute">
   <% attributes.order(:position).each do |attribute| %>
     <li data-sortable-update-url="<%= character_attribute_sort_path(attribute) %>">

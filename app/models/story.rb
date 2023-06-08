@@ -14,7 +14,7 @@ class Story < ApplicationRecord
 
   validates :title, presence: true
 
-  def timeline_json(toggle)
+  def timeline_json(toggle = false)
     { events: Scene.get_scenes_to_array(self).collect { |x| Scene.find(x).slide } }
   end
 

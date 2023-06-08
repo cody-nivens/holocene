@@ -1,0 +1,21 @@
+<table class='table'>
+  <thead>
+    <tr>
+      <th width="20%">Character</th>
+      <th width="50%">Background</th>
+      <th width="30%"># of Scenes</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @chars.each do |char_info| %>
+    <% character = Character.find(char_info[0]) %>
+    <tr>
+      <td><%= link_to character.full_name, polymorphic_path([@object, character]) %></td>
+      <td><%= character.background %></td>
+      <td>
+        <%== scenes_list_ul(character,@object) %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

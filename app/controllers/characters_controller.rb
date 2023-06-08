@@ -1,6 +1,6 @@
 class CharactersController < ApplicationController
   before_action :set_character, only: %i[lineage edit update]
-  before_action :set_object, only: %i[scenes matrix lineage index add list edit show create update destroy]
+  before_action :set_object, only: %i[ report index add list edit show create update destroy]
 
   # GET /characters
   # GET /characters.json
@@ -12,7 +12,7 @@ class CharactersController < ApplicationController
     respond_to do |format|
       format.js {}
 #      format.html {}
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: Character.new, objects: @characters } }
     end
   end
 
@@ -49,7 +49,7 @@ class CharactersController < ApplicationController
 
     respond_to do |format|
 #      format.html {}
-      format.turbo_stream { render 'show', locals: { character: @character, object: @object, long: @long }}
+      format.turbo_stream { render 'shared/show', locals: { object: @character } }
     end
   end
 
@@ -63,25 +63,37 @@ class CharactersController < ApplicationController
     end
   end
 
-  # GET /characters/1/matrix
-  def matrix
-    chars_list
+  def report
+    @report_path, @report = params[:report].split(/\//)
+    @scenes_wi = Scene.get_scenes_to_array(@object)
+    @scenes = @scenes_wi.collect{|x| Scene.find(x) }
 
-    session[:return_to] = request.fullpath
+    @toggle = params[:toggle]
+    @print = params[:print]
+    @option = params[:option]
+    @long = params[:long]
+    @situated = @object
 
-    respond_to do |format|
-      format.turbo_stream {}
+    @data = {}
+    @op = params[:op]
+
+
+    setup_chars
+    case @report
+    when "stats"
+      @op = "scenes"
+    when "scenes"
+      @op = "scenes"
+      @year_options = [ ]
+      chars_list
+    when 'chars'
+      chars_list
+    when 'matrix'
+      chars_list
     end
-  end
-
-  # GET /characters/1/scenes
-  def scenes
-    chars_list
-
-    session[:return_to] = request.fullpath
 
     respond_to do |format|
-      format.turbo_stream {}
+      format.turbo_stream { render 'shared/report' }
     end
   end
 
@@ -194,6 +206,29 @@ class CharactersController < ApplicationController
 
   private
 
+   def setup_chars
+    if @long.kind_of?(TrueClass) or @long == "true"
+      @characters = @book.characters
+    else
+      scenes_wi = Scene.get_scenes_to_array(@book)
+      scenes = scenes_wi.collect{|x| Scene.find(x) }
+      @characters = @book.characters.joins(:scenes).where("scenes.book_id = ?", @book.id).where("scenes.id",scenes)
+    end
+  end
+
+  def chars_list
+    @scenes = Scene.get_scenes_to_array(@object)
+    characters = @object.characters.joins(:scenes).where("scenes.book_id = ?", @object.id).where("scenes.id",@scenes).group("characters.id")
+    chars = []
+    characters.each do |character|
+      scenes = character.published_scenes(@object)
+      chars << [character.id, scenes.length] if scenes.length > 0
+    end
+    chars = chars.sort {|a1,a2| a2[1]<=>a1[1]}
+    @chars = chars
+  end
+
+
   def do_index
     @category = grid_params[:category]
     @attribute = grid_params[:attribute]
@@ -239,18 +274,6 @@ class CharactersController < ApplicationController
     end
 
     @pagy, @records = pagy(@grid.assets)
-  end
-
-  def chars_list
-    @scenes = Scene.get_scenes_to_array(@object)
-    characters = @object.characters.joins(:scenes).where("scenes.book_id = ?", @object.id).where("scenes.id",@scenes).group("characters.id")
-    chars = []
-    characters.each do |character|
-      scenes = character.published_scenes(@object)
-      chars << [character.id, scenes.length] if scenes.length > 0
-    end
-    chars = chars.sort {|a1,a2| a2[1]<=>a1[1]}
-    @chars = chars
   end
 
   def update_character_lists(object, character)

@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 plot_point_1:
-  name: MyString
+  name: The missing cat
   book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
 
 plot_point_2:
-  name: MyString
+  name: No barking dog
   book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>

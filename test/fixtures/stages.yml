@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 stage_1:
-  name: MyString
+  name: Orphan Andy
   act_id: <%= ActiveRecord::FixtureSet.identify(:act_1) %>
 
 stage_2:
-  name: MyString
+  name: Battle Royal
   act_id: <%= ActiveRecord::FixtureSet.identify(:act_1) %>

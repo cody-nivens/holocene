@@ -6,14 +6,14 @@ class PlotPointsController < ApplicationController
   def index
     @plot_points = PlotPoint.where(book_id: @book.id)
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: PlotPoint.new, objects: @plot_points } }
     end
   end
 
   # GET /plot_points/1 or /plot_points/1.json
   def show
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @plot_point } }
     end
   end
 

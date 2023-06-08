@@ -6,8 +6,7 @@ class FootnotesController < ApplicationController
     @footnotes = @noted.footnotes
 
     respond_to do |format|
-#      format.html { render :index  }
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: Footnote.new, objects: @footnotes } }
     end
   end
 
@@ -17,8 +16,7 @@ class FootnotesController < ApplicationController
     @noted = @footnote.noted
 
     respond_to do |format|
-#      format.html { render :index  }
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @footnote } }
     end
   end
 
@@ -49,6 +47,7 @@ class FootnotesController < ApplicationController
 
     respond_to do |format|
       if @footnote.save
+        @footnotes = @noted.footnotes
         flash.now[:notice] = "Footnote was successfully created."
 #        format.html do
 #          redirect_to "/#{@noted.class.name.underscore.pluralize}/#{@noted.id}/footnote/#{@footnote.id}",
@@ -56,7 +55,8 @@ class FootnotesController < ApplicationController
 #                      notice: 'Footnote was successfully created'
 #        end
         format.json { render :show, status: :created, location: @footnote }
-        format.turbo_stream { render "#{@noted.class.name.underscore.pluralize}/show", locals: { "#{@noted.class.name.underscore}": @noted, long: nil } }
+        #format.turbo_stream { render "index", locals: { "#{@noted.class.name.underscore}": @noted, long: nil } }
+        format.turbo_stream { render "shared/index", locals: { object: Footnote.new, objects: @footnotes } }
       else
         format.html { render :new }
         format.json { render json: @footnote.errors, status: :unprocessable_entity }

@@ -1,5 +1,2 @@
-<div id="side_controls" class="hide-print">
-  <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_book_plot_point_path(@book), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'New Plot Point' %>
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_book_plot_point_path(@book), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'New Plot Point' %>
 <%= link_to (fa_icon 'backward', class: 'fa-fw'), book_path(@book), method: :get, class: 'btn', title: 'Back' %>
-</div>
-

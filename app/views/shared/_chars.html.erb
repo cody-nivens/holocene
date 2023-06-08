@@ -11,6 +11,6 @@
 <% else %>
   <h3>Characters</h3>
   <% @title = "Characters, #{object.name}" %>
-  <%= render partial: 'characters/characters_occ_ul', formats: [:html], locals: { object: object, characters: characters } %>
+  <%= render partial: 'characters/characters_occ_ul', formats: [:html], locals: { object: object, characters: @characters } %>
 <% end %>
 

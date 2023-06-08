@@ -10,7 +10,7 @@ class HoloceneEventsController < ApplicationController
       scope.includes([:event_types, :region, :rich_text_body]).page(params[:page])
     end
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: HoloceneEvent.new, objects: @holocene_events } }
     end
   end
 
@@ -30,7 +30,7 @@ class HoloceneEventsController < ApplicationController
   def show
     @long = params[:long]
     respond_to do |format|
-      format.turbo_stream { render 'show', locals: { holocene_event: @holocene_event, long: @long } }
+      format.turbo_stream { render "shared/show", locals: { object: @holocene_event } }
     end
   end
 

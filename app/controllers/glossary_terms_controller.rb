@@ -6,12 +6,18 @@ class GlossaryTermsController < ApplicationController
   # GET /glossary_terms.json
   def index
     @glossary_terms = @book.glossary_terms.includes([:see, :seealso, :acronym]).order(:name)
+    respond_to do |format|
+      format.turbo_stream { render "shared/index", locals: { object: GlossaryTerm.new, objects: @glossary_terms } }
+    end
   end
 
   # GET /glossary_terms/1
   # GET /glossary_terms/1.json
   def show
     @book = @glossary_term.book
+    respond_to do |format|
+      format.turbo_stream { render "shared/show", locals: { object: @glossary_term } }
+    end
   end
 
   # GET /glossary_terms/new
@@ -34,10 +40,12 @@ class GlossaryTermsController < ApplicationController
 
     respond_to do |format|
       if @glossary_term.save
-        format.html do
-          redirect_to glossary_term_path(@glossary_term), notice: 'Glossary term was successfully created.'
-        end
+        @glossary_terms = @book.glossary_terms.includes([:see, :seealso, :acronym]).order(:name)
+        #format.html do
+        #  redirect_to glossary_term_path(@glossary_term), notice: 'Glossary term was successfully created.'
+        #end
         format.json { render :show, status: :created, location: @glossary_term }
+        format.turbo_stream { flash.now[:notice] = "Glossary Term was successfully created." }
       else
         format.html { render :new }
         format.json { render json: @glossary_term.errors, status: :unprocessable_entity }
@@ -55,6 +63,7 @@ class GlossaryTermsController < ApplicationController
           redirect_to glossary_term_path(@glossary_term), notice: 'Glossary term was successfully updated.'
         end
         format.json { render :show, status: :ok, location: @glossary_term }
+        format.turbo_stream { flash.now[:notice] = "Glossary Term was successfully updated." }
       else
         format.html { render :edit }
         format.json { render json: @glossary_term.errors, status: :unprocessable_entity }
@@ -67,9 +76,11 @@ class GlossaryTermsController < ApplicationController
   def destroy
     @book = @glossary_term.book
     @glossary_term.destroy
+    @glossary_terms = @book.glossary_terms.includes([:see, :seealso, :acronym]).order(:name)
     respond_to do |format|
       format.html { redirect_to book_glossary_terms_url(@book), notice: 'Glossary term was successfully destroyed.' }
       format.json { head :no_content }
+        format.turbo_stream { flash.now[:notice] = "Glossary Term was successfully destroyed." }
     end
   end
 

@@ -2,6 +2,9 @@ class CharacterScenesController < ApplicationController
   before_action :set_character_scene, only: %i[show edit update]
 
   def show
+    respond_to do |format|
+      format.turbo_stream { render "shared/show", locals: { object: @character_scene } }
+    end
   end
 
   # GET /character_scenes/1/edit

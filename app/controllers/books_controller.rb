@@ -11,13 +11,12 @@ class BooksController < ApplicationController
     @books = Book.where(user_id: current_user.id).order(:position)
 
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: Book.new, objects: @books } }
     end
   end
 
   def report
-    @report = params[:report]
-    @report_path = @report.gsub(/\//,'_')
+    @report_path, @report = params[:report].split(/\//)
     @scenes_wi = Scene.get_scenes_to_array(@book)
     @scenes = @scenes_wi.collect{|x| Scene.find(x) }
 
@@ -27,16 +26,18 @@ class BooksController < ApplicationController
     @long = params[:long]
 
     case @report
-    when "books/stats"
+    when "stats"
       @op = "scenes"
-    when "books/scenes"
+    when "scenes"
       @situated = @book
       @op = "scenes"
       @year_options = [ ]
+    when 'chars'
+      setup_chars
     end
 
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/report" }
     end
   end
 
@@ -49,11 +50,11 @@ class BooksController < ApplicationController
     flash.now[:notice] = "All Stories marked publish."
     respond_to do |format|
       format.html { render :show, locals: { long: false } }
-      format.turbo_stream { render 'show' }
+      format.turbo_stream { render "shared/show", locals: { object: @book, new_link_path: (@book.is_fiction? ? "stories" : "chapters") } }
     end
   end
 
-  def chars
+  def setup_chars
     @long = params[:long]
 
     if @long.kind_of?(TrueClass) or @long == "true"
@@ -66,11 +67,6 @@ class BooksController < ApplicationController
 
     @data = {}
     @op = params[:op]
-
-    respond_to do |format|
-      format.html { render :chars, locals: { book: @book, characters: @characters, op: @op, long: @long } }
-    end
-
   end
 
   def import_chars
@@ -181,14 +177,21 @@ class BooksController < ApplicationController
         @stories = @book.stories.where(publish: true).order(:position)
       end
       @scenes_wi = Scene.get_scenes_to_array(@book)
-      @scenes = @scenes_wi.collect{|x| Scene.find(x) }
+      begin
+        @scenes = @scenes_wi.collect{|x| Scene.find(x) }
+      rescue
+        $redis.set("book_scenes_#{@book.id}", nil)
+        @scenes_wi = Scene.get_scenes_to_array(@book)
+        @scenes = @scenes_wi.collect{|x| Scene.find(x) }
+      end
+
     else
       @chapters = @book.chapters.includes({ holocene_events: :rich_text_body })
     end
 
     respond_to do |format|
 #      format.html { render :show, locals: { long: @long } }
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @book, new_link_path: (@book.is_fiction? ? "stories" : "chapters") } }
       format.pdf do
         render pdf: @book.name.gsub(/[:,]/,'').underscore,
                disposition: 'attachment',
@@ -297,7 +300,7 @@ class BooksController < ApplicationController
         flash.now[:notice] = "Book was successfully updated."
 #        format.html { redirect_to @book, notice: 'Book was successfully updated.' }
         format.json { render :show, status: :ok, location: @book }
-        format.turbo_stream { render 'show' }
+        format.turbo_stream { render "shared/show", locals: { object: @book, new_link_path: (@book.is_fiction? ? "stories" : "chapters") } }
       else
         format.html { render :edit }
         format.json { render json: @book.errors, status: :unprocessable_entity }

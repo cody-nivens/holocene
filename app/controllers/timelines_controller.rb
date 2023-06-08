@@ -6,7 +6,7 @@ class TimelinesController < ApplicationController
   def index
     @timelines = Timeline.where(user_id: current_user.id).order(:name)
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: Timeline.new, objects: @timelines } }
     end
   end
 
@@ -18,7 +18,7 @@ class TimelinesController < ApplicationController
       scope.includes([:event_types, :region, :rich_text_body]).page(params[:page])
     end
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @timeline } }
     end
   end
 
@@ -38,12 +38,20 @@ class TimelinesController < ApplicationController
         when 'Epoch'
           @object = Epoch.find(value)
         else
-          @object = Regexp.last_match(1).classify.constantize.includes([{ holocene_events: [:image_attachment, :rich_text_body] }]).find(value)
+          @object = Regexp.last_match(1).classify.constantize.find(value)
         end
       end
     end
-    respond_to do |format|
-      format.turbo_stream { }
+    if request.xhr?
+      respond_to do |format|
+        format.json do
+          render json: { timelines: @object.timeline_json }
+        end
+      end
+    else
+      respond_to do |format|
+        format.turbo_stream { render "shared/show", locals: { object: @object, path_name: 'timelines', part: 'timeline' } }
+      end
     end
   end
 
@@ -63,7 +71,12 @@ class TimelinesController < ApplicationController
 
     respond_to do |format|
       if @timeline.save
+        @object = @timeline
         @timelines = Timeline.where(user_id: current_user.id).order(:name)
+        ids = @timeline.holocene_events.pluck(:id)
+        @grid = HoloceneEventsGrid.new(hgrid_params.merge({ id: ids })) do |scope|
+          scope.includes([:event_types, :region, :rich_text_body]).page(params[:page])
+        end
         format.html { redirect_to @timeline, notice: 'Timeline was successfully created.' }
         format.json { render :show, status: :created, location: @timeline }
         format.turbo_stream { flash.now[:notice] = "Timeline was successfully created." }
@@ -80,6 +93,7 @@ class TimelinesController < ApplicationController
     @timelines = Timeline.where(user_id: current_user.id).order(:name)
     respond_to do |format|
       if @timeline.update(timeline_params)
+        @object = @timeline
         ids = @timeline.holocene_events.pluck(:id)
         @grid = HoloceneEventsGrid.new(hgrid_params.merge({ id: ids })) do |scope|
           scope.includes([:event_types, :region, :rich_text_body]).page(params[:page])
@@ -117,6 +131,11 @@ class TimelinesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_timeline
     @timeline = Timeline.find(params[:id])
+  end
+
+  def set_object
+    @klass = [Book, Chapter, Story].detect { |c| params["#{c.name.underscore}_id"] }
+    @object = @klass.find(params["#{@klass.name.underscore}_id"])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,9 +1,9 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 location_1:
-  name: waiting for jones
+  name: The Jones
   book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
 
 location_2:
-  name: The ghost of giliad
+  name: The Ghost of Giliad
   book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>

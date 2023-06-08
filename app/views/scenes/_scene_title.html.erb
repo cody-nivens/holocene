@@ -30,9 +30,9 @@
         </td>
         <td width="5%">
           <% if target.nil? %>
-            <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene), method: :get, data: { "turbo-frame": "objects", "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.characters_short_list}"}) : scene.abc) %>
+            <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene), method: :get, data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.characters_short_list}"}) : scene.abc) %>
           <% else %>
-            <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene), target: target, method: :get, data: { "turbo-frame": "objects", "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.characters_short_list}"}) : scene.abc) %>
+            <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene), target: target, method: :get, data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.characters_short_list}"}) : scene.abc) %>
           <% end %>
         </td>
       <% end %>
@@ -44,7 +44,7 @@
           </strong>
         </td>
         <td width="2%">
-          <%= link_to scene.characters.size, scene_characters_path(scene_id: scene.id), target: :_blank,
+          <%= link_to scene.characters.size, scene_characters_path(scene_id: scene.id), method: :get,
             data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.characters_short_list}"}%>
         </td>
         <% if scene.signets.size > 0 %>
@@ -52,7 +52,7 @@
           <td style="width:2%; background-color:<%= value %>">
         <% else %>
           <td width="2%">
-        <%= link_to scene.signets.size, scene_signets_path(scene_id: scene.id), target: :_blank,
+        <%= link_to scene.signets.size, scene_signets_path(scene_id: scene.id), method: :get,
           data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.signets_short_list}"}%>
         <% end %>
         </td>

@@ -1,6 +1,5 @@
 <% priv_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position - 1) -%>
 <% next_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position + 1) -%>
-<div id="side_controls" class="hide-print">
 <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_section_path(@section), class: 'btn', title: 'Edit' %>
 <% unless priv_section.size.zero? %>
 <%= link_to (fa_icon 'arrow-left', class: 'fa-fw'), section_path(priv_section.first), method: :get, class: 'btn', title: 'Previous section' %>
@@ -15,4 +14,3 @@
   <%= link_to (fa_icon 'list', class: 'fa-fw'), section_footnotes_path(@section), method: :get, class: 'btn', title: 'Footnotes' %>
 <% end -%>
 <%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@sectioned), method: :get, class: 'btn', title: 'Back' %>
-</div>

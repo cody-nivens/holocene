@@ -7,7 +7,7 @@ class CharacterCategoriesController < ApplicationController
     @character_categories = CharacterCategory.order(:position)
 
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: CharacterCategory.new, objects: @character_categorys } }
     end
   end
 
@@ -22,7 +22,7 @@ class CharacterCategoriesController < ApplicationController
   # GET /character_categories/1.json
   def show
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @character_category } }
     end
   end
 

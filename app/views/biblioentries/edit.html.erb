@@ -1,6 +1,8 @@
 <h2>Editing Biblioentry</h2>
 
+<turbo-frame id="new_object">
 <turbo-frame id="<%= dom_id @biblioentry %>">
   <%= render 'form', book: @book, biblioentry: @biblioentry, command_label: 'Update Biblioentry' %>
   <%= link_to (fa_icon 'backward', class: 'fa-fw'),   return_or_default_path(book_biblioentries_path(@book)), method: :get, class: 'btn', title: 'Back' %>
+</turbo-frame>
 </turbo-frame>

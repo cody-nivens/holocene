@@ -1,5 +1,0 @@
-<% @title = "Chars#{params[:outline].nil? ? '' : ' Outline'}, #{@story.name}" %>
-<%= render partial: 'stories/header', locals: { book: @book, story: @story, long: false } %>
-<%= render partial: 'shared/chars', locals: { object: @story, op: op, long: long, characters: characters } %>
-<%= render partial: 'stories/footer', locals: { book: @book, story: @story } %>
-

@@ -7,7 +7,7 @@ class ToursController < ApplicationController
     @tours = Tour.where(story_id: @story.id)
 
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: Tour.new, objects: @tours } }
     end
   end
 
@@ -22,7 +22,7 @@ class ToursController < ApplicationController
     @pagy, @records = pagy(@grid.assets)
 
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @tour } }
     end
   end
 

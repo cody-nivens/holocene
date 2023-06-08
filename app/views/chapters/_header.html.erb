@@ -1,7 +1,7 @@
-<% if chapter.display_title? %>
+<% if @chapter.display_title? %>
   <h3>
-    <% if scripted.class.name == 'Book' %>
-      <%== breadcrumb(scripted, chapter, link: true) %>
+    <% if @scripted.class.name == 'Book' %>
+      <%== breadcrumb(@scripted, @chapter, link: true) %>
     <% end %>
   </h3>
 <% end %>

@@ -10,8 +10,11 @@ class ArtifactsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  if 1 == 0
+  test "drive the artifact cycle" do
+    drive_cycle('Support', 'Artifacts')
+  end
 
+if 1 == 0
   test 'not creating a Artifact' do
     visit root_url
     assert_text 'The Phantom'
@@ -89,32 +92,5 @@ class ArtifactsTest < ApplicationSystemTestCase
     assert_text 'New Artifact'
     assert_current_path book_artifacts_path(@artifact.book)
   end
-  end
-
-  test 'creating a Artifact' do
-    visit root_url
-    assert_text 'The Phantom'
-    click_on 'The Phantom'
-    assert_text 'The Beginnings'
-
-    do_menu "Support", "Artifacts"
-
-    click_new 'plus'
-    fill_in "Name", with: "Strangeness in Space"
-    select 'John', from: 'artifact_character_id'
-    select 'Ship', from: 'artifact_artifact_type_id'
-    click_on 'Create Artifact'
-
-    assert_text 'Artifact was successfully created'
-    assert_current_path root_url
-
-    assert_text "Strangeness in Space"
-    click_on "Strangeness in Space"
-
-    click_on 'Back'
-
-    assert_text 'Owner/Controller'
-    assert_new 'plus'
-    assert_current_path root_url
   end
 end

@@ -5,13 +5,21 @@ class AuthorsController < ApplicationController
   # GET /books/:book_id/authors(.:format)
   def index
     @authors = @object.authors.order(:last_name)
+    respond_to do |format|
+      format.turbo_stream { render "shared/index", locals: { object: Author.new, objects: @authors } }
+    end
   end
 
   # GET /books/:book_id/authors/:id(.:format)
-  def show; end
+  def show
+    respond_to do |format|
+      format.turbo_stream { render "shared/show", locals: { object: @author } }
+    end
+  end
 
   # GET /authors/1/list
-  def list; end
+  def list
+  end
 
   # GET /authors/1/add
   def add

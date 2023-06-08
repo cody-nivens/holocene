@@ -1,0 +1,13 @@
+<table class="table">
+  <tbody>
+<% @stage.segments.order(:name).each do |segment| %>
+  <tr>
+    <td>
+      <strong><%= "#{segment.name}: #{segment.location_times.size}" %></strong>
+    <%= link_to (fa_icon 'edit'), edit_segment_path(segment), title: "Edit #{segment.name}" %>
+    <%= render partial: "segments/segment", locals: { segment: segment, op: 'locations' } %>
+    </td>
+  </tr>
+<% end %>
+  </tbody>
+</table>

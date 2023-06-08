@@ -1,0 +1,27 @@
+<%= turbo_stream.replace "objects" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "objects" do %>
+    <%= render partial: "#{@report_path}/#{@report}"  %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "new_object" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "new_object" do %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "header"  do %>
+  <%= render partial: "#{@report_path}/#{@report}_header" %>
+<% end %>
+<%= turbo_stream.replace "side_controls" do %>
+  <%= content_tag :div, class: "block", id: "side_controls" do %>
+    <% if lookup_context.exists?("#{@report}_sides", [ "#{@report_path}" ], true) %>
+      <%= render partial: "#{@report_path}/#{@report}_sides" %>
+    <% elsif lookup_context.exists?("report_sides", [ "#{@report_path}" ], true) %>
+      <%= render partial: "#{@report_path}/report_sides" %>
+    <% end %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "nav-bar" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "nav-bar" do %>
+    <%= render partial: "application/header" %>
+  <% end %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

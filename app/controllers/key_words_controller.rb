@@ -7,7 +7,7 @@ class KeyWordsController < ApplicationController
     @key_words = KeyWord.where(book_id: @book.id).order(:key_word)
     
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: KeyWord.new, objects: @key_words } }
     end
   end
 
@@ -16,7 +16,7 @@ class KeyWordsController < ApplicationController
     @book = @key_word.book
     @key_words = KeyWord.where(book_id: @book.id).order(:key_word)
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @key_word } }
     end
   end
 

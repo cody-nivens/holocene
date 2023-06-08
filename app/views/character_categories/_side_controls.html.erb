@@ -1,5 +1,3 @@
-<div id="side_controls" class="hide-print">
   <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_character_category_path(@character_category), data: { "turbo-frame": "new_object" }, title: 'Edit', class: 'btn' %>
   <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_character_category_character_attribute_path(character_category_id: @character_category.id), data: { "turbo-frame": "new_object" }, title: 'New Character Attribute', class: 'btn' %>
   <%= link_to (fa_icon 'backward', class: 'fa-fw'),  character_categories_path, method: :get, class: 'btn', title: 'Back' %>
-</div>

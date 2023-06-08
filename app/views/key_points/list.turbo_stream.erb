@@ -1,18 +1,22 @@
 <%= turbo_stream.replace "objects" do %>
   <%= content_tag "turbo-frame", class: "block", id: "objects" do %>
-    <%= render partial: "key_points/list", locals: { scripted: @scripted, key_point:  @key_point, long: @long } %>
+    <%= render partial: "key_points/list", locals: { scripted: @scripted, key_point:  @key_point } %>
   <% end %>
 <% end %>
 <%= turbo_stream.replace "new_object" do %>
   <%= content_tag "turbo-frame", class: "block", id: "new_object" do %>
-    <%= render partial: 'key_points/new_scene', locals: { scripted: @story, long: @long } %>
+    <%= render partial: 'key_points/new_scene', locals: { scripted: @story } %>
   <% end %>
 <% end %>
 <%= turbo_stream.replace "header"  do %>
-  <%= render partial: "key_points/header", locals: { key_point: @key_point} %>
+  <%= content_tag :div, id: "header", class: "block" do %>
+    <%= render partial: "key_points/header", locals: { key_point: @key_point} %>
+  <% end %>
 <% end %>
 <%= turbo_stream.replace "side_controls" do %>
-  <%= render partial: 'key_points/side_controls', locals: { key_point: @key_point, long: @long } %>
+  <%= content_tag :div, id: "side_controls", class: "block" do %>
+    <%= render partial: 'key_points/side_controls', locals: { key_point: @key_point } %>
+  <% end %>
 <% end %>
 <%= turbo_stream.replace "nav-bar" do %>
   <%= content_tag "turbo-frame", class: "block", id: "nav-bar" do %>

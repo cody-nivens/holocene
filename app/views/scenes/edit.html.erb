@@ -1,6 +1,8 @@
 <h2>Editing Scene</h2>
 
-<turbo-frame id="<%= dom_id @scene %>">
-  <%= render 'form', scene: @scene, situated: @situated, selector: @selector, key_point: @key_point %>
-  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  scene_path(@scene), method: :get, class: 'btn', title: 'Back' %>
+<turbo-frame id="new_object">
+  <turbo-frame id="<%= dom_id @scene %>">
+    <%= render 'form', scene: @scene, situated: @situated, selector: @selector, key_point: @key_point %>
+    <%= link_to (fa_icon 'backward', class: 'fa-fw'),  scene_path(@scene), method: :get, class: 'btn', title: 'Back' %>
+  </turbo-frame>
 </turbo-frame>

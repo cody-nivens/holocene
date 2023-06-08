@@ -10,6 +10,9 @@ class ChaptersController < ApplicationController
     @chapters = @scripted.chapters.includes([ { partition: :rich_text_body }, { aside: :rich_text_body },
                                               :chapters_holocene_events, :holocene_events,
                                               { sections: :rich_text_body }, :rich_text_body]).order(:position).all
+    respond_to do |format|
+      format.turbo_stream { render "shared/index", locals: { object: Chapter.new, objects: @chapters } }
+    end
   end
 
   def sort
@@ -116,10 +119,11 @@ class ChaptersController < ApplicationController
     @notes = {}
     @sections = @chapter.sections.order(:position)
     @scripted = @chapter.scripted
+    @sectioned = @chapter
 
     respond_to do |format|
       format.html { render :show, locals: { epub: false } }
-      format.turbo_stream { render 'show', locals: { chapter: @chapter, long: @long } }
+      format.turbo_stream { render "shared/show", locals: { object: @chapter, new_link_path: "sections" } }
     end
   end
 
@@ -159,12 +163,13 @@ class ChaptersController < ApplicationController
   # PATCH/PUT /chapters/1.json
   def update
     @scripted = @chapter.scripted
+    @sectioned = @chapter
     respond_to do |format|
       if @chapter.update(chapter_params)
         flash.now[:notice] = "Chapter was successfully updated."
         format.html { redirect_to @chapter, notice: 'Chapter was successfully updated.' }
         format.json { render :show, status: :ok, location: @chapter }
-        format.turbo_stream { render 'show', locals: { chapter: @chapter, long: @long } }
+        format.turbo_stream { render "shared/show", locals: { object: @chapter, new_link_path: "sections" } }
       else
         format.html { render :edit }
         format.json { render json: @chapter.errors, status: :unprocessable_entity }
@@ -182,7 +187,7 @@ class ChaptersController < ApplicationController
     flash.now[:notice] = "Chapter was successfully destroyed."
     respond_to do |format|
       format.html { redirect_to polymorphic_path([@scripted, :chapters]), notice: 'Chapter was successfully destroyed.' }
-      format.turbo_stream { render 'index', locals: { chapters: @chapters, long: @long } }
+      format.turbo_stream { render "shared/index", locals: { object: Chapter.new, objects: @chapters } }
       format.json { head :no_content }
     end
   end

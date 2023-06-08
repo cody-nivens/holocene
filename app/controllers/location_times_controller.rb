@@ -6,14 +6,14 @@ class LocationTimesController < ApplicationController
   def index
     @location_times = LocationTime.where(segment_id: @segment.id)
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: LocationTime.new, objects: @location_times } }
     end
   end
 
   # GET /location_times/1 or /location_times/1.json
   def show
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @location_time } }
     end
   end
 

@@ -1,6 +1,4 @@
-<div id="side_controls">
   <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_polymorphic_path([@object, @character]), datas: { "turbo-frame": "new_object" }, class: 'btn', title: 'Edit' %>
   <%= link_to (fa_icon 'list', class: 'fa-fw'), polymorphic_path([@object, @character, :character_values]), method: :get, class: 'btn', title: 'Attributes' %>
   <%= link_to (fa_icon 'stream', class: 'fa-fw'), polymorphic_path([@object, @character, :lineage]), method: :get, class: 'btn', title: 'Lineage' %>
   <%= link_to (fa_icon 'backward', class: 'fa-fw'),  polymorphic_path([@object, :characters]), method: :get, class: 'btn', title: 'Back' %>
-</div>

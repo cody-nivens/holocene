@@ -22,15 +22,15 @@ class Character::StepsController < ApplicationController
 
   def show
     @character = Character.find(params[:character_id])
-    wiz_step = params[:wiz_step].nil? ? nil : params[:wiz_step].to_sym
+    @wiz_step = params[:wiz_step].nil? ? nil : params[:wiz_step].to_sym
 
-    @character.update(character_step_params(wiz_step))
+    @character.update(character_step_params(@wiz_step))
     update_values
 
     @cs_path = "/character/#{@object.id}/steps"
     respond_to do |format|
       # case params[:id].to_sym
-      case wiz_step
+      case @wiz_step
       when :characteristics
         # NOTE: it's better to have a default value when params[:date] is empty
         #       on initial request.
@@ -39,12 +39,13 @@ class Character::StepsController < ApplicationController
         #       no need to do anything else.
         @user = current_user
         set_attributes(:identity)
+        @wiz_step = :identity
         format.turbo_stream { render "character/show", locals: { cs_path: @cs_path, wiz_step: :identity } }
       when :identity
         set_attributes(:attributes)
         format.turbo_stream { render "character/show", locals: { cs_path: @cs_path, wiz_step: :attributes } }
       when :attributes
-        format.turbo_stream { render "characters/show", locals: { character: @character, object: @object, long: nil } }
+        format.turbo_stream { render "shared/show", locals: { object: @character } }
       end
 #      format.html { render_wizard }
     end

@@ -1,5 +1,2 @@
-<div id="side_controls" class="hide-print">
   <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_tour_itinerary_path(@tour), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'New Itinerary' %>
   <%= link_to (fa_icon 'backward', class: 'fa-fw'), tour_path(@tour), method: :get, class: 'btn', title: 'Back' %>
-</div>
-

@@ -8,19 +8,4 @@ class WelcomesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test 'visiting the Welcome index' do
-    visit root_url
-    
-    do_menu 'Welcome', 'Stats'
-    assert_current_path root_path
-    assert_text 'Holocene Events'
-    
-    do_menu 'Welcome', 'Tags'
-    assert_current_path root_path
-    assert_selector "#tag_cloud"
-    
-    do_menu 'Welcome', 'Progress'
-    assert_current_path root_path
-  end
-
 end

@@ -1,4 +1,3 @@
-<div id="side_controls" class="hide-print">
   <%= link_to (fa_icon 'edit', type: :regular, class: 'fa-fw'), edit_book_path(book, long: long), data:{ "turbo-frame": "new_object"  }, title: 'Edit', class: 'btn' %>
     <% if long.kind_of?(TrueClass) or long == "true" %>
       <%= link_to (fa_icon 'minus', type: :solid, class: 'fa-fw'), book_path(book), title: 'Show', method: :get, class: 'btn' %>
@@ -15,4 +14,3 @@
   <%= link_to (fa_icon 'newspaper', type: :regular, class: 'fa-fw'), book_view_path(book, outline: true, long: true), method: :get, title: 'View, outline', class: 'btn' %>
   <%= link_to (fa_icon 'file-pdf', type: :solid, class: 'fa-fw'), book_path(book, format: :pdf), title: 'PDF', class: 'btn' %>
   <%= link_to (fa_icon 'backward', class: 'fa-fw'),  books_path, method: :get, class: 'btn', title: 'Back' %>
-</div>

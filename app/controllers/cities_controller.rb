@@ -17,7 +17,7 @@ class CitiesController < ApplicationController
     @pagy, @records = pagy(@grid.assets)
 
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: City.new, objects: @cities } }
     end
   end
 
@@ -42,7 +42,7 @@ class CitiesController < ApplicationController
     @grid = CitiesGrid.new(grid_params.merge({ tour: @tour }))
     @pagy, @records = pagy(@grid.assets)
     respond_to do |format|
-      format.html { render :index }
+      format.turbo_stream { render "shared/index", locals: { object: City.new, objects: @cities } }
     end
   end
 
@@ -72,7 +72,7 @@ class CitiesController < ApplicationController
   def show
 
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @city } }
     end
   end
 
@@ -96,7 +96,7 @@ class CitiesController < ApplicationController
 #        format.html { redirect_to @city, notice: 'City was successfully created.' }
         format.json { render :show, status: :created, location: @city }
         flash.now[:notice] = "City was successfully created."
-        format.turbo_stream { render 'index' }
+        format.turbo_stream { render "shared/index", locals: { object: City.new, objects: @cities } }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @city.errors, status: :unprocessable_entity }

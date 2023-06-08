@@ -1,12 +1,12 @@
 class StagesController < ApplicationController
-  before_action :set_stage, only: %i[ characters add_characters scenes time_by_location time_by_actor actor_by_location list check show edit update destroy ]
+  before_action :set_stage, only: %i[ report add_characters list check show edit update destroy ]
   before_action :set_act, only: %i[index new]
 
   # GET /stages or /stages.json
   def index
     @stages = Stage.where(act_id: @act.id).order(:name)
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: Stage.new, objects: @stages } }
     end
   end
 
@@ -17,10 +17,27 @@ class StagesController < ApplicationController
     session[:stage_view] = @check
     session[:return_to] = request.fullpath
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @stage, new_link_path: "segments" } }
     end
   end
   
+  def report
+    @report_path , @report = params[:report].split(/\//)
+    @toggle = params[:toggle]
+    @print = params[:print]
+    @option = params[:option]
+    @long = params[:long]
+
+    case @report
+    when 'characters'
+      setup_characters
+    end
+
+    respond_to do |format|
+      format.turbo_stream { render 'shared/report' }
+    end
+  end
+
   def check
     @op = params[:op]
     @check = params[:check]
@@ -29,6 +46,9 @@ class StagesController < ApplicationController
 
   def list
     session[:return_to] = request.fullpath
+    respond_to do |format|
+      format.turbo_stream { render "shared/show", locals: { object: @stage, part: 'list', no_new_link: true } }
+    end
   end
 
   def time_by_location
@@ -43,8 +63,12 @@ class StagesController < ApplicationController
     session[:return_to] = request.fullpath
   end
 
-  def characters
+  def scenes
     session[:return_to] = request.fullpath
+  end
+
+  def setup_characters
+#    session[:return_to] = request.fullpath
 
     @data = {}
     @characters = []
@@ -104,10 +128,6 @@ class StagesController < ApplicationController
       format.html { redirect_to stage_characters_url(@stage), notice: "Characters were successfully synced." }
     end
 
-  end
-
-  def scenes
-    session[:return_to] = request.fullpath
   end
 
   # GET /stages/new

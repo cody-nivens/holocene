@@ -6,7 +6,7 @@ class SegmentsController < ApplicationController
   def index
     @segments = Segment.where(stage_id: @stage.id).order(:name)
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: Segment.new, objects: @segments } }
     end
   end
 
@@ -14,7 +14,7 @@ class SegmentsController < ApplicationController
   def show
     @segments = Segment.where(stage_id: @stage.id).order(:name)
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @segment } }
     end
   end
 

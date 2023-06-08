@@ -11,7 +11,6 @@ pin "popper.js", to: "popper.js", preload: true
 pin "bootstrap", to: "bootstrap.js", preload: true
 pin "chartkick", to: "chartkick.js"
 pin "Chart.bundle", to: "Chart.bundle.js"
-pin "timeline", to: "js/timeline.js", preload: true
 
 pin "@hotwired/stimulus", to: "@hotwired--stimulus.js" # @3.2.1
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
@@ -28,7 +27,6 @@ pin "@fortawesome/fontawesome-free", to: "https://ga.jspm.io/npm:@fortawesome/fo
 pin "jquery-ui", to: "https://ga.jspm.io/npm:jquery-ui@1.13.2/ui/widget.js", preload: true
 pin "jquery-ujs", to: "https://ga.jspm.io/npm:jquery-ujs@1.2.3/src/rails.js", preload: true
 pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
-pin "@knight-lab/timelinejs", to: "https://ga.jspm.io/npm:@knight-lab/timelinejs@3.9.2/index.js"
 pin "dompurify", to: "https://ga.jspm.io/npm:dompurify@2.4.5/dist/purify.js"
 pin "wicg-inert", to: "https://ga.jspm.io/npm:wicg-inert@3.1.2/dist/inert.esm.js"
 pin "@rails/actioncable", to: "https://ga.jspm.io/npm:@rails/actioncable@7.0.4-3/app/assets/javascripts/actioncable.esm.js"
@@ -38,3 +36,4 @@ pin "sortablejs", to: "https://ga.jspm.io/npm:sortablejs@1.15.0/modular/sortable
 
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin "tailwindcss-stimulus-components" # @3.0.4
+pin "@knight-lab/timelinejs", to: "TimelineJS3"

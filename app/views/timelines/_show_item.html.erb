@@ -1,0 +1,14 @@
+<table class='table'>
+    <tr><th>Name</th><th>Event Type</th><th>Region</th><th>Start Year</th><th>Start Year Uncert</th><th>End Year</th><th>Body</th></tr>
+    <% timeline.holocene_events.each do |he| -%>
+        <tr>
+          <td><%= he.name %></td>
+          <td><%= he.event_type.name %></td>
+          <td><%= he.region.name %></td>
+          <td><%= he.start_year %></td>
+          <td><%= he.start_year_uncert %></td>
+          <td><%= he.end_year %></td>
+          <td><%= he.body %></td>
+        </tr>
+    <% end -%>
+</table>

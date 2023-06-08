@@ -1,7 +1,5 @@
-<div id="side_controls" class="hide-print">
   <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_epoch_path(@epoch), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'Edit' %>
   <%= link_to (fa_icon 'stream', class: 'fa-fw'), epoch_timeline_path(@epoch), method: :get, class: 'btn', title: 'Timeline' %>
   <%= link_to (fa_icon 'map', class: 'fa-fw'), geo_map_epoch_path(@epoch), method: :get, class: 'btn', title: 'Map' %>
   <%= link_to (fa_icon 'backward', class: 'fa-fw'), epochs_url, method: :get, class: 'btn', title: 'Back' %>
-</div>
 

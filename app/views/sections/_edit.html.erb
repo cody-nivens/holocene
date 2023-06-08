@@ -1,0 +1,12 @@
+<turbo-frame id="<%= dom_id @section %>">
+  <div class='row'>
+    <div class='col-sm-10'>
+      <%= render partial: 'form', locals: { sectioned: @section.sectioned, section: @section, command_label: 'Update Section' } %>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-sm-2'>
+      <%= link_to (fa_icon 'backward', class: 'fa-fw'),  polymorphic_path(@section.sectioned), method: :get, class: 'btn', title: 'Back' %>
+    </div>
+  </div>
+</turbo-frame>

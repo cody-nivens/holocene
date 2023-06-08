@@ -6,7 +6,7 @@ class EventTypesController < ApplicationController
   def index
     @event_types = EventType.all.includes([:rich_text_body]).order(:name)
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: EventType.new, objects: @event_types } }
     end
   end
 
@@ -17,7 +17,7 @@ class EventTypesController < ApplicationController
       scope.joins(:event_types).where('event_type_id = ?', @event_type.id.to_s).page(params[:page])
     end
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @event_type } }
     end
   end
 

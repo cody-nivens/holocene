@@ -1,8 +1,5 @@
-<div id="side_controls" class="hide-print">
   <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_timeline_path(@timeline), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'Edit' %>
   <%= link_to (fa_icon 'stream', class: 'fa-fw'), timeline_timeline_path(timeline_id: @timeline.id), method: :get, class: 'btn', title: 'Timeline' %>
   <%= link_to (fa_icon 'list-alt', class: 'fa-fw'), timeline_display_path(timeline_id: @timeline.id), method: :get, class: 'btn', title: 'Display' %>
   <%= link_to (fa_icon 'map', class: 'fa-fw'), geo_map_timeline_path(@timeline), method: :get, class: 'btn', title: 'Map' %>
   <%= link_to (fa_icon 'backward', class: 'fa-fw'), timelines_path, method: :get, class: 'btn', title: 'Back' %>
-</div>
-

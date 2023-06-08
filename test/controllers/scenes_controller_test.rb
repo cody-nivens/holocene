@@ -195,7 +195,7 @@ end
     get polymorphic_url([@situated, :scenes], format: :turbo_stream),
       params: { scene: { situated_type: @situated.class.name, situated_id: @situated.id }, option: 'no_section' }
 
-    assert_turbo_stream action: :replace, target: "sub_objects"
+    assert_turbo_stream action: :replace, target: "objects"
 
     assert_response :success
   end
@@ -223,7 +223,7 @@ end
                                                                        t: { t_years: '0099', t_month: '02', t_day: '15', t_hour: '08', t_minute: '30' },
                                                               session: { book_id: @scene.book.id } }
 
-    assert_turbo_stream action: :replace, target: "#{dom_id @scene}"
+    assert_turbo_stream action: :replace, target: "objects"
     assert_no_turbo_stream action: :update, target: "messages"
     assert_response :success
   end

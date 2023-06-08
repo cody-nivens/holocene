@@ -1,0 +1,67 @@
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% scenes = Scene.get_scenes_to_array(@stage.act.book) %>
+    <% scenes.each do |scene_id| %>
+      <% scene = Scene.find(scene_id) %>
+      <% if scene.segments.size > 0 %>
+        <tr>
+          <td colspan="2"><%= link_to scene.full_name, scene %></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <table>
+              <tbody>
+                <% scene.segments.each do |segment| %>
+                  <tr>
+                    <td width="20%"></td>
+                    <td><%= link_to segment.name, segment %></td>
+                    <td>
+                      <table class="table table-sm">
+                        <tbody>
+                          <% segment.location_times.includes(:location).order("locations.name").each do |location_time| %>
+                            <tr>
+                              <td class="text-start"><%= location_time.date_string %>:<%= location_time.location.name %></td>
+                              <td>
+                                <table>
+                                <% location_time.actor_location_times.includes(:actor).order("actors.name").each do |actor_location_time| %>
+                                  <tr>
+                                    <td>
+                                        <%= actor_location_time.actor.name %>
+                                    </td>
+                                    <td>
+                                      <table class="table table-sm">
+                                        <% actor_location_time.actor.characters.order(:last_name, :first_name).each do |actor| %>
+                                          <tr>
+                                            <td>
+                                              <%= actor.full_name %>
+                                            </td>
+                                          </tr>
+                                        <% end %>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                <% end %>
+                                </table>
+                              </td>
+                            </tr>
+                          <% end %>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

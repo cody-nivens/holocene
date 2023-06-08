@@ -1,13 +1,13 @@
 <p>
   <strong>
-    <%= @segment.name %>
+    <%= segment.name %>
   </strong>
 </p>
 
 <p>
   <strong>Stage:</strong>
-  <%= @segment.stage.name %>
+  <%= segment.stage.name %>
 </p>
 
-<%= render partial: "segments/show", locals: { segment: @segment, op: 'locations' } %>
+<%= render partial: "segments/show_item", locals: { segment: segment, op: 'locations' } %>
 

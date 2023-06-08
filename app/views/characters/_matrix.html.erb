@@ -1,0 +1,26 @@
+<turbo-frame id="objects">
+<%= tabs do |c| %>
+  <% c.tab "Main Characters" do %>
+    <%= render partial: 'characters/character_scenes', locals: { scenes: @scenes, chars: @chars, object: @object, start_pos: 0, end_pos: 4 } %>
+  <% end %>
+
+  <% if @chars.length >= 5 %>
+    <% c.tab "Secondary Characters" do %>
+      <%= render partial: 'characters/character_scenes', locals: { scenes: @scenes, chars: @chars, object: @object, start_pos: 5, end_pos: 9 } %>
+    <% end %>
+  <% end %>
+
+  <% if @chars.length >= 10 %>
+    <% c.tab "Third Level Characters" do %>
+      <%= render partial: 'characters/character_scenes', locals: { scenes: @scenes, chars: @chars, object: @object, start_pos: 10, end_pos: 14 } %>
+    <% end %>
+  <% end %>
+
+  <% if @chars.length >= 15 %>
+    <% c.tab "Fourth Level Characters" do %>
+      <%= render partial: 'characters/character_scenes', locals: { scenes: @scenes, chars: @chars, object: @object, start_pos: 15, end_pos: 19 } %>
+    <% end %>
+  <% end %>
+
+<% end %>
+</turbo-frame>

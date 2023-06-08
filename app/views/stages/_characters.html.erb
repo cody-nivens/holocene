@@ -1,10 +1,10 @@
-<table class="table table-sm">
-  <thead>
-    <th>Name</th>
-  </thead>
-  <tbody>
-    <% characters.each do |character| %>
-      <tr><td><%= character.full_last_first %></tfd></tr>
-    <% end %>
-  </tbody>
-</table>
+<%= tabs do |d| %>
+  <% d.tab "Scene Characters" do %>
+    <%= render partial: "stages/scene_characters", locals: { data: @data, characters: @characters } %>
+  <% end %>
+
+  <% d.tab "Characters" do %>
+    <%= render partial: "stages/stage_characters", locals: { characters: @characters } %>
+  <% end %>
+<% end %>
+

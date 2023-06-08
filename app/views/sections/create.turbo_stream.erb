@@ -3,8 +3,15 @@
     <%= render partial: "#{@sectioned.class.name.underscore.pluralize}/#{@sectioned.class.name.underscore}", locals: { "#{@sectioned.class.name.underscore}": @sectioned } %>
   <% end %>
 <% end %>
-<%= turbo_stream.replace "edit"  do %>
-  <%= " " %>
+<%= turbo_stream.replace "side_controls"  do %>
+  <%= content_tag :div, class: "block", id: "side_controls" do %>
+    <%= render partial: "#{@sectioned.class.name.underscore.pluralize}/side_controls", locals: { "#{@sectioned.class.name.underscore}": @sectioned } %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "header"  do %>
+  <%= content_tag :div, id: "header", class: 'block' do %>
+    <%= render partial: "#{@sectioned.class.name.underscore.pluralize}/header", locals: { "#{@sectioned.class.name.underscore}": @sectioned } %> 
+  <% end %>
 <% end %>
 <%= turbo_stream.replace "new_object"  do %>
   <%= content_tag "turbo-frame", class: "block", id: "new_object" do %>
@@ -12,5 +19,3 @@
   <% end %>
 <% end %>
 <%= render partial: "shared/send_flash" %>
-
-

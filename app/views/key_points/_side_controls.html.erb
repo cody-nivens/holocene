@@ -1,4 +1,3 @@
-<div id="side_controls" class="hide-print">
   <%== link_to (fa_icon 'edit', class: 'fa-fw'), edit_key_point_path(@key_point), title: 'Edit', class: 'btn' %>
   <%== link_to (fa_icon 'newspaper', class: 'fa-fw'), key_point_view_path(@key_point), method: :get, title: 'View', class: 'btn' %>
   <%== link_to (fa_icon 'trash', class: 'fa-fw'), key_point_path(@key_point), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy', class: 'btn' %>
@@ -11,4 +10,3 @@
 <% unless next_key_point.nil? %>
   <%= link_to (fa_icon 'angle-right', class: 'fa-fw'), key_point_path(next_key_point), method: :get, title: 'Next Key Point', class: 'btn' %>
 <% end %>
-</div>

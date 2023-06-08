@@ -48,8 +48,14 @@ module ApplicationHelper
     "<li class='#{disabled ? 'disabled' : 'mr-6'}'> <a class='nav-link' href='#{path}'>#{text}</a></li>"
   end
 
-  def make_menu_ts_link(text, path, disabled: false)
-    "<li class='#{disabled ? 'disabled' : 'mr-6'}'>#{ link_to text, path, class: 'nav-link', data: { 'turbo-frame': 'objects'}, method: :get}</li>"
+  def make_menu_ts_link(text, path, frame = 'objects', no_method: false, disabled: false)
+    s =  "<li class='#{disabled ? 'disabled' : 'mr-6'}'>"
+    if no_method == true
+      s += "#{link_to text, path, class: 'nav-link', data: { 'turbo-frame': frame } }"
+    else
+      s += "#{link_to text, path, class: 'nav-link', data: { 'turbo-frame': frame }, method: :get }"
+    end
+    s += "</li>"
   end
 
   def return_or_default_path(default_path = root_path)

@@ -6,6 +6,7 @@ class KeyPointsController < ApplicationController
   # GET /key_points.json
   def index
     @key_points = @scripted.key_points.order(:position)
+    @link = false
 
     if request.xhr?
       respond_to do |format|
@@ -15,7 +16,7 @@ class KeyPointsController < ApplicationController
       end
     end
     respond_to do |format|
-      format.turbo_stream { render :index }
+      format.turbo_stream { render "shared/index", locals: { object: KeyPoint.new, objects: @key_points } }
     end
   end
 
@@ -47,6 +48,7 @@ class KeyPointsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream {}
+      format.turbo_stream { render "shared/show", locals: { object: @key_point , part: 'list' } }
     end
 
   end
@@ -90,7 +92,7 @@ class KeyPointsController < ApplicationController
     instance_variable_set("@#{(@klass.name == 'Book' ? 'book' : (@klass.name == 'Story' ? 'story' : 'chapter'))}", @scripted)
     @long = params[:long]
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @key_point } }
     end
   end
 

@@ -15,7 +15,7 @@ class ItinerariesController < ApplicationController
     end
     @pagy, @records = pagy(@grid.assets)
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: Itinerary.new, objects: @itinerariess } }
     end
   end
 
@@ -23,7 +23,7 @@ class ItinerariesController < ApplicationController
   def show
     @tour = @itinerary.tour
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @itinerary } }
     end
   end
 

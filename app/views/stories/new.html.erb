@@ -1,6 +1,6 @@
 <h2>New Story</h2>
 
-<turbo-frame id="new_object" target="edit">
+<turbo-frame id="new_object">
   <%= render 'form', story: @story, book: @book, long: @long %>
   <%= link_to (fa_icon 'backward', class: 'fa-fw'),  book_path(@book), method: :get, class: 'btn', title: 'Back' %>
 </turbo-frame>

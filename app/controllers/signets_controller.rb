@@ -9,7 +9,7 @@ class SignetsController < ApplicationController
 
     respond_to do |format|
 #      format.html { render :index  }
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: Signet.new, objects: @signets } }
     end
   end
 
@@ -17,10 +17,16 @@ class SignetsController < ApplicationController
   # GET /signets/1.json
   def show
     @sigged = @signet.sigged
+    respond_to do |format|
+      format.turbo_stream { render "shared/show", locals: { object: @signet } }
+    end
   end
 
   def notes
     @signets = @sigged.signets
+    respond_to do |format|
+      format.turbo_stream { render "shared/index", locals: { object: Signet.new, objects: @signets,  part: 'notes' } }
+    end
   end
 
   # GET /signets/new
@@ -45,7 +51,7 @@ class SignetsController < ApplicationController
         flash.now[:notice] = "Signet was successfully created."
 #        format.html { render :index, notice: 'Signet was successfully created.' }
         format.json { render :index, status: :created, location: @signet }
-        format.turbo_stream { render 'index' }
+        format.turbo_stream { render "shared/index", locals: { object: Signet.new, objects: @signets } }
       else
         format.html { render :new }
         format.json { render json: @signet.errors, status: :unprocessable_entity }
@@ -62,7 +68,7 @@ class SignetsController < ApplicationController
         flash.now[:notice] = "Signet was successfully created." 
 #        format.html { render :index, notice: 'Signet was successfully updated.' }
         format.json { render :index, status: :ok, location: @signet }
-        format.turbo_stream { render 'index' }
+        format.turbo_stream { render "shared/index", locals: { object: Signet.new, objects: @signets } }
       else
         format.html { render :edit, "#{@sigged.class.name.underscore}_id".to_sym => @sigged.id }
         format.json { render json: @signet.errors, status: :unprocessable_entity }

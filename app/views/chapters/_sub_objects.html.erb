@@ -16,8 +16,7 @@
         </div>
         <div class='card-body border'>
           <% s = ' class=\'card-title\'' %>
-    <% end %>
-    <% unless section.embed? %>
+        <% else %>
         <h3<%== s %>>
           <%= section.name %>
           <%= link_to (fa_icon 'edit'), edit_polymorphic_path([chapter, section]), data: { "turbo-frame": "#{dom_id section}" }, title: 'Edit' %>

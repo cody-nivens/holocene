@@ -6,6 +6,7 @@ class CitationsController < ApplicationController
   def do_index
     @citation = Footnote.new
     @citations = @chapter.citations.includes(:biblioentry).order('biblioentries.name')
+    @noted = @chapter
     @biblioentries = @citations.collect { |x| x.biblioentry }.sort.uniq
     all_citations = Footnote.includes(:biblioentry).where(slug: '').order('biblioentries.name')
     @all_citations = []
@@ -19,7 +20,7 @@ class CitationsController < ApplicationController
   def index
     do_index
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render 'shared/index', locals: { object: Footnote.new, objects: @citations } }
     end
   end
 
@@ -49,7 +50,7 @@ class CitationsController < ApplicationController
       flash.now[:notice] = "Citation was successfully updated."
       format.turbo_stream do
         do_index
-        render 'index'
+        render 'shared/index', locals: { object: Footnote.new, objects: @citations }
       end
     end
   end

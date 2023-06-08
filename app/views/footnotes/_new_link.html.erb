@@ -1,1 +1,1 @@
-<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([@book, :footnote]), data: { "turbo-frame": "new_object" }, class: "btn", title: 'New Footnote' %>
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([@noted, :footnote], slug: "#{Footnote.random_slug}"), data: { "turbo-frame": "new_object" }, class: "btn", title: 'New Footnote' %>

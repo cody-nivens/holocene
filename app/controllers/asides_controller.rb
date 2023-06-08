@@ -6,12 +6,18 @@ class AsidesController < ApplicationController
   # GET /asides.json
   def index
     @asides = Aside.all.includes([:rich_text_body])
+    respond_to do |format|
+      format.turbo_stream { render "shared/index", locals: { object: Aside.new, objects: @asides } }
+    end
   end
 
   # GET /asides/1
   # GET /asides/1.json
   def show
     @chapter = @aside.chapter
+    respond_to do |format|
+      format.turbo_stream { render "shared/show", locals: { object: @aside } }
+    end
   end
 
   # GET /asides/new
@@ -32,6 +38,7 @@ class AsidesController < ApplicationController
     @aside = Aside.new(aside_params)
     @chapter = @aside.chapter
     @scripted = @chapter.scripted
+    @sectioned = @chapter
     @long = params[:long]
 
     respond_to do |format|
@@ -39,7 +46,7 @@ class AsidesController < ApplicationController
         @asides = Aside.all.includes([:rich_text_body])
         format.html { redirect_to chapter_path(@chapter), notice: 'Aside was successfully created.' }
         format.json { render :show, status: :created, location: @aside }
-        format.turbo_stream { render 'chapters/show', locals: { chapter: @chapter, long: @long } }
+        format.turbo_stream { render 'shared/show', locals: { object: @chapter } }
       else
         format.html { render :new }
         format.json { render json: @aside.errors, status: :unprocessable_entity }
@@ -69,13 +76,15 @@ class AsidesController < ApplicationController
   def destroy
     @chapter = @aside.chapter
     @scripted = @chapter.scripted
-    @asides = Aside.all.includes([:rich_text_body])
+    @sectioned = @chapter
+    @long = nil 
     @aside.destroy
+    @asides = Aside.all.includes([:rich_text_body])
     respond_to do |format|
       format.html { redirect_to chapter_path(@chapter), notice: 'Aside was successfully destroyed.' }
       format.json { head :no_content }
       flash.now[:notice] = "Aside was successfully destroyed."
-      format.turbo_stream { render 'chapters/show', locals: { chapter: @chapter, long: nil } }
+      format.turbo_stream { render 'shared/show', locals: { object: @chapter } }
     end
   end
 

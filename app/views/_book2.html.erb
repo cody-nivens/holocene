@@ -1,0 +1,61 @@
+<% pdf ||= nil %>
+<% outline ||= nil %>
+
+<% if outline.nil? %>
+  <%= render 'authors/index', formats: [:html], authors: book.authors %>
+
+  <strong>Copyright:</strong><%= Date.today.strftime("%Y") %>
+  <p>
+    <%== epub_friendly(book.publisher) %>
+  </p>
+
+  <div style="display:block; clear:both; page-break-after:always;"></div>
+  <p>
+    <%== epub_friendly(book.body) %>
+  </p>
+  <div style="display:block; clear:both; page-break-after:always;"></div>
+<% end %>
+
+<% @notes = {} -%>
+
+<% if book.is_fiction? %>
+  <%= render partial: 'shared/scenes', locals: { scenes: @scenes, op: 'view', outline: @outline, pdf: @pdf, long: @long } %>
+<% else %>
+  <%# chapters.includes(partition: { :rich_text_body }, chapter: { :rich_text_body }, aside: { :rich_text_body }).each do |chapter| -%>
+  <% book.chapters.includes(:partition, :rich_text_body, :aside).each do |chapter| -%>
+    <%= render 'chapters/show', formats: [:html], book: book, chapter: chapter, epub: false %>
+  <% end -%>
+<% end -%>
+
+<% unless book.is_fiction? %>
+  <div style="display:block; clear:both; page-break-after:always;"></div>
+  <h2>Citations</h2>
+
+  <% @slugs = [] %>
+  <% book.chapters.includes([:rich_text_body]).each do |chapter| -%>
+    <% unless chapter.citations.size == 0 && chapter.holocene_events.size == 0-%>
+      <h3><%== chapter.name %></h3>
+    <% end -%>
+    <% unless chapter.citations.size == 0 -%>
+      <%== render 'footnotes/citations', formats: [:html], slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: false %>
+    <% end -%>
+
+
+    <% @slugs = [] %>
+    <% @notes = {} -%>
+    <% @footnotes = ['', [], 1] %>
+    <% if chapter.holocene_events.size > 0 && ((chapter.show_events? && chapter.scripted.show_events?) || chapter.always_display_events?)-%>
+      <%== render 'holocene_events/index', formats: [:html], holocene_events: chapter.holocene_events.order(:start_year), chapter: chapter, links: false, epub: true, short: true, slugs: @slugs %>
+      <% unless @slugs.size == 0 -%>
+        <%== Footnote.write_footnotes(@slugs) -%>
+      <% end -%>
+    <% end -%>
+  <% end -%>
+
+  <% unless book.glossary_terms.size == 0 -%>
+    <%= render 'glossary_terms/index', formats: [:html], glossary_terms: book.glossary_terms.order(:name) %>
+  <% end -%>
+  <% unless book.biblioentries.size == 0 -%>
+    <%= render 'biblioentries/index', formats: [:html], biblioentries: book.biblioentries %>
+  <% end -%>
+<% end -%>

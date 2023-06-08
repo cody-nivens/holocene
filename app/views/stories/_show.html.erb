@@ -1,34 +1,63 @@
-<div style="display:block; clear:both; page-break-after:always;"></div>
+<% if @long %>
+<% items2 = wc_counts_info(@story) %>
+<table class="table">
+  <tr>
+    <th>Scene Character:</th> <td><%= @story.scene_character %></td>
+    <th>Characters:</th> <td><%= @story.characters.size %></td>
+  </tr>
+  <tr>
+    <th>Publish:</th> <td><%= (@story.publish? ? fa_icon('check') : '') %></td>
+    <th>Stand Alone:</th> <td><%= (@story.stand_alone? ? fa_icon('check') : '') %></td>
+    <th>Title Page:</th> <td><%= (@story.title_page? ? fa_icon('check') : '') %></td>
+  </tr>
+  <tr>
+    <th>Scenes(section % scenes):</th>
+    <td>
+      <div class="progress_bar">
+        <%= render partial: 'scenes/progress_bar', formats: [:html], locals: { object: @story } %>
+      </div>
+    </td>
+    <td>
+      <div class="progress_bar">
+        <%= render partial: 'shared/progress_bar', locals: { items: items2 } %>
+      </div>
+    </td>
+    </td>
+    <% word_count = @story.word_count %>
+    <th>Word Count (Potential):</th> <td>
+    <%== render partial: "shared/word_count", locals: { obj: @story } %>
+    </td>
+    <th>Print Summary:</th> <td><%= (@story.print_summary? ? fa_icon('check') : '') %></td>
+  </tr>
+</table>
+<% end %>
+
 <% pdf ||= nil %>
-<% outline ||= nil %>
-<% just_printed_page_break = true %>
+<%= tabs do |c| %>
 
-<% if outline %>
-  <h2><%= story.name %></h2>
-  <p class="first-para">
-    <h2>Characters</h2>
-
-    <% story.characters.order(:occupation_class).pluck(:occupation_class).uniq.each do |occ_class| %>
-      <h3><%= occ_class %></h3>
-      <ul>
-        <% story.characters.where('occupation_class = ?', occ_class).order(:occupation_class, :last_name, :first_name).each do |character| %>
-          <%= render partial: 'characters/show', formats: [:html], locals: { pdf: pdf, character: character, object: @object, scripted: @scripted } %>
-        <% end %>
-      </ul>
-    <% end %>
-
-  </p>
-  <% story.key_points.order(:position).each do |key_point| -%>
-    <%= render partial: 'key_points/show', formats: [:html], locals: { book: story.book, story: story, key_point: key_point, outline: outline } %>
-  <% end -%>
+<% c.tab 'Key Points' do %>
+  <turbo-frame id="sub_objects">
+    <%= render partial: 'key_points/key_points', formats: [:html] %>
+  </turbo-frame>
 <% end %>
 
-<% if story.word_count > 0 %>
-  <% unless outline %>
-    <h2><%= story.name %></h2>
-  <% end %>
-  <% if story.print_summary? %>
-    <%= story.summary_body %>
-  <% end %>
+<% c.tab 'Summary' do %>
+  <span>
+    <div class='container-fluid'>
+      <div class='row'>
+        <div class='col-sm-12'>
+          <%= @story.summary_body %>
+        </div>
+      </div>
+    </div>
+  </span>
 <% end %>
-<%= render partial: 'stories/view_story', formats: [:html], locals: { story: story, pdf: pdf } %>
+
+<% c.tab 'Characters' do %>
+  <span>
+    <%= render partial: 'characters/characters_occ_ul', formats: [:html], locals: { object: @story, characters: @story.characters } %>
+  </span>
+<% end %>
+
+<% end %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  book_path(@story.book), method: :get, class: 'btn', title: 'Back' %>

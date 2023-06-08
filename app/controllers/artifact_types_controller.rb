@@ -6,7 +6,7 @@ class ArtifactTypesController < ApplicationController
   def index
     @artifact_types = ArtifactType.where(book_id: @book.id).order(:name)
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: ArtifactType.new, objects: @artifact_types } }
     end
   end
 
@@ -14,7 +14,7 @@ class ArtifactTypesController < ApplicationController
   def show
     @book = @artifact_type.book
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @artifact_type } }
     end
   end
 

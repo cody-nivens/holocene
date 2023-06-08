@@ -6,7 +6,7 @@ class ArtifactsController < ApplicationController
   def index
     @artifacts = Artifact.where(book_id: @book.id).joins(:artifact_type).order('artifact_types.name, artifacts.name')
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: Artifact.new, objects: @artifacts } }
     end
   end
 
@@ -14,7 +14,7 @@ class ArtifactsController < ApplicationController
   def show
     @book = @artifact.book
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @artifact } }
     end
   end
 
@@ -65,7 +65,7 @@ class ArtifactsController < ApplicationController
         flash.now[:notice] = "Artifact was successfully updated."
  #       format.html { redirect_to artifact_path(@artifact), notice: 'Artifact was successfully updated.' }
         format.json { render :show, status: :ok, location: @artifact }
-        format.turbo_stream { render 'show' }
+        format.turbo_stream { render "shared/show", locals: { object: @artifact } }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @artifact.errors, status: :unprocessable_entity }

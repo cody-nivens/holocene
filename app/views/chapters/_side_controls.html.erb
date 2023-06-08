@@ -1,4 +1,3 @@
-<div id="side_controls" class="hide-print">
   <%= link_to((fa_icon 'edit', class: 'fa-fw'), edit_chapter_path(chapter), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'Edit') %>
 <% if chapter.scripted_type == 'Book' %>
   <%= link_to((fa_icon 'sticky-note', class: 'fa-fw'), chapter_signets_path(chapter_id: chapter.id), method: :get, title: 'Signets', class: "btn #{!chapter.signets.empty? ? Signet.color_class(chapter.signets[0].color) : ''}") %>
@@ -17,4 +16,3 @@
   <%= link_to((fa_icon 'angle-right', class: 'fa-fw'), chapter_path(next_chapter), method: :get, class: 'btn', title: 'Next') %>
 <% end %>
 <%= link_to((fa_icon 'backward', class: 'fa-fw'), polymorphic_path([chapter.scripted, :chapters]), method: :get, class: 'btn', title: 'Back') %>
-</div>

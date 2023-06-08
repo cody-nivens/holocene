@@ -1,0 +1,31 @@
+<p>
+  <strong>Name:</strong>
+  <%= @glossary_term.name %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @glossary_term.body %>
+</p>
+
+<p>
+  <strong>See:</strong>
+  <%= @glossary_term.see_id %>
+</p>
+
+<p>
+  <strong>Seealso:</strong>
+  <%= @glossary_term.seealso_id %>
+</p>
+
+<p>
+  <strong>Acronym:</strong>
+  <%= @glossary_term.acronym_id %>
+</p>
+
+<p>
+  <strong>Events:</strong>
+  <% @slugs = [] -%>
+  <% @footnotes = [] -%>
+  <%= render 'holocene_events/index', formats: [:html], holocene_events: HoloceneEvent.tagged_with(@glossary_term.name).order(:start_year), epub: false, chapter: nil, noted: @noted %>
+</p>

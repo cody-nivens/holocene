@@ -6,7 +6,7 @@ class RegionsController < ApplicationController
   def index
     @regions = Region.all
     respond_to do |format|
-      format.turbo_stream { } 
+      format.turbo_stream { render "shared/index", locals: { object: Region.new, objects: @regions } }
     end
   end
 
@@ -17,7 +17,7 @@ class RegionsController < ApplicationController
       scope.where(region_id: @region.id).page(params[:page])
     end
     respond_to do |format|
-      format.turbo_stream { } 
+      format.turbo_stream { render "shared/show", locals: { object: @region } }
     end
   end
 

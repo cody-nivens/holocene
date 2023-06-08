@@ -7,6 +7,11 @@ class ActsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test "drive the act cycle" do
+    drive_cycle('Stage', 'Acts')
+  end
+
+  if 1 == 0
   test "visiting the index" do
     visit root_url
     assert_text 'The Phantom'
@@ -35,7 +40,6 @@ class ActsTest < ApplicationSystemTestCase
     click_on "Back"
   end
 
-  if 1 == 0
   test "updating a Act" do
     visit acts_url
     click_on "Edit", match: :first

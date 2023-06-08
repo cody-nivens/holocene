@@ -1,8 +1,6 @@
-<div id="side_controls" class="hide-print">
 <% if @object.class.name == 'Book' %>
   <%= link_to (fa_icon 'plus'), polymorphic_path([@object, :characters]), method: :post, title: 'Add Character' %>
 <% else %>
   <%= link_to (fa_icon 'exchange-alt'), polymorphic_path([@object, :characters_list]), title: 'Add/Remove Characters' %>
 <% end -%>
-</div>
 

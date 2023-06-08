@@ -1,8 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 glossary_1:
-  name: MyString
-  body: MyText
+  name: Spice
+  body: The essence of life.
   see_id: 
   seealso_id: 1
   acronym_id: 1
@@ -10,8 +10,8 @@ glossary_1:
   book_id: <%= ActiveRecord::FixtureSet.identify(:book_1) %>
 
 glossary_2:
-  name: MyString
-  body: MyText
+  name: WADS
+  body: Wet A*s Dog Sh*t
   see_id: 
   seealso_id: 1
   acronym_id: 1

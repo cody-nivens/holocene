@@ -5,21 +5,35 @@ require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
-  get '/characters/attributes', to: 'characters#attributes', format: :js, constraints: lambda { |request|
-                                                                                         request.xhr?
-                                                                                       }
-  get '/characters/attribute_values', to: 'characters#attribute_values', format: :js, constraints: lambda { |request|
-                                                                                                     request.xhr?
-                                                                                                   }
+  get '/characters/attributes', to: 'characters#attributes', format: :js, constraints: lambda { |request| request.xhr?  }
+  get '/characters/attribute_values', to: 'characters#attribute_values', format: :js, constraints: lambda { |request| request.xhr?  }
+
+  get '/chapters/timeline/:chapter_id/chapter', to: 'timelines#timeline', as: :chapter_timeline
+  get '/books/timeline/:book_id/book', to: 'timelines#timeline', as: :book_timeline
+  get '/stores/timeline/:story_id/story', to: 'timelines#timeline', as: :story_timeline
+
+#  get '/stories/:id/timeline', to: 'timelines#timeline', as: :story_timeline
+#  get '/books/:id/timeline', to: 'timelines#timeline', as: :book_timeline
+
+  get '/timelines/timeline/:timeline_id/timeline', to: 'timelines#timeline', as: :timeline_timelinejs, format: :json, constraints: lambda { |request| request.xhr?  }
+  get '/chapters/timeline/:chapter_id/chapter', to: 'timelines#timeline', as: :chapter_timelinejs, format: :json, constraints: lambda { |request| request.xhr?  }
+  get '/stories/timeline/:story_id/story', to: 'timelines#timeline', as: :story_timelinejs, format: :json, constraints: lambda { |request| request.xhr?  }
+  get '/books/timeline/:book_id/book', to: 'timelines#timeline', as: :book_timelinejs, format: :json, constraints: lambda { |request| request.xhr?  }
+
+  get '/sections/timeline/:section_id', to: 'timelines#timeline', as: :section_timeline
+  get '/citations/timeline/:citation_id', to: 'timelines#timeline', as: :citation_timeline
+  get '/timelines/timeline/:timeline_id', to: 'timelines#timeline', as: :timeline_timeline
+  get '/epochs/timeline/:epoch_id', to: 'timelines#timeline', as: :epoch_timeline
+  get '/event_types/timeline/:event_type_id', to: 'timelines#timeline', as: :event_type_timeline
 
   get '/books/:id/view', to: 'books#view', as: :book_view
   get '/books/:id/list_chars', to: 'characters#list_chars', as: :characters_list_chars
   get '/books/:id/publish', to: 'books#publish', as: :book_publish
-  get '/books/:id/chars', to: 'books#chars', as: :book_chars
+#  get '/books/:id/chars', to: 'books#chars', as: :book_chars
   post '/books/:id/import_chars', to: 'books#import_chars', as: :book_import_chars
   get '/books/:id/chars_import', to: 'books#chars_import', as: :book_chars_import
   get '/stories/:id/view', to: 'stories#view', as: :story_view
-  get '/stories/:id/chars', to: 'stories#chars', as: :story_chars
+#  get '/stories/:id/chars', to: 'stories#chars', as: :story_chars
   get '/key_points/:id/view', to: 'key_points#view', as: :key_point_view
 
   get '/cities/index', to: 'cities#index', format: :js, constraints: ->(request) { request.xhr? }
@@ -38,12 +52,13 @@ Rails.application.routes.draw do
   post '/scenes/:id/moved', to: 'scenes#moved', as: :scene_moved
   put '/scenes/:id/check', to: 'scenes#check', as: :scene_check
   get '/stages/:id/check', to: 'stages#check', as: :stage_check
-  get '/stages/:id/time_by_location', to: 'stages#time_by_location', as: :stage_time_by_location
-  get '/stages/:id/time_by_actor', to: 'stages#time_by_actor', as: :stage_time_by_actor
-  get '/stages/:id/actor_by_location', to: 'stages#actor_by_location', as: :stage_actor_by_location
+#  get '/stages/:id/time_by_location', to: 'stages#time_by_location', as: :stage_time_by_location
+#  get '/stages/:id/time_by_actor', to: 'stages#time_by_actor', as: :stage_time_by_actor
+#  get '/stages/:id/actor_by_location', to: 'stages#actor_by_location', as: :stage_actor_by_location
   get '/stages/:id/list', to: 'stages#list', as: :stage_list
-  get '/stages/:id/scenes', to: 'stages#scenes', as: :stage_scenes
-  get '/stages/:id/characters', to: 'stages#characters', as: :stage_characters
+#  get '/stages/:id/scenes', to: 'stages#scenes', as: :stage_scenes
+#  get '/stages/:id/characters', to: 'stages#characters', as: :stage_characters
+  get '/stages/:id/report', to: 'stages#report', as: :stage_report
   put '/actor_location_times/:id/check', to: 'actor_location_times#check', as: :actor_location_times_check
   patch '/stages/:id/add_characters', to: 'stages#add_characters', as: :stages_add_characters
 
@@ -88,8 +103,9 @@ Rails.application.routes.draw do
                                                                                       }
   get '/books/:book_id/scenes', to: 'scenes#index', format: :js, constraints: ->(request) { request.xhr? }
 
-  get '/characters/:book_id/matrix', to: 'characters#matrix', as: :character_matrix
-  get '/characters/:book_id/scenes', to: 'characters#scenes', as: :character_scenes
+  get '/characters/:book_id/report', to: 'characters#report', as: :book_character_report
+  get '/characters/:story_id/report', to: 'characters#report', as: :story_character_report
+  get '/characters/:scene_id/report', to: 'characters#report', as: :scene_character_report
 
   get '/books/:id/export', to: 'books#export', as: :book_export
   get '/books/:id/report', to: 'books#report', as: :book_report
@@ -108,7 +124,6 @@ Rails.application.routes.draw do
   get '/books/:book_id/characters/list', to: 'characters#list', as: :book_characters_list
   get '/books/:book_id/character/:id/lineage', to: 'characters#lineage', as: :book_character_lineage
   get '/books/:id/resync_stories', to: 'books#resync_stories', as: :book_resync_stories
-  get '/books/:id/timeline', to: 'books#timeline', as: :book_timeline
 
   get '/scenes/:id/move', to: 'scenes#move', as: :scene_move
   post '/scenes/:scene_id/characters/add', to: 'characters#add', as: :scene_characters_add
@@ -120,7 +135,6 @@ Rails.application.routes.draw do
   post '/stories/:story_id/key_points/:id/moved', to: 'key_points#moved', as: :story_key_point_moved
   get '/stories/:story_id/characters/list', to: 'characters#list', as: :story_characters_list
   post '/stories/:story_id/characters/add', to: 'characters#add', as: :story_characters_add
-  get '/stories/:id/timeline', to: 'stories#timeline', as: :story_timeline
   get '/stories/:id/resync_scenes', to: 'stories#resync_scenes', as: :story_resync_scenes
   get '/stories/:story_id/character/:id/lineage', to: 'characters#lineage', as: :story_character_lineage
   patch '/sections/:section_id/sort', to: 'sections#sort', as: :section_sort
@@ -223,7 +237,9 @@ Rails.application.routes.draw do
     resources :character_scenes, only: %i[show edit update]
   end
   resources :epochs
-  resources :timelines
+  resources :timelines do
+    #get :geo_map
+  end
   get '/welcome/index'
   get '/welcome/show'
   get '/welcome/stats'
@@ -261,13 +277,6 @@ Rails.application.routes.draw do
   get '/timelines/add_event/:timeline_id', to: 'holocene_events#add_event', as: :timeline_add_event
   get '/citations/add_event/:citation_id', to: 'holocene_events#add_event', as: :citation_add_event
   get '/epochs/add_event/:epoch_id', to: 'holocene_events#add_event', as: :epoch_add_event
-
-  get '/chapters/timeline/:chapter_id/chapter', to: 'timelines#timeline', as: :chapter_timeline
-  get '/sections/timeline/:section_id', to: 'timelines#timeline', as: :section_timeline
-  get '/citations/timeline/:citation_id', to: 'timelines#timeline', as: :citation_timeline
-  get '/timelines/timeline/:timeline_id', to: 'timelines#timeline', as: :timeline_timeline
-  get '/epochs/timeline/:epoch_id', to: 'timelines#timeline', as: :epoch_timeline
-  get '/event_types/timeline/:event_type_id', to: 'timelines#timeline', as: :event_type_timeline
 
   get '/chapters/show/:id', to: 'chapters#show', as: :show_chapter
   get '/sections/show/:id', to: 'sections#show', as: :show_section

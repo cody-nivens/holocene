@@ -9,7 +9,7 @@ class CharacterValuesController < ApplicationController
   def index
     @character_values = CharacterValue.where(character_id: @character.id)
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: CharacterValue.new, objects: @character_values } }
     end
   end
 
@@ -18,7 +18,7 @@ class CharacterValuesController < ApplicationController
   def show
     @character = @character_value.character
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @character_value } }
     end
   end
 
