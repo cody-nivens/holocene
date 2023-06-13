@@ -8,10 +8,14 @@
   <% end %>
 <% end %>
 <%= turbo_stream.replace "header"  do %>
-  <%= render partial: "welcome/#{report_path}_header" %>
+  <%= content_tag :div, class: "block", id: "header" do %>
+    <%= render partial: "welcome/#{report}_header" %>
+  <% end %>
 <% end %>
 <%= turbo_stream.replace "side_controls" do %>
-  <%= render partial: 'welcome/side_controls' %>
+  <%= content_tag :div, class: "block", id: "side_controls" do %>
+    <%= render partial: 'welcome/side_controls' %>
+  <% end %>
 <% end %>
 <%= turbo_stream.replace "nav-bar" do %>
   <%= content_tag "turbo-frame", class: "block", id: "nav-bar" do %>

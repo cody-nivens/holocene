@@ -1,4 +1,11 @@
 <%= turbo_stream.replace "#{dom_id @partition}" do %>
-  <%= render partial: "partitions/partition_item", locals: { partition:  @partition } %>
+  <%= content_tag "turbo-frame", id: "#{dom_id @partition}" do %>
+    <%= render partial: "partitions/partition_card", locals: { partition:  @partition } %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "new_object" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "new_object" do %>
+    <%== render partial: "sections/new_link" %>
+  <% end %>
 <% end %>
 <%= render partial: "shared/send_flash" %>

@@ -1,0 +1,8 @@
+<dt>
+  <%= link_to aside.name, aside_path(aside), method: :get %>
+  <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_aside_path(aside), data: { "turbo-frame": "new_object" }, title: 'Edit' %>
+  <%= link_to (fa_icon 'trash', class: 'fa-fw'), aside_path(aside), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
+</dt>
+<dd>
+  <%= aside.body %>
+</dd>

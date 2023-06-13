@@ -1,2 +1,2 @@
   <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_itinerary_path(@itinerary), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'Edit' %>
-  <%= link_to (fa_icon 'backward', class: 'fa-fw'), tour_path(@tour), method: :get, class: 'btn', title: 'Back' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), tour_itineraries_path(@tour), method: :get, class: 'btn', title: 'Back' %>

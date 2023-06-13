@@ -1,11 +1,13 @@
-<%= datagrid_form_for @grid, method: :get, url: polymorphic_path([@object, :characters]) %>
-
-<div id='character-grid'>
-  <%= render partial: 'characters/index_grid', formats: [:html], locals: { grid: @grid, pagy: @pagy, records: @records } %>
+<div data-controller='grids' data-grids-gridtype-value='character' data-grids-url-value='<%= polymorphic_path([@object, :characters]) %>'>
+  <div data-grids-target="grid_form">
+    <%= datagrid_form_for @grid, method: :get, url: polymorphic_path([@object, :characters]), data: { action: "grids#processSearch" } %>
+    <div id="grid_data" data-grids-target="grid_data">
+     <%= render partial: 'characters/index_grid', formats: [:html], locals: { grid: @grid, pagy: @pagy, records: @records } %>
+    </div>
+  </div>
 </div>
-
 <script nonce="<%= request.content_security_policy_nonce %>" type="text/javascript">
-jQuery(function($) {
+  jQuery(function($) {
   $("#characters_grid_category").change(function() {
   $.ajax({
     url: '/characters/attributes',

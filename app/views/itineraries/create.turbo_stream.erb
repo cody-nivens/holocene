@@ -1,9 +1,6 @@
 <%= turbo_stream.replace "objects"  do %>
-  <%= render partial: "itineraries/itineraries" %>
-<% end %>
-<%= turbo_stream.replace "edit"  do %>
-  <%= content_tag :div, id: "edit" do %>
-    <%= " " %>
+  <%= content_tag "turbo-frame", class: "block", id: "objects" do %>
+    <%= render partial: "itineraries/itineraries" %>
   <% end %>
 <% end %>
 <%= turbo_stream.replace "new_object" do %>
@@ -11,5 +8,4 @@
     <%= render partial: "itineraries/new_link" %>
   <% end %>
 <% end %>
-
 <%= render partial: "shared/send_flash" %>

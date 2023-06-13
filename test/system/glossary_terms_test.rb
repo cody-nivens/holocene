@@ -10,6 +10,10 @@ class GlossaryTermsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test "drive the glossary term cycle" do
+    drive_cycle('Book', 'Glossary Terms')
+  end
+
   if 1 == 0
   test 'glossary_terms edit' do
     visit edit_glossary_term_url(@glossary_term)

@@ -130,7 +130,7 @@ end
     patch  glossary_term_path(@glossary_term, format: :turbo_stream),
           params: { glossary_term: { acronym_id: @glossary_term.acronym_id, body: @glossary_term.body, name: @glossary_term.name,
                                      see_id: @glossary_term.see_id, seealso_id: @glossary_term.seealso_id } }
-    assert_turbo_stream action: :replace, target: "#{dom_id @glossary_term}"
+    assert_turbo_stream action: :replace, target: "objects"
 
     assert_no_turbo_stream action: :update, target: "messages"
     assert_response :success

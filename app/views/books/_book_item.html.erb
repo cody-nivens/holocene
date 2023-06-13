@@ -8,7 +8,6 @@
   </div>
   <div class="col-sm-4">
     <% if @long.kind_of?(TrueClass) or @long == "true" %>
-      <% @scenes = Scene.get_scenes_wi_to_array(book) %>
       <%= render partial: 'books/book_stats', locals: { book: book } %>
     <% end %>
   </div>

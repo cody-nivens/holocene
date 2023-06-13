@@ -15,18 +15,18 @@
 <%# @notes = notes if @notes.nil? -%>
 <% @slugs = [] -%>
 <% @footnotes = Footnote.process_body(chapter, @slugs) -%>
-<% if chapter.aside.nil? -%>
+<%# if chapter.aside.nil? -%>
   <%== @footnotes[0] %>
-<% else -%>
+<%# else -%>
   <div id='aside_content'>
     <blockquote>
-      <h2><%= chapter.aside_name %></h2>
-      <%== chapter.aside.body -%>
+      <h2><%#= chapter.aside_name %></h2>
+      <%#== chapter.aside.body -%>
       <hr>
     </blockquote>
-    <%== @footnotes[0] -%>
+    <%#== @footnotes[0] -%>
   </div>
-<% end -%>
+<%# end -%>
 <% if chapter.holocene_events.size != 0 && ((chapter.show_events? && chapter.scripted.show_events?) || chapter.always_display_events?) -%>
   <% chapter.holocene_events.order(:start_year).each do |he| -%>
     <% unless he.body.blank? -%>

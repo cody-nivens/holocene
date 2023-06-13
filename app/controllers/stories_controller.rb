@@ -16,24 +16,6 @@ class StoriesController < ApplicationController
     end
   end
 
-  def setup_chars
-    @book = @story.book
-    @characters = @story.characters
-    @data = {}
-    op = params[:op]
-    op ||= false
-    long = params[:long]
-
-    @characters.each do |character|
-      @data[character.name] = { count: 0, scenes: [] }
-      character.scenes.each do |scene|
-        next unless scene.situated.book == @book
-        @data[character.name][:count] += 1
-      end
-    end
-  end
-
-
   def report
     @report_path, @report = params[:report].split(/\//)
     @scenes_wi = Scene.get_scenes_to_array(@story)
@@ -107,10 +89,13 @@ class StoriesController < ApplicationController
     @book = @story.book
     @object = @story
     @long = params[:long]
+    @pdf = params[:pdf]
+    @outline = params[:outline]
 
+    @report = 'view'
+    @report_path = 'stories'
     respond_to do |format|
-      format.html { render :view }
-      format.turbo_stream {}
+      format.turbo_stream { render 'shared/report' }
     end
   end
 
@@ -137,7 +122,13 @@ class StoriesController < ApplicationController
     end
   end
 
-  def move; end
+  def move
+    @report = 'move'
+    @report_path = 'stories'
+    respond_to do |format|
+      format.turbo_stream { render 'shared/report' }
+    end
+  end
 
   def timeline
     @story = Story.includes([{ key_points: :scripted }]).find(params[:id])
@@ -234,6 +225,23 @@ class StoriesController < ApplicationController
   end
 
   private
+
+  def setup_chars
+    @book = @story.book
+    @characters = @story.characters
+    @data = {}
+    op = params[:op]
+    op ||= false
+    long = params[:long]
+
+    @characters.each do |character|
+      @data[character.name] = { count: 0, scenes: [] }
+      character.scenes.each do |scene|
+        next unless scene.situated.book == @book
+        @data[character.name][:count] += 1
+      end
+    end
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_story

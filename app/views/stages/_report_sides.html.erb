@@ -1,4 +1,3 @@
-<div id="side_controls" class="hide-print">
   <%= link_to (fa_icon 'eye', class: 'fa-fw'), stage_path(@stage), method: :get, title: "Stage, Show", class: "btn" %>
   <%= link_to (fa_icon 'list', class: 'fa-fw'), stage_segments_path(@stage), method: :get, title: "Segments List", class: "btn" %>
-</div>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), act_stages_path(@act), method: :get, class: "btn", title: "Back" %>

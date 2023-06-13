@@ -9,7 +9,7 @@
 <% end -%>
 </div>
 
-<div id='character-grid'>
+<div id='character-grid' data-controler='grids'>
   <%= render partial: 'characters/index_grid', formats: [:html], locals: { grid: @grid, pagy: @pagy, records: @records } %>
 </div>
 

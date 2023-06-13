@@ -6,21 +6,19 @@ class HoloceneEventsGrid < BaseGrid
   attr_accessor(:object)
   attr_accessor(:command)
 
-  filter(:start_year, :integer, range: true, default: [-15_000, nil])
+  filter(:start_year, :integer, range: true, default: [nil, nil], input_options: { "data-grids-target": "start_year" })
 
-  filter(:region_id, :enum, header: 'Region', select: proc { Region.all.order(:name).map { |c| [c.name, c.id] } })
+  filter(:region_id, :enum, header: 'Region', select: proc { Region.all.order(:name).map { |c| [c.name, c.id] } }, input_options: { "data-grids-target": "region_id" })
 
-  filter(:id, :integer, multiple: true)
+  filter(:id, :integer, multiple: true, input_options: { "data-grids-target": "id" })
 
-  filter(:name, :string, header: 'Name LIKE') do |value|
+  filter(:name, :string, header: 'Name LIKE', input_options: { "data-grids-target": "name" }) do |value|
     where('name like ?', "%#{value}%")
   end
 
-  filter(:event_type, :enum, header: 'Event Type', select: proc {
-                                                             EventType.all.order(:name).map do |c|
-                                                               [c.name, c.id]
-                                                             end
-                                                           }) do |value|
+  filter(:event_type, :enum, header: 'Event Type', input_options: { "data-grids-target": "event_type" }, select: proc {
+    EventType.all.order(:name).map { |c| [c.name, c.id] }
+  }) do |value|
     ids = map { |x| (x.event_types.ids.include?(value.to_i) == false ? nil : x.event_types.ids) }.compact.flatten
     res = []
     ids.each do |id|
@@ -81,6 +79,6 @@ class HoloceneEventsGrid < BaseGrid
   end
   column(:action3, header: '', html: true) do |holocene_event|
     link_to (fa_icon 'trash'), holocene_event, method: :delete, data: { confirm: 'Are you sure?' },
-                                                 title: 'Destroy'
+      title: 'Destroy'
   end
 end

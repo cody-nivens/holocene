@@ -12,6 +12,10 @@ class AsidesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test "drive the aside cycle" do
+    drive_cycle('Chapter', 'Asides')
+  end
+
   if 1 == 0
   test 'asides edit' do
 #    visit Show

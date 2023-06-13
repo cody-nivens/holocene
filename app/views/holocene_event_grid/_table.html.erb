@@ -1,58 +1,59 @@
 <%#
-Local variables:
-* grid - instance of Datagrid
+    Local variables:
+    * grid - instance of Datagrid
 * assets - Array of database Entities
 * options - passed options Hash
 %>
-<% if !@object.nil? %>
-    <%= form_for :holocene_event, options.merge({ url: { controller: 'holocene_events', action: 'objects', object_type: @object.class.name.to_s,
-                                                         object_id: @object.id } }) do |f| -%>
- <%= f.hidden_field :object_id, value: @object.id %>
- <%= f.hidden_field :object_type, value: @object.class.name %>
- <%= f.hidden_field :command, value: @command %>
- <%= f.submit @command.to_s, id: 'datagrid_select', class: 'datagrid-submit' %>
- <% unless @list_items.nil? -%>
- <%= f.collection_select :other_id, @list_items, :id, :name, { include_blank: '' } %>
- <% end -%>
-<% if grid.html_columns(*options[:columns]).any? %>
-  <%= content_tag :table, options[:html] do %>
-    <thead>
-      <%= datagrid_header(grid, options) %>
-    </thead>
-    <tbody>
-      <% if assets.any? %>
-        <%= datagrid_rows(grid, assets, **options) %>
-      <% else %>
-        <tr><td class='noresults' colspan='100%'><%== I18n.t('datagrid.no_results') %></td></tr>
+<% if @object.present? and !@object.nil? %>
+  <%= form_for :holocene_event, options.merge({ url: { controller: 'holocene_events', action: 'objects', object_type: @object.class.name.to_s, object_id: @object.id } }) do |f| -%>
+    <%= f.hidden_field :object_id, value: @object.id %>
+    <%= f.hidden_field :object_type, value: @object.class.name %>
+    <%= f.hidden_field :command, value: @command %>
+    <% unless @command.blank?%>
+      <%= f.submit @command.to_s, id: 'datagrid_select', class: 'datagrid-submit' %>
+    <% end %>
+    <% unless @list_items.nil? -%>
+      <%= f.collection_select :other_id, @list_items, :id, :name, { include_blank: '' } %>
+    <% end -%>
+    <% if grid.html_columns(*options[:columns]).any? %>
+      <%= content_tag :table, options[:html] do %>
+        <thead>
+          <%= datagrid_header(grid, options) %>
+        </thead>
+        <tbody>
+          <% if assets.any? %>
+            <%= datagrid_rows(grid, assets, **options) %>
+          <% else %>
+            <tr><td class='noresults' colspan='100%'><%== I18n.t('datagrid.no_results') %></td></tr>
+          <% end %>
+        </tbody>
       <% end %>
-    </tbody>
+    <% else -%>
+      <%== I18n.t('datagrid.table.no_columns') %>
+    <% end %>
   <% end %>
-<% else -%>
-  <%== I18n.t('datagrid.table.no_columns') %>
-<% end %>
-<% end %>
 <% else %>
-<% if grid.html_columns(*options[:columns]).any? %>
-  <%= content_tag :table, options[:html] do %>
-    <thead>
-      <%= datagrid_header(grid, options) %>
-    </thead>
-    <tbody>
-      <% if assets.any? %>
-        <%= datagrid_rows(grid, assets, **options) %>
-      <% else %>
-        <tr><td class='noresults' colspan='100%'><%== I18n.t('datagrid.no_results') %></td></tr>
-      <% end %>
-    </tbody>
+  <% if grid.html_columns(*options[:columns]).any? %>
+    <%= content_tag :table, options[:html] do %>
+      <thead>
+        <%= datagrid_header(grid, options) %>
+      </thead>
+      <tbody>
+        <% if assets.any? %>
+          <%= datagrid_rows(grid, assets, **options) %>
+        <% else %>
+          <tr><td class='noresults' colspan='100%'><%== I18n.t('datagrid.no_results') %></td></tr>
+        <% end %>
+      </tbody>
+    <% end %>
   <% end %>
-<% end %>
 <% end %>
 <script nonce="<%= request.content_security_policy_nonce %>" type='text/javascript'>
-//$('#holocene_event_other_id').change(function() {
-//    if ($(this).val() == '') {
-//        $('#datagrid_select').val('Delete Events');
-//    } else {
-//        $('#datagrid_select').val('Move Events');
-//    }
-//});
+  $('#holocene_event_other_id').change(function() {
+    if ($(this).val() == '') {
+        $('#datagrid_select').val('Delete Events');
+    } else {
+        $('#datagrid_select').val('Move Events');
+    }
+});
 </script>

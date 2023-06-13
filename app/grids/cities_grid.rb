@@ -5,19 +5,19 @@ class CitiesGrid < BaseGrid
 
   attr_accessor :tour
 
-  filter(:name, :string, header: 'Name LIKE') do |value|
+  filter(:name, :string, header: 'Name LIKE', input_options: { "data-grids-target": "name" }) do |value|
     where('name like ?', "%#{value}%")
   end
 
-  filter(:lat, :string, header: 'Lat Near') do |value, scope, _grid|
+  filter(:lat, :string, header: 'Lat Near', input_options: { "data-grids-target": "lat" }) do |value, scope, _grid|
     increment = Math.sqrt(6000) * 1.22 / 69.0
     increment ||= 0.5
     scope.where(lat: (value.to_f - increment)..(value.to_f + increment))
   end
 
-  filter(:lng, :integer, range: true, default: [-180, 180])
+  filter(:lng, :integer, range: true, default: [nil, nil], input_options: { "data-grids-target": "lng" })
 
-  filter(:population, :integer, header: 'Population greater than') do |value|
+  filter(:population, :integer, header: 'Population greater than', input_options: { "data-grids-target": "population" }) do |value|
     where('population >= ?', value)
   end
 

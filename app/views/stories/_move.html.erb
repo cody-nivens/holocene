@@ -1,0 +1,22 @@
+<%= form_with url: polymorphic_path([@story, :moved]) do |f| %>
+
+    <%= hidden_field_tag :story_id, (@story.nil? ? nil : @story.id) %>
+    <%= f.hidden_field :story_id, value: @story.id %>
+
+    <h2>Move <%= @story.name %> to another book</h2>
+
+    <strong>Existing Book:</strong> <%= @book.name %><br>
+
+<table class="table">
+  <tr>
+    <td>
+      <%= f.select :new_book_id, options_from_collection_for_select(Book.where(user_id: current_user.id).order(:position), :id, :name, @book.id), prompt: 'Select Book', multiple: false, size: 1 %>
+      </td>
+  </tr>
+</table>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>

@@ -18,159 +18,120 @@ class ToursTest < ApplicationSystemTestCase
     drive_cycle('Story', 'Tours')
   end
 
-  if 1 == 0
-  test 'tours edit' do
-    visit edit_tour_url(@tour)
-#    visit Show
-    assert_link 'Show'
-    click_on 'Show'
-    assert_link 'Edit'
-    assert_current_path tour_path(@tour)
-    click_on 'Back'
-    assert_link 'Edit'
-    assert_current_path story_tours_path(@story)
-  end
+  test "drive the itinerary cycle" do
+    setup_menu_page 'Story', 'Tours'
+    assert_link "Mr. Toad's Wild Ride", wait: 5
+    click_on "Mr. Toad's Wild Ride"
 
-  test 'tours index' do
-    visit story_tours_url(@story)
-#    visit New Tour
-    assert_link 'New Tour'
-    click_on 'New Tour'
-    assert_no_link 'New Tour'
-    assert_current_path new_story_tour_path(@story)
-    click_on 'Back'
-    assert_link 'New Tour'
-    assert_current_path story_tours_path(@story)
-  end
+    assert_current_path root_url
+    assert_no_text "Content missing", wait: 5
 
-  test 'tours show edit' do
-    visit tour_url(@tour)
-#    visit Edit
-    assert_link 'Edit'
-    within ".footer" do
-      click_on 'Edit'
+    assert_link "Add City"
+    click_on "Add City"
+
+    assert_current_path root_url
+    assert_no_text "Content missing", wait: 5
+
+    assert_text 'Beijing', wait: 5
+    check_line_with 'Beijing'
+    assert_button 'Add Cities', wait: 5
+    click_on 'Add Cities'
+
+    assert_current_path root_url
+    assert_no_text "Content missing", wait: 5
+
+    assert_link "Add City", wait: 5
+    assert_text "Mr. Toad's Wild Ride", wait: 5
+    assert_link 'Beijing', wait: 5
+    click_on 'Beijing'
+
+    assert_current_path root_url
+    assert_no_text "Content missing", wait: 5
+
+    assert_side 'edit', 'Itineraries', 'edit'
+    click_side 'edit'
+
+    assert_button 'Update Itinerary', wait: 5
+    click_on 'Update Itinerary'
+
+    assert_text 'Itinerary was successfully updated'
+    assert_no_button 'Update Itinerary', wait: 5
+
+    assert_side 'backward', 'Itineraries', 'backward'
+    click_side 'backward'
+
+    assert_text 'Name LIKE'
+
+    click_on_line 'Beijing', 'edit'
+    assert_button 'Update Itinerary', wait: 5
+
+    assert_new 'backward', 'Itineraries', 'backward'
+    click_new 'backward'
+    assert_no_button 'Update Itinerary', wait: 5
+
+    accept_alert do
+      click_on_line 'Beijing', 'trash'
     end
-    assert_link 'Show'
-    assert_current_path edit_tour_path(@tour)
-    click_on 'Back'
-    assert_link 'Edit'
-    assert_current_path tour_path(@tour)
-  end
+    assert_text 'Itinerary was successfully destroyed'
+    assert_no_text 'Beijing'
 
-  test 'tours show itinerary' do
-#    visit Itinerary
-    visit tour_url(@tour)
-    assert_link 'Itinerary'
-    click_on 'Itinerary'
-    assert_link 'New Itinerary'
-    assert_current_path tour_itineraries_path(@tour)
-    click_on 'Back'
-    assert_link 'Add City'
-    assert_current_path tour_path(@tour)
+    assert_side 'backward', 'Tour', 'backward'
+    click_side 'backward'
+    assert_no_button 'Shushi is rice', wait: 5
   end
 
   test 'tours show map' do
 #    visit Map
-    visit tour_url(@tour)
-    assert_link 'Map'
-    click_on 'Map'
+    visit root_url
+    setup_menu_page 'Story', 'Tours'
+    assert_link "Mr. Toad's Wild Ride", wait: 5
+    click_on "Mr. Toad's Wild Ride"
+
+    assert_current_path root_url
+    assert_no_text "Content missing", wait: 5
+
+    assert_side 'map', 'Tour', 'map'
+    click_side 'map'
     assert_selector '#world-map'
-    assert_current_path geo_map_tour_path(@tour)
-    click_on 'Back'
+    assert_current_path root_url
+    assert_side 'backward', 'Tour', 'backward'
+    click_side 'backward'
     assert_link 'Itinerary'
-    assert_current_path tour_path(@tour)
-  end
-
-  test 'check multiple cities' do
-    visit '/'
-    click_link 'Books'
-    click_link 'The Phantom'
-    click_link 'The Beginnings'
-    click_link 'Tours'
-    click_link 'New Tour'
-
-    fill_in 'Name', with: 'The Second Voyage'
-    click_button 'Create Tour'
-
-    assert_no_text @city_1.name
-
-    click_link 'Add City'
-
-    find(:css, "#city_activated_[value='#{@city_1.id}']").set(true)
-    find(:css, "#city_activated_[value='#{@city_2.id}']").set(true)
-    find(:css, "#city_activated_[value='#{@city_3.id}']").set(true)
-    click_button 'Add Cities'
-    assert_text @city_1.name
-  end
-
-  test 'visit itinerary page' do
-    visit '/'
-    click_link 'Books'
-    click_link 'The Phantom'
-    click_link 'The Beginnings'
-    click_link 'Tours'
-    click_link 'Show'
-    click_link 'Sushi is Rice'
+    assert_current_path root_url
+    assert_no_text "Content missing", wait: 5
   end
 
   test 'search itenerary' do
-    visit '/'
-    click_link 'Books'
-    click_link 'The Phantom'
-    click_link 'The Endings'
-    click_link 'Tours'
-    click_link 'Show'
-    click_link 'Add City'
+    visit root_url
+    setup_menu_page 'Story', 'Tours'
+    assert_link "Mr. Toad's Wild Ride", wait: 5
+    click_on "Mr. Toad's Wild Ride"
 
-    find(:css, "#city_activated_[value='#{@city_3.id}']").set(true)
+    assert_link "Add City"
+    click_on "Add City"
 
+    check_line_with @city_3.name
     click_button 'Add Cities'
+
+    take_screenshot
+
+    assert_text 'Delhi'
+    #assert_side 'backward', 'Itinerary', 'backward'
+    #click_side 'backward'
+    assert_text 'Name LIKE'
+
+    assert_current_path root_url
+    assert_no_text "Content missing", wait: 5
 
     fill_in 'Name LIKE', with: 'delhi'
     click_button 'Search'
 
+    take_screenshot
     click_link 'Delhi'
 
-    click_link 'Back'
+    click_side 'backward'
 
-    click_link 'Back'
+    click_side 'backward'
   end
 
-  test 'visiting the index' do
-    visit story_tours_url(@story)
-    assert_selector 'h2', text: 'Tours'
-  end
-
-  test 'creating a Tour' do
-    visit story_tours_url(@story)
-    click_on 'New Tour'
-
-    fill_in 'Name', with: @tour.name
-    click_on 'Create Tour'
-
-    assert_text 'Tour was successfully created'
-    click_on 'Back'
-  end
-
-  test 'updating a Tour' do
-    visit story_tours_url(@story)
-    click_on 'Edit', match: :first
-
-    fill_in 'Name', with: @tour.name
-    click_on 'Update Tour'
-
-    assert_text 'Tour was successfully updated'
-    click_on 'Back'
-  end
-
-  test 'destroying a Tour' do
-    visit story_tours_url(@story)
-    accept_confirm do
-      click_on 'Destroy', match: :first
-      page.driver.browser.switch_to.alert.accept
-    end
-
-    assert_text 'Tour was successfully destroyed'
-  end
-end
 end

@@ -12,19 +12,18 @@
   <%= render partial: 'books/book_stats', locals: { book: book } %>
 <% end %>
 <%= tabs do |c| %>
+  <% c.tab 'Stories' do %>
+    <turbo-frame id="sub_objects">
+      <%= render partial: 'stories/stories', formats: [:html], locals: { stories: stories, book: book, long: long, all: all,
+                                                                         word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
+    </turbo-frame>
+  <% end %>
 
-<% c.tab 'Stories' do %>
-  <turbo-frame id="sub_objects">
-  <%= render partial: 'stories/stories', formats: [:html], locals: { stories: stories, book: book, long: long, all: all,
-                                                                   word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
-  </turbo-frame>
-<% end %>
+  <% c.tab 'Summary' do %>
+    <%= @book.summary %>
+  <% end %>
 
-<% c.tab 'Summary' do %>
-  <%= @book.summary %>
-<% end %>
-
-<% c.tab 'Body' do %>
+  <% c.tab 'Body' do %>
     <div class='container-fluid'>
       <div class='row'>
         <div class='col-sm-12'>
@@ -34,12 +33,11 @@
           <% @stories.each do |story| %>
             <% next unless story.title_page? or story.print_summary? %>
             <p><strong><%= story.name %></strong><br>
-              <%= story.summary_body %>
+            <%= story.summary_body %>
             </p>
           <% end %>
         </div>
       </div>
     </div>
-<% end %>
-
+  <% end %>
 <% end %>

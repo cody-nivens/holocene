@@ -74,8 +74,9 @@ class HoloceneEvent < ApplicationRecord
 
   def set_values
     chapter = nil
-    unless chapters.nil?
+    unless chapters.size == 0
       chapter = chapters.first
+      debugger if chapter.nil?
       book = chapter.scripted
     end
     [book, chapter, self, nil, nil]

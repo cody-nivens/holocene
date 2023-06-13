@@ -7,72 +7,79 @@ module HoloceneMinitests
     binding.pry
   end
 
-  def setup_menus
-    @chapter = chapters(:chapter_1)
-    @book_non = @chapter.scripted
-    @story = stories(:story_1)
-    @book_fic = @story.book
-    @stage = stages(:stage_1)
+  def walk_menu(menu_master, debug: false)
+    visit root_url
+    assert_text "The Phantom", wait: 5
+    setup_page menu_master
+    doc = Nokogiri::HTML(page.html)
+    tops = doc.xpath("//*[@id='nav-bar']/nav/ul/li/a[contains(@class,'dropdown-toggle')]")
+    @menu_items = { }
+    tops.each do |master|
+      sub_actions = doc.xpath("//*[@id='nav-bar']/nav/ul/li/a[text()='#{master.text}']/../ul/li/a")
+      @menu_items[master.text] = sub_actions.collect{ |sa| "#{sa.text}" }
+    end
+    @menu_items.keys.each do |master|
+      @menu_items[master].each do |object|
+        p "#{menu_master}: #{object}" if debug
+        visit root_url
+        assert_text "The Phantom", wait: 5
+        setup_page menu_master
+        setup_page_menu master, object
+        menu_test master, object
+      end
+    end
+  end
 
-    @menu_items_welcome = {
-      'Welcome' => %w[ Progress Tags Stats History ],
-      'Book' => [ 'New Book', 'Books' ],
-      'Support' => [ 'Holocene Events', 'Cities', 'Epochs', 'Event Types', 'Regions', 'Timelines' ]
-    }
+  def walk_sides(menu_master, debug: false)
+    visit root_url
+    setup_page menu_master
+    doc = Nokogiri::HTML(page.html)
+    items = []
+    tops = doc.xpath("//div[@id='side_controls']/a/i")
+    tops.each do |object|
+      items << object.classes.excluding(['fa-fw', 'fas', 'far'])[0].gsub(/fa-/,'')
+    end
+    items.each do |item|
+      p "#{menu_master}: #{item}" if debug
+      visit root_url
+      setup_page menu_master
+      click_side item
+      assert_current_path root_url
+      assert_no_text "Content missing", wait: 5
+     if item == 'expand'
+        assert_side 'minus', menu_master, 'minus'
+        click_side 'minus'
+     elsif item == 'minus'
+        assert_side 'expand', menu_master, 'expand'
+        click_side 'expand'
+     elsif item == 'backward' and ['Book','BookC'].include?(menu_master)
+     else
+        assert_side 'backward', menu_master, item
+        click_side 'backward'
+      end
+    end
+  end
 
-    @menu_items_book_fic = {
-      'Welcome' => %w[ Progress Tags Stats History ],
-      'Book' => [ "#{@book_fic.name}", 'New Book', 'Books', 'Stats', 'Scenes', 'Resync Stories', 'Publish All', 'Key Points', 'Plot Points', 'Glossary Terms', 'Timeline' ],
-      'Story' => [ 'New Story', 'All Stories', 'Stories' ],
-      'Characters' => [ 'Character Grid', 'Main Characters', 'Characters with Scenes', 'By Occupation', 'By Occupation, All', 'Import Chars'],
-      'Stage' => [ 'Acts', 'Actors', 'Locations'],
-      'Support' => [ 'Holocene Events', 'Cities', 'Epochs', 'Event Types', 'Regions', 'Timelines', 'Key Words', 'Authors', 'Artifacts', 'Artifact Types', 'Character Categories' ]
-    }
-    @menu_items_book_non = {
-      'Welcome' => %w[ Progress Tags Stats History ],
-      'Book' => [ "#{@book_non.name}", 'New Book', 'Books', 'Stats', 'Bibliography', 'Glossary Terms', 'Timeline' ],
-      'Chapter' => [ 'New Chapter' ],
-      'Support' => [ 'Holocene Events', 'Cities', 'Epochs', 'Event Types', 'Regions', 'Timelines'  ]
-    }
+  def menu_test(master, object, debug: false)
+    puts "#{master}: #{object}" if debug
 
-    @menu_items_chapter = {
-      'Welcome' => %w[ Progress Tags Stats History ],
-      'Book' => [ "#{@book_non.name}", 'New Book', 'Books', 'Stats', 'Bibliography', 'Glossary Terms', 'Timeline'],
-      'Chapter' => [ 'New Chapter', "#{@chapter.name}", "Partition", "Aside", "Footnotes", "Citations", 'Timeline' ],
-      'Support' => [ 'Holocene Events', 'Cities', 'Epochs', 'Event Types', 'Regions', 'Timelines' ]
-    }
+    unless ['Progress', 'Tags', 'History', 'Holocene Events', 'Cities', 'Epochs', 'Event Types', 'Regions', 'Timelines',
+        'New Book', 'Books', 'Publish All', 'Resync Stories', 'Character Grid', 'Character Categories'].include?(object) or
+      (master == 'Welcome' and object == 'Stats')
+      assert_side 'backward', master, object
+    end
+    unless ['New Book', 'New Story', 'Characters with Scenes', 'Character Grid', 'Progress', 'Tags', 'History', 'Stats',
+        'Stories', 'All Stories', 'Time by Actor', 'Time by Location', 'Actor by Location', 'Publish All',
+        'Resync Stories', 'Key Points', 'By Occupation', 'By Occupation, All', 'Resync Scenes', 'Main Characters',
+        'Partition', 'Timeline', 'Scenes', 'Books', 'Import Chars',
+        "#{@book.nil? ? 'Progress' : @book.name}", "#{@story.nil? ? 'Progress' : @story.name}", "#{@stage.nil? ? 'Progress' : @stage.name}", "#{@chapter.nil? ? 'Progress' : @chapter.name}", 
+        'Move', 'Char List', 'Char List, All', 'Scene Characters', 'Stage List', 'New Chapter'].include?(object) or
+        (master == 'Story' and object == 'Characters')
 
-    @menu_items_chapter_full = {
-      'Welcome' => %w[ Progress Tags Stats History ],
-      'Book' => [ "#{@book_non.name}", 'New Book', 'Books', 'Stats', 'Bibliography', 'Glossary Terms'],
-      'Chapter' => [ 'New Chapter' ],
-      'Support' => [ 'Holocene Events', 'Cities', 'Epochs', 'Event Types', 'Regions', 'Timelines' ]
-    }
-
-    @menu_items_story = {
-      'Welcome' => %w[ Progress Tags Stats History ],
-      'Book' => [ "#{@book_fic.name}", 'New Book', 'Books', 'Stats', 'Scenes', 'Resync Stories', 'Publish All', 'Key Points', 'Plot Points', 'Glossary Terms', 'Timeline' ],
-      'Story' => [ 'New Story', "#{@story.name}", 'Characters', 'Move', 'All Stories', 'Stories', 'Key Points', 'Char List', 'Char List, All', 'Stats', 'Scenes', 'Resync Scenes', 'Timeline', 'Tours'],
-      'Characters' => [ 'Character Grid', 'Main Characters', 'Characters with Scenes', 'By Occupation', 'By Occupation, All', 'Import Chars'],
-      'Stage' => [ 'Acts', 'Actors', 'Locations'],
-      'Support' => [ 'Holocene Events', 'Cities', 'Epochs', 'Event Types', 'Regions', 'Timelines', 'Key Words', 'Authors', 'Artifacts', 'Artifact Types', 'Character Categories']
-    }
-    @menu_items_stage = {
-      'Welcome' => %w[ Progress Tags Stats History ],
-      'Book' => [ "#{@book_fic.name}", 'New Book', 'Books', 'Stats', 'Scenes', 'Resync Stories', 'Publish All', 'Key Points', 'Plot Points', 'Glossary Terms', 'Timeline'],
-      'Story' => [ 'New Story', 'All Stories', 'Stories'],
-      'Characters' => [ 'Character Grid', 'Main Characters', 'Characters with Scenes', 'By Occupation', 'By Occupation, All', 'Import Chars'],
-      'Stage' => [ "#{@stage.name}", 'Stage List', 'Scenes', 'Scene Characters', 'Time by Actor', 'Time by Location', 'Actor by Location', 'Acts', 'Actors', 'Locations' ],
-      'Support' => [ 'Holocene Events', 'Cities', 'Epochs', 'Event Types', 'Regions', 'Timelines', 'Key Words', 'Authors', 'Artifacts', 'Artifact Types', 'Character Categories' ]
-    }
-    @menu_items_stage_full = {
-      'Welcome' => %w[ Progress Tags Stats History ],
-      'Book' => [ "#{@book_fic.name}", 'New Book', 'Books', 'Stats', 'Scenes', 'Resync Stories', 'Publish All', 'Key Points', 'Plot Points', 'Glossary Terms', 'Timeline'],
-      'Story' => [ 'New Story', 'All Stories', 'Stories'],
-      'Characters' => [ 'Character Grid', 'Main Characters', 'Characters with Scenes', 'By Occupation', 'By Occupation, All', 'Import Chars'],
-      'Stage' => [ 'Acts', 'Actors', 'Locations'],
-      'Support' => [ 'Holocene Events', 'Cities', 'Epochs', 'Event Types', 'Regions', 'Timelines', 'Key Words', 'Authors', 'Artifacts', 'Artifact Types', 'Character Categories' ]
-    }
+      drive_cycle master, object
+    end
+    assert_current_path root_url
+    assert_no_text "Content missing", wait: 5
   end
 
   def verify_menus(menu_items)
@@ -94,8 +101,20 @@ module HoloceneMinitests
     end
   end
 
+  def setup_page_menu(master, object)
+    do_menu master, object
+    assert_current_path root_url
+    assert_no_text "Content missing", wait: 5
+
+    assert_arrival master, object
+    assert_current_path root_url
+    assert_no_text "Content missing", wait: 5
+  end
+
   def setup_menu_page(master, object)
     setup_page master
+    assert_current_path root_url
+    assert_no_text "Content missing", wait: 5
 
     master = 'Book' if master == 'BookC'
 
@@ -109,9 +128,13 @@ module HoloceneMinitests
   end
 
   def drive_cycle(master, object)
+    visit root_url
     setup_menu_page master, object
+    assert_current_path root_url
+    assert_no_text "Content missing", wait: 5
     master = 'Book' if master == 'BookC'
 
+    assert_new 'plus', master, object
     click_new 'plus'
     assert_no_text "Content missing", wait: 5
     assert_current_path root_url
@@ -125,17 +148,19 @@ module HoloceneMinitests
       has_css? 'input[name="city[name]"]', wait: 5
     when 'Holocene Events'
       has_css? 'input[name="holocene_event[name]"]', wait: 5
-    when 'Footnotes'
+    when 'Footnotes', 'Citations'
       assert_text "Slug", wait: 5
+    when 'New Book', 'New Story', 'Key Points', "#{@chapter.nil? ? (@story.nil? ? '' : @story.name) : @chapter.name}"
+      assert_text 'Title'
     else
       assert_text "Name", wait: 5
     end
 
     case object
-    when 'Footnotes'
+    when 'Footnotes', 'Citations'
       fill_in "Slug", with: "TestSlug"
     when 'Key Words'
-      fill_in "Key word", with: "Strangeness in Space"
+      fill_in "Key word", with: "dark"
     when 'Cities'
       fill_in "city[name]", with: "Strangeness in Space"
       fill_in "city[lat]", with: "45.3246"
@@ -161,6 +186,8 @@ module HoloceneMinitests
     case object
     when 'Bibliography'
       click_on "Create Biblioentry"
+    when 'Citations'
+      click_on 'Create Footnote'
     else
       click_on "Create #{object.downcase.capitalize.singularize}"
     end
@@ -170,6 +197,8 @@ module HoloceneMinitests
     case object
     when 'Bibliography'
       assert_text "Biblioentry was successfully created", wait: 5
+    when 'Citations'
+      assert_text "Footnote was successfully created", wait: 5
     else
       assert_text "#{object.singularize} was successfully created", wait: 5
     end
@@ -179,12 +208,17 @@ module HoloceneMinitests
       assert_link "Snoopy", wait: 5
       assert_text "Brown", wait: 5
       click_on "Snoopy"
-    when 'Footnotes'
+    when 'Footnotes', 'Citations'
       assert_link 'TestSlug', wait: 5
       click_on 'TestSlug'
     when 'Sections'
       assert_text "Strangeness in Space", wait: 5
       click_on "Strangeness in Space"
+    when 'Key Words'
+      assert_text "dark", wait: 5
+      within "turbo-frame##{dom_id KeyWord.last}" do
+        click_on "dark"
+      end
     else
       assert_text "Strangeness in Space", wait: 5
       click_on "Strangeness in Space"
@@ -194,11 +228,11 @@ module HoloceneMinitests
 
     case object
     when 'Key Words'
-      assert_link "Strangeness in Space", wait: 5
-      find("div > turbo-frame##{dom_id KeyWord.last} > div > a", match: :first).click
+      #assert_link "dark", wait: 5
+      #find("div > turbo-frame##{dom_id KeyWord.last} > div > a", match: :first).click
       assert_text "Key word:", wait: 5
       assert_no_text 'stormy', wait: 5
-    when 'Footnotes'
+    when 'Footnotes', 'Citations'
       assert_text 'Slug:', wait: 5
     when 'Authors'
       assert_text 'Biblioentries'
@@ -207,7 +241,7 @@ module HoloceneMinitests
     end
 
 
-    assert_side 'edit'
+    assert_side 'edit', master, object
     click_side 'edit'
     assert_current_path root_url
     assert_no_text "Content missing", wait: 5
@@ -219,9 +253,16 @@ module HoloceneMinitests
     when 'Authors'
       assert_text "First name", wait: 5
       fill_in "First name", with: "Charlie"
-    when 'Footnotes'
+    when 'Footnotes', 'Citations'
       assert_text "Slug", wait: 5
       fill_in "Slug", with: "SlugTest"
+    when 'Key Words'
+      assert_text 'Key word'
+      fill_in "Key word", with: "lighting"
+    when 'Holocene Events'
+      assert_text "End year", wait: 5
+      assert_text "Name", wait: 5
+      fill_in "Name", with: "Seemingly Case"
     else
       assert_text "Name", wait: 5
       fill_in "Name", with: "Seemingly Case"
@@ -230,6 +271,8 @@ module HoloceneMinitests
     case object
     when 'Bibliography'
       click_on "Update Biblioentry"
+    when 'Citations'
+      click_on "Update Footnote", wait: 5
     else
       click_on "Update #{object.downcase.capitalize.singularize}"
     end
@@ -239,6 +282,8 @@ module HoloceneMinitests
     case object
     when 'Bibliography'
       assert_text "Biblioentry was successfully updated", wait: 5
+    when 'Citations'
+      assert_text "Footnote was successfully updated", wait: 5
     else
       assert_text "#{object.singularize} was successfully updated", wait: 5
     end
@@ -246,14 +291,19 @@ module HoloceneMinitests
     case object
     when 'Authors'
       assert_text "Charlie", wait: 5
-    when 'Footnotes'
+    when 'Footnotes', 'Citations'
       assert_text "Slug", wait: 5
+    when 'Key Words'
+      assert_text 'lighting', wait: 5
     else
       assert_text "Seemingly Case", wait: 5
     end
 
-    click_side 'backward'
-    assert_current_path root_url
+    unless ['Acts', 'Holocene Events', 'Key Words'].include?(object)
+      assert_side 'backward', master, object
+      click_side 'backward'
+      assert_current_path root_url
+    end
 
     case object
     when 'Authors'
@@ -261,10 +311,15 @@ module HoloceneMinitests
       accept_alert do
         click_on_line "Charlie", "trash"
       end
-    when 'Footnotes'
+    when 'Footnotes', 'Citations'
       assert_link 'SlugTest', wait: 5
       accept_alert do
         click_on_line "SlugTest", "trash"
+      end
+    when 'Key Words'
+      assert_link "lighting", wait: 5
+      accept_alert do
+        click_on_line "lighting", "trash"
       end
     else
       assert_link "Seemingly Case", wait: 5
@@ -278,12 +333,14 @@ module HoloceneMinitests
     case object
     when 'Bibliography'
       assert_text "Biblioentry was successfully destroyed", wait: 5
+    when 'Citations'
+      assert_text "Footnote was successfully destroyed", wait: 5
     else
       assert_text "#{object.singularize} was successfully destroyed", wait: 5
     end
 
-
     unless ['Regions', 'Cities', 'Holocene Events', 'Character Categories', 'Epochs', 'Event Types'].include?(object)
+      assert_side 'backward', master, object
       click_side 'backward'
     end
     assert_no_text "Content missing", wait: 5
@@ -301,15 +358,23 @@ module HoloceneMinitests
     when 'Chapter'
       assert_text 'Fun Events in History', wait: 5
       click_on 'Fun Events in History'
-      assert_link 'Cultural Events', wait: 5
-      click_on 'Cultural Events'
-      assert_text 'Flight of the Bubblebees', wait: 5
-    when 'Story', /^Character$/
+      assert_link 'Chapter Two Stuff', wait: 5
+      click_on 'Chapter Two Stuff'
+      assert_text 'Asides', wait: 5
+    when 'Story', /^Characters$/
       assert_text 'The Phantom', wait: 5
       click_on 'The Phantom'
       assert_link 'The Beginnings', wait: 5
       click_on 'The Beginnings'
       assert_text 'Climate Change', wait: 5
+    when 'Scene'
+      assert_text 'The Phantom', wait: 5
+      click_on 'The Phantom'
+      assert_link 'The Beginnings', wait: 5
+      click_on 'The Beginnings'
+      assert_link 'A00011', wait: 5
+      click_on 'A00011'
+      assert_text 'Summary', wait: 5
     when /^Book$/, "Support"
       assert_text 'The Phantom', wait: 5
       click_on 'The Phantom'
@@ -363,6 +428,22 @@ module HoloceneMinitests
       assert_text "Stage with Segment Information", wait: 5
     when 'Timeline'
       assert_text 'Timeline for'
+    when 'New Book'
+      assert_text 'Copyright'
+    when 'New Story'
+      assert_text 'Title page'
+    when 'All Stories'
+      assert_text 'The Middles XX'
+    when 'New Chapter'
+      assert_text 'Display title'
+    when 'Citations'
+      assert_text 'Slug'
+    when 'Char List, All'
+      assert_text 'Char List'
+    when 'Import Chars'
+      assert_text 'Import Characters for'
+    when 'Key Words'
+      assert_text 'Key Words'
     else
       assert_text "#{object}", wait: 5
     end

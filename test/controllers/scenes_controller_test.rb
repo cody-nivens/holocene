@@ -175,7 +175,7 @@ end
 
   test 'should get new' do
     get new_polymorphic_url([@situated, :scene])
-    assert_select "turbo-frame", id:  "new_object", target: "edit"
+    assert_select "turbo-frame", id:  "new_object"
     assert_response :success
   end
 

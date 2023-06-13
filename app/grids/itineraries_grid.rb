@@ -14,7 +14,8 @@ class ItinerariesGrid < BaseGrid
   end
 
   filter(:name, :string, header: 'Name LIKE',
-                         input_options: { placeholder: 'Specify Text In Itinerary Name' }) do |value|
+                         input_options: { "data-grids-target": "name", placeholder: 'Specify Text In Itinerary Name' }) do |value|
+                           
     where('name like ?', "%#{value}%")
   end
 

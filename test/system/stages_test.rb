@@ -5,12 +5,26 @@ class StagesTest < ApplicationSystemTestCase
     @stage = stages(:stage_1)
     @user = users(:users_1)
     sign_in @user
+    ThinkingSphinx::Test.init
+    ThinkingSphinx::Test.start index: false
+    index
   end
 
-  [ 'Stage List', 'Scenes', 'Scene Characters', 'Time by Actor', 'Time by Location', 'Actor by Location', 'Acts', 'Actors', 'Locations' ].each do |object|
-    test "visiting the Stage:#{object} menu" do
-      setup_menu_page 'Stage',object
-    end
+  teardown do
+    ThinkingSphinx::Test.stop
+    ThinkingSphinx::Test.clear
+  end
+
+  test "walk the stage side menus" do
+    @book = books(:book_2)
+    @stage = stages(:stage_1)
+    walk_sides('Stage')
+  end
+
+  test "walk the stage menus" do
+    @book = books(:book_2)
+    @stage = stages(:stage_1)
+    walk_menu('Stage', debug: false)
   end
 
   if 1 == 0

@@ -8,7 +8,9 @@
   <% end %>
 <% end %>
 <%= turbo_stream.replace "header"  do %>
-  <%= render partial: "#{@report_path}/#{@report}_header" %>
+  <%= content_tag :div, class: "block", id: "header" do %>
+    <%= render partial: "#{@report_path}/#{@report}_header" %>
+  <% end %>
 <% end %>
 <%= turbo_stream.replace "side_controls" do %>
   <%= content_tag :div, class: "block", id: "side_controls" do %>

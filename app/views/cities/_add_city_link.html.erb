@@ -1,0 +1,2 @@
+<%= link_to 'Add City', url_for(controller: 'cities', action: 'add_city',
+                                "#{@tour.class.name.underscore}_id".to_sym => @tour.id), method: :get, class: 'btn btn-secondary' %>

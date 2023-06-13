@@ -1,8 +1,6 @@
 <% total_wc ||= 0 %>
 <% wc_total ||= 0 %>
-<strong>
-  <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: pdf , print_name: false, inline_date: false, long: long, total_wc: total_wc, wc_total: wc_total } %>
-</strong>
+<%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: pdf , print_name: false, inline_date: false, long: long, total_wc: total_wc, wc_total: wc_total } %>
 <% unless pdf.nil? %>
   <br>
 <% end %>
@@ -10,7 +8,10 @@
   <%= scene.summary %>
 <% end%>
 <% unless outline %>
-  <%== epub_friendly(scene.section.body) unless scene.section&.body.nil? %>
+  <%#== scene.section.body unless scene.section&.body.nil? %>
+  <tr>
+    <td colspan="100%">
+      <%== epub_friendly(scene.section.body) unless scene.section&.body.nil? %>
+    </td>
+  </tr>
 <% end %>
-<br>
-

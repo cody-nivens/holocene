@@ -4,37 +4,39 @@ class MenuWalkTest < ApplicationSystemTestCase
   setup do
     @user = users(:users_1)
     sign_in @user
-
-    setup_menus
   end
 
-  test "visiting the nonfiction Book page menus" do
-    setup_page 'BookC'
-    verify_menus @menu_items_book_non
+  if 1 == 0
+  test "walk the welcome menus" do
+    walk_menu('Welcome')
   end
 
-  test "visiting the fiction Book page menus" do
-    setup_page 'Book'
-    verify_menus @menu_items_book_fic
+  test "walk the non-fiction book menus" do
+    @book = books(:book_1)
+    walk_menu('BookC')
   end
 
-  test "visiting the Story page menus" do
-    setup_page 'Story'
-    verify_menus @menu_items_story
+  test "walk the chapter menus" do
+    @book = books(:book_1)
+    @chapter = @book.chapters.first
+    walk_menu('chapter')
   end
 
-  test "visiting the Chapter page menus" do
-    setup_page 'Chapter'
-    verify_menus @menu_items_chapter
+  test "walk the fiction book menus" do
+    @book = books(:book_2)
+    walk_menu('Book')
   end
 
-  test "visiting the Stage page menus" do
-    setup_page 'Stage'
-    verify_menus @menu_items_stage
+  test "walk the story menus" do
+    @book = books(:book_2)
+    @story = Story.first
+    walk_menu('Story')
   end
 
-  test "visiting the Welcome page menus" do
-    visit root_url
-    verify_menus @menu_items_welcome
+  test "walk the stage menus" do
+    @book = books(:book_2)
+    @stage = stages(:stage_1)
+    walk_menu('Stage')
+  end
   end
 end

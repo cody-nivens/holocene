@@ -1,16 +1,15 @@
-<turbo-frame id="<%= dom_id @epoch %>">
 <p>
 <strong>Name:</strong>
-  <%= @epoch.name %><br>
-  <strong>Start date:</strong>
-  <%= @epoch.start_date %><br>
-  <strong>End date:</strong>
-  <%= @epoch.end_date %>
+<%= @epoch.name %><br>
+<strong>Start date:</strong>
+<%= @epoch.start_date %><br>
+<strong>End date:</strong>
+<%= @epoch.end_date %>
 </p>
 
-<%= datagrid_form_for @grid, method: :get, url: holocene_events_path %>
-
-<%= paginate(@grid.assets) %>
-<%= datagrid_table @grid %>
-<%= paginate(@grid.assets) %>
-</turbo-frame>
+<div data-controller="data-grids">
+  <%= datagrid_form_for @grid, method: :get, url: holocene_events_path %>
+  <%= paginate(@grid.assets) %>
+  <%= datagrid_table @grid %>
+  <%= paginate(@grid.assets) %>
+</div>

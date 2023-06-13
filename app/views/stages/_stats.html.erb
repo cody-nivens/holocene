@@ -1,0 +1,16 @@
+<div class='row'>
+  <div class='col-sm-2'>
+    Number of Segments:
+  </div>
+  <div class='col-sm-2'>
+    <%= @stage.segments.size %>
+  </div>
+</div>
+<div class='row'>
+  <div class='col-sm-2'>
+    Number of Location Times:
+  </div>
+  <div class='col-sm-2'>
+    <%= @stage.segments.collect{ |x| x.location_times.size }.sum %>
+  </div>
+</div>

@@ -22,7 +22,7 @@ class ToursController < ApplicationController
     @pagy, @records = pagy(@grid.assets)
 
     respond_to do |format|
-      format.turbo_stream { render "shared/show", locals: { object: @tour } }
+      format.turbo_stream { render "shared/show", locals: { object: @tour, new_link_name: 'add_city_link', new_link_path: 'cities' } }
     end
   end
 
@@ -31,7 +31,7 @@ class ToursController < ApplicationController
     @story = @tour.story
 
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @tour, no_new_link: true, part: 'geo_map' } }
     end
   end
 
@@ -109,6 +109,6 @@ class ToursController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def tour_params
-    params.require(:tour).permit(:story_id, :name, :summary)
+    params.require(:tour).permit(:story_id, :name, :summary, :tour_type)
   end
 end

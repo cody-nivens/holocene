@@ -170,7 +170,7 @@ end
 
   test 'should get new' do
     get new_chapter_footnote_url(chapter_id: @chapter.id, slug: 'test2')
-    assert_select "turbo-frame", id:  "new_object", target: "edit"
+    assert_select "turbo-frame", id:  "new_object"
     assert_response :success
   end
 

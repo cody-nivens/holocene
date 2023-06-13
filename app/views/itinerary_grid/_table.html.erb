@@ -1,11 +1,11 @@
 <%#
-Local variables:
-* grid - instance of Datagrid
+    Local variables:
+    * grid - instance of Datagrid
 * assets - Array of database Entities
 * options - passed options Hash
 %>
 <% if !@tour.nil? %>
-  <%= form_for :itinerary, options.merge({ url: { controller: 'itineraries', story_id: @tour.story.id, tour_id: @tour.id, action: 'index' } }) do |f| -%>
+  <%= form_for :itinerary, options.merge({ url: { controller: 'itineraries', story_id: @tour.story.id, tour_id: @tour.id, action: 'index' }, data: { action: "grids#processSearch" } }) do |f| -%>
     <%= f.hidden_field :tour_id, value: @tour.id %>
     <%= f.hidden_field :tour_type, value: @tour.class.name %>
     <%= f.submit @command.to_s, id: 'datagrid_select', class: "datagrid-submit#{@command.nil? ? ' hidden' : ''}" %>
@@ -43,7 +43,7 @@ Local variables:
   <% end %>
 <% end %>
 <script nonce="<%= request.content_security_policy_nonce %>" type='text/javascript'>
-$('#itinerary_tour_id').change(function() {
+  $('#itinerary_tour_id').change(function() {
     if ($(this).val() == '') {
         $('#datagrid_select').val('Delete Events');
     } else {

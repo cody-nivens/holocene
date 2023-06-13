@@ -127,6 +127,7 @@ scene_11:
   artifact: artifact_1
   date_string: "0099-01-01-08-23"
   scene_sequel: 1
+  title_scene: true
   situated: story_1 (Story)
   key_point_id: <%= ActiveRecord::FixtureSet.identify(:key_point_1) %>
   selector: 1
@@ -139,6 +140,7 @@ scene_12:
   artifact: artifact_1
   date_string: "0099-02-01-08-23"
   scene_sequel: 1
+  title_scene: true
   situated: story_1 (Story)
   key_point_id: <%= ActiveRecord::FixtureSet.identify(:key_point_1) %>
   selector: 2
@@ -152,6 +154,7 @@ scene_13:
   date_string: "0099-02-01-08-23"
   scene_sequel: 1
   situated: story_1 (Story)
+  title_scene: true
   key_point_id: <%= ActiveRecord::FixtureSet.identify(:key_point_1) %>
   selector: 1
   position: 3

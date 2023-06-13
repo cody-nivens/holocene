@@ -7,7 +7,7 @@ class ChaptersController < ApplicationController
     @long = params[:long]
 
     session[:return_to] = request.fullpath
-    @chapters = @scripted.chapters.includes([ { partition: :rich_text_body }, { aside: :rich_text_body },
+    @chapters = @scripted.chapters.includes([ { partition: :rich_text_body },
                                               :chapters_holocene_events, :holocene_events,
                                               { sections: :rich_text_body }, :rich_text_body]).order(:position).all
     respond_to do |format|
@@ -23,6 +23,24 @@ class ChaptersController < ApplicationController
 
   def geo_map
     @object = @chapter
+  end
+
+  def report
+    @chapter = Chapter.find(params[:chapter_id])
+    @report_path, @report = params[:report].split(/\//)
+
+    @toggle = params[:toggle]
+    @print = params[:print]
+    @option = params[:option]
+    @long = params[:long]
+
+    case @report
+    when "stats"
+    end
+
+    respond_to do |format|
+      format.turbo_stream { render 'shared/report' }
+    end
   end
 
   def demote
@@ -116,6 +134,7 @@ class ChaptersController < ApplicationController
     session[:return_to] = request.fullpath
     @chapter = Chapter.includes([{ holocene_events: [:region, :event_types, :rich_text_body] }]).find(params[:id])
     @title = @chapter.name
+    @asides = @chapter.asides
     @notes = {}
     @sections = @chapter.sections.order(:position)
     @scripted = @chapter.scripted
@@ -148,6 +167,7 @@ class ChaptersController < ApplicationController
       if @chapter.save
         @chapter.reload
         @chapters = @chapter.scripted.chapters.reload
+        @asides = @chapter.asides
         @long = false
         format.html { redirect_to @chapter, notice: 'Chapter was successfully created.' }
         format.json { render :show, status: :created, location: @chapter }
@@ -166,6 +186,7 @@ class ChaptersController < ApplicationController
     @sectioned = @chapter
     respond_to do |format|
       if @chapter.update(chapter_params)
+        @asides = @chapter.asides
         flash.now[:notice] = "Chapter was successfully updated."
         format.html { redirect_to @chapter, notice: 'Chapter was successfully updated.' }
         format.json { render :show, status: :ok, location: @chapter }
@@ -206,7 +227,7 @@ class ChaptersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def chapter_params
-    params.require(:chapter).permit(:name, :body, :position, :scripted_id, :scripted_type, :position, :aside,
+    params.require(:chapter).permit(:name, :body, :position, :scripted_id, :scripted_type, :position,
                                     :show_events, :always_display_events, :display_title, :scripted_id, :scripted_type)
   end
 end

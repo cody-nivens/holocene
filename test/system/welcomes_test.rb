@@ -8,4 +8,7 @@ class WelcomesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test "walk the welcome menus" do
+    walk_menu('Welcome')
+  end
 end

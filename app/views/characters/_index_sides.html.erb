@@ -1,6 +1,6 @@
 <% if @object.class.name == 'Book' %>
-  <%= link_to (fa_icon 'plus'), polymorphic_path([@object, :characters]), method: :post, title: 'Add Character' %>
+  <%= link_to (fa_icon 'plus', class: 'fa-fw'), polymorphic_path([@object, :characters]), method: :post, class: 'btn', title: 'Add Character' %>
 <% else %>
-  <%= link_to (fa_icon 'exchange-alt'), polymorphic_path([@object, :characters_list]), title: 'Add/Remove Characters' %>
+  <%= link_to (fa_icon 'exchange-alt', class: 'fa-fw'), polymorphic_path([@object, :characters_list]), method: :get, class: 'btn', title: 'Add/Remove Characters' %>
 <% end -%>
-
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@object), method: :get, class: 'btn', title: 'Back' %>

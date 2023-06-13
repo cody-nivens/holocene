@@ -29,11 +29,11 @@ Rails.application.routes.draw do
   get '/books/:id/view', to: 'books#view', as: :book_view
   get '/books/:id/list_chars', to: 'characters#list_chars', as: :characters_list_chars
   get '/books/:id/publish', to: 'books#publish', as: :book_publish
-#  get '/books/:id/chars', to: 'books#chars', as: :book_chars
+  get '/books/:id/chars', to: 'books#chars', as: :book_chars
   post '/books/:id/import_chars', to: 'books#import_chars', as: :book_import_chars
   get '/books/:id/chars_import', to: 'books#chars_import', as: :book_chars_import
   get '/stories/:id/view', to: 'stories#view', as: :story_view
-#  get '/stories/:id/chars', to: 'stories#chars', as: :story_chars
+  get '/stories/:id/chars', to: 'stories#chars', as: :story_chars
   get '/key_points/:id/view', to: 'key_points#view', as: :key_point_view
 
   get '/cities/index', to: 'cities#index', format: :js, constraints: ->(request) { request.xhr? }
@@ -103,9 +103,9 @@ Rails.application.routes.draw do
                                                                                       }
   get '/books/:book_id/scenes', to: 'scenes#index', format: :js, constraints: ->(request) { request.xhr? }
 
-  get '/characters/:book_id/report', to: 'characters#report', as: :book_character_report
-  get '/characters/:story_id/report', to: 'characters#report', as: :story_character_report
-  get '/characters/:scene_id/report', to: 'characters#report', as: :scene_character_report
+  get '/books/:book_id/characters/report', to: 'characters#report', as: :book_character_report
+  get '/stories/:story_id/characters/report', to: 'characters#report', as: :story_character_report
+  get '/scenes/:scene_id/characters/report', to: 'characters#report', as: :scene_character_report
 
   get '/books/:id/export', to: 'books#export', as: :book_export
   get '/books/:id/report', to: 'books#report', as: :book_report
@@ -224,6 +224,7 @@ Rails.application.routes.draw do
     concerns :sectioned, sectioned_type: 'Chapter'
     resources :scenes
     resources :sections
+    get :report
     patch :sort
   end
   resources :chapters, shallow: true do

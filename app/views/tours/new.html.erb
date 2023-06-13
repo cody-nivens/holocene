@@ -1,6 +1,6 @@
 <h2>New Tour</h2>
 
 <turbo-frame id="new_object">
-<%= render 'form', tour: @tour, story: @story %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),   return_or_default_path(story_tours_path(@story)), method: :get, class: 'btn', title: 'Back' %>
+  <%= render 'form', tour: @tour, story: @story %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  story_tours_path(@story), method: :get, class: 'btn', title: 'Back' %>
 </turbo-frame>

@@ -1,6 +1,10 @@
-<turbo-frame id="objects">
-<%= datagrid_form_for @grid, method: :get, url: cities_path, partials: 'city_grid' %>
-<%== pagy_info(@pagy) %>
-<%= datagrid_table @grid, @records, partials: 'city_grid' %>
-<%== pagy_nav(@pagy) %>
-</turbo-frame>
+<div data-controller='grids' data-grids-gridtype-value="city" data-grids-url-value='<%= cities_path %>'>
+  <div data-grids-target="grid_form">
+    <%= datagrid_form_for @grid, method: :get, url: cities_path, partials: 'city_grid', data: { action: "grids#processSearch" } %>
+    <div id="grid_data" data-grids-target="grid_data">
+      <%== pagy_info(@pagy) %>
+      <%= datagrid_table @grid, @records, partials: 'city_grid' %>
+      <%== pagy_nav(@pagy) %>
+    </div>
+  </div>
+</div>

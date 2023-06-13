@@ -2,5 +2,5 @@
 
 <turbo-frame id="new_object">
   <%= render 'form', segment: @segment %>
-  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(stage_segments_path(@stage)), class: "btn", title: 'Back' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), @stage, method: :get, class: "btn", title: 'Back' %>
 </turbo-frame>

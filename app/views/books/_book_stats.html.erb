@@ -1,4 +1,6 @@
 <% if book.is_fiction? %>
+  <% @scenes_wi = Scene.get_scenes_wi_to_array(book) %>
+  <% @scenes = @scenes_wi.collect{|x| Scene.find(x) } %>
   <% bt_count = g_count = o_count = b_count = z_count = words_total = pot_word_count = 0 %>
   <% scene_wc_counts = @scenes.collect{|x| x.word_count } %>
   <% mean = scene_wc_counts.sum(0.0) / @scenes.length %>
@@ -15,53 +17,54 @@
     <% z_count  += count == 0 ? 1 : 0 %>
   <% end %>
 
-<% bt_ratio = bt_count.zero? ? 0 : bt_count.to_f / words_total %>
-<% g_ratio  = g_count.zero?  ? 0 : g_count.to_f  / words_total %>
-<% o_ratio  = o_count.zero?  ? 0 : o_count.to_f  / words_total %>
-<% b_ratio  = b_count.zero?  ? 0 : b_count.to_f  / words_total %>
+  <% bt_ratio = bt_count.zero? ? 0 : bt_count.to_f / words_total %>
+  <% g_ratio  = g_count.zero?  ? 0 : g_count.to_f  / words_total %>
+  <% o_ratio  = o_count.zero?  ? 0 : o_count.to_f  / words_total %>
+  <% b_ratio  = b_count.zero?  ? 0 : b_count.to_f  / words_total %>
 
-<% items2 = [{ label: 'Better', color: good_color, width:  100.0 * bt_ratio },
-             { label: 'Good', color: okay_color, width: 100.0 * g_ratio },
-             { label: 'Okay', color: caution_color, width: 100.0 * o_ratio },
-             { label: 'Bad', color: bad_color, width:  100.0 * b_ratio }] %>
+  <% items2 = [{ label: 'Better', color: good_color, width:  100.0 * bt_ratio },
+               { label: 'Good', color: okay_color, width: 100.0 * g_ratio },
+               { label: 'Okay', color: caution_color, width: 100.0 * o_ratio },
+               { label: 'Bad', color: bad_color, width:  100.0 * b_ratio }]
+             %>
 
-<% scene_count = book.scene_count %>
-<% section_count = book.section_count %>
-<% word_count = book.word_count %>
-<% word_avg = scene_count == z_count ? 0 : word_count / (scene_count - z_count) %>
+  <% scene_count = book.scene_count %>
+  <% section_count = book.section_count %>
+  <% word_count = book.word_count %>
+  <% word_avg = scene_count == z_count ? 0 : word_count / (scene_count - z_count) %>
 
   <% book.stories.where(publish: true).each do |story| %>
     <% word_counts = story.word_counts %>
     <% pot_word_count += word_counts.collect{|x| x > word_avg ? x : word_avg}.sum %>
   <% end %>
-<% pub_scene_count = book.scene_count(true) %>
-<% pub_word_count = book.word_count(true) %>
+  <% pub_scene_count = book.scene_count(true) %>
+  <% pub_word_count = book.word_count(true) %>
 
-<table class="table">
-  <tr>
-    <th>Stories(Publishable):</th>
-    <td><%= book.stories.size %> (<%= book.stories.where(publish: true).size %>)</td>
-    <th>Characters:</th>
-    <td><%= book.characters.size %>
-    <% scenes = Scene.get_scenes_to_array(book) %>
-    <% characters = book.characters.joins(:scenes).where("scenes.book_id = ?", book.id).where("scenes.id", scenes).group("characters.id") %>
-    (<%= characters.length %>) 
-    </td></tr>
-  <tr>
-    <th>Scenes (Publishable)(Sections % Scenes):</th>
-    <td>
-      <%= render partial: 'scenes/progress_bar', formats: [:html], locals: { object: book } %>
-      <%= render partial: 'shared/progress_bar', locals: { items: items2 } %>
-    </td>
-    <th>Word Count | Publishable (Potential):</th>
-    <td><%= number_with_delimiter(word_count, delimiter: ',') %> | 
-      <%= number_with_delimiter(pub_word_count, delimiter: ',') %> (<%= (section_count.zero? ? '' : number_with_delimiter(pot_word_count, delimiter: ',')) %>)
-      <%= number_to_percentage(pub_word_count.to_f/pot_word_count*100) %></td>
-  </tr>
-  <tr>
-    <th>Mean:</th><td><%= mean.nan? ? '' : number_with_delimiter(mean.to_i, delimiter: ',') %></td>
-    <th>Standard deviation:</th><td><%= standard_deviation.nan? ? '' : number_with_delimiter(standard_deviation.to_i, delimiter: ',') %></td>
-  </tr>
-</table>
+  <table class="table">
+    <tr>
+      <th>Stories(Publishable):</th>
+      <td><%= book.stories.size %> (<%= book.stories.where(publish: true).size %>)</td>
+      <th>Characters:</th>
+      <td><%= book.characters.size %>
+        <% scenes = Scene.get_scenes_to_array(book) %>
+        <% characters = book.characters.joins(:scenes).where("scenes.book_id = ?", book.id).where("scenes.id", scenes).group("characters.id") %>
+        (<%= characters.length %>) 
+      </td></tr>
+    <tr>
+      <th>Scenes (Publishable)(Sections % Scenes):</th>
+      <td>
+        <%= render partial: 'scenes/progress_bar', formats: [:html], locals: { object: book } %>
+        <%= render partial: 'shared/progress_bar', locals: { items: items2 } %>
+      </td>
+      <th>Word Count | Publishable (Potential):</th>
+      <td><%= number_with_delimiter(word_count, delimiter: ',') %> | 
+        <%= number_with_delimiter(pub_word_count, delimiter: ',') %> (<%= (section_count.zero? ? '' : number_with_delimiter(pot_word_count, delimiter: ',')) %>)
+        <%= number_to_percentage(pub_word_count.to_f/pot_word_count*100) %></td>
+    </tr>
+    <tr>
+      <th>Mean:</th><td><%= mean.nan? ? '' : number_with_delimiter(mean.to_i, delimiter: ',') %></td>
+      <th>Standard deviation:</th><td><%= standard_deviation.nan? ? '' : number_with_delimiter(standard_deviation.to_i, delimiter: ',') %></td>
+    </tr>
+  </table>
 <% else %>
 <% end %>

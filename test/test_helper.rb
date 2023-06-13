@@ -145,8 +145,20 @@ module ActiveSupport
       find(".trix-content").set(with)
     end
 
+    def check_line_with(line)
+      unless has_xpath? "//a[text()='#{line}']/../../*/input[@type='checkbox']", count: 1, wait: 5
+        p "#{line} checkbox not found"
+        raise Minitest::Assertion
+      end
+      find(:xpath, "//a[text()='#{line}']/../../*/input[@type='checkbox']").check
+    end
+
     def click_on_line(line,icon)
-      within(:xpath, "//a[text()='#{line}']/parent::*/parent::*") do
+      unless has_xpath? "//a[text()='#{line}']/../..", count: 1, wait: 5
+        p "#{icon} missing for #{line} on line"
+        raise Minitest::Assertion
+      end
+      within(:xpath, "//a[text()='#{line}']/../..") do
         Capybara.page.find(".fa-#{icon}").click
       end
     end
@@ -166,27 +178,41 @@ module ActiveSupport
       find(:xpath, "//*[@id='nav-bar']/nav/ul/li/a[text()='#{master}']/../ul/li/a[text()='#{sub_action}']").click
     end
 
+    def assert_new(icon, master, object)
+      unless has_css? "#new_object", count: 1, wait: 5
+        p "#{master}: #{object} has new object issues"
+        raise Minitest::Assertion
+      end
+      within "#new_object" do
+        unless has_css? "a > i.fa-#{icon}", count: 1, wait: 5
+          puts "#{master}: #{object} is missing #{icon} in new object"
+          raise Minitest::Assertion
+        end
+      end
+    end
+
+    def assert_side(icon, master, object)
+      unless has_css? "div#side_controls", count: 1, wait: 5
+        p "#{master}: #{object} has side controls issues"
+        raise Minitest::Assertion
+      end
+      within "div#side_controls" do
+        unless has_css? "a > i.fa-#{icon}", count: 1, wait: 5
+          p "#{master}: #{object} is missing #{icon} in side controls"
+          raise Minitest::Assertion
+        end
+      end
+    end
+
     def click_new(icon)
       within "#new_object" do
         Capybara.page.find("a > i.fa-#{icon}").click
       end
     end
 
-    def assert_new(icon)
-      within "#new_object" do
-        assert_selector "a > i.fa-#{icon}"
-      end
-    end
-
     def click_side(icon)
       within "div#side_controls" do
         Capybara.page.find("a > i.fa-#{icon}").click
-      end
-    end
-
-    def assert_side(icon)
-      within "div#side_controls" do
-        assert_selector "a > i.fa-#{icon}"
       end
     end
 
@@ -208,20 +234,6 @@ module ActiveSupport
       pdf_io = StringIO.new(content)
       reader = PDF::Reader.new(pdf_io)
       reader.pages.map(&:to_s).join("\n")
-    end
-
-    def assert_react_component(name)
-      assert_select 'div[data-react-class]' do |dom|
-        assert_select '[data-react-class=?]', name
-
-        if block_given?
-          props = JSON.parse(dom.attr('data-react-props'))
-          props.deep_transform_keys! { |key| key.to_s.underscore }
-          props.deep_symbolize_keys!
-
-          yield(props)
-        end
-      end
     end
   end
 end

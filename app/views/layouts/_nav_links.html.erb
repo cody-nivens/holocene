@@ -1,4 +1,3 @@
-<% @book ||= (session[:book_id].blank? ? nil : Book.find_by(id: session[:book_id])) %>
 <li class='mr-6 dropdown'>
   <a class='nav-link dropdown-toggle' href='#' id='navbar_dropdown0' role='button' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Welcome</a>
   <ul class='flex dropdown-menu' aria-labelledby='navbar_dropdown0'>
@@ -25,9 +24,8 @@
         <li><hr class="dropdown-divider"></li>
         <%== make_menu_ts_link('Key Points', book_key_points_path(@book)) %>
         <%== make_menu_ts_link('Plot Points', book_plot_points_path(@book)) %>
-      <% else %>
-        <%== make_menu_ts_link('Bibliography', book_biblioentries_path(@book)) %>
       <% end %>
+      <%== make_menu_ts_link('Bibliography', book_biblioentries_path(@book)) %>
       <%== make_menu_ts_link('Timeline', polymorphic_path([@book, :timeline])) %>
       <%== make_menu_ts_link('Glossary Terms', book_glossary_terms_path(@book)) %>
     <% end %>
@@ -72,15 +70,12 @@
         <% end %>
         <% unless @chapter.nil? or @chapter.new_record? %>
           <% if @chapter.partition.nil? or @chapter.partition.new_record? %>
-          <%== make_menu_ts_link('Partition', new_chapter_partition_path(@chapter)) %>
+          <%== make_menu_ts_link('Partition', new_chapter_partition_path(chapter_id: @chapter.id), 'new_object', no_method: true) %>
         <% else %>
-          <%== make_menu_ts_link('Partition', edit_partition_path(@chapter.partition)) %>
+          <%== make_menu_ts_link('Partition', edit_partition_path(@chapter.partition), 'new_object', no_method: true) %>
         <% end %>
-        <% if @chapter.aside.nil? or @chapter.aside.new_record? %>
-          <%== make_menu_ts_link('Aside',  new_chapter_aside_path(chapter_id: @chapter.id)) %>
-        <% else %>
-          <%== make_menu_ts_link('Aside',  edit_aside_path(@chapter.aside)) %>
-        <% end %>
+        <%== make_menu_ts_link('Stats', chapter_report_path(@chapter, report: "chapters/stats")) %>
+        <%== make_menu_ts_link('Asides',  chapter_asides_path(@chapter)) %>
         <%== make_menu_ts_link('Timeline', polymorphic_path([@chapter, :timeline])) %>
         <%== make_menu_ts_link('Footnotes', chapter_footnotes_path(@chapter)) %>
         <%== make_menu_ts_link('Citations', chapter_citations_path(@chapter)) %>
@@ -103,6 +98,7 @@
         <%== make_menu_ts_link('Time by Actor', stage_report_path(@stage, report: "stages/time_by_actor")) %>
         <%== make_menu_ts_link('Time by Location', stage_report_path(@stage, report: "stages/time_by_location")) %>
         <%== make_menu_ts_link('Actor by Location', stage_report_path(@stage, report: "stages/actor_by_location")) %>
+        <%== make_menu_ts_link('Stats', stage_report_path(@stage, report: "stages/stats")) %>
         <li><hr class="dropdown-divider"></li>
       <% end %>
         <%== make_menu_ts_link('Acts', book_acts_path(@book)) %>
@@ -134,13 +130,15 @@
       <%== make_menu_ts_link('Artifacts', book_artifacts_path(@book)) %>
       <%== make_menu_ts_link('Artifact Types', book_artifact_types_path(@book)) %>
       <%== make_menu_ts_link('Character Categories', character_categories_path) %>
-      <%== make_menu_ts_link('Key Words', book_key_words_path(@book)) %>
       <li><hr class="dropdown-divider"></li>
     <% end %>
+    <%== make_menu_ts_link('Key Words', book_key_words_path(@book)) %>
   <% end %>
     <%== make_menu_ts_link('Cities', cities_path) %>
-    <% %w[epoch event_type holocene_event region timeline].each do |form| %>
-      <li><%= link_to t("app.index.#{form}.link").pluralize, [form.pluralize.to_sym], method: :get, class: 'nav-link' %></li>
-    <% end %>
+    <%== make_menu_ts_link('Epochs', epochs_path) %>
+    <%== make_menu_ts_link('Event Types', event_types_path) %>
+    <%== make_menu_ts_link('Holocene Events', holocene_events_path) %>
+    <%== make_menu_ts_link('Regions', regions_path) %>
+    <%== make_menu_ts_link('Timelines', timelines_path) %>
   </ul>
 </li>

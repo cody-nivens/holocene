@@ -7,55 +7,55 @@ class CharactersGrid < BaseGrid
 
   attr_accessor(:object)
 
-  filter(:last_name, :string, header: 'Last Name LIKE') do |value|
+  filter(:last_name, :string, header: 'Last Name LIKE', input_options: { "data-grids-target": "last_name" }) do |value|
     where('LOWER( last_name ) like ?', "%#{value}%")
   end
 
-  filter(:first_name, :string, header: 'First Name LIKE') do |value|
+  filter(:first_name, :string, header: 'First Name LIKE', input_options: { "data-grids-target": "first_name" }) do |value|
     where('LOWER( first_name ) like ?', "%#{value}%")
   end
 
-  filter(:nickname, :string, header: 'Nickname LIKE') do |value|
+  filter(:nickname, :string, header: 'Nickname LIKE', input_options: { "data-grids-target": "nickname" }) do |value|
     where('LOWER( nickname ) like ?', "%#{value}%")
   end
 
-  filter(:main, :boolean)
-  filter(:no_ethnicity, :boolean, default: false, dummy: true)
+  filter(:main, :boolean, input_options: { "data-grids-target": "main" })
+  filter(:no_ethnicity, :boolean, default: false, dummy: true, input_options: { "data-grids-target": "no_ethnicity" })
 
-  filter(:ethnicity, :enum, select: proc {
+  filter(:ethnicity, :enum, input_options: { "data-grids-target": "ethnicity" }, select: proc {
     Character.all.pluck(:ethnicity).compact.sort.uniq.drop(1).map do |c|
       [c, c]
     end
   }, multiple: true)
 
-  filter(:no_occupation_class, :boolean, default: false, dummy: true)
-  filter(:occupation_class, :enum, select: proc {
+  filter(:no_occupation_class, :boolean, input_options: { "data-grids-target": "no_occupation_class" }, default: false, dummy: true)
+  filter(:occupation_class, :enum, input_options: { "data-grids-target": "occupation_class" }, select: proc {
                                              Character.where("occupation_class != ' '").pluck(:occupation_class).compact.sort.uniq.map do |c|
                                                [c, c]
                                              end
                                            }, multiple: true)
-  filter(:no_grouping, :boolean, default: false, dummy: true)
+  filter(:no_grouping, :boolean, default: false, dummy: true, input_options: { "data-grids-target": "no_grouping" })
 
-  filter(:grouping, :enum, select: proc {
+  filter(:grouping, :enum, input_options: { "data-grids-target": "grouping" }, select: proc {
     Character.all.pluck(:grouping).compact.sort.uniq.drop(1).map do |c|
       [c, c]
     end
   }, multiple: true)
-  filter(:category, :enum, select: proc {
+  filter(:category, :enum, input_options: { "data-grids-target": "category" }, select: proc {
                                      CharacterCategory.all.order(:name).pluck(:name, :id).compact.sort.uniq.map do |c|
                                        [c[0], c[1]]
                                      end
                                    }, default: proc {
                                                  @category
                                                })
-  filter(:attribute, :enum, select: proc {
+  filter(:attribute, :enum, input_options: { "data-grids-target": "attribute" }, select: proc {
                                       CharacterAttribute.where(character_category_id: CharacterCategory.all.order(:name).first).pluck(:name, :id).compact.sort.uniq.map do |c|
                                         [c[0], c[1]]
                                       end
                                     }, default: proc {
                                                   @attribute
                                                 })
-  filter(:value, :enum, select: proc {
+  filter(:value, :enum, input_options: { "data-grids-target": "value" }, select: proc {
                                   CharacterValue.where(character_attribute_id: CharacterAttribute.all.order(:name).first).pluck(:value, :id).compact.sort.uniq.map do |c|
                                     [c[0], c[1]]
                                   end

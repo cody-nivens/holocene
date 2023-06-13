@@ -1,22 +1,20 @@
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Events</th>
-      <th>Description</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @timelines.each do |timeline| %>
+<turbo-frame id="objects">
+  <table>
+    <thead>
       <tr>
-        <td><%= link_to timeline.name, timeline, method: :get %></td>
-        <td><%= timeline.holocene_events.size %></td>
-        <td><%= timeline.description %></td>
-        <td><%= link_to (fa_icon 'edit'), edit_timeline_path(timeline), data: { "turbo-frame": "new_object" }, title: 'Edit' %>
-        <%= link_to (fa_icon 'trash'), timeline, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
+        <th>Name</th>
+        <th>Events</th>
+        <th>Description</th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @timelines.each do |timeline| %>
+        <turbo-frame id="<%= dom_id timeline %>">
+          <%= render partial: 'timelines/timeline_item', locals: { timeline: timeline } %>
+        </turbo-frame>
+      <% end %>
+    </tbody>
+  </table>
+</turbo-frame>

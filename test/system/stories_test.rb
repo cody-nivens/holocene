@@ -5,19 +5,31 @@ require 'application_system_test_case'
 class StoriesTest < ApplicationSystemTestCase
   setup do
     @story = stories(:story_14)
-    @book = @story.book
-
     @story_1 = stories(:story_1)
     @story_2 = stories(:story_3)
     @story_4 = stories(:story_15)
     @user = users(:users_1)
     sign_in @user
+    ThinkingSphinx::Test.init
+    ThinkingSphinx::Test.start index: false
+    index
   end
 
-  [ 'Stories', 'Stats', 'Scenes', 'Resync Scenes' ].each do |object|
-    test "visiting the Story:#{object} menu" do
-      setup_menu_page 'Story',object
-    end
+  teardown do
+    ThinkingSphinx::Test.stop
+    ThinkingSphinx::Test.clear
+  end
+
+  test "walk the story side menus" do
+    @book = books(:book_2)
+    @story = stories(:story_1)
+    walk_sides('Story', debug: false)
+  end
+
+  test "walk the story menus" do
+    @book = books(:book_2)
+    @story = stories(:story_1)
+    walk_menu('Story')
   end
 
   if 1 == 0

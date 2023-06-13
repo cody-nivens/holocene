@@ -1,6 +1,6 @@
 <h2>New Holocene Event</h2>
 
 <turbo-frame id="new_object">
-<%= render 'form', holocene_event: @holocene_event, command_label: 'Create Holocene event' %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(holocene_events_path), method: :get, class: 'btn', title: 'Back' %>
+  <%= render 'form', holocene_event: @holocene_event, command_label: 'Create Holocene event' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), holocene_events_path, method: :get, class: 'btn', title: 'Back' %>
 </turbo-frame>

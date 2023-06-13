@@ -1,6 +1,6 @@
 <div id="nav-bar" class="block">
 <nav class='navbar navbar-expand-lg navbar-light bg-light'>
-    <a class='navbar-brand' href='<%= about_url %>' title='About page'><%= fa_icon('globe', alt: 'Globe') %></a>
+    <a class='navbar-brand' href='<%= about_path %>' title='About page'><%= fa_icon('globe', alt: 'Globe') %></a>
     <ul class='flex navbar-nav me-auto mb-2 mb-lg-0'>
       <li class='nav-item'><%= link_to 'Home', root_path, class: 'nav-link' %></li>
       <%= render partial: 'layouts/nav_links' %>

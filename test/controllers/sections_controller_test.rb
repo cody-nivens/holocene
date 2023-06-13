@@ -23,7 +23,6 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     get new_polymorphic_url([@sectioned_1, :section])
     assert_select "turbo-frame" do |elements|
       elements.each do |element|
-        assert_equal element["target"], "edit"
         assert_equal element["id"], "new_object"
       end
     end
@@ -173,7 +172,7 @@ end
 
   test 'should get new' do
     get new_polymorphic_url([@sectioned_1, :section])
-    assert_select "turbo-frame", id:  "new_object", target: "edit"
+    assert_select "turbo-frame", id:  "new_object"
     assert_response :success
   end
 

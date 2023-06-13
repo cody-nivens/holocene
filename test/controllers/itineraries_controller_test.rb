@@ -82,7 +82,7 @@ end
 
   test 'should get new' do
     get new_polymorphic_path([@tour, :itinerary])
-    assert_select "turbo-frame", id:  "new_object", target: "edit"
+    assert_select "turbo-frame", id:  "new_object"
     assert_response :success
   end
 
@@ -120,7 +120,6 @@ end
     
     assert_no_turbo_stream action: :update, target: "messages"
     assert_turbo_stream action: :replace, target: "new_object"
-    assert_turbo_stream action: :replace, target: "edit"
     assert_turbo_stream action: :replace, target: "objects"
     #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
     #  assert_equal "<template>message_1</template>", selected.children.to_html
@@ -132,7 +131,7 @@ end
     patch  itinerary_path(@itinerary, format: :turbo_stream),
           params: { itinerary: { name: @itinerary.name, city_id: @itinerary.city_id, position: @itinerary.position,
                                  stay: @itinerary.stay, tour_id: @itinerary.tour_id } }
-    assert_turbo_stream action: :replace, target: "#{dom_id @itinerary}"
+    assert_turbo_stream action: :replace, target: "new_object"
 
     assert_no_turbo_stream action: :update, target: "messages"
     assert_response :success

@@ -15,11 +15,12 @@ class Book < ApplicationRecord
   has_many :glossary_terms, dependent: :destroy
   has_many :biblioentries, dependent: :destroy
   has_many :stories, dependent: :destroy
-  has_many :chapters, as: :scripted
-  has_many :key_points, as: :scripted
   has_many :scenes, dependent: :destroy
   has_many :artifacts, dependent: :destroy
   has_many :artifact_types, dependent: :destroy
+
+  has_many :chapters, as: :scripted
+  has_many :key_points, as: :scripted
   has_many :acts
   has_many :actors
   has_many :locations

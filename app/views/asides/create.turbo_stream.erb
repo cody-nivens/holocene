@@ -1,15 +1,11 @@
 <%= turbo_stream.replace "objects"  do %>
-  <%= render partial: "asides/aside", locals: { aside: @aside } %>
-<% end %>
-<%= turbo_stream.replace "edit"  do %>
-  <%= content_tag :div, id: "edit" do %>
-    <%= " " %>
+  <%= content_tag "turbo-frame", class: "block", id: "#{dom_id @aside}" do %>
+    <%= render partial: "asides/asides", locals: { aside: @aside } %>
   <% end %>
 <% end %>
 <%= turbo_stream.replace "new_object" do %>
   <%= content_tag "turbo-frame", class: "block", id: "new_object" do %>
-    <%= render partial: "authors/new_link" %>
+    <%= render partial: "asides/new_link" %>
   <% end %>
 <% end %>
-
 <%= render partial: "shared/send_flash" %>

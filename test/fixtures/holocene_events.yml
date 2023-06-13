@@ -217,4 +217,18 @@ holocene_event_12:
   event_types:
     - Volcanic
 
-      #image: iceland_grimsvoetn_1972-b.jpg
+
+holocene_event_13:
+  name: "Hunga-Tonga-Hunga-Ha'apai"
+  start_year: 2022
+  end_year: 
+  start_year_uncert: 
+  start_year_mod: 
+  end_year_uncert: 
+  end_year_mod: 
+  region: Global
+  slug: MQADV2dtH1
+  user_id: <%= ActiveRecord::FixtureSet.identify(:users_1) %>
+  event_types:
+    - Volcanic
+

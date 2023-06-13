@@ -81,7 +81,7 @@ class AsidesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should get new' do
     get new_chapter_aside_url(@chapter)
-    assert_select "turbo-frame", id:  "new_object", target: "edit"
+    assert_select "turbo-frame", id:  "new_object"
     assert_response :success
   end
 

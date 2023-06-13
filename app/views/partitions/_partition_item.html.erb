@@ -1,7 +1,7 @@
-      <tr>
-        <td><%= link_to partition.name, partition_url(partition), method: :get %></td>
-        <td><%= partition.body %></td>
-        <td><%= partition.chapter_name %></td>
-        <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_partition_path(partition), data: { "turbo-frame": "new_object" }, title: 'Edit' %>
-        <%= link_to (fa_icon 'trash', class: 'fa-fw'), partition_url(partition), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
-      </tr>
+<tr>
+  <td><%= link_to partition.name, partition_url(partition), method: :get %></td>
+  <td><%= partition.body %></td>
+  <td><%= partition.chapter_name %></td>
+  <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_partition_path(partition), data: { "turbo-frame": "new_object" }, title: 'Edit' %>
+  <%= link_to (fa_icon 'trash', class: 'fa-fw'), partition_url(partition), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
+</tr>

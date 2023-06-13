@@ -19,7 +19,7 @@ class TimelinesTest < ApplicationSystemTestCase
 
     click_side 'calendar'
 
-    assert_text 'Hunter/Gatherer Agriculture'
+    assert_text 'Timeline for Chapter: Chapter Two Stuff'
   end
 
   if 1 == 0

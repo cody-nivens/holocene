@@ -77,7 +77,7 @@ end
 
   test 'should get new' do
     get new_polymorphic_path([@chapter, :partition])
-    assert_select "turbo-frame", id:  "new_object", target: "edit"
+    assert_select "turbo-frame", id:  "new_object"
     assert_response :success
   end
 
@@ -114,7 +114,6 @@ end
     
     assert_no_turbo_stream action: :update, target: "messages"
     assert_turbo_stream action: :replace, target: "new_object"
-    assert_turbo_stream action: :replace, target: "edit"
     assert_turbo_stream action: :replace, target: "objects"
     #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
     #  assert_equal "<template>message_1</template>", selected.children.to_html

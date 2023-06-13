@@ -42,7 +42,7 @@ class CitiesController < ApplicationController
     @grid = CitiesGrid.new(grid_params.merge({ tour: @tour }))
     @pagy, @records = pagy(@grid.assets)
     respond_to do |format|
-      format.turbo_stream { render "shared/index", locals: { object: City.new, objects: @cities } }
+      format.turbo_stream { render "shared/index", locals: { object: City.new, objects: @cities, new_link: 'add_city_link' } }
     end
   end
 

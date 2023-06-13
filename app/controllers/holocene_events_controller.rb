@@ -105,8 +105,8 @@ class HoloceneEventsController < ApplicationController
         @object.holocene_events.delete(he)
         case object_type = params[:holocene_event][:object_type]
         when 'Section'
-          @other = @object.sectioned
-          @other.holocene_events << he
+          @object = @object.sectioned
+          @object.holocene_events << he
         end
       when 'Move Events'
         he = HoloceneEvent.find(he_id)
@@ -114,22 +114,28 @@ class HoloceneEventsController < ApplicationController
         if params[:holocene_event][:other_id] != ''
           case object_type = params[:holocene_event][:object_type]
           when 'Section'
-            @other = @object.sectioned.sections.find(params[:holocene_event][:other_id])
-            @other.holocene_events << he
+            @object = @object.sectioned.sections.find(params[:holocene_event][:other_id])
+            @object.holocene_events << he
           when 'Chapter'
-            @other = @object.sections.find(params[:holocene_event][:other_id])
-            @other.holocene_events << he
+            @object = @object.sections.find(params[:holocene_event][:other_id])
+            @object.holocene_events << he
           end
         end
       end
+    end
+    instance_variable_set("@#{@object.class.name.underscore}", @object)
+    ids = @object.holocene_events.pluck(:id)
+    @grid = HoloceneEventsGrid.new(grid_params.merge({ id: ids, object: @object, command: @command })) do |scope|
+      scope.includes([:event_types, :region, :rich_text_body]).page(params[:page])
     end
     respond_to do |format|
       format.html do
         redirect_to "/#{@object.class.name.underscore.pluralize}/show/#{@object.id}",
                     notice: "#{@object.class.name} was successfully updated"
       end
-      format.turbo_stream { }
       format.json { render :show, status: :created, location: @holocene_event }
+      flash.now[:notice] = "#{@object.class.name} was successfully updated"
+      format.turbo_stream { render "shared/show", locals: { object: @object, part: 'display' } }
     end
   end
 
@@ -143,16 +149,16 @@ class HoloceneEventsController < ApplicationController
     @related_events = HoloceneEvent.where(user_id: current_user.id).all.order(:start_year)
     @holocene_event = HoloceneEvent.new(holocene_event_params)
 
-    @command = 'Add Events'
-
-    @grid = HoloceneEventsGrid.new(grid_params) do |scope|
-      scope.includes([:event_types, :region, :rich_text_body]).page(params[:page])
-    end
     respond_to do |format|
       if @holocene_event.save
+        @command = 'Add Events'
+        @grid = HoloceneEventsGrid.new(grid_params) do |scope|
+          scope.includes([:event_types, :region, :rich_text_body]).page(params[:page])
+        end
         format.html { redirect_to @holocene_event, notice: 'Holocene Event was successfully created.' }
         format.json { render :show, status: :created, location: @holocene_event }
-        format.turbo_stream { flash.now[:notice] = "Holocene Event was successfully created." }
+        flash.now[:notice] = "Holocene Event was successfully created."
+        format.turbo_stream { render "shared/index", locals: { object: HoloceneEvent.new, objects: @holocene_events } }
       else
         format.html { render :new }
         format.json { render json: @holocene_event.errors, status: :unprocessable_entity }
@@ -171,9 +177,15 @@ class HoloceneEventsController < ApplicationController
     @holocene_event.related_endpoint = params[:related_endpoint] == 'Start' ? false : true
     respond_to do |format|
       if @holocene_event.update(holocene_event_params)
+        @command = 'Add Events'
+
+        @grid = HoloceneEventsGrid.new(grid_params) do |scope|
+          scope.includes([:event_types, :region, :rich_text_body]).page(params[:page])
+        end
         format.html { redirect_to @holocene_event, notice: 'Holocene Event was successfully updated.' }
         format.json { render :show, status: :ok, location: @holocene_event }
-        format.turbo_stream { flash.now[:notice] = "Holocene Event was successfully updated." }
+        flash.now[:notice] = "Holocene Event was successfully updated."
+        format.turbo_stream { render "shared/index", locals: { object: HoloceneEvent.new, objects: @holocene_events } }
       else
         format.html { render :edit }
         format.json { render json: @holocene_event.errors, status: :unprocessable_entity }
@@ -186,14 +198,14 @@ class HoloceneEventsController < ApplicationController
   def destroy
     @holocene_event.destroy
     @command = 'Add Events'
-
     @grid = HoloceneEventsGrid.new(grid_params) do |scope|
       scope.includes([:event_types, :region, :rich_text_body]).page(params[:page])
     end
     respond_to do |format|
       format.html { redirect_to holocene_events_url, notice: 'Holocene Event was successfully destroyed.' }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Holocene Event was successfully destroyed." }
+      flash.now[:notice] = "Holocene Event was successfully destroyed."
+      format.turbo_stream { render "shared/index", locals: { object: HoloceneEvent.new, objects: @holocene_events } }
     end
   end
 

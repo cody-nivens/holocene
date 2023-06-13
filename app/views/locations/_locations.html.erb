@@ -1,22 +1,17 @@
-<div class="container" id="objects">
-  <div class="row">
-    <div class="col-sm-2">
-      <strong>Name</strong>
-    </div>
-    <div class="col-sm-2">
-      <strong>Location Times</strong>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-4">
-      <div id="edit-location">
+<turbo-frame id="objects">
+  <div class="container" id="objects">
+    <div class="row">
+      <div class="col-sm-2">
+        <strong>Name</strong>
+      </div>
+      <div class="col-sm-2">
+        <strong>Location Times</strong>
       </div>
     </div>
+    <% @book.locations.order(:name).each do |location| %>
+      <turbo-frame id="<%= dom_id location %>" class="block">
+        <%= render partial: "locations/location_item", locals: { location: location } %>
+      </turbo-frame>
+    <% end %>
   </div>
-  <% @book.locations.order(:name).each do |location| %>
-    <turbo-frame id="<%= dom_id location %>" class="block">
-      <%= render partial: "locations/location_item", locals: { location: location } %>
-    </turbo-frame>
-  <% end %>
-  </div>
-</div>
+</turbo-frame>

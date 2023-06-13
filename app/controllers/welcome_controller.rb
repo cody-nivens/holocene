@@ -41,8 +41,8 @@ class WelcomeController < ApplicationController
         end
       end
     end
-    report = "welcome/progress"
-    report_path = report.gsub(/\//,'_')
+    report = "progress"
+    report_path = 'welcome'
     respond_to do |format|
       format.turbo_stream { render 'report', locals: { report: report, report_path: report_path } }
     end
@@ -75,8 +75,8 @@ class WelcomeController < ApplicationController
         end
       end
     end
-    report = "welcome/history"
-    report_path = report.gsub(/\//,'_')
+    report = "history"
+    report_path = 'welcome'
     respond_to do |format|
       format.turbo_stream { render 'report', locals: { report: report, report_path: report_path } }
     end
@@ -115,8 +115,8 @@ class WelcomeController < ApplicationController
 
   def stats
     @title = "Stats"
-    report = "welcome/stats"
-    report_path = report.gsub(/\//,'_')
+    report = "stats"
+    report_path = 'welcome'
     respond_to do |format|
       format.turbo_stream { render 'report', locals: { report: report, report_path: report_path } }
     end
@@ -124,8 +124,8 @@ class WelcomeController < ApplicationController
 
   def tags
     @title = "Tags"
-    report = "welcome/tags"
-    report_path = report.gsub(/\//,'_')
+    report = "tags"
+    report_path = 'welcome'
     respond_to do |format|
       format.turbo_stream { render 'report', locals: { report: report, report_path: report_path } }
     end

@@ -1,4 +1,10 @@
-<%= datagrid_form_for @grid, method: :get, url: tour_itineraries_path(@tour), partials: 'itinerary_grid' %>
-<%== pagy_info(@pagy) %>
-<%= datagrid_table @grid, @records, partials: 'itinerary_grid' %>
-<%== pagy_nav(@pagy) %>
+<div data-controller='grids' data-grids-gridtype-value="itinerary" data-grids-url-value='<%= tour_itineraries_path(@tour) %>'>
+     <div data-grids-target="grid_form">
+       <%= datagrid_form_for @grid, method: :get, url: tour_itineraries_path(@tour), data: { action: "grids#processSearch" }, partials: 'itinerary_grid'  %>
+       <div id="grid_data" data-grids-target="grid_data">
+         <%== pagy_info(@pagy) %>
+         <%= datagrid_table @grid, @records, partials: 'itinerary_grid' %>
+         <%== pagy_nav(@pagy) %>
+       </div>
+     </div>
+</div>

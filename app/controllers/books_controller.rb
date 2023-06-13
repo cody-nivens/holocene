@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book,
-                only: %i[chars_import import_chars publish view show chars report timeline resync_stories toc epub export pdf edit update destroy]
+    only: %i[chars_import import_chars publish view show chars report timeline resync_stories toc epub export pdf edit update destroy]
 
   before_action :set_return, only: %i[show view index]
 
@@ -100,7 +100,7 @@ class BooksController < ApplicationController
   def chars_import
 
     respond_to do |format|
-      format.html { render :chars_import, locals: { book: @book } }
+      format.turbo_stream { render "shared/show", locals: { object: @book, no_new_link: true, part: 'chars_import' } }
     end
 
   end
@@ -184,28 +184,27 @@ class BooksController < ApplicationController
         @scenes_wi = Scene.get_scenes_to_array(@book)
         @scenes = @scenes_wi.collect{|x| Scene.find(x) }
       end
-
     else
       @chapters = @book.chapters.includes({ holocene_events: :rich_text_body })
     end
 
     respond_to do |format|
-#      format.html { render :show, locals: { long: @long } }
+      #      format.html { render :show, locals: { long: @long } }
       format.turbo_stream { render "shared/show", locals: { object: @book, new_link_path: (@book.is_fiction? ? "stories" : "chapters") } }
       format.pdf do
         render pdf: @book.name.gsub(/[:,]/,'').underscore,
-               disposition: 'attachment',
-               header: { right: '[page] of [topage]' },
-               margin: { top: 26, bottom: 26, right: 26, left: 26 },
-               outline: { outline: false,
-                          outline_depth: 2 },
-               toc: {
-                 disable_dotted_lines: true,
-                 disable_toc_links: true,
-                 level_indentation: 2,
-                 header_text: @book.name,
-                 text_size_shrink: 0.5
-               }
+          disposition: 'attachment',
+          header: { right: '[page] of [topage]' },
+          margin: { top: 26, bottom: 26, right: 26, left: 26 },
+          outline: { outline: false,
+                     outline_depth: 2 },
+                     toc: {
+                       disable_dotted_lines: true,
+                       disable_toc_links: true,
+                       level_indentation: 2,
+                       header_text: @book.name,
+                       text_size_shrink: 0.5
+                     }
       end
     end
   end
@@ -221,12 +220,12 @@ class BooksController < ApplicationController
     else
       @chapters = @book.chapters.includes({ holocene_events: :rich_text_body })
     end
-    long = params[:long]
-    outline = params[:outline]
+    @long = params[:long]
+    @pdf = params[:pdf]
+    @outline = params[:outline]
 
     respond_to do |format|
-#      format.html { render :view, locals: { outline: outline, long: long } }
-      format.turbo_stream {}
+      format.turbo_stream { render "shared/show", locals: { object: @book, part: 'view'  } }
     end
   end
 
@@ -258,7 +257,7 @@ class BooksController < ApplicationController
 
   # GET /books/1/edit
   def edit
-     @long = params[:long]
+    @long = params[:long]
   end
 
   # POST /books
@@ -268,7 +267,7 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       if @book.save
-#        format.html { redirect_to @book, notice: 'Book was successfully created.' }
+        #        format.html { redirect_to @book, notice: 'Book was successfully created.' }
         format.json { render :show, status: :created, location: @book }
         format.turbo_stream { flash.now[:notice] = "Book was successfully created." }
       else
@@ -281,7 +280,7 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
-     @long = params[:long]
+    @long = params[:long]
 
     if @book.is_fiction?
       if @long
@@ -298,7 +297,7 @@ class BooksController < ApplicationController
     respond_to do |format|
       if @book.update(book_params)
         flash.now[:notice] = "Book was successfully updated."
-#        format.html { redirect_to @book, notice: 'Book was successfully updated.' }
+        #        format.html { redirect_to @book, notice: 'Book was successfully updated.' }
         format.json { render :show, status: :ok, location: @book }
         format.turbo_stream { render "shared/show", locals: { object: @book, new_link_path: (@book.is_fiction? ? "stories" : "chapters") } }
       else
@@ -314,7 +313,7 @@ class BooksController < ApplicationController
     @book.destroy
     session[:book_id] = nil
     respond_to do |format|
-#      format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
+      #      format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
       format.json { head :no_content }
       format.turbo_stream { flash.now[:notice] = "Book was successfully destroyed." }
     end

@@ -15,10 +15,10 @@ class TimelinesController < ApplicationController
   def show
     ids = @timeline.holocene_events.pluck(:id)
     @grid = HoloceneEventsGrid.new(hgrid_params.merge({ id: ids })) do |scope|
-      scope.includes([:event_types, :region, :rich_text_body]).page(params[:page])
+      scope.joins(:timelines).where("timelines.id = ?", @timeline.id).includes([:event_types, :region, :rich_text_body]).page(params[:page])
     end
     respond_to do |format|
-      format.turbo_stream { render "shared/show", locals: { object: @timeline } }
+      format.turbo_stream { render "shared/show", locals: { object: @timeline, new_link_path: 'timelines', new_link_name: 'show_new_link' } }
     end
   end
 
@@ -49,8 +49,10 @@ class TimelinesController < ApplicationController
         end
       end
     else
+      @report = 'timeline'
+      @report_path = 'timelines'
       respond_to do |format|
-        format.turbo_stream { render "shared/show", locals: { object: @object, path_name: 'timelines', part: 'timeline' } }
+        format.turbo_stream { render "shared/report" }
       end
     end
   end
@@ -79,7 +81,10 @@ class TimelinesController < ApplicationController
         end
         format.html { redirect_to @timeline, notice: 'Timeline was successfully created.' }
         format.json { render :show, status: :created, location: @timeline }
-        format.turbo_stream { flash.now[:notice] = "Timeline was successfully created." }
+        flash.now[:notice] = "Timeline was successfully created."
+        #format.turbo_stream { render "shared/show", locals: { object: @timeline } }
+        #format.turbo_stream { render "shared/index", locals: { object: Timeline.new, objects: @timelines } }
+        format.turbo_stream { }
       else
         format.html { render :new }
         format.json { render json: @timeline.errors, status: :unprocessable_entity }
@@ -100,7 +105,8 @@ class TimelinesController < ApplicationController
         end
         format.html { redirect_to @timeline, notice: 'Timeline was successfully updated.' }
         format.json { render :show, status: :ok, location: @timeline }
-        format.turbo_stream { flash.now[:notice] = "Timeline was successfully updated." }
+        flash.now[:notice] = "Timeline was successfully updated."
+        format.turbo_stream { render "shared/show", locals: { object: @timeline } }
       else
         format.html { render :edit }
         format.json { render json: @timeline.errors, status: :unprocessable_entity }
@@ -116,7 +122,8 @@ class TimelinesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to timelines_url, notice: 'Timeline was successfully destroyed.' }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Timeline was successfully destroyed." }
+      flash.now[:notice] = "Timeline was successfully destroyed."
+      format.turbo_stream { render "shared/index", locals: { object: Timeline.new, objects: @timelines } }
     end
   end
 

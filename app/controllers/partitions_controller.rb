@@ -37,6 +37,7 @@ class PartitionsController < ApplicationController
   def create
     @partition = Partition.new(partition_params)
     @chapter = @partition.chapter
+    @sectioned = @chapter
 
     respond_to do |format|
       if @partition.save
@@ -45,7 +46,9 @@ class PartitionsController < ApplicationController
           redirect_to partition_url(@partition), notice: 'Partition was successfully created.'
         end
         format.json { render :show, status: :created, location: @partition }
-        format.turbo_stream { flash.now[:notice] = "Partition was successfully created." }
+        flash.now[:notice] = "Partition was successfully created."
+        #format.turbo_stream { render 'shared/show', locals: { object: @chapter } }
+        format.turbo_stream { }
       else
         format.html { render :new }
         format.json { render json: @partition.errors, status: :unprocessable_entity }
@@ -57,13 +60,16 @@ class PartitionsController < ApplicationController
   # PATCH/PUT /partitions/1.json
   def update
     @chapter = @partition.chapter
+    @sectioned = @chapter
     respond_to do |format|
       if @partition.update(partition_params)
         format.html do
           redirect_to partition_url(@partition), notice: 'Partition was successfully updated.'
         end
         format.json { render :show, status: :ok, location: @partition }
-        format.turbo_stream { flash.now[:notice] = "Partition was successfully updated." }
+        flash.now[:notice] = "Partition was successfully updated."
+        #format.turbo_stream { render 'shared/show', locals: { object: @chapter } }
+        format.turbo_stream { }
       else
         format.html { render :edit }
         format.json { render json: @partition.errors, status: :unprocessable_entity }
@@ -75,12 +81,15 @@ class PartitionsController < ApplicationController
   # DELETE /partitions/1.json
   def destroy
     @chapter = @partition.chapter
+    @sectioned = @chapter
     @partition.destroy
     @partitions = Partition.all.includes([:chapter, :rich_text_body])
     respond_to do |format|
       format.html { redirect_to chapter_partitions_url(@chapter), notice: 'Partition was successfully destroyed.' }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Partition was successfully destroyed." }
+      flash.now[:notice] = "Partition was successfully destroyed."
+      #format.turbo_stream { render 'shared/show', locals: { object: @chapter } }
+      format.turbo_stream { }
     end
   end
 

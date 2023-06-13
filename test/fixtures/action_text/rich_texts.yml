@@ -84,14 +84,25 @@ rich_text_20:
 rich_text_21:
   record: section_12 (Section)
   name: body
-  body: It was a dark and stormy night. Lightening flashed all around.
-
-rich_text_22:
-  record: section_13 (Section)
+  body: It was a dark and stormy night. Lightening flashed all around. A dog growled.
+rich_text_23:
+  record: section_17 (Section)
   name: body
-  body: ''
+  body: Something, sometimes works!
+rich_text_24:
+  record: section_18 (Section)
+  name: body
+  body: A dog barked in the cemetary
+rich_text_25:
+  record: section_15 (Section)
+  name: body
+  body: The priest chased the dog who refused to run away
+rich_text_26:
+  record: section_16 (Section)
+  name: body
+  body: A dog begged for food
 
-<% i = 23 %>
+<% i = 30 %>
 rich_text_<%= i %>:
   record: holocene_event_1 (HoloceneEvent)
   name: body

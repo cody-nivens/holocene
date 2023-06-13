@@ -5,4 +5,8 @@ class Region < ApplicationRecord
   has_rich_text :body
 
   validates :name, presence: true
+
+  def set_values
+    [ self, nil, nil, nil]
+  end
 end

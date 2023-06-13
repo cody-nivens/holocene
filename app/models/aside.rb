@@ -3,7 +3,6 @@ class Aside < ApplicationRecord
 
   has_rich_text :body
 
-  validates :chapter_id, uniqueness: true
   validates :name, presence: true
 
   def word_count

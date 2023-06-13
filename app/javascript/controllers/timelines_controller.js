@@ -1,14 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
 import { FetchRequest } from '@rails/request.js'
-//import { Timeline } from '@knight-lab/timelinejs';
-//import 'timelinejs';
-//import 'timeline'
-
 
 // Connects to data-controller="timelines"
 export default class extends Controller {
 	static values = { jsurl: String,
 		url: String }
+
 	async my_method (url) {
 		let params = new URLSearchParams()
 		const request = new FetchRequest('get', url, { contentType: "application/json", responseKind: "json" })

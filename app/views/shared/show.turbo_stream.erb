@@ -2,6 +2,7 @@
 <% part ||= 'show' %>
 <% path_name ||= object_name.pluralize %>
 <% new_link_path ||= path_name %>
+<% new_link_name ||= 'new_link' %>
 <% long ||= nil %>
 <% no_new_link ||= false %>
 <%= turbo_stream.replace "objects" do %>
@@ -14,7 +15,7 @@
 <%= turbo_stream.replace "new_object" do %>
   <%= content_tag "turbo-frame", class: "block", id: "new_object" do %>
     <% if !no_new_link.kind_of?(TrueClass) and no_new_link != "true" %>
-      <%== render partial: "#{new_link_path}/new_link", locals: { "#{object_name}": object} %>
+      <%== render partial: "#{new_link_path}/#{new_link_name}", locals: { "#{object_name}": object} %>
     <% end %>
   <% end %>
 <% end %>

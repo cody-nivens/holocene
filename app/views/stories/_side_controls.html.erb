@@ -1,12 +1,12 @@
-  <%= link_to (fa_icon 'edit', type: :regular, class: 'fa-fw'), edit_story_path(story), data: { "turbo-frame": "new_object" }, title: 'Edit', class: 'btn' %>
-  <%= link_to (fa_icon 'sticky-note', type: :regular, class: 'fa-fw'), story_signets_path(story), method: :get, data: { "turbo-frame": "objects" }, title: 'Signets', class: 'btn' %>
-  <%= link_to (fa_icon 'comments', type: :regular, class: 'fa-fw'), story_notes_path(story), method: :get, data: { "turbo-frame": "objects" }, title: 'Notes', class: 'btn' %>
-   <% if long %>
+<%= link_to (fa_icon 'edit', type: :regular, class: 'fa-fw'), edit_story_path(story), data: { "turbo-frame": "new_object" }, title: 'Edit', class: 'btn' %>
+<%= link_to (fa_icon 'sticky-note', type: :regular, class: 'fa-fw'), story_signets_path(story), method: :get, data: { "turbo-frame": "objects" }, title: 'Signets', class: 'btn' %>
+<%= link_to (fa_icon 'comments', type: :regular, class: 'fa-fw'), story_notes_path(story), method: :get, data: { "turbo-frame": "objects" }, title: 'Notes', class: 'btn' %>
+<% if @long.kind_of?(TrueClass) or @long == "true" %>
   <%= link_to (fa_icon 'minus', type: :solid, class: 'fa-fw'), story_path(story), method: :get, title: 'Show', class: 'btn' %>
-  <% else %>
+<% else %>
   <%= link_to (fa_icon 'expand', type: :solid, class: 'fa-fw'), story_path(story, long: true), method: :get, title: 'Show', class: 'btn' %>
-  <% end %>
-  <%= link_to (fa_icon 'eye', type: :solid, class: 'fa-fw'), story_view_path(story), method: :get, data: { "turbo-frame": "objects" }, title: 'View', class: 'btn' %>
-  <%= link_to (fa_icon 'newspaper', type: :regular, class: 'fa-fw'), story_view_path(story, outline: true, long: true), method: :get, data: { "turbo-frame": "objects" }, title: 'View, outline', class: 'btn' %>
-  <%= link_to (fa_icon 'file-pdf', class: 'fa-fw'), story_path(story, format: :pdf), title: 'PDF', class: 'btn' %>
-  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  book_path(story.book), method: :get, class: 'btn', title: 'Back' %>
+<% end %>
+<%= link_to (fa_icon 'eye', type: :solid, class: 'fa-fw'), story_view_path(story), method: :get, data: { "turbo-frame": "objects" }, title: 'View', class: 'btn' %>
+<%= link_to (fa_icon 'newspaper', type: :regular, class: 'fa-fw'), story_view_path(story, outline: true, long: true), method: :get, data: { "turbo-frame": "objects" }, title: 'View, outline', class: 'btn' %>
+<%= link_to (fa_icon 'file-pdf', class: 'fa-fw'), story_path(story, format: :pdf), title: 'PDF', class: 'btn' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  book_path(story.book), method: :get, class: 'btn', title: 'Back' %>

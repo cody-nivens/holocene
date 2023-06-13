@@ -89,7 +89,7 @@ section_11:
   sectioned: scene_1 (Scene)
   user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
 section_12:
-  name: 'Dark and stormy night'
+  name: 'Dark and stormy night, thundering brightly'
   display_name:
   position: 1
   slug: HJct7pHDDe
@@ -108,4 +108,32 @@ section_14:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_14 (Scene)
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+section_15:
+  name: 'Just another dark and stormy night'
+  display_name:
+  position: 1
+  slug: HJct7pHDDe
+  sectioned: scene_10 (Scene)
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+section_16:
+  name: 'Just another dark and stormy night'
+  display_name:
+  position: 1
+  slug: HJct7pHDDe
+  sectioned: scene_11 (Scene)
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+section_17:
+  name: 'Just another dark and stormy night'
+  display_name:
+  position: 1
+  slug: HJct7pHDDe
+  sectioned: scene_12 (Scene)
+  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+section_18:
+  name: 'Just another dark and stormy night'
+  display_name:
+  position: 1
+  slug: HJct7pHDDe
+  sectioned: scene_13 (Scene)
   user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>

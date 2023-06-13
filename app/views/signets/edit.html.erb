@@ -1,6 +1,8 @@
 <h2>Editing Signet - <%= @sigged.class.name %>: <%= @sigged.name %></h2>
 
-<turbo-frame id="<%= dom_id @signet %>">
-<%= render 'form', signet: @signet, sigged: @sigged %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(polymorphic_path(@sigged)), class: 'btn', title: 'Back' %>
+<turbo-frame id="new_object">
+  <turbo-frame id="<%= dom_id @signet %>">
+    <%= render 'form', signet: @signet, sigged: @sigged %>
+    <%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(polymorphic_path(@sigged)), class: 'btn', title: 'Back' %>
+  </turbo-frame>
 </turbo-frame>

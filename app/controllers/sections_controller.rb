@@ -50,6 +50,9 @@ class SectionsController < ApplicationController
       if @section.save
         update_metrics
         @sections = @sectioned.class.name == "Scene" ? Section.where(id: [ @sectioned.section.id ]) : @sectioned.sections.includes([:rich_text_body]).order(:position)
+        if @sectioned.class.name == 'Chapter'
+          @asides = @sectioned.asides
+        end
         obj_name = @section.sectioned.class.name.underscore
         self.instance_variable_set("@#{obj_name}", @sectioned)
 #        format.html { redirect_to polymorphic_path(@sectioned), notice: 'Section was successfully created.' }
@@ -72,6 +75,9 @@ class SectionsController < ApplicationController
         @sections = @sectioned.class.name == "Scene" ? Section.where(id: [ @sectioned.section.id ]) : @sectioned.sections.includes([:rich_text_body]).order(:position)
         flash.now[:notice] = "Section was successfully updated."
         update_metrics
+        if @sectioned.class.name == 'Chapter'
+          @asides = @sectioned.asides
+        end
 #        format.html { redirect_to polymorphic_path(@sectioned), notice: 'Section was successfully updated.' }
         format.json { render :show, status: :ok, location: @section }
         obj_name = @section.sectioned.class.name.underscore
@@ -95,6 +101,9 @@ class SectionsController < ApplicationController
       @sections = @sectioned.sections.includes([:rich_text_body]).order(:position)
 #      format.html { redirect_to polymorphic_url(@sectioned), notice: 'Section was successfully destroyed.' }
       format.json { head :no_content }
+      if @sectioned.class.name == 'Chapter'
+        @asides = @sectioned.asides
+      end
       format.turbo_stream { flash.now[:notice] = "Section was successfully destroyed." }
     end
   end

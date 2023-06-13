@@ -22,6 +22,11 @@ class ScenesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test "walk the scene side menus" do
+    @book = books(:book_2)
+    walk_sides('Scene')
+  end
+
   if 1 == 0
   test 'scenes index' do
     visit polymorphic_path([@situated, :scenes])

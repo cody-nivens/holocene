@@ -115,7 +115,7 @@ end
 
   test 'should get new' do
     get new_city_path
-    assert_select "turbo-frame", id:  "new_object", target: "edit"
+    assert_select "turbo-frame", id:  "new_object"
     assert_response :success
   end
 

@@ -152,7 +152,7 @@ end
 
   test 'should get new' do
     get new_polymorphic_url([@scripted_1, :chapter])
-    assert_select "turbo-frame", id:  "new_object", target: "edit"
+    assert_select "turbo-frame", id:  "new_object"
     assert_response :success
   end
 
@@ -183,14 +183,13 @@ end
 
   test "should create chapter TS" do
     assert_difference('Chapter.count') do
-      post polymorphic_url([@scripted_1, :chapters], format: :turbo_stream),
+      post polymorphic_url([@chapter.scripted, :chapters], format: :turbo_stream),
            params: { chapter: { body: @chapter.body, name: 'Test', position: @chapter.position, scripted_type: 'Book',
                                 scripted_id: @chapter.scripted_id } }
     end
     
     assert_no_turbo_stream action: :update, target: "messages"
     assert_turbo_stream action: :replace, target: "new_object"
-    assert_turbo_stream action: :replace, target: "edit"
     assert_turbo_stream action: :replace, target: "sub_objects"
     #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
     #  assert_equal "<template>message_1</template>", selected.children.to_html

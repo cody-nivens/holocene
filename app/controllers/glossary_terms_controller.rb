@@ -63,7 +63,8 @@ class GlossaryTermsController < ApplicationController
           redirect_to glossary_term_path(@glossary_term), notice: 'Glossary term was successfully updated.'
         end
         format.json { render :show, status: :ok, location: @glossary_term }
-        format.turbo_stream { flash.now[:notice] = "Glossary Term was successfully updated." }
+        flash.now[:notice] = "Glossary Term was successfully updated."
+        format.turbo_stream { render "shared/show", locals: { object: @glossary_term } }
       else
         format.html { render :edit }
         format.json { render json: @glossary_term.errors, status: :unprocessable_entity }

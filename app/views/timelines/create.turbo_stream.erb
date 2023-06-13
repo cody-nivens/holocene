@@ -1,9 +1,16 @@
 <%= turbo_stream.replace "objects"  do %>
-  <%= render partial: "timelines/timelines" %>
+  <%= content_tag "turbo-frame", class: "block", id: "objects" do %>
+    <%= render partial: "timelines/timelines" %>
+  <% end %>
 <% end %>
-<%= turbo_stream.replace "edit"  do %>
-  <%= content_tag :div, id: "edit" do %>
-    <%= " " %>
+<%= turbo_stream.replace "side_controls"  do %>
+  <%= content_tag :div, class: "block", id: "side_controls" do %>
+    <%= render partial: "timelines/side_controls" %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "header"  do %>
+  <%= content_tag :div, id: "header", class: 'block' do %>
+    <%= render partial: "timelines/header" %>
   <% end %>
 <% end %>
 <%= turbo_stream.replace "new_object" do %>
@@ -11,5 +18,4 @@
     <%= render partial: "timelines/new_link" %>
   <% end %>
 <% end %>
-
 <%= render partial: "shared/send_flash" %>

@@ -1,10 +1,10 @@
 <% scenes_wi = Scene.get_scenes_wi_to_array(scene.book) %>
 <% scene_index = scenes_wi.find_index(scene.id) %>
   <%= link_to (fa_icon 'pencil-alt', class: 'fa-fw'), edit_scene_path(scene), data: { "turbo-frame": "new_object"}, methods: :get, title: 'Edit Scene Data', class: 'btn' %>
-  <%= link_to (fa_icon 'sticky-note', class: 'fa-fw'), scene_signets_path(scene_id: scene.id), data: { "turbo-frame": "#{dom_id scene}" ,"bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.signets_short_list}"},
-    title: 'Signets', class: "btn #{!scene.signets.empty? ? Signet.color_class(scene.signets[0].color) : ''}" %>
-  <%= link_to (fa_icon 'truck', class: 'fa-fw'), polymorphic_path([scene, :move]), title: 'Move', data: { "turbo-frame": "#{dom_id scene}" }, class: 'btn' %>
-  <%= link_to (fa_icon 'users', class: 'fa-fw'), polymorphic_path([scene, :characters_list]), data: { "turbo-frame": "edit-scene" }, method: :get, title: 'Characters', class: 'btn' %>
+  <%= link_to (fa_icon 'sticky-note', class: 'fa-fw'), scene_signets_path(scene_id: scene.id), data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.signets_short_list}"},
+    title: 'Signets', method: :get, class: "btn #{!scene.signets.empty? ? Signet.color_class(scene.signets[0].color) : ''}" %>
+  <%= link_to (fa_icon 'truck', class: 'fa-fw'), polymorphic_path([scene, :move]), title: 'Move', method: :get, class: 'btn' %>
+  <%= link_to (fa_icon 'users', class: 'fa-fw'), polymorphic_path([scene, :characters_list]), method: :get, title: 'Characters', class: 'btn' %>
 
   <% if scene.section.nil? %>
     <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_scene_section_path(scene), data: { "turbo-frame": "new_object" }, title: 'Add Text', class: 'btn'  %>

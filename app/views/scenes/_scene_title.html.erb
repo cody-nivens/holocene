@@ -7,74 +7,73 @@
 <% long ||= nil %>
 <% total_wc ||= 0 %>
 <tr>
-    <% if pdf and !long %>
-      <td width="20%">  <%= scene.time_to_text %></td>
-      <td width="25%">  <strong><i><%= scene.section.present? ? scene.section.name : scene.name %></i></strong></td>
-      <td width="55%"><%= scene.artifact.nil? ? '' : "#{scene.artifact_name} - " %><%= scene.place.empty? ? '' : "#{scene.place&.to_plain_text}" %></td>
+  <% if pdf and !long %>
+    <td width="20%">  <%= scene.time_to_text %></td>
+    <td width="25%">  <strong><i><%= scene.section.present? ? scene.section.name : scene.name %></i></strong></td>
+    <td width="55%"><%= scene.artifact.nil? ? '' : "#{scene.artifact_name} - " %><%= scene.place.empty? ? '' : "#{scene.place&.to_plain_text}" %></td>
+  <% else %>
+    <% if inline_date %>
+      <td colspan="7"><%= scene.time_to_text %> :</td>
     <% else %>
-      <% if inline_date %>
-        <td colspan="7"><%= scene.time_to_text %> :</td>
-      <% else %>
-        <td width="16%">  <%= scene.time_to_text %></td>
-        <td width="1%">  <%= (scene.title_scene? ? '*' : ' ') %> </td>
-        <td width="2%">
-          <% unless pdf %>
-            <div id="scene-checkbox-<%= scene.id %>">
-              <%= check_box_tag 'check', !scene.check, scene.check,
-                :data => {
-                          id: scene.id,
-                          action: "scenes#toggle" },
-                          class: 'input-large' %>
-            </div>
-          <% end %>
-        </td>
-        <td width="5%">
-          <% if target.nil? %>
-            <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene), method: :get, data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.characters_short_list}"}) : scene.abc) %>
-          <% else %>
-            <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene), target: target, method: :get, data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.characters_short_list}"}) : scene.abc) %>
-          <% end %>
-        </td>
-      <% end %>
-        <td width="21%">
-          <strong>
-            <i>
-              <%= scene.section.nil? ? scene.name : scene.section.name %>
-            </i>
-          </strong>
-        </td>
-        <td width="2%">
-          <%= link_to scene.characters.size, scene_characters_path(scene_id: scene.id), method: :get,
-            data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.characters_short_list}"}%>
-        </td>
-        <% if scene.signets.size > 0 %>
-          <% value = "##{Signet.color(scene.signets.first.color)}" %>
-          <td style="width:2%; background-color:<%= value %>">
-        <% else %>
-          <td width="2%">
-        <%= link_to scene.signets.size, scene_signets_path(scene_id: scene.id), method: :get,
-          data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.signets_short_list}"}%>
+      <td width="16%">  <%= scene.time_to_text %></td>
+      <td width="1%">  <%= (scene.title_scene? ? '*' : ' ') %> </td>
+      <td width="2%">
+        <% unless pdf %>
+          <div id="scene-checkbox-<%= scene.id %>">
+            <%= check_box_tag 'check', !scene.check, scene.check,
+              :data => {
+                id: scene.id,
+                action: "scenes#toggle" },
+                class: 'input-large' %>
+          </div>
         <% end %>
-        </td>
-      <td width="30%"><%= scene.artifact.nil? ? '' : "#{scene.artifact_name} - " %><%= scene.place.empty? ? '' : "#{scene.place&.to_plain_text}" %></td>
-      <td class="text-end" width="5%;">
-        <% if long %>
+      </td>
+      <td width="5%">
+        <% if target.nil? %>
+          <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene), method: :get, data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.characters_short_list}"}) : scene.abc) %>
+        <% else %>
+          <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene), target: target, method: :get, data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.characters_short_list}"}) : scene.abc) %>
+        <% end %>
+      </td>
+    <% end %>
+    <td width="21%">
+      <strong>
+        <i>
+          <%= scene.section.nil? ? scene.name : scene.section.name %>
+        </i>
+      </strong>
+    </td>
+    <td width="2%">
+      <%= link_to scene.characters.size, scene_characters_path(scene_id: scene.id), method: :get,
+        data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.characters_short_list}"}%>
+    </td>
+    <% if scene.signets.size > 0 %>
+      <% value = "##{Signet.color(scene.signets.first.color)}" %>
+    <% end %>
+    <td style="width:2%;<%= scene.signets.size > 0 ? "background-color:#{value}" : '' %>">
+      <%= link_to scene.signets.size, scene_signets_path(scene_id: scene.id), method: :get,
+        data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.signets_short_list}"}%>
+    </td>
+    <td width="30%"><%= scene.artifact.nil? ? '' : "#{scene.artifact_name} - " %><%= scene.place.empty? ? '' : "#{scene.place&.to_plain_text}" %></td>
+    <td class="text-end" width="5%;">
+      <% if long %>
         <span style="background-color: #<%= count_color(wc) %>">
           <%=  number_with_delimiter(wc, :delimiter => ',') %>
         </span>
-      </td>
       <% end %>
-      <td class="text-end" width="5%;">
+    </td>
+    <td class="text-end" width="5%;">
       <% if total_wc > 0%>
         <%=  number_to_percentage(total_wc.to_f/wc_total.to_f*100, precision: 1) %>
       <% end %>
-      <td class="text-end" width="5%;">
+    </td>
+    <td class="text-end" width="5%;">
       <% if total_wc > 0%>
         <%=  number_with_delimiter(total_wc, :delimiter => ',') %>
       <% end %>
-      </td>
-      <% if print_name %>
-        </td></tr><tr><td></td><td colspan="7"><%= (short_labels ? scene.name : scene.plain_name) %></td>
-      <% end %>
-    <% end %>
-        </tr>
+    </td>
+    <% if print_name %>
+  </tr><tr><td></td><td colspan="7"><%= (short_labels ? scene.name : scene.plain_name) %></td>
+  <% end %>
+<% end %>
+  </tr>

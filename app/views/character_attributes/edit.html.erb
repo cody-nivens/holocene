@@ -1,5 +1,8 @@
 <h2>Editing Character Attribute</h2>
-<turbo-frame id="<%= dom_id @character_attribute %>">
-<%= render 'form', character_attribute: @character_attribute, character_category: @character_category %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),   return_or_default_path(character_category_character_attributes_path(@character_category)), method: :get, class: 'btn', title: 'Back' %>
+
+<turbo-frame id="new_object">
+  <turbo-frame id="<%= dom_id @character_attribute %>">
+    <%= render 'form', character_attribute: @character_attribute, character_category: @character_category %>
+    <%= link_to (fa_icon 'backward', class: 'fa-fw'),   character_category_character_attributes_path(@character_category), method: :get, class: 'btn', title: 'Back' %>
+  </turbo-frame>
 </turbo-frame>

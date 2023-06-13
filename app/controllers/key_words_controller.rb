@@ -40,7 +40,8 @@ class KeyWordsController < ApplicationController
         @key_words = KeyWord.where(book_id: @book.id).order(:key_word)
 #        format.html { redirect_to @key_word, notice: 'Key word was successfully created.' }
         format.json { render :show, status: :created, location: @key_word }
-        format.turbo_stream { flash.now[:notice] = "Key Word was successfully created." }
+        flash.now[:notice] = "Key Word was successfully created."
+        format.turbo_stream { render "shared/index", locals: { object: KeyWord.new, objects: @key_words } }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @key_word.errors, status: :unprocessable_entity }
@@ -51,12 +52,13 @@ class KeyWordsController < ApplicationController
   # PATCH/PUT /key_words/1 or /key_words/1.json
   def update
     @book = @key_word.book
-    @key_words = KeyWord.where(book_id: @book.id).order(:key_word)
     respond_to do |format|
       if @key_word.update(key_word_params)
+        @key_words = KeyWord.where(book_id: @book.id).order(:key_word)
 #        format.html { redirect_to @key_word, notice: 'Key word was successfully updated.' }
         format.json { render :show, status: :ok, location: @key_word }
-        format.turbo_stream { flash.now[:notice] = "Key Word was successfully updated." }
+        flash.now[:notice] = "Key Word was successfully updated."
+        format.turbo_stream { render "shared/index", locals: { object: KeyWord.new, objects: @key_words } }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @key_word.errors, status: :unprocessable_entity }
@@ -72,7 +74,8 @@ class KeyWordsController < ApplicationController
     respond_to do |format|
 #      format.html { redirect_to polymorphic_url([@book, :key_words]), notice: 'Key word was successfully destroyed.' }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Key Word was successfully destroyed." }
+      flash.now[:notice] = "Key Word was successfully destroyed."
+      format.turbo_stream { render "shared/index", locals: { object: KeyWord.new, objects: @key_words } }
     end
   end
 

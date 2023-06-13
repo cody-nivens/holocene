@@ -3,6 +3,7 @@
 require 'application_system_test_case'
 
 class BooksTest < ApplicationSystemTestCase
+
   setup do
     DownloadHelpers.clear_downloads
     @book = books(:book_1)
@@ -10,33 +11,34 @@ class BooksTest < ApplicationSystemTestCase
     @book_3 = books(:book_3)
     @user = users(:users_1)
     sign_in @user
-#    ThinkingSphinx::Test.init
-#    ThinkingSphinx::Test.start index: false
-#    index
+    ThinkingSphinx::Test.init
+    ThinkingSphinx::Test.start index: false
+    index
   end
 
   teardown do
-#    ThinkingSphinx::Test.stop
-#    ThinkingSphinx::Test.clear
+    ThinkingSphinx::Test.stop
+    ThinkingSphinx::Test.clear
   end
 
-  [ 'Books', 'Stats', 'Scenes', 'Resync Stories', 'Publish All', 'Key Points', 'Plot Points', 'Glossary Terms', 'Timeline' ].each do |object|
-    test "visiting the Book:#{object} menu" do
-      setup_menu_page 'Book',object
-
-      unless ['Books', 'Publish All', 'Resync Stories'].include?(object)
-        assert_side 'backward'
-        click_side 'backward'
-        assert_current_path root_url
-        assert_no_text "Content missing", wait: 5
-      end
-    end
+  test "walk the non-fiction book side menus" do
+    @book = books(:book_1)
+    walk_sides('BookC')
   end
 
-  ['Stats' ].each do |object|
-    test "visiting the BookC:#{object} menu" do
-      setup_menu_page 'BookC', object
-    end
+  test "walk the fiction book side menus" do
+    @book = books(:book_2)
+    walk_sides('Book')
+  end
+
+  test "walk the non-fiction book menus" do
+    @book = books(:book_1)
+    walk_menu('BookC')
+  end
+
+  test "walk the fiction book menus" do
+    @book = books(:book_2)
+    walk_menu('Book')
   end
 
   test 'creating a nonfictional Book flow' do
@@ -86,12 +88,14 @@ class BooksTest < ApplicationSystemTestCase
     click_side 'edit'
     assert_text 'Slug:', wait: 5
 
+    assert_new 'backward', 'Book', 'Footnote'
     click_new 'backward'
 
     assert_current_path root_path
     assert_no_text "Content missing", wait: 5
     assert_text 'Slug', wait: 5
 
+    assert_side 'backward', 'Book', 'Footnote'
     click_side 'backward'
     # Add a section
     #
@@ -105,13 +109,13 @@ class BooksTest < ApplicationSystemTestCase
     click_on 'Create Section'
 
     assert_text 'Section was successfully created', wait: 5
-    
+
     assert_text 'Deeply the stormy mists', wait: 5
 
     within(:xpath, "//turbo-frame[@id='#{dom_id Section.last}']") do
-        Capybara.page.find(".fa-edit").click
+      Capybara.page.find(".fa-edit").click
     end
- 
+
     assert_text 'Display name', wait: 5
     click_on 'Update Section'
 
@@ -119,9 +123,6 @@ class BooksTest < ApplicationSystemTestCase
     assert_text 'Deeply the stormy mists', wait: 5
 
     click_on_header 'Test 1', 'edit'
-    #within(:xpath, "//h3[contains(text(),'Test 1')]/..") do
-    #    Capybara.page.find("i.fa-edit").click
-    #  end
 
     assert_text 'Display name', wait: 5
     click_on 'Update Section'
@@ -160,6 +161,7 @@ class BooksTest < ApplicationSystemTestCase
 
     assert_text "Stories"
 
+    assert_new 'plus', 'Book', 'Story'
     click_new 'plus'
 
     fill_in_rich_text_area 'story_summary_body', with: 'Chasing Gadout'
@@ -171,6 +173,7 @@ class BooksTest < ApplicationSystemTestCase
     click_on "The Impossible Dream"
 
     assert_text "Key Points"
+    assert_new 'plus', 'Book', 'Key Points'
     click_new 'plus'
 
     fill_in 'Hook', with: 'Good points'
@@ -192,6 +195,7 @@ class BooksTest < ApplicationSystemTestCase
     assert_selector "a > i.fa-plus"
     assert_selector "turbo-frame", id:  "new_object"
 
+    assert_new 'plus', 'Book', 'Scene'
     click_new 'plus'
 
     assert_current_path root_path
@@ -229,6 +233,7 @@ class BooksTest < ApplicationSystemTestCase
 
     assert_no_text "Artifact"
 
+    assert_side 'plus', 'Book', 'Section'
     click_side 'plus'
 
     assert_current_path root_path
@@ -249,235 +254,235 @@ class BooksTest < ApplicationSystemTestCase
   end
 
   if 1 == 0
-  test 'books show all stories' do
-#    visit All Stories
-    visit root_url
-    # save_and_open_page
-    # debugger
-    assert_text 'The Phantom'
-    click_on 'The Phantom'
-    assert_text 'The Beginnings'
+    test 'books show all stories' do
+      #    visit All Stories
+      visit root_url
+      # save_and_open_page
+      # debugger
+      assert_text 'The Phantom'
+      click_on 'The Phantom'
+      assert_text 'The Beginnings'
 
-    do_menu 'Story', 'All Stories'
-    assert_text 'The Middles XX'
-    click_side 'backward'
-    assert_no_text 'The Middles XX'
+      do_menu 'Story', 'All Stories'
+      assert_text 'The Middles XX'
+      click_side 'backward'
+      assert_no_text 'The Middles XX'
+    end
+
+    test 'books edit' do
+      #    visit Show
+      visit root_url
+      assert_text 'The Phantom'
+      click_on 'The Phantom'
+      assert_text "The Beginnings"
+
+      click_side 'edit'
+      assert_selector "form.edit_book"
+      click_new 'backward'
+
+      assert_new 'plus', 'Book', 'Edit'
+      click_side 'backward'
+    end
+
+    test 'books index' do
+      #    visit New Book
+      visit root_url
+      assert_link 'New Book'
+      click_on 'New Book'
+
+      assert_no_link 'New Book'
+      assert_selector "turbo-frame#new_object"
+      click_new 'backward'
+      assert_link 'New Book'
+    end
+
+    test 'books show artifacts' do
+      visit root_url
+      assert_text 'The Phantom'
+      click_on 'The Phantom'
+      assert_text "The Beginnings"
+
+      do_menu 'Support', 'Artifacts'
+
+      assert_text 'Owner/Controller'
+      #interactive_debug_session(@user)
+      click_on 'Back'
+      assert_text @book_2.name
+    end
+
+    test 'books show authors' do
+      #    visit Authors
+      visit root_url
+      assert_text 'Fun Events in History'
+      click_on 'Fun Events in History'
+      assert_text "Surprise"
+
+      do_menu 'Support', 'Authors'
+      assert_text 'Erggy'
+      click_on 'Back'
+      assert_text 'No Dogs'
+    end
+
+    test 'books show characters' do
+      #    visit Characters
+      visit root_url
+      assert_text 'The Phantom'
+      click_on 'The Phantom'
+      assert_text "The Beginnings"
+
+      do_menu "Characters", "Character Grid"
+      assert_text "Characters for Book"
+      click_new 'plus'
+
+      #click_on 'Back'
+      #assert_text 'The Beginnings'
+      #assert_current_path root_url
+    end
+
+    test 'books show key points' do
+      #    visit Key Points
+      visit root_url
+      assert_text 'The Phantom'
+      click_on 'The Phantom'
+      assert_text 'The Beginnings'
+
+      click_on 'The Beginnings'
+      assert_text 'Climate Change'
+      do_menu "Book", "Key Points"
+      click_on 'Back'
+      assert_link 'New Story'
+    end
+
+    test 'books show new chapter' do
+      #    visit New Chapter
+      visit root_url
+      assert_text 'Fun Events in History'
+      click_on 'Fun Events in History'
+      assert_text "Surprise"
+
+      assert_link 'New Chapter'
+      click_on 'New Chapter'
+      assert_text 'Always display events'
+      assert_current_path root_url
+      click_new 'backward'
+      assert_text 'No Dogs'
+      assert_current_path root_url
+    end
+
+    test 'books show new story' do
+      #    visit New Story
+      visit root_url
+      assert_text 'The Phantom'
+      click_on 'The Phantom'
+      assert_text 'The Beginnings'
+
+      assert_link 'New Story'
+      click_on 'New Story'
+      assert_text 'Publish?'
+      assert_current_path root_url
+      click_new 'backward'
+      assert_text 'The Beginnings'
+      assert_current_path root_url
+    end
+
+    test 'books show scenes' do
+      #    visit Scenes
+      visit root_url
+      assert_text 'The Phantom'
+      click_on 'The Phantom'
+      assert_text "The Beginnings"
+
+      do_menu 'Book', 'Scenes'
+
+      assert_text 'No Section'
+      assert_current_path root_url
+    end
+
+    test 'books show xstats' do
+      #    visit Stats
+      visit root_url
+      assert_text 'The Phantom'
+      click_on 'The Phantom'
+      assert_text "The Beginnings"
+
+      do_menu 'Book', 'Stats'
+
+      assert_text 'Stats for Book'
+      assert_current_path root_url
+    end
+
+    test 'books toc' do
+      #    visit Chapters, Details
+      visit root_url
+      assert_text 'Fun Events in History'
+      click_on 'Fun Events in History'
+      assert_text "Surprise"
+
+      click_side 'expand'
+      assert_text 'Flight of the Bubblebees'
+      click_side 'minus'
+      assert_no_text 'Flight of the Bumblebees'
+
+      assert_link 'New Chapter'
+      assert_current_path root_url
+      visit root_url
+
+      assert_text 'The Phantom'
+      click_on 'The Phantom'
+      click_side 'expand'
+      assert_text 'Publishable'
+      click_side 'minus'
+      assert_no_text 'Publishable'
+    end
+
+    test 'books show key words' do
+      #    visit Key Words
+      visit root_url
+      assert_text 'The Phantom'
+      click_on 'The Phantom'
+      assert_text "The Beginnings"
+
+      do_menu 'Support', 'Key words'
+      assert_text 'stormy'
+      assert_current_path root_url
+      click_on 'Back'
+      assert_link 'New Story'
+      assert_current_path root_url
+    end
+
+    test 'sort books' do
+      visit root_url
+      assert_text 'The Phantom'
+
+      # save_and_open_page
+      # debugger
+      # take_screenshot
+      assert_match /#{@book.name}.*#{@book_2.name}.*#{@book_3.name}/m, page.html
+
+        draggable = find(:css, "#book-#{@book_3.id}")
+        droppable = find(:css, "#book-#{@book_2.id}")
+        draggable.drag_to(droppable)
+        wait_for_ajax
+
+        assert_match /#{@book.name}.*#{@book_3.name}.*#{@book_2.name}/m, page.html
+          visit current_path
+
+          assert_match /#{@book.name}.*#{@book_3.name}.*#{@book_2.name}/m, page.html
+    end
+
+    test 'should not create a Book' do
+      visit root_url
+      click_on 'New Book'
+
+      fill_in 'Name', with: ''
+      click_on 'Create Book'
+
+      assert_text "can't be blank"
+
+      fill_in 'Name', with: @book.name
+      click_on 'Create Book'
+      assert_text 'Book was successfully created'
+      click_on 'Back'
+    end
   end
-
-  test 'books edit' do
-#    visit Show
-    visit root_url
-    assert_text 'The Phantom'
-    click_on 'The Phantom'
-    assert_text "The Beginnings"
-
-    click_side 'edit'
-    assert_selector "form.edit_book"
-    click_new 'backward'
-
-    assert_new 'plus'
-    click_side 'backward'
-  end
-
-  test 'books index' do
-#    visit New Book
-    visit root_url
-    assert_link 'New Book'
-    click_on 'New Book'
-
-    assert_no_link 'New Book'
-    assert_selector "turbo-frame#new_object"
-    click_new 'backward'
-    assert_link 'New Book'
-  end
-
-  test 'books show artifacts' do
-    visit root_url
-    assert_text 'The Phantom'
-    click_on 'The Phantom'
-    assert_text "The Beginnings"
-
-    do_menu 'Support', 'Artifacts'
-
-    assert_text 'Owner/Controller'
-    #interactive_debug_session(@user)
-    click_on 'Back'
-    assert_text @book_2.name
-  end
-
-  test 'books show authors' do
-#    visit Authors
-    visit root_url
-    assert_text 'Fun Events in History'
-    click_on 'Fun Events in History'
-    assert_text "Surprise"
-
-    do_menu 'Support', 'Authors'
-    assert_text 'Erggy'
-    click_on 'Back'
-    assert_text 'No Dogs'
-  end
-
-  test 'books show characters' do
-#    visit Characters
-    visit root_url
-    assert_text 'The Phantom'
-    click_on 'The Phantom'
-    assert_text "The Beginnings"
-
-    do_menu "Characters", "Character Grid"
-    assert_text "Characters for Book"
-    click_new 'plus'
-
-    #click_on 'Back'
-    #assert_text 'The Beginnings'
-    #assert_current_path root_url
-  end
-
-  test 'books show key points' do
-#    visit Key Points
-    visit root_url
-    assert_text 'The Phantom'
-    click_on 'The Phantom'
-    assert_text 'The Beginnings'
-
-    click_on 'The Beginnings'
-    assert_text 'Climate Change'
-    do_menu "Book", "Key Points"
-    click_on 'Back'
-    assert_link 'New Story'
-  end
-
-  test 'books show new chapter' do
-#    visit New Chapter
-    visit root_url
-    assert_text 'Fun Events in History'
-    click_on 'Fun Events in History'
-    assert_text "Surprise"
-
-    assert_link 'New Chapter'
-    click_on 'New Chapter'
-    assert_text 'Always display events'
-    assert_current_path root_url
-    click_new 'backward'
-    assert_text 'No Dogs'
-    assert_current_path root_url
-  end
-
-  test 'books show new story' do
-#    visit New Story
-    visit root_url
-    assert_text 'The Phantom'
-    click_on 'The Phantom'
-    assert_text 'The Beginnings'
-
-    assert_link 'New Story'
-    click_on 'New Story'
-    assert_text 'Publish?'
-    assert_current_path root_url
-    click_new 'backward'
-    assert_text 'The Beginnings'
-    assert_current_path root_url
-  end
-
-  test 'books show scenes' do
-#    visit Scenes
-    visit root_url
-    assert_text 'The Phantom'
-    click_on 'The Phantom'
-    assert_text "The Beginnings"
-
-    do_menu 'Book', 'Scenes'
-
-    assert_text 'No Section'
-    assert_current_path root_url
-  end
-
-  test 'books show xstats' do
-#    visit Stats
-    visit root_url
-    assert_text 'The Phantom'
-    click_on 'The Phantom'
-    assert_text "The Beginnings"
-
-    do_menu 'Book', 'Stats'
-
-    assert_text 'Stats for Book'
-    assert_current_path root_url
-  end
-
-  test 'books toc' do
-#    visit Chapters, Details
-    visit root_url
-    assert_text 'Fun Events in History'
-    click_on 'Fun Events in History'
-    assert_text "Surprise"
-
-    click_side 'expand'
-    assert_text 'Flight of the Bubblebees'
-    click_side 'minus'
-    assert_no_text 'Flight of the Bumblebees'
-
-    assert_link 'New Chapter'
-    assert_current_path root_url
-    visit root_url
-
-    assert_text 'The Phantom'
-    click_on 'The Phantom'
-    click_side 'expand'
-    assert_text 'Publishable'
-    click_side 'minus'
-    assert_no_text 'Publishable'
-  end
-
-  test 'books show key words' do
-#    visit Key Words
-    visit root_url
-    assert_text 'The Phantom'
-    click_on 'The Phantom'
-    assert_text "The Beginnings"
-
-    do_menu 'Support', 'Key words'
-    assert_text 'stormy'
-    assert_current_path root_url
-    click_on 'Back'
-    assert_link 'New Story'
-    assert_current_path root_url
-  end
-
-  test 'sort books' do
-    visit root_url
-    assert_text 'The Phantom'
-
-    # save_and_open_page
-    # debugger
-    # take_screenshot
-    assert_match /#{@book.name}.*#{@book_2.name}.*#{@book_3.name}/m, page.html
-
-    draggable = find(:css, "#book-#{@book_3.id}")
-    droppable = find(:css, "#book-#{@book_2.id}")
-    draggable.drag_to(droppable)
-    wait_for_ajax
-
-    assert_match /#{@book.name}.*#{@book_3.name}.*#{@book_2.name}/m, page.html
-    visit current_path
-
-    assert_match /#{@book.name}.*#{@book_3.name}.*#{@book_2.name}/m, page.html
-  end
-
-  test 'should not create a Book' do
-    visit root_url
-    click_on 'New Book'
-
-    fill_in 'Name', with: ''
-    click_on 'Create Book'
-
-    assert_text "can't be blank"
-
-    fill_in 'Name', with: @book.name
-    click_on 'Create Book'
-    assert_text 'Book was successfully created'
-    click_on 'Back'
-  end
-end
 end

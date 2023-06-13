@@ -9,10 +9,15 @@ class CharactersController < ApplicationController
 
     do_index
 
-    respond_to do |format|
-      format.js {}
-#      format.html {}
-      format.turbo_stream { render "shared/index", locals: { object: Character.new, objects: @characters } }
+    if request.xhr?
+      respond_to do |format|
+        format.turbo_stream { render "shared/index", locals: { object: Character.new, objects: @characters } }
+      end
+    else
+      respond_to do |format|
+        format.js {}
+        format.turbo_stream { render "shared/index", locals: { object: Character.new, objects: @characters } }
+      end
     end
   end
 
@@ -48,7 +53,7 @@ class CharactersController < ApplicationController
     @long = params[:long]
 
     respond_to do |format|
-#      format.html {}
+      #      format.html {}
       format.turbo_stream { render 'shared/show', locals: { object: @character } }
     end
   end
@@ -122,7 +127,7 @@ class CharactersController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to polymorphic_path([@object, :characters_list]) }
-#      format.turbo_stream { }
+      #      format.turbo_stream { }
     end
   end
 
@@ -180,7 +185,7 @@ class CharactersController < ApplicationController
     update_values
     respond_to do |format|
       if @character.update(character_params)
-#        format.html { redirect_to polymorphic_path([@object, @character]) }
+        #        format.html { redirect_to polymorphic_path([@object, @character]) }
         format.json { render :show, status: :ok, location: @character }
         format.turbo_stream { flash.now[:notice] = "Character was successfully updated." }
       else
@@ -198,7 +203,7 @@ class CharactersController < ApplicationController
     do_index
     respond_to do |format|
       flash.now[:notice] = "Character was successfully destroyed."
-#      format.html { redirect_to polymorphic_url([@object, :characters]), notice: 'Character was successfully destroyed.' }
+      #      format.html { redirect_to polymorphic_url([@object, :characters]), notice: 'Character was successfully destroyed.' }
       format.turbo_stream { }
       format.json { head :no_content }
     end
@@ -206,7 +211,7 @@ class CharactersController < ApplicationController
 
   private
 
-   def setup_chars
+  def setup_chars
     if @long.kind_of?(TrueClass) or @long == "true"
       @characters = @book.characters
     else
@@ -224,7 +229,7 @@ class CharactersController < ApplicationController
       scenes = character.published_scenes(@object)
       chars << [character.id, scenes.length] if scenes.length > 0
     end
-    chars = chars.sort {|a1,a2| a2[1]<=>a1[1]}
+    chars = chars.sort {|a1,a2| a2[1]<=>a1[1] }
     @chars = chars
   end
 
@@ -235,6 +240,10 @@ class CharactersController < ApplicationController
     @value = grid_params[:value]
 
     my_params = grid_params.except(:category, :attribute, :value)
+
+    my_params.keys.each do |key|
+      my_params.extract!(key) if my_params[key].blank?
+    end
 
     if grid_params[:no_ethnicity].to_i == 1
       my_params[:ethnicity] = ['']

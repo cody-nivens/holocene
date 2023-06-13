@@ -1,6 +1,6 @@
 <h2>New Actor Character</h2>
 
-<turbo-frame id="objects">
+<turbo-frame id="new_object">
   <%= render 'form', actor_character: @actor_character %>
   <%= link_to (fa_icon 'backward', class: 'fa-fw'), actor_actor_characters_path(@actor), method: :get, class: "btn", title: 'Back' %>
 </turbo-frame>

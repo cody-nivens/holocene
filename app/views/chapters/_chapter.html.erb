@@ -1,41 +1,65 @@
-<turbo-frame id="<%= dom_id @chapter %>">
-  <% if @chapter.aside.nil? %>
-    <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_chapter_aside_path(@chapter), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'New Aside' %>
-  <% else %>
-      <turbo-frame id="<%= dom_id @chapter.aside %>">
-        <%= render partial: "asides/aside_item", locals: { aside: @chapter.aside } %>
-      </turbo-frame>
-  <% end %>
-  
-  <% @slugs = [] -%>
-  <% @footnotes = Footnote.process_body(@chapter, @slugs) -%>
-  <%== @footnotes[0] %>
-  <% @slugs += @footnotes[1] -%>
-  
-  <% if @chapter.process_events? %>
-    <% if @chapter.holocene_events.size != 0 -%>
-      <% @chapter.holocene_events.order(:start_year).each do |he| -%>
-        <% unless he.body.blank? -%>
-          <% @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
-          <% @slugs += @footnotes[1] -%>
+<%= tabs do |c| %>
+  <% c.tab "Chapter" do %>
+    <% @slugs = [] -%>
+    <% @footnotes = Footnote.process_body(chapter, @slugs) -%>
+    <div class="card">
+      <div class="card-body">
+        <%== @footnotes[0] %>
+      </div>
+    </div>
+    <% @slugs += @footnotes[1] -%>
+
+    <% if chapter.process_events? %>
+      <% if chapter.holocene_events.size != 0 -%>
+        <% chapter.holocene_events.order(:start_year).each do |he| -%>
+          <% unless he.body.blank? -%>
+            <% @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
+            <% @slugs += @footnotes[1] -%>
+          <% end -%>
         <% end -%>
+        <%= render 'holocene_events/index', formats: [:html], holocene_events: chapter.holocene_events.order(:start_year).uniq, chapter: chapter, epub: false, slugs: @slugs %>
       <% end -%>
-      <%= render 'holocene_events/index', formats: [:html], holocene_events: @chapter.holocene_events.order(:start_year).uniq, chapter: @chapter, epub: false, slugs: @slugs %>
+    <% end -%>
+
+    <turbo-frame id="sub_objects">
+      <%= render partial: "chapters/sub_objects", locals: { chapter: chapter } %>
+    </turbo-frame>
+
+    <% unless @slugs.size == 0 -%>
+      <%== Footnote.write_footnotes(@slugs) %>
+    <% end -%>
+
+    <% unless chapter.citations.size == 0 -%>
+      <div style='clear: both'>
+        <hr>
+        <%== render 'footnotes/citations', slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: true, title: 'Citations' %>
+      </div>
     <% end -%>
   <% end -%>
-  
-  <turbo-frame id="sub_objects">
-    <%= render partial: "chapters/sub_objects", locals: { chapter: @chapter } %>
-  </turbo-frame>
-  
-  <% unless @slugs.size == 0 -%>
-    <%== Footnote.write_footnotes(@slugs) %>
-  <% end -%>
-  
-  <% unless @chapter.citations.size == 0 -%>
-    <div style='clear: both'>
-      <hr>
-      <%== render 'footnotes/citations', slugs: @slugs, footnotes: @chapter.citations, chapter: @chapter, links: true, title: 'Citations' %>
+  <% c.tab "Partition" do %>
+    <div class="card">
+      <div class="card-body">
+        <% if chapter.partition.nil? %>
+          <turbo-frame id="partition">
+            <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_chapter_partition_path(chapter), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'New Partition' %>
+          </turbo-frame>
+        <% else %>
+          <turbo-frame id="<%= dom_id chapter.partition %>">
+            <%= render partial: "partitions/partition_card", locals: { partition: chapter.partition } %>
+          </turbo-frame>
+        <% end %>
+      </div>
     </div>
-  <% end -%>
-</turbo-frame>
+  <% end %>
+  <% c.tab "Asides" do %>
+    <div class="card">
+      <div class="card-body">
+        <turbo-frame id="asides">
+          <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_chapter_aside_path(chapter), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'New Aside' %>
+          <% @asides = chapter.asides %>
+          <%= render partial: "asides/asides", locals: { chapter: chapter } %>
+        </turbo-frame>
+      </div>
+    </div>
+  <% end %>
+<% end %>

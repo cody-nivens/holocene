@@ -13,10 +13,10 @@ class Chapter < ApplicationRecord
   belongs_to :scripted, polymorphic: true
 
   has_one :partition
-  has_one :aside
+  has_many :asides
 
   delegate :name,  to: :partition, prefix: true
-  delegate :name,  to: :aside, prefix: true
+  #delegate :name,  to: :aside, prefix: true
 
   validates :name, presence: true
 
@@ -76,7 +76,9 @@ class Chapter < ApplicationRecord
   def word_count
     count = WordsCounted.count(body.to_plain_text).token_count + WordsCounted.count(name).token_count
     count += partition.word_count unless partition.nil?
-    count += aside.word_count unless aside.nil?
+    asides.each do |aside|
+      count += aside.word_count
+    end
     sections.each do |sect|
       count += sect.word_count
     end

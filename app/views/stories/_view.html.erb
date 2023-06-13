@@ -1,14 +1,4 @@
-<% pdf ||= nil %>
-<% outline ||= nil %>
-
-<% if story.title_page? %>
-  <div style="display:block; clear:both; page-break-after:always;"></div>
-  <h2><%= story.title %></h2>
-  <% just_printed_page_break = true %>
+<% if @story.print_summary? %>
+   <%= @story.summary_body %>
 <% end %>
-
-<% if story.print_summary? %>
-   <%= story.summary_body %>
-<% end %>
-
-<%= render partial: 'stories/view_story2', formats: [:html], locals: { story: story, pdf: pdf, outline: outline, long: long } %>
+<%= render partial: 'stories/view_story2', formats: [:html], locals: { story: @story, pdf: @pdf, outline: @outline, long: @long } %>

@@ -14,8 +14,14 @@ class ItinerariesController < ApplicationController
       scope.where('itineraries.tour_id = ?', @tour.id)
     end
     @pagy, @records = pagy(@grid.assets)
-    respond_to do |format|
-      format.turbo_stream { render "shared/index", locals: { object: Itinerary.new, objects: @itinerariess } }
+    if request.xhr?
+      respond_to do |format|
+        format.turbo_stream { render "shared/index", locals: { object: Itinerary.new, objects: @itinerariess } }
+      end
+    else
+      respond_to do |format|
+        format.turbo_stream { render "shared/index", locals: { object: Itinerary.new, objects: @itinerariess } }
+      end
     end
   end
 
@@ -45,13 +51,13 @@ class ItinerariesController < ApplicationController
     @itinerary = Itinerary.new(itinerary_params)
     @tour = @itinerary.tour
 
-    @grid = ItinerariesGrid.new(itinerary_grid_params) do |scope|
-      scope.where('itineraries.tour_id = ?', @tour.id)
-    end
-    @pagy, @records = pagy(@grid.assets)
 
     respond_to do |format|
       if @itinerary.save
+        @grid = ItinerariesGrid.new(itinerary_grid_params) do |scope|
+          scope.where('itineraries.tour_id = ?', @tour.id)
+        end
+        @pagy, @records = pagy(@grid.assets)
 #        format.html { redirect_to itinerary_path(@itinerary), notice: 'Itinerary was successfully created.' }
         format.json { render :show, status: :created, location: @itinerary }
         format.turbo_stream { flash.now[:notice] = "Itinerary was successfully created." }
@@ -70,6 +76,10 @@ class ItinerariesController < ApplicationController
     @tour = @itinerary.tour
     respond_to do |format|
       if @itinerary.update(itinerary_params)
+        @grid = ItinerariesGrid.new(itinerary_grid_params) do |scope|
+          scope.where('itineraries.tour_id = ?', @tour.id)
+        end
+        @pagy, @records = pagy(@grid.assets)
 #        format.html { redirect_to itinerary_path(@itinerary), notice: 'Itinerary was successfully updated.' }
         format.json { render :show, status: :ok, location: @itinerary }
         format.turbo_stream { flash.now[:notice] = "Itinerary was successfully updated." }

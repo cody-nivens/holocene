@@ -1,10 +1,8 @@
 <h2>Editing Character Scene: <%= @scene.name %> for <%= @character_scene.character.name %></h2>
 
-<turbo-frame id="<%= dom_id @character_scene %>">
-<%= render 'form', character_scene: @character_scene, scene: @scene %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(polymorphic_path(@scene)), class: 'btn', title: 'Back' %>
+<turbo-frame id="new_object">
+  <turbo-frame id="<%= dom_id @character_scene %>">
+    <%= render 'form', character_scene: @character_scene, scene: @scene %>
+    <%= link_to (fa_icon 'backward', class: 'fa-fw'),  @scene, method: :get, class: 'btn', title: 'Back' %>
+  </turbo-frame>
 </turbo-frame>
-
-<div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(polymorphic_path(@scene)), class: 'btn', title: 'Back' %>
-</div>
