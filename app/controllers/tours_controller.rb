@@ -1,5 +1,5 @@
 class ToursController < ApplicationController
-  before_action :set_tour, only: %i[geo_map show edit update destroy]
+  before_action :set_tour, only: %i[map_locs geo_map show edit update destroy]
   before_action :set_story, only: %i[index new]
 
   # GET /tours or /tours.json
@@ -26,12 +26,18 @@ class ToursController < ApplicationController
     end
   end
 
+  def map_locs
+    respond_to do |format|
+      format.json { render json: @tour.map_locs }
+    end
+  end
+
   def geo_map
     @object = @tour
     @story = @tour.story
 
     respond_to do |format|
-      format.turbo_stream { render "shared/show", locals: { object: @tour, no_new_link: true, part: 'geo_map' } }
+      format.turbo_stream { render "shared/show", locals: { object: @tour, no_new_link: true, part: 'map', path_name: 'shared' } }
     end
   end
 

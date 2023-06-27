@@ -1,5 +1,3 @@
-<div id="side_controls" class="hide-print">
   <%= link_to (fa_icon 'stream', class: 'fa-fw'), url_for(controller: 'timelines', action: 'timeline', "#{@object.class.name.underscore}_id".to_sym => @object.id), method: :get, title: "Timeline", class: 'btn' %>
   <%= link_to (fa_icon 'map', class: 'fa-fw'), "/#{@object.class.name.underscore.pluralize}/#{@object.id}/geo_map", method: :get, title: "Map", class: 'btn' %>
   <%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@object), method: :get, title: 'Back', class: 'btn' %>
-</div>

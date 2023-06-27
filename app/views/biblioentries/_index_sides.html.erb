@@ -1,2 +1,2 @@
-  <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_book_biblioentry_path(@book), data: { "turbo-stream": "new_class" }, class: 'btn', title: 'New Biblioentry' %>
+  <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_book_biblioentry_path(@book), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'New Biblioentry' %>
   <%= link_to (fa_icon 'backward', class: 'fa-fw'), book_path(@book), method: :get, class: 'btn', title: 'Back' %>

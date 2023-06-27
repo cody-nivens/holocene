@@ -14,7 +14,7 @@ class FootnotesTest < ApplicationSystemTestCase
   end
 
   test "drive the footnote cycle" do
-    drive_cycle('Chapter', 'Footnotes')
+    menu_test('Chapter', 'Footnotes')
   end
 
   if 1 == 0

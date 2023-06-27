@@ -28,5 +28,5 @@
 <% end %>
 
 <div id="side_controls" class="hide-print">
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@scripted), class: 'btn', title: 'Back' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@scripted), method: :get, class: 'btn', title: 'Back' %>
 </div>

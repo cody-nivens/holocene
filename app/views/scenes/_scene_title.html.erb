@@ -45,14 +45,14 @@
     </td>
     <td width="2%">
       <%= link_to scene.characters.size, scene_characters_path(scene_id: scene.id), method: :get,
-        data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.characters_short_list}"}%>
+        data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.characters_short_list}"} %>
     </td>
     <% if scene.signets.size > 0 %>
       <% value = "##{Signet.color(scene.signets.first.color)}" %>
     <% end %>
     <td style="width:2%;<%= scene.signets.size > 0 ? "background-color:#{value}" : '' %>">
       <%= link_to scene.signets.size, scene_signets_path(scene_id: scene.id), method: :get,
-        data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.signets_short_list}"}%>
+        data: { "bs-toggle": "tooltip", "bs-placement": "top", "bs-html":"true", "bs-title": "#{scene.signets_short_list}"} %>
     </td>
     <td width="30%"><%= scene.artifact.nil? ? '' : "#{scene.artifact_name} - " %><%= scene.place.empty? ? '' : "#{scene.place&.to_plain_text}" %></td>
     <td class="text-end" width="5%;">
@@ -63,12 +63,12 @@
       <% end %>
     </td>
     <td class="text-end" width="5%;">
-      <% if total_wc > 0%>
+      <% if total_wc > 0 and wc_total != 0 %>
         <%=  number_to_percentage(total_wc.to_f/wc_total.to_f*100, precision: 1) %>
       <% end %>
     </td>
     <td class="text-end" width="5%;">
-      <% if total_wc > 0%>
+      <% if total_wc > 0 %>
         <%=  number_with_delimiter(total_wc, :delimiter => ',') %>
       <% end %>
     </td>

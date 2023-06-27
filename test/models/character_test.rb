@@ -3,6 +3,27 @@
 require 'test_helper'
 
 class CharacterTest < ActiveSupport::TestCase
+  test 'deletes all connected' do
+    character = characters(:character_1)
+    assert_difference('Character.count', -1) do
+      assert_difference('CharacterValue.count', -character.character_values.size) do
+        assert_difference('CharacterScene.count', -character.character_scenes.size) do
+          assert_difference('CharacterStory.count', -character.character_stories.size) do
+            assert_difference('ActorCharacter.count', -character.actor_characters.size) do
+              assert_difference('Signet.count', -character.signets.size) do
+                assert_difference('Artifact.count', -character.artifacts.size) do
+                  assert_difference('BooksCharacter.count', -character.books.size) do
+                    character.destroy
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+
   test 'name' do
     Character.all.each do |character|
       assert_not_nil character.name

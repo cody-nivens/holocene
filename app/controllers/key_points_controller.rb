@@ -35,20 +35,26 @@ class KeyPointsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { redirect_to polymorphic_url(@scripted), notice: 'Key Point successfully moved.' }
+#      format.html { redirect_to polymorphic_url(@scripted), notice: 'Key Point successfully moved.' }
       format.json { render :show, status: :ok, location: @key_point }
+      flash.now[:notice] = "Key Point was successfully moved."
+      format.turbo_stream { render "shared/show", locals: { object: @scripted } }
     end
   end
 
-  def move; end
+  def move
+    respond_to do |format|
+      format.turbo_stream { render "shared/show", locals: { object: @key_point , part: 'move', no_new_link: true } }
+    end
+  end
 
   def list
-    @selector = (params[:selector].presence || 0)
+    @selector = (params[:selector] || 0)
     @long = params[:long]
+    @situated = @key_point
 
     respond_to do |format|
-      format.turbo_stream {}
-      format.turbo_stream { render "shared/show", locals: { object: @key_point , part: 'list' } }
+      format.turbo_stream { render "shared/show", locals: { object: @key_point , part: 'list', new_link_path: 'scenes' } }
     end
 
   end
@@ -102,6 +108,9 @@ class KeyPointsController < ApplicationController
     @title = @key_point.name
     @scripted = @key_point.scripted
     @long = params[:long]
+    respond_to do |format|
+      format.turbo_stream { render "shared/show", locals: { object: @key_point, part: 'view', no_new_link: true } }
+    end
   end
 
   # GET /key_points/new

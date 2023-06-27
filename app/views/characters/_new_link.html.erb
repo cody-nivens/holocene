@@ -1,1 +1,1 @@
-<%= link_to (fa_icon 'plus', class: 'fa-fw'), polymorphic_path([:character, :steps, @object]), method: :post, class: 'btn', title: 'Add Character' %>
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), polymorphic_path([:character, :steps, (@object.class.name == 'Book' ? @object : @object.book)]), method: :post, class: 'btn', title: 'Add Character' %>

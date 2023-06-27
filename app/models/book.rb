@@ -25,8 +25,8 @@ class Book < ApplicationRecord
   has_many :actors
   has_many :locations
 
-  has_and_belongs_to_many :authors, dependent: :nullify
-  has_and_belongs_to_many :characters, dependent: :nullify
+  has_and_belongs_to_many :authors
+  has_and_belongs_to_many :characters
 
   validates :name, presence: true
 

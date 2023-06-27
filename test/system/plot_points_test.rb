@@ -8,7 +8,7 @@ class PlotPointsTest < ApplicationSystemTestCase
   end
 
   test "drive the plot_point cycle" do
-    drive_cycle('Book', 'Plot Points')
+    menu_test('Book', 'Plot Points')
   end
 
   if 1 == 0

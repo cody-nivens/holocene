@@ -4,7 +4,7 @@
 <% else %>
   <%= link_to (fa_icon 'expand', type: :solid, class: 'fa-fw'), book_path(@book, long: true), method: :get, title: 'Show, long', class: 'btn' %>
 <% end %>
-<%= link_to (fa_icon 'list', type: :solid, class: 'fa-fw'), book_path(@book), method: :get, title: 'Book View', class: 'btn' %>
+<%= link_to (fa_icon 'sticky-note', type: :regular, class: 'fa-fw'), book_signets_path(@book), method: :get, title: 'Signets', class: 'btn' %>
 <%= link_to (fa_icon 'eye', type: :solid, class: 'fa-fw'), book_view_path(@book), method: :get, title: 'View', class: 'btn' %>
 <%= link_to (fa_icon 'newspaper', type: :regular, class: 'fa-fw'), book_view_path(@book, outline: true, long: true), method: :get, title: 'View, outline', class: 'btn' %>
 <%= link_to (fa_icon 'file-pdf', type: :solid, class: 'fa-fw'), book_path(@book, format: :pdf), title: 'PDF', class: 'btn' %>

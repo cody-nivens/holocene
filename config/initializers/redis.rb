@@ -1,4 +1,8 @@
-$redis = Redis.new(url:  ENV['REDIS_URL'],
+unless Rails.env.test?
+  $redis = Redis.new(url:  ENV['REDIS_URL'],
                           port: ENV['REDIS_PORT'],
                           db:   ENV['REDIS_DB'],
                           timeout: 240)
+else
+  $redis = MockRedis.new
+end

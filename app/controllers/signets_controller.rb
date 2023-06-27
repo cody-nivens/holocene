@@ -48,6 +48,7 @@ class SignetsController < ApplicationController
 
     respond_to do |format|
       if @signet.save
+        @signets = @sigged.signets
         flash.now[:notice] = "Signet was successfully created."
 #        format.html { render :index, notice: 'Signet was successfully created.' }
         format.json { render :index, status: :created, location: @signet }
@@ -65,7 +66,8 @@ class SignetsController < ApplicationController
     @sigged = @signet.sigged
     respond_to do |format|
       if @signet.update(signet_params)
-        flash.now[:notice] = "Signet was successfully created." 
+        @signets = @sigged.signets
+        flash.now[:notice] = "Signet was successfully updated." 
 #        format.html { render :index, notice: 'Signet was successfully updated.' }
         format.json { render :index, status: :ok, location: @signet }
         format.turbo_stream { render "shared/index", locals: { object: Signet.new, objects: @signets } }
@@ -81,6 +83,7 @@ class SignetsController < ApplicationController
   def destroy
     @sigged = @signet.sigged
     @signet.destroy
+    @signets = @sigged.signets
     respond_to do |format|
 #      format.html do
 #        redirect_to polymorphic_url([@sigged, :signets]), notice: 'Signet was successfully destroyed.'

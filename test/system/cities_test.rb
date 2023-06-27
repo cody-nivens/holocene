@@ -10,7 +10,7 @@ class CitiesTest < ApplicationSystemTestCase
   end
 
   test "drive the city cycle" do
-    drive_cycle('Support', 'Cities')
+    menu_test('Support', 'Cities')
   end
 
   if 1 == 0

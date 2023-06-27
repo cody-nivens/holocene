@@ -1,6 +1,6 @@
 class ChaptersController < ApplicationController
   before_action :set_chapter,
-                only: %i[promote demote geo_map pdf holocene_events sections edit update destroy]
+                only: %i[map_locs promote demote geo_map holocene_events sections edit update destroy]
   before_action :set_scripted, only: %i[index create new]
 
   def index
@@ -21,8 +21,17 @@ class ChaptersController < ApplicationController
     render body: nil
   end
 
+  def map_locs
+    respond_to do |format|
+      format.json { render json: @chapter.map_locs }
+    end
+  end
+
   def geo_map
     @object = @chapter
+    respond_to do |format|
+      format.turbo_stream { render "shared/show", locals: { object: @chapter, no_new_link: true, part: 'map', path_name: 'shared' } }
+    end
   end
 
   def report
@@ -39,7 +48,7 @@ class ChaptersController < ApplicationController
     end
 
     respond_to do |format|
-      format.turbo_stream { render 'shared/report' }
+      format.turbo_stream { render 'shared/report', locals: { report: @report, report_path: @report_path } }
     end
   end
 
@@ -131,8 +140,11 @@ class ChaptersController < ApplicationController
   # GET /chapters/1.json
   def show
     @long = params[:long]
-    session[:return_to] = request.fullpath
     @chapter = Chapter.includes([{ holocene_events: [:region, :event_types, :rich_text_body] }]).find(params[:id])
+
+    session[:return_to] = request.fullpath
+    save_user_datum(@chapter.scripted.id, nil, @chapter.id, nil)
+
     @title = @chapter.name
     @asides = @chapter.asides
     @notes = {}

@@ -1,4 +1,4 @@
 <% Scene.where(key_point_id: @key_point.id).order(:selector, :position).each do |scene| %>
   <%# unless scene.section.blank? %>
-  <%= render partial: 'scenes/scene_view', formats: [:html], locals: { outline: false, key_point: @key_point, scripted: @key_point.scripted, scene: scene, pdf: pdf, long: long } %>
+  <%= render partial: 'scenes/scene_view', formats: [:html], locals: { outline: false, key_point: @key_point, scripted: @key_point.scripted, scene: scene, pdf: @pdf, long: @long } %>
 <% end -%>

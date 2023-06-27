@@ -10,7 +10,7 @@ class TimelinesTest < ApplicationSystemTestCase
   end
 
   test "drive the timeline cycle" do
-    drive_cycle('Support', 'Timelines')
+    menu_test('Support', 'Timelines')
   end
 
   test 'visiting the timeline' do

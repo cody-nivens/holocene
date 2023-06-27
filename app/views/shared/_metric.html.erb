@@ -13,7 +13,7 @@
     <% next_metric = metric.metrized.metrics.before(metric.date).order(date: :desc) %>
     <% prev_value =  metric.count - (next_metric.size > 0 ? next_metric[0].count : 0) %>
     <tr><td class="text-end">
-        <%= prev_value %>
+        <%#= prev_value %>
       </td><td>
       <% if metric.metrized.sectioned.class.name == 'Scene' %>
         <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: metric.metrized.sectioned, scripted: metric.metrized.sectioned.key_point.scripted, key_point: metric.metrized.sectioned.key_point, pdf: nil, target: :_blank, long: true } %>

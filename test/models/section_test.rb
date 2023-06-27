@@ -30,6 +30,6 @@ class SectionTest < ActiveSupport::TestCase
 
   test 'word counts' do
     section = sections(:section_13)
-    assert_equal 5, section.word_count
+    assert_equal 8, section.word_count
   end
 end

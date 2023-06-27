@@ -328,6 +328,8 @@ GEM
       minitest-rails
     mocha (2.0.2)
       ruby2_keywords (>= 0.0.5)
+    mock_redis (0.36.0)
+      ruby2_keywords
     msgpack (1.7.1)
     mysql2 (0.5.5)
     nenv (0.3.0)
@@ -666,6 +668,7 @@ DEPENDENCIES
   minitest-rails
   minitest-rails-capybara
   mocha
+  mock_redis
   mysql2 (>= 0.5)
   net-imap
   net-pop

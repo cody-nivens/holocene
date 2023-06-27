@@ -1,0 +1,29 @@
+<%= form_with url: polymorphic_path([@scripted, @key_point, :moved]) do |f| %>
+
+  <%= hidden_field "#{@scripted.class.name.underscore}_id", value: @scripted.id %>
+      <%= hidden_field_tag :key_point_id, (@key_point.nil? ? nil : @key_point.id) %>
+    <%= f.hidden_field :key_point_id, value: @key_point.id %>
+
+    <%= hidden_field_tag :scripted_id, @scripted.id %>
+    <%= hidden_field_tag :scripted_type, @klass.name %>
+    <%= f.hidden_field :scripted_id, value: @scripted.id %>
+    <%= f.hidden_field :scripted_type, value: @klass.name %>
+
+    <h2>Move <%= @key_point.name %> to another story</h2>
+
+    <strong>Existing Key Point:</strong> <%= @key_point.name %><br>
+
+<table class="table">
+  <tr>
+    <td>
+      <%= f.select "new_#{@klass.name.underscore}_id".to_sym, options_from_collection_for_select((@scripted.instance_of?(Book) ? @scripted.stories.order(:position) : @scripted.book.stories.order(:position)), :id, :name), prompt: 'Select Story', multiple: false, size: 1 %>
+      </td>
+  </tr>
+</table>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>
+

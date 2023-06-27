@@ -17,7 +17,7 @@ class RegionsController < ApplicationController
       scope.where(region_id: @region.id).page(params[:page])
     end
     respond_to do |format|
-      format.turbo_stream { render "shared/show", locals: { object: @region } }
+      format.turbo_stream { render "shared/show", locals: { object: @region, no_new_link: true } }
     end
   end
 
@@ -34,13 +34,14 @@ class RegionsController < ApplicationController
   # POST /regions.json
   def create
     @region = Region.new(region_params)
-    @regions = Region.all
 
     respond_to do |format|
       if @region.save
+        @regions = Region.all
 #        format.html { redirect_to @region, notice: 'Region was successfully created.' }
         format.json { render :show, status: :created, location: @region }
-        format.turbo_stream { flash.now[:notice] = "Region was successfully created." }
+        flash.now[:notice] = "Region was successfully created."
+        format.turbo_stream { render "shared/index", locals: { object: Region.new, objects: @regions } }
       else
         format.html { render :new }
         format.json { render json: @region.errors, status: :unprocessable_entity }
@@ -54,9 +55,13 @@ class RegionsController < ApplicationController
     @regions = Region.all
     respond_to do |format|
       if @region.update(region_params)
+         @grid = HoloceneEventsGrid.new(hgrid_params) do |scope|
+           scope.where(region_id: @region.id).page(params[:page])
+         end
 #        format.html { redirect_to @region, notice: 'Region was successfully updated.' }
         format.json { render :show, status: :ok, location: @region }
-        format.turbo_stream { flash.now[:notice] = "Region was successfully updated." }
+        flash.now[:notice] = "Region was successfully updated."
+        format.turbo_stream { render "shared/show", locals: { object: @region } }
       else
         format.html { render :edit }
         format.json { render json: @region.errors, status: :unprocessable_entity }

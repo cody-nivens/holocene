@@ -114,13 +114,13 @@ if 1 == 0
   end
 end
 
-  test 'should get new' do
+  test 'should get new story' do
     get new_book_story_url(@book)
     assert_select "turbo-frame", id:  "new_object"
     assert_response :success
   end
 
-  test 'should get edit' do
+  test 'should get edit story' do
     get edit_story_url(@story)
      ids = [ 'objects', 'new_object', 'nav-bar', "#{dom_id @story}"]
     assert_select "turbo-frame" do |elements|

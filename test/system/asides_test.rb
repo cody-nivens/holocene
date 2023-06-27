@@ -13,7 +13,7 @@ class AsidesTest < ApplicationSystemTestCase
   end
 
   test "drive the aside cycle" do
-    drive_cycle('Chapter', 'Asides')
+    menu_test('Chapter', 'Asides')
   end
 
   if 1 == 0

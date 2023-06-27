@@ -9,6 +9,8 @@ class Chapter < ApplicationRecord
   has_many :sections, as: :sectioned
   has_many :footnotes, -> { where('slug != ?', '') }, as: :noted
   has_many :signets, as: :sigged
+  has_many :chapter_characters, dependent: :destroy
+  has_many :characters, through: :chapter_characters
 
   belongs_to :scripted, polymorphic: true
 

@@ -6,5 +6,4 @@
   <%= link_to (fa_icon 'expand', type: :solid, class: 'fa-fw'), stage_list_path(@stage, long: true), method: :get, title: 'Show, long', class: 'btn' %>
 <% end %>
 <%= link_to (fa_icon 'list', class: 'fa-fw'), stage_segments_path(@stage), method: :get, class: "btn", title: "Segments List" %>
-<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_stage_segment_path(@stage), method: :get, class: "btn", title: "New Segment" %>
 <%= link_to (fa_icon 'backward', class: 'fa-fw'), act_stages_path(@act), method: :get, class: "btn", title: "Back" %>

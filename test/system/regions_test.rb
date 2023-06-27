@@ -10,7 +10,7 @@ class RegionsTest < ApplicationSystemTestCase
   end
 
   test "drive the region cycle" do
-    drive_cycle('Support', 'Regions')
+    menu_test('Support', 'Regions')
   end
 
   if 1 == 0

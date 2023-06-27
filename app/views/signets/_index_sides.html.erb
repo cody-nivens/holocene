@@ -1,2 +1,1 @@
-  <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_polymorphic_path([@sigged, :signet]), class: 'btn', title: 'New Signet' %>
-  <%= link_to (fa_icon 'backward', class: 'fa-fw'), return_or_default_path(polymorphic_path(@sigged)), method: :get, class: "btn", title: "Back" %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@sigged), method: :get, class: "btn", title: "Back" %>

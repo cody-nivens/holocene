@@ -1,16 +1,16 @@
 <p>
-  <strong>Slug:</strong>
-  <%= @footnote.slug %>
+<strong>Slug:</strong>
+<%= @footnote.slug %>
 </p>
 
 <p>
-  <strong>Body:</strong>
-  <%= @footnote.body %>
+<strong>Body:</strong>
+<%= @footnote.body %>
 </p>
-<% unless @footnote.biblioentry.nil? %>
 <p>
-  <strong>Biblioentry:</strong>
+<strong>Biblioentry:</strong>
+<% unless @footnote.biblioentry.nil? %>
   <%= @footnote.biblioentry_name %>
-</p>
 <% end %>
+</p>
 

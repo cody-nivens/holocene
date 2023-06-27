@@ -67,4 +67,12 @@
     </tr>
   </table>
 <% else %>
+    <table class='table'>
+    <tr>
+      <th>Chapters:</th>
+      <td class='text-right'><%= book.chapters.size %></td>
+      <th>Word Count:</th>
+      <td class='text-right'><%= number_with_delimiter(book.word_count, delimiter: ',') %></td>
+    </tr>
+  </table>
 <% end %>

@@ -8,7 +8,7 @@ class ActsTest < ApplicationSystemTestCase
   end
 
   test "drive the act cycle" do
-    drive_cycle('Stage', 'Acts')
+    menu_test 'Stage', 'Acts'
   end
 
   if 1 == 0

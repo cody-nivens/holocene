@@ -1,4 +1,6 @@
-<% if @story.print_summary? %>
-   <%= @story.summary_body %>
-<% end %>
-<%= render partial: 'stories/view_story2', formats: [:html], locals: { story: @story, pdf: @pdf, outline: @outline, long: @long } %>
+<turbo-frame id="<%= dom_id @story %>">
+  <% if @story.print_summary? %>
+    <%= @story.summary_body %>
+  <% end %>
+  <%= render partial: 'stories/view_story2', formats: [:html], locals: { story: @story, pdf: @pdf, outline: @outline, long: @long } %>
+</turbo-frame>

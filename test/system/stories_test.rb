@@ -10,14 +10,14 @@ class StoriesTest < ApplicationSystemTestCase
     @story_4 = stories(:story_15)
     @user = users(:users_1)
     sign_in @user
-    ThinkingSphinx::Test.init
-    ThinkingSphinx::Test.start index: false
-    index
+#    ThinkingSphinx::Test.init
+#    ThinkingSphinx::Test.start index: false
+#    index
   end
 
   teardown do
-    ThinkingSphinx::Test.stop
-    ThinkingSphinx::Test.clear
+#    ThinkingSphinx::Test.stop
+#    ThinkingSphinx::Test.clear
   end
 
   test "walk the story side menus" do
@@ -26,10 +26,19 @@ class StoriesTest < ApplicationSystemTestCase
     walk_sides('Story', debug: false)
   end
 
+  if 1 == 0
   test "walk the story menus" do
     @book = books(:book_2)
     @story = stories(:story_1)
-    walk_menu('Story')
+    walk_menu('Story', ['Welcome'],['Epochs', 'Timelines', 'Holocene Events', 'Event Types', 'Cities', 'Regions'])
+  end
+  end
+
+  ['Stories','All Stories','Key Points','Characters','Resync Scenes','Move','Stats',
+   'Scenes','Char List','Char List, All','Timeline','Tours'].each do |item|
+    test "walk the Story #{item} menu" do
+      menu_test 'Story', item
+    end
   end
 
   if 1 == 0

@@ -9,22 +9,30 @@ class ChaptersTest < ApplicationSystemTestCase
     @book = books(:book_1)
     @user = users(:users_1)
     sign_in @user
-    ThinkingSphinx::Test.init
-    ThinkingSphinx::Test.start index: false
-    index
+#    ThinkingSphinx::Test.init
+#    ThinkingSphinx::Test.start index: false
+#    index
   end
 
   teardown do
-    ThinkingSphinx::Test.stop
-    ThinkingSphinx::Test.clear
+#    ThinkingSphinx::Test.stop
+#    ThinkingSphinx::Test.clear
   end
 
   test "walk the chapter side menus" do
     walk_sides('Chapter')
   end
 
+  if 1 == 0
   test "walk the chapter menus" do
-    walk_menu('Chapter')
+    walk_menu('Chapter', ['Welcome', 'Book'],['Epochs', 'Timelines', 'Holocene Events', 'Event Types', 'Cities', 'Regions'])
+  end
+  end
+
+  ['Partition','Asides','Stats','Timeline','Footnotes', 'Citations'].each do |item|
+    test "walk the Chapter #{item} menu" do
+      menu_test 'Chapter', item
+    end
   end
 
 

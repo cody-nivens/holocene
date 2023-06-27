@@ -6,7 +6,9 @@
     <%= link_to (fa_icon 'sticky-note', class: 'fa-fw'), book_signets_path(book), data: { "turbo-frame": "objects" }, method: :get, title: 'Signets' %>
     <%= link_to (fa_icon 'trash', class: 'fa-fw'), book, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
   </div>
-  <div class="col-sm-4">
+</div>
+<div class="row">
+  <div class="col-sm-8">
     <% if @long.kind_of?(TrueClass) or @long == "true" %>
       <%= render partial: 'books/book_stats', locals: { book: book } %>
     <% end %>

@@ -37,7 +37,7 @@ class BooksController < ApplicationController
     end
 
     respond_to do |format|
-      format.turbo_stream { render "shared/report" }
+      format.turbo_stream { render "shared/report", locals: { report: @report, report_path: @report_path } }
     end
   end
 
@@ -167,7 +167,8 @@ class BooksController < ApplicationController
   # GET /books/1.json
   def show
     @long = params[:long]
-    session[:book_id] = @book.id
+    save_user_datum(@book.id, nil, nil, nil)
+
     @scripted = @book
 
     if @book.is_fiction?
@@ -192,6 +193,7 @@ class BooksController < ApplicationController
       #      format.html { render :show, locals: { long: @long } }
       format.turbo_stream { render "shared/show", locals: { object: @book, new_link_path: (@book.is_fiction? ? "stories" : "chapters") } }
       format.pdf do
+        @pdf = true
         render pdf: @book.name.gsub(/[:,]/,'').underscore,
           disposition: 'attachment',
           header: { right: '[page] of [topage]' },
@@ -312,6 +314,9 @@ class BooksController < ApplicationController
   def destroy
     @book.destroy
     session[:book_id] = nil
+    session[:story_id] = nil
+    session[:chapter_id] = nil
+    session[:stage_id] = nil
     respond_to do |format|
       #      format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
       format.json { head :no_content }
@@ -325,6 +330,9 @@ class BooksController < ApplicationController
   def set_book
     @book = Book.find(params[:id])
     session[:book_id] = @book.id
+    session[:story_id] = nil
+    session[:chapter_id] = nil
+    session[:stage_id] = nil
   end
 
   def set_return

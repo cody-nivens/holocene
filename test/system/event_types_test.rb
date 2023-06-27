@@ -10,7 +10,7 @@ class EventTypesTest < ApplicationSystemTestCase
   end
 
   test "drive the event_type cycle" do
-    drive_cycle('Support', 'Event Types')
+    menu_test('Support', 'Event Types')
   end
 
   if 1 == 0

@@ -1,5 +1,5 @@
 class SectionsController < ApplicationController
-  before_action :set_section, only: %i[geo_map timeline grid_params show edit update destroy]
+  before_action :set_section, only: %i[map_locs geo_map timeline grid_params show edit update destroy]
   before_action :set_sectioned, only: %i[index new]
 
   def index
@@ -15,8 +15,17 @@ class SectionsController < ApplicationController
     render body: nil
   end
 
+  def map_locs
+    respond_to do |format|
+      format.json { render json: @section.map_locs }
+    end
+  end
+
   def geo_map
     @object = @section
+    respond_to do |format|
+      format.turbo_stream { render "shared/show", locals: { object: @section, no_new_link: true, part: 'map', path_name: 'shared' } }
+    end
   end
 
   # GET /sections/1
@@ -84,9 +93,6 @@ class SectionsController < ApplicationController
         self.instance_variable_set("@#{obj_name}", @sectioned)
         format.turbo_stream { render "shared/show", locals: { object: @section.sectioned } }
       else
-        #format.html { render :edit }
-        #format.json { render json: @section.errors, status: :unprocessable_entity }
-        debugger
         format.turbo_stream { render :edit, locals: { object: @section } }
       end
     end

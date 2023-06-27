@@ -62,9 +62,8 @@ class CharactersController < ApplicationController
 
   # GET /characters/1/list
   def list
-
     respond_to do |format|
-      format.turbo_stream {}
+      format.turbo_stream { render 'shared/show', locals: { object: @object, no_new_link: true,  part: 'list', path_name: 'characters' } }
     end
   end
 
@@ -98,7 +97,7 @@ class CharactersController < ApplicationController
     end
 
     respond_to do |format|
-      format.turbo_stream { render 'shared/report' }
+      format.turbo_stream { render 'shared/report', locals: { report: @report, report_path: @report_path } }
     end
   end
 
@@ -198,7 +197,7 @@ class CharactersController < ApplicationController
   # DELETE /characters/1
   # DELETE /characters/1.json
   def destroy
-    @character = Character.includes([{ artifacts: :taggings}]).find(params[:id])
+    @character = Character.find(params[:id])
     @character.destroy
     do_index
     respond_to do |format|

@@ -21,7 +21,7 @@ class KeyWordsTest < ApplicationSystemTestCase
   end
 
   test "drive the key words cycle" do
-    drive_cycle('Support', 'Key Words')
+    menu_test('Support', 'Key Words')
   end
 
   if 1 == 0

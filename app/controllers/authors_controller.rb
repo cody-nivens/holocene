@@ -19,6 +19,11 @@ class AuthorsController < ApplicationController
 
   # GET /authors/1/list
   def list
+    @report = 'list'
+    @report_path = 'authors'
+    respond_to do |format|
+      format.turbo_stream { render "shared/report", locals: { report: @report, report_path: @report_path } }
+    end
   end
 
   # GET /authors/1/add

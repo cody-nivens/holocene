@@ -8,7 +8,7 @@ class LocationsTest < ApplicationSystemTestCase
   end
 
   test "drive the location cycle" do
-    drive_cycle('Stage', 'Locations')
+    menu_test('Stage', 'Locations')
   end
 
   if 1 == 0

@@ -2,7 +2,7 @@
 <nav class='navbar navbar-expand-lg navbar-light bg-light'>
     <a class='navbar-brand' href='<%= about_path %>' title='About page'><%= fa_icon('globe', alt: 'Globe') %></a>
     <ul class='flex navbar-nav me-auto mb-2 mb-lg-0'>
-      <li class='nav-item'><%= link_to 'Home', root_path, class: 'nav-link' %></li>
+      <li class='nav-item'><%= link_to 'Home', root_path, data: { "turbo-frame": "_top" }, class: 'nav-link' %></li>
       <%= render partial: 'layouts/nav_links' %>
     </ul>
     <ul class='flex nav navbar-nav navbar-right'>

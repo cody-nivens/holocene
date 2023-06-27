@@ -1,5 +1,5 @@
 class EventTypesController < ApplicationController
-  before_action :set_event_type, only: %i[geo_map show edit update destroy]
+  before_action :set_event_type, only: %i[map_locs geo_map show edit update destroy]
 
   # GET /event_types
   # GET /event_types.json
@@ -13,6 +13,7 @@ class EventTypesController < ApplicationController
   # GET /event_types/1
   # GET /event_types/1.json
   def show
+    @object = @event_type
     @grid = HoloceneEventsGrid.new(hgrid_params) do |scope|
       scope.joins(:event_types).where('event_type_id = ?', @event_type.id.to_s).page(params[:page])
     end
@@ -21,8 +22,17 @@ class EventTypesController < ApplicationController
     end
   end
 
+  def map_locs
+    respond_to do |format|
+      format.json { render json: @event_type.map_locs }
+    end
+  end
+
   def geo_map
     @object = @event_type
+    respond_to do |format|
+      format.turbo_stream { render "shared/show", locals: { object: @event_type, no_new_link: true, part: 'map', path_name: 'shared' } }
+    end
   end
 
   # GET /event_types/new
@@ -42,9 +52,13 @@ class EventTypesController < ApplicationController
     respond_to do |format|
       if @event_type.save
         @event_types = EventType.all.includes([:rich_text_body]).order(:name)
+        #@grid = HoloceneEventsGrid.new(hgrid_params) do |scope|
+        #  scope.joins(:event_types).where('event_type_id = ?', @event_type.id.to_s).page(params[:page])
+        #end
         #        format.html { redirect_to @event_type, notice: 'Event type was successfully created.' }
         format.json { render :show, status: :created, location: @event_type }
-        format.turbo_stream { flash.now[:notice] = "Event Type was successfully created." }
+        flash.now[:notice] = "Event Type was successfully created."
+        format.turbo_stream { render "shared/index", locals: { object: EventType.new, objects: @event_types } }
       else
         format.html { render :new }
         format.json { render json: @event_type.errors, status: :unprocessable_entity }
@@ -55,12 +69,17 @@ class EventTypesController < ApplicationController
   # PATCH/PUT /event_types/1
   # PATCH/PUT /event_types/1.json
   def update
+    @object = @event_type
     respond_to do |format|
       if @event_type.update(event_type_params)
         @event_types = EventType.all.includes([:rich_text_body]).order(:name)
+        @grid = HoloceneEventsGrid.new(hgrid_params) do |scope|
+          scope.joins(:event_types).where('event_type_id = ?', @event_type.id.to_s).page(params[:page])
+        end
         #        format.html { redirect_to @event_type, notice: 'Event type was successfully updated.' }
         format.json { render :show, status: :ok, location: @event_type }
-        format.turbo_stream { flash.now[:notice] = "Event Type was successfully updated." }
+        flash.now[:notice] = "Event Type was successfully updated."
+        format.turbo_stream { render "shared/show", locals: { object: @event_type } }
       else
         format.html { render :edit }
         format.json { render json: @event_type.errors, status: :unprocessable_entity }
@@ -76,7 +95,8 @@ class EventTypesController < ApplicationController
     respond_to do |format|
       #      format.html { redirect_to event_types_url, notice: 'Event type was successfully destroyed.' }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Event Type was successfully destroyed." }
+      flash.now[:notice] = "Event Type was successfully destroyed."
+      format.turbo_stream { render "shared/index", locals: { object: EventType.new, objects: @event_types } }
     end
   end
 

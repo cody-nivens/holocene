@@ -38,7 +38,7 @@ class StoriesController < ApplicationController
     end
 
     respond_to do |format|
-      format.turbo_stream { render 'shared/report' }
+      format.turbo_stream { render 'shared/report', locals: { report: @report, report_path: @report_path } }
     end
   end
 
@@ -54,11 +54,19 @@ class StoriesController < ApplicationController
   def show
     @story = Story.includes({ scenes: [:section, { key_point: :scenes }, :artifact, :rich_text_place, :rich_text_summary] }).find(params[:id])
     @scripted = @story
+
     @book = @story.book
     @characters = @story.characters
     @title = @story.name
+
+    @toggle = params[:toggle]
+    @print = params[:print]
+    @option = params[:option]
     @long = params[:long]
+
     session[:return_to] = request.fullpath
+    save_user_datum(@book.id, @story.id, nil, nil)
+
 
     respond_to do |format|
 #      format.html { render :show }
@@ -84,7 +92,8 @@ class StoriesController < ApplicationController
   # GET /stories/1
   # GET /stories/1.json
   def view
-    @story = Story.includes({ scenes: [:section, { key_point: :scenes }, :artifact, :rich_text_place, :rich_text_summary] }).find(params[:id])
+    #@story = Story.includes({ scenes: [:section, { key_point: :scenes }, :artifact, :rich_text_place, :rich_text_summary] }).find(params[:id])
+    @story = Story.find(params[:id])
     @title = "View#{params[:outline].nil? ? '' : ' Outline'}, #{@story.name}"
     @book = @story.book
     @object = @story
@@ -95,7 +104,7 @@ class StoriesController < ApplicationController
     @report = 'view'
     @report_path = 'stories'
     respond_to do |format|
-      format.turbo_stream { render 'shared/report' }
+      format.turbo_stream { render 'shared/report', locals: { report: @report, report_path: @report_path } }
     end
   end
 
@@ -126,7 +135,7 @@ class StoriesController < ApplicationController
     @report = 'move'
     @report_path = 'stories'
     respond_to do |format|
-      format.turbo_stream { render 'shared/report' }
+      format.turbo_stream { render 'shared/report', locals: { report: @report, report_path: @report_path } }
     end
   end
 

@@ -1,33 +1,6 @@
-<div id="world-map" style="width: 720px; height: 400px"></div>
+<div data-controller="geo-map"
+     data-geo-map-url-value="<%= polymorphic_path([@object, :map_locs]) %>">
+     <div id="world-map" style="width: 100%; height: 600px"></div>
+     </div>
+</div>
 
-<script nonce="<%= request.content_security_policy_nonce %>" type="text/javascript">
-  $(document).on('turbo:load', function() {
-    var map_locs = <%== object.map_locs.to_json %>
-    $('#world-map').vectorMap({
-      map: 'world_mill_en',
-      scaleColors: ['#C8EEFF', '#0071A4'],
-      normalizeFunction: 'polynomial',
-      hoverOpacity: 0.7,
-      hoverColor: false,
-      markerStyle: {
-        initial: {
-          fill: '#F8E23B',
-          stroke: '#383f47'
-        }
-      },
-      backgroundColor: '#383f47',
-      markers: map_locs.map(function(h){ return {name: h.name, latLng: h.latLng} }),
-        labels: {
-          markers: {
-            render: function(index){
-              return map_locs[index].name;
-            },
-            offsets: function(index){
-              var offset = map_locs[index]['offsets'] || [0, 0];
-              return [offset[0] - 7, offset[1] + 3];
-            }
-          }
-        }
-      });
-    });
-</script>

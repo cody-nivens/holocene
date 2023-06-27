@@ -11,7 +11,7 @@ class HoloceneEventsTest < ApplicationSystemTestCase
   end
 
   test "drive the holocene_event cycle" do
-    drive_cycle('Support', 'Holocene Events')
+    menu_test('Support', 'Holocene Events')
   end
 
   if 1 == 0

@@ -1,0 +1,2 @@
+<%= link_to 'Add Event', url_for(controller: 'holocene_events', action: 'add_event',
+                                 "#{@object.class.name.underscore}_id".to_sym => @object.id), method: :get, class: 'btn btn-secondary' %>

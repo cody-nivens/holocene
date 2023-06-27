@@ -1,10 +1,7 @@
-<turbo-frame id="header">
-  <%= content_tag :h3 do %>
-      <% if @section.sectioned.class.name == 'Chapter' %>
+<%= content_tag :h3 do %>
+  <% if @section.sectioned.class.name == 'Chapter' %>
     <%== breadcrumb(@section.sectioned.scripted, @section.sectioned, nil, nil, @section) %>
   <% else %>
     <%== breadcrumb(@section.sectioned.key_point.scripted.book, @section.sectioned.key_point.scripted, @section.sectioned.key_point, @section.sectioned, @section) %>
   <% end %>
-  <%= link_to (fa_icon 'edit'), edit_polymorphic_path([@sectioned, @section]), title: 'Edit' %>
-  <% end %>
-</turbo-frame>
+<% end %>

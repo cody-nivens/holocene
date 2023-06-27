@@ -1,5 +1,5 @@
 class EpochsController < ApplicationController
-  before_action :set_epoch, only: %i[geo_map show edit update destroy]
+  before_action :set_epoch, only: %i[map_locs geo_map show edit update destroy]
 
   # GET /epochs
   # GET /epochs.json
@@ -7,6 +7,12 @@ class EpochsController < ApplicationController
     @epochs = Epoch.all.order(:start_date)
     respond_to do |format|
       format.turbo_stream { render "shared/index", locals: { object: Epoch.new, objects: @epochs } }
+    end
+  end
+
+  def map_locs
+    respond_to do |format|
+      format.json { render json: { epoch: @epoch.map_locs } }
     end
   end
 

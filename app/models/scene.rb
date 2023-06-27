@@ -28,8 +28,8 @@ class Scene < ApplicationRecord
   has_rich_text :over_arching_goal
 
   has_one :action_text_rich_text,
-          class_name: 'ActionText::RichText',
-          as: :record
+    class_name: 'ActionText::RichText',
+    as: :record
 
   has_many :character_scenes, dependent: :destroy
   has_many :characters, through: :character_scenes
@@ -179,49 +179,54 @@ class Scene < ApplicationRecord
         return new_values
       end
     end
-      stories = if situated.instance_of?(Book)
-                  situated.stories.where(stand_alone: false, publish: true)
-                else
-                  [situated]
-                end
+    stories = if situated.instance_of?(Book)
+                situated.stories.where(stand_alone: false, publish: true)
+              else
+                [situated]
+              end
 
-      scenes_h = {}
-      stories.each do |story|
-        story.key_points.each do |key_point|
-          key_point.scenes.each do |scene|
-            date = scene.date_string.to_date
-            my_info = scene.time_to_array
-            year = my_info[0]
-            month = my_info[1]
-            day = my_info[2]
-            hour = my_info[3]
-            minute = my_info[4]
-            next if !scene_year.nil? && scene_year.to_i != year
+    scenes_h = {}
+    stories.each do |story|
+      story.key_points.each do |key_point|
+        story_h = {}
+        key_point.scenes.each do |scene|
+          date = scene.date_string.to_date
+          my_info = scene.time_to_array
+          year = my_info[0]
+          month = my_info[1]
+          day = my_info[2]
+          hour = my_info[3]
+          minute = my_info[4]
+          next if !scene_year.nil? && scene_year.to_i != year
 
-            scenes_h[year] = {} if scenes_h[year].nil?
-            scenes_h[year][month] = {} if scenes_h[year][month].nil?
-            scenes_h[year][month][day] = {} if scenes_h[year][month][day].nil?
-            scenes_h[year][month][day][hour] = {} if scenes_h[year][month][day][hour].nil?
-            scenes_h[year][month][day][hour][minute] = [] if scenes_h[year][month][day][hour][minute].nil?
+          scenes_h[year] = {} if scenes_h[year].nil?
+          scenes_h[year][month] = {} if scenes_h[year][month].nil?
+          scenes_h[year][month][day] = {} if scenes_h[year][month][day].nil?
+          scenes_h[year][month][day][hour] = {} if scenes_h[year][month][day][hour].nil?
+          scenes_h[year][month][day][hour][minute] = [] if scenes_h[year][month][day][hour][minute].nil?
+          story_h[year] = {} if story_h[year].nil?
+          story_h[year][month] = {} if story_h[year][month].nil?
+          story_h[year][month][day] = {} if story_h[year][month][day].nil?
+          story_h[year][month][day][hour] = {} if story_h[year][month][day][hour].nil?
+          story_h[year][month][day][hour][minute] = [] if story_h[year][month][day][hour][minute].nil?
 
-            scenes_h[year][month][day][hour][minute] << scene.id
-            #unless scenes_h[year][month][day][hour][minute].include?(scene)
-          end
+          scenes_h[year][month][day][hour][minute] << scene.id
+          story_h[year][month][day][hour][minute] << scene.id
+          #unless scenes_h[year][month][day][hour][minute].include?(scene)
+        end
+        if situated.instance_of?(Story)
+          $redis.set("story_scenes_#{situated.id}", story_h.to_json)
         end
       end
+    end
 
-      if situated.instance_of?(Book)
-        $redis.set("book_scenes_#{situated.id}", scenes_h.to_json)
-      else
-        $redis.set("story_scenes_#{situated.id}", scenes_h.to_json)
-      end
+    $redis.set("book_scenes_#{situated.id}", scenes_h.to_json)
 
     return scenes_h
-
   end
 
-  def self.get_scenes_to_array(situated, scene_year = nil)
-    scenes = get_scenes(situated, scene_year)
+  def self.get_scenes_to_array(situated, scene_year = nil, force: false)
+    scenes = get_scenes(situated, scene_year, force: force)
     items = []
     scenes.keys.sort.each do |year|
       scenes[year].keys.sort.each do |month|
@@ -239,8 +244,8 @@ class Scene < ApplicationRecord
     return items
   end
 
-  def self.get_scenes_wi_to_array(situated, scene_year = nil)
-    scenes = get_scenes(situated, scene_year)
+  def self.get_scenes_wi_to_array(situated, scene_year = nil, force: false)
+    scenes = get_scenes(situated, scene_year, force: force)
     items = []
     inserted_scenes = []
     scenes.keys.sort.each do |year|
@@ -249,16 +254,16 @@ class Scene < ApplicationRecord
           scenes[year][month][day].keys.sort.each do |hour|
             scenes[year][month][day][hour].keys.sort.each do |minute|
               scenes[year][month][day][hour][minute].each do |scene|
-               next if inserted_scenes.include?(scene)
-               insert_scenes = Scene.where(insert_scene_id: scene)
-               insert_scenes.each do |iscene|
-                 next if inserted_scenes.include?(iscene.id)
-                 next unless iscene.key_point.scripted.publish?
-                 inserted_scenes << iscene.id
-                 items << iscene.id
-               end
+                next if inserted_scenes.include?(scene)
+                insert_scenes = Scene.where(insert_scene_id: scene)
+                insert_scenes.each do |iscene|
+                  next if inserted_scenes.include?(iscene.id)
+                  next unless iscene.key_point.scripted.publish?
+                  inserted_scenes << iscene.id
+                  items << iscene.id
+                end
 
-               items << scene unless items.include?(scene) or Scene.find(scene).insert_scene.present?
+                items << scene unless items.include?(scene) or Scene.find(scene).insert_scene.present?
               end
             end
           end

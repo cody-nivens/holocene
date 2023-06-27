@@ -3,6 +3,6 @@
 <turbo-frame id="new_object">
   <turbo-frame id="<%= dom_id @artifact_type %>">
     <%= render 'form', artifact_type: @artifact_type, book: @artifact_type.book %>
-    <%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(book_artifact_types_path(@artifact_type.book)), class: 'btn', title: 'Back' %>
+    <%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(book_artifact_types_path(@artifact_type.book)), method: :get, class: 'btn', title: 'Back' %>
   </turbo-frame>
 </turbo-frame>

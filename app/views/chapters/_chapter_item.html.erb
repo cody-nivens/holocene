@@ -5,18 +5,11 @@
     <% else %>
       <%= link_to (fa_icon 'edit'), partition_path(chapter.partition), title: 'Partition' %>
     <% end %>
-    <%== (chapter.partition.nil? ? '' : (link_to chapter.partition_name, partition_path(chapter.partition)).to_s) %>
+    <%== (chapter.partition.nil? ? '' : (link_to chapter.partition_name, partition_path(chapter.partition), method: :get).to_s) %>
   </div>
   <div class='title'>
-    <%= link_to (fa_icon 'edit'), edit_chapter_path(chapter), title: 'Edit' %>
-    <strong><%= link_to chapter.name, chapter_path(chapter), title: 'Show' %></strong>
-    <br>
-    <% if chapter.aside.nil? %>
-      <%= link_to (fa_icon 'plus'), new_chapter_aside_path(chapter), title: 'Aside' %>
-    <% else %>
-      <%= link_to chapter.aside_name, aside_path(chapter.aside), title: chapter.aside_name %>
-      <%= link_to (fa_icon 'edit'), edit_aside_path(chapter.aside), title: 'Edit Aside' %>
-    <% end %>
+    <%= link_to (fa_icon 'edit'), edit_chapter_path(chapter), title: 'Edit', data: { "turbo-frame": "new_object" } %>
+    <strong><%= link_to chapter.name, chapter_path(chapter), title: 'Show', method: :get %></strong>
   </div>
   <div class='narrow-right'><%= number_with_delimiter chapter.word_count %></div>
   <div class='narrow-right'><%= chapter.total_events %></div>

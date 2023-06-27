@@ -6,17 +6,16 @@
         <dt>
           <% if link.kind_of?(TrueClass) or link == "true" %>
             <%= link_to (fa_icon 'plus'), polymorphic_path([scripted, key_point, :list], selector: selector), method: :get, title: 'Add Scene' %> <%= key_point.selector_value(selector) %>
+          <% else %>
+            <%= key_point.selector_value(selector) %>
           <% end %>
         </dt>
-          <%# key_point.scenes.where(selector: selector).order(:position).each do |scene| %>
-            <%#= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scripted, key_point: key_point, pdf: nil, print_name: false, short_labels: true, long: @long } %>
-        <dd><%#= scene.summary.to_plain_text %>
+        <%# key_point.scenes.where(selector: selector).order(:position).each do |scene| %>
+          <%#= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scripted, key_point: key_point, pdf: nil, print_name: false, short_labels: true, long: @long } %>
+          <dd><%#= scene.summary.to_plain_text %>
           <%= render partial: 'shared/scenes', locals: { scenes: key_point.scenes.where(selector: selector).order(:position), op: 'scenes', option: @option, toggle: 'on', long: @long } %>
-        </dd>
+          </dd>
       </dl>
     </li>
   <% end %>
 </ul>
-<% if link.kind_of?(TrueClass) or link == "true" %>
-  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  polymorphic_path(scripted), method: :get, class: 'btn', title: 'Back' %>
-<% end %>

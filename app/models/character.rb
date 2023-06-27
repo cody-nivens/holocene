@@ -3,22 +3,25 @@ class Character < ApplicationRecord
   belongs_to :mother, class_name: 'Character', optional: true
   belongs_to :user
 
-  has_and_belongs_to_many :books, dependent: :nullify
+  has_and_belongs_to_many :books
 
-  has_many :character_values
+  has_many :character_values, dependent: :destroy
   has_many :character_attributes, through: :character_values
 
-  has_many :character_scenes
+  has_many :character_chapters, dependent: :destroy
+  has_many :chapters, through: :character_chapters
+
+  has_many :character_scenes, dependent: :destroy
   has_many :scenes, through: :character_scenes
 
-  has_many :character_stories
+  has_many :character_stories, dependent: :destroy
   has_many :stories, through: :character_stories
 
   has_many :artifacts, dependent: :destroy
 
-  has_many :signets, as: :sigged
+  has_many :signets, as: :sigged, dependent: :destroy
   
-  has_many :actor_characters
+  has_many :actor_characters, dependent: :destroy
 
 
   delegate :name, to: :father, prefix: true

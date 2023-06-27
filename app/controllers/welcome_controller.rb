@@ -1,5 +1,8 @@
 class WelcomeController < ApplicationController
   def index
+    #respond_to do |format|
+    #  format.turbo_stream { render 'shared/index', locals: { object: Book.new, objects: Book.where(user_id: current_user.id) } }
+    #end
   end
 
   def progress
@@ -44,7 +47,7 @@ class WelcomeController < ApplicationController
     report = "progress"
     report_path = 'welcome'
     respond_to do |format|
-      format.turbo_stream { render 'report', locals: { report: report, report_path: report_path } }
+      format.turbo_stream { render 'shared/report', locals: { report: report, report_path: report_path } }
     end
   end
 
@@ -78,7 +81,7 @@ class WelcomeController < ApplicationController
     report = "history"
     report_path = 'welcome'
     respond_to do |format|
-      format.turbo_stream { render 'report', locals: { report: report, report_path: report_path } }
+      format.turbo_stream { render 'shared/report', locals: { report: report, report_path: report_path } }
     end
   end
 
@@ -108,8 +111,10 @@ class WelcomeController < ApplicationController
         end
       end
     end
+    report = "show"
+    report_path = 'welcome'
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render 'shared/report', locals: { report: report, report_path: report_path } }
     end
   end
 
@@ -118,7 +123,7 @@ class WelcomeController < ApplicationController
     report = "stats"
     report_path = 'welcome'
     respond_to do |format|
-      format.turbo_stream { render 'report', locals: { report: report, report_path: report_path } }
+      format.turbo_stream { render 'shared/report', locals: { report: report, report_path: report_path } }
     end
   end
 
@@ -127,7 +132,7 @@ class WelcomeController < ApplicationController
     report = "tags"
     report_path = 'welcome'
     respond_to do |format|
-      format.turbo_stream { render 'report', locals: { report: report, report_path: report_path } }
+      format.turbo_stream { render 'shared/report', locals: { report: report, report_path: report_path } }
     end
   end
 end

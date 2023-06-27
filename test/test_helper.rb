@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
-require 'simplecov'
+if ENV["COVERAGE"]
+  require 'simplecov'
+  SimpleCov.start 'rails' do
+    command_name "features#{ENV["TEST_ENV_NUMBER"]}" if ENV["TEST_ENV_NUMBER"]
+  end
+end
+
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
@@ -10,6 +16,33 @@ require 'minitest/unit'
 require 'mocha/minitest'
 require 'sidekiq/testing'
 require 'fileutils'
+require 'mock_redis'
+#require 'minitest/display'
+
+#MiniTest::Display.options = {
+#  :output_slow =>25, 
+#    suite_names: false,
+#    color: true,
+#    print: {
+#      success: ".",
+#      failure: "F",
+#      error: "E"
+#    }
+#  }
+
+if ENV["COVERAGE"]
+  SimpleCov.enable_for_subprocesses true
+  SimpleCov.at_fork do |pid|
+    # This needs a unique name so it won't be overwritten
+    SimpleCov.command_name "#{SimpleCov.command_name} (subprocess: #{pid})"
+    # be quiet, the parent process will be in charge of output and checking coverage totals
+    SimpleCov.print_error_status = false
+    SimpleCov.formatter SimpleCov::Formatter::SimpleFormatter
+    SimpleCov.minimum_coverage 0
+    # start
+    SimpleCov.start 'Rails'
+  end
+end
 
 module SidekiqMinitestSupport
   def after_teardown
@@ -19,7 +52,7 @@ module SidekiqMinitestSupport
 end
 
 module SphinxHelpers
-    $initialized = false
+  $initialized = false
 
   def init_sphinx_helpers
     $initialized ||= false
@@ -86,6 +119,9 @@ end
 
 ActiveSupport::Testing::Parallelization.after_fork_hook do |i|
   ENV['TEST_ENV_NUMBER'] = i.to_s
+  if ENV["COVERAGE"]
+    SimpleCov.command_name "features#{ENV["TEST_ENV_NUMBER"]}"
+  end
 end
 
 def init_sphinx
@@ -131,8 +167,8 @@ module ActiveSupport
     end
 
     def after_run
-#      FileUtils.rm_rf(Rails.root.join(ThinkingSphinx::Test.config.indices_location))
-#      FileUtils.mkdir(Rails.root.join(ThinkingSphinx::Test.config.indices_location))
+      #      FileUtils.rm_rf(Rails.root.join(ThinkingSphinx::Test.config.indices_location))
+      #      FileUtils.mkdir(Rails.root.join(ThinkingSphinx::Test.config.indices_location))
       lock_file = FileUtils.rm(Rails.root.join("tmp/test_parallel.lock"))
       File.delete(lock_file) if File.exist?(lock_file)
     end
@@ -146,20 +182,19 @@ module ActiveSupport
     end
 
     def check_line_with(line)
-      unless has_xpath? "//a[text()='#{line}']/../../*/input[@type='checkbox']", count: 1, wait: 5
-        p "#{line} checkbox not found"
-        raise Minitest::Assertion
+      unless has_xpath? "//a[text()='#{line}']/../../*/input[@type='checkbox']", count: 1
+        raise Minitest::Assertion, "#{line} checkbox not found"
       end
       find(:xpath, "//a[text()='#{line}']/../../*/input[@type='checkbox']").check
     end
 
     def click_on_line(line,icon)
-      unless has_xpath? "//a[text()='#{line}']/../..", count: 1, wait: 5
-        p "#{icon} missing for #{line} on line"
-        raise Minitest::Assertion
-      end
-      within(:xpath, "//a[text()='#{line}']/../..") do
-        Capybara.page.find(".fa-#{icon}").click
+     if has_xpath? "//a[text()='#{line}']/../..", count: 1, wait: 0
+       within(:xpath, "//a[text()='#{line}']/../..") do
+         Capybara.page.find(".fa-#{icon}", wait: 0).click
+       end
+     else
+       raise Minitest::Assertion, "#{line} line missing for click_on_line"
       end
     end
 
@@ -169,37 +204,50 @@ module ActiveSupport
       end
     end
 
-    def do_menu(master, sub_action)
-      assert_selector "nav.navbar", wait: 5
-      assert has_xpath?("//*[@id='nav-bar']/nav/ul/li/a[text()='#{master}']"), wait: 5, msg: "Missing menu top '#{master}'"
+    def do_menu(master, object, debug: false)
+      p "Verify menu #{master}" if debug
+      assert_selector "nav.navbar"
+      assert has_xpath?("//*[@id='nav-bar']/nav/ul/li/a[text()='#{master}']"), msg: "Missing menu top '#{master}'"
       find(:xpath, "//*[@id='nav-bar']/nav/ul/li/a[text()='#{master}']").click
+      p "Clicked menu #{master}" if debug
 
-      assert has_xpath?("//*[@id='nav-bar']/nav/ul/li/a[text()='#{master}']/../ul/li/a[text()='#{sub_action}']"), wait: 5, msg: "'#{sub_action}' menu item is missing."
-      find(:xpath, "//*[@id='nav-bar']/nav/ul/li/a[text()='#{master}']/../ul/li/a[text()='#{sub_action}']").click
+      p "Verify menu item #{object} on #{master}" if debug
+      assert has_xpath?("//*[@id='nav-bar']/nav/ul/li/a[text()='#{master}']/../ul/li/a[text()='#{object}']"), msg: "'#{object}' menu item is missing."
+      find(:xpath, "//*[@id='nav-bar']/nav/ul/li/a[text()='#{master}']/../ul/li/a[text()='#{object}']").click
+      p "Clicked menu item #{object} on #{master}" if debug
     end
 
     def assert_new(icon, master, object)
-      unless has_css? "#new_object", count: 1, wait: 5
-        p "#{master}: #{object} has new object issues"
-        raise Minitest::Assertion
+      unless has_css? "#new_object", count: 1
+        raise Minitest::Assertion, "#{master}: #{object} has new object issues"
       end
       within "#new_object" do
-        unless has_css? "a > i.fa-#{icon}", count: 1, wait: 5
-          puts "#{master}: #{object} is missing #{icon} in new object"
-          raise Minitest::Assertion
+        unless has_css? "a > i.fa-#{icon}", count: 1
+          raise Minitest::Assertion, "#{master}: #{object} is missing #{icon} in new object"
         end
       end
     end
 
     def assert_side(icon, master, object)
-      unless has_css? "div#side_controls", count: 1, wait: 5
-        p "#{master}: #{object} has side controls issues"
-        raise Minitest::Assertion
+      unless has_css? "div#side_controls", count: 1
+        raise Minitest::Assertion, "#{master}: #{object} has multiple in side controls"
       end
       within "div#side_controls" do
-        unless has_css? "a > i.fa-#{icon}", count: 1, wait: 5
-          p "#{master}: #{object} is missing #{icon} in side controls"
-          raise Minitest::Assertion
+        unless has_css? "a > i.fa-#{icon}", count: 1
+          raise Minitest::Assertion, "#{master}: #{object} is missing #{icon} in side controls"
+        end
+      end
+    end
+
+    def assert_no_side(icon, master, object, debug: false)
+      p "Verifing side controls for #{master}:#{object}" if debug
+      if has_css? "div#side_controls", wait: 0
+        p "Verified side controls for #{master}:#{object}" if debug
+        within "div#side_controls" do
+          if has_css? "a > i.fa-#{icon}", wait: 0
+            raise Minitest::Assertion, "#{master}: #{object} has #{icon} in side controls"
+          end
+          p "Verified #{icon} in side controls for #{master}:#{object}" if debug
         end
       end
     end

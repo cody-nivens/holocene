@@ -1,16 +1,14 @@
-<div data-controller="reset_frame">
-  <div id="edit"> </div>
-  <div id="header" class="block">
+<div data-controller="reset-frame">
+  <turbo-frame id="header" class="block">
     <%= render partial: "books/index_header", locals: { book: nil } %>
-  </div>
-  <div id="side_controls" class="block">
-    <%= render partial: "books/index_sides", locals: { long: @long } %>
-  </div>
-  <turbo-frame id="new_object" target="edit" class="block">
-    <%= render partial: "books/new_link" %>
   </turbo-frame>
-  <turbo-frame id="objects">
+  <turbo-frame id="side_controls" class="block">
+    <%= render partial: "books/index_sides", locals: { long: @long } %>
+  </turbo-frame>
+  <turbo-frame id="new_object" class="block">
+      <%= render partial: "books/new_link" %>
+  </turbo-frame>
+  <turbo-frame id="objects" class="block">
     <%= render partial: 'books/books' %>
   </turbo-frame>
 </div>
-

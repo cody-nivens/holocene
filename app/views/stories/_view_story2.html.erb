@@ -1,3 +1,3 @@
 <% last_selector = 0 %>
-<% scenes = Scene.get_scenes(story, 'off') %>
+<% scenes = Scene.get_scenes(story) %>
 <%= render partial: 'scenes/print_scenes', formats: [:html], locals: { scenes: scenes, outline: outline, long: long } %>

@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Minitest::Display Test Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> 
+    <style media="screen" type="text/css">
+       body { padding-top: 70px; }
+
+.row {
+  margin-bottom: 20px;
+}
+
+/*
+ *  SUMMARY ROW
+ */
+#summary .widget {
+  border: 3px solid #eef;
+  border-radius: 10px;
+  margin-right: 2.5%;
+  padding: 10px;
+  width: 18%;
+}
+
+#summary .widget:last-child {
+  margin-right: 0;
+}
+
+#summary .counter {
+  display: block;
+  font-size: 4em;
+  font-weight: bold;
+  text-align: center;
+}
+
+#summary .metric {
+  display: block;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+/*
+ *  INDIVIDUAL TEST RESULTS
+ */
+#test-results {
+  margin: 0;
+}
+
+#test-results .result {
+  border: solid;
+  border-width: 3px thin;
+  font-size: 14px;
+  margin-bottom: 3px;
+  padding: 6px;
+  width: 100%;
+}
+
+#test-results .result div.outcome-name,
+#test-results .result div.assertions,
+#test-results .result div.time {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+#test-results .result div.outcome-name {
+  overflow: hidden;
+  max-width: 70%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  float: left;
+}
+
+#test-results .result div.assertions {
+  float: left;
+  width: 15%;
+  text-align: right;
+}
+
+#test-results .result div.time {
+  float: right;
+  width: 15%;
+}
+
+#test-results .result .failure-details {
+  clear: both;
+}
+
+#test-results .result.pass {
+  background-color: #eef;
+  border-color: green;
+  font-color: dark-green;
+}
+
+li.fail,
+#test-results .result.fail {
+  background-color: #ffe4b2;
+  border-color: orange;
+}
+
+#test-results .result.error {
+  background-color: #fdd;
+  border-color: red;
+}
+
+#test-results .result.skip {
+  background-color: #f0f0f0;
+  border-color: #aaa;
+}
+
+div.ruby {
+  background: #87ceeb;
+  border-color: #aaa;
+  font-size: .875em;
+  color: #d63384;
+  word-wrap: break-word;
+  padding: 10px;
+  overflow-x: auto;
+  font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-size: 12px;
+  border: none;
+}
+
+
+/*
+ *  CHARTS
+ */
+#charts h3 {
+  margin: 0;
+  text-align: center;
+}
+
+#charts canvas {
+  display: block;
+  height: 300px;
+  margin: 0 auto;
+  width: 90%;
+}
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+  </head>
+
+  <body>
+    <div id="main">
+      <div class="container">
+        <div id="summary" class="row">
+          <div id="count" class="widget col-md-2">
+            <span class="counter">76</span>
+            <span class="metric">Tests Run</span>
+          </div>
+          <div id="assertions" class="widget col-md-2">
+            <span class="counter">2809</span>
+            <span class="metric">Assertions</span>
+          </div>
+          <div id="failures" class="widget col-md-2">
+            <span class="counter">2</span>
+            <span class="metric">Failed</span>
+          </div>
+          <div id="errors" class="widget col-md-2">
+            <span class="counter">0</span>
+            <span class="metric">Errors</span>
+          </div>
+          <div id="skips" class="widget col-md-2">
+            <span class="counter">0</span>
+            <span class="metric">Skipped</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <h2>Test Results</h2>
+
+          <div id="test-results" class="col-md-8">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+            
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="result-errors-tab" data-bs-toggle="tab" data-bs-target="#result-errors" type="button" role="tab" aria-controls="result-errors" aria-selected="true">Errors</button>
+              </li>
+            
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="slowest-tab" data-bs-toggle="tab" data-bs-target="#slowest" type="button" role="tab" aria-controls="slowest" aria-selected="false">Slowest</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="suite-tab" data-bs-toggle="tab" data-bs-target="#suite" type="button" role="tab" aria-controls="suite" aria-selected="false">Suites</button>
+              </li>
+            </ul>
+
+            <div class="tab-content" id="myTabContent">
+            
+              <div class="tab-pane fade show active" id="result-errors" role="tabpanel" aria-labelledby="result-errors-tab">
+                
+                
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  <div class="result clearfix fail">
+                    <div class="row">
+                      <div class="col-sm-8 outcome-name">
+                        FAIL: TimelinesTest test_drive_the_timeline_cycle
+                      </div>
+                      <div class="col-sm-2 time">121.66 s</div>
+                    </div>
+                    
+                    <div class="row">
+                      <div class="col-sm-8 failure-details">
+                      
+                        Support: Timelines has backward in side controls<br>
+                        
+                        /home/codynivens/devel/holocene/test/holocene_minitests.rb<br>
+                        
+                         
+                        <div class='ruby'>
+                          <code class="ruby">
+                            
+                            <ol start="106">
+                            
+                              <li>    if ['Progress', 'Tags', 'History', 'Cities', 'Epochs', 'Event Types', 'Regions', 'Timelines',
+</li>
+                                 
+                            
+                              <li>         'Books', 'Character Categories'].include?(object) or
+</li>
+                                 
+                            
+                              <li>       (master == 'Welcome' and object == 'Stats') or (master == 'Support' and object == 'Holocene Events')
+</li>
+                                 
+                            
+                              <li class='fail'>      assert_no_side 'backward', master, object
+</li>
+                                 
+                            
+                              <li>    else
+</li>
+                                 
+                            
+                              <li>      assert_side 'backward', master, object
+</li>
+                                 
+                            
+                              <li>    end
+</li>
+                                 
+                            
+                            </ol>
+                          </code>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                
+                  
+                  
+                  
+                  
+                  <div class="result clearfix fail">
+                    <div class="row">
+                      <div class="col-sm-8 outcome-name">
+                        FAIL: ToursTest test_drive_the_itinerary_cycle
+                      </div>
+                      <div class="col-sm-2 time">127.01 s</div>
+                    </div>
+                    
+                    <div class="row">
+                      <div class="col-sm-8 failure-details">
+                      
+                        Itineraries: backward is missing backward in new object<br>
+                        
+                        /home/codynivens/devel/holocene/test/system/tours_test.rb<br>
+                        
+                         
+                        <div class='ruby'>
+                          <code class="ruby">
+                            
+                            <ol start="65">
+                            
+                              <li>    click_on_line 'Beijing', 'edit'
+</li>
+                                 
+                            
+                              <li>    assert_button 'Update Itinerary'
+</li>
+                                 
+                            
+                              <li>
+</li>
+                                 
+                            
+                              <li class='fail'>    assert_new 'backward', 'Itineraries', 'backward'
+</li>
+                                 
+                            
+                              <li>    click_new 'backward'
+</li>
+                                 
+                            
+                              <li>    assert_no_button 'Update Itinerary'
+</li>
+                                 
+                            
+                              <li>
+</li>
+                                 
+                            
+                            </ol>
+                          </code>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+              </div>
+            
+
+              <div class="tab-pane fadefalse" id="slowest" role="tabpanel" aria-labelledby="slowest-tab">
+                
+                
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: RegionsTest test_drive_the_region_cycle
+                    </div>
+                    <div class="col-sm-2 time">247.48 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: HoloceneEventsTest test_drive_the_holocene_event_cycle
+                    </div>
+                    <div class="col-sm-2 time">247.22 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: CitiesTest test_drive_the_city_cycle
+                    </div>
+                    <div class="col-sm-2 time">246.91 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: EventTypesTest test_drive_the_event_type_cycle
+                    </div>
+                    <div class="col-sm-2 time">245.93 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: CharacterCategoriesTest test_drive_the_character_category_cycle
+                    </div>
+                    <div class="col-sm-2 time">245.02 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: EpochsTest test_drive_the_epoch_cycle
+                    </div>
+                    <div class="col-sm-2 time">244.60 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix fail">
+                    <div class="col-sm-8 outcome-name">
+                      FAIL: ToursTest test_drive_the_itinerary_cycle
+                    </div>
+                    <div class="col-sm-2 time">127.01 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix fail">
+                    <div class="col-sm-8 outcome-name">
+                      FAIL: TimelinesTest test_drive_the_timeline_cycle
+                    </div>
+                    <div class="col-sm-2 time">121.66 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StagesTest test_walk_the_stage_side_menus
+                    </div>
+                    <div class="col-sm-2 time">52.16 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StagesTest test_walk_the_Stage_Actors_menu
+                    </div>
+                    <div class="col-sm-2 time">46.45 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StagesTest test_walk_the_Stage_Stage_List_menu
+                    </div>
+                    <div class="col-sm-2 time">45.06 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StagesTest test_walk_the_Stage_Stats_menu
+                    </div>
+                    <div class="col-sm-2 time">40.20 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: ChaptersTest test_walk_the_chapter_side_menus
+                    </div>
+                    <div class="col-sm-2 time">21.78 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StoriesTest test_walk_the_story_side_menus
+                    </div>
+                    <div class="col-sm-2 time">20.81 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: ScenesTest test_walk_the_scene_side_menus
+                    </div>
+                    <div class="col-sm-2 time">17.69 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: BooksTest test_walk_the_non-fiction_book_side_menus
+                    </div>
+                    <div class="col-sm-2 time">17.67 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: KeyWordsTest test_drive_the_key_words_cycle
+                    </div>
+                    <div class="col-sm-2 time">16.75 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: BooksTest test_walk_the_fiction_book_side_menus
+                    </div>
+                    <div class="col-sm-2 time">16.43 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: BooksTest test_creating_a_fictional_Book_flow
+                    </div>
+                    <div class="col-sm-2 time">8.66 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: KeyPointsTest test_walk_the_key_points_side_menus
+                    </div>
+                    <div class="col-sm-2 time">7.82 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StagesTest test_walk_the_Stage_Locations_menu
+                    </div>
+                    <div class="col-sm-2 time">7.41 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: LocationsTest test_drive_the_location_cycle
+                    </div>
+                    <div class="col-sm-2 time">7.22 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StagesTest test_walk_the_Stage_Acts_menu
+                    </div>
+                    <div class="col-sm-2 time">7.20 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: ChaptersTest test_walk_the_Chapter_Citations_menu
+                    </div>
+                    <div class="col-sm-2 time">7.06 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StoriesTest test_walk_the_Story_Tours_menu
+                    </div>
+                    <div class="col-sm-2 time">6.94 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: ActsTest test_drive_the_act_cycle
+                    </div>
+                    <div class="col-sm-2 time">6.79 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: ChaptersTest test_walk_the_Chapter_Asides_menu
+                    </div>
+                    <div class="col-sm-2 time">6.59 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: BooksTest test_creating_a_nonfictional_Book_flow
+                    </div>
+                    <div class="col-sm-2 time">6.56 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: ActorsTest test_drive_the_actor_cycle
+                    </div>
+                    <div class="col-sm-2 time">6.41 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: ChaptersTest test_walk_the_Chapter_Footnotes_menu
+                    </div>
+                    <div class="col-sm-2 time">6.40 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: ToursTest test_drive_the_tour_cycle
+                    </div>
+                    <div class="col-sm-2 time">6.19 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: FootnotesTest test_drive_the_footnote_cycle
+                    </div>
+                    <div class="col-sm-2 time">5.93 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: AsidesTest test_drive_the_aside_cycle
+                    </div>
+                    <div class="col-sm-2 time">5.71 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: PlotPointsTest test_drive_the_plot_point_cycle
+                    </div>
+                    <div class="col-sm-2 time">5.68 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: AuthorsTest test_drive_the_author_cycle
+                    </div>
+                    <div class="col-sm-2 time">5.40 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: GlossaryTermsTest test_drive_the_glossary_term_cycle
+                    </div>
+                    <div class="col-sm-2 time">5.31 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: BiblioentriesTest test_drive_the_bibliography_cycle
+                    </div>
+                    <div class="col-sm-2 time">5.25 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: ActorCharactersTest test_drive_the_actor_cycle
+                    </div>
+                    <div class="col-sm-2 time">4.87 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StoriesTest test_walk_the_Story_Timeline_menu
+                    </div>
+                    <div class="col-sm-2 time">4.72 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: ArtifactTypesTest test_drive_the_artifact_type_cycle
+                    </div>
+                    <div class="col-sm-2 time">4.15 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: ArtifactsTest test_drive_the_artifact_cycle
+                    </div>
+                    <div class="col-sm-2 time">4.06 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: CharactersTest test_character_create
+                    </div>
+                    <div class="col-sm-2 time">4.02 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: ToursTest test_search_itenerary
+                    </div>
+                    <div class="col-sm-2 time">3.57 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: ChaptersTest test_walk_the_Chapter_Timeline_menu
+                    </div>
+                    <div class="col-sm-2 time">3.27 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StoriesTest test_walk_the_Story_Resync_Scenes_menu
+                    </div>
+                    <div class="col-sm-2 time">2.88 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: ToursTest test_tours_show_map
+                    </div>
+                    <div class="col-sm-2 time">2.82 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StagesTest test_walk_the_Stage_Scene_Characters_menu
+                    </div>
+                    <div class="col-sm-2 time">2.58 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StagesTest test_walk_the_Stage_Time_by_Location_menu
+                    </div>
+                    <div class="col-sm-2 time">2.48 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StagesTest test_walk_the_Stage_Time_by_Actor_menu
+                    </div>
+                    <div class="col-sm-2 time">2.43 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StagesTest test_walk_the_Stage_Actor_by_Location_menu
+                    </div>
+                    <div class="col-sm-2 time">2.43 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: CharactersTest test_visiting_the_Character:_By_Occupation_menu
+                    </div>
+                    <div class="col-sm-2 time">2.36 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: ChaptersTest test_walk_the_Chapter_Stats_menu
+                    </div>
+                    <div class="col-sm-2 time">2.33 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StoriesTest test_walk_the_Story_Scenes_menu
+                    </div>
+                    <div class="col-sm-2 time">2.27 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: ScenesTest test_looking_at_a_scene
+                    </div>
+                    <div class="col-sm-2 time">2.25 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StagesTest test_walk_the_Stage_Scenes_menu
+                    </div>
+                    <div class="col-sm-2 time">2.23 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StoriesTest test_walk_the_Story_Stories_menu
+                    </div>
+                    <div class="col-sm-2 time">2.15 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: WelcomesTest test_walk_the_welcome_Stats_menu
+                    </div>
+                    <div class="col-sm-2 time">2.14 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StoriesTest test_walk_the_Story_All_Stories_menu
+                    </div>
+                    <div class="col-sm-2 time">2.12 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: WelcomesTest test_walk_the_welcome_Progress_menu
+                    </div>
+                    <div class="col-sm-2 time">2.09 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: CharactersTest test_visiting_the_Character:_Main_Characters_menu
+                    </div>
+                    <div class="col-sm-2 time">2.09 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: CharactersTest test_visiting_the_Character:_Character_Grid_menu
+                    </div>
+                    <div class="col-sm-2 time">2.03 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: ChaptersTest test_walk_the_Chapter_Partition_menu
+                    </div>
+                    <div class="col-sm-2 time">2.03 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: CharactersTest test_visiting_the_Character:_Import_Chars_menu
+                    </div>
+                    <div class="col-sm-2 time">2.02 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: CharactersTest test_visiting_the_Character:_By_Occupation,_All_menu
+                    </div>
+                    <div class="col-sm-2 time">2.01 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StoriesTest test_walk_the_Story_Char_List,_All_menu
+                    </div>
+                    <div class="col-sm-2 time">1.96 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StoriesTest test_walk_the_Story_Characters_menu
+                    </div>
+                    <div class="col-sm-2 time">1.95 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StoriesTest test_walk_the_Story_Stats_menu
+                    </div>
+                    <div class="col-sm-2 time">1.94 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: CharactersTest test_visiting_the_Character:_Characters_with_Scenes_menu
+                    </div>
+                    <div class="col-sm-2 time">1.93 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StoriesTest test_walk_the_Story_Key_Points_menu
+                    </div>
+                    <div class="col-sm-2 time">1.92 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: TimelinesTest test_visiting_the_timeline
+                    </div>
+                    <div class="col-sm-2 time">1.89 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StoriesTest test_walk_the_Story_Move_menu
+                    </div>
+                    <div class="col-sm-2 time">1.88 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: StoriesTest test_walk_the_Story_Char_List_menu
+                    </div>
+                    <div class="col-sm-2 time">1.80 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: WelcomesTest test_walk_the_welcome_History_menu
+                    </div>
+                    <div class="col-sm-2 time">1.68 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: WelcomesTest test_walk_the_welcome_Tags_menu
+                    </div>
+                    <div class="col-sm-2 time">1.52 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: BooksTest test_walk_the_non-fiction_book_menus
+                    </div>
+                    <div class="col-sm-2 time">1.27 s</div>
+                  </div>
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: BooksTest test_walk_the_fiction_book_menus
+                    </div>
+                    <div class="col-sm-2 time">1.10 s</div>
+                  </div>
+                
+              </div>
+
+              <div class="tab-pane fade" id="suite" role="tabpanel" aria-labelledby="suite-tab">
+                
+                
+
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      ActorCharactersTest
+                    </div>
+                    <div class="col-sm-1 assertions">46</div>
+                    <div class="col-sm-2 time">4.87 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      ActorsTest
+                    </div>
+                    <div class="col-sm-1 assertions">66</div>
+                    <div class="col-sm-2 time">6.41 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      ActsTest
+                    </div>
+                    <div class="col-sm-1 assertions">65</div>
+                    <div class="col-sm-2 time">6.79 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      ArtifactTypesTest
+                    </div>
+                    <div class="col-sm-1 assertions">40</div>
+                    <div class="col-sm-2 time">4.15 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      ArtifactsTest
+                    </div>
+                    <div class="col-sm-1 assertions">40</div>
+                    <div class="col-sm-2 time">4.06 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      AsidesTest
+                    </div>
+                    <div class="col-sm-1 assertions">55</div>
+                    <div class="col-sm-2 time">5.71 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      AuthorsTest
+                    </div>
+                    <div class="col-sm-1 assertions">55</div>
+                    <div class="col-sm-2 time">5.40 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      BiblioentriesTest
+                    </div>
+                    <div class="col-sm-1 assertions">54</div>
+                    <div class="col-sm-2 time">5.25 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      BooksTest
+                    </div>
+                    <div class="col-sm-1 assertions">239</div>
+                    <div class="col-sm-2 time">51.70 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      ChaptersTest
+                    </div>
+                    <div class="col-sm-1 assertions">319</div>
+                    <div class="col-sm-2 time">49.46 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      CharacterCategoriesTest
+                    </div>
+                    <div class="col-sm-1 assertions">54</div>
+                    <div class="col-sm-2 time">245.02 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      CharactersTest
+                    </div>
+                    <div class="col-sm-1 assertions">100</div>
+                    <div class="col-sm-2 time">16.46 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      CitiesTest
+                    </div>
+                    <div class="col-sm-1 assertions">53</div>
+                    <div class="col-sm-2 time">246.91 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      EpochsTest
+                    </div>
+                    <div class="col-sm-1 assertions">54</div>
+                    <div class="col-sm-2 time">244.60 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      EventTypesTest
+                    </div>
+                    <div class="col-sm-1 assertions">54</div>
+                    <div class="col-sm-2 time">245.93 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      FootnotesTest
+                    </div>
+                    <div class="col-sm-1 assertions">56</div>
+                    <div class="col-sm-2 time">5.93 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      GlossaryTermsTest
+                    </div>
+                    <div class="col-sm-1 assertions">54</div>
+                    <div class="col-sm-2 time">5.31 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      HoloceneEventsTest
+                    </div>
+                    <div class="col-sm-1 assertions">53</div>
+                    <div class="col-sm-2 time">247.22 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      KeyPointsTest
+                    </div>
+                    <div class="col-sm-1 assertions">33</div>
+                    <div class="col-sm-2 time">7.82 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      KeyWordsTest
+                    </div>
+                    <div class="col-sm-1 assertions">54</div>
+                    <div class="col-sm-2 time">16.75 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      LocationsTest
+                    </div>
+                    <div class="col-sm-1 assertions">66</div>
+                    <div class="col-sm-2 time">7.22 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      PlotPointsTest
+                    </div>
+                    <div class="col-sm-1 assertions">54</div>
+                    <div class="col-sm-2 time">5.68 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      RegionsTest
+                    </div>
+                    <div class="col-sm-1 assertions">54</div>
+                    <div class="col-sm-2 time">247.48 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      ScenesTest
+                    </div>
+                    <div class="col-sm-1 assertions">115</div>
+                    <div class="col-sm-2 time">19.94 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      StagesTest
+                    </div>
+                    <div class="col-sm-1 assertions">417</div>
+                    <div class="col-sm-2 time">210.63 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      StoriesTest
+                    </div>
+                    <div class="col-sm-1 assertions">310</div>
+                    <div class="col-sm-2 time">53.34 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      TimelinesTest
+                    </div>
+                    <div class="col-sm-1 assertions">18</div>
+                    <div class="col-sm-2 time">123.55 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      ToursTest
+                    </div>
+                    <div class="col-sm-1 assertions">135</div>
+                    <div class="col-sm-2 time">139.59 s</div>
+                  </div>
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      WelcomesTest
+                    </div>
+                    <div class="col-sm-1 assertions">96</div>
+                    <div class="col-sm-2 time">7.43 s</div>
+                  </div>
+                
+              </div>
+            </div>
+          </div>
+          <div id="charts" class="col-md-4">
+            <h3>Results by Type</h3>
+            <canvas id="results-by-type"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Results by type pie chart
+      var resultsByTypeData = [
+        {
+          label: "Failures",
+          color: "#bd0000",
+          highlight: "#ed0000",
+          value: 2
+      },
+        {
+          label: "Errors",
+          color: "#b34100",
+          highlight: "#cc4b00",
+          value: 0
+      },
+        {
+          label: "Skips",
+          color: "#006e99",
+          highlight: "#00a8eb",
+          value: 0
+      },
+        {
+          label: "Passed",
+          color: "#009e18",
+          highlight: "#00d620",
+          value: 74
+      }
+      ];
+
+      var ctx = document.getElementById("results-by-type").getContext("2d");
+      var resultsByTypeChart = new Chart(ctx).Pie(resultsByTypeData);
+    </script>
+  </body>
+</html>

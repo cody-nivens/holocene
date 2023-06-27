@@ -11,7 +11,7 @@ class AuthorsTest < ApplicationSystemTestCase
   end
 
   test "drive the author cycle" do
-    drive_cycle('Support', 'Authors')
+    menu_test('Support', 'Authors')
   end
 
   if 1 == 0

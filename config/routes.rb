@@ -37,6 +37,15 @@ Rails.application.routes.draw do
   get '/key_points/:id/view', to: 'key_points#view', as: :key_point_view
 
   get '/cities/index', to: 'cities#index', format: :js, constraints: ->(request) { request.xhr? }
+  get '/chapters/:id/map_locs', to: 'chapters#map_locs', format: :js, as: :chapter_map_locs, constraints: ->(request) { request.xhr? }
+  get '/itineraries/:id/map_locs', to: 'itineraries#map_locs', format: :js, as: :itinerary_map_locs, constraints: ->(request) { request.xhr? }
+  get '/epochs/:id/map_locs', to: 'epochs#map_locs', format: :js, as: :epoch_map_locs, constraints: ->(request) { request.xhr? }
+  get '/sections/:id/map_locs', to: 'sections#map_locs', format: :js, as: :section_map_locs, constraints: ->(request) { request.xhr? }
+  get '/timelines/:id/map_locs', to: 'timelines#map_locs', format: :js, as: :timeline_map_locs, constraints: ->(request) { request.xhr? }
+  get '/event_types/:id/map_locs', to: 'event_types#map_locs', format: :js, as: :event_type_map_locs, constraints: ->(request) { request.xhr? }
+  get '/holocene_events/:id/map_locs', to: 'holocene_events#map_locs', format: :js, as: :holocene_event_map_locs, constraints: ->(request) { request.xhr? }
+  get '/tours/:id/map_locs', to: 'tours#map_locs', format: :js, as: :tour_map_locs, constraints: ->(request) { request.xhr? }
+  get '/cities/:id/map_locs', to: 'cities#map_locs', format: :js, as: :city_map_locs, constraints: ->(request) { request.xhr? }
   get '/cities/index', to: 'cities#index'
   post '/scenes/index', to: 'scenes#index'
   post '/cities/itinerary', to: 'cities#itinerary', as: :cities_itinerary
@@ -316,6 +325,7 @@ Rails.application.routes.draw do
   post '/holocene_events/:holocene_event_id/footnotes', to: 'footnotes#create', as: :holocene_event_footnote_create
 
   get '/chapters/:chapter_id/holocene_events', to: 'holocene_events#index', as: :chapter_holocene_events
+  get '/event_types/:event_type_id/holocene_events', to: 'holocene_events#index', as: :event_type_holocene_events
   get '/sections/:section_id/holocene_events', to: 'holocene_events#index', as: :section_holocene_events
   get '/timelines/:timeline_id/holocene_events', to: 'holocene_events#index', as: :timeline_holocene_events
   get '/citations/:citation_id/holocene_events', to: 'holocene_events#index', as: :citation_holocene_events

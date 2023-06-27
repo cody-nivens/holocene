@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Minitest::Display Test Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> 
+    <style media="screen" type="text/css">
+       body { padding-top: 70px; }
+
+.row {
+  margin-bottom: 20px;
+}
+
+/*
+ *  SUMMARY ROW
+ */
+#summary .widget {
+  border: 3px solid #eef;
+  border-radius: 10px;
+  margin-right: 2.5%;
+  padding: 10px;
+  width: 18%;
+}
+
+#summary .widget:last-child {
+  margin-right: 0;
+}
+
+#summary .counter {
+  display: block;
+  font-size: 4em;
+  font-weight: bold;
+  text-align: center;
+}
+
+#summary .metric {
+  display: block;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+/*
+ *  INDIVIDUAL TEST RESULTS
+ */
+#test-results {
+  margin: 0;
+}
+
+#test-results .result {
+  border: solid;
+  border-width: 3px thin;
+  font-size: 14px;
+  margin-bottom: 3px;
+  padding: 6px;
+  width: 100%;
+}
+
+#test-results .result div.outcome-name,
+#test-results .result div.assertions,
+#test-results .result div.time {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+#test-results .result div.outcome-name {
+  overflow: hidden;
+  max-width: 70%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  float: left;
+}
+
+#test-results .result div.assertions {
+  float: left;
+  width: 15%;
+  text-align: right;
+}
+
+#test-results .result div.time {
+  float: right;
+  width: 15%;
+}
+
+#test-results .result .failure-details {
+  clear: both;
+}
+
+#test-results .result.pass {
+  background-color: #eef;
+  border-color: green;
+  font-color: dark-green;
+}
+
+li.fail,
+#test-results .result.fail {
+  background-color: #ffe4b2;
+  border-color: orange;
+}
+
+#test-results .result.error {
+  background-color: #fdd;
+  border-color: red;
+}
+
+#test-results .result.skip {
+  background-color: #f0f0f0;
+  border-color: #aaa;
+}
+
+div.ruby {
+  background: #87ceeb;
+  border-color: #aaa;
+  font-size: .875em;
+  color: #d63384;
+  word-wrap: break-word;
+  padding: 10px;
+  overflow-x: auto;
+  font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-size: 12px;
+  border: none;
+}
+
+
+/*
+ *  CHARTS
+ */
+#charts h3 {
+  margin: 0;
+  text-align: center;
+}
+
+#charts canvas {
+  display: block;
+  height: 300px;
+  margin: 0 auto;
+  width: 90%;
+}
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+  </head>
+
+  <body>
+    <div id="main">
+      <div class="container">
+        <div id="summary" class="row">
+          <div id="count" class="widget col-md-2">
+            <span class="counter">1</span>
+            <span class="metric">Tests Run</span>
+          </div>
+          <div id="assertions" class="widget col-md-2">
+            <span class="counter">15</span>
+            <span class="metric">Assertions</span>
+          </div>
+          <div id="failures" class="widget col-md-2">
+            <span class="counter">0</span>
+            <span class="metric">Failed</span>
+          </div>
+          <div id="errors" class="widget col-md-2">
+            <span class="counter">0</span>
+            <span class="metric">Errors</span>
+          </div>
+          <div id="skips" class="widget col-md-2">
+            <span class="counter">0</span>
+            <span class="metric">Skipped</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <h2>Test Results</h2>
+
+          <div id="test-results" class="col-md-8">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+            
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="slowest-tab" data-bs-toggle="tab" data-bs-target="#slowest" type="button" role="tab" aria-controls="slowest" aria-selected="false">Slowest</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="suite-tab" data-bs-toggle="tab" data-bs-target="#suite" type="button" role="tab" aria-controls="suite" aria-selected="false">Suites</button>
+              </li>
+            </ul>
+
+            <div class="tab-content" id="myTabContent">
+            
+
+              <div class="tab-pane fade show active" id="slowest" role="tabpanel" aria-labelledby="slowest-tab">
+                
+                
+                
+                  
+                  <div class="row result clearfix pass">
+                    <div class="col-sm-8 outcome-name">
+                      PASS: CharactersTest test_visiting_the_Character:_Character_Grid_menu
+                    </div>
+                    <div class="col-sm-2 time">27.21 s</div>
+                  </div>
+                
+              </div>
+
+              <div class="tab-pane fade" id="suite" role="tabpanel" aria-labelledby="suite-tab">
+                
+                
+
+                
+                  <div class="row result clearfix pass %>">
+                    <div class="col-sm-6 outcome-name">
+                      CharactersTest
+                    </div>
+                    <div class="col-sm-1 assertions">15</div>
+                    <div class="col-sm-2 time">27.21 s</div>
+                  </div>
+                
+              </div>
+            </div>
+          </div>
+          <div id="charts" class="col-md-4">
+            <h3>Results by Type</h3>
+            <canvas id="results-by-type"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Results by type pie chart
+      var resultsByTypeData = [
+        {
+          label: "Failures",
+          color: "#bd0000",
+          highlight: "#ed0000",
+          value: 0
+      },
+        {
+          label: "Errors",
+          color: "#b34100",
+          highlight: "#cc4b00",
+          value: 0
+      },
+        {
+          label: "Skips",
+          color: "#006e99",
+          highlight: "#00a8eb",
+          value: 0
+      },
+        {
+          label: "Passed",
+          color: "#009e18",
+          highlight: "#00d620",
+          value: 1
+      }
+      ];
+
+      var ctx = document.getElementById("results-by-type").getContext("2d");
+      var resultsByTypeChart = new Chart(ctx).Pie(resultsByTypeData);
+    </script>
+  </body>
+</html>

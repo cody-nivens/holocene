@@ -10,7 +10,7 @@ class EpochsTest < ApplicationSystemTestCase
   end
 
   test "drive the epoch cycle" do
-    drive_cycle('Support', 'Epochs')
+    menu_test('Support', 'Epochs')
   end
 
   if 1 == 0

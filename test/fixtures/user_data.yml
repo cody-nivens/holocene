@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+user_datum_1:
+  user: :users_1
+  book_id: nil
+  chapter_id: nil
+  story_id: nil
+  scene_id: nil
+  stage_id: nil
+
+user_datum_2:
+  user: :users_2
+  book_id: nil
+  chapter_id: nil
+  story_id: nil
+  scene_id: nil
+  stage_id: nil

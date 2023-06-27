@@ -29,3 +29,8 @@ signet_6:
   color: 0
   message: Signet 6
   sigged: chapter_2 (Chapter)
+
+signet_7:
+  color: 0
+  message: Signet 7
+  sigged: character_1 (Character)

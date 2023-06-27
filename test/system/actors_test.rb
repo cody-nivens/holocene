@@ -9,7 +9,7 @@ class ActorsTest < ApplicationSystemTestCase
   end
 
    test "drive the actor cycle" do
-    drive_cycle('Stage', 'Actors')
+    menu_test('Stage', 'Actors')
   end
 
    if 1 == 0

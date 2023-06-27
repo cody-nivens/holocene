@@ -130,7 +130,7 @@ rich_text_<%= i %>:
 rich_text_<%= i %>:
   record: holocene_event_5 (HoloceneEvent)
   name: body
-  body: 'This is test of footnoting [[slug56]]'
+  body: 'This is test of footnoting [[slug54]]'
 
 <% i += 1 %>
 rich_text_<%= i %>:
@@ -216,7 +216,7 @@ rich_text_<%= i %>:
 rich_text_<%= i %>:
   record: chapter_1 (Chapter)
   name: body
-  body: Events caused by Man or happened to Mankind.
+  body: 'Events caused by Man or happened to Mankind. [[slug53]]'
 <% i += 1 %>
 rich_text_<%= i %>:
   record: chapter_2 (Chapter)
@@ -231,17 +231,17 @@ rich_text_<%= i %>:
 rich_text_<%= i %>:
   record: chapter_4 (Chapter)
   name: body
-  body: 'Chapter 4 [[slug56]]'
+  body: 'Chapter 4 [[slug57]]'
 <% i += 1 %>
 rich_text_<%= i %>:
   record: chapter_5 (Chapter)
   name: body
-  body: 'Chapter 5 [[slug56]]'
+  body: 'Chapter 5 [[slug58]]'
 <% i += 1 %>
 rich_text_<%= i %>:
   record: chapter_6 (Chapter)
   name: body
-  body: 'Chapter 6 [[slug56]]'
+  body: 'Chapter 6 [[slug59]]'
 <% i += 1 %>
 rich_text_<%= i %>:
   record: Impact (EventType)

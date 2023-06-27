@@ -1,5 +1,7 @@
 require 'test_helper'
 
+Capybara.default_max_wait_time = 30
+
 DOWNLOADS_PATH = File.expand_path(File.join(Rails.root, 'tmp', 'downloads'))
 if ENV['NO_HEADLESS']
   token = :selenium
@@ -52,6 +54,7 @@ end
 
   driver
 end
+
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   if ENV['NO_HEADLESS']
     driven_by :selenium

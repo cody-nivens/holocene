@@ -152,12 +152,12 @@ class KeyPointsControllerTest < ActionDispatch::IntegrationTest
   end
 end
 
-  test 'should get edit' do
+  test 'should get edit key point' do
     get edit_key_point_url(@key_point)
     assert_response :success
   end
 
-  test 'should get new' do
+  test 'should get new key point' do
     get new_polymorphic_url([@scripted, KeyPoint])
     assert_select "turbo-frame", id:  "new_object"
     assert_response :success

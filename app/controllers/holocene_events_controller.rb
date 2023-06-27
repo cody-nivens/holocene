@@ -1,5 +1,5 @@
 class HoloceneEventsController < ApplicationController
-  before_action :set_holocene_event, only: %i[geo_map show edit update destroy]
+  before_action :set_holocene_event, only: %i[map_locs geo_map show edit update destroy]
   before_action :set_object, only: %i[index display add_event]
 
   def index
@@ -34,10 +34,16 @@ class HoloceneEventsController < ApplicationController
     end
   end
 
+  def map_locs
+    respond_to do |format|
+      format.json { render json: @holocene_event.map_locs }
+    end
+  end
+
   def geo_map
     @object = @holocene_event
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @holocene_event, no_new_link: true, part: 'map', path_name: 'shared' } }
     end
   end
 
@@ -62,7 +68,7 @@ class HoloceneEventsController < ApplicationController
       end
     end
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/index", locals: { object: HoloceneEvent.new, objects: @holocene_events, new_link_name: 'add_link', new_link_path: 'holocene_events' } }
     end
   end
 
@@ -76,7 +82,7 @@ class HoloceneEventsController < ApplicationController
     end
     respond_to do |format|
       format.html { render :display }
-      format.turbo_stream { render :display }
+      format.turbo_stream { render "shared/index", locals: { object: HoloceneEvent.new, objects: @holocene_events, new_link_name: 'add_link', new_link_path: 'holocene_events' } }
     end
   end
 
@@ -135,7 +141,7 @@ class HoloceneEventsController < ApplicationController
       end
       format.json { render :show, status: :created, location: @holocene_event }
       flash.now[:notice] = "#{@object.class.name} was successfully updated"
-      format.turbo_stream { render "shared/show", locals: { object: @object, part: 'display' } }
+      format.turbo_stream { render "shared/index", locals: { object: HoloceneEvent.new, objects: @holocene_events, new_link_name: 'add_link', new_link_path: 'holocene_events' } }
     end
   end
 

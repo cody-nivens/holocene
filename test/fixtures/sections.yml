@@ -96,42 +96,42 @@ section_12:
   sectioned: scene_2 (Scene)
   user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
 section_13:
-  name: 'Another dark and stormy night'
+  name: 'Another dark and stormy night dogs chasing brightly'
   display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_2 (Scene)
   user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
 section_14:
-  name: 'Just another dark and stormy night'
+  name: 'Just another dark and stormy night with dogs baying at the moon'
   display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_14 (Scene)
   user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
 section_15:
-  name: 'Just another dark and stormy night'
+  name: 'Just another dark and stormy night the dog is sleeping tight'
   display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_10 (Scene)
   user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
 section_16:
-  name: 'Just another dark and stormy night'
+  name: 'Just another dark and stormy night when the dog bayed at the storm'
   display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_11 (Scene)
   user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
 section_17:
-  name: 'Just another dark and stormy night'
+  name: 'Just another dark and stormy night when it broke into the room'
   display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_12 (Scene)
   user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
 section_18:
-  name: 'Just another dark and stormy night'
+  name: 'Just another dark and stormy night dancing with the moon'
   display_name:
   position: 1
   slug: HJct7pHDDe

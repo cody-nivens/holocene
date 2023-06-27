@@ -68,6 +68,7 @@ class ActsControllerTest < ActionDispatch::IntegrationTest
 end
   test 'should get edit' do
     get edit_act_url(@act)
+    assert_select "turbo-frame", id:  "new_object"
     assert_response :success
   end
 

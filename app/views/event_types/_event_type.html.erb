@@ -2,9 +2,13 @@
 <%= @event_type.body %>
 </p>
 
-<div data-controller="data-grids">
-  <%= datagrid_form_for @grid, method: :get, url: holocene_events_path %>
-  <%= paginate(@grid.assets) %>
-  <%= datagrid_table @grid %>
-  <%= paginate(@grid.assets) %>
+<div data-controller='grids' data-grids-gridtype-value="holocene_event" data-grids-url-value='<%= polymorphic_path([@event_type, :holocene_events]) %>'>
+  <div data-grids-target="grid_form">
+    <%#= datagrid_form_for @grid, method: :get, url: polymorphic_path([@event_type, :holocene_events]), data: { action: "grids#processSearch" }, partials: 'holocene_event_grid'  %>
+    <div id="grid_data" data-grids-target="grid_data">
+      <%= paginate(@grid.assets) %>
+      <%= datagrid_table @grid %>
+      <%= paginate(@grid.assets) %>
+    </div>
+  </div>
 </div>

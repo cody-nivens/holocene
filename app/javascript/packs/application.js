@@ -14,3 +14,5 @@ import 'js/site';
 const images = require.context('../images', true);
 const imagePath = (name) => images(name, true);
 
+import magicAdd from './magicAdd.js'
+

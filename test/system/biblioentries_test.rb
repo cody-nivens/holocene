@@ -11,7 +11,7 @@ class BiblioentriesTest < ApplicationSystemTestCase
   end
 
   test "drive the bibliography cycle" do
-    drive_cycle('BookC', 'Bibliography')
+    menu_test('BookC', 'Bibliography')
   end
 
   if 1 == 0

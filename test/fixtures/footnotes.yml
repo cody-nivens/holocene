@@ -10,10 +10,26 @@ footnote_3:
   slug: old_slug
   noted: holocene_event_1 (HoloceneEvent)
 footnote_4:
-  slug: ""
-  noted: chapter_1 (Chapter)
+  slug: slug55
+  noted: chapter_2 (Chapter)
   biblioentry: biblioentry_1
 footnote_5:
-  slug: ""
+  slug: slug57
   noted: chapter_4 (Chapter)
+  biblioentry: biblioentry_2
+footnote_6:
+  slug: slug56
+  noted: chapter_3 (Chapter)
+  biblioentry: biblioentry_2
+footnote_7:
+  slug: slug58
+  noted: chapter_5 (Chapter)
+  biblioentry: biblioentry_2
+footnote_8:
+  slug: slug59
+  noted: chapter_6 (Chapter)
+  biblioentry: biblioentry_2
+footnote_9:
+  slug: slug54
+  noted: holocene_event_5 (HoloceneEvent)
   biblioentry: biblioentry_2

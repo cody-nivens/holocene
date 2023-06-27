@@ -1,0 +1,3 @@
+<% date = @date.to_date %>
+<%= link_to (fa_icon 'angle-left'), welcome_show_path(:date => (date - 1.day).to_s), method: :get, class: 'btn' %>
+<%= link_to (fa_icon 'angle-right'), welcome_show_path(:date => (date + 1.day).to_s), method: :get, class: 'btn' %>

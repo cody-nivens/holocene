@@ -119,7 +119,7 @@ end
   test "should update region TS" do
     patch  region_path(@region, format: :turbo_stream), params: { region: { body: @region.body, name: @region.name, user_id: @user.id } }
 
-    assert_turbo_stream action: :replace, target: "#{dom_id @region}"
+    assert_turbo_stream action: :replace, target: "objects"
 
     assert_no_turbo_stream action: :update, target: "messages"
     assert_response :success

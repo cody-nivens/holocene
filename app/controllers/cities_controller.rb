@@ -1,5 +1,5 @@
 class CitiesController < ApplicationController
-  before_action :set_city, only: %i[show edit update destroy]
+  before_action :set_city, only: %i[map_locs show edit update destroy]
   before_action :set_tour, only: %i[add_city]
 
   # GET /cities or /cities.json
@@ -18,6 +18,17 @@ class CitiesController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream { render "shared/index", locals: { object: City.new, objects: @cities } }
+    end
+  end
+
+  def map_locs
+    respond_to do |format|
+      format.json { render json: { city: @city.map_locs } }
+    end
+  end
+  def geo_map
+    respond_to do |format|
+      format.turbo_stream { render "shared/show", locals: { object: @city, no_new_link: true, part: 'geo_map' } }
     end
   end
 

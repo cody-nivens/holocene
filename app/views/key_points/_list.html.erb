@@ -1,4 +1,3 @@
-<h3>List of Free Scenes</h3>
 <%= form_with url: polymorphic_path([@scripted, @key_point, :add]) do |f| %>
 
   <%= f.hidden_field :selector, value: @selector %>
@@ -16,4 +15,3 @@
     </tr>
   </table>
 <% end %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path([@scripted, :key_points]), method: :get, class: 'btn', title: 'Back' %>

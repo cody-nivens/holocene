@@ -11,9 +11,7 @@ class ApplicationController < ActionController::Base
   helper_method :selector_string, :selector_collection
 
   before_action :set_title
-  before_action :set_book_from_session
-  before_action :set_stage_from_session
-  before_action :set_wcs_from_session
+  before_action :set_user_datum
 
   #after_action :set_return_to_location
 
@@ -22,11 +20,46 @@ class ApplicationController < ActionController::Base
     user_sessions
   )
 
-  def set_wcs_from_session
-    @low_wc = session[:wc_low].to_i ||= 250
-    @mid_wc = session[:wc_mid].to_i ||= 650
-    @better_wc = session[:wc_better].to_i ||= 1000
+  def set_user_datum
+    return if current_user.nil?
+    user_datum = if current_user.user_datum.nil?
+      UserDatum.create({user_id: current_user.id})
+    else
+      current_user.user_datum
+    end 
+    @low_wc = user_datum.wc_low
+    @mid_wc = user_datum.wc_mid
+    @better_wc = user_datum.wc_better
+    @book = if user_datum.book_id.nil?
+             nil
+           else
+             Book.find_by_id(user_datum.book_id)
+           end
+    @stage = if user_datum.stage_id.nil?
+             nil
+           else
+             Stage.find_by_id(user_datum.stage_id)
+           end
+    @chapter = if user_datum.chapter_id.nil?
+             nil
+           else
+             Chapter.find_by_id(user_datum.chapter_id)
+           end
+    @story = if user_datum.story_id.nil?
+             nil
+           else
+             Story.find_by_id(user_datum.story_id)
+           end
   end
+
+  def save_user_datum(book_id, story_id, chapter_id, stage_id)
+    current_user.user_datum.book_id = book_id
+    current_user.user_datum.story_id = story_id
+    current_user.user_datum.chapter_id = chapter_id
+    current_user.user_datum.stage_id = stage_id
+    current_user.user_datum.save
+  end
+
 
   def set_return_to_location
     return unless request.get?
@@ -49,24 +82,6 @@ class ApplicationController < ActionController::Base
     redirect_to(
       return_or_default_path(default_path)
     )
-  end
-
-  def set_book_from_session
-    book = if session[:book_id].nil?
-             nil
-           else
-      Book.find_by_id(session[:book_id])
-           end
-    @book = book
-  end
-
-  def set_stage_from_session
-    stage = if session[:stage_id].nil?
-             nil
-           else
-      Stage.find_by_id(session[:stage_id])
-           end
-    @stage = stage
   end
 
   def about; end

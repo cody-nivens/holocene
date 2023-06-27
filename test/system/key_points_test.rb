@@ -14,6 +14,11 @@ class KeyPointsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test "walk the key points side menus" do
+    @book = books(:book_2)
+    walk_sides('Key Points', debug: false)
+  end
+
   if 1 == 0
   test 'key_points index' do
     visit polymorphic_url([@scripted, :key_points])

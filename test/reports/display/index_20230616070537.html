@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Minitest::Display Test Report</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.6/flatly/bootstrap.min.css" rel="stylesheet">
+    <style media="screen" type="text/css">
+       body { padding-top: 70px; }
+
+.row {
+  margin-bottom: 20px;
+}
+
+/*
+ *  SUMMARY ROW
+ */
+#summary .widget {
+  border: 3px solid #eef;
+  border-radius: 10px;
+  margin-right: 2.5%;
+  padding: 10px;
+  width: 18%;
+}
+
+#summary .widget:last-child {
+  margin-right: 0;
+}
+
+#summary .counter {
+  display: block;
+  font-size: 4em;
+  font-weight: bold;
+  text-align: center;
+}
+
+#summary .metric {
+  display: block;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+/*
+ *  INDIVIDUAL TEST RESULTS
+ */
+#test-results {
+  margin: 0;
+}
+
+#test-results .result {
+  border: solid;
+  border-width: 3px thin;
+  font-size: 14px;
+  margin-bottom: 3px;
+  padding: 6px;
+  width: 100%;
+}
+
+#test-results .result span.outcome-name,
+#test-results .result span.time {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+#test-results .result span.outcome-name {
+  overflow: hidden;
+  max-width: 85%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#test-results .result span.time {
+  float: right;
+  width: 15%;
+}
+
+#test-results .result .failure-details {
+  clear: both;
+}
+
+#test-results .result.pass {
+  background-color: #eef;
+  border-color: green;
+  font-color: dark-green;
+}
+
+#test-results .result.fail {
+  background-color: #ffe4b2;
+  border-color: orange;
+}
+
+#test-results .result.error {
+  background-color: #fdd;
+  border-color: red;
+}
+
+#test-results .result.skip {
+  background-color: #f0f0f0;
+  border-color: #aaa;
+}
+
+
+/*
+ *  CHARTS
+ */
+#charts h3 {
+  margin: 0;
+  text-align: center;
+}
+
+#charts canvas {
+  display: block;
+  height: 300px;
+  margin: 0 auto;
+  width: 90%;
+}
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+  </head>
+
+  <body>
+    <div id="main">
+      <div class="container">
+	<div id="summary" class="row">
+	  <div id="count" class="widget col-md-2">
+	    <span class="counter">92</span>
+	    <span class="metric">Tests Run</span>
+	  </div>
+	  <div id="assertions" class="widget col-md-2">
+	    <span class="counter">3077</span>
+	    <span class="metric">Assertions</span>
+	  </div>
+	  <div id="failures" class="widget col-md-2">
+	    <span class="counter">0</span>
+	    <span class="metric">Failed</span>
+	  </div>
+	  <div id="errors" class="widget col-md-2">
+	    <span class="counter">0</span>
+	    <span class="metric">Errors</span>
+	  </div>
+	  <div id="skips" class="widget col-md-2">
+	    <span class="counter">0</span>
+	    <span class="metric">Skipped</span>
+	  </div>
+	</div>
+
+	<div class="row">
+	  <h2>Test Results</h2>
+
+	  <div id="test-results" class="col-md-8">
+          
+	  
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActorCharactersTest test_drive_the_actor_cycle
+		</span>
+		<span class="time">5.19 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActorsTest test_drive_the_actor_cycle
+		</span>
+		<span class="time">8.21 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActsTest test_drive_the_act_cycle
+		</span>
+		<span class="time">7.57 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ArtifactTypesTest test_drive_the_artifact_type_cycle
+		</span>
+		<span class="time">5.66 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ArtifactsTest test_drive_the_artifact_cycle
+		</span>
+		<span class="time">4.96 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: AsidesTest test_drive_the_aside_cycle
+		</span>
+		<span class="time">45.86 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: AuthorsTest test_drive_the_author_cycle
+		</span>
+		<span class="time">11.13 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BiblioentriesTest test_drive_the_bibliography_cycle
+		</span>
+		<span class="time">43.90 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_creating_a_fictional_Book_flow
+		</span>
+		<span class="time">8.55 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_creating_a_nonfictional_Book_flow
+		</span>
+		<span class="time">7.30 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_looking_at_a_scene
+		</span>
+		<span class="time">3.25 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_walk_the_Fiction_Book_Bibliography_menu
+		</span>
+		<span class="time">5.73 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_walk_the_Fiction_Book_Books_menu
+		</span>
+		<span class="time">1.67 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_walk_the_Fiction_Book_Glossary_Terms_menu
+		</span>
+		<span class="time">5.52 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_walk_the_Fiction_Book_Key_Points_menu
+		</span>
+		<span class="time">1.63 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_walk_the_Fiction_Book_New_Book_menu
+		</span>
+		<span class="time">1.65 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_walk_the_Fiction_Book_Plot_Points_menu
+		</span>
+		<span class="time">6.86 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_walk_the_Fiction_Book_Publish_All_menu
+		</span>
+		<span class="time">2.71 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_walk_the_Fiction_Book_Resync_Stories_menu
+		</span>
+		<span class="time">3.35 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_walk_the_Fiction_Book_Scenes_menu
+		</span>
+		<span class="time">38.39 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_walk_the_Fiction_Book_Stats_menu
+		</span>
+		<span class="time">1.94 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_walk_the_Fiction_Book_Timeline_menu
+		</span>
+		<span class="time">4.85 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_walk_the_Non-Fiction_Book_Bibliography_menu
+		</span>
+		<span class="time">6.76 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_walk_the_Non-Fiction_Book_Books_menu
+		</span>
+		<span class="time">2.10 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_walk_the_Non-Fiction_Book_Glossary_Terms_menu
+		</span>
+		<span class="time">5.98 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_walk_the_Non-Fiction_Book_New_Book_menu
+		</span>
+		<span class="time">2.75 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_walk_the_Non-Fiction_Book_Stats_menu
+		</span>
+		<span class="time">2.15 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_walk_the_Non-Fiction_Book_Timeline_menu
+		</span>
+		<span class="time">2.09 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_walk_the_fiction_book_side_menus
+		</span>
+		<span class="time">17.15 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksTest test_walk_the_non-fiction_book_side_menus
+		</span>
+		<span class="time">20.15 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ChaptersTest test_walk_the_Chapter_Asides_menu
+		</span>
+		<span class="time">8.08 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ChaptersTest test_walk_the_Chapter_Citations_menu
+		</span>
+		<span class="time">9.72 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ChaptersTest test_walk_the_Chapter_Footnotes_menu
+		</span>
+		<span class="time">8.77 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ChaptersTest test_walk_the_Chapter_New_Chapter_menu
+		</span>
+		<span class="time">2.63 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ChaptersTest test_walk_the_Chapter_Partition_menu
+		</span>
+		<span class="time">2.84 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ChaptersTest test_walk_the_Chapter_Stats_menu
+		</span>
+		<span class="time">10.02 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ChaptersTest test_walk_the_Chapter_Timeline_menu
+		</span>
+		<span class="time">12.26 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ChaptersTest test_walk_the_chapter_side_menus
+		</span>
+		<span class="time">26.42 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterCategoriesTest test_drive_the_character_category_cycle
+		</span>
+		<span class="time">43.18 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharactersTest test_character_create
+		</span>
+		<span class="time">4.28 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharactersTest test_visiting_the_Character:By_Occupation,_All_menu
+		</span>
+		<span class="time">2.33 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharactersTest test_visiting_the_Character:By_Occupation_menu
+		</span>
+		<span class="time">2.71 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharactersTest test_visiting_the_Character:Character_Grid_menu
+		</span>
+		<span class="time">2.92 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharactersTest test_visiting_the_Character:Characters_with_Scenes_menu
+		</span>
+		<span class="time">2.49 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharactersTest test_visiting_the_Character:Import_Chars_menu
+		</span>
+		<span class="time">2.37 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharactersTest test_visiting_the_Character:Main_Characters_menu
+		</span>
+		<span class="time">2.58 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CitiesTest test_drive_the_city_cycle
+		</span>
+		<span class="time">8.17 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: EpochsTest test_drive_the_epoch_cycle
+		</span>
+		<span class="time">6.31 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: EventTypesTest test_drive_the_event_type_cycle
+		</span>
+		<span class="time">5.89 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: FootnotesTest test_drive_the_footnote_cycle
+		</span>
+		<span class="time">7.53 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: GlossaryTermsTest test_drive_the_glossary_term_cycle
+		</span>
+		<span class="time">5.96 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: HoloceneEventsTest test_drive_the_holocene_event_cycle
+		</span>
+		<span class="time">14.96 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: KeyWordsTest test_drive_the_key_words_cycle
+		</span>
+		<span class="time">18.52 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: LocationsTest test_drive_the_location_cycle
+		</span>
+		<span class="time">8.16 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: PlotPointsTest test_drive_the_plot_point_cycle
+		</span>
+		<span class="time">6.42 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: RegionsTest test_drive_the_region_cycle
+		</span>
+		<span class="time">8.10 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ScenesTest test_walk_the_scene_side_menus
+		</span>
+		<span class="time">18.09 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StagesTest test_walk_the_Stage_Actor_by_Location_menu
+		</span>
+		<span class="time">2.72 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StagesTest test_walk_the_Stage_Actors_menu
+		</span>
+		<span class="time">7.22 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StagesTest test_walk_the_Stage_Acts_menu
+		</span>
+		<span class="time">8.23 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StagesTest test_walk_the_Stage_Locations_menu
+		</span>
+		<span class="time">8.78 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StagesTest test_walk_the_Stage_Scene_Characters_menu
+		</span>
+		<span class="time">2.90 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StagesTest test_walk_the_Stage_Scenes_menu
+		</span>
+		<span class="time">2.32 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StagesTest test_walk_the_Stage_Stage_List_menu
+		</span>
+		<span class="time">3.83 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StagesTest test_walk_the_Stage_Stats_menu
+		</span>
+		<span class="time">2.24 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StagesTest test_walk_the_Stage_Time_by_Actor_menu
+		</span>
+		<span class="time">2.41 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StagesTest test_walk_the_Stage_Time_by_Location_menu
+		</span>
+		<span class="time">3.54 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StagesTest test_walk_the_stage_side_menus
+		</span>
+		<span class="time">12.89 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StoriesTest test_walk_the_Story_All_Stories_menu
+		</span>
+		<span class="time">2.34 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StoriesTest test_walk_the_Story_Char_List,_All_menu
+		</span>
+		<span class="time">2.35 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StoriesTest test_walk_the_Story_Char_List_menu
+		</span>
+		<span class="time">2.34 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StoriesTest test_walk_the_Story_Characters_menu
+		</span>
+		<span class="time">2.99 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StoriesTest test_walk_the_Story_Key_Points_menu
+		</span>
+		<span class="time">2.78 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StoriesTest test_walk_the_Story_Move_menu
+		</span>
+		<span class="time">2.36 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StoriesTest test_walk_the_Story_New_Story_menu
+		</span>
+		<span class="time">2.73 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StoriesTest test_walk_the_Story_Resync_Scenes_menu
+		</span>
+		<span class="time">3.77 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StoriesTest test_walk_the_Story_Scenes_menu
+		</span>
+		<span class="time">3.03 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StoriesTest test_walk_the_Story_Stats_menu
+		</span>
+		<span class="time">2.19 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StoriesTest test_walk_the_Story_Stories_menu
+		</span>
+		<span class="time">2.25 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StoriesTest test_walk_the_Story_Timeline_menu
+		</span>
+		<span class="time">4.96 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StoriesTest test_walk_the_Story_Tours_menu
+		</span>
+		<span class="time">7.83 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StoriesTest test_walk_the_story_side_menus
+		</span>
+		<span class="time">22.58 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: TimelinesTest test_drive_the_timeline_cycle
+		</span>
+		<span class="time">6.50 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: TimelinesTest test_visiting_the_timeline
+		</span>
+		<span class="time">8.98 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ToursTest test_drive_the_itinerary_cycle
+		</span>
+		<span class="time">6.71 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ToursTest test_drive_the_tour_cycle
+		</span>
+		<span class="time">7.07 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ToursTest test_search_itenerary
+		</span>
+		<span class="time">4.46 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ToursTest test_tours_show_map
+		</span>
+		<span class="time">3.48 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: WelcomesTest test_walk_the_welcome_History_menu
+		</span>
+		<span class="time">1.91 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: WelcomesTest test_walk_the_welcome_Progress_menu
+		</span>
+		<span class="time">2.36 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: WelcomesTest test_walk_the_welcome_Stats_menu
+		</span>
+		<span class="time">2.53 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+              
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: WelcomesTest test_walk_the_welcome_Tags_menu
+		</span>
+		<span class="time">1.79 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	  </div>
+
+	  <div id="charts" class="col-md-4">
+	    <h3>Results by Type</h3>
+	    <canvas id="results-by-type"></canvas>
+	  </div>
+	</div>
+      </div>
+    </div>
+    <script>
+     // Results by type pie chart
+     var resultsByTypeData = [
+       {
+	 label: "Failures",
+	 color: "#bd0000",
+	 highlight: "#ed0000",
+	 value: 0
+	},
+       {
+	 label: "Errors",
+	 color: "#b34100",
+	 highlight: "#cc4b00",
+	 value: 0
+	},
+       {
+	 label: "Skips",
+	 color: "#006e99",
+	 highlight: "#00a8eb",
+	 value: 0
+	},
+       {
+	 label: "Passed",
+	 color: "#009e18",
+	 highlight: "#00d620",
+	 value: 92
+	}
+     ];
+
+     var ctx = document.getElementById("results-by-type").getContext("2d");
+     var resultsByTypeChart = new Chart(ctx).Pie(resultsByTypeData);
+    </script>
+  </body>
+</html>

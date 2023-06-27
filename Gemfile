@@ -104,6 +104,9 @@ group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 3.26'
   gem 'minitest'
+#  gem 'minitest-display', path: '/home/codynivens/devel/minitest-display'
+#  , branch: "new-feature"
+#  gem 'minitest-parallel_fork'
   gem 'minitest-rails'
   gem 'minitest-rails-capybara'
   gem 'pdf-reader'
@@ -111,6 +114,7 @@ group :test do
   gem 'rails-controller-testing'
   gem 'launchy'
   gem 'simplecov', require: false, group: :test
+  gem 'mock_redis'
 
   # Easy installation and use of chromedriver to run system tests with Chrome
 

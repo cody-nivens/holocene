@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Minitest::Display Test Report</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.6/flatly/bootstrap.min.css" rel="stylesheet">
+    <style media="screen" type="text/css">
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+  </head>
+
+  <body>
+    <div id="main">
+      <div class="container">
+	<div id="summary" class="row">
+	  <div id="count" class="widget col-md-2">
+	    <span class="counter">0</span>
+	    <span class="metric">Tests Run</span>
+	  </div>
+	  <div id="assertions" class="widget col-md-2">
+	    <span class="counter">56</span>
+	    <span class="metric">Assertions</span>
+	  </div>
+	  <div id="failures" class="widget col-md-2">
+	    <span class="counter"></span>
+	    <span class="metric">Failed</span>
+	  </div>
+	  <div id="errors" class="widget col-md-2">
+	    <span class="counter"></span>
+	    <span class="metric">Errors</span>
+	  </div>
+	  <div id="skips" class="widget col-md-2">
+	    <span class="counter"></span>
+	    <span class="metric">Skipped</span>
+	  </div>
+	</div>
+
+	<div class="row">
+	  <h2>Test Results</h2>
+
+	  <div id="test-results" class="col-md-8">
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: test_should_get_edit
+		</span>
+		<span class="time">23641.06 ms</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: test_should_show_act_TS
+		</span>
+		<span class="time">266.38 ms</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: test_should_destroy_act_TS
+		</span>
+		<span class="time">307.12 ms</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: test_should_get_new
+		</span>
+		<span class="time">300.62 ms</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: test_should_create_act_TS
+		</span>
+		<span class="time">281.88 ms</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: test_should_update_act_TS
+		</span>
+		<span class="time">250.40 ms</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: test_should_show_act_index_TS
+		</span>
+		<span class="time">224.43 ms</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	  </div>
+
+	  <div id="charts" class="col-md-4">
+	    <h3>Results by Type</h3>
+	    <canvas id="results-by-type"></canvas>
+	  </div>
+	</div>
+      </div>
+    </div>
+    <script>
+     // Results by type pie chart
+     var resultsByTypeData = [
+       {
+	 label: "Failures",
+	 color: "#bd0000",
+	 highlight: "#ed0000",
+	 value: 
+	},
+       {
+	 label: "Errors",
+	 color: "#b34100",
+	 highlight: "#cc4b00",
+	 value: 
+	},
+       {
+	 label: "Skips",
+	 color: "#006e99",
+	 highlight: "#00a8eb",
+	 value: 
+	},
+       {
+	 label: "Passed",
+	 color: "#009e18",
+	 highlight: "#00d620",
+	 value: 0
+	}
+     ];
+
+     var ctx = document.getElementById("results-by-type").getContext("2d");
+     var resultsByTypeChart = new Chart(ctx).Pie(resultsByTypeData);
+    </script>
+  </body>
+</html>

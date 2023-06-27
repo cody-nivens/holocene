@@ -1,5 +1,5 @@
 class ItinerariesController < ApplicationController
-  before_action :set_itinerary, only: %i[show edit update destroy]
+  before_action :set_itinerary, only: %i[map_locs show edit update destroy]
   before_action :set_tour, only: %i[index new]
 
   # GET /itineraries or /itineraries.json
@@ -33,6 +33,11 @@ class ItinerariesController < ApplicationController
     end
   end
 
+  def map_locs
+    respond_to do |format|
+      format.json { render json: { itinerary: @itinerary.map_locs } }
+    end
+  end
   # GET /itineraries/new
   def new
     @itinerary = Itinerary.new

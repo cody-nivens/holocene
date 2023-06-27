@@ -12,7 +12,7 @@ class CharacterCategoriesTest < ApplicationSystemTestCase
   end
 
   test "drive the character_category cycle" do
-    drive_cycle('Support', 'Character Categories')
+    menu_test('Support', 'Character Categories')
   end
 
   if 1 == 0

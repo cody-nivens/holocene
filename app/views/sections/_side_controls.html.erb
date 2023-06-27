@@ -1,16 +1,16 @@
 <% priv_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position - 1) -%>
 <% next_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position + 1) -%>
-<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_section_path(@section), class: 'btn', title: 'Edit' %>
-<% unless priv_section.size.zero? %>
-<%= link_to (fa_icon 'arrow-left', class: 'fa-fw'), section_path(priv_section.first), method: :get, class: 'btn', title: 'Previous section' %>
-<% end %>
-<% unless next_section.size.zero? %>
-<%= link_to (fa_icon 'arrow-right', class: 'fa-fw'), section_path(next_section.first), method: :get, class: 'btn' , title: 'Next section' %>
-<% end %>
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_section_path(@section), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'Edit' %>
 <% if @section.sectioned_type == "Chapter" %>
   <%= link_to (fa_icon 'stream', class: 'fa-fw'), section_timeline_path(section_id: @section.id).to_s, method: :get, class: 'btn', title: 'Timeline' %>
   <%= link_to (fa_icon 'list-alt', class: 'fa-fw'), section_display_path(section_id: @section.id).to_s, method: :get, class: 'btn', title: 'Display' %>
   <%= link_to (fa_icon 'map', class: 'fa-fw'), geo_map_section_path(@section).to_s, method: :get, class: 'btn', title: 'Map' %>
   <%= link_to (fa_icon 'list', class: 'fa-fw'), section_footnotes_path(@section), method: :get, class: 'btn', title: 'Footnotes' %>
 <% end -%>
+<% unless priv_section.size.zero? %>
+<%= link_to (fa_icon 'arrow-left', class: 'fa-fw'), section_path(priv_section.first), method: :get, class: 'btn', title: 'Previous section' %>
+<% end %>
+<% unless next_section.size.zero? %>
+<%= link_to (fa_icon 'arrow-right', class: 'fa-fw'), section_path(next_section.first), method: :get, class: 'btn' , title: 'Next section' %>
+<% end %>
 <%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@sectioned), method: :get, class: 'btn', title: 'Back' %>

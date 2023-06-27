@@ -1,20 +1,16 @@
-  <%= bootstrap_form_for :character, url: polymorphic_path([@object, :characters_add]) do |f| %>
-
-    <%= hidden_field "#{@object.class.name.underscore}_id", value: @object.id %>
-
-    <h2>Characters for <%= @object.class.name %>: <%= @object.name %></h2>
-
-    <table class="table">
-      <tr>
-        <td style="width:40%">
-          <%= select_tag :characters_ids, options_from_collection_for_select(@object.characters.order(:occupation_class, :grouping, :last_name, :first_name), :id, :select_name), prompt: 'Select Characters', multiple: true, size: 20 %>
-        </td><td style="width:20%">
-          <%= f.submit class: 'btn btn-primary' %>
-        </td><td style="width:40%">
-          <% values = @object.set_values %>
-          <%= select_tag :characters_avail, options_from_collection_for_select(values[0].characters.order(:occupation_class, :grouping, :last_name, :first_name), :id, :select_name), prompt: 'Select Character', multiple: true, size: 20 %>
-        </td>
-      </tr>
-    </table>
-    <%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@object), class: 'btn', title: 'Back' %>
-  <% end %>
+<%= bootstrap_form_for :character, url: polymorphic_path([@object, :characters_add]) do |f| %>
+  <%= hidden_field "#{@object.class.name.underscore}_id", value: @object.id %>
+  <table class="table">
+    <tr>
+      <td style="width:40%">
+        <%= select_tag :characters_ids, options_from_collection_for_select(@object.characters.order(:occupation_class, :grouping, :last_name, :first_name), :id, :select_name), prompt: 'Select Characters', multiple: true, size: 20 %>
+      </td><td style="width:20%">
+        <%= f.submit class: 'btn btn-primary' %>
+      </td><td style="width:40%">
+        <% values = @object.set_values %>
+        <%= select_tag :characters_avail, options_from_collection_for_select(values[0].characters.order(:occupation_class, :grouping, :last_name, :first_name), :id, :select_name), prompt: 'Select Character', multiple: true, size: 20 %>
+      </td>
+    </tr>
+  </table>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(@object), method: :get, class: 'btn', title: 'Back' %>
+<% end %>

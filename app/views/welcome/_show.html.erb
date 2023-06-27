@@ -1,0 +1,18 @@
+<% date = @date.to_date %>
+<% @title = date %>
+<% counts = @dates_counts[@date.in_time_zone] %>
+<% unless counts.nil? %>
+  <% unless counts[0].zero? %>
+    <%= "Created: #{number_with_delimiter(counts[0], delimiter: ',')}" %><br>
+  <% end %>
+  <% unless counts[1].zero? %>
+    <%= "Modified: #{number_with_delimiter(counts[1], delimiter: ',')}" %><br>
+  <% end %>
+  <%= "Items: #{Metric.where(date: @date.in_time_zone).count}" %>
+  <br>
+<% end %>
+
+<%= render partial: 'shared/metric', formats: [:html], locals: { objects: @metrics, title: "Items for #{@date.to_s}" } %>
+
+
+

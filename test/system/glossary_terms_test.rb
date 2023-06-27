@@ -11,7 +11,7 @@ class GlossaryTermsTest < ApplicationSystemTestCase
   end
 
   test "drive the glossary term cycle" do
-    drive_cycle('Book', 'Glossary Terms')
+    menu_test('Book', 'Glossary Terms')
   end
 
   if 1 == 0

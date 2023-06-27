@@ -91,7 +91,9 @@ namespace :check_fixtures do
 
             reflections = model.reflect_on_all_associations
             reflections.each do |reflection|
-              if (reflection.constructable? and reflection.name.to_s == attribute.gsub(/_id/,'')) or
+              #debugger
+              #if (reflection.constructable? and reflection.name.to_s == attribute.gsub(/_id/,'')) or
+              if (reflection.name.to_s == attribute.gsub(/_id/,'')) or
                   reflection.name.to_s == attribute.gsub(/_id/,'') or
                   reflection.name.to_s == attribute.gsub(/_type/,'')
                 reflect_found = true

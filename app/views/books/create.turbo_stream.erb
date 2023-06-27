@@ -1,8 +1,6 @@
 <%= turbo_stream.replace "objects"  do %>
-  <%= render partial: "books/books" %>
-<% end %>
-<%= turbo_stream.replace "edit"  do %>
-  <%= content_tag :div, id: "edit" do %>
+  <%= content_tag :div, id: "objects" do %>
+    <%= render partial: "books/books" %>
   <% end %>
 <% end %>
 <%= turbo_stream.replace "new_object" do %>

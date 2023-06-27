@@ -24,7 +24,20 @@ class ScenesTest < ApplicationSystemTestCase
 
   test "walk the scene side menus" do
     @book = books(:book_2)
-    walk_sides('Scene')
+    walk_sides('Scene', debug: false)
+  end
+
+  test 'looking at a scene' do
+    visit root_url
+    setup_page 'Story'
+
+    assert_text "A00001"
+    click_on "A00001"
+
+    assert_text "a dark and stormy night"
+
+    Capybara.page.find('.fa-backward').click
+    assert_current_path root_url
   end
 
   if 1 == 0
@@ -146,12 +159,10 @@ class ScenesTest < ApplicationSystemTestCase
     Scene.get_scenes(@scene.book)
     visit scene_url(@scene)
     assert_text 'A00001'
-    take_screenshot
     within '#side_controls' do
       assert_no_selector '.fa-angle-left'
       assert_selector '.fa-angle-right'
     end
-    take_screenshot
   end
 
   test 'visiting the scene 2' do
@@ -162,7 +173,6 @@ class ScenesTest < ApplicationSystemTestCase
       assert_selector '.fa-angle-left'
       assert_selector '.fa-angle-right'
     end
-    take_screenshot
   end
 
   test 'visiting the scene 3' do
@@ -173,7 +183,6 @@ class ScenesTest < ApplicationSystemTestCase
       assert_selector '.fa-angle-left'
       assert_no_selector '.fa-angle-right'
     end
-    take_screenshot
   end
 
   test 'visiting the scene 4' do
@@ -184,7 +193,6 @@ class ScenesTest < ApplicationSystemTestCase
       assert_no_selector '.fa-angle-left'
       assert_selector '.fa-angle-right'
     end
-    take_screenshot
   end
 
   test 'creating a Scene' do
@@ -236,7 +244,6 @@ class ScenesTest < ApplicationSystemTestCase
     # fill_in_rich_text_area "scene_short_term_goal", with: @scene.short_term_goal
     fill_in_rich_text_area 'scene_summary', with: @scene.summary
     assert_text @scene.summary.to_plain_text
-    take_screenshot
 
     click_on 'Create Scene'
 

@@ -2,5 +2,5 @@
 
 <turbo-frame id="new_object">
   <%= render 'form', user: current_user, author: @author, command_label: 'Create Author', object: @object %>
-  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  polymorphic_path([@object, :authors]), class: 'btn', title: 'Back' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  polymorphic_path([@object, :authors]), method: :get, class: 'btn', title: 'Back' %>
 </turbo-frame>

@@ -1,5 +1,7 @@
 <%= turbo_stream.replace "sub_objects"  do %>
-  <%= render partial: "key_points/key_points", locals: { scripted: @scripted, long: @long, link: false } %>
+  <%= content_tag :div, id: "sub_objects" do %>
+    <%= render partial: "key_points/key_points", locals: { scripted: @scripted, long: @long, link: false } %>
+  <% end %>
 <% end %>
 <%= turbo_stream.replace "edit"  do %>
   <%= content_tag :div, id: "edit" do %>

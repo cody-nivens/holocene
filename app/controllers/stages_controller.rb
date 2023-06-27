@@ -16,6 +16,9 @@ class StagesController < ApplicationController
     @check = params[:check]
     session[:stage_view] = @check
     session[:return_to] = request.fullpath
+    session[:stage_id] = @stage.id
+    save_user_datum(@stage.act.book.id, nil, nil, @stage.id)
+
     respond_to do |format|
       format.turbo_stream { render "shared/show", locals: { object: @stage, new_link_path: "segments" } }
     end
@@ -34,7 +37,7 @@ class StagesController < ApplicationController
     end
 
     respond_to do |format|
-      format.turbo_stream { render 'shared/report' }
+      format.turbo_stream { render 'shared/report', locals: { report: @report, report_path: @report_path } }
     end
   end
 

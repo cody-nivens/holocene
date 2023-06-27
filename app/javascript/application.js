@@ -15,8 +15,6 @@ import 'trix'
 import '@rails/actiontext'
 import "chartkick"
 import "Chart.bundle"
-import 'jquery.jvectormap.min';
-import 'jquery-jvectormap-world-mill-en';
 
 import { Application } from '@hotwired/stimulus'
 const application = Application.start()

@@ -1,5 +1,5 @@
 class TimelinesController < ApplicationController
-  before_action :set_timeline, only: %i[geo_map show edit update destroy]
+  before_action :set_timeline, only: %i[map_locs geo_map show edit update destroy]
 
   # GET /timelines
   # GET /timelines.json
@@ -22,10 +22,16 @@ class TimelinesController < ApplicationController
     end
   end
 
+  def map_locs
+    respond_to do |format|
+      format.json { render json: @timeline.map_locs }
+    end
+  end
+
   def geo_map
     @object = @timeline
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/show", locals: { object: @timeline, no_new_link: true, part: 'map', path_name: 'shared' } }
     end
   end
 
@@ -52,7 +58,7 @@ class TimelinesController < ApplicationController
       @report = 'timeline'
       @report_path = 'timelines'
       respond_to do |format|
-        format.turbo_stream { render "shared/report" }
+        format.turbo_stream { render "shared/report", locals: { report: @report, report_path: @report_path } }
       end
     end
   end

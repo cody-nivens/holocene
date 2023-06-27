@@ -17,12 +17,30 @@ class CharactersTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  [ 'Character Grid', 'Main Characters', 'Characters with Scenes', 'By Occupation', 'By Occupation, All' ].each do |object|
-    test "visiting the Character:#{object.gsub(/ /,'_')} menu" do
-      setup_page 'Story'
-      setup_menu_page 'Characters', object
-    end
+  test "visiting the Character: Character Grid menu" do
+    menu_test 'Characters', 'Character Grid'
   end
+
+  test "visiting the Character: Main Characters menu" do
+    menu_test 'Characters', 'Main Characters'
+  end
+
+  test "visiting the Character: Characters with Scenes menu" do
+    menu_test 'Characters', 'Characters with Scenes'
+  end
+
+  test "visiting the Character: By Occupation menu" do
+    menu_test 'Characters', 'By Occupation'
+  end
+
+  test "visiting the Character: By Occupation, All menu" do
+    menu_test 'Characters', 'By Occupation, All'
+  end
+
+  test "visiting the Character: Import Chars menu" do
+    menu_test 'Characters', 'Import Chars'
+  end
+
 
   test 'character_create' do 
     visit root_url
@@ -90,7 +108,6 @@ class CharactersTest < ApplicationSystemTestCase
     visit book_characters_list_url(@book)
 #    visit New Character
     assert_link 'New Character'
-    take_screenshot
     click_on 'New Character'
     assert_text 'Character Characteristics'
     assert_current_path book_character_step_path(@book, Character.last, :characteristics)
@@ -112,7 +129,6 @@ class CharactersTest < ApplicationSystemTestCase
       end
       page.all('select#characters_ids option').map(&:value) == [@jill.name, @joe.name ]
     end
-    take_screenshot
   end
 
   test 'characters show attributes' do

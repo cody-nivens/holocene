@@ -1,0 +1,2881 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Minitest::Display Test Report</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.6/flatly/bootstrap.min.css" rel="stylesheet">
+    <style media="screen" type="text/css">
+       body { padding-top: 70px; }
+
+.row {
+  margin-bottom: 20px;
+}
+
+/*
+ *  SUMMARY ROW
+ */
+#summary .widget {
+  border: 3px solid #eef;
+  border-radius: 10px;
+  margin-right: 2.5%;
+  padding: 10px;
+  width: 18%;
+}
+
+#summary .widget:last-child {
+  margin-right: 0;
+}
+
+#summary .counter {
+  display: block;
+  font-size: 4em;
+  font-weight: bold;
+  text-align: center;
+}
+
+#summary .metric {
+  display: block;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+/*
+ *  INDIVIDUAL TEST RESULTS
+ */
+#test-results {
+  margin: 0;
+}
+
+#test-results .result {
+  border: solid;
+  border-width: 3px thin;
+  font-size: 14px;
+  margin-bottom: 3px;
+  padding: 6px;
+  width: 100%;
+}
+
+#test-results .result span.outcome-name,
+#test-results .result span.time {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+#test-results .result span.outcome-name {
+  overflow: hidden;
+  max-width: 85%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#test-results .result span.time {
+  float: right;
+  width: 15%;
+}
+
+#test-results .result .failure-details {
+  clear: both;
+}
+
+#test-results .result.pass {
+  background-color: #eef;
+  border-color: green;
+  font-color: dark-green;
+}
+
+#test-results .result.fail {
+  background-color: #ffe4b2;
+  border-color: orange;
+}
+
+#test-results .result.error {
+  background-color: #fdd;
+  border-color: red;
+}
+
+#test-results .result.skip {
+  background-color: #f0f0f0;
+  border-color: #aaa;
+}
+
+
+/*
+ *  CHARTS
+ */
+#charts h3 {
+  margin: 0;
+  text-align: center;
+}
+
+#charts canvas {
+  display: block;
+  height: 300px;
+  margin: 0 auto;
+  width: 90%;
+}
+
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+  </head>
+
+  <body>
+    <div id="main">
+      <div class="container">
+	<div id="summary" class="row">
+	  <div id="count" class="widget col-md-2">
+	    <span class="counter">268</span>
+	    <span class="metric">Tests Run</span>
+	  </div>
+	  <div id="assertions" class="widget col-md-2">
+	    <span class="counter">13</span>
+	    <span class="metric">Assertions</span>
+	  </div>
+	  <div id="failures" class="widget col-md-2">
+	    <span class="counter">0</span>
+	    <span class="metric">Failed</span>
+	  </div>
+	  <div id="errors" class="widget col-md-2">
+	    <span class="counter">0</span>
+	    <span class="metric">Errors</span>
+	  </div>
+	  <div id="skips" class="widget col-md-2">
+	    <span class="counter">0</span>
+	    <span class="metric">Skipped</span>
+	  </div>
+	</div>
+
+	<div class="row">
+	  <h2>Test Results</h2>
+
+	  <div id="test-results" class="col-md-8">
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharactersControllerTest test_should_destroy_character_TS
+		</span>
+		<span class="time">7.01 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharactersControllerTest test_should_update_character_TS
+		</span>
+		<span class="time">2.89 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ItinerariesControllerTest test_should_show_itinerary_TS
+		</span>
+		<span class="time">0.27 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharactersControllerTest test_should_show_character_TS
+		</span>
+		<span class="time">0.44 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharactersControllerTest test_should_show_character_index_TS
+		</span>
+		<span class="time">3.13 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ItinerariesControllerTest test_should_create_itinerary_TS
+		</span>
+		<span class="time">0.71 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ItinerariesControllerTest test_should_show_itinerary_index_TS
+		</span>
+		<span class="time">0.23 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ItinerariesControllerTest test_should_destroy_itinerary_TS
+		</span>
+		<span class="time">0.40 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ItinerariesControllerTest test_should_update_itinerary_TS
+		</span>
+		<span class="time">0.23 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: TimelinesControllerTest test_should_show_timeline_TS
+		</span>
+		<span class="time">0.58 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharactersControllerTest test_should_get_edit
+		</span>
+		<span class="time">33.42 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: TimelinesControllerTest test_should_create_timeline_TS
+		</span>
+		<span class="time">1.36 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ItinerariesControllerTest test_should_get_new
+		</span>
+		<span class="time">29.76 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ItinerariesControllerTest test_should_get_edit
+		</span>
+		<span class="time">29.32 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: TimelinesControllerTest test_should_show_timeline_index_TS
+		</span>
+		<span class="time">1.23 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: TimelinesControllerTest test_should_get_new
+		</span>
+		<span class="time">29.44 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: TimelinesControllerTest test_should_destroy_timeline_TS
+		</span>
+		<span class="time">2.46 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: TimelinesControllerTest test_should_update_timeline_TS
+		</span>
+		<span class="time">1.35 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: TimelinesControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.61 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterCategoriesControllerTest test_should_get_new
+		</span>
+		<span class="time">0.49 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterCategoriesControllerTest test_should_show_character_category_TS
+		</span>
+		<span class="time">0.53 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterCategoriesControllerTest test_should_create_character_category_TS
+		</span>
+		<span class="time">0.72 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterCategoriesControllerTest test_should_update_character_category_TS
+		</span>
+		<span class="time">0.71 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterCategoriesControllerTest test_should_show_character_category_index_TS
+		</span>
+		<span class="time">0.71 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterCategoriesControllerTest test_should_destroy_character_category_TS
+		</span>
+		<span class="time">1.19 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterCategoriesControllerTest test_should_get_edit
+		</span>
+		<span class="time">2.36 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterValuesControllerTest test_should_get_new
+		</span>
+		<span class="time">2.37 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterValuesControllerTest test_should_show_character_value_TS
+		</span>
+		<span class="time">2.37 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterValuesControllerTest test_should_create_character_value_TS
+		</span>
+		<span class="time">2.17 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterValuesControllerTest test_should_destroy_character_value_TS
+		</span>
+		<span class="time">0.52 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterValuesControllerTest test_should_show_character_value_index_TS
+		</span>
+		<span class="time">0.51 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterValuesControllerTest test_should_update_character_value_TS
+		</span>
+		<span class="time">0.51 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterValuesControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.43 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActorLocationTimesControllerTest test_should_show_actor_location_time_TS
+		</span>
+		<span class="time">0.37 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActorLocationTimesControllerTest test_should_get_new
+		</span>
+		<span class="time">0.38 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActorLocationTimesControllerTest test_should_create_actor_location_time_TS
+		</span>
+		<span class="time">0.45 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActorLocationTimesControllerTest test_should_destroy_actor_location_time_TS
+		</span>
+		<span class="time">0.50 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActorLocationTimesControllerTest test_should_show_actor_location_time_index_TS
+		</span>
+		<span class="time">0.48 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActorLocationTimesControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.40 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActorLocationTimesControllerTest test_should_update_actor_location_time_TS
+		</span>
+		<span class="time">0.47 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: SegmentsControllerTest test_should_show_segment_TS
+		</span>
+		<span class="time">0.38 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: SegmentsControllerTest test_should_create_segment_TS
+		</span>
+		<span class="time">0.40 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: SegmentsControllerTest test_should_show_segment_index_TS
+		</span>
+		<span class="time">0.38 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: SegmentsControllerTest test_should_destroy_segment_TS
+		</span>
+		<span class="time">0.56 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: SegmentsControllerTest test_should_get_new
+		</span>
+		<span class="time">0.86 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: SegmentsControllerTest test_should_update_segment_TS
+		</span>
+		<span class="time">0.49 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksControllerTest test_should_get_new
+		</span>
+		<span class="time">0.32 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksControllerTest test_should_create_book_TS
+		</span>
+		<span class="time">0.30 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: SegmentsControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.84 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksControllerTest test_should_report_book_TS
+		</span>
+		<span class="time">0.96 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksControllerTest test_should_destroy_book_TS
+		</span>
+		<span class="time">0.50 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksControllerTest test_should_show_book_index_TS
+		</span>
+		<span class="time">0.21 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.17 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksControllerTest test_should_show_book_TS
+		</span>
+		<span class="time">0.97 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksControllerTest test_should_show_book_TS_2
+		</span>
+		<span class="time">1.21 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StoriesControllerTest test_should_report_story_TS
+		</span>
+		<span class="time">0.45 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StoriesControllerTest test_should_get_new_story
+		</span>
+		<span class="time">0.32 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StoriesControllerTest test_should_create_story_TS
+		</span>
+		<span class="time">0.46 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BooksControllerTest test_should_update_book_TS
+		</span>
+		<span class="time">1.46 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StoriesControllerTest test_should_destroy_story_TS
+		</span>
+		<span class="time">0.73 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StoriesControllerTest test_should_get_edit_story
+		</span>
+		<span class="time">0.36 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: AsidesControllerTest test_should_show_aside_TS
+		</span>
+		<span class="time">0.30 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StoriesControllerTest test_should_show_story_TS
+		</span>
+		<span class="time">0.82 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: AsidesControllerTest test_should_get_new
+		</span>
+		<span class="time">0.33 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: AsidesControllerTest test_should_destroy_aside_TS
+		</span>
+		<span class="time">0.51 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: AsidesControllerTest test_should_create_aside_TS
+		</span>
+		<span class="time">0.51 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StoriesControllerTest test_should_update_story_TS
+		</span>
+		<span class="time">1.16 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: AsidesControllerTest test_should_show_aside_index_TS
+		</span>
+		<span class="time">0.57 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: AsidesControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.38 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: AsidesControllerTest test_should_update_aside_TS
+		</span>
+		<span class="time">0.38 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ArtifactTypesControllerTest test_should_show_artifact_type_TS
+		</span>
+		<span class="time">0.41 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ArtifactTypesControllerTest test_should_get_new
+		</span>
+		<span class="time">0.41 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ArtifactTypesControllerTest test_should_create_artifact_type_TS
+		</span>
+		<span class="time">0.49 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ArtifactTypesControllerTest test_should_destroy_artifact_type_TS
+		</span>
+		<span class="time">0.56 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ArtifactTypesControllerTest test_should_show_artifact_type_index_TS
+		</span>
+		<span class="time">0.51 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ArtifactTypesControllerTest test_should_update_artifact_type_TS
+		</span>
+		<span class="time">0.51 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ArtifactTypesControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.43 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: SectionsControllerTest test_should_show_section_TS
+		</span>
+		<span class="time">0.36 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: SectionsControllerTest test_should_get_new
+		</span>
+		<span class="time">0.41 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: SectionsControllerTest test_should_show_section_index_TS
+		</span>
+		<span class="time">0.34 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: SectionsControllerTest test_should_destroy_section_TS
+		</span>
+		<span class="time">0.48 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: SectionsControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.31 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CitationsControllerTest test_should_update_citation_TS
+		</span>
+		<span class="time">0.30 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CitationsControllerTest test_should_show_citation_index_TS
+		</span>
+		<span class="time">1.97 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: SectionsControllerTest test_should_create_section_TS
+		</span>
+		<span class="time">2.94 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterScenesControllerTest test_should_get_edit
+		</span>
+		<span class="time">1.29 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterScenesControllerTest test_should_update_character_scene_TS
+		</span>
+		<span class="time">4.05 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: SectionsControllerTest test_should_update_section_TS
+		</span>
+		<span class="time">5.32 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: KeyPointsControllerTest test_should_get_new_key_point
+		</span>
+		<span class="time">1.58 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: KeyPointsControllerTest test_should_show_key_point_TS
+		</span>
+		<span class="time">3.15 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: KeyPointsControllerTest test_should_create_key_point_TS
+		</span>
+		<span class="time">1.63 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: KeyPointsControllerTest test_should_show_key_point_index_TS
+		</span>
+		<span class="time">1.01 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: KeyPointsControllerTest test_should_show_key_point_TS_2
+		</span>
+		<span class="time">0.63 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: KeyPointsControllerTest test_should_get_edit_key_point
+		</span>
+		<span class="time">0.27 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: FootnotesControllerTest test_should_show_footnote_TS
+		</span>
+		<span class="time">0.28 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: KeyPointsControllerTest test_should_destroy_key_point_TS
+		</span>
+		<span class="time">1.55 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: FootnotesControllerTest test_should_get_new
+		</span>
+		<span class="time">0.36 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: FootnotesControllerTest test_should_destroy_footnote_TS
+		</span>
+		<span class="time">0.31 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: FootnotesControllerTest test_should_create_footnote_TS
+		</span>
+		<span class="time">0.55 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: FootnotesControllerTest test_should_show_footnote_index_TS
+		</span>
+		<span class="time">0.41 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: FootnotesControllerTest test_should_update_footnote_TS
+		</span>
+		<span class="time">0.41 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: FootnotesControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.34 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActorsControllerTest test_should_show_actor_TS
+		</span>
+		<span class="time">0.36 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActorsControllerTest test_should_get_new
+		</span>
+		<span class="time">0.29 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActorsControllerTest test_should_create_actor_TS
+		</span>
+		<span class="time">0.45 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: KeyPointsControllerTest test_should_update_key_point_TS
+		</span>
+		<span class="time">1.86 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActorsControllerTest test_should_destroy_actor_TS
+		</span>
+		<span class="time">0.58 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActorsControllerTest test_should_show_actor_index_TS
+		</span>
+		<span class="time">0.61 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActorsControllerTest test_should_update_actor_TS
+		</span>
+		<span class="time">0.46 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActorsControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.48 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: GlossaryTermsControllerTest test_should_show_glossary_term_TS
+		</span>
+		<span class="time">0.40 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: GlossaryTermsControllerTest test_should_get_new
+		</span>
+		<span class="time">0.42 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: GlossaryTermsControllerTest test_should_create_glossary_term_TS
+		</span>
+		<span class="time">0.56 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: GlossaryTermsControllerTest test_should_destroy_glossary_term_TS
+		</span>
+		<span class="time">0.61 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: GlossaryTermsControllerTest test_should_show_glossary_term_index_TS
+		</span>
+		<span class="time">0.69 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: GlossaryTermsControllerTest test_should_update_glossary_term_TS
+		</span>
+		<span class="time">0.72 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: GlossaryTermsControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.57 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ArtifactsControllerTest test_should_show_artifact_TS
+		</span>
+		<span class="time">0.51 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ArtifactsControllerTest test_should_get_new
+		</span>
+		<span class="time">0.44 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ArtifactsControllerTest test_should_create_artifact_TS
+		</span>
+		<span class="time">0.54 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ArtifactsControllerTest test_should_destroy_artifact_TS
+		</span>
+		<span class="time">0.61 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ArtifactsControllerTest test_should_show_artifact_index_TS
+		</span>
+		<span class="time">0.58 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ArtifactsControllerTest test_should_update_artifact_TS
+		</span>
+		<span class="time">0.61 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ArtifactsControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.57 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: HoloceneEventsControllerTest test_should_show_holocene_event_TS
+		</span>
+		<span class="time">0.62 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: HoloceneEventsControllerTest test_should_get_new
+		</span>
+		<span class="time">0.81 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: HoloceneEventsControllerTest test_should_create_holocene_event_TS
+		</span>
+		<span class="time">1.02 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: HoloceneEventsControllerTest test_should_destroy_holocene_event_TS
+		</span>
+		<span class="time">1.05 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: HoloceneEventsControllerTest test_should_show_holocene_event_index_TS
+		</span>
+		<span class="time">0.96 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: HoloceneEventsControllerTest test_should_update_holocene_event_TS
+		</span>
+		<span class="time">0.97 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: HoloceneEventsControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.75 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: LocationTimesControllerTest test_should_show_location_time_TS
+		</span>
+		<span class="time">0.70 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: LocationTimesControllerTest test_should_get_new
+		</span>
+		<span class="time">0.76 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: LocationTimesControllerTest test_should_create_location_time_TS
+		</span>
+		<span class="time">0.77 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: LocationTimesControllerTest test_should_destroy_location_time_TS
+		</span>
+		<span class="time">0.90 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: LocationTimesControllerTest test_should_show_location_time_index_TS
+		</span>
+		<span class="time">0.89 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: LocationTimesControllerTest test_should_update_location_time_TS
+		</span>
+		<span class="time">0.91 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: LocationTimesControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.79 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: PartitionsControllerTest test_should_show_partition_TS
+		</span>
+		<span class="time">0.68 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: PartitionsControllerTest test_should_get_new
+		</span>
+		<span class="time">0.68 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: PartitionsControllerTest test_should_create_partition_TS
+		</span>
+		<span class="time">0.75 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: PartitionsControllerTest test_should_destroy_partition_TS
+		</span>
+		<span class="time">0.82 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: PartitionsControllerTest test_should_show_partition_index_TS
+		</span>
+		<span class="time">0.80 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: PartitionsControllerTest test_should_update_partition_TS
+		</span>
+		<span class="time">0.88 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: PartitionsControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.73 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterAttributesControllerTest test_should_show_character_attribute_TS
+		</span>
+		<span class="time">0.70 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterAttributesControllerTest test_should_get_new
+		</span>
+		<span class="time">0.83 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterAttributesControllerTest test_should_create_character_attribute_TS
+		</span>
+		<span class="time">0.86 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterAttributesControllerTest test_should_destroy_character_attribute_TS
+		</span>
+		<span class="time">0.98 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterAttributesControllerTest test_should_show_character_attribute_index_TS
+		</span>
+		<span class="time">1.22 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterAttributesControllerTest test_should_update_character_attribute_TS
+		</span>
+		<span class="time">1.39 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CharacterAttributesControllerTest test_should_get_edit
+		</span>
+		<span class="time">1.55 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: RegionsControllerTest test_should_get_new
+		</span>
+		<span class="time">1.32 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: RegionsControllerTest test_should_show_region_TS
+		</span>
+		<span class="time">2.65 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: RegionsControllerTest test_should_update_region_TS
+		</span>
+		<span class="time">1.79 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: RegionsControllerTest test_should_show_region_index_TS
+		</span>
+		<span class="time">2.90 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: RegionsControllerTest test_should_create_region_TS
+		</span>
+		<span class="time">3.90 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: RegionsControllerTest test_should_destroy_region_TS
+		</span>
+		<span class="time">3.56 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: RegionsControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.76 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: EventTypesControllerTest test_should_get_new
+		</span>
+		<span class="time">0.61 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: EventTypesControllerTest test_should_show_event_type_TS
+		</span>
+		<span class="time">0.71 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: EventTypesControllerTest test_should_create_event_type_TS
+		</span>
+		<span class="time">0.81 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: EventTypesControllerTest test_should_destroy_event_type_TS
+		</span>
+		<span class="time">1.17 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: EventTypesControllerTest test_should_show_event_type_index_TS
+		</span>
+		<span class="time">1.31 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: EventTypesControllerTest test_should_update_event_type_TS
+		</span>
+		<span class="time">1.31 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: EventTypesControllerTest test_should_get_edit
+		</span>
+		<span class="time">1.22 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BiblioentriesControllerTest test_should_show_biblioentry_TS
+		</span>
+		<span class="time">0.90 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BiblioentriesControllerTest test_should_get_new
+		</span>
+		<span class="time">2.16 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BiblioentriesControllerTest test_should_create_biblioentry_TS
+		</span>
+		<span class="time">2.31 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BiblioentriesControllerTest test_should_destroy_biblioentry_TS
+		</span>
+		<span class="time">2.40 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BiblioentriesControllerTest test_should_show_biblioentry_index_TS
+		</span>
+		<span class="time">2.43 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BiblioentriesControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.91 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: BiblioentriesControllerTest test_should_update_biblioentry_TS
+		</span>
+		<span class="time">1.05 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ScenesControllerTest test_should_get_new
+		</span>
+		<span class="time">0.64 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ScenesControllerTest test_should_show_scene_TS
+		</span>
+		<span class="time">1.25 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ScenesControllerTest test_should_create_scene_TS
+		</span>
+		<span class="time">0.90 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ScenesControllerTest test_should_show_scene_index_TS
+		</span>
+		<span class="time">0.66 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ScenesControllerTest test_should_update_scene_TS
+		</span>
+		<span class="time">0.74 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ScenesControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.48 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CitiesControllerTest test_should_show_city_TS
+		</span>
+		<span class="time">0.36 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ScenesControllerTest test_should_destroy_scene_TS
+		</span>
+		<span class="time">1.82 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CitiesControllerTest test_should_create_city_TS
+		</span>
+		<span class="time">0.77 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CitiesControllerTest test_should_get_new
+		</span>
+		<span class="time">0.94 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CitiesControllerTest test_should_destroy_city_TS
+		</span>
+		<span class="time">0.96 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CitiesControllerTest test_should_show_city_index_TS
+		</span>
+		<span class="time">0.77 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CitiesControllerTest test_should_update_city_TS
+		</span>
+		<span class="time">0.81 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: CitiesControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.81 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActsControllerTest test_should_show_act_TS
+		</span>
+		<span class="time">0.71 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActsControllerTest test_should_get_new
+		</span>
+		<span class="time">0.73 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActsControllerTest test_should_create_act_TS
+		</span>
+		<span class="time">0.80 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActsControllerTest test_should_show_act_index_TS
+		</span>
+		<span class="time">0.76 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActsControllerTest test_should_destroy_act_TS
+		</span>
+		<span class="time">0.85 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActsControllerTest test_should_update_act_TS
+		</span>
+		<span class="time">0.78 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActsControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.71 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: LocationsControllerTest test_should_show_location_TS
+		</span>
+		<span class="time">0.78 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: LocationsControllerTest test_should_get_new
+		</span>
+		<span class="time">0.69 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: LocationsControllerTest test_should_create_location_TS
+		</span>
+		<span class="time">0.85 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: LocationsControllerTest test_should_destroy_location_TS
+		</span>
+		<span class="time">1.00 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: LocationsControllerTest test_should_update_location_TS
+		</span>
+		<span class="time">0.93 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: LocationsControllerTest test_should_show_location_index_TS
+		</span>
+		<span class="time">0.93 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: LocationsControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.83 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: AuthorsControllerTest test_should_show_author_TS
+		</span>
+		<span class="time">0.74 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: AuthorsControllerTest test_should_get_new
+		</span>
+		<span class="time">1.07 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: AuthorsControllerTest test_should_create_author_TS
+		</span>
+		<span class="time">1.17 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: AuthorsControllerTest test_should_destroy_author_TS
+		</span>
+		<span class="time">1.23 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: AuthorsControllerTest test_should_show_author_index_TS
+		</span>
+		<span class="time">1.14 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: AuthorsControllerTest test_should_update_author_TS
+		</span>
+		<span class="time">0.74 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: AuthorsControllerTest test_should_show_author_TS_2
+		</span>
+		<span class="time">0.84 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: AuthorsControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.71 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: PlotPointsControllerTest test_should_get_new
+		</span>
+		<span class="time">0.60 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: PlotPointsControllerTest test_should_show_plot_point_TS
+		</span>
+		<span class="time">1.12 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: PlotPointsControllerTest test_should_destroy_plot_point_TS
+		</span>
+		<span class="time">0.80 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: PlotPointsControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.31 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: PlotPointsControllerTest test_should_show_plot_point_index_TS
+		</span>
+		<span class="time">1.03 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: PlotPointsControllerTest test_should_update_plot_point_TS
+		</span>
+		<span class="time">0.68 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: PlotPointsControllerTest test_should_create_plot_point_TS
+		</span>
+		<span class="time">1.74 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActorCharactersControllerTest test_should_create_actor_character_TS
+		</span>
+		<span class="time">1.21 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActorCharactersControllerTest test_should_get_new
+		</span>
+		<span class="time">0.96 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActorCharactersControllerTest test_should_update_actor_character_TS
+		</span>
+		<span class="time">1.35 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: EpochsControllerTest test_should_get_new
+		</span>
+		<span class="time">0.78 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActorCharactersControllerTest test_should_get_edit
+		</span>
+		<span class="time">2.09 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ActorCharactersControllerTest test_should_destroy_actor_character_TS
+		</span>
+		<span class="time">3.05 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: EpochsControllerTest test_should_show_epoch_TS
+		</span>
+		<span class="time">2.53 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: EpochsControllerTest test_should_create_epoch_TS
+		</span>
+		<span class="time">1.84 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: EpochsControllerTest test_should_update_epoch_TS
+		</span>
+		<span class="time">0.90 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: EpochsControllerTest test_should_show_epoch_index_TS
+		</span>
+		<span class="time">1.46 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: EpochsControllerTest test_should_destroy_epoch_TS
+		</span>
+		<span class="time">1.61 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: EpochsControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.70 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ChaptersControllerTest test_should_get_new
+		</span>
+		<span class="time">0.96 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ChaptersControllerTest test_should_show_chapter_TS
+		</span>
+		<span class="time">1.21 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ChaptersControllerTest test_should_destroy_chapter_TS
+		</span>
+		<span class="time">1.61 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ChaptersControllerTest test_should_update_chapter_TS
+		</span>
+		<span class="time">0.80 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ChaptersControllerTest test_should_create_chapter_TS
+		</span>
+		<span class="time">2.29 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ChaptersControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.67 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ToursControllerTest test_should_show_tour_TS
+		</span>
+		<span class="time">0.62 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ChaptersControllerTest test_should_show_chapter_index_TS
+		</span>
+		<span class="time">2.03 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ToursControllerTest test_should_get_new
+		</span>
+		<span class="time">0.60 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ToursControllerTest test_should_create_tour_TS
+		</span>
+		<span class="time">0.75 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ToursControllerTest test_should_destroy_tour_TS
+		</span>
+		<span class="time">0.91 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ToursControllerTest test_should_show_tour_index_TS
+		</span>
+		<span class="time">0.90 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ToursControllerTest test_should_update_tour_TS
+		</span>
+		<span class="time">0.90 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: ToursControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.81 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: WelcomeControllerTest test_should_get_history
+		</span>
+		<span class="time">0.73 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: WelcomeControllerTest test_should_get_index
+		</span>
+		<span class="time">0.78 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: WelcomeControllerTest test_should_get_tags
+		</span>
+		<span class="time">0.78 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: WelcomeControllerTest test_should_get_stats
+		</span>
+		<span class="time">0.76 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: WelcomeControllerTest test_should_get_show
+		</span>
+		<span class="time">0.77 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: SignetsControllerTest test_should_show_signet_TS
+		</span>
+		<span class="time">0.81 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: SignetsControllerTest test_should_get_new
+		</span>
+		<span class="time">0.81 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: SignetsControllerTest test_should_create_signet_TS
+		</span>
+		<span class="time">0.92 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: SignetsControllerTest test_should_destroy_signet_TS
+		</span>
+		<span class="time">0.96 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: SignetsControllerTest test_should_show_signet_index_TS
+		</span>
+		<span class="time">0.84 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: SignetsControllerTest test_should_update_signet_TS
+		</span>
+		<span class="time">0.84 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: SignetsControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.84 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: KeyWordsControllerTest test_should_get_new
+		</span>
+		<span class="time">0.67 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: KeyWordsControllerTest test_should_destroy_key_word_TS
+		</span>
+		<span class="time">2.02 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: KeyWordsControllerTest test_should_show_key_word_TS
+		</span>
+		<span class="time">5.02 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: KeyWordsControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.29 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: KeyWordsControllerTest test_should_create_key_word_TS
+		</span>
+		<span class="time">5.27 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StagesControllerTest test_should_show_stage_TS
+		</span>
+		<span class="time">0.39 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: KeyWordsControllerTest test_should_show_key_word_index_TS
+		</span>
+		<span class="time">5.18 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StagesControllerTest test_should_get_new
+		</span>
+		<span class="time">0.58 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StagesControllerTest test_should_create_stage_TS
+		</span>
+		<span class="time">0.85 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StagesControllerTest test_should_show_stage_index_TS
+		</span>
+		<span class="time">1.68 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: KeyWordsControllerTest test_should_update_key_word_TS
+		</span>
+		<span class="time">5.34 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StagesControllerTest test_should_update_stage_TS
+		</span>
+		<span class="time">1.46 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StagesControllerTest test_should_destroy_stage_TS
+		</span>
+		<span class="time">2.04 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	      <div class="result clearfix pass">
+		<span class="outcome-name">
+		  PASS: StagesControllerTest test_should_get_edit
+		</span>
+		<span class="time">0.60 s</span>
+		<div class="failure-details">
+		  
+		</div>
+	      </div>
+	    
+	  </div>
+
+	  <div id="charts" class="col-md-4">
+	    <h3>Results by Type</h3>
+	    <canvas id="results-by-type"></canvas>
+	  </div>
+	</div>
+      </div>
+    </div>
+    <script>
+     // Results by type pie chart
+     var resultsByTypeData = [
+       {
+	 label: "Failures",
+	 color: "#bd0000",
+	 highlight: "#ed0000",
+	 value: 0
+	},
+       {
+	 label: "Errors",
+	 color: "#b34100",
+	 highlight: "#cc4b00",
+	 value: 0
+	},
+       {
+	 label: "Skips",
+	 color: "#006e99",
+	 highlight: "#00a8eb",
+	 value: 0
+	},
+       {
+	 label: "Passed",
+	 color: "#009e18",
+	 highlight: "#00d620",
+	 value: 268
+	}
+     ];
+
+     var ctx = document.getElementById("results-by-type").getContext("2d");
+     var resultsByTypeChart = new Chart(ctx).Pie(resultsByTypeData);
+    </script>
+  </body>
+</html>
