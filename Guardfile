@@ -25,7 +25,7 @@ guard :minitest, options do
   watch(%r{^test/(.*)\/?(.*)_test\.rb$})
   watch('test/test_helper.rb') { 'test' }
   watch('test/application_system_test_case.rb')    { system_tests }
-  watch('test/controllers_all.sentinal')    { controller_tests }
+  watch('test/all_controllers.sentinal')    { controller_tests }
   watch('config/routes.rb')    { integration_tests }
   watch('Gemfile.lock') { 'test' }
 
