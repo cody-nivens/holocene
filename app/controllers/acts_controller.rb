@@ -25,6 +25,7 @@ class ActsController < ApplicationController
 
   # GET /acts/1/edit
   def edit
+    @short = params[:short]
   end
 
   # POST /acts or /acts.json
@@ -48,6 +49,7 @@ class ActsController < ApplicationController
 
   # PATCH/PUT /acts/1 or /acts/1.json
   def update
+    @short = params[:short]
     respond_to do |format|
       if @act.update(act_params)
         @acts = @book.acts
@@ -55,6 +57,7 @@ class ActsController < ApplicationController
         format.json { render :show, status: :ok, location: @act }
         flash.now[:notice] = "Act was successfully updated."
         format.turbo_stream { render "shared/index", locals: { object: Act.new, objects: @acts } }
+        #format.turbo_stream { render "shared/update", locals: { object: @act, short: @short } }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @act.errors, status: :unprocessable_entity }

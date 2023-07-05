@@ -21,10 +21,20 @@ class KeyPointsController < ApplicationController
   end
 
   def sort
-    @key_point = KeyPoint.find(params[:key_point_id])
-    @key_point.update(key_point_params)
-    render body: nil
+    if request.xhr?
+      @key_point = KeyPoint.find(params[:key_point_id])
+      @key_point.set_list_position(params[:key_point][:position].to_i)
+      @key_point.save
+      render body: nil
+    else
+      @story = Story.find(params[:story_id])
+      @key_points = @story.key_points.order(:position)
+      respond_to do |format|
+        format.turbo_stream { render "shared/sort", locals: { link_object: @story, object: KeyPoint.new, objects: @key_points } }
+      end
+    end
   end
+
 
   def moved
     @key_point.update({ scripted_id: params["new_#{@scripted.class.name.underscore}_id".to_sym], scripted_type: @scripted.class.name })
@@ -122,6 +132,7 @@ class KeyPointsController < ApplicationController
 
   # GET /key_points/1/edit
   def edit
+    @short = params[:short]
     @scripted = @key_point.scripted
     @long = params[:long]
   end
@@ -150,13 +161,15 @@ class KeyPointsController < ApplicationController
   # PATCH/PUT /key_points/1
   # PATCH/PUT /key_points/1.json
   def update
+    @short = params[:short]
     @scripted = @key_point.scripted
     @long = params[:long]
     respond_to do |format|
       if @key_point.update(key_point_params)
         format.html { redirect_to key_point_url(@key_point), notice: 'Key point was successfully updated.' }
         format.json { render :show, status: :ok, location: @key_point }
-        format.turbo_stream { flash.now[:notice] = "Key Point was successfully updated." }
+        flash.now[:notice] = "Key Point was successfully updated."
+        format.turbo_stream { render "shared/update", locals: { object: @key_point, short: @short } }
       else
         format.html { render :edit }
         format.json { render json: @key_point.errors, status: :unprocessable_entity }

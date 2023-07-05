@@ -133,6 +133,7 @@ class CharactersController < ApplicationController
   # POST /characters
   # GET /characters/1/edit
   def edit
+    @short = params[:short]
     @character = Character.includes([{ character_values: :character_attribute }]).find(params[:id])
   end
 
@@ -181,12 +182,14 @@ class CharactersController < ApplicationController
   # PATCH/PUT /characters/1
   # PATCH/PUT /characters/1.json
   def update
+    @short = params[:short]
     update_values
     respond_to do |format|
       if @character.update(character_params)
         #        format.html { redirect_to polymorphic_path([@object, @character]) }
         format.json { render :show, status: :ok, location: @character }
-        format.turbo_stream { flash.now[:notice] = "Character was successfully updated." }
+        flash.now[:notice] = "Character was successfully updated."
+        format.turbo_stream { render "shared/update", locals: { object: @character, short: @short } }
       else
         format.html { render :edit }
         format.json { render json: @character.errors, status: :unprocessable_entity }

@@ -3,28 +3,29 @@
 character_attribute_1:
   name: Height
   character_category_id: <%= ActiveRecord::FixtureSet.identify(:character_category_1) %>
-
+  position: 1
 character_attribute_2:
   name: Weight
   character_category_id: <%= ActiveRecord::FixtureSet.identify(:character_category_1) %>
-
+  position: 2
 character_attribute_3:
   name: Mother
   character_category_id: <%= ActiveRecord::FixtureSet.identify(:character_category_2) %>
-  
+  position: 1
 character_attribute_4:
   name: Relation with mother
   character_category_id: <%= ActiveRecord::FixtureSet.identify(:character_category_2) %>
   related_id: <%= ActiveRecord::FixtureSet.identify(:character_attribute_3) %>
-
+  position: 2
 character_attribute_5:
   name: Gender
   character_category_id: <%= ActiveRecord::FixtureSet.identify(:character_category_3) %>
-
+  position: 1
 character_attribute_7:
   name: Hair color
   character_category_id: <%= ActiveRecord::FixtureSet.identify(:character_category_1) %>
-
+  position: 3
 character_attribute_8:
   name: Eye color
   character_category_id: <%= ActiveRecord::FixtureSet.identify(:character_category_1) %>
+  position: 4

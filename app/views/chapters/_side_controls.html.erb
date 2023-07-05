@@ -1,8 +1,8 @@
-<%= link_to((fa_icon 'edit', class: 'fa-fw'), edit_chapter_path(chapter), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'Edit') %>
+<%= link_to((fa_icon 'edit', class: 'fa-fw'), edit_chapter_path(chapter), data: { "turbo-frame": "#{dom_id @chapter}" }, class: 'btn', title: 'Edit') %>
 <% if @long.kind_of?(TrueClass) or @long == "true" %>
-  <%= link_to (fa_icon 'minus', type: :solid, class: 'fa-fw'), chapter_path(@chapter), title: 'Show', method: :get, class: 'btn' %>
+  <%= link_to (fa_icon 'minus', type: :solid, class: 'fa-fw'), chapter_path(chapter), title: 'Show', method: :get, class: 'btn' %>
 <% else %>
-  <%= link_to (fa_icon 'expand', type: :solid, class: 'fa-fw'), chapter_path(@chapter, long: true), method: :get, title: 'Show, long', class: 'btn' %>
+  <%= link_to (fa_icon 'expand', type: :solid, class: 'fa-fw'), chapter_path(chapter, long: true), method: :get, title: 'Show, long', class: 'btn' %>
 <% end %>
 <% if chapter.scripted_type == 'Book' %>
   <%= link_to((fa_icon 'sticky-note', class: 'fa-fw'), chapter_signets_path(chapter_id: chapter.id), method: :get, title: 'Signets', class: "btn #{!chapter.signets.empty? ? Signet.color_class(chapter.signets[0].color) : ''}") %>
@@ -12,6 +12,7 @@
 <% else %>
   <%= link_to('Scenes', polymorphic_path([chapter.scripted, chapter, :scenes]), method: :get) %>
 <% end %>
+<%= link_to (fa_icon 'sort', class: 'fa-fw'), sections_sort_path(chapter), class: 'btn', title: 'Sort', method: :get %>
 <% prev_chapter = chapter.set_prev %>
 <% unless prev_chapter.nil? %>
   <%= link_to((fa_icon 'angle-left', class: 'fa-fw'), chapter_path(prev_chapter), method: :get, class: 'btn', title: 'Previous') %>

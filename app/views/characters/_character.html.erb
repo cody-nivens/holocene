@@ -64,14 +64,14 @@
   <% if character.father? %>
     <p>
       <strong>Father:</strong>
-      <%= (character.father.nil? ? '' : link_to(character.father_name, polymorphic_path([object, character.father]))) %>
+      <%= (character.father.nil? ? '' : link_to(character.father_name, polymorphic_path([@object, character.father]))) %>
     </p>
   <% end %>
 
   <% if character.mother? %>
     <p>
       <strong>Mother:</strong>
-      <%= (character.mother.nil? ? '' : link_to(character.mother_name, polymorphic_path([object, character.mother]))) %>
+      <%= (character.mother.nil? ? '' : link_to(character.mother_name, polymorphic_path([@object, character.mother]))) %>
     </p>
   <% end %>
 
@@ -81,7 +81,7 @@
       <strong>Children:</strong>
       <ul>
         <% people.each do |person| %>
-          <li><%= link_to(person.name, polymorphic_path([object, person])) %></li>
+          <li><%= link_to(person.name, polymorphic_path([@object, person])) %></li>
         <% end %>
       </ul>
     </p>
@@ -97,7 +97,7 @@
       <div class="col-md-4">
           <% CharacterCategory.all.each do |category| %>
             <%= render partial: 'character_values/index_list', formats: [:html],
-                       locals: { pdf: pdf, title: category.name, object: object,
+                       locals: { pdf: pdf, title: category.name, object: @object,
                                  character_values: character.character_values.joins(:character_attribute).order(:name).where('character_category_id = ?', category.id) } %>
           <% end %>
         </div>
@@ -134,7 +134,7 @@
           <% character.scenes.order(:date_string, :abc).each do |scene| %>
             <% next unless scene.situated.book == @object %>
             <li>
-              <% if object.class.name == "Scene" %>
+              <% if @object.class.name == "Scene" %>
                 <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene)) : scene.abc) %>:
               <% else %>
                 <%= (pdf.nil? ? link_to(scene.abc, scene_path(scene)) : scene.abc) %>:

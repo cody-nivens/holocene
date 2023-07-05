@@ -1,4 +1,5 @@
 <%= bootstrap_form_for key_point, url: { controller: :key_points, action: (key_point.id.nil? ? :create : :update) } do |f| %>
+<%= hidden_field_tag :short, @short %>
   <% if key_point.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(key_point.errors.count, 'error') %> prohibited this key_point from being saved:</h2>

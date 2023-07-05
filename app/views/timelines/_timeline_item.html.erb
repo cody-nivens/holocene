@@ -1,7 +1,7 @@
-          <tr>
-            <td><%= link_to timeline.name, timeline, method: :get %></td>
-            <td><%= timeline.holocene_events.size %></td>
-            <td><%= timeline.description %></td>
-            <td><%= link_to (fa_icon 'edit'), edit_timeline_path(timeline), data: { "turbo-frame": "new_object" }, title: 'Edit' %>
-            <%= link_to (fa_icon 'trash'), timeline, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
-          </tr>
+<div class="row">
+  <div class="col-sm-2"><%= link_to timeline.name, timeline, method: :get %></div>
+  <div class="col-sm-2"><%= timeline.holocene_events.size %></div>
+  <div class="col-sm-2"><%= timeline.description %></div>
+  <div class="col-sm-2"><%= link_to (fa_icon 'edit'), edit_timeline_path(timeline, short: true), title: 'Edit' %>
+  <%= link_to (fa_icon 'trash'), timeline, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></div>
+</div>

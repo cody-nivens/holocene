@@ -1,4 +1,5 @@
 <%= bootstrap_form_for location_time, url: { controller: :location_times, action: (location_time.id.nil? ? :create : :update) } do |f| %>
+<%= hidden_field_tag :short, @short %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">
@@ -6,7 +7,7 @@
     <%= f.hidden_field :segment_id, value: @segment.id %>
 
     <%= f.text_field :date_string %>
-    <%= f.select :location_id, options_from_collection_for_select(@segment.stage.act.book.locations.order(:name), :id, :name), value: @location_time.location_id, prompt: 'Select Location', multiple: false, size: 1 %>
+    <%= f.select :location_id, options_from_collection_for_select(@segment.stage.act.book.locations.order(:name), :id, :name, @location_time.location_id), prompt: 'Select Location', multiple: false, size: 1 %>
   </div>
 
   <div class="form-actions">

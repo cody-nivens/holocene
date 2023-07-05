@@ -12,11 +12,19 @@ class CharacterCategoriesController < ApplicationController
   end
 
   def sort
-    # @list = List.find(params[:list_id])
+    if request.xhr?
     @character_category = CharacterCategory.find(params[:character_category_id])
-    @character_category.update(character_category_params)
-    render body: nil
+      @character_category.set_list_position(params[:character_category][:position].to_i)
+      @character_category.save
+      render body: nil
+    else
+      @character_categories = CharacterCategory.all.order(:position)
+      respond_to do |format|
+        format.turbo_stream { render "shared/sort", locals: { link_object: nil, object: CharacterCategory.new, objects: @character_categories } }
+      end
+    end
   end
+
 
   # GET /character_categories/1
   # GET /character_categories/1.json
@@ -32,7 +40,9 @@ class CharacterCategoriesController < ApplicationController
   end
 
   # GET /character_categories/1/edit
-  def edit; end
+  def edit
+    @short = params[:short]
+  end
 
   # POST /character_categories
   # POST /character_categories.json
@@ -55,12 +65,14 @@ class CharacterCategoriesController < ApplicationController
   # PATCH/PUT /character_categories/1
   # PATCH/PUT /character_categories/1.json
   def update
+    @short = params[:short]
     @character_categories = CharacterCategory.order(:position)
     respond_to do |format|
       if @character_category.update(character_category_params)
 #        format.html { redirect_to @character_category, notice: 'Character category was successfully updated.' }
         format.json { render :show, status: :ok, character_category: @character_category }
-        format.turbo_stream { flash.now[:notice] = "Character Category was successfully updated." }
+        flash.now[:notice] = "Character Category was successfully updated."
+        format.turbo_stream { render "shared/update", locals: { object: @character_category, short: @short } }
       else
         format.html { render :edit }
         format.json { render json: @character_category.errors, status: :unprocessable_entity }

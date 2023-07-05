@@ -29,12 +29,10 @@
     <% end -%>
   <% end -%>
   <% c.tab "Citations" do %>
-    <% unless chapter.citations.size == 0 -%>
-      <div style='clear: both'>
-        <hr>
-        <%== render 'footnotes/citations', slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: true, title: 'Citations' %>
-      </div>
-    <% end -%>
+    <div style='clear: both'>
+      <% @title = 'Citations' %>
+      <%== render 'footnotes/citations', slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: true %>
+    </div>
   <% end -%>
   <% c.tab "Partition" do %>
     <div class="card">

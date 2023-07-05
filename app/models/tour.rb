@@ -3,6 +3,8 @@
 class Tour < ApplicationRecord
   belongs_to :story
 
+  acts_as_list scope: :story_id
+
   has_many :itineraries
 
   has_rich_text :summary

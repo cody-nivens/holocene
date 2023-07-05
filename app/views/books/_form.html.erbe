@@ -1,0 +1,18 @@
+<%= bootstrap_form_for(book) do |f| %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <%= hidden_field_tag :long, @long %>
+
+  <%= f.text_field :name %>
+  <%= f.text_field :sub_name %>
+  <%= f.check_box :show_events %>
+  <%= f.check_box :fiction %>
+  <%= f.text_field :copyright %>
+  <%= f.rich_text_area :publisher, class: 'form-control' %>
+
+  <%= f.hidden_field :user_id %>
+  <%= f.rich_text_area :body, class: 'form-control customized-min-height' %>
+  <%= f.rich_text_area :summary, class: 'form-control customized-min-height' %>
+
+  <%= f.primary command_label.to_s %>
+<% end %>

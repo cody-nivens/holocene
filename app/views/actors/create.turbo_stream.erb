@@ -8,10 +8,5 @@
     <%= render partial: 'actors/new_link' %>
   <% end %>
 <% end %>
-<%= turbo_stream.replace "edit"  do %>
-  <%= content_tag :div, id: "edit" do %>
-  <%= " " %>
-  <% end %>
-<% end %>
 
 <%= render partial: "shared/send_flash" %>

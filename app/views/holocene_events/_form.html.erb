@@ -1,4 +1,5 @@
 <%= bootstrap_form_for(holocene_event, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-8') do |f| %>
+<%= hidden_field_tag :short, @short %>
   <% if holocene_event.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(holocene_event.errors.count, 'error') %> prohibited this holocene_event from being saved:</h2>

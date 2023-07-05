@@ -1,7 +1,7 @@
-      <tr>
-        <td><%= link_to event_type.name, event_type, method: :get %></td>
-        <td><%= event_type.holocene_events.size %></td>
-        <td><%= event_type.body %></td>
-        <td><%= link_to (fa_icon 'map'), geo_map_event_type_path(event_type), method: :get, title: 'Map' %></td>
-        <td><%= link_to (fa_icon 'trash'), event_type, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
-      </tr>
+<div class="row">
+  <div class="col-sm-2"><%= link_to event_type.name, event_type, method: :get %></div>
+  <div class="col-sm-2"><%= event_type.holocene_events.size %></div>
+  <div class="col-sm-2"><%= event_type.body %></div>
+  <div class="col-sm-2"><%= link_to (fa_icon 'map'), geo_map_event_type_path(event_type), method: :get, title: 'Map' %>
+  <%= link_to (fa_icon 'trash'), event_type, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></div>
+</div>

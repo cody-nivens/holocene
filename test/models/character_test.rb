@@ -11,10 +11,8 @@ class CharacterTest < ActiveSupport::TestCase
           assert_difference('CharacterStory.count', -character.character_stories.size) do
             assert_difference('ActorCharacter.count', -character.actor_characters.size) do
               assert_difference('Signet.count', -character.signets.size) do
-                assert_difference('Artifact.count', -character.artifacts.size) do
-                  assert_difference('BooksCharacter.count', -character.books.size) do
-                    character.destroy
-                  end
+                assert_difference('BooksCharacter.count', -character.books.size) do
+                  character.destroy
                 end
               end
             end

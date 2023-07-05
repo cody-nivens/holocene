@@ -43,10 +43,18 @@ class StoriesController < ApplicationController
   end
 
   def sort
-    @story = Story.find(params[:story_id])
-    @story.set_list_position(params[:story][:position].to_i)
-    @story.save
-    render json: { message: "Success" }
+    if request.xhr?
+      @story = Story.find(params[:story_id])
+      @story.set_list_position(params[:story][:position].to_i)
+      @story.save
+      render body: nil
+    else
+      @book = Book.find(params[:book_id])
+      @stories = @book.stories.order(:position)
+      respond_to do |format|
+        format.turbo_stream { render "shared/sort", locals: { return_path: @book, link_object: @book, object: Story.new, objects: @stories } }
+      end
+    end
   end
 
   # GET /stories/1
@@ -69,22 +77,22 @@ class StoriesController < ApplicationController
 
 
     respond_to do |format|
-#      format.html { render :show }
+      #      format.html { render :show }
       format.turbo_stream { render "shared/show", locals: { object: @story, new_link_path: "key_points" } }
       format.pdf do
         render pdf: 'export',
-               disposition: 'attachment',
-               margin: { top: 26, bottom: 26, right: 26, left: 26 },
-               header: { right: '[page] of [topage]' },
-               outline: { outline: false,
-                          outline_depth: 2 },
-               toc: {
-                 disable_dotted_lines: true,
-                 disable_toc_links: true,
-                 level_indentation: 4,
-                 header_text: @story.name,
-                 text_size_shrink: 0.5
-               }
+          disposition: 'attachment',
+          margin: { top: 26, bottom: 26, right: 26, left: 26 },
+          header: { right: '[page] of [topage]' },
+          outline: { outline: false,
+                     outline_depth: 2 },
+                     toc: {
+                       disable_dotted_lines: true,
+                       disable_toc_links: true,
+                       level_indentation: 4,
+                       header_text: @story.name,
+                       text_size_shrink: 0.5
+                     }
       end
     end
   end
@@ -167,6 +175,7 @@ class StoriesController < ApplicationController
 
   # GET /stories/1/edit
   def edit
+    @short = params[:short]
     @long = params[:long]
   end
 
@@ -184,7 +193,7 @@ class StoriesController < ApplicationController
         @link = nil
         $redis.set("book_scenes_#{@story.book.id}", nil)
         $redis.set("story_scenes_#{@story.id}", nil)
-#        format.html { redirect_to story_path(@story), notice: 'Story was successfully created.' }
+        #        format.html { redirect_to story_path(@story), notice: 'Story was successfully created.' }
         format.json { render :show, status: :created, location: @story }
         format.turbo_stream { flash.now[:notice] = "Story was successfully created." }
       else
@@ -197,6 +206,7 @@ class StoriesController < ApplicationController
   # PATCH/PUT /stories/1
   # PATCH/PUT /stories/1.json
   def update
+    @short = params[:short]
     old_publish = @story.publish
     @long = params[:long]
 
@@ -209,10 +219,10 @@ class StoriesController < ApplicationController
           $redis.set("book_scenes_#{@story.book.id}", nil)
           $redis.set("story_scenes_#{@story.id}", nil)
         end
-         flash.now[:notice] = "Story was successfully updated."
-#        format.html { redirect_to story_url(@story), notice: 'Story was successfully updated.' }
+        flash.now[:notice] = "Story was successfully updated."
+        #        format.html { redirect_to story_url(@story), notice: 'Story was successfully updated.' }
         format.json { render :show, status: :ok, location: @story }
-        format.turbo_stream { }
+        format.turbo_stream { render "shared/update", locals: { object: @story, short: @short } }
       else
         format.html { render :edit, book_id: @book.id }
         format.json { render json: @story.errors, status: :unprocessable_entity }
@@ -227,9 +237,9 @@ class StoriesController < ApplicationController
     $redis.set("story_scenes_#{@story.id}", nil)
     @story.destroy
     respond_to do |format|
-#      format.html { redirect_to book_stories_url(book_id: @book.id), notice: 'Story was successfully destroyed.' }
+      #      format.html { redirect_to book_stories_url(book_id: @book.id), notice: 'Story was successfully destroyed.' }
       format.json { head :no_content }
-        format.turbo_stream { flash.now[:notice] = "Story was successfully destroyed." }
+      format.turbo_stream { flash.now[:notice] = "Story was successfully destroyed." }
     end
   end
 

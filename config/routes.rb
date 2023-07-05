@@ -68,6 +68,7 @@ Rails.application.routes.draw do
 #  get '/stages/:id/scenes', to: 'stages#scenes', as: :stage_scenes
 #  get '/stages/:id/characters', to: 'stages#characters', as: :stage_characters
   get '/stages/:id/report', to: 'stages#report', as: :stage_report
+  get '/stages/:id/show', to: 'stages#show', as: :stage_show
   put '/actor_location_times/:id/check', to: 'actor_location_times#check', as: :actor_location_times_check
   patch '/stages/:id/add_characters', to: 'stages#add_characters', as: :stages_add_characters
 
@@ -100,6 +101,8 @@ Rails.application.routes.draw do
   end
   resources :signets
   resources :embeds
+  get '/character_categories/sort', to: 'character_categories#sort', as: :character_categories_sort
+  get '/character_attributes/:character_category_id/sort', to: 'character_attributes#sort', as: :character_attributes_sort
   resources :character_categories, shallow: true do
     resources :character_attributes do
       patch :sort
@@ -120,6 +123,16 @@ Rails.application.routes.draw do
   get '/books/:id/report', to: 'books#report', as: :book_report
   get '/books/:id/epub', to: 'books#epub', as: :book_epub
   get '/books/:id/toc', to: 'books#toc', as: :toc
+
+  get '/books/sort', to: 'books#sort', as: :books_sort
+  get '/stories/:book_id/sort', to: 'stories#sort', as: :stories_sort
+  get '/chapters/:book_id/sort', to: 'chapters#sort', as: :chapters_sort
+  get '/key_points/:story_id/sort', to: 'key_points#sort', as: :key_points_sort
+  get '/sections/:chapter_id/sort', to: 'sections#sort', as: :sections_sort
+  get '/segments/:stage_id/sort', to: 'segments#sort', as: :segment_sort
+  get '/tours/:story_id/sort', to: 'tours#sort', as: :tour_sort
+  get '/itineraries/:tour_id/sort', to: 'itineraries#sort', as: :itinerary_sort
+
   get '/books/:book_id/key_points/:id/move', to: 'key_points#move', as: :book_key_point_move
   get '/stories/:id/move', to: 'stories#move', as: :story_move
   post '/stories/:id/moved', to: 'stories#moved', as: :story_moved
@@ -166,6 +179,7 @@ Rails.application.routes.draw do
     resources :acts, shallow: true do
       resources :stages, shallow: true do
         resources :segments, shallow: true do
+          patch :sort
           resources :location_times, shallow: true do
             resources :actor_location_times
           end
@@ -204,7 +218,10 @@ Rails.application.routes.draw do
     concerns :situated, scripted_type: 'Story'
     patch :sort
     resources :tours do
-      resources :itineraries
+      patch :sort
+      resources :itineraries do
+        patch :sort
+      end
     end
     resources :scenes
     resources :characters

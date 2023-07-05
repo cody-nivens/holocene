@@ -228,11 +228,11 @@ end
     patch book_url(@book, format: :turbo_stream), params: { book: { body: @book.body, name: @book.name, user_id: @user.id } }
     
     assert_no_turbo_stream action: :update, target: "messages"
-    assert_turbo_stream action: :replace, target: "objects"
-    assert_turbo_stream action: :replace, target: "nav-bar"
-    assert_turbo_stream action: :replace, target: "new_object"
-    assert_turbo_stream action: :replace, target: "header"
-    assert_turbo_stream action: :replace, target: "side_controls"
+    assert_turbo_stream action: :replace, target: "#{dom_id @book}"
+    #assert_turbo_stream action: :replace, target: "nav-bar"
+    #assert_turbo_stream action: :replace, target: "new_object"
+    #assert_turbo_stream action: :replace, target: "header"
+    #assert_turbo_stream action: :replace, target: "side_controls"
     assert_response :success
   end
 

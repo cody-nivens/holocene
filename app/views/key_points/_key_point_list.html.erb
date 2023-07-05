@@ -4,6 +4,6 @@
  <%= key_point.key_element %>
  PN: <%= (key_point.print_name? ? 'Y' : 'N') %>
  PP: <%= (key_point.print_points? ? 'Y' : 'N') %>
- <%= link_to 'Edit', edit_key_point_path(key_point), data: { "turbo-frame": "new_object" %>
+ <%= link_to 'Edit', edit_key_point_path(key_point), data: { "turbo-frame": "#{dom_id key_point}" %>
  <%= link_to 'Destroy', key_point_path(key_point), method: :delete, data: { confirm: 'Are you sure?' } %></dd>
 </li>

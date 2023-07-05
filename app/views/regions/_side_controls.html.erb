@@ -1,2 +1,2 @@
-  <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_region_path(@region), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'Edit' %>
+  <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_region_path(@region), data: { "turbo-frame": "#{dom_id @region}" }, class: 'btn', title: 'Edit' %>
   <%= link_to (fa_icon 'backward', class: 'fa-fw'), regions_path, method: :get, class: 'btn', title: 'Back' %>

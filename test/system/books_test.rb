@@ -92,8 +92,12 @@ class BooksTest < ApplicationSystemTestCase
     click_side 'edit'
     assert_selector '#footnote_slug'
 
-    assert_new 'backward', 'Book', 'Footnote'
-    click_new 'backward'
+    within "##{dom_id Footnote.last}" do
+      assert_link 'Back'
+    end
+    within "##{dom_id Footnote.last}" do
+      click_on 'Back'
+    end
 
     assert_current_path root_path
     assert_no_text "Content missing"

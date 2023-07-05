@@ -1,6 +1,6 @@
 <h2>New Location Time</h2>
 
 <turbo-frame id="new_object">
-<%= render 'form', location_time: @location_time %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), segment_location_times_path(@segment), method: :get, class: "btn", title: 'Back' %>
+  <%= render 'form', location_time: @location_time %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), @segment.stage, method: :get, class: "btn", title: 'Back' %>
 </turbo-frame>

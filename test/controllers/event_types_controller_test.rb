@@ -64,7 +64,7 @@ class EventTypesControllerTest < ActionDispatch::IntegrationTest
   test "should update event_type TS" do
     patch  event_type_path(@event_type, format: :turbo_stream),
             params: { event_type: { name: @event_type.name } }
-    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "#{dom_id @event_type}"
 
     assert_no_turbo_stream action: :update, target: "messages"
     assert_response :success

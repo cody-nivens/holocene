@@ -3,7 +3,7 @@
   <% z_count = 0 %>
   <% book.stories.each do |story| %>
     <% word_counts = story.word_counts %>
-    <% z_count  += word_counts.collect{|x| x <= 10 ? 1 : 0 }.sum %>
+    <% z_count += word_counts.collect{|x| x <= 10 ? 1 : 0 }.sum %>
   <% end %>
 
   <% word_count = book.word_count %>
@@ -11,13 +11,14 @@
   <% word_avg = word_count / (scene_count - z_count) %>
 <% end %>
 
-<%= turbo_stream.replace "objects"  do %>
-  <%= render partial: 'stories/stories', formats: [:html], locals: { stories: @book.stories, book: @book, long: @long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
+<%= turbo_stream.replace "objects" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "objects" do %>
+    <%= render partial: 'stories/stories', formats: [:html], locals: { stories: @book.stories, book: @book, long: @long, word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
+  <% end %>
 <% end %>
-<%= turbo_stream.replace "edit"  do %>
-  <%= " " %>
-<% end %>
-<%= turbo_stream.replace "new_object"  do %>
-  <%= render partial: "stories/new_link" %>
+<%= turbo_stream.replace "new_object" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "new_object" do %>
+    <%= render partial: "stories/new_link" %>
+  <% end %>
 <% end %>
 <%= render partial: "shared/send_flash" %>

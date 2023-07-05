@@ -1,3 +1,3 @@
-<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_artifact_path(@artifact), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'Edit' %>
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_artifact_path(@artifact), data: { "turbo-frame": "#{dom_id @artifact}" }, class: 'btn', title: 'Edit' %>
 <%= link_to (fa_icon 'backward', class: 'fa-fw'),  polymorphic_path([@book, :artifacts]), method: :get, class: 'btn', title: 'Back' %>
 

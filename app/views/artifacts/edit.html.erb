@@ -1,6 +1,6 @@
 <h2>Editing Artifact</h2>
 
-<turbo-frame id="new_object">
+<turbo-frame id="<%= dom_id @artifact %>">
   <%= render 'form', artifact: @artifact, book: @book %>
   <%= link_to (fa_icon 'backward', class: 'fa-fw'),  book_artifacts_path(@book), method: :get, class: 'btn', title: 'Back' %>
 </turbo-frame>

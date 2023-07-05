@@ -9,12 +9,14 @@ class CharacterScenesController < ApplicationController
 
   # GET /character_scenes/1/edit
   def edit
+    @short = true
     @scene = @character_scene.scene
   end
 
   # PATCH/PUT /character_scenes/1
   # PATCH/PUT /character_scenes/1.json
   def update
+    @short = true
     @scene = @character_scene.scene
     respond_to do |format|
       if @character_scene.update(character_scene_params)
@@ -22,7 +24,8 @@ class CharacterScenesController < ApplicationController
           redirect_to return_or_default_path(scene_path(@character_scene.scene)), notice: 'Character scene was successfully updated.'
         end
         format.json { render :show, status: :ok, location: @character_scene }
-        format.turbo_stream { flash.now[:notice] = "Character scene was successfully updated." }
+        flash.now[:notice] = "Character scene was successfully updated."
+        format.turbo_stream { render "shared/update", locals: { object: @character_scene, short: @short } }
       else
         format.html { render :edit }
         format.json { render json: @character_scene.errors, status: :unprocessable_entity }

@@ -26,6 +26,7 @@ class ArtifactTypesController < ApplicationController
 
   # GET /artifact_types/1/edit
   def edit
+    @short = params[:short]
     @book = @artifact_type.book
   end
 
@@ -49,13 +50,15 @@ class ArtifactTypesController < ApplicationController
 
   # PATCH/PUT /artifact_types/1 or /artifact_types/1.json
   def update
+    @short = params[:short]
     @book = @artifact_type.book
     @artifact_types = ArtifactType.where(book_id: @book.id).order(:name)
     respond_to do |format|
       if @artifact_type.update(artifact_type_params)
 #        format.html { redirect_to artifact_type_url(@artifact_type), notice: 'Artifact type was successfully updated.' }
         format.json { render :show, status: :ok, location: @artifact_type }
-        format.turbo_stream { flash.now[:notice] = "Artifact Type was successfully updated." }
+        flash.now[:notice] = "Artifact Type was successfully updated."
+        format.turbo_stream { render "shared/update", locals: { object: @artifact_type, short: @short } }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @artifact_type.errors, status: :unprocessable_entity }

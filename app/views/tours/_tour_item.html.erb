@@ -1,5 +1,6 @@
-      <tr>
-        <td><%= link_to tour.name, tour, method: :get %></td>
-        <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_tour_path(tour), title: 'Edit' %>
-        <%= link_to (fa_icon 'trash', class: 'fa-fw'), tour_path(tour), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
-      </tr>
+<div class="row">
+  <div class="col-sm-2"><%= link_to tour.name, tour, method: :get %></div>
+  <div class="col-sm-2"><%= tour.itineraries.size %></div>
+  <div class="col-sm-2"><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_tour_path(tour, short: true), data: { "turbo-frame": "#{dom_id tour}" }, title: 'Edit' %>
+  <%= link_to (fa_icon 'trash', class: 'fa-fw'), tour_path(tour), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></div>
+</div>

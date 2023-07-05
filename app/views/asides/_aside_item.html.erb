@@ -1,6 +1,6 @@
-<tr>
-  <td><%= link_to aside.name, aside_path(aside), method: :get %></td>
-  <td><%= aside.body %></td>
-  <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_aside_path(aside), data: { "turbo-frame": "new_object" }, title: 'Edit' %>
-  <%= link_to (fa_icon 'trash', class: 'fa-fw'), aside_path(aside), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
-</tr>
+<div class="row">
+  <div class="col-sm-2"><%= link_to aside.name, aside_path(aside), method: :get %></div>
+  <div class="col-sm-2"><%= aside.body %></div>
+  <div class="col-sm-2"><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_aside_path(aside, short: true), title: 'Edit' %>
+  <%= link_to (fa_icon 'trash', class: 'fa-fw'), aside_path(aside), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></div>
+</div>

@@ -2,3 +2,12 @@
 segment_1:
   name: Leaving Childhood
   stage_id: <%= ActiveRecord::FixtureSet.identify(:stage_1) %>
+segment_2:
+  name: In Ashes
+  stage_id: <%= ActiveRecord::FixtureSet.identify(:stage_1) %>
+segment_3:
+  name: Wizard of Wonder
+  stage_id: <%= ActiveRecord::FixtureSet.identify(:stage_1) %>
+segment_4:
+  name: Return of the Prince
+  stage_id: <%= ActiveRecord::FixtureSet.identify(:stage_1) %>

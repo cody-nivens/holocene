@@ -1,18 +1,8 @@
-<turbo-frame id="objects">
-<table class="table">
-  <thead>
-    <tr>
-      <th>Character</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @actor_characters.each do |actor_character| %>
-      <turbo-frame id="<%= dom_id actor_character %>">
-        <%= render partial: "actor_characters/actor_character_item", locals: { actor_character: actor_character } %>
-      </turbo-frame>
-    <% end %>
-  </tbody>
-</table>
-</turbo-frame>
+<div class="row">
+  <div class="col-sm-2"><strong>Character</strong></div>
+</div>
+<% @actor_characters.each do |actor_character| %>
+  <turbo-frame id="<%= dom_id actor_character %>">
+    <%= render partial: "actor_characters/actor_character_item", locals: { actor_character: actor_character } %>
+  </turbo-frame>
+<% end %>

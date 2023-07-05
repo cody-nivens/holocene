@@ -1,5 +1,5 @@
 <turbo-frame id="header">
   <%= content_tag :h3 do %>
-    <%= @actor_character.name %>
+    <%= @actor_character.actor.name %>: <%= @actor_character.character.name %>
   <% end %>
 </turbo-frame>

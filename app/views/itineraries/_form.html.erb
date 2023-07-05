@@ -1,5 +1,6 @@
 
 <%= bootstrap_form_for itinerary, url: { controller: :itineraries, action: (itinerary.id.nil? ? :create : :update) } do |f| %>
+<%= hidden_field_tag :short, @short %>
   <% if itinerary.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(itinerary.errors.count, 'error') %> prohibited this scene from being saved:</h2>

@@ -112,7 +112,7 @@ end
   test "should update location TS" do
     patch location_url(@location, format: :turbo_stream), params: { location: { name: @location.name, book_id: @location.book.id } }
 
-    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "#{dom_id @location}"
     assert_no_turbo_stream action: :update, target: "messages"
     assert_response :success
   end

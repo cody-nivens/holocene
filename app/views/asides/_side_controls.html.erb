@@ -1,3 +1,3 @@
-<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_aside_path(@aside), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'Edit' %>
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_aside_path(@aside), data: { "turbo-frame": "#{dom_id @aside}" }, class: 'btn', title: 'Edit' %>
 <%= link_to (fa_icon 'trash', class: 'fa-fw'), aside_path(@aside), data: { confirm: 'Are you sure?' }, class: 'btn', title: 'Destroy', method: :delete %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), return_or_default_path(chapter_path(@chapter)), method: :get, class: 'btn', title: 'Back' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), chapter_asides_path(@chapter), method: :get, class: 'btn', title: 'Back' %>

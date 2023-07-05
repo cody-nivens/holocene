@@ -93,7 +93,9 @@ class CitiesController < ApplicationController
   end
 
   # GET /cities/1/edit
-  def edit; end
+  def edit
+    @short = params[:short]
+  end
 
   # POST /cities or /cities.json
   def create
@@ -117,6 +119,7 @@ class CitiesController < ApplicationController
 
   # PATCH/PUT /cities/1 or /cities/1.json
   def update
+    @short = params[:short]
     @long = params[:long]
     @grid = CitiesGrid.new(grid_params)
     @pagy, @records = pagy(@grid.assets)
@@ -124,7 +127,8 @@ class CitiesController < ApplicationController
       if @city.update(city_params)
 #        format.html { redirect_to @city, notice: 'City was successfully updated.' }
         format.json { render :show, status: :ok, location: @city }
-        format.turbo_stream { flash.now[:notice] = "City was successfully updated." }
+        flash.now[:notice] = "City was successfully updated."
+        format.turbo_stream { render "shared/update", locals: { object: @city, short: @short } }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @city.errors, status: :unprocessable_entity }

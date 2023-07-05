@@ -16,9 +16,18 @@ class ChaptersController < ApplicationController
   end
 
   def sort
-    @chapter = Chapter.find(params[:chapter_id])
-    @chapter.update(chapter_params)
-    render body: nil
+    if request.xhr?
+      @chapter = Chapter.find(params[:chapter_id])
+      @chapter.set_list_position(params[:chapter][:position].to_i)
+      @chapter.save
+      render body: nil
+    else
+      @book = Book.find(params[:book_id])
+      @chapters = @book.chapters.order(:position)
+      respond_to do |format|
+        format.turbo_stream { render "shared/sort", locals: { return_path: @book, link_object: @book, object: Chapter.new, objects: @chapters } }
+      end
+    end
   end
 
   def map_locs
@@ -45,6 +54,20 @@ class ChaptersController < ApplicationController
 
     case @report
     when "stats"
+    when "citations"
+      @title = 'Citations'
+      @slugs = [] 
+      @footnotes = Footnote.process_body(@chapter, @slugs)
+      @chapter.sections.each do |section|
+        @footnotes = Footnote.process_body(section, @slugs, @footnotes[2])
+        @slugs += @footnotes[1]
+      end
+      @chapter.holocene_events.order(:start_year).each do |he|
+        unless he.body.blank?
+          @footnotes = Footnote.process_body(he, @slugs, (@footnotes.nil? ? 1 : @footnotes[2]))
+          @slugs += @footnotes[1]
+        end
+      end
     end
 
     respond_to do |format|
@@ -166,6 +189,7 @@ class ChaptersController < ApplicationController
 
   # GET /chapters/1/edit
   def edit
+    @short = params[:short]
     @scripted = @chapter.scripted
   end
 
@@ -194,6 +218,7 @@ class ChaptersController < ApplicationController
   # PATCH/PUT /chapters/1
   # PATCH/PUT /chapters/1.json
   def update
+    @short = params[:short]
     @scripted = @chapter.scripted
     @sectioned = @chapter
     respond_to do |format|
@@ -203,6 +228,7 @@ class ChaptersController < ApplicationController
         format.html { redirect_to @chapter, notice: 'Chapter was successfully updated.' }
         format.json { render :show, status: :ok, location: @chapter }
         format.turbo_stream { render "shared/show", locals: { object: @chapter, new_link_path: "sections" } }
+        #format.turbo_stream { render "shared/update", locals: { object: @chapter, short: @short } }
       else
         format.html { render :edit }
         format.json { render json: @chapter.errors, status: :unprocessable_entity }

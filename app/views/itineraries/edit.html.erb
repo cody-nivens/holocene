@@ -1,8 +1,10 @@
 <h2>Editing Itinerary</h2>
 
-<turbo-frame id="new_object">
+<turbo-frame id="objects">
+  <turbo-frame id="<%= dom_id @tour %>">
   <turbo-frame id="<%= dom_id @itinerary %>">
     <%= render 'form', itinerary: @itinerary, cities: @cities %>
     <%= link_to (fa_icon 'backward', class: 'fa-fw'),  tour_path(@tour), method: :get, class: 'btn', title: 'Back' %>
+  </turbo-frame>
   </turbo-frame>
 </turbo-frame>

@@ -1,8 +1,6 @@
 <h2>Editing Actor</h2>
 
-<turbo-frame id="new_object">
-  <turbo-frame id="<%= dom_id @actor %>">
-    <%= render 'form', actor: @actor %>
-    <%= link_to (fa_icon 'backward', class: 'fa-fw'), actor_path(@actor), method: :get, class: "btn", title: 'Back' %>
-  </turbo-frame>
+<turbo-frame id="<%= dom_id @actor %>">
+  <%= render 'form', actor: @actor %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), actor_path(@actor), method: :get, class: "btn", title: 'Back' %>
 </turbo-frame>

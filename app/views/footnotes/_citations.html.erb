@@ -1,7 +1,7 @@
-<% title ||= nil %>
-<h2><%= (title.nil? ? chapter.name : title) %></h2>
+<% footnotes ||= [] %>
+<% links ||= false %>
 <% citations = []
-   slugs.each do |slug|
+   @slugs.each do |slug|
      my_footnote = slug[1].footnotes.where(slug: slug[0].gsub(/#{slug[1].slug}/, ''))
      citations << my_footnote[0].biblioentry.xreflabel unless my_footnote[0].nil? || my_footnote[0].biblioentry.nil?
    end
@@ -10,7 +10,7 @@
    end %>
 
 <dl class="dl-horizontal">
-<% citations.sort.each do |xreflabel| %>
+<% citations.sort.uniq.each do |xreflabel| %>
     <% biblioentry = Biblioentry.find_by(xreflabel: xreflabel) %>
     <% if links %>
   <dt><%= link_to xreflabel, biblioentry_path(biblioentry) %></dt>

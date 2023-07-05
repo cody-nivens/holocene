@@ -1,0 +1,135 @@
+<% attributes ||= {} %>
+<%= bootstrap_form_for([object, character], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10') do |f| %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <%= hidden_field "#{object.class.name.underscore}_id", value: object.id %>
+
+  <%= tabs do |c| %>
+    <% c.tab 'Info' do %>
+      <span>
+        <div class='container-fluid'>
+          <div class='row'>
+            <div class='form-group row'>
+              <div class='col-sm-3'>
+                Person is <%= text_field_tag 'age', '', size: 5, class: 'form-control' %>
+              </div>
+              <div class='col-sm-3'>
+              in the year <%= text_field_tag 'year', year, size: 5, class: 'form-control' %>
+              </div>
+              <div class='col-sm-3'>
+                and lived  years.<%= text_field_tag 'death_age', '', size: 5, class: 'form-control' %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class='container-fluid'>
+          <div class='row'>
+            <div class='col-lg-5'>
+                <%= f.text_field :first_name %>
+                <%= f.text_field :middle_name %>
+                <%= f.text_field :last_name %>
+                <%= f.text_field :suffix %>
+                <%= f.text_field :reason_for_name %>
+                <%= f.text_field :nickname %>
+                <%= f.text_field :reason_for_nickname %>
+                <%= f.check_box :use_honorific_only %>
+                <%= f.text_field :honorific %>
+            </div>
+            <div class='col-lg-5'>
+                <%= f.text_field :ethnicity %>
+                <%= f.select :sex, [['Male', 0], ['Female', 1], ['Non-Person', 2]], prompt: 'Select Sex', multiple: false, include_blank: false %>
+                <%= f.text_field :birth_year %>
+                <%= f.text_field :death_year %>
+                <%= f.text_field :age_at_son %>
+                <%= f.text_field :occupation_class %>
+                <%= f.text_field :social_class %>
+                <%= f.text_field :grouping %>
+                <%= f.check_box :main %>
+                <%= f.select :father_id,
+                             options_from_collection_for_select(object.characters.where(sex: 0).order('characters.last_name asc, characters.first_name asc'),
+                                                                :id, :name, (character.father.nil? ? nil : character.father.id)), prompt: 'Select Characters', multiple: false, include_blank: true %>
+                <%= f.select :mother_id,
+                             options_from_collection_for_select(object.characters.where(sex: 1).order('characters.last_name asc, characters.first_name asc'),
+                                                                :id, :name, (character.mother.nil? ? nil : character.mother.id)), prompt: 'Select Characters', multiple: false, include_blank: true %>
+            </div>
+          </div>
+          <div class='row'>
+            <div class='col-lg-10'>
+              <%= f.rich_text_area :thumbnail %>
+            </div>
+          </div>
+          <div class='row'>
+            <div class='col-lg-10'>
+              <%= f.rich_text_area :background %>
+            </div>
+          </div>
+        </div>
+      </span>
+    <% end %>
+
+    <% CharacterCategory.all.includes([:character_attributes]).order(:position).each do |category| %>
+      <% c.tab category.name do %>
+        <span>
+          <div class='row'>
+            <% character_values = character.character_values.joins(:character_attribute).order(:name).where('character_category_id = ?', category.id) %>
+            <% character_attributes = category.character_attributes %>
+            <div class='col-lg-4'>
+              <span>
+                <table class='table' style='width: auto;'>
+                  <tbody>
+                    <% character_attributes[0..character_attributes.size/2].each do |character_attribute| %>
+                      <% character_value = character_values.where(character_attribute_id: character_attribute.id)[0] %>
+                      <tr>
+                        <td><%= character_attribute.name %></td>
+                        <td><%= text_field_tag "#{category.name.underscore}_#{character_attribute.name.underscore}_value".to_sym, (character_value.nil? ? '' : character_value.value) %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </span>
+            </div>
+            <div class='col-lg-4'>
+              <span>
+                <table class='table' style='width: auto;'>
+                  <tbody>
+                    <% unless character_attributes.size == 1 %>
+                      <% character_attributes[character_attributes.size/2..character_attributes.length-1].each do |character_attribute| %>
+                        <% character_value = character_values.where(character_attribute_id: character_attribute.id)[0] %>
+                        <tr>
+                          <td><%= character_attribute.name %></td>
+                          <td><%= text_field_tag "#{category.name.underscore}_#{character_attribute.name.underscore}_value".to_sym, (character_value.nil? ? '' : character_value.value) %></td>
+                        </tr>
+                      <% end %>
+                    <% end %>
+                  </tbody>
+                </table>
+              </span>
+            </div>
+          </div>
+        </span>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <div class='form-actions'>
+    <%= f.submit nil, class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<% str = '' %>
+<% attributes.keys.each do |key| %>
+  <% str += "$('##{key.to_s.gsub(/ /, '_')}').val('#{attributes[key]}');" %>
+<% end %>
+<script nonce="<%= request.content_security_policy_nonce %>" type='text/javascript'>
+  $(document).on('turbo:load', function() {
+    <%== str %>
+    $(document).on('change', 'input#death_age', function(e){
+      var year = $('#year').val();
+      var age = $('#age').val();
+      var death_age = $('#death_age').val();
+      $('#character_birth_year').val(year - age);
+      var birth_year = year - age;
+      $('#character_death_year').val(parseInt(birth_year) + parseInt(death_age));
+    });
+  });
+</script>

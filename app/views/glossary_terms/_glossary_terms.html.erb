@@ -1,22 +1,13 @@
-<turbo-frame id="objects">
-  <table class='table table-striped'>
-    <thead>
-      <tr>
-        <th></th>
-        <th>Events</th>
-        <th>See<br>
-          Seealso<br>
-          Acronym</th>
-        <th></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @glossary_terms.each do |glossary_term| %>
-        <turbo-frame id="<%= dom_id glossary_term %>">
-          <%= render partial: "glossary_terms/glossary_term_item", locals: { glossary_term: glossary_term } %>
-        </turbo-frame>
-      <% end %>
-    </tbody>
-  </table>
-</turbo-frame>
+<div class="row">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-2">Events</div>
+  <div class="col-sm-2">See<br>
+    Seealso<br>
+    Acronym</div>
+  <div class="col-sm-2"></div>
+</div>
+<% @glossary_terms.each do |glossary_term| %>
+  <turbo-frame id="<%= dom_id glossary_term %>">
+    <%= render partial: "glossary_terms/glossary_term_item", locals: { glossary_term: glossary_term } %>
+  </turbo-frame>
+<% end %>

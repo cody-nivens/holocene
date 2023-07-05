@@ -1,16 +1,13 @@
 <% locs = segment.location_times.includes(:location).where("location.name": location).order(:date_string) %>
-<table class="table table-sm table-striped">
-  <tbody>
-  <% locs.each do |location_time| %>
-    <tr>
-      <td class="text-start" style="width: 90px">
-        <strong><%= link_to location_time.date_string, edit_location_time_path(location_time) %></strong>
-        <%= link_to (fa_icon 'trash'), location_time, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
-        <%= link_to (fa_icon 'plus'), new_location_time_actor_location_time_path(location_time) %>
-      </td>
-      <td class="text-start">
-        <table class="table table-sm table-striped">
-          <tbody>
+<% loc_times.each do |loc_time| %>
+  <td class="text-start">
+    <% locs.each do |location_time| %>
+      <% next unless location_time.date_string == loc_time %>
+      <strong><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_location_time_path(location_time), data: { "turbo-frame": "new_object" }, title: "Edit Location Time" %></strong>
+      <%= link_to (fa_icon 'trash'), location_time, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
+      <%= link_to (fa_icon 'plus'), new_location_time_actor_location_time_path(location_time), data: { "turbo-frame": "new_object" }, title: "New Actor Location Time" %>
+      <table>
+        <tbody>
           <% location_time.actor_location_times.includes(:actor).order("actors.name").each do |actor_loc| %>
             <tr>
               <td class="text-start">
@@ -18,10 +15,8 @@
               </td>
             </tr>
           <% end %>
-          </tbody>
-        </table>
-      </td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+        </tbody>
+      </table>
+    <% end %>
+  </td>
+<% end %>

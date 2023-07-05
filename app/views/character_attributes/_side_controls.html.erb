@@ -1,2 +1,2 @@
-  <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_character_attribute_path(@character_attribute), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'Edit' %>
-  <%= link_to (fa_icon 'backward', class: 'fa-fw'), character_category_character_attributes_path(@character_category), method: :get, class: 'btn', title: 'Back' %>
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_character_attribute_path(@character_attribute), data: { "turbo-frame": "#{dom_id @character_attribute}" }, class: 'btn', title: 'Edit' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), character_category_character_attributes_path(@character_category), method: :get, class: 'btn', title: 'Back' %>

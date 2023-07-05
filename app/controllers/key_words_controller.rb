@@ -28,6 +28,7 @@ class KeyWordsController < ApplicationController
 
   # GET /key_words/1/edit
   def edit
+    @short = params[:short]
     @book = @key_word.book
   end
 
@@ -51,6 +52,7 @@ class KeyWordsController < ApplicationController
 
   # PATCH/PUT /key_words/1 or /key_words/1.json
   def update
+    @short = params[:short]
     @book = @key_word.book
     respond_to do |format|
       if @key_word.update(key_word_params)
@@ -59,6 +61,7 @@ class KeyWordsController < ApplicationController
         format.json { render :show, status: :ok, location: @key_word }
         flash.now[:notice] = "Key Word was successfully updated."
         format.turbo_stream { render "shared/index", locals: { object: KeyWord.new, objects: @key_words } }
+        #format.turbo_stream { render "shared/update", locals: { object: @key_word, short: @short } }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @key_word.errors, status: :unprocessable_entity }

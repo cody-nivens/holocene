@@ -1,7 +1,6 @@
 <h2>Editing Timeline</h2>
-<turbo-frame id="new_object">
-  <turbo-frame id="<%= dom_id @timeline %>">
-    <%= render 'form', timeline: @timeline, command_label: 'Update Timeline' %>
-    <%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(timelines_path), method: :get, class: 'btn', title: 'Back' %>
-  </turbo-frame>
+
+<turbo-frame id="<%= dom_id @timeline %>">
+  <%= render 'form', timeline: @timeline, command_label: 'Update Timeline' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(timelines_path), method: :get, class: 'btn', title: 'Back' %>
 </turbo-frame>

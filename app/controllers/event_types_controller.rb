@@ -42,7 +42,9 @@ class EventTypesController < ApplicationController
   end
 
   # GET /event_types/1/edit
-  def edit; end
+  def edit
+    @short = params[:short]
+  end
 
   # POST /event_types
   # POST /event_types.json
@@ -69,6 +71,7 @@ class EventTypesController < ApplicationController
   # PATCH/PUT /event_types/1
   # PATCH/PUT /event_types/1.json
   def update
+    @short = params[:short]
     @object = @event_type
     respond_to do |format|
       if @event_type.update(event_type_params)
@@ -79,7 +82,8 @@ class EventTypesController < ApplicationController
         #        format.html { redirect_to @event_type, notice: 'Event type was successfully updated.' }
         format.json { render :show, status: :ok, location: @event_type }
         flash.now[:notice] = "Event Type was successfully updated."
-        format.turbo_stream { render "shared/show", locals: { object: @event_type } }
+        #format.turbo_stream { render "shared/show", locals: { object: @event_type } }
+        format.turbo_stream { render "shared/update", locals: { object: @event_type, short: @short } }
       else
         format.html { render :edit }
         format.json { render json: @event_type.errors, status: :unprocessable_entity }

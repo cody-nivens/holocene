@@ -1,7 +1,7 @@
-      <tr>
-        <td><%= link_to footnote.slug, footnote, title: 'Show', method: :get %></td>
-        <td><%= link_to footnote.body, footnote, title: 'Show', method: :get %></td>
-        <td><%= (footnote.biblioentry.nil? ? '' : footnote.biblioentry_name) %></td>
-        <td><%= link_to (fa_icon 'edit'), edit_footnote_path(footnote), data: { "turbo-frame": "new_object" }, title: 'Edit' %></td>
-        <td><%= link_to (fa_icon 'trash'), footnote, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
-      </tr>
+<div class="row">
+  <div class="col-sm-2"><%= link_to footnote.slug, footnote, title: 'Show', method: :get %></div>
+  <div class="col-sm-2"><%= link_to footnote.body, footnote, title: 'Show', method: :get %></div>
+  <div class="col-sm-2"><%= (footnote.biblioentry.nil? ? '' : footnote.biblioentry_name) %></div>
+  <div class="col-sm-2"><%= link_to (fa_icon 'edit'), edit_footnote_path(footnote, short: true), title: 'Edit' %>
+  <%= link_to (fa_icon 'trash'), footnote, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></div>
+</div>

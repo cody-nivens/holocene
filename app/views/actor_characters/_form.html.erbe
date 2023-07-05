@@ -1,0 +1,14 @@
+<%= bootstrap_form_for actor_character, url: { controller: :actor_characters, action: (actor_character.id.nil? ? :create : :update) } do |f| %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= hidden_field :actor_id, @actor.id %>
+    <%= f.hidden_field :actor_id, value: @actor.id %>
+
+     <%= f.select :character_id, options_from_collection_for_select(@actor.book.characters.order(:last_name), :id, :name, @actor_character.character_id), value: @actor_character.character_id, prompt: 'Select Character', multiple: false, size: 1 %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, class: 'btn btn-primary' %>
+  </div>
+<% end %>

@@ -1,0 +1,13 @@
+<%= bootstrap_form_for key_word, url: { controller: :key_words, action: (key_word.id.nil? ? :create : :update) } do |f| %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= hidden_field :book_id, book.id %>
+    <%= f.hidden_field :book_id, value: book.id %>
+    <%= f.text_field :key_word %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, class: 'btn btn-primary' %>
+  </div>
+<% end %>

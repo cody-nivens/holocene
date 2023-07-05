@@ -1,12 +1,13 @@
 class WelcomeController < ApplicationController
   def index
+    session[:return_to] = books_path
+    #session[:return_to] = request.fullpath
     #respond_to do |format|
     #  format.turbo_stream { render 'shared/index', locals: { object: Book.new, objects: Book.where(user_id: current_user.id) } }
     #end
   end
 
   def progress
-    session[:return_to] = request.fullpath
     @title = "Progress"
     @start_date       = params[:start_date]
     @today_date = @start_date.nil? ? Date.today.beginning_of_month.beginning_of_week : Date.parse(@start_date).beginning_of_month.beginning_of_week

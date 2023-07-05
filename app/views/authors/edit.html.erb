@@ -1,8 +1,6 @@
 <h2>Editing Author</h2>
 
-<turbo-frame id="new_object">
 <turbo-frame id="<%= dom_id @author %>">
-<%= render 'form', user: current_user, author: @author, command_label: 'Update Author', object: @object %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path([@object, @author]), method: :get, class: 'btn', title: 'Back' %>
-</turbo-frame>
+  <%= render 'form', user: current_user, author: @author, command_label: 'Update Author', object: @object %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path([@object, @author]), method: :get, class: 'btn', title: 'Back' %>
 </turbo-frame>

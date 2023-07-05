@@ -70,7 +70,9 @@ class TimelinesController < ApplicationController
   end
 
   # GET /timelines/1/edit
-  def edit; end
+  def edit
+    @short = params[:short]
+  end
 
   # POST /timelines
   # POST /timelines.json
@@ -101,6 +103,7 @@ class TimelinesController < ApplicationController
   # PATCH/PUT /timelines/1
   # PATCH/PUT /timelines/1.json
   def update
+    @short = params[:short]
     @timelines = Timeline.where(user_id: current_user.id).order(:name)
     respond_to do |format|
       if @timeline.update(timeline_params)
@@ -113,6 +116,7 @@ class TimelinesController < ApplicationController
         format.json { render :show, status: :ok, location: @timeline }
         flash.now[:notice] = "Timeline was successfully updated."
         format.turbo_stream { render "shared/show", locals: { object: @timeline } }
+        #format.turbo_stream { render "shared/update", locals: { object: @timeline, short: @short } }
       else
         format.html { render :edit }
         format.json { render json: @timeline.errors, status: :unprocessable_entity }

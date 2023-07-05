@@ -72,6 +72,7 @@ module HoloceneMinitests
       when 'calendar'
       when 'list'
       when 'map'
+      when 'sort'
       when 'angle-right'
         assert_side 'angle-left', menu_master, 'angle-left'
         click_side 'angle-left'
@@ -122,7 +123,7 @@ module HoloceneMinitests
     unless ['Characters with Scenes', 'Character Grid', 'Progress', 'Tags', 'History', 'Stats',
         'Stories', 'All Stories', 'Time by Actor', 'Time by Location', 'Actor by Location', 'Publish All',
         'Resync Stories', 'Key Points', 'By Occupation', 'By Occupation, All', 'Resync Scenes', 'Main Characters',
-        'Partition', 'Timeline', 'Scenes', 'Books', 'Import Chars',
+        'Citations', 'Partition', 'Timeline', 'Scenes', 'Books', 'Import Chars',
         "#{@book.nil? ? 'Progress' : @book.name}", "#{@story.nil? ? 'Progress' : @story.name}", "#{@stage.nil? ? 'Progress' : @stage.name}", "#{@chapter.nil? ? 'Progress' : @chapter.name}", 
         'Move', 'Char List', 'Char List, All', 'Scene Characters', 'Stage List', 'New Chapter'].include?(object) or
       (master == 'Story' and object == 'Characters')
@@ -205,8 +206,10 @@ module HoloceneMinitests
       has_css? 'input[name="city[name]"]'
     when 'Holocene Events'
       has_css? 'input[name="holocene_event[name]"]'
-    when 'Footnotes', 'Citations'
+    when 'Footnotes'
       assert_text "Slug"
+    when 'Citations'
+      assert_text "Citations"
     when 'New Book', 'New Story', 'Key Points', "#{@chapter.nil? ? (@story.nil? ? '' : @story.name) : @chapter.name}"
       assert_text 'Title'
     when 'Signets'
@@ -216,8 +219,10 @@ module HoloceneMinitests
     end
 
     case object
-    when 'Footnotes', 'Citations'
+    when 'Footnotes'
       fill_in "Slug", with: "TestSlug"
+    when 'Citations'
+      fill_in "Slug", with: ""
     when 'Key Words'
       fill_in "Key word", with: "dark"
     when 'Cities'
@@ -270,7 +275,10 @@ module HoloceneMinitests
       assert_link "Snoopy"
       assert_text "Brown"
       click_on "Snoopy"
-    when 'Footnotes', 'Citations'
+    when 'Footnotes'
+      assert_link 'TestSlug'
+      click_on 'TestSlug'
+    when 'Citations'
       assert_link 'TestSlug'
       click_on 'TestSlug'
     when 'Sections'
@@ -294,7 +302,9 @@ module HoloceneMinitests
       #find("div > turbo-frame##{dom_id KeyWord.last} > div > a", match: :first).click
       assert_text "Key word:"
       assert_no_text 'stormy'
-    when 'Footnotes', 'Citations'
+    when 'Footnotes'
+      assert_text 'Slug:'
+    when 'Citations'
       assert_text 'Slug:'
     when 'Authors'
       assert_text 'Biblioentries'
@@ -304,7 +314,7 @@ module HoloceneMinitests
       assert_text "Strangeness in Space"
     end
 
-    p "Showing #{object} on #{master}" if debug
+    p "Editing #{object} on #{master}" if debug
     unless ['Signets'].include?(object)
       assert_side 'edit', master, object
       click_side 'edit'
@@ -319,7 +329,10 @@ module HoloceneMinitests
     when 'Authors'
       assert_text "First name"
       fill_in "First name", with: "Charlie"
-    when 'Footnotes', 'Citations'
+    when 'Footnotes'
+      assert_text "Slug"
+      fill_in "Slug", with: "SlugTest"
+    when 'Citations'
       assert_text "Slug"
       fill_in "Slug", with: "SlugTest"
     when 'Key Words'
@@ -361,7 +374,9 @@ module HoloceneMinitests
     case object
     when 'Authors'
       assert_text "Charlie"
-    when 'Footnotes', 'Citations'
+    when 'Footnotes'
+      assert_text "Slug"
+    when 'Citations'
       assert_text "Slug"
     when 'Key Words'
       assert_text 'lighting'
@@ -369,7 +384,7 @@ module HoloceneMinitests
       assert_text "Seemingly Case"
     end
 
-    unless ['Signets', 'Asides', 'Acts', 'Holocene Events', 'Key Words'].include?(object)
+    unless ['Signets', 'Acts', 'Holocene Events', 'Key Words'].include?(object)
       assert_side 'backward', master, object
       click_side 'backward'
       assert_no_text "Content missing"
@@ -526,7 +541,7 @@ module HoloceneMinitests
     when 'New Chapter'
       assert_text 'Display title'
     when 'Citations'
-      assert_text 'Slug'
+      assert_text 'Select Citations'
     when 'Char List, All'
       assert_text 'Char List'
     when 'Import Chars'

@@ -31,6 +31,7 @@ class CharacterValuesController < ApplicationController
 
   # GET /character_values/1/edit
   def edit
+    @short = params[:short]
     @character = @character_value.character
     @character_category = CharacterCategory.first
   end
@@ -61,6 +62,7 @@ class CharacterValuesController < ApplicationController
   # PATCH/PUT /character_values/1
   # PATCH/PUT /character_values/1.json
   def update
+    @short = params[:short]
     @character = @character_value.character
     respond_to do |format|
       if @character_value.update(character_value_params)
@@ -69,7 +71,8 @@ class CharacterValuesController < ApplicationController
 #                      notice: 'Character value was successfully updated.'
 #        end
         format.json { render :show, status: :ok, location: @character_value }
-        format.turbo_stream { flash.now[:notice] = "Character Value was successfully updated." }
+        flash.now[:notice] = "Character Value was successfully updated."
+        format.turbo_stream { render "shared/update", locals: { object: @character_value, short: @short } }
       else
         @character_category = CharacterCategory.first
         format.html { render :edit, character_id: @character.id }

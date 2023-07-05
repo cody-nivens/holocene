@@ -1,9 +1,22 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+---
 tour_1:
   name: Mr. Toad's Wild Ride
   story_id: <%= ActiveRecord::FixtureSet.identify(:story_1) %>
-
+  position: 1
 tour_2:
   name: The Puss in Boots
+  story_id: <%= ActiveRecord::FixtureSet.identify(:story_1) %>
+  position: 1
+tour_3:
+  name: 20,000 Leagues under the Sea
+  story_id: <%= ActiveRecord::FixtureSet.identify(:story_1) %>
+  position: 2
+tour_4:
+  name: Oddessy
   story_id: <%= ActiveRecord::FixtureSet.identify(:story_2) %>
+  position: 3
+tour_5:
+  name: The Argonauts
+  story_id: <%= ActiveRecord::FixtureSet.identify(:story_1) %>
+  position: 4

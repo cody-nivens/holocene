@@ -1,8 +1,6 @@
 <h2>Editing Glossary Term</h2>
 
-<turbo-frame id="new_object">
 <turbo-frame id="<%= dom_id @glossary_term %>">
-<%= render 'form', glossary_term: @glossary_term, book: @book %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),   return_or_default_path(book_glossary_terms_path(@book)), method: :get, class: 'btn', title: 'Back' %>
-</turbo-frame>
+  <%= render 'form', glossary_term: @glossary_term, book: @book %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), book_glossary_terms_path(@book), method: :get, class: 'btn', title: 'Back' %>
 </turbo-frame>

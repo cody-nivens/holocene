@@ -1,8 +1,6 @@
 <h2>Editing Character Scene: <%= @scene.name %> for <%= @character_scene.character.name %></h2>
 
-<turbo-frame id="new_object">
-  <turbo-frame id="<%= dom_id @character_scene %>">
-    <%= render 'form', character_scene: @character_scene, scene: @scene %>
-    <%= link_to (fa_icon 'backward', class: 'fa-fw'),  @scene, method: :get, class: 'btn', title: 'Back' %>
-  </turbo-frame>
+<turbo-frame id="<%= dom_id @character_scene %>">
+  <%= render 'form', character_scene: @character_scene, scene: @scene %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  @scene, method: :get, class: 'btn', title: 'Back' %>
 </turbo-frame>

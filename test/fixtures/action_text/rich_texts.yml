@@ -191,12 +191,18 @@ rich_text_<%= i %>:
 rich_text_<%= i %>:
   record: aside_1 (Aside)
   name: body
-  body: Flight of the Bubblebees.
+  body: |-
+    Flight of the Bubblebees.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed gravida quam. Pellentesque nunc ex, varius sed nisi tristique, cursus suscipit erat. Curabitur laoreet id dui a pretium. In sed viverra metus. Nulla tellus purus, posuere sed porta et, convallis et sapien. Integer bibendum metus metus, vel volutpat elit tincidunt vitae. Quisque viverra urna vel laoreet malesuada. In odio metus, interdum a finibus et, convallis tristique massa. Ut interdum nisi nulla, nec euismod arcu suscipit quis. Phasellus et nibh et turpis cursus rhoncus. Aliquam ac arcu quis nulla tincidunt faucibus. Nunc luctus urna euismod massa posuere, dapibus sodales nunc fermentum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis blandit felis vel justo accumsan porttitor. Pellentesque rhoncus vulputate metus tempus pulvinar.
+
 <% i += 1 %>
 rich_text_<%= i %>:
   record: aside_2 (Aside)
   name: body
-  body: Too many fleas.
+  body: |-
+    Too many fleas.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed gravida quam. Pellentesque nunc ex, varius sed nisi tristique, cursus suscipit erat. Curabitur laoreet id dui a pretium. In sed viverra metus. Nulla tellus purus, posuere sed porta et, convallis et sapien. Integer bibendum metus metus, vel volutpat elit tincidunt vitae. Quisque viverra urna vel laoreet malesuada. In odio metus, interdum a finibus et, convallis tristique massa. Ut interdum nisi nulla, nec euismod arcu suscipit quis. Phasellus et nibh et turpis cursus rhoncus. Aliquam ac arcu quis nulla tincidunt faucibus. Nunc luctus urna euismod massa posuere, dapibus sodales nunc fermentum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis blandit felis vel justo accumsan porttitor. Pellentesque rhoncus vulputate metus tempus pulvinar.
+
 <% i += 1 %>
 rich_text_<%= i %>:
   record: book_1 (Book)

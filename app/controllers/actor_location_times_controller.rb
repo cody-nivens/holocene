@@ -34,6 +34,8 @@ class ActorLocationTimesController < ApplicationController
 
   # GET /actor_location_times/1/edit
   def edit
+    @short = params[:short]
+
     @segment = @actor_location_time.location_time.segment
     @connector = @actor_location_time.location_time
   end
@@ -49,6 +51,10 @@ class ActorLocationTimesController < ApplicationController
   def create
     @actor_location_time = ActorLocationTime.new(actor_location_time_params)
     @segment = @actor_location_time.location_time.segment
+    @stage = @segment.stage
+    @act = @stage.act
+    @op = params[:op] || "locations"
+
     @connector = @actor_location_time.location_time
 
     if params[:actor_location_time][:location_time_id].nil?
@@ -71,7 +77,8 @@ class ActorLocationTimesController < ApplicationController
 #        format.html { redirect_to return_or_default_path(stage_url(@actor_location_time.location_time.segment.stage)), notice: "Actor location time was successfully created." }
         format.json { render :show, status: :created, location: @actor_location_time }
         #format.turbo_stream { render :create, status: :created } 
-        format.turbo_stream { flash.now[:notice] = "Actor Location Time was successfully created." }
+        flash.now[:notice] = "Actor Location Time was successfully created."
+        format.turbo_stream { render "shared/show", locals: { object: @stage } }
       else
         @klass = Location
         format.html { render :new, status: :unprocessable_entity }
@@ -82,14 +89,19 @@ class ActorLocationTimesController < ApplicationController
 
   # PATCH/PUT /actor_location_times/1 or /actor_location_times/1.json
   def update
+    @short = params[:short]
     @segment = @actor_location_time.location_time.segment
+    @stage = @segment.stage
+    @act = @stage.act
+    @op = params[:op] || "locations"
     @connector = @actor_location_time.location_time
     @actor_location_times = ActorLocationTime.where(location_time_id: @location_time.id)
     respond_to do |format|
       if @actor_location_time.update(actor_location_time_params)
 #        format.html { redirect_to return_or_default_path(stage_url(@actor_location_time.location_time.segment.stage)), notice: "Actor location time was successfully updated." }
         format.json { render :show, status: :ok, location: @actor_location_time }
-        format.turbo_stream { flash.now[:notice] = "Actor Location Time was successfully updated." }
+        flash.now[:notice] = "Actor Location Time was successfully updated."
+        format.turbo_stream { render "shared/update", locals: { object: @actor_location_time, short: @short } }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @actor_location_time.errors, status: :unprocessable_entity }
@@ -100,6 +112,9 @@ class ActorLocationTimesController < ApplicationController
   # DELETE /actor_location_times/1 or /actor_location_times/1.json
   def destroy
     @segment = @actor_location_time.location_time.segment
+    @stage = @segment.stage
+    @act = @stage.act
+    @op = params[:op] || "locations"
     @connector = @actor_location_time.location_time
     @actor_location_time.destroy
     @actor_location_times = ActorLocationTime.where(location_time_id: @location_time.id)
@@ -107,7 +122,8 @@ class ActorLocationTimesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to return_or_default_path(stage_url(@location_time.segment.stage)), notice: "Actor location time was successfully destroyed." }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Actor Location Time was successfully destroyed." }
+      flash.now[:notice] = "Actor Location Time was successfully destroyed."
+      format.turbo_stream { render "shared/show", locals: { object: @stage } }
     end
   end
 

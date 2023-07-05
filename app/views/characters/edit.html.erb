@@ -1,8 +1,6 @@
 <h2>Editing Character</h2>
 
-<turbo-frame id="new_object">
-  <turbo-frame id="<%= dom_id @character %>">
-      <%= render 'form', character: @character, year: @year, object: @object %>
-  </turbo-frame>
+<turbo-frame id="<%= dom_id @character %>">
+  <%= render 'form', character: @character, year: @year, object: @object %>
   <%= link_to (fa_icon 'backward', class: 'fa-fw'),  return_or_default_path(polymorphic_path([@object, :characters])), method: :get, class: 'btn', title: 'Back' %>
 </turbo-frame>

@@ -34,6 +34,7 @@ class ArtifactsController < ApplicationController
 
   # GET /artifacts/1/edit
   def edit
+    @short = params[:short]
     @book = @artifact.book
   end
 
@@ -57,6 +58,7 @@ class ArtifactsController < ApplicationController
 
   # PATCH/PUT /artifacts/1 or /artifacts/1.json
   def update
+    @short = params[:short]
     @artifact = Artifact.find(params[:id])
     @book = @artifact.book
     respond_to do |format|
@@ -66,6 +68,7 @@ class ArtifactsController < ApplicationController
  #       format.html { redirect_to artifact_path(@artifact), notice: 'Artifact was successfully updated.' }
         format.json { render :show, status: :ok, location: @artifact }
         format.turbo_stream { render "shared/show", locals: { object: @artifact } }
+        #format.turbo_stream { render "shared/update", locals: { object: @artifact, short: @short } }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @artifact.errors, status: :unprocessable_entity }
@@ -82,7 +85,8 @@ class ArtifactsController < ApplicationController
     respond_to do |format|
  #     format.html { redirect_to book_artifacts_path(@book), notice: 'Artifact was successfully destroyed.' }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Artifact was successfully destroyed." }
+      flash.now[:notice] = "Artifact was successfully destroyed."
+      format.turbo_stream { render "shared/index", locals: { object: Artifact.new, objects: @artifacts } }
     end
   end
 

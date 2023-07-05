@@ -1,15 +1,44 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+---
 itinerary_1:
   name: Sushi is Rice
   tour_id: <%= ActiveRecord::FixtureSet.identify(:tour_1) %>
   city_id: <%= ActiveRecord::FixtureSet.identify(:city_1) %>
   position: 1
   stay: 1
-
 itinerary_2:
-  name: Way Too Many People
+  name: Old and New Excitement
   tour_id: <%= ActiveRecord::FixtureSet.identify(:tour_2) %>
-  city_id: <%= ActiveRecord::FixtureSet.identify(:city_2) %>
+  city_id: <%= ActiveRecord::FixtureSet.identify(:city_6) %>
   position: 1
+  stay: 1
+itinerary_3:
+  name: Kim Che is King
+  tour_id: <%= ActiveRecord::FixtureSet.identify(:tour_1) %>
+  city_id: <%= ActiveRecord::FixtureSet.identify(:city_8) %>
+  position: 2
+  stay: 1
+itinerary_4:
+  name: Markets like no other
+  tour_id: <%= ActiveRecord::FixtureSet.identify(:tour_2) %>
+  city_id: <%= ActiveRecord::FixtureSet.identify(:city_10) %>
+  position: 2
+  stay: 1
+itinerary_5:
+  name: The Forteress Home
+  tour_id: <%= ActiveRecord::FixtureSet.identify(:tour_2) %>
+  city_id: <%= ActiveRecord::FixtureSet.identify(:city_11) %>
+  position: 3
+  stay: 1
+itinerary_6:
+  name: Hot Bodies
+  tour_id: <%= ActiveRecord::FixtureSet.identify(:tour_3) %>
+  city_id: <%= ActiveRecord::FixtureSet.identify(:city_7) %>
+  position: 1
+  stay: 1
+itinerary_7:
+  name: Hot Culture
+  tour_id: <%= ActiveRecord::FixtureSet.identify(:tour_3) %>
+  city_id: <%= ActiveRecord::FixtureSet.identify(:city_9) %>
+  position: 2
   stay: 1

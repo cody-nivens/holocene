@@ -1,6 +1,6 @@
 class SectionsController < ApplicationController
   before_action :set_section, only: %i[map_locs geo_map timeline grid_params show edit update destroy]
-  before_action :set_sectioned, only: %i[index new]
+  before_action :set_sectioned, only: %i[sort index new]
 
   def index
     @sections = @sectioned.sections.includes([:rich_text_body]).order(:position)
@@ -10,10 +10,19 @@ class SectionsController < ApplicationController
   end
 
   def sort
-    @section = Section.find(params[:section_id])
-    @section.update(section_params)
-    render body: nil
+    if request.xhr?
+      @section = Section.find(params[:section_id])
+      @section.set_list_position(params[:section][:position].to_i)
+      @section.save
+      render body: nil
+    else
+      @sections = @sectioned.sections.order(:position)
+      respond_to do |format|
+        format.turbo_stream { render "shared/sort", locals: { return_path: @sectioned, link_object: @sectioned, object: Section.new, objects: @sections } }
+      end
+    end
   end
+
 
   def map_locs
     respond_to do |format|
@@ -45,6 +54,7 @@ class SectionsController < ApplicationController
 
   # GET /sections/1/edit
   def edit
+    @short = params[:short]
     @sectioned = @section.sectioned
   end
 
@@ -78,6 +88,7 @@ class SectionsController < ApplicationController
   # PATCH/PUT /sections/1
   # PATCH/PUT /sections/1.json
   def update
+    @short = params[:short]
     @sectioned = @section.sectioned
     respond_to do |format|
       if @section.update(section_params)
@@ -91,7 +102,8 @@ class SectionsController < ApplicationController
         format.json { render :show, status: :ok, location: @section }
         obj_name = @section.sectioned.class.name.underscore
         self.instance_variable_set("@#{obj_name}", @sectioned)
-        format.turbo_stream { render "shared/show", locals: { object: @section.sectioned } }
+        #format.turbo_stream { render "shared/show", locals: { object: @section.sectioned } }
+        format.turbo_stream { render "shared/update", locals: { object: @section, short: @short } }
       else
         format.turbo_stream { render :edit, locals: { object: @section } }
       end

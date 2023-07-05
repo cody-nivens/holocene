@@ -1,20 +1,12 @@
-<turbo-frame id="objects">
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Associated</th>
-      <th>Owner/Controller</th>
-      <th>Type</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @artifacts.each do |artifact| %>
-      <% next if !artifact.parent.nil? && artifact.children.empty? %>
-      <%= render partial: 'artifacts/artifact_item', formats: [:html], locals: { book: @book, artifact: artifact, parent: true } %>
-    <% end %>
-  </tbody>
-</table>
-</turbo-frame>
+<div class="row">
+  <div class="col-sm-2">Name</div>
+  <div class="col-sm-2">Associated</div>
+  <div class="col-sm-2">Owner/Controller</div>
+  <div class="col-sm-2">Type</div>
+</div>
+<% @artifacts.each do |artifact| %>
+  <% next if !artifact.parent.nil? && artifact.children.empty? %>
+  <turbo-frame id="<%= dom_id artifact %>">
+    <%= render partial: 'artifacts/artifact_item', formats: [:html], locals: { book: @book, artifact: artifact, parent: true } %>
+  </turbo-frame>
+<% end %>

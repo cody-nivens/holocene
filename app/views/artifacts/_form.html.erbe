@@ -1,0 +1,22 @@
+<%= bootstrap_form_for artifact, url: { controller: :artifacts, action: (artifact.id.nil? ? :create : :update) } do |f| %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= hidden_field :book_id, book.id %>
+    <%= f.hidden_field :book_id, value: book.id %>
+
+    <%= f.text_field :name %>
+    <%= f.select :character_id, options_for_select(book.characters.order(:last_name, :first_name).collect { |mt| [mt.name, mt.id] }, selected: artifact.character_id), include_blank: true %>
+    <%= f.select :parent_id, options_for_select(Artifact.all.order(:name).collect { |mt| [mt.name, mt.id] }, selected: artifact.parent_id), include_blank: true %>
+
+    <%= f.select :artifact_type_id, options_for_select(ArtifactType.all.order(:name).collect { |mt| [mt.name, mt.id] }, selected: artifact.artifact_type_id), include_blank: true %>
+    <%= f.rich_text_area :summary %>
+
+    <%= f.text_field :tag_list, size: 40, value: f.object.tag_list.join(',') %>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, class: 'btn btn-primary' %>
+  </div>
+<% end %>

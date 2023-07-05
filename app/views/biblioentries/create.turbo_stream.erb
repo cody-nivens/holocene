@@ -1,9 +1,6 @@
 <%= turbo_stream.replace "objects"  do %>
-  <%= render partial: "biblioentries/biblioentries", locals: { biblioentries: @biblioentries, book: @book } %>
-<% end %>
-<%= turbo_stream.replace "edit"  do %>
-  <%= content_tag :div, id: "edit" do %>
-    <%= " " %>
+  <%= content_tag "turbo-frame", class: "block", id: "objects" do %>
+    <%= render partial: "biblioentries/biblioentries", locals: { biblioentries: @biblioentries, book: @book } %>
   <% end %>
 <% end %>
 <%= turbo_stream.replace "new_object" do %>

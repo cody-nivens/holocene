@@ -25,6 +25,7 @@ class PlotPointsController < ApplicationController
 
   # GET /plot_points/1/edit
   def edit
+    @short = params[:short]
     @book = @plot_point.book
   end
 
@@ -82,12 +83,14 @@ class PlotPointsController < ApplicationController
 
   # PATCH/PUT /plot_points/1 or /plot_points/1.json
   def update
+    @short = params[:short]
     @plot_points = PlotPoint.where(book_id: @book.id)
     respond_to do |format|
       if @plot_point.update(plot_point_params)
         format.html { redirect_to plot_point_url(@plot_point), notice: "Plot point was successfully updated." }
         format.json { render :show, status: :ok, location: @plot_point }
-        format.turbo_stream { flash.now[:notice] = "Plot Point was successfully updated." }
+        flash.now[:notice] = "Plot Point was successfully updated."
+        format.turbo_stream { render "shared/update", locals: { object: @plot_point, short: @short } }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @plot_point.errors, status: :unprocessable_entity }

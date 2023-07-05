@@ -1,8 +1,8 @@
-      <tr>
-        <td><%= link_to biblioentry.name, biblioentry_path(biblioentry), method: :get, title: 'Show' %></td>
-        <td><%= biblioentry.xreflabel %></td>
-        <td><%= format_biblio_authors(biblioentry.authors) %></td>
-        <td><%= biblioentry.footnotes.size %></td>
-        <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_biblioentry_path(biblioentry), data: { "turbo-frame": "new_object" }, title: 'Edit' %>
-        <%= link_to (fa_icon 'trash', class: 'fa-fw'), biblioentry_path(biblioentry), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
-      </tr>
+<div class="row">
+  <div class="col-sm-2"><%= link_to biblioentry.name, biblioentry_path(biblioentry), method: :get, title: 'Show' %></div>
+  <div class="col-sm-2"><%= biblioentry.xreflabel %></div>
+  <div class="col-sm-2"><%= format_biblio_authors(biblioentry.authors) %></div>
+  <div class="col-sm-2"><%= biblioentry.footnotes.size %></div>
+  <div class="col-sm-2"><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_biblioentry_path(biblioentry, short: true), title: 'Edit' %>
+  <%= link_to (fa_icon 'trash', class: 'fa-fw'), biblioentry_path(biblioentry), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></div>
+</div>

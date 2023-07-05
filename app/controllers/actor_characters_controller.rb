@@ -17,6 +17,7 @@ class ActorCharactersController < ApplicationController
 
   # GET /actor_characters/1/edit
   def edit
+    @short = params[:short]
   end
 
   # POST /actor_characters or /actor_characters.json
@@ -39,12 +40,14 @@ class ActorCharactersController < ApplicationController
 
   # PATCH/PUT /actor_characters/1 or /actor_characters/1.json
   def update
+    @short = params[:short]
     respond_to do |format|
       if @actor_character.update(actor_character_params)
         @actor_characters = ActorCharacter.where(actor_id: @actor.id)
         format.html { redirect_to actor_actor_characters_url(@actor), notice: "Actor character was successfully updated." }
         format.json { render :show, status: :ok, location: @actor_character }
-        format.turbo_stream { flash.now[:notice] = "Actor Character was successfully updated." }
+        flash.now[:notice] = "Actor Character was successfully updated."
+        format.turbo_stream { render "shared/update", locals: { object: @actor_character, short: @short } }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @actor_character.errors, status: :unprocessable_entity }

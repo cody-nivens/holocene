@@ -28,6 +28,7 @@ class BiblioentriesController < ApplicationController
 
   # GET /books/:book_id/biblioentries/:id/edit(.:format)
   def edit
+    @short = params[:short]
     @book = @biblioentry.book
   end
 
@@ -41,7 +42,8 @@ class BiblioentriesController < ApplicationController
         @biblioentries = @book.biblioentries.includes([:authors]).order(:name)
 #        format.html { redirect_to biblioentry_url(@biblioentry), notice: 'Biblioentry was successfully created.' }
         format.json { render :show, status: :created, location: @biblioentry }
-        format.turbo_stream { flash.now[:notice] = "Biblioentry was successfully created." }
+        flash.now[:notice] = "Biblioentry was successfully created."
+        format.turbo_stream { render "shared/index", locals: { object: Biblioentry.new, objects: @biblioentrys } }
       else
         format.html { render :new }
         format.json { render json: @biblioentry.errors, status: :unprocessable_entity }
@@ -51,13 +53,15 @@ class BiblioentriesController < ApplicationController
 
   # PATCH/PUT /books/:book_id/biblioentries/:id(.:format)
   def update
+    @short = params[:short]
     @book = @biblioentry.book
     @biblioentries = @book.biblioentries.includes([:authors]).order(:name)
     respond_to do |format|
       if @biblioentry.update(biblioentry_params)
 #        format.html { redirect_to biblioentry_url(@biblioentry), notice: 'Biblioentry was successfully updated.' }
         format.json { render :show, status: :ok, location: @biblioentry }
-        format.turbo_stream { flash.now[:notice] = "Biblioentry was successfully updated." }
+        flash.now[:notice] = "Biblioentry was successfully updated."
+        format.turbo_stream { render "shared/update", locals: { object: @biblioentry, short: @short } }
       else
         format.html { render :edit }
         format.json { render json: @biblioentry.errors, status: :unprocessable_entity }
@@ -73,7 +77,8 @@ class BiblioentriesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to book_biblioentries_path(@book), notice: 'Biblioentry was successfully destroyed.' }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Biblioentry was successfully destroyed." }
+      flash.now[:notice] = "Biblioentry was successfully destroyed."
+      format.turbo_stream { render "shared/index", locals: { object: Biblioentry.new, objects: @biblioentrys } }
     end
   end
 

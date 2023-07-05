@@ -1,4 +1,4 @@
-<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_stage_path(@stage), data: { "turbo-frame": "new_object" }, class: "btn", title: "Edit" %>
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_stage_path(@stage), data: { "turbo-frame": "#{dom_id @stage}" }, class: "btn", title: "Edit" %>
 <%# if @long.kind_of?(TrueClass) or @long == "true" %>
 <% if action_name == 'list' %>
   <%= link_to (fa_icon 'minus', type: :solid, class: 'fa-fw'), stage_path(@stage), title: 'Show', method: :get, class: 'btn' %>
@@ -6,4 +6,5 @@
   <%= link_to (fa_icon 'expand', type: :solid, class: 'fa-fw'), stage_list_path(@stage, long: true), method: :get, title: 'Show, long', class: 'btn' %>
 <% end %>
 <%= link_to (fa_icon 'list', class: 'fa-fw'), stage_segments_path(@stage), method: :get, class: "btn", title: "Segments List" %>
+<%= link_to (fa_icon 'sort', class: 'fa-fw'), segment_sort_path(@stage), class: 'btn', title: 'Sort', method: :get %>
 <%= link_to (fa_icon 'backward', class: 'fa-fw'), act_stages_path(@act), method: :get, class: "btn", title: "Back" %>

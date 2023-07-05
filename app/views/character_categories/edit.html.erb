@@ -1,10 +1,6 @@
 <h2>Editing Character Category</h2>
 
-<turbo-frame id="new_object">
-  <turbo-frame id="<%= dom_id @character_category %>">
-
-<%= render 'form', character_category: @character_category %>
-
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  character_categories_path, method: :get, class: 'btn', title: 'Back' %>
-</turbo-frame>
+<turbo-frame id="<%= dom_id @character_category %>">
+  <%= render 'form', character_category: @character_category %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  character_categories_path, method: :get, class: 'btn', title: 'Back' %>
 </turbo-frame>

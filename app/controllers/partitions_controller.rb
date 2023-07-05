@@ -29,6 +29,7 @@ class PartitionsController < ApplicationController
 
   # GET /partitions/1/edit
   def edit
+    @short = params[:short]
     @chapter = @partition.chapter
   end
 
@@ -59,6 +60,7 @@ class PartitionsController < ApplicationController
   # PATCH/PUT /partitions/1
   # PATCH/PUT /partitions/1.json
   def update
+    @short = params[:short]
     @chapter = @partition.chapter
     @sectioned = @chapter
     respond_to do |format|
@@ -69,7 +71,7 @@ class PartitionsController < ApplicationController
         format.json { render :show, status: :ok, location: @partition }
         flash.now[:notice] = "Partition was successfully updated."
         #format.turbo_stream { render 'shared/show', locals: { object: @chapter } }
-        format.turbo_stream { }
+        format.turbo_stream { render "shared/update", locals: { object: @partition, short: @short } }
       else
         format.html { render :edit }
         format.json { render json: @partition.errors, status: :unprocessable_entity }

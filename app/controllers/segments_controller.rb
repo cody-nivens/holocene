@@ -18,6 +18,21 @@ class SegmentsController < ApplicationController
     end
   end
 
+  def sort
+    if request.xhr?
+      @segment = Segment.find(params[:segment_id])
+      @segment.set_list_position(params[:segment][:position].to_i)
+      @segment.save
+      render body: nil
+    else
+      @stage = Stage.find(params[:stage_id])
+      @segments = @stage.segments.order(:position)
+      respond_to do |format|
+        format.turbo_stream { render "shared/sort", locals: { link_object: @stage, object: Segment.new, objects: @segments } }
+      end
+    end
+  end
+
   # GET /segments/new
   def new
     @segment = Segment.new
@@ -26,6 +41,7 @@ class SegmentsController < ApplicationController
 
   # GET /segments/1/edit
   def edit
+    @short = params[:short]
   end
 
   # POST /segments or /segments.json
@@ -48,12 +64,14 @@ class SegmentsController < ApplicationController
 
   # PATCH/PUT /segments/1 or /segments/1.json
   def update
+    @short = params[:short]
     @segments = Segment.where(stage_id: @stage.id).order(:name)
     respond_to do |format|
       if @segment.update(segment_params)
 #        format.html { redirect_to segment_url(@segment), notice: "Segment was successfully updated." }
         format.json { render :show, status: :ok, location: @segment }
-        format.turbo_stream { flash.now[:notice] = "Segment was successfully updated." }
+        flash.now[:notice] = "Segment was successfully updated."
+        format.turbo_stream { render "shared/update", locals: { object: @segment, short: @short } }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @segment.errors, status: :unprocessable_entity }

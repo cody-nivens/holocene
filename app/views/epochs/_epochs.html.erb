@@ -1,21 +1,12 @@
-<turbo-frame id="objects">
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Start date</th>
-      <th>End date</th>
-      <th>Events</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @epochs.each do |epoch| %>
-      <turbo-frame id="<%= dom_id epoch %>">
-        <%= render partial: "epochs/epoch_item", locals: { epoch: epoch } %>
-      </turbo-frame>
-    <% end %>
-  </tbody>
-</table>
-</turbo-frame>
+<div class="row">
+  <div class="col-sm-2">Name</div>
+  <div class="col-sm-2">Start date</div>
+  <div class="col-sm-2">End date</div>
+  <div class="col-sm-2">Events</div>
+  <th colspan="3"></div>
+</div>
+<% @epochs.each do |epoch| %>
+  <turbo-frame id="<%= dom_id epoch %>">
+    <%= render partial: "epochs/epoch_item", locals: { epoch: epoch } %>
+  </turbo-frame>
+<% end %>

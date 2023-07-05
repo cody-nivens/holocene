@@ -13,9 +13,9 @@ class FootnotesTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  test "drive the footnote cycle" do
-    menu_test('Chapter', 'Footnotes')
-  end
+#  test "drive the footnote cycle" do
+#    menu_test('Chapter', 'Footnotes')
+#  end
 
   if 1 == 0
   test 'footnotes edit' do

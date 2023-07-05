@@ -1,18 +1,13 @@
-<turbo-frame id="objects">
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% tours.each do |tour| %>
-      <turbo-frame id="<%= dom_id tour %>">
-        <%= render partial: "tours/tour_item", locals: { tour: tour } %>
-      </turbo-frame>
-    <% end %>
-  </tbody>
-</table>
-</turbo-frame>
+<div class="row">
+  <div class="col-sm-2">
+    <strong>Name</strong>
+  </div>
+  <div class="col-sm-2">
+    <strong>Stops</strong>
+  </div>
+</div>
+<% tours.order(:position).each do |tour| %>
+  <turbo-frame id="<%= dom_id tour %>">
+    <%= render partial: "tours/tour_item", locals: { tour: tour } %>
+  </turbo-frame>
+<% end %>

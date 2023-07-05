@@ -1,0 +1,14 @@
+<%= bootstrap_form_for character_attribute, url: { controller: :character_attributes, action: (character_attribute.id.nil? ? :create : :update) } do |f| %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.text_field :name %>
+    <%= hidden_field :character_category_id, character_category.id %>
+    <%= f.hidden_field :character_category_id, value: character_category.id %>
+    <%= f.text_field :related_id %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, class: 'btn btn-primary' %>
+  </div>
+<% end %>

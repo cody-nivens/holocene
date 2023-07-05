@@ -1,21 +1,12 @@
-<turbo-frame id="objects">
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Xreflabel</th>
-      <th>Authors</th>
-      <th># Citations</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @biblioentries.each do |biblioentry| %>
-      <turbo-frame id="<%= biblioentry %>">
-        <%= render partial: "biblioentries/biblioentry_item", locals: { biblioentry: biblioentry } %>
-      </turbo-frame>
-    <% end %>
-  </tbody>
-</table>
-</turbo-frame>
+<div class="row">
+  <div class="col-sm-2">Name</div>
+  <div class="col-sm-2">Xreflabel</div>
+  <div class="col-sm-2">Authors</div>
+  <div class="col-sm-2"># Citations</div>
+  <div class="col-sm-2"></div>
+</div>
+<% @biblioentries.each do |biblioentry| %>
+  <turbo-frame id="<%= biblioentry %>">
+    <%= render partial: "biblioentries/biblioentry_item", locals: { biblioentry: biblioentry } %>
+  </turbo-frame>
+<% end %>

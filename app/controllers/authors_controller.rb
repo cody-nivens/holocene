@@ -61,7 +61,9 @@ class AuthorsController < ApplicationController
   end
 
   # GET /books/:book_id/authors/:id/edit(.:format)
-  def edit; end
+  def edit
+    @short = params[:short]
+  end
 
   # POST /books/:book_id/authors(.:format)
   def create
@@ -83,11 +85,13 @@ class AuthorsController < ApplicationController
 
   # PATCH/PUT /books/:book_id/authors/:id(.:format)
   def update
+    @short = params[:short]
     respond_to do |format|
       if @author.update(author_params)
-        format.html { redirect_to polymorphic_path([@object, @author]), notice: 'Author was successfully updated.' }
+#        format.html { redirect_to polymorphic_path([@object, @author]), notice: 'Author was successfully updated.' }
         format.json { render :show, status: :ok, location: @author }
-        format.turbo_stream { flash.now[:notice] = "Author was successfully updated." }
+        flash.now[:notice] = "Author was successfully updated."
+        format.turbo_stream { render "shared/update", locals: { object: @author, short: @short } }
       else
         format.html { render :edit }
         format.json { render json: @author.errors, status: :unprocessable_entity }

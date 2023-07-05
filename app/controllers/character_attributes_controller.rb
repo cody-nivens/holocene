@@ -22,10 +22,20 @@ class CharacterAttributesController < ApplicationController
   end
 
   def sort
-    @character_attribute = CharacterAttribute.find(params[:character_attribute_id])
-    @character_attribute.update(character_attribute_params)
-    render body: nil
+    if request.xhr?
+      @character_attribute = CharacterAttribute.find(params[:character_attribute_id])
+      @character_attribute.set_list_position(params[:character_attribute][:position].to_i)
+      @character_attribute.save
+      render body: nil
+    else
+      @character_category = CharacterCategory.find(params[:character_category_id])
+      @character_attributes = @character_category.character_attributes.order(:position)
+      respond_to do |format|
+        format.turbo_stream { render "shared/sort", locals: { link_object: @character_category, object: CharacterAttribute.new, objects: @character_attributes, return_path: @character_category } }
+      end
+    end
   end
+
 
   # GET /character_attributes/1
   # GET /character_attributes/1.json
@@ -44,6 +54,7 @@ class CharacterAttributesController < ApplicationController
 
   # GET /character_attributes/1/edit
   def edit
+    @short = params[:short]
     @character_category = @character_attribute.character_category
   end
 
@@ -69,12 +80,14 @@ class CharacterAttributesController < ApplicationController
   # PATCH/PUT /character_attributes/1
   # PATCH/PUT /character_attributes/1.json
   def update
+    @short = params[:short]
     @character_category = @character_attribute.character_category
     respond_to do |format|
       if @character_attribute.update(character_attribute_params)
 #        format.html { redirect_to @character_attribute, notice: 'Character attribute was successfully updated.' }
         format.json { render :show, status: :ok, location: @character_attribute }
-        format.turbo_stream { flash.now[:notice] = "Character Attribute was successfully updated." }
+        flash.now[:notice] = "Character Attribute was successfully updated."
+        format.turbo_stream { render "shared/update", locals: { object: @character_attribute, short: @short } }
       else
         format.html { render :edit }
         format.json { render json: @character_attribute.errors, status: :unprocessable_entity }

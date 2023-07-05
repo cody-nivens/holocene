@@ -1,4 +1,5 @@
 <%= bootstrap_form_for segment, url: { controller: :segments, action: (segment.id.nil? ? :create : :update) } do |f| %>
+<%= hidden_field_tag :short, @short %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
   <div class="form-inputs">

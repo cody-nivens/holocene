@@ -1,6 +1,6 @@
 <% priv_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position - 1) -%>
 <% next_section = Section.where(sectioned_id: @sectioned.id, sectioned_type: @sectioned.class.name, position: @section.position + 1) -%>
-<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_section_path(@section), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'Edit' %>
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_section_path(@section), data: { "turbo-frame": "#{dom_id @section}" }, class: 'btn', title: 'Edit' %>
 <% if @section.sectioned_type == "Chapter" %>
   <%= link_to (fa_icon 'stream', class: 'fa-fw'), section_timeline_path(section_id: @section.id).to_s, method: :get, class: 'btn', title: 'Timeline' %>
   <%= link_to (fa_icon 'list-alt', class: 'fa-fw'), section_display_path(section_id: @section.id).to_s, method: :get, class: 'btn', title: 'Display' %>

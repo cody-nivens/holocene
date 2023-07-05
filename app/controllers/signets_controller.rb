@@ -37,6 +37,7 @@ class SignetsController < ApplicationController
 
   # GET /signets/1/edit
   def edit
+    @short = params[:short]
     @sigged = @signet.sigged
   end
 
@@ -63,6 +64,7 @@ class SignetsController < ApplicationController
   # PATCH/PUT /signets/1
   # PATCH/PUT /signets/1.json
   def update
+    @short = params[:short]
     @sigged = @signet.sigged
     respond_to do |format|
       if @signet.update(signet_params)
@@ -71,6 +73,7 @@ class SignetsController < ApplicationController
 #        format.html { render :index, notice: 'Signet was successfully updated.' }
         format.json { render :index, status: :ok, location: @signet }
         format.turbo_stream { render "shared/index", locals: { object: Signet.new, objects: @signets } }
+        #format.turbo_stream { render "shared/update", locals: { object: @signet, short: @short } }
       else
         format.html { render :edit, "#{@sigged.class.name.underscore}_id".to_sym => @sigged.id }
         format.json { render json: @signet.errors, status: :unprocessable_entity }

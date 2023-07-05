@@ -172,6 +172,7 @@ end
     patch story_url(@story, format: :turbo_stream),
           params: { story: { book_id: @story.book.id, summary_body: @story.summary_body, title: @story.title } }
     label = dom_id @story
+    #label = 'objects'
     assert_turbo_stream action: :replace, target: label do |selected|
       #assert_equal "<template></template>", selected.children.to_html
     end

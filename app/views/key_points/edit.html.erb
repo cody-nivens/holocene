@@ -1,8 +1,6 @@
 <h2>Editing Key Point</h2>
 
-<turbo-frame id="new_object">
-  <turbo-frame id="<%= dom_id @key_point %>">
-    <%= render 'form', key_point: @key_point, scripted: @scripted, klass: @klass %>
-    <%= link_to (fa_icon 'backward', class: 'fa-fw'),  key_point_path(@key_point), method: :get, class: 'btn', title: 'Back' %>
-  </turbo-frame>
+<turbo-frame id="<%= dom_id @key_point %>">
+  <%= render 'form', key_point: @key_point, scripted: @scripted, klass: @klass %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  key_point_path(@key_point), method: :get, class: 'btn', title: 'Back' %>
 </turbo-frame>

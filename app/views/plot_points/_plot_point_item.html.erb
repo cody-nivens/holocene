@@ -1,22 +1,22 @@
-<tr>
-  <td>
-  <table width="100%">
+<div class="row">
+  <div class="col-sm-2">
+    <table width="100%">
       <tbody>
-      <tr>
-        <td colspan="2"><%= link_to plot_point.name, plot_point, method: :get %></td>
-        <td width="20%"><%= link_to (fa_icon 'plus'), plot_points_list_path(plot_point), method: :get, title: 'Add scenes' %>
-        <%= link_to (fa_icon 'edit'), edit_plot_point_path(plot_point), data: { "turbo-frame": "new_object" } %>
-        <%= link_to (fa_icon 'trash'), plot_point, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-      <tr>
-        <td width="10%"></td>
-        <td colspan="2"><%= plot_point.body %></td>
-      </tr>
-      <tr>
-        <td width="10%"></td>
-        <td colspan="2"><%== scenes_list_ul(plot_point, plot_point.book) %></td>
-      </tr>
+        <tr>
+          <td colspan="2"><%= link_to plot_point.name, plot_point, method: :get %></td>
+          <td width="20%"><%= link_to (fa_icon 'plus'), plot_points_list_path(plot_point), method: :get, title: 'Add scenes' %>
+          <%= link_to (fa_icon 'edit'), edit_plot_point_path(plot_point, short: true)  %>
+          <%= link_to (fa_icon 'trash'), plot_point, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+        <tr>
+          <td width="10%"></td>
+          <td colspan="2"><%= plot_point.body %></td>
+        </tr>
+        <tr>
+          <td width="10%"></td>
+          <td colspan="2"><%== scenes_list_ul(plot_point, plot_point.book) %></td>
+        </tr>
       </tbody>
     </table>
-  <td>
-<tr>
+  </div>
+</div>

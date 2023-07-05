@@ -25,6 +25,21 @@ class ItinerariesController < ApplicationController
     end
   end
 
+  def sort
+    if request.xhr?
+      @itinerary = Itinerary.find(params[:itinerary_id])
+      @itinerary.set_list_position(params[:itinerary][:position].to_i)
+      @itinerary.save
+      render body: nil
+    else
+      @tour = Tour.find(params[:tour_id])
+      @itineraries = @tour.itineraries.order(:position)
+      respond_to do |format|
+        format.turbo_stream { render "shared/sort", locals: { return_path: @tour, link_object: @tour, object: Itinerary.new, objects: @itineraries } }
+      end
+    end
+  end
+
   # GET /itineraries/1 or /itineraries/1.json
   def show
     @tour = @itinerary.tour
@@ -47,6 +62,7 @@ class ItinerariesController < ApplicationController
 
   # GET /itineraries/1/edit
   def edit
+    @short = params[:short]
     @cities = City.all.order(:name)
     @tour = @itinerary.tour
   end
@@ -78,7 +94,10 @@ class ItinerariesController < ApplicationController
 
   # PATCH/PUT /itineraries/1 or /itineraries/1.json
   def update
+    @short = params[:short]
     @tour = @itinerary.tour
+    @story = @tour.story
+
     respond_to do |format|
       if @itinerary.update(itinerary_params)
         @grid = ItinerariesGrid.new(itinerary_grid_params) do |scope|
@@ -87,7 +106,8 @@ class ItinerariesController < ApplicationController
         @pagy, @records = pagy(@grid.assets)
 #        format.html { redirect_to itinerary_path(@itinerary), notice: 'Itinerary was successfully updated.' }
         format.json { render :show, status: :ok, location: @itinerary }
-        format.turbo_stream { flash.now[:notice] = "Itinerary was successfully updated." }
+        flash.now[:notice] = "Itinerary was successfully updated."
+        format.turbo_stream { render "shared/show", locals: { object: @tour } }
       else
         format.html do
           @cities = City.all.order(:name)
@@ -126,7 +146,7 @@ class ItinerariesController < ApplicationController
   end
 
   def itinerary_grid_params
-    params.fetch(:itineraries_grid, { order: :name, descending: false }).permit!
+    params.fetch(:itineraries_grid, { order: :position, descending: false }).permit!
   end
 
   # Only allow a list of trusted parameters through.

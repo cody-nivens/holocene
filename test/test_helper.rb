@@ -17,6 +17,7 @@ require 'mocha/minitest'
 require 'sidekiq/testing'
 require 'fileutils'
 require 'mock_redis'
+require "database_cleaner"
 #require 'minitest/display'
 
 #MiniTest::Display.options = {
@@ -159,11 +160,13 @@ module ActiveSupport
 
     def setup
       $redis.flushall
+      DatabaseCleaner.start
     end
 
     def teardown
       Capybara.reset_sessions!
       $redis.flushall
+      DatabaseCleaner.clean
     end
 
     def after_run

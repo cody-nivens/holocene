@@ -1,8 +1,6 @@
 <h2>Editing City</h2>
 
-<turbo-frame id="new_object">
 <turbo-frame id="<%= dom_id @city %>">
   <%= render 'form', city: @city %>
   <%= link_to (fa_icon 'backward', class: 'fa-fw'), return_or_default_path(cities_path), method: :get, class: 'btn', title: 'Back' %>
-</turbo-frame>
 </turbo-frame>

@@ -1,0 +1,78 @@
+<%= bootstrap_form_for scene, url: { controller: :scenes, action: (scene.id.nil? ? :create : :update) } do |f| %>
+  <% if scene.errors.any? %>
+    <div id='error_explanation'>
+      <h2><%= pluralize(scene.errors.count, 'error') %> prohibited this scene from being saved:</h2>
+
+      <ul>
+        <% scene.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+    <%= hidden_field_tag "#{situated.class.name.underscore}_id", situated.id %>
+    <%= hidden_field_tag :situated_type, situated.class.name %>
+    <%= hidden_field_tag :selector, selector %>
+    <% kp_value = (key_point.nil? ? nil : key_point.id) -%>
+    <%= f.hidden_field :key_point_id, value: (scene.key_point.nil? ? kp_value : scene.key_point.id) %>
+    <%= f.hidden_field :book_id %>
+    <%= f.hidden_field :situated_id %>
+    <%= f.hidden_field :situated_type %>
+    <%= f.hidden_field :selector, value: (scene.selector.nil? ? selector.to_i : scene.selector) %>
+
+  <div class='field'>
+    <%= f.text_field :abc %>
+  </div>
+
+  <div class='field'>
+    <%= f.check_box :check %>
+  </div>
+
+  <div class='field'>
+    <%= f.check_box :title_scene %>
+  </div>
+
+  <div class='field'>
+      <%= f.rich_text_area :summary %>
+  </div>
+
+  <div class='field'>
+    <%= f.rich_text_area :place %>
+  </div>
+
+  <div class='field'>
+    <%= f.select :artifact_id, Artifact.joins(:artifact_type).where('artifact_types.location = 1').order('artifacts.name').collect { |p| [p.name, p.id] }, { include_blank: true } %>
+  </div>
+
+  <div class='field'>
+    <div class='form-check'>
+      <% t_parts = scene.date_string.split('-') %>
+      <% year = t_parts[0].to_i %>
+      <% month = t_parts[1].to_i %>
+      <% day = t_parts[2].to_i %>
+      <% hour = t_parts[3].to_i %>
+      <% minute = t_parts[4].to_i %>
+
+      <label for='t_years'>Time</label>
+      <%= text_field_tag 't_years', year, size: 5 %> year
+      <%= select('t', 'month', %w[1 2 3 4 5 6 7 8 9 10 11 12], { include_blank: 'Month', selected: month }, {}) %> month(s),
+      <%= select('t', 'day', %w[1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31], { include_blank: 'Day', selected: day }, {}) %> days,
+      <%= select('t', 'hour', %w[0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23], { include_blank: 'Hour', selected: hour }, {}) %> hours and
+      <%= select('t', 'minute', %w[0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59], { include_blank: 'Minute', selected: minute }, {}) %> minutes
+    </div>
+  </div>
+
+  <div class='field'>
+    <%= f.number_field :scene_sequel %>
+  </div>
+
+  <div class='field'>
+    <%= f.select :insert_scene_id, Scene.get_scenes_to_array(@situated.book).collect { |p| [Scene.find(p).full_name, p] }, { include_blank: true } %>
+  </div>
+
+  <div class='actions'>
+    <%= f.submit nil, class: 'btn btn-primary' %>
+  </div>
+<% end %>

@@ -26,6 +26,7 @@ class LocationsController < ApplicationController
 
   # GET /locations/1/edit
   def edit
+    @short = params[:short]
   end
 
   # POST /locations or /locations.json
@@ -47,12 +48,14 @@ class LocationsController < ApplicationController
 
   # PATCH/PUT /locations/1 or /locations/1.json
   def update
+    @short = params[:short]
     respond_to do |format|
       if @location.update(location_params)
         format.html { redirect_to location_url(@location), notice: "Location was successfully updated." }
         format.json { render :show, status: :ok, location: @location }
         flash.now[:notice] = "Location was successfully updated."
-        format.turbo_stream { render "shared/show", locals: { object: @location } }
+        #format.turbo_stream { render "shared/show", locals: { object: @location } }
+        format.turbo_stream { render "shared/update", locals: { object: @location, short: @short } }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @location.errors, status: :unprocessable_entity }

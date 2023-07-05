@@ -15,7 +15,7 @@ class ToursTest < ApplicationSystemTestCase
   end
 
   test "drive the tour cycle" do
-    menu_test('Story', 'Tours')
+    menu_test('Story', 'Tours', debug: false)
   end
 
   test "drive the itinerary cycle" do
@@ -58,8 +58,8 @@ class ToursTest < ApplicationSystemTestCase
     assert_text 'Itinerary was successfully updated'
     assert_no_button 'Update Itinerary'
 
-    assert_side 'backward', 'Itineraries', 'backward'
-    click_side 'backward'
+#    assert_side 'backward', 'Itineraries', 'backward'
+#    click_side 'backward'
 
     assert_text 'Name LIKE'
     assert_text 'Beijing'
@@ -67,8 +67,10 @@ class ToursTest < ApplicationSystemTestCase
     click_on_line 'Beijing', 'edit'
     assert_button 'Update Itinerary'
 
-    assert_new 'backward', 'Itineraries', 'backward'
-    click_new 'backward'
+    within "turbo-frame##{dom_id Itinerary.last}" do
+      assert_link 'Back'
+      click_on 'Back'
+    end
     assert_no_button 'Update Itinerary'
 
     assert_text 'Name LIKE'

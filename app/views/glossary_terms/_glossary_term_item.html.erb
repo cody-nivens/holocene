@@ -1,18 +1,18 @@
-<tr>
-  <td>
+<div class="row">
+  <div class="col-sm-2">
       <%= link_to glossary_term.name, glossary_term_url(glossary_term), method: :get, title: 'Show' %>
     <dd><%= glossary_term.body %></dd>
-  </td>
-  <td>
+  </div>
+  <div class="col-sm-2">
     <%= HoloceneEvent.tagged_with(glossary_term.name.gsub(/ /, '')).size %>
-  </td>
-  <td>
+  </div>
+  <div class="col-sm-2">
     <%= (glossary_term.see.nil? ? '' : glossary_term.see_name) %><br>
     <%= (glossary_term.seealso.nil? ? '' : glossary_term.seealso_name) %><br>
     <%= (glossary_term.acronym.nil? ? '' : glossary_term.acronym_name) %>
-  </td>
-  <td>
-    <%= link_to (fa_icon 'edit'), edit_glossary_term_path(glossary_term), data: { "turbo-frame": "new_object" }, title: 'Edit' %>
+  </div>
+  <div class="col-sm-2">
+    <%= link_to (fa_icon 'edit'), edit_glossary_term_path(glossary_term, short: true), title: 'Edit' %>
     <%= link_to (fa_icon 'trash'), glossary_term_url(glossary_term), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
-  </td>
-</tr>
+  </div>
+</div>

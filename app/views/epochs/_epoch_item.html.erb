@@ -1,9 +1,9 @@
-      <tr>
-        <td><%= link_to epoch.name, epoch, method: :get %></td>
-        <td><%= epoch.start_date %></td>
-        <td><%= epoch.end_date %></td>
-        <td><%= epoch.holocene_events.size %></td>
-        <td><%= link_to (fa_icon 'map'), geo_map_epoch_path(epoch), method: :get, title: 'Map' %></td>
-        <td><%= link_to (fa_icon 'edit'), edit_epoch_path(epoch), title: 'Edit' %></td>
-        <td><%= link_to (fa_icon 'trash'), epoch, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
-      </tr>
+<div class="row">
+  <div class="col-sm-2"><%= link_to epoch.name, epoch, method: :get %></div>
+  <div class="col-sm-2"><%= epoch.start_date %></div>
+  <div class="col-sm-2"><%= epoch.end_date %></div>
+  <div class="col-sm-2"><%= epoch.holocene_events.size %></div>
+  <div class="col-sm-2"><%= link_to (fa_icon 'map'), geo_map_epoch_path(epoch), method: :get, title: 'Map' %>
+  <%= link_to (fa_icon 'edit'), edit_epoch_path(epoch, short: true), title: 'Edit' %>
+  <%= link_to (fa_icon 'trash'), epoch, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></div>
+</div>

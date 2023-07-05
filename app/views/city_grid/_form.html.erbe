@@ -1,0 +1,19 @@
+<%= form_for grid, options do |f| -%>
+  <% unless @tour.nil? %>
+ <%= f.hidden_field :tour_id, value: @tour.id %>
+ <% end %>
+
+  <% grid.filters.each do |filter| %>
+    <div class="datagrid-filter filter">
+      <%= f.datagrid_label filter %>
+      <%#= f.datagrid_filter filter  %>
+      <%= f.datagrid_filter filter, (filter.options[:input_options].nil? ? {} : filter.options[:input_options]) %>
+    </div>
+  <% end %>
+  <div class="datagrid-actions">
+    <%== f.submit I18n.t('datagrid.form.search'), method: :get, class: 'datagrid-submit' %>
+    <%# https://github.com/rails/rails/pull/14949 -%>
+    <% empty_parameter = Rails.version >= '4.1.0' && Rails.version <= '4.1.2' ? nil : {} -%>
+    <%== link_to I18n.t('datagrid.form.reset'), url_for(grid.to_param => empty_parameter), method: :get, class: 'datagrid-reset' %>
+  </div>
+<% end -%>

@@ -1,4 +1,5 @@
 <%= bootstrap_form_for tour, url: { controller: :tours, action: (tour.id.nil? ? :create : :update) } do |f| %>
+<%= hidden_field_tag :short, @short %>
   <% if tour.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(tour.errors.count, 'error') %> prohibited this scene from being saved:</h2>
@@ -12,6 +13,7 @@
   <% end %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
+    <%= hidden_field_tag :short, @short %>
     <%= hidden_field_tag :story_id, story.id %>
     <%= f.hidden_field :story_id %>
 

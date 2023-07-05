@@ -17,35 +17,35 @@
 <p>
   <strong>First plot point:</strong>
   <%= key_point.first_plot_point %>
-  <%= render partial: 'key_points/scenes', formats: [:html], locals: { selector: 1, key_point: key_point, story: key_point.scripted, pdf: true, scripted: scripted } %>
+  <%= render partial: 'key_points/scenes', formats: [:html], locals: { selector: 1, key_point: key_point, story: key_point.scripted, pdf: true, scripted: @scripted } %>
 </p>
 
 <p>
   <strong>First pinch point:</strong>
   <%= key_point.first_pinch_point %>
-  <%= render partial: 'key_points/scenes', formats: [:html], locals: { selector: 2, key_point: key_point, story: key_point.scripted, pdf: true, scripted: scripted } %>
+  <%= render partial: 'key_points/scenes', formats: [:html], locals: { selector: 2, key_point: key_point, story: key_point.scripted, pdf: true, scripted: @scripted } %>
 </p>
 
 <p>
   <strong>Midpoint:</strong>
   <%= key_point.midpoint %>
-  <%= render partial: 'key_points/scenes', formats: [:html], locals: { selector: 3, key_point: key_point, story: key_point.scripted, pdf: true, scripted: scripted } %>
+  <%= render partial: 'key_points/scenes', formats: [:html], locals: { selector: 3, key_point: key_point, story: key_point.scripted, pdf: true, scripted: @scripted } %>
 </p>
 
 <p>
   <strong>Second pinch point:</strong>
   <%= key_point.second_pinch_point %>
-  <%= render partial: 'key_points/scenes', formats: [:html], locals: { selector: 4, key_point: key_point, story: key_point.scripted, pdf: true, scripted: scripted } %>
+  <%= render partial: 'key_points/scenes', formats: [:html], locals: { selector: 4, key_point: key_point, story: key_point.scripted, pdf: true, scripted: @scripted } %>
 </p>
 
 <p>
   <strong>Third plot point:</strong>
   <%= key_point.third_plot_point %>
-  <%= render partial: 'key_points/scenes', formats: [:html], locals: { selector: 5, key_point: key_point, story: key_point.scripted, pdf: true, scripted: scripted } %>
+  <%= render partial: 'key_points/scenes', formats: [:html], locals: { selector: 5, key_point: key_point, story: key_point.scripted, pdf: true, scripted: @scripted } %>
 </p>
 
 <p>
   <strong>Climax:</strong>
   <%= key_point.climax %>
-  <%= render partial: 'key_points/scenes', formats: [:html], locals: { selector: 6, key_point: key_point, story: key_point.scripted, pdf: true, scripted: scripted } %>
+  <%= render partial: 'key_points/scenes', formats: [:html], locals: { selector: 6, key_point: key_point, story: key_point.scripted, pdf: true, scripted: @scripted } %>
 </p>

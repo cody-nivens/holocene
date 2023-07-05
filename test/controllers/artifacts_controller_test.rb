@@ -166,7 +166,6 @@ class ArtifactsControllerTest < ActionDispatch::IntegrationTest
             params: { artifact: { name: @artifact.name, book_id: @artifact.book.id } }
 
     assert_no_turbo_stream action: :update, target: "messages"
-    assert_turbo_stream action: :replace, target: "new_object"
     assert_turbo_stream action: :replace, target: "objects"
     assert_response :success
   end

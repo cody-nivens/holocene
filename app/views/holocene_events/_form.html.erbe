@@ -1,0 +1,51 @@
+<%= bootstrap_form_for(holocene_event, layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-8') do |f| %>
+  <% if holocene_event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(holocene_event.errors.count, 'error') %> prohibited this holocene_event from being saved:</h2>
+
+      <ul>
+      <% holocene_event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= f.hidden_field :user_id %>
+    <%= f.text_field :name %>
+
+    <%= f.number_field :start_year %>
+    <%= f.number_field :start_year_uncert %>
+    <%= f.number_field :start_year_mod %>
+
+    <%= f.label "Start Related Event" %>
+    <%= f.collection_select :related_id, @related_events.order(:start_year), :id, :title, { include_blank: true } %>
+    
+    <%= f.label "Related Endpoint" %>
+    <%= radio_button_tag 'related_endpoint', "Start", !holocene_event.related_endpoint %>
+    <%= f.label "Start", value: "Start" %>
+    <%= radio_button_tag 'related_endpoint', "End", holocene_event.related_endpoint  %>
+    <%= f.label "End", value: "End" %>
+    <%= f.number_field :start_related_offset %>
+    <%= f.number_field :end_related_offset %>
+
+
+    <%= f.number_field :end_year %>
+    <%= f.number_field :end_year_uncert %>
+    <%= f.number_field :end_year_mod %>
+
+    <%= f.collection_check_boxes :event_type_ids, EventType.all.order(:name), :id, :name, multiple: true %>
+    <%= f.collection_select :region_id, Region.all.order(:name), :id, :name %>
+
+    <%= f.text_field :url %>
+    <%= f.file_field :image, multiple: false, direct_upload: true %>
+    <% unless holocene_event.id.nil? || !holocene_event.image.attached? %>
+    <%= image_tag holocene_event.image.variant(resize: '100x100>') %>
+    <% end %>
+
+      <%= f.rich_text_area :body, label: false, cols: '80', rows: '15', hide_label: true %>
+
+    <%= f.text_field :tag_list %>
+
+    <%= f.primary command_label.to_s %>
+<% end %>

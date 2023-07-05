@@ -1,11 +1,8 @@
 <%= turbo_stream.replace "objects"  do %>
+  <%= content_tag "turbo-frame", id: "objects", class: "new_object" do %>
   <%= render partial: "tours/tours", locals: { tours: @tours } %>
 <% end %>
-<%= turbo_stream.replace "edit"  do %>
-  <%= content_tag :div, id: "edit" do %>
-    <%= " " %>
   <% end %>
-<% end %>
 <%= turbo_stream.replace "new_object" do %>
   <%= content_tag "turbo-frame", class: "block", id: "new_object" do %>
     <%= render partial: "tours/new_link" %>

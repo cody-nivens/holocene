@@ -28,7 +28,9 @@ class RegionsController < ApplicationController
   end
 
   # GET /regions/1/edit
-  def edit; end
+  def edit
+    @short = params[:short]
+  end
 
   # POST /regions
   # POST /regions.json
@@ -52,6 +54,7 @@ class RegionsController < ApplicationController
   # PATCH/PUT /regions/1
   # PATCH/PUT /regions/1.json
   def update
+    @short = params[:short]
     @regions = Region.all
     respond_to do |format|
       if @region.update(region_params)
@@ -61,7 +64,8 @@ class RegionsController < ApplicationController
 #        format.html { redirect_to @region, notice: 'Region was successfully updated.' }
         format.json { render :show, status: :ok, location: @region }
         flash.now[:notice] = "Region was successfully updated."
-        format.turbo_stream { render "shared/show", locals: { object: @region } }
+        #format.turbo_stream { render "shared/show", locals: { object: @region } }
+        format.turbo_stream { render "shared/update", locals: { object: @region, short: @short } }
       else
         format.html { render :edit }
         format.json { render json: @region.errors, status: :unprocessable_entity }

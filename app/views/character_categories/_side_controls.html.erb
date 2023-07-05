@@ -1,3 +1,4 @@
-  <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_character_category_path(@character_category), data: { "turbo-frame": "new_object" }, title: 'Edit', class: 'btn' %>
-  <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_character_category_character_attribute_path(character_category_id: @character_category.id), data: { "turbo-frame": "new_object" }, title: 'New Character Attribute', class: 'btn' %>
-  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  character_categories_path, method: :get, class: 'btn', title: 'Back' %>
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_character_category_path(@character_category), data: { "turbo-frame": "#{dom_id @character_category}" }, title: 'Edit', class: 'btn' %>
+<%= link_to (fa_icon 'plus', class: 'fa-fw'), new_character_category_character_attribute_path(character_category_id: @character_category.id), data: { "turbo-frame": "new_object" }, title: 'New Character Attribute', class: 'btn' %>
+<%= link_to (fa_icon 'sort', class: 'fa-fw'), character_attributes_sort_path(@character_category), class: 'btn', title: 'Sort', method: :get %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'),  character_categories_path, method: :get, class: 'btn', title: 'Back' %>

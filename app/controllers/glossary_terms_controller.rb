@@ -29,6 +29,7 @@ class GlossaryTermsController < ApplicationController
 
   # GET /glossary_terms/1/edit
   def edit
+    @short = params[:short]
     @book = @glossary_term.book
   end
 
@@ -56,15 +57,17 @@ class GlossaryTermsController < ApplicationController
   # PATCH/PUT /glossary_terms/1
   # PATCH/PUT /glossary_terms/1.json
   def update
+    @short = params[:short]
     @book = @glossary_term.book
     respond_to do |format|
       if @glossary_term.update(glossary_term_params)
-        format.html do
-          redirect_to glossary_term_path(@glossary_term), notice: 'Glossary term was successfully updated.'
-        end
+#        format.html do
+#          redirect_to glossary_term_path(@glossary_term), notice: 'Glossary term was successfully updated.'
+#        end
         format.json { render :show, status: :ok, location: @glossary_term }
         flash.now[:notice] = "Glossary Term was successfully updated."
         format.turbo_stream { render "shared/show", locals: { object: @glossary_term } }
+        #format.turbo_stream { render "shared/update", locals: { object: @glossary_term, short: @short } }
       else
         format.html { render :edit }
         format.json { render json: @glossary_term.errors, status: :unprocessable_entity }

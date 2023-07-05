@@ -26,6 +26,21 @@ class ToursController < ApplicationController
     end
   end
 
+  def sort
+    if request.xhr?
+      @tour = Tour.find(params[:tour_id])
+      @tour.set_list_position(params[:tour][:position].to_i)
+      @tour.save
+      render body: nil
+    else
+      @story = Story.find(params[:story_id])
+      @tours = @story.tours.order(:position)
+      respond_to do |format|
+        format.turbo_stream { render "shared/sort", locals: { return_path: @story, link_object: @story, object: Tour.new, objects: @tours } }
+      end
+    end
+  end
+
   def map_locs
     respond_to do |format|
       format.json { render json: @tour.map_locs }
@@ -49,6 +64,7 @@ class ToursController < ApplicationController
 
   # GET /tours/1/edit
   def edit
+    @short = params[:short]
     @story = @tour.story
   end
 
@@ -56,6 +72,7 @@ class ToursController < ApplicationController
   def create
     @tour = Tour.new(tour_params)
     @story = @tour.story
+    @short = params[:short]
 
     respond_to do |format|
       if @tour.save
@@ -72,13 +89,19 @@ class ToursController < ApplicationController
 
   # PATCH/PUT /tours/1 or /tours/1.json
   def update
+    @short = params[:short]
     @story = @tour.story
     @tours = Tour.where(story_id: @story.id)
+    @grid = ItinerariesGrid.new(itinerary_grid_params) do |scope|
+      scope.joins(:city).where('itineraries.tour_id = ?', @tour.id)
+    end
+    @pagy, @records = pagy(@grid.assets)
     respond_to do |format|
       if @tour.update(tour_params)
 #        format.html { redirect_to tour_path(@tour), notice: 'Tour was successfully updated.' }
         format.json { render :show, status: :ok, location: @tour }
-        format.turbo_stream { flash.now[:notice] = "Tour was successfully updated." }
+        flash.now[:notice] = "Tour was successfully updated."
+        format.turbo_stream { render "shared/update", locals: { object: @tour, short: @short } }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @tour.errors, status: :unprocessable_entity }
@@ -110,7 +133,7 @@ class ToursController < ApplicationController
   end
 
   def itinerary_grid_params
-    params.fetch(:itineraries_grid, { order: :lng, descending: false }).permit!
+    params.fetch(:itineraries_grid, { order: :position, descending: false }).permit!
   end
 
   # Only allow a list of trusted parameters through.

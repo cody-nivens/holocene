@@ -38,7 +38,9 @@ class EpochsController < ApplicationController
   end
 
   # GET /epochs/1/edit
-  def edit; end
+  def edit
+    @short = params[:short]
+  end
 
   # POST /epochs
   # POST /epochs.json
@@ -61,12 +63,17 @@ class EpochsController < ApplicationController
   # PATCH/PUT /epochs/1
   # PATCH/PUT /epochs/1.json
   def update
+    @short = params[:short]
     @epochs = Epoch.all.order(:start_date)
     respond_to do |format|
       if @epoch.update(epoch_params)
 #        format.html { redirect_to @epoch, notice: 'Epoch was successfully updated.' }
+         @grid = HoloceneEventsGrid.new(hgrid_params.merge({ start_year: [@epoch.start_date, @epoch.end_date] })) do |scope|
+              scope.includes([:region, :rich_text_body, :event_types]).page(params[:page])
+         end
         format.json { render :show, status: :ok, location: @epoch }
-        format.turbo_stream { flash.now[:notice] = "Epoch was successfully updated." }
+        flash.now[:notice] = "Epoch was successfully updated."
+        format.turbo_stream { render "shared/update", locals: { object: @epoch, short: @short } }
       else
         format.html { render :edit }
         format.json { render json: @epoch.errors, status: :unprocessable_entity }

@@ -1,4 +1,5 @@
 <%= bootstrap_form_for(epoch, local: true) do |f| %>
+<%= hidden_field_tag :short, @short %>
   <% if epoch.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(epoch.errors.count, 'error') %> prohibited this epoch from being saved:</h2>

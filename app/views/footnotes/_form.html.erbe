@@ -1,0 +1,12 @@
+<%= bootstrap_form_for [noted, footnote] do |f| %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+    <%= f.text_field :slug %>
+    <%= f.hidden_field :noted_id %>
+    <%= f.hidden_field :noted_type %>
+    <%= f.collection_select :biblioentry_id, Biblioentry.all.order(:name), :id, :name, { include_blank: '' } %>
+
+    <%= f.rich_text_area :body, cols: '80', rows: '15', hide_label: true %>
+
+  <%= f.primary command_label.to_s %>
+<% end %>

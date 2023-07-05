@@ -12,6 +12,7 @@
   <ul class='flex dropdown-menu' aria-labelledby='navbar_dropdown1'>
     <% unless @book.nil? or @book.new_record? %>
       <%== make_menu_ts_link(@book.name, book_path(@book)) %>
+      <li><hr class="dropdown-divider"></li>
     <% end %>
     <%== make_menu_ts_link('Books', books_path) %>
     <% if !@book.nil? and !@book.new_record? %>
@@ -36,6 +37,7 @@
     <ul class='flex dropdown-menu' aria-labelledby='navbar_dropdown2'>
       <% unless @story.nil? or @story.new_record? %>
         <%== make_menu_ts_link(@story.name, story_path(@story)) %>
+        <li><hr class="dropdown-divider"></li>
       <% end %>
       <%== make_menu_ts_link('Stories', book_stories_path(@book)) %>
       <%== make_menu_ts_link('All Stories', book_stories_path(@book, all: true)) %>
@@ -63,6 +65,7 @@
         <% unless @book.nil? or @book.new_record? %>
           <% unless @chapter.nil? or @chapter.new_record? %>
             <%== make_menu_ts_link(@chapter.name, chapter_path(@chapter)) %>
+            <li><hr class="dropdown-divider"></li>
           <% end %>
         <% end %>
         <% unless @chapter.nil? or @chapter.new_record? %>
@@ -74,7 +77,7 @@
           <%== make_menu_ts_link('Stats', chapter_report_path(@chapter, report: "chapters/stats")) %>
           <%== make_menu_ts_link('Asides',  chapter_asides_path(@chapter)) %>
           <%== make_menu_ts_link('Timeline', polymorphic_path([@chapter, :timeline])) %>
-          <%== make_menu_ts_link('Footnotes', chapter_footnotes_path(@chapter)) %>
+          <%== make_menu_ts_link('Footnotes',  chapter_footnotes_path(@chapter)) %>
           <%== make_menu_ts_link('Citations', chapter_citations_path(@chapter)) %>
         <% end %>
       </ul>
@@ -88,8 +91,8 @@
     <ul class='flex dropdown-menu' aria-labelledby='navbar_dropdown4'>
       <% unless @stage.nil? or @stage.new_record? %>
         <%== make_menu_ts_link(@stage.name, stage_path(@stage)) %>
-        <%== make_menu_ts_link('Stage List', stage_list_path(@stage)) %>
         <li><hr class="dropdown-divider"></li>
+        <%== make_menu_ts_link('Stage List', stage_list_path(@stage)) %>
         <%== make_menu_ts_link('Scenes', stage_report_path(@stage, report: "stages/scenes")) %>
         <%== make_menu_ts_link('Scene Characters', stage_report_path(@stage, report: "stages/characters")) %>
         <%== make_menu_ts_link('Time by Actor', stage_report_path(@stage, report: "stages/time_by_actor")) %>

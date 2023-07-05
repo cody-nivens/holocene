@@ -106,10 +106,17 @@ class BooksController < ApplicationController
   end
 
   def sort
-    @book = Book.find(params[:book_id])
-    @book.set_list_position(params[:book][:position].to_i)
-    @book.save
-    render body: nil
+    if request.xhr?
+      @book = Book.find(params[:book_id])
+      @book.set_list_position(params[:book][:position].to_i)
+      @book.save
+      render body: nil
+    else
+      @books = Book.all.order(:position)
+      respond_to do |format|
+        format.turbo_stream { render "shared/sort", locals: { link_object: nil, object: Book.new, objects: @books } }
+      end
+    end
   end
 
   def timeline
@@ -259,6 +266,7 @@ class BooksController < ApplicationController
 
   # GET /books/1/edit
   def edit
+    @short = params[:short]
     @long = params[:long]
   end
 
@@ -282,6 +290,7 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
+    @short = params[:short]
     @long = params[:long]
 
     if @book.is_fiction?
@@ -301,7 +310,8 @@ class BooksController < ApplicationController
         flash.now[:notice] = "Book was successfully updated."
         #        format.html { redirect_to @book, notice: 'Book was successfully updated.' }
         format.json { render :show, status: :ok, location: @book }
-        format.turbo_stream { render "shared/show", locals: { object: @book, new_link_path: (@book.is_fiction? ? "stories" : "chapters") } }
+        #format.turbo_stream { render "shared/show", locals: { object: @book, new_link_path: (@book.is_fiction? ? "stories" : "chapters") } }
+        format.turbo_stream { render "shared/update", locals: { object: @book, short: @short } }
       else
         format.html { render :edit }
         format.json { render json: @book.errors, status: :unprocessable_entity }

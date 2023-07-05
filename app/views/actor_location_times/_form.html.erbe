@@ -1,0 +1,28 @@
+<%= bootstrap_form_for actor_location_time, url: { controller: :actor_location_times, action: (actor_location_time.id.nil? ? :create : :update) } do |f| %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= hidden_field :actor_id, @segment.id %>
+    <%= f.hidden_field :actor_id, value: @segment.id %>
+
+    <% if actor_location_time.new_record? and @klass.name == 'Actor' %>
+      <%= hidden_field :actor_id, @connector.id %>
+      <%= f.hidden_field :actor_id, value: @connector.id %>
+      <%= hidden_field_tag :date_string, @date_string %>
+
+      <%= select_tag :location_id, options_from_collection_for_select(@book.locations.order(:name), :id, :name), value: '', prompt: 'Select Location', multiple: false, size: 1 %>
+    <% else %>
+      <%= hidden_field :location_time_id, @connector.id %>
+      <%= f.hidden_field :location_time_id, value: @connector.id %>
+      <%= hidden_field_tag :date_string, @connector.date_string %>
+
+      <%= f.select :actor_id, options_from_collection_for_select(@connector.segment.stage.act.book.actors.order(:name), :id, :name, actor_location_time.actor_id), value: actor_location_time.actor_id, prompt: 'Select Actor', multiple: false, size: 1 %>
+  <% end %>
+
+    <%= f.rich_text_area :role %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, class: 'btn btn-primary' %>
+  </div>
+<% end %>

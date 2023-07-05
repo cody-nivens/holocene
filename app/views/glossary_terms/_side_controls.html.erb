@@ -1,2 +1,2 @@
-<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_glossary_term_path(@glossary_term), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'Edit' %>
+<%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_glossary_term_path(@glossary_term), data: { "turbo-frame": "#{dom_id @glossary_term}" }, class: 'btn', title: 'Edit' %>
 <%= link_to (fa_icon 'backward', class: 'fa-fw'), book_glossary_terms_path(@glossary_term.book), method: :get, class: 'btn', title: 'Back' %>

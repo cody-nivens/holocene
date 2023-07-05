@@ -12,6 +12,13 @@ class SignetsTest < ApplicationSystemTestCase
     sign_in @user
   end
 
+  test "drive the signet cycle" do
+    setup_page 'Scene'
+    click_side 'sticky-note'
+    assert_text 'Signets'
+    do_cycle 'Scene', 'Signets', debug: false
+  end
+
   if 1 == 0
   test 'signets edit' do
     visit edit_signet_url(@signet)

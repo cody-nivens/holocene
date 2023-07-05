@@ -29,6 +29,7 @@ class AsidesController < ApplicationController
 
   # GET /asides/1/edit
   def edit
+    @short = params[:short]
     @chapter = @aside.chapter
   end
 
@@ -59,16 +60,15 @@ class AsidesController < ApplicationController
   # PATCH/PUT /asides/1
   # PATCH/PUT /asides/1.json
   def update
+    @short = params[:short]
     @chapter = @aside.chapter
     @scripted = @chapter.scripted
     respond_to do |format|
       if @aside.update(aside_params)
-        format.html { redirect_to chapter_path(@chapter), notice: 'Aside was successfully updated.' }
+#        format.html { redirect_to chapter_path(@chapter), notice: 'Aside was successfully updated.' }
         format.json { render :show, status: :ok, location: @aside }
         flash.now[:notice] = "Aside was successfully updated."
-        #format.turbo_stream { render 'shared/show', locals: { object: @chapter } }
-        flash.now[:notice] = "Aside was successfully updated."
-        format.turbo_stream { }
+        format.turbo_stream { render "shared/update", locals: { object: @aside, short: @short } }
       else
         format.html { render :edit }
         format.json { render json: @aside.errors, status: :unprocessable_entity }

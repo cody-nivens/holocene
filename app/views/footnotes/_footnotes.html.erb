@@ -1,20 +1,11 @@
-<turbo-frame id="objects">
-<table>
-  <thead>
-    <tr>
-      <th>Slug</th>
-      <th>Body</th>
-      <th>Noted</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% footnotes.each do |footnote| %>
-      <trubo-frame id="<%= dom_id footnote %>">
-        <%= render partial: 'footnotes/footnote_item', locals: { footnote: footnote } %>
-      </turbo-frame>
-    <% end %>
-  </tbody>
-</table>
-</turbo-frame>
+<div class="row">
+  <div class="col-sm-2">Slug</div>
+  <div class="col-sm-2">Body</div>
+  <div class="col-sm-2">Noted</div>
+  <th colspan="2"></div>
+</div>
+<% footnotes.each do |footnote| %>
+  <turbo-frame id="<%= dom_id footnote %>">
+    <%= render partial: 'footnotes/footnote_item', locals: { footnote: footnote } %>
+  </turbo-frame>
+<% end %>

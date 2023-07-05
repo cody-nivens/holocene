@@ -2,5 +2,5 @@
 
 <turbo-frame id="new_object">
   <%= render 'form', actor_location_time: @actor_location_time %>
-  <%= link_to (fa_icon 'backward', class: 'fa-fw'), @klass.name == 'Actor' ? actor_actor_location_times_path(@connector) : location_time_actor_location_times_path(@connector), method: :get, class: "btn", title: 'Back' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), @actor_location_time.location_time.segment.stage, method: :get, class: "btn", title: 'Back' %>
 </turbo-frame>

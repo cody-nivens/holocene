@@ -1,20 +1,10 @@
-<turbo-frame id="objects">
-<table class="table">
-  <thead>
-    <tr>
-      <th>Category</th>
-      <th>Attribute</th>
-      <th>Value</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @character_values.includes([{ character_attribute: :character_category }]).joins(:character_attribute).order(:name).each do |character_value| %>
-      <turbo-frame id="<%= dom_id character_value %>">
-        <%= render partial: "character_values/character_value_item", locals: { character_value: character_value } %>
-      </turbo-frame>
-    <% end %>
-  </tbody>
-</table>
-</turbo-frame>
+<div class="row">
+  <div class="col-sm-2">Category</div>
+  <div class="col-sm-2">Attribute</div>
+  <div class="col-sm-2">Value</div>
+</div>
+<% @character_values.includes([{ character_attribute: :character_category }]).joins(:character_attribute).order(:name).each do |character_value| %>
+  <turbo-frame id="<%= dom_id character_value %>">
+    <%= render partial: "character_values/character_value_item", locals: { character_value: character_value } %>
+  </turbo-frame>
+<% end %>

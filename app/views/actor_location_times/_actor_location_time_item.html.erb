@@ -1,7 +1,7 @@
-      <tr>
-        <td><%= link_to actor_location_time.actor.name, actor_location_time, method: :get %></td>
-        <td><%= actor_location_time.location_time.date_string %></td>
-        <td><%= actor_location_time.location_time.location.name %></td>
-        <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_actor_location_time_path(actor_location_time), data: { "turbo-frame": "#{dom_id actor_location_time}" }, title: 'Edit' %>
-        <%= link_to (fa_icon 'trash', class: 'fa-fw'), actor_location_time, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
-      </tr>
+      <div class="row">
+        <div class="col-sm-2"><%= link_to actor_location_time.actor.name, actor_location_time, method: :get %></div>
+        <div class="col-sm-2"><%= actor_location_time.location_time.date_string %></div>
+        <div class="col-sm-2"><%= actor_location_time.location_time.location.name %></div>
+        <div class="col-sm-2"><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_actor_location_time_path(actor_location_time, short: true), title: 'Edit' %>
+        <%= link_to (fa_icon 'trash', class: 'fa-fw'), actor_location_time, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></div>
+      </div>

@@ -1,0 +1,37 @@
+<% object_name ||= object.class.name.underscore %>
+<% part ||= 'sortable' %>
+<% path_name ||= object_name.pluralize %>
+<% long ||= nil %>
+<% link_object ||= nil %>
+<% return_path ||= polymorphic_path([link_object, object_name.pluralize.to_sym]) %>
+<%= turbo_stream.replace "objects" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "objects" do %>
+    <%= content_tag :ul, "data-controller": "sortable", "data-sortable-resource-name-value": "#{object_name}" do %>
+      <% objects.order(:position).each do |object| %>
+        <%= content_tag :li, "data-sortable-update-url": "#{polymorphic_path([object, :sort])}" do %>
+          <%= link_to object.name, object, id: object.id, method: :get %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "new_object" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "new_object" do %>
+  <% end %>
+<% end %>
+<%= turbo_stream.replace "header"  do %>
+  <%= content_tag :div, id: "header", class: 'block' do %>
+    <%= content_tag :h3 do %>
+      Sort <%= object.class.name.pluralize %>
+  <% end %>
+<% end %>
+<% end %>
+<%= turbo_stream.replace "side_controls" do %>
+  <%= content_tag :div, id: "side_controls", class: "block" do %>
+    <% if link_object.nil? %>
+      <%= link_to (fa_icon 'backward', class: 'fa-fw'), polymorphic_path(object_name.pluralize.to_sym), method: :get, class: 'btn', title: 'Back' %>
+    <% else %>
+      <%= link_to (fa_icon 'backward', class: 'fa-fw'), return_path, method: :get, class: 'btn', title: 'Back' %>
+    <% end %>
+  <% end %>
+<% end %>

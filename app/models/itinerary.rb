@@ -1,5 +1,5 @@
 class Itinerary < ApplicationRecord
-  acts_as_list :position
+  acts_as_list scope: :tour_id
 
   belongs_to :tour
 

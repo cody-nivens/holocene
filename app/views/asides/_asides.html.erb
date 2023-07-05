@@ -1,19 +1,9 @@
-<turbo-frame id="objects">
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Body</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @asides.each do |aside| %>
-      <turbo-frame id="<%= dom_id aside %>">
-        <%= render partial: "asides/aside_item", locals: { aside: aside } %>
-      </turbo-frame>
-    <% end %>
-  </tbody>
-</table>
-</turbo-frame>
+<div class="row">
+  <div class="col-sm-2">Name</div>
+  <div class="col-sm-2">Body</div>
+</div>
+<% @asides.each do |aside| %>
+  <turbo-frame id="<%= dom_id aside %>">
+    <%= render partial: "asides/aside_item", locals: { aside: aside } %>
+  </turbo-frame>
+<% end %>

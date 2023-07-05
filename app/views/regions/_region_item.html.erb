@@ -1,7 +1,7 @@
-      <tr>
-        <td><%= link_to region.name, region, method: :get %></td>
-        <td><%= region.holocene_events.size %></td>
-        <td><%= region.body %></td>
-        <td><%#= link_to (fa_icon 'edit'), edit_region_path(region), data: { "turbo-frame": "new_object" }, title: 'Edit' %></td>
-        <td><%= link_to (fa_icon 'trash'), region, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
-      </tr>
+      <div class="row">
+        <div class="col-sm-2"><%= link_to region.name, region, method: :get %></div>
+        <div class="col-sm-2"><%= region.holocene_events.size %></div>
+        <div class="col-sm-2"><%= region.body %></div>
+        <div class="col-sm-2"><%= link_to (fa_icon 'edit'), edit_region_path(region, short: true), title: 'Edit' %></div>
+        <div class="col-sm-2"><%= link_to (fa_icon 'trash'), region, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></div>
+      </div>

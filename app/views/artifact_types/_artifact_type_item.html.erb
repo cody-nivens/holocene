@@ -1,6 +1,6 @@
-      <tr>
-        <td><%= link_to artifact_type.name, artifact_type_path(artifact_type), method: :get %></td>
-        <td><%= artifact_type.location %></td>
-        <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_artifact_type_path(artifact_type), title: 'Edit' %>
-        <%= link_to (fa_icon 'trash', class: 'fa-fw'), artifact_type_path(artifact_type), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></td>
-      </tr>
+<div class="row">
+  <div class="col-sm-2"><%= link_to artifact_type.name, artifact_type_path(artifact_type), method: :get %></div>
+  <div class="col-sm-2"><%= artifact_type.location %></div>
+  <div class="col-sm-2"><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_artifact_type_path(artifact_type, short: true), title: 'Edit' %>
+  <%= link_to (fa_icon 'trash', class: 'fa-fw'), artifact_type_path(artifact_type), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></div>
+</div>

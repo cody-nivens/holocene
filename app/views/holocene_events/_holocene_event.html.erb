@@ -1,96 +1,96 @@
 <turbo-frame id="<%= dom_id holocene_event %>">
-<p>
+  <p>
   <strong>Name:</strong>
   <%= holocene_event.name %>
-</p>
+  </p>
 
-<p>
+  <p>
   <strong>Start year:</strong> <%== convert_ad(holocene_event.start_year, holocene_event.start_year_uncert) %>
-  <strong> - </strong> <%= convert_ad(holocene_event.end_year) %>
-</p>
-
-<% if holocene_event.related.present? %>
-  <p>
-  <strong>Related Event:</strong>
-  <%= link_to holocene_event.related.title, holocene_event.related %>
+<strong> - </strong> <%= convert_ad(holocene_event.end_year) %>
   </p>
 
-  <p>
-  <strong>Related Endpoint:</strong>
-  <%= holocene_event.related_endpoint ? "Start" : "End" %>
-  </p>
+  <% if holocene_event.related.present? %>
+    <p>
+    <strong>Related Event:</strong>
+    <%= link_to holocene_event.related.title, holocene_event.related %>
+    </p>
 
+    <p>
+    <strong>Related Endpoint:</strong>
+    <%= holocene_event.related_endpoint ? "Start" : "End" %>
+    </p>
+
+    <p>
+    <strong>Start Related Offset:</strong>
+    <%= holocene_event.start_related_offset %>
+    </p>
+    <p>
+    <strong>End Related Offset:</strong>
+    <%= holocene_event.end_related_offset %>
+    </p>
+
+  <% end %>
   <p>
-  <strong>Start Related Offset:</strong>
-  <%= holocene_event.start_related_offset %>
-  </p>
-  <p>
-  <strong>End Related Offset:</strong>
-  <%= holocene_event.end_related_offset %>
-  </p>
-  
-<% end %>
-<p>
   <strong>Event type:</strong>
   <%== event_types_to_s(holocene_event.event_types, false) %>
   <strong>Region:</strong>
   <%= link_to holocene_event.region_name, region_path(holocene_event.region) %>
-</p>
+  </p>
 
-<p>
+  <p>
   <strong>URL:</strong>
   <%= my_link_to holocene_event.url, holocene_event.url %>
   <strong>Image:</strong>
 
   <% if holocene_event.image.attached? %>
-      <%= image_tag(url_for(holocene_event.image), alt: holocene_event.image.filename.to_s) %>
+    <%= image_tag(url_for(holocene_event.image), alt: holocene_event.image.filename.to_s) %>
   <% end %>
-</p>
-<% unless holocene_event.lat.nil? -%>
-<p>
-  <strong>Lat:</strong>
-  <%= holocene_event.lat %>
-  <strong>Lng:</strong>
-  <%= holocene_event.lng %>
-</p>
-<% end -%>
-
-<% unless holocene_event.relatable.size == 0 %>
-  <p>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Event</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% holocene_event.relatable.each do |he| %>
-      <tr>
-        <td><%= he.title %></td>
-
-          <% year = he.related_endpoint ? holocene_event.start_year : holocene_event.end_year %>
-        <% year = year.nil? ? holocene_event.start_year : year %>
-        <td><%= year + he.start_related_offset %></td>
-        <td><%= year + he.end_related_offset %></td>
-      </tr>
-<% end %>
-    </tbody>
-  </table>
   </p>
-<% end %>
-
-<p>
-  <% if @slugs.nil? -%>
-      <% @slugs = [] -%>
+  <% unless holocene_event.lat.nil? -%>
+    <p>
+    <strong>Lat:</strong>
+    <%= holocene_event.lat %>
+    <strong>Lng:</strong>
+    <%= holocene_event.lng %>
+    </p>
   <% end -%>
-<% @footnotes = Footnote.process_body(holocene_event, @slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
-  <%== holocene_event.body %>
-</p>
-<% unless @footnotes.nil? -%>
-<% @slugs += @footnotes[1] -%>
-<% end -%>
 
-<% unless holocene_event.tag_list.length == 0 %>
-<p>Tags: <%== holocene_event.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></p>
-<% end %>
+  <% unless holocene_event.relatable.size == 0 %>
+    <p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Event</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% holocene_event.relatable.each do |he| %>
+          <tr>
+            <td><%= he.title %></td>
+
+            <% year = he.related_endpoint ? holocene_event.start_year : holocene_event.end_year %>
+            <% year = year.nil? ? holocene_event.start_year : year %>
+            <td><%= year + he.start_related_offset %></td>
+            <td><%= year + he.end_related_offset %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </p>
+  <% end %>
+
+  <p>
+  <% if @slugs.nil? -%>
+    <% @slugs = [] -%>
+  <% end -%>
+  <% @footnotes = Footnote.process_body(holocene_event, @slugs, (@footnotes.nil? ? 1 : @footnotes[2])) -%>
+  <%== holocene_event.body %>
+  </p>
+  <% unless @footnotes.nil? -%>
+    <% @slugs += @footnotes[1] -%>
+  <% end -%>
+
+  <% unless holocene_event.tag_list.length == 0 %>
+    <p>Tags: <%== holocene_event.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></p>
+  <% end %>
 </turbo-frame>

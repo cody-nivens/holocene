@@ -1,0 +1,26 @@
+<%= bootstrap_form_for section, url: { controller: :sections, action: (section.id.nil? ? :create : :update) } do |f| %>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10">
+      <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+      <%= f.hidden_field :sectioned_id %>
+      <%= f.hidden_field :sectioned_type %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+
+      <%= f.text_field :name %>
+      <div class="row">
+        <div class='col-sm-2'>
+          <%= f.check_box :display_name %>
+        </div><div class='col-sm-2'>
+          <%= f.number_field :embed %>
+        </div>
+      </div>
+
+      <%#= f.rich_text_area :body, class: 'form-control customized-min-height hide-label' %>
+      <%= f.rich_text_area :body, class: 'form-control' %>
+      <%= f.primary command_label.to_s %>
+    </div>
+  </div>
+</div>
+<% end %>

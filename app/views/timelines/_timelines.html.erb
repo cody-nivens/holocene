@@ -1,18 +1,10 @@
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Events</th>
-        <th>Description</th>
-        <th></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @timelines.each do |timeline| %>
-        <turbo-frame id="<%= dom_id timeline %>">
-          <%= render partial: 'timelines/timeline_item', locals: { timeline: timeline } %>
-        </turbo-frame>
-      <% end %>
-    </tbody>
-  </table>
+<div class="row">
+  <div class="col-sm-2">Name</div>
+  <div class="col-sm-2">Events</div>
+  <div class="col-sm-2">Description</div>
+</div>
+<% @timelines.each do |timeline| %>
+  <turbo-frame id="<%= dom_id timeline %>">
+    <%= render partial: 'timelines/timeline_item', locals: { timeline: timeline } %>
+  </turbo-frame>
+<% end %>

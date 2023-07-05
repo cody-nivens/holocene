@@ -8,7 +8,7 @@
     <%== (chapter.partition.nil? ? '' : (link_to chapter.partition_name, partition_path(chapter.partition), method: :get).to_s) %>
   </div>
   <div class='title'>
-    <%= link_to (fa_icon 'edit'), edit_chapter_path(chapter), title: 'Edit', data: { "turbo-frame": "new_object" } %>
+    <%= link_to (fa_icon 'edit'), edit_chapter_path(chapter), title: 'Edit', data: { "turbo-frame": "#{dom_id chapter}" } %>
     <strong><%= link_to chapter.name, chapter_path(chapter), title: 'Show', method: :get %></strong>
   </div>
   <div class='narrow-right'><%= number_with_delimiter chapter.word_count %></div>

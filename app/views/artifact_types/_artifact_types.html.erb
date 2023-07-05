@@ -1,19 +1,10 @@
-<turbo-frame id="objects">
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Location</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @artifact_types.each do |artifact_type| %>
-      <turbo-frame id="<%= dom_id artifact_type %>">
-        <%= render partial: "artifact_types/artifact_type_item", locals: { artifact_type: artifact_type } %>
-      </turbo-frame>
-    <% end %>
-  </tbody>
-</table>
-</turbo-frame>
+<div class="row">
+  <div class="col-sm-2">Name</div>
+  <div class="col-sm-2">Location</div>
+  <div class="col-sm-2"></div>
+</div>
+<% @artifact_types.each do |artifact_type| %>
+  <turbo-frame id="<%= dom_id artifact_type %>">
+    <%= render partial: "artifact_types/artifact_type_item", locals: { artifact_type: artifact_type } %>
+  </turbo-frame>
+<% end %>

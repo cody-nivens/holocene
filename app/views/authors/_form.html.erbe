@@ -1,0 +1,9 @@
+<%= bootstrap_form_for [object, author] do |f| %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+    <%= f.hidden_field :user_id %>
+    <%= f.text_field :first_name %>
+    <%= f.text_field :last_name %>
+
+    <%= f.primary command_label.to_s %>
+<% end %>

@@ -1,8 +1,6 @@
 <h2>Editing Book</h2>
 
-<turbo-frame id="new_object">
-  <turbo-frame id="<%= dom_id @book %>">
-    <%= render 'form', book: @book, command_label: 'Update Book' %>
-    <%= link_to (fa_icon 'backward', class: 'fa-fw'),  book_path(@book), method: :get, class: 'btn', title: 'Back' %>
-  </turbo-frame>
+<turbo-frame id="<%= dom_id @book %>">
+  <%= render 'form', book: @book, command_label: 'Update Book' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  book_path(@book), method: :get, class: 'btn', title: 'Back' %>
 </turbo-frame>

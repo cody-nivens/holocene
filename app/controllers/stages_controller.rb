@@ -14,6 +14,7 @@ class StagesController < ApplicationController
   def show
     @op = params[:op] || "locations"
     @check = params[:check]
+
     session[:stage_view] = @check
     session[:return_to] = request.fullpath
     session[:stage_id] = @stage.id
@@ -141,6 +142,7 @@ class StagesController < ApplicationController
 
   # GET /stages/1/edit
   def edit
+    @short = params[:short]
   end
 
   # POST /stages or /stages.json
@@ -163,12 +165,14 @@ class StagesController < ApplicationController
 
   # PATCH/PUT /stages/1 or /stages/1.json
   def update
+    @short = params[:short]
     respond_to do |format|
       if @stage.update(stage_params)
         @stages = Stage.where(act_id: @act.id).order(:name)
 #        format.html { redirect_to stage_url(@stage), notice: "Stage was successfully updated." }
         format.json { render :show, status: :ok, location: @stage }
-        format.turbo_stream { flash.now[:notice] = "Stage was successfully updated." }
+        flash.now[:notice] = "Stage was successfully updated."
+        format.turbo_stream { render "shared/update", locals: { object: @stage, short: @short } }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @stage.errors, status: :unprocessable_entity }

@@ -1,4 +1,5 @@
 <%= bootstrap_form_for scene, url: { controller: :scenes, action: (scene.id.nil? ? :create : :update) } do |f| %>
+<%= hidden_field_tag :short, @short %>
   <% if scene.errors.any? %>
     <div id='error_explanation'>
       <h2><%= pluralize(scene.errors.count, 'error') %> prohibited this scene from being saved:</h2>

@@ -95,6 +95,7 @@ class HoloceneEventsController < ApplicationController
 
   # GET /holocene_events/1/edit
   def edit
+    @short = params[:short]
     @related_events = HoloceneEvent.where(user_id: current_user.id).all.order(:start_year)
   end
 
@@ -175,6 +176,7 @@ class HoloceneEventsController < ApplicationController
   # PATCH/PUT /holocene_events/1
   # PATCH/PUT /holocene_events/1.json
   def update
+    @short = params[:short]
     params[:holocene_event].delete(:activated)
     params[:holocene_event].delete(:seen)
     params[:holocene_event].delete(:object_id)
@@ -192,6 +194,7 @@ class HoloceneEventsController < ApplicationController
         format.json { render :show, status: :ok, location: @holocene_event }
         flash.now[:notice] = "Holocene Event was successfully updated."
         format.turbo_stream { render "shared/index", locals: { object: HoloceneEvent.new, objects: @holocene_events } }
+        #format.turbo_stream { render "shared/update", locals: { object: @holocene_event, short: @short } }
       else
         format.html { render :edit }
         format.json { render json: @holocene_event.errors, status: :unprocessable_entity }

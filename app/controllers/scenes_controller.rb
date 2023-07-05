@@ -156,6 +156,7 @@ class ScenesController < ApplicationController
 
   # GET /scenes/1/edit
   def edit
+    @short = params[:short]
     @situated = @scene.situated
     @kp_klass = [KeyPoint].detect { |c| params["#{c.name.underscore}_id"] }
     @key_point = (params[:key_point_id].nil? ? nil : @kp_klass.find(params[:key_point_id]))
@@ -198,6 +199,7 @@ class ScenesController < ApplicationController
   # PATCH/PUT /scenes/1
   # PATCH/PUT /scenes/1.json
   def update
+    @short = params[:short]
     @scene.date_string = '%04d' % params['t']['years'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i + '-%02d' % params['t']['hour'].to_i + '-%02d' % params['t']['minute'].to_i
     @situated = @scene.situated
     @option = params[:option]
@@ -211,6 +213,7 @@ class ScenesController < ApplicationController
         format.json { render :show, status: :ok, location: @scene }
         flash.now[:notice] = "Scene was successfully updated."
         format.turbo_stream { render "shared/show", locals: { object: @scene, no_new_link: true  } }
+        #format.turbo_stream { render "shared/update", locals: { object: @scene, short: @short } }
       else
         format.html { render :edit, situated_type: @situated.class.name, situated_id: @situated.id }
         format.json { render json: @scene.errors, status: :unprocessable_entity }

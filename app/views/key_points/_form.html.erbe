@@ -1,0 +1,67 @@
+<%= bootstrap_form_for key_point, url: { controller: :key_points, action: (key_point.id.nil? ? :create : :update) } do |f| %>
+  <% if key_point.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(key_point.errors.count, 'error') %> prohibited this key_point from being saved:</h2>
+
+      <ul>
+        <% key_point.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= hidden_field_tag :long, @long %>
+    <%= hidden_field_tag :scripted_id, scripted.id %>
+    <%= hidden_field_tag :scripted_type, klass.name %>
+    <%= f.hidden_field :scripted_id, value: scripted.id %>
+    <%= f.hidden_field :scripted_type, value: klass.name %>
+
+  <div class="field">
+    <%= f.text_area :hook %>
+  </div>
+
+  <div class="field">
+      <%= f.check_box :print_name %>
+  </div>
+
+  <div class="field">
+      <%= f.check_box :print_points %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :inciting_incident %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :key_element %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :first_plot_point %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :first_pinch_point %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :midpoint %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :second_pinch_point %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :third_plot_point %>
+  </div>
+
+  <div class="field">
+    <%= f.text_field :climax %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit nil, class: 'btn btn-primary' %>
+  </div>
+<% end %>

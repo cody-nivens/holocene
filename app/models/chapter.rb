@@ -6,11 +6,10 @@ class Chapter < ApplicationRecord
 
   has_and_belongs_to_many :holocene_events
   has_and_belongs_to_many :timelines
+  has_and_belongs_to_many :characters
   has_many :sections, as: :sectioned
   has_many :footnotes, -> { where('slug != ?', '') }, as: :noted
   has_many :signets, as: :sigged
-  has_many :chapter_characters, dependent: :destroy
-  has_many :characters, through: :chapter_characters
 
   belongs_to :scripted, polymorphic: true
 
@@ -55,7 +54,7 @@ class Chapter < ApplicationRecord
   # List of citations associated with chapter
   #
   def citations
-    Footnote.where(noted_id: id).where(slug: '')
+    Footnote.where(noted_type: 'Chapter', noted_id: id).where(slug: '')
   end
 
   def timeline_json(section_flag = true)

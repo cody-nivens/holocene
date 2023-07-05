@@ -1,19 +1,10 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Scene</th>
-      <th>Location Times</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% segments.each do |segment| %>
-      <turbo-frame id="<%= dom_id segment %>">
-        <%= render partial: "segments/segment_item", locals: { segment: segment } %>
-      </turbo-frame>
-    <% end %>
-  </tbody>
-</table>
-
+<div class="row">
+  <div class="col-sm-2">Name</div>
+  <div class="col-sm-2">Scene</div>
+  <div class="col-sm-2">Location Times</div>
+</div>
+<% segments.each do |segment| %>
+  <turbo-frame id="<%= dom_id segment %>">
+    <%= render partial: "segments/segment_item", locals: { segment: segment } %>
+  </turbo-frame>
+<% end %>

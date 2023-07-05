@@ -36,6 +36,7 @@ class FootnotesController < ApplicationController
 
   # GET /footnotes/1/edit
   def edit
+    @short = params[:short]
     @noted = @footnote.noted
   end
 
@@ -67,6 +68,7 @@ class FootnotesController < ApplicationController
   # PATCH/PUT /footnotes/1
   # PATCH/PUT /footnotes/1.json
   def update
+    @short = params[:short]
     @noted = @footnote.noted
     respond_to do |format|
       if @footnote.update(footnote_params)
@@ -76,7 +78,8 @@ class FootnotesController < ApplicationController
 #                      notice: 'Footnote was successfully updated'
 #        end
         format.json { render :show, status: :ok, location: @footnote }
-        format.turbo_stream { flash.now[:notice] = "Footnote was successfully updated." }
+        flash.now[:notice] = "Footnote was successfully updated."
+        format.turbo_stream { render "shared/update", locals: { object: @footnote, short: @short } }
       else
         format.html { render :edit }
         format.json { render json: @footnote.errors, status: :unprocessable_entity }

@@ -1,76 +1,100 @@
-<% check ||= nil %>
+<div id='stages-list' data-stages-show-id-value="<%= @stage.id %>" data-controller="stages-show"> <div class="row hide-print">
+    <div class='col-md-3'>
+      <fieldset class="form-group border p-3">
+        <div class="form-group">
+          <label class='checkbox'>
+            <%= check_box_tag "check", 1, (@check.kind_of?(TrueClass) or @check == "true"), class: 'checkbox', data: { "stages_show-target": "check" } %> Time
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :op, :actors, @op == 'actors', class: 'checkbox', data: { "stages_show-target": "op_actors" } %> Actors
+          </label>
+        </div>
+        <div class='form-check'>
+          <label class='checkbox'>
+            <%= radio_button_tag :op, :locations, @op == 'locations', class: 'checkbox', data: { "stages_show-target": "op_locations" } %> Locations
+          </label>
+        </div>
+        <div class='col-md-2'>
+          <%= submit_tag 'Go', type: 'submit', name: 'button_action', value: 'Go', data: { disable_with: false, action: "click->stages-show#processQuery" } %>
+        </div>
+      </fieldset>
+    </div>
+  </div>
 
-<% if check.nil? %>
-  <% if @op == 'locations' %>
-    <%= tabs do |d| %>
-      <% @stage.segments.order(:name).each do |segment| %>
-        <% d.tab "#{segment.name}: #{segment.location_times.size}" do %>
-          <%= link_to (fa_icon 'eye'), segment, title: "Show #{segment.name}" %>
-          <%= link_to (fa_icon 'edit'), edit_segment_path(segment), title: "Edit #{segment.name}" %>
-          <%= render partial: "segments/segment", locals: { segment: segment, op: @op } %>
+  <% if @check.nil? or @check.kind_of?(FalseClass) or @check == 'false' %>
+    <% if @op == 'locations' %>
+      <%= tabs do |d| %>
+        <% @stage.segments.order(:position).each do |segment| %>
+          <% d.tab "#{segment.name}: #{segment.location_times.size}" do %>
+            <%= link_to (fa_icon 'eye'), segment, title: "Show #{segment.name}", method: :get %>
+            <%= link_to (fa_icon 'edit'), edit_segment_path(segment), title: "Edit #{segment.name}", data: { "turbo-frame": "new_object" } %>
+            <%= render partial: "segments/show_item", locals: { segment: segment, op: 'locations' } %>
+          <% end %>
         <% end %>
       <% end %>
+    <% else %>
+      <%= render partial: "segments/show2", locals: { segments: @stage.segments, op: @op } %>
     <% end %>
   <% else %>
-    <%= render partial: "segments/show2", locals: { segments: @stage.segments, op: @op } %>
-  <% end %>
-<% else %>
-  <% segs = @stage.segments.pluck(:id) %>
-  <% locs = LocationTime.where(segment_id: segs).includes(:location).pluck("locations.id").sort.uniq %>
-  <% locations = Location.where(id: locs).order(:name) %>
-  <% loc_times = LocationTime.where(segment_id: segs) %>
-  <% actors = Actor.where(book_id: @stage.act.book.id).includes(:location_times).where("actor_location_times.location_time_id": loc_times).order("actors.name").uniq %>
-  <table class="table table-sm table-striped table-responsive"  style="width:auto">
-    <thead class="bg-light sticky-top" style="position: sticky;top: 0">
-      <tr>
-        <th></th>
-        <% if @op == 'locations' %>
-          <% locations.each do |location| %>
-            <th><%= location.name %></th>
-          <% end %>
-        <% else %>
-          <% actors.each do |actor| %>
-            <th>
-              <%= actor.name %>
-            </th>
-          <% end %>
-        <% end %>
-      </tr>
-    </thead>
-    <tbody>
-    <% locs = LocationTime.where(segment_id: segs) %>
-    <% loc_times = locs.pluck(:date_string).sort.uniq %>
-    <% loc_times.each do |time| %>
-      <tr>
-        <th><%= time %></th>
-        <% if @op == 'locations' %>
-          <% locations.each do |location| %>
-            <% my_locs = locs.where(location_id: location.id, date_string: time) %>
-              <td>
-            <% if my_locs.size > 0 %>
-              <table class="table table-sm table-striped">
-                <% my_locs.each do |my_loc| %>
-                  <%= render partial: "location_times/show3", locals: { location_time: my_loc } %>
-                <% end %>
-              </table>
+    <% segs = @stage.segments.pluck(:id) %>
+    <% locs = LocationTime.where(segment_id: segs).includes(:location).pluck("locations.id").sort.uniq %>
+    <% locations = Location.where(id: locs).order(:name) %>
+    <% loc_times = LocationTime.where(segment_id: segs) %>
+    <% actors = Actor.where(book_id: @stage.act.book.id).includes(:location_times).where("actor_location_times.location_time_id": loc_times).order("actors.name").uniq %>
+    <table class="table table-sm table-striped table-responsive"  style="width:auto">
+      <thead class="bg-light sticky-top" style="position: sticky;top: 0">
+        <tr>
+          <th></th>
+          <% if @op == 'locations' %>
+            <% locations.each do |location| %>
+              <th><%= location.name %></th>
             <% end %>
-            </td>
+          <% else %>
+            <% actors.each do |actor| %>
+              <th>
+                <%= actor.name %>
+              </th>
+            <% end %>
           <% end %>
-        <% else %>
-          <% actors.each do |actor| %>
-            <td>
-              <% my_act_locs = ActorLocationTime.includes(:location_time).includes(:location).where("location_times.date_string": time, actor_id: actor.id).order("locations.name") %>
-              <% unless my_act_locs.size == 0 %>
-                <turbo-frame id="<%= dom_id actor %>" class="block">
-                  <%= link_to (fa_icon 'plus'), new_actor_actor_location_time_path(actor, date_string: time) %>
-                </turbo-frame>
-                <%= render partial: "actor_location_times/table_actors", locals: { my_act_locs: my_act_locs } %>
+        </tr>
+      </thead>
+      <tbody>
+        <% locs = LocationTime.where(segment_id: segs) %>
+        <% loc_times = locs.pluck(:date_string).sort.uniq %>
+        <% loc_times.each do |time| %>
+          <tr>
+            <th><%= time %></th>
+            <% if @op == 'locations' %>
+              <% locations.each do |location| %>
+                <% my_locs = locs.where(location_id: location.id, date_string: time) %>
+                <td>
+                  <% if my_locs.size > 0 %>
+                    <table class="table table-sm table-striped">
+                      <% my_locs.each do |my_loc| %>
+                        <%= render partial: "location_times/show3", locals: { location_time: my_loc } %>
+                      <% end %>
+                    </table>
+                  <% end %>
+                </td>
               <% end %>
-            </td>
-          <% end %>
+            <% else %>
+              <% actors.each do |actor| %>
+                <td>
+                  <% my_act_locs = ActorLocationTime.includes(:location_time).includes(:location).where("location_times.date_string": time, actor_id: actor.id).order("locations.name") %>
+                  <% unless my_act_locs.size == 0 %>
+                    <turbo-frame id="<%= dom_id actor %>" class="block">
+                      <%= link_to (fa_icon 'plus'), new_actor_actor_location_time_path(actor, date_string: time), data: { "turbo-frame": "new_object" }, title: "New Actor Loction" %>
+                    </turbo-frame>
+                    <%= render partial: "actor_location_times/table_actors", locals: { my_act_locs: my_act_locs } %>
+                  <% end %>
+                </td>
+              <% end %>
+            <% end %>
+          </tr>
         <% end %>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-<% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>

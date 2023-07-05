@@ -1,4 +1,7 @@
 require "active_support"
+require "active_record"
+require 'rails/test_help'
+
 
 module CFRakeHelper
   def say(message)
@@ -69,7 +72,7 @@ namespace :check_fixtures do
                "ActiveStorage::Attachment", "ActiveStorage::Blob", "ActiveStorage::VariantRecord", "ActionText::Record",
                "ActionText::RichText"].include?(model.name)
       next if model.name =~ /HABTM_/
-      if File.exists?("#{Rails.root}/test/fixtures/#{model.name.underscore.pluralize}.yml")
+      if File.exist?("#{Rails.root}/test/fixtures/#{model.name.underscore.pluralize}.yml")
         printed_model_name = false
         data = YAML.load(ERB.new(File.read("#{Rails.root}/test/fixtures/#{model.name.underscore.pluralize}.yml")).result,
                          permitted_classes: [ActiveSupport::TimeZone, ActiveSupport::TimeWithZone, Time, Symbol, Date],

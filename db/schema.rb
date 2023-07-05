@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_01_215309) do
   create_table "action_text_rich_texts", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "body", size: :long
@@ -63,29 +63,29 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "actor_characters", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.bigint "actor_id"
-    t.bigint "character_id"
+  create_table "actor_characters", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
+    t.bigint "actor_id", null: false
+    t.bigint "character_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "actor_location_times", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.bigint "actor_id"
-    t.bigint "location_time_id"
+  create_table "actor_location_times", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
+    t.bigint "actor_id", null: false
+    t.bigint "location_time_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "check", default: false
   end
 
-  create_table "actors", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "actors", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "book_id"
   end
 
-  create_table "acts", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "acts", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.string "name"
     t.bigint "book_id"
     t.datetime "created_at", null: false
@@ -112,6 +112,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
     t.index ["artifact_type_id"], name: "index_artifacts_on_artifact_type_id"
     t.index ["book_id"], name: "index_artifacts_on_book_id"
     t.index ["character_id"], name: "index_artifacts_on_character_id"
+    t.index ["parent_id"], name: "index_artifacts_on_parent_id"
   end
 
   create_table "asides", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -119,6 +120,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "chapter_id"
+    t.index ["chapter_id"], name: "index_asides_on_chapter_id"
   end
 
   create_table "authors", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -127,6 +129,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
+    t.index ["user_id"], name: "index_authors_on_user_id"
   end
 
   create_table "authors_biblioentries", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -154,21 +157,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
     t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
     t.integer "book_id"
+    t.index ["book_id"], name: "index_biblioentries_on_book_id"
+    t.index ["user_id"], name: "index_biblioentries_on_user_id"
   end
 
   create_table "books", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "name"
-    t.text "body"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
     t.boolean "show_events", default: true
     t.string "sub_name"
     t.string "copyright"
-    t.text "publisher"
     t.boolean "fiction"
     t.string "scene_character"
     t.integer "position"
+    t.index ["user_id"], name: "index_books_on_user_id"
   end
 
   create_table "books_characters", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -220,6 +224,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
     t.datetime "updated_at", null: false
     t.integer "position"
     t.index ["character_category_id"], name: "index_character_attributes_on_character_category_id"
+    t.index ["related_id"], name: "index_character_attributes_on_related_id"
   end
 
   create_table "character_categories", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -280,6 +285,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
     t.integer "sex", default: 0
     t.boolean "main", default: false
     t.bigint "user_id"
+    t.index ["father_id"], name: "index_characters_on_father_id"
     t.index ["mother_id"], name: "index_characters_on_mother_id"
   end
 
@@ -307,6 +313,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
+    t.index ["user_id"], name: "index_epochs_on_user_id"
   end
 
   create_table "epochs_timelines", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -321,6 +328,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
+    t.index ["user_id"], name: "index_event_types_on_user_id"
   end
 
   create_table "event_types_holocene_events", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -359,6 +367,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "term"
+    t.index ["acronym_id"], name: "index_glossary_terms_on_acronym_id"
+    t.index ["book_id"], name: "index_glossary_terms_on_book_id"
+    t.index ["see_id"], name: "index_glossary_terms_on_see_id"
+    t.index ["seealso_id"], name: "index_glossary_terms_on_seealso_id"
+    t.index ["user_id"], name: "index_glossary_terms_on_user_id"
   end
 
   create_table "holocene_events", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -382,6 +395,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
     t.integer "start_related_offset", default: 0
     t.integer "end_related_offset", default: 0
     t.index ["region_id"], name: "index_holocene_events_on_region_id"
+    t.index ["user_id"], name: "index_holocene_events_on_user_id"
   end
 
   create_table "holocene_events_sections", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -438,7 +452,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
     t.index ["book_id"], name: "index_key_words_on_book_id"
   end
 
-  create_table "location_times", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "location_times", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.bigint "location_id"
     t.bigint "action_id"
     t.string "date_string"
@@ -447,7 +461,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
     t.bigint "segment_id"
   end
 
-  create_table "locations", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "locations", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -485,16 +499,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
     t.integer "chapter_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.index ["chapter_id"], name: "index_partitions_on_chapter_id"
   end
 
-  create_table "plot_point_scenes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "plot_point_scenes", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.bigint "scene_id"
     t.bigint "plot_point_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "plot_points", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "plot_points", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.string "name"
     t.bigint "book_id"
     t.datetime "created_at", null: false
@@ -506,6 +521,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
+    t.index ["user_id"], name: "index_regions_on_user_id"
   end
 
   create_table "roles", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -537,6 +553,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
     t.string "date_string"
     t.boolean "title_scene", default: false
     t.bigint "book_id"
+    t.index ["artifact_id"], name: "index_scenes_on_artifact_id"
+    t.index ["insert_scene_id"], name: "index_scenes_on_insert_scene_id"
+    t.index ["key_point_id"], name: "index_scenes_on_key_point_id"
+    t.index ["section_id"], name: "index_scenes_on_section_id"
     t.index ["situated_type", "situated_id"], name: "index_scenes_on_situated_type_and_situated_id"
   end
 
@@ -552,16 +572,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
     t.string "sectioned_type", null: false
     t.bigint "sectioned_id", null: false
     t.bigint "user_id", null: false
+    t.index ["chapter_id"], name: "index_sections_on_chapter_id"
     t.index ["sectioned_type", "sectioned_id"], name: "index_sections_on_sectioned_type_and_sectioned_id"
     t.index ["user_id"], name: "index_sections_on_user_id"
   end
 
-  create_table "segments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "segments", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.bigint "stage_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
     t.bigint "scene_id"
+    t.integer "position"
   end
 
   create_table "signets", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -571,9 +593,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
     t.integer "sigged_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["sigged_id", "sigged_type"], name: "index_signets_on_sigged_id_and_sigged_type"
   end
 
-  create_table "stages", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+  create_table "stages", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -591,6 +614,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
     t.boolean "stand_alone", default: false
     t.boolean "print_summary", default: false
     t.boolean "title_page", default: false
+    t.index ["book_id"], name: "index_stories_on_book_id"
   end
 
   create_table "taggings", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -624,6 +648,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "user_id"
+    t.index ["user_id"], name: "index_timelines_on_user_id"
   end
 
   create_table "tours", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -631,6 +656,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
     t.bigint "story_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "position"
     t.index ["story_id"], name: "index_tours_on_story_id"
   end
 
@@ -670,13 +696,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_144046) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "artifact_types", "books"
-  add_foreign_key "artifacts", "artifact_types"
-  add_foreign_key "artifacts", "books"
-  add_foreign_key "artifacts", "characters"
-  add_foreign_key "character_attributes", "character_categories"
-  add_foreign_key "character_values", "character_attributes"
-  add_foreign_key "character_values", "characters"
-  add_foreign_key "key_words", "books"
-  add_foreign_key "metrics", "users"
 end

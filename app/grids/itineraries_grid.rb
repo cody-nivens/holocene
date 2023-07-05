@@ -19,6 +19,8 @@ class ItinerariesGrid < BaseGrid
     where('name like ?', "%#{value}%")
   end
 
+  column(:position, html: false) do
+  end
   column(:name, html: true) do |he|
     link_to he.name, itinerary_path(he), method: :get
   end
@@ -52,7 +54,7 @@ class ItinerariesGrid < BaseGrid
   end
 
   column(:action2, header: '', html: true) do |itinerary|
-    link_to (fa_icon 'edit'), edit_itinerary_path(itinerary), data: { "turbo-frame": "new_object" }, title: 'Edit'
+    link_to (fa_icon 'edit'), edit_itinerary_path(itinerary, short: true), title: 'Edit'
   end
 
   column(:action3, header: '', html: true) do |itinerary|

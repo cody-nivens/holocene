@@ -3,7 +3,24 @@
 actor_location_time_1:
   actor_id: <%= ActiveRecord::FixtureSet.identify(:actor_1) %>
   location_time_id: <%= ActiveRecord::FixtureSet.identify(:location_time_1 ) %>
-
 actor_location_time_2:
   actor_id: <%= ActiveRecord::FixtureSet.identify(:actor_2 ) %>
   location_time_id: <%= ActiveRecord::FixtureSet.identify(:location_time_1) %>
+actor_location_time_3:
+  actor_id: <%= ActiveRecord::FixtureSet.identify(:actor_1) %>
+  location_time_id: <%= ActiveRecord::FixtureSet.identify(:location_time_2 ) %>
+actor_location_time_4:
+  actor_id: <%= ActiveRecord::FixtureSet.identify(:actor_2 ) %>
+  location_time_id: <%= ActiveRecord::FixtureSet.identify(:location_time_3) %>
+actor_location_time_5:
+  actor_id: <%= ActiveRecord::FixtureSet.identify(:actor_1) %>
+  location_time_id: <%= ActiveRecord::FixtureSet.identify(:location_time_4 ) %>
+actor_location_time_6:
+  actor_id: <%= ActiveRecord::FixtureSet.identify(:actor_2 ) %>
+  location_time_id: <%= ActiveRecord::FixtureSet.identify(:location_time_5) %>
+actor_location_time_7:
+  actor_id: <%= ActiveRecord::FixtureSet.identify(:actor_1) %>
+  location_time_id: <%= ActiveRecord::FixtureSet.identify(:location_time_6 ) %>
+actor_location_time_8:
+  actor_id: <%= ActiveRecord::FixtureSet.identify(:actor_2 ) %>
+  location_time_id: <%= ActiveRecord::FixtureSet.identify(:location_time_6) %>

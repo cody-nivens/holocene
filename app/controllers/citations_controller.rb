@@ -20,7 +20,7 @@ class CitationsController < ApplicationController
   def index
     do_index
     respond_to do |format|
-      format.turbo_stream { render 'shared/index', locals: { object: Footnote.new, objects: @citations } }
+      format.turbo_stream { }
     end
   end
 
@@ -43,14 +43,14 @@ class CitationsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html do
-        redirect_to chapter_citations_url(chapter_id: @chapter.id), notice: 'Citations were successfully updated.'
-      end
+#      format.html do
+#        redirect_to chapter_citations_url(chapter_id: @chapter.id), notice: 'Citations were successfully updated.'
+#      end
       format.json { render :show, status: :ok, location: @citation }
       flash.now[:notice] = "Citation was successfully updated."
       format.turbo_stream do
         do_index
-        render 'shared/index', locals: { object: Footnote.new, objects: @citations }
+        render 'shared/index', locals: { object: Footnote.new, objects: @citations, no_new_link: true }
       end
     end
   end

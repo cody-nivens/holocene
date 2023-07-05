@@ -104,6 +104,7 @@ group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 3.26'
   gem 'minitest'
+  gem 'database_cleaner'
 #  gem 'minitest-display', path: '/home/codynivens/devel/minitest-display'
 #  , branch: "new-feature"
 #  gem 'minitest-parallel_fork'

@@ -1,0 +1,15 @@
+<%= bootstrap_form_for chapter do |f| %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+    <%= f.hidden_field :scripted_id %>
+    <%= f.hidden_field :scripted_type %>
+
+    <%= f.text_field :name %>
+    <%= f.check_box :show_events %>
+    <%= f.check_box :always_display_events %>
+    <%= f.check_box :display_title %>
+
+    <%= f.rich_text_area :body, cols: '80', rows: '15', hide_label: true %>
+
+  <%= f.primary command_label %>
+<% end %>

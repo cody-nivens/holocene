@@ -1,12 +1,13 @@
-<tr>
+<div class="row">
   <% if parent %>
-    <td colspan="2">
-  <% else %>
-    <td></td><td>
-  <% end %>
-  <%= link_to artifact.name, artifact_path(artifact), data: { "turbo-frame": "#{dom_id artifact}" }, method: :get %></td>
-    <td><%= artifact.character.nil? ? '' : artifact.character.name %></td>
-  <td><%= artifact.artifact_type.name %></td>
-  <td><%= link_to (fa_icon 'edit'), edit_artifact_path(artifact), title: 'Edit' %>
-    <%= link_to (fa_icon 'trash'), artifact_path(artifact), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete' %></td>
-</tr>
+    <div class="col-sm-4">
+    <% else %>
+      <div class="col-sm-2"></div>
+      <div class="col-sm-2">
+      <% end %>
+      <%= link_to artifact.name, artifact_path(artifact), data: { "turbo-frame": "#{dom_id artifact}" }, method: :get %></div>
+      <div class="col-sm-2"><%= artifact.character.nil? ? '' : artifact.character.name %></div>
+      <div class="col-sm-2"><%= artifact.artifact_type.name %></div>
+      <div class="col-sm-2"><%= link_to (fa_icon 'edit'), edit_artifact_path(artifact, short: true), title: 'Edit' %>
+      <%= link_to (fa_icon 'trash'), artifact_path(artifact), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete' %></div>
+    </div>

@@ -1,0 +1,53 @@
+<%= bootstrap_form_for character_value, url: { controller: :character_values, action: (character_value.id.nil? ? :create : :update) } do |f| %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class='form-inputs'>
+    <%= hidden_field :character_id, character.id %>
+    <%= f.hidden_field :character_id, value: character.id %>
+
+    <%= f.label :character_category %>
+    <br>
+    <%= select_tag(:character_category_id, options_for_select(CharacterCategory.all.collect { |t| [t.name.humanize, t.id] }, multiple: false, class: 'form-control')) %>
+    <br>
+
+    <%= f.select(:character_attribute_id, character_category.character_attributes.collect { |t| [t.name.humanize, t.id] }, {}, { class: 'form-control' }) %>
+    <%= f.text_field :value %>
+  </div>
+
+  <div class='form-actions'>
+    <%= f.submit nil, class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<script nonce="<%= request.content_security_policy_nonce %>" type='text/javascript'>
+//$('#character_value_character_attribute_id').prop('disabled', true); // second dropdown is disable while first dropdown is empty
+  $(document).on('turbo:load', function() {
+    $('#character_category_id').change(function(){
+      var character_category = $(this).val();
+      if(character_category == ''){
+        $('#character_value_character_attribute_id').prop('disabled', true);
+      }else{
+        $('#character_value_character_attribute_id').prop('disabled', false);
+      }
+      $.ajax({
+        url: '/character_categories/' + character_category + '/character_attributes',
+        method: 'GET',
+        dataType: 'json',
+        data: {character_category_id: character_category},
+        error: function (xhr, status, error) {
+          console.error('AJAX Error: ' + status + error);
+        },
+        success: function (response) {
+          console.log(response);
+          var character_attributes = response['character_attributes'];
+          $('#character_value_character_attribute_id').empty();
+
+          $('#character_value_character_attribute_id').append('<option>Select Attribute</option>');
+          for(var i = 0; i < character_attributes.length; i++){
+            $('#character_value_character_attribute_id').append('<option value=' + character_attributes[i]['id'] + '>' + character_attributes[i]['name'] + '</option>');
+          }
+        }
+      });
+    });
+  });
+</script>

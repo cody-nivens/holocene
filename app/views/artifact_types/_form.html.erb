@@ -4,6 +4,7 @@
   <div class="form-inputs">
     <%= hidden_field :book_id, book.id %>
     <%= f.hidden_field :book_id, value: book.id %>
+    <%= hidden_field_tag :short, @short %>
 
     <%= f.text_field :name %>
   </div>

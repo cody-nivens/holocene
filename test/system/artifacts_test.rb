@@ -11,7 +11,7 @@ class ArtifactsTest < ApplicationSystemTestCase
   end
 
   test "drive the artifact cycle" do
-    drive_cycle('Support', 'Artifacts')
+    drive_cycle('Support', 'Artifacts', debug: false)
   end
 
 if 1 == 0

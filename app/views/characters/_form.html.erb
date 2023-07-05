@@ -1,5 +1,6 @@
 <% attributes ||= {} %>
 <%= bootstrap_form_for([object, character], layout: :horizontal, label_col: 'col-sm-2', control_col: 'col-sm-10') do |f| %>
+<%= hidden_field_tag :short, @short %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
   <%= hidden_field "#{object.class.name.underscore}_id", value: object.id %>
 

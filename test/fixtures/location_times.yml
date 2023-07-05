@@ -4,8 +4,23 @@ location_time_1:
   segment_id: <%= ActiveRecord::FixtureSet.identify(:segment_1) %>
   location_id: <%= ActiveRecord::FixtureSet.identify(:location_1) %>
   date_string: 100
-
 location_time_2:
-  segment_id: <%= ActiveRecord::FixtureSet.identify(:segment_1) %>
+  segment_id: <%= ActiveRecord::FixtureSet.identify(:segment_2) %>
   location_id: <%= ActiveRecord::FixtureSet.identify(:location_2) %>
   date_string: 110
+location_time_3:
+  segment_id: <%= ActiveRecord::FixtureSet.identify(:segment_2) %>
+  location_id: <%= ActiveRecord::FixtureSet.identify(:location_1) %>
+  date_string: 110
+location_time_4:
+  segment_id: <%= ActiveRecord::FixtureSet.identify(:segment_3) %>
+  location_id: <%= ActiveRecord::FixtureSet.identify(:location_2) %>
+  date_string: 120
+location_time_5:
+  segment_id: <%= ActiveRecord::FixtureSet.identify(:segment_4) %>
+  location_id: <%= ActiveRecord::FixtureSet.identify(:location_1) %>
+  date_string: 130
+location_time_6:
+  segment_id: <%= ActiveRecord::FixtureSet.identify(:segment_4) %>
+  location_id: <%= ActiveRecord::FixtureSet.identify(:location_2) %>
+  date_string: 135

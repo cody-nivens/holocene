@@ -1,9 +1,14 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+---
 actor_1:
   name: Smith
   book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
-
 actor_2:
   name: Jones
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
+actor_1:
+  name: Jerry
+  book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>
+actor_2:
+  name: Tom
   book_id: <%= ActiveRecord::FixtureSet.identify(:book_2) %>

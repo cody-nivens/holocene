@@ -131,7 +131,7 @@ end
     patch  itinerary_path(@itinerary, format: :turbo_stream),
           params: { itinerary: { name: @itinerary.name, city_id: @itinerary.city_id, position: @itinerary.position,
                                  stay: @itinerary.stay, tour_id: @itinerary.tour_id } }
-    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "objects"
 
     assert_no_turbo_stream action: :update, target: "messages"
     assert_response :success

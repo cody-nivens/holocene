@@ -1,21 +1,12 @@
-<turbo-frame id="objects">
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Books</th>
-      <th>Biblioentries</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @authors.each do |author| %>
-      <turbo-frame id="<%= dom_id author %>">
-        <%= render partial: "authors/author_item", locals: { author: author } %>
-      </turbo-frame>
-    <% end %>
-  </tbody>
-</table>
-</turbo-frame>
+<div class="row">
+  <div class="col-sm-2">First name</div>
+  <div class="col-sm-2">Last name</div>
+  <div class="col-sm-2">Books</div>
+  <div class="col-sm-2">Biblioentries</div>
+  <div class="col-sm-2"></div>
+</div>
+<% @authors.each do |author| %>
+  <turbo-frame id="<%= dom_id author %>">
+    <%= render partial: "authors/author_item", locals: { author: author } %>
+  </turbo-frame>
+<% end %>
