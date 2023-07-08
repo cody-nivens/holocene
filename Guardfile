@@ -26,13 +26,13 @@ guard :minitest, options do
   watch('test/test_helper.rb') { 'test' }
   watch('test/application_system_test_case.rb')    { system_tests }
   watch('test/all_controllers.sentinal')    { controller_tests }
-  watch('config/routes.rb')    { integration_tests }
+  watch('config/routes.rb')    { main_page_tests }
   watch('Gemfile.lock') { 'test' }
 
   watch(%r{^app/(.+)\.rb$})                           { |m| "test/#{m[1]}_test.rb" }
   watch(%r{^app/(.*)(\.erb|\.haml|\.slim)$})          { |m| "test/#{m[1]}#{m[2]}_test.rb" }
   #watch(%r{^app/views/([^/]*?)/(.*)\.html\.erb$}) { |m| ["test/views/#{m[1]}/#{m[2]}.html.erb_test.rb", "test/controllers/#{m[1]}_controller_test.rb"] }
-  watch(%r{^app/views/([^/]*?)/(.*)\.html\.erb$}) { |m| "test/controllers/#{m[1]}_controller_test.rb" }
+  watch(%r{^app/views/([^/]*?)/(.*)\.html\.erb$}) { |m| ["test/controllers/#{m[1]}_controller_test.rb", "test/system/#{m[1]}_test.rb"] }
 #  watch(%r{^app/views/(acts|locations|actors)/(.*)\.html\.erb$}) { |m| ["test/controllers/#{m[1]}_controller_test.rb", "test/system/stages_test.rb"] }
 #  watch(%r{^app/views//(.*)\.html\.erb$}) { |m| "test/controllers/#{m[1]}_controller_test.rb" }
 
@@ -88,4 +88,10 @@ end
 # Returns all tests for the given resource.
 def resource_tests(resource)
   integration_tests(resource) << controller_test(resource)  << system_tests(resource) << view_tests(resource)
+end
+
+# Main landing pages
+def main_page_tests(resource = :all)
+ ["test/system/books_test.rb", "test/system/stories_test.rb", "test/system/chapters_test.rb",
+ "test/system/welcomes_test.rb", "test/system/stages_test.rb"]
 end
