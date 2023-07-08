@@ -50,7 +50,8 @@ class CharacterValuesController < ApplicationController
 #                      notice: 'Character value was successfully created.'
 #        end
         format.json { render :show, status: :created, location: @character_value }
-        format.turbo_stream { flash.now[:notice] = "Character Value was successfully created." }
+        flash.now[:notice] = "Character Value was successfully created."
+        format.turbo_stream { render "shared/index", locals: { object: CharacterValue.new, objects: @character_values } }
       else
         @character_category = CharacterCategory.first
         format.html { render :new, character_id: @character.id }

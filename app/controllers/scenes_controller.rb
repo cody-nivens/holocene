@@ -246,7 +246,7 @@ class ScenesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_scene
-    @scene = Scene.find(params[:id])
+    @scene = Scene.find(params[:id].nil? ? params[:scene_id] : params[:id])
   end
 
   def set_situated

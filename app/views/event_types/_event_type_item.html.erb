@@ -2,6 +2,6 @@
   <div class="col-sm-2"><%= link_to event_type.name, event_type, method: :get %></div>
   <div class="col-sm-2"><%= event_type.holocene_events.size %></div>
   <div class="col-sm-2"><%= event_type.body %></div>
-  <div class="col-sm-2"><%= link_to (fa_icon 'map'), geo_map_event_type_path(event_type), method: :get, title: 'Map' %>
+  <div class="col-sm-2"><%= link_to (fa_icon 'map'), event_type_geo_map_path(event_type), method: :get, title: 'Map' %>
   <%= link_to (fa_icon 'trash'), event_type, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></div>
 </div>

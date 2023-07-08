@@ -1,14 +1,20 @@
 class PartitionsController < ApplicationController
   before_action :set_partition, only: %i[show edit update destroy]
-  before_action :set_chapter, only: %i[index new ]
+  before_action :set_chapter, only: %i[new]
 
   # GET /partitions
   # GET /partitions.json
   def index
-    @partitions = Partition.all.includes([:chapter, :rich_text_body])
+    if params[:book_id].nil?
+      set_chapter
+      @partitions = [ @chapter.partition ]
+    else
+      @book = Book.find(params[:book_id])
+      @partitions = Partition.joins(:chapter).where("chapters.scripted_id = ? and chapters.scripted_type = ?", @book.id, 'Book').order("chapters.position")
+    end
 
     respond_to do |format|
-      format.turbo_stream { render 'shared/index', locals: { object: Partition.new, objects: @partitions } }
+      format.turbo_stream { render 'shared/index', locals: { object: Partition.new, objects: @partitions, no_new_link: true } }
     end
   end
 
@@ -42,14 +48,14 @@ class PartitionsController < ApplicationController
 
     respond_to do |format|
       if @partition.save
-        @partitions = Partition.all.includes([:chapter, :rich_text_body])
+        #@partitions = Partition.all.includes([:chapter, :rich_text_body])
         format.html do
           redirect_to partition_url(@partition), notice: 'Partition was successfully created.'
         end
         format.json { render :show, status: :created, location: @partition }
         flash.now[:notice] = "Partition was successfully created."
-        #format.turbo_stream { render 'shared/show', locals: { object: @chapter } }
-        format.turbo_stream { }
+        format.turbo_stream { render 'shared/show', locals: { object: @chapter } }
+        #format.turbo_stream { }
       else
         format.html { render :new }
         format.json { render json: @partition.errors, status: :unprocessable_entity }
@@ -85,13 +91,14 @@ class PartitionsController < ApplicationController
     @chapter = @partition.chapter
     @sectioned = @chapter
     @partition.destroy
-    @partitions = Partition.all.includes([:chapter, :rich_text_body])
+    #@partitions = Partition.all.includes([:chapter, :rich_text_body])
+    @chapter.reload
     respond_to do |format|
       format.html { redirect_to chapter_partitions_url(@chapter), notice: 'Partition was successfully destroyed.' }
       format.json { head :no_content }
       flash.now[:notice] = "Partition was successfully destroyed."
       #format.turbo_stream { render 'shared/show', locals: { object: @chapter } }
-      format.turbo_stream { }
+      format.turbo_stream { render 'shared/show', locals: { object: @chapter } }
     end
   end
 

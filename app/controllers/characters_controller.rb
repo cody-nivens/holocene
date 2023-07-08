@@ -49,7 +49,7 @@ class CharactersController < ApplicationController
   # GET /characters/1
   # GET /characters/1.json
   def show
-    @character = Character.includes([{ scenes: :rich_text_summary },{ character_values: :character_attribute }]).find(params[:id])
+    @character = Character.includes([{ scenes: :rich_text_summary },{ character_values: :character_attribute }]).find(params[:id].nil? ? params[:character_id] : params[:id])
     @long = params[:long]
 
     respond_to do |format|

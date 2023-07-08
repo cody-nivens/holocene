@@ -113,7 +113,7 @@ class KeyPointsController < ApplicationController
   end
 
   def view
-    @key_point = KeyPoint.includes({ scenes: [:artifact, :rich_text_place, :rich_text_summary, :insert_scene, :characters, { section: :rich_text_body }, { character_scenes: [:character, :rich_text_summary] }]}).find(params[:id])
+    @key_point = KeyPoint.includes({ scenes: [:artifact, :rich_text_place, :rich_text_summary, :insert_scene, :characters, { section: :rich_text_body }, { character_scenes: [:character, :rich_text_summary] }]}).find(params[:id].nil? ? params[:key_point_id] : params[:id])
     @klass = @scripted.class
     @title = @key_point.name
     @scripted = @key_point.scripted
@@ -201,7 +201,7 @@ class KeyPointsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_key_point
-    @key_point = KeyPoint.find(params[:id])
+    @key_point = KeyPoint.find(params[:id].nil? ? params[:key_point] : params[:id])
     @scripted = @key_point.scripted
     @klass = @scripted.class
   end

@@ -5,77 +5,30 @@ require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
-  get '/characters/attributes', to: 'characters#attributes', format: :js, constraints: lambda { |request| request.xhr?  }
-  get '/characters/attribute_values', to: 'characters#attribute_values', format: :js, constraints: lambda { |request| request.xhr?  }
 
-  get '/chapters/timeline/:chapter_id/chapter', to: 'timelines#timeline', as: :chapter_timeline
-  get '/books/timeline/:book_id/book', to: 'timelines#timeline', as: :book_timeline
-  get '/stores/timeline/:story_id/story', to: 'timelines#timeline', as: :story_timeline
+  get '/character_categories/sort', to: 'character_categories#sort', as: :character_categories_sort
+  get '/character_attributes/:character_category_id/sort', to: 'character_attributes#sort', as: :character_attributes_sort
+  get '/sections/:chapter_id/sort', to: 'sections#sort', as: :sections_sort
+  get '/segments/:stage_id/sort', to: 'segments#sort', as: :segment_sort
+  get '/itineraries/:tour_id/sort', to: 'itineraries#sort', as: :itinerary_sort
+  get '/books/sort', to: 'books#sort', as: :books_sort
+  patch '/sections/:section_id/sort', to: 'sections#sort', as: :section_sort
+  get '/tours/:story_id/sort', to: 'tours#sort', as: :tour_sort
+  get '/key_points/:story_id/sort', to: 'key_points#sort', as: :key_points_sort
+  get '/stories/:book_id/sort', to: 'stories#sort', as: :stories_sort
+  get '/chapters/:book_id/sort', to: 'chapters#sort', as: :chapters_sort
 
-#  get '/stories/:id/timeline', to: 'timelines#timeline', as: :story_timeline
-#  get '/books/:id/timeline', to: 'timelines#timeline', as: :book_timeline
-
-  get '/timelines/timeline/:timeline_id/timeline', to: 'timelines#timeline', as: :timeline_timelinejs, format: :json, constraints: lambda { |request| request.xhr?  }
-  get '/chapters/timeline/:chapter_id/chapter', to: 'timelines#timeline', as: :chapter_timelinejs, format: :json, constraints: lambda { |request| request.xhr?  }
-  get '/stories/timeline/:story_id/story', to: 'timelines#timeline', as: :story_timelinejs, format: :json, constraints: lambda { |request| request.xhr?  }
-  get '/books/timeline/:book_id/book', to: 'timelines#timeline', as: :book_timelinejs, format: :json, constraints: lambda { |request| request.xhr?  }
-
-  get '/sections/timeline/:section_id', to: 'timelines#timeline', as: :section_timeline
-  get '/citations/timeline/:citation_id', to: 'timelines#timeline', as: :citation_timeline
-  get '/timelines/timeline/:timeline_id', to: 'timelines#timeline', as: :timeline_timeline
-  get '/epochs/timeline/:epoch_id', to: 'timelines#timeline', as: :epoch_timeline
-  get '/event_types/timeline/:event_type_id', to: 'timelines#timeline', as: :event_type_timeline
-
-  get '/books/:id/view', to: 'books#view', as: :book_view
-  get '/books/:id/list_chars', to: 'characters#list_chars', as: :characters_list_chars
-  get '/books/:id/publish', to: 'books#publish', as: :book_publish
-  get '/books/:id/chars', to: 'books#chars', as: :book_chars
-  post '/books/:id/import_chars', to: 'books#import_chars', as: :book_import_chars
-  get '/books/:id/chars_import', to: 'books#chars_import', as: :book_chars_import
-  get '/stories/:id/view', to: 'stories#view', as: :story_view
-  get '/stories/:id/chars', to: 'stories#chars', as: :story_chars
-  get '/key_points/:id/view', to: 'key_points#view', as: :key_point_view
+  get '/books/:book_id/characters/report', to: 'characters#report', as: :book_character_report
 
   get '/cities/index', to: 'cities#index', format: :js, constraints: ->(request) { request.xhr? }
-  get '/chapters/:id/map_locs', to: 'chapters#map_locs', format: :js, as: :chapter_map_locs, constraints: ->(request) { request.xhr? }
-  get '/itineraries/:id/map_locs', to: 'itineraries#map_locs', format: :js, as: :itinerary_map_locs, constraints: ->(request) { request.xhr? }
-  get '/epochs/:id/map_locs', to: 'epochs#map_locs', format: :js, as: :epoch_map_locs, constraints: ->(request) { request.xhr? }
-  get '/sections/:id/map_locs', to: 'sections#map_locs', format: :js, as: :section_map_locs, constraints: ->(request) { request.xhr? }
-  get '/timelines/:id/map_locs', to: 'timelines#map_locs', format: :js, as: :timeline_map_locs, constraints: ->(request) { request.xhr? }
-  get '/event_types/:id/map_locs', to: 'event_types#map_locs', format: :js, as: :event_type_map_locs, constraints: ->(request) { request.xhr? }
-  get '/holocene_events/:id/map_locs', to: 'holocene_events#map_locs', format: :js, as: :holocene_event_map_locs, constraints: ->(request) { request.xhr? }
-  get '/tours/:id/map_locs', to: 'tours#map_locs', format: :js, as: :tour_map_locs, constraints: ->(request) { request.xhr? }
-  get '/cities/:id/map_locs', to: 'cities#map_locs', format: :js, as: :city_map_locs, constraints: ->(request) { request.xhr? }
   get '/cities/index', to: 'cities#index'
-  post '/scenes/index', to: 'scenes#index'
   post '/cities/itinerary', to: 'cities#itinerary', as: :cities_itinerary
-  get '/tours/add_city/:tour_id', to: 'cities#add_city', as: :tour_add_city
-  get '/tours/:tour_id/cities', to: 'cities#index', as: :tour_citites
-  post '/tours/:tour_id/tours', to: 'cities#tours', as: :tour_tours
-  get '/tours/:id/geo_map', to: 'tours#geo_map', as: :geo_map_tour
-  get '/books/:book_id/key_points/:id/list', to: 'key_points#list', as: :book_key_point_list
-  post '/books/:book_id/key_points/:id/add', to: 'key_points#add', as: :book_key_point_add
-  get '/stories/:story_id/key_points/:id/list', to: 'key_points#list', as: :story_key_point_list
-  post '/stories/:story_id/key_points/:id/add', to: 'key_points#add', as: :story_key_point_add
-  post '/books/:book_id/key_points/:id/moved', to: 'key_points#moved', as: :book_key_point_moved
-  post '/scenes/:id/moved', to: 'scenes#moved', as: :scene_moved
-  put '/scenes/:id/check', to: 'scenes#check', as: :scene_check
-  get '/stages/:id/check', to: 'stages#check', as: :stage_check
-#  get '/stages/:id/time_by_location', to: 'stages#time_by_location', as: :stage_time_by_location
-#  get '/stages/:id/time_by_actor', to: 'stages#time_by_actor', as: :stage_time_by_actor
-#  get '/stages/:id/actor_by_location', to: 'stages#actor_by_location', as: :stage_actor_by_location
-  get '/stages/:id/list', to: 'stages#list', as: :stage_list
-#  get '/stages/:id/scenes', to: 'stages#scenes', as: :stage_scenes
-#  get '/stages/:id/characters', to: 'stages#characters', as: :stage_characters
-  get '/stages/:id/report', to: 'stages#report', as: :stage_report
-  get '/stages/:id/show', to: 'stages#show', as: :stage_show
-  put '/actor_location_times/:id/check', to: 'actor_location_times#check', as: :actor_location_times_check
-  patch '/stages/:id/add_characters', to: 'stages#add_characters', as: :stages_add_characters
+  resources :cities do
+    get :map_locs, to: 'cities#map_locs', format: :js, as: :map_locs, constraints: ->(request) { request.xhr? }
+  end
 
   post '/character/:book_id/steps/create', to: 'character/steps#create', as: :character_steps_book
   patch '/character/:book_id/steps', to: 'character/steps#show', as: :character_steps_show
-
-  resources :cities
   namespace :character do
     get 'steps/show'
     get 'steps/update'
@@ -99,73 +52,37 @@ Rails.application.routes.draw do
     resources :chapters, options
     resources :key_points, options
   end
-  resources :signets
-  resources :embeds
-  get '/character_categories/sort', to: 'character_categories#sort', as: :character_categories_sort
-  get '/character_attributes/:character_category_id/sort', to: 'character_attributes#sort', as: :character_attributes_sort
+
   resources :character_categories, shallow: true do
     resources :character_attributes do
       patch :sort
+      get :attribute_values, to: 'characters#attribute_values', format: :js, constraints: lambda { |request| request.xhr?  }
     end
     patch :sort
+    get :attributes, to: 'characters#attributes', format: :js, constraints: lambda { |request| request.xhr?  }
   end
 
-  get '/books/:book_id/characters', to: 'characters#index', format: :js, constraints: lambda { |request|
-                                                                                        request.xhr?
-                                                                                      }
-  get '/books/:book_id/scenes', to: 'scenes#index', format: :js, constraints: ->(request) { request.xhr? }
-
-  get '/books/:book_id/characters/report', to: 'characters#report', as: :book_character_report
-  get '/stories/:story_id/characters/report', to: 'characters#report', as: :story_character_report
-  get '/scenes/:scene_id/characters/report', to: 'characters#report', as: :scene_character_report
-
-  get '/books/:id/export', to: 'books#export', as: :book_export
-  get '/books/:id/report', to: 'books#report', as: :book_report
-  get '/books/:id/epub', to: 'books#epub', as: :book_epub
-  get '/books/:id/toc', to: 'books#toc', as: :toc
-
-  get '/books/sort', to: 'books#sort', as: :books_sort
-  get '/stories/:book_id/sort', to: 'stories#sort', as: :stories_sort
-  get '/chapters/:book_id/sort', to: 'chapters#sort', as: :chapters_sort
-  get '/key_points/:story_id/sort', to: 'key_points#sort', as: :key_points_sort
-  get '/sections/:chapter_id/sort', to: 'sections#sort', as: :sections_sort
-  get '/segments/:stage_id/sort', to: 'segments#sort', as: :segment_sort
-  get '/tours/:story_id/sort', to: 'tours#sort', as: :tour_sort
-  get '/itineraries/:tour_id/sort', to: 'itineraries#sort', as: :itinerary_sort
-
-  get '/books/:book_id/key_points/:id/move', to: 'key_points#move', as: :book_key_point_move
-  get '/stories/:id/move', to: 'stories#move', as: :story_move
-  post '/stories/:id/moved', to: 'stories#moved', as: :story_moved
-
+  put '/actor_location_times/:id/check', to: 'actor_location_times#check', as: :actor_location_times_check
   post '/plot_points/:id/add', to: 'plot_points#add', as: :plot_points_add
   get '/plot_points/:id/list', to: 'plot_points#list', as: :plot_points_list
-
-  post '/books/:book_id/authors/add', to: 'authors#add', as: :book_authors_add
-  get '/books/:book_id/authors/list', to: 'authors#list', as: :book_authors_list
-  post '/books/:book_id/characters/add', to: 'characters#add', as: :book_characters_add
-  get '/books/:book_id/characters/list', to: 'characters#list', as: :book_characters_list
-  get '/books/:book_id/character/:id/lineage', to: 'characters#lineage', as: :book_character_lineage
-  get '/books/:id/resync_stories', to: 'books#resync_stories', as: :book_resync_stories
-
-  get '/scenes/:id/move', to: 'scenes#move', as: :scene_move
-  post '/scenes/:scene_id/characters/add', to: 'characters#add', as: :scene_characters_add
-  get '/scenes/:scene_id/characters/list', to: 'characters#list', as: :scene_characters_list
-  get '/scenes/:scene_id/character/:id/lineage', to: 'characters#lineage', as: :scene_character_lineage
-
-  get '/stories/:id/report', to: 'stories#report', as: :story_report
-  get '/stories/:story_id/key_points/:id/move', to: 'key_points#move', as: :story_key_point_move
-  post '/stories/:story_id/key_points/:id/moved', to: 'key_points#moved', as: :story_key_point_moved
-  get '/stories/:story_id/characters/list', to: 'characters#list', as: :story_characters_list
-  post '/stories/:story_id/characters/add', to: 'characters#add', as: :story_characters_add
-  get '/stories/:id/resync_scenes', to: 'stories#resync_scenes', as: :story_resync_scenes
-  get '/stories/:story_id/character/:id/lineage', to: 'characters#lineage', as: :story_character_lineage
-  patch '/sections/:section_id/sort', to: 'sections#sort', as: :section_sort
-
 
   devise_for :users
   #devise_for :users, ActiveAdmin::Devise.config
   resources :footnotes
   resources :key_words, except: %i[index new create]
+  resources :signets
+  resources :embeds
+
+  post '/books/:book_id/key_points/:id/add', to: 'key_points#add', as: :book_key_point_add
+  post '/books/:book_id/key_points/:id/moved', to: 'key_points#moved', as: :book_key_point_moved
+  get '/books/:book_id/key_points/:id/list', to: 'key_points#list', as: :book_key_point_list
+  get '/books/:book_id/key_points/:id/move', to: 'key_points#move', as: :book_key_point_move
+  post '/books/:book_id/authors/add', to: 'authors#add', as: :book_authors_add
+  get '/books/:book_id/authors/list', to: 'authors#list', as: :book_authors_list
+  post '/books/:book_id/characters/add', to: 'characters#add', as: :book_characters_add
+  get '/books/:book_id/characters/list', to: 'characters#list', as: :book_characters_list
+  get '/books/:book_id/character/:id/lineage', to: 'characters#lineage', as: :book_character_lineage
+  get '/books/:book_id/chapter/:id', to: 'chapters#move', as: :move_book_chapter
   resources :books, shallow: true do
     resources :plot_points
     resources :key_words
@@ -184,6 +101,11 @@ Rails.application.routes.draw do
             resources :actor_location_times
           end
         end
+        get :check, to: 'stages#check'
+        get :list, to: 'stages#list'
+        get :report, to: 'stages#report'
+        get :show, to: 'stages#show'
+        patch :add_characters, to: 'stages#add_characters'
       end
     end
     patch :sort
@@ -191,6 +113,7 @@ Rails.application.routes.draw do
     resources :key_points do
       resources :sections
       resources :scenes
+      get :view, to: 'key_points#view'
     end
     resources :scenes
     resources :authors
@@ -199,10 +122,44 @@ Rails.application.routes.draw do
     resources :stories do
       patch :sort
     end
+    get :view, to: 'books#view'
+    get :list_chars, to: 'characters#list_chars'
+    get :publish, to: 'books#publish'
+    get :chars, to: 'books#chars'
+    post :import_chars, to: 'books#import_chars'
+    get :chars_import, to: 'books#chars_import'
+    get :characters, to: 'characters#index', format: :js, constraints: lambda { |request| request.xhr?  }
+    get :scenes, to: 'scenes#index', format: :js, constraints: ->(request) { request.xhr? }
+    get :export, to: 'books#export'
+    get :report, to: 'books#report'
+    get :epub, to: 'books#epub'
+    get :toc, to: 'books#toc'
+    get :resync_stories, to: 'books#resync_stories'
   end
+
   resources :biblioentries do
     resources :authors
   end
+
+  get '/sections/:section_id/footnotes',               to: 'footnotes#index', as: :section_footnotes
+  get '/sections/:section_id/footnote/:id',               to: 'footnotes#show', as: :section_footnote
+  get '/sections/:section_id/footnotes/:slug',               to: 'footnotes#new', as: :new_section_footnote
+  get '/sections/:section_id/footnotes/edit/:id',               to: 'footnotes#edit', as: :edit_section_footnote
+  patch '/sections/:section_id/footnote/:id',               to: 'footnotes#update', as: :section_footnote_update
+  post '/sections/:section_id/footnotes',               to: 'footnotes#create', as: :section_footnote_create
+  resource :sections do
+    resources :signets, only: [:index, :show, :new, :create, :update]
+    resources :footnotes
+    get :timeline, to: 'timelines#timeline'
+    get :map_locs, to: 'sections#map_locs', format: :js, constraints: ->(request) { request.xhr? }
+    get :geo_map, to: 'sections#geo_map'
+    get :holocene_events, to: 'holocene_events#index'
+    post :holocene_events, to: 'holocene_events#objects'
+    get :display, to: 'holocene_events#display'
+    get :add_event, to: 'holocene_events#add_event'
+    get :show, to: 'sections#show'
+  end
+
   resources :books do
     resources :authors
     resources :characters, shallow: false, except: [:new] do
@@ -213,14 +170,27 @@ Rails.application.routes.draw do
         patch "update_attribute/:attribute", action: :update_attribute, as: :update_attribute
       end
     end
+    resources :signets, only: [:index, :show, :new, :create, :update]
+    resources :asides, only: [:index]
+    resources :partitions, only: [:index]
+    get :notes, to: 'signets#notes'
+    get :timeline, to: 'timelines#timeline'
+    get :timeline, to: 'timelines#timeline', as: :timelinejs, format: :json, constraints: lambda { |request| request.xhr?  }
   end
+
   resources :stories, shallow: true do
     concerns :situated, scripted_type: 'Story'
     patch :sort
     resources :tours do
+      get :map_locs, to: 'tours#map_locs', format: :js, constraints: ->(request) { request.xhr? }
+      get :add_city, to: 'cities#add_city'
+      get :cities, to: 'cities#index'
+      post :tours, to: 'cities#tours'
+      get :geo_map, to: 'tours#geo_map'
       patch :sort
       resources :itineraries do
         patch :sort
+        get :map_locs, to: 'itineraries#map_locs', format: :js, constraints: ->(request) { request.xhr? }
       end
     end
     resources :scenes
@@ -231,6 +201,12 @@ Rails.application.routes.draw do
     end
     resources :chapters
   end
+
+  get '/scenes/:scene_id/characters/report', to: 'characters#report', as: :scene_character_report
+  post '/scenes/:scene_id/characters/add', to: 'characters#add', as: :scene_characters_add
+  get '/scenes/:scene_id/characters/list', to: 'characters#list', as: :scene_characters_list
+  get '/scenes/:scene_id/character/:id/lineage', to: 'characters#lineage', as: :scene_character_lineage
+  post '/scenes/index', to: 'scenes#index'
   resources :scenes do
     concerns :sectioned, sectioned_type: 'Scene'
     resources :sections
@@ -238,35 +214,135 @@ Rails.application.routes.draw do
       resources :steps, only: %i[show update], controller: 'character/steps'
       resources :character_values
     end
+    post :moved, to: 'scenes#moved'
+    put :check, to: 'scenes#check'
+    get :move, to: 'scenes#move'
   end
+
+  get '/stories/:story_id/key_points/:id/list', to: 'key_points#list', as: :story_key_point_list
+  post '/stories/:story_id/key_points/:id/add', to: 'key_points#add', as: :story_key_point_add
+  get '/stories/:story_id/characters/report', to: 'characters#report', as: :story_character_report
+  get '/stories/:story_id/key_points/:id/move', to: 'key_points#move', as: :story_key_point_move
+  post '/stories/:story_id/key_points/:id/moved', to: 'key_points#moved', as: :story_key_point_moved
+  get '/stories/:story_id/characters/list', to: 'characters#list', as: :story_characters_list
+  post '/stories/:story_id/characters/add', to: 'characters#add', as: :story_characters_add
+  get '/stories/:story_id/character/:id/lineage', to: 'characters#lineage', as: :story_character_lineage
   resources :stories do
     resources :characters, except: [:new] do
       resources :steps, only: %i[show update], controller: 'character/steps'
       resources :character_values
     end
+    resources :signets, only: [:index, :show, :new, :create, :update]
+    get :notes, to: 'signets#notes'
+    get :timeline, to: 'timelines#timeline'
+    get :timeline, to: 'timelines#timeline', as: :timelinejs, format: :json, constraints: lambda { |request| request.xhr?  }
+    get :view, to: 'stories#view'
+    get :chars, to: 'stories#chars'
+    get :move, to: 'stories#move'
+    post :moved, to: 'stories#moved'
+    get :report, to: 'stories#report'
+    get :resync_scenes, to: 'stories#resync_scenes'
   end
+
+  get '/chapters/:chapter_id/footnotes',               to: 'footnotes#index', as: :chapter_footnotes
+  get '/chapters/:chapter_id/footnote/:id',               to: 'footnotes#show', as: :chapter_footnote
+  patch '/chapters/:chapter_id/footnote/:id',               to: 'footnotes#update', as: :chapter_footnote_update
+  get '/chapters/:chapter_id/footnotes/:slug',               to: 'footnotes#new', as: :new_chapter_footnote
+  get '/chapters/:chapter_id/footnotes/edit/:id',               to: 'footnotes#edit', as: :edit_chapter_footnote
+  post '/chapters/:chapter_id/footnotes',               to: 'footnotes#create', as: :chapter_footnote_create
   resources :chapters do
     concerns :scripted, scripted_type: 'Chapter'
     concerns :sectioned, sectioned_type: 'Chapter'
     resources :scenes
     resources :sections
+    resources :footnotes
     get :report
     patch :sort
+    get :notes, to: 'signets#notes'
+    get :timeline, to: 'timelines#timeline'
+    get :timeline, to: 'timelines#timeline', as: :timelinejs, format: :json, constraints: lambda { |request| request.xhr?  }
+    get :geo_map, to: 'chapters#geo_map'
+    get :map_locs, to: 'chapters#map_locs', format: :js, as: :map_locs, constraints: ->(request) { request.xhr? }
+    get :display, to: 'holocene_events#display'
+    get :add_event, to: 'holocene_events#add_event'
+    get :show, to: 'chapters#show'
+    get :citations,               to: 'citations#index'
+    patch :citations, to: 'citations#update', as: :citations_update
+    get :footnotes,               to: 'footnotes#index'
+    get :demote, to: 'chapters#demote'
+    post :citations,               to: 'citations#update'
+    post :footnotes,               to: 'footnotes#create'
+    get :holocene_events, to: 'holocene_events#index'
+    post :holocene_events, to: 'holocene_events#objects'
   end
+
+  get '/citations/index'
+  get '/citations/timeline/:citation_id', to: 'timelines#timeline', as: :citation_timeline
+  get '/citations/add_event/:citation_id', to: 'holocene_events#add_event', as: :citation_add_event
+  get '/citations/show/:id', to: 'citations#show', as: :show_citation
+  get '/citations/:citation_id/holocene_events', to: 'holocene_events#index', as: :citation_holocene_events
+  post '/citations/:citation_id/holocene_events', to: 'holocene_events#objects', as: :citation_holocene_event
+  get '/citation/display/:citation_id', to: 'holocene_events#display', as: :citation_display
+
+  get '/chapters/:id/sections/:section_id/promote', to: 'chapters#promote', as: :chapter_section_promote
   resources :chapters, shallow: true do
     resources :asides
     resources :partitions
+    resources :signets, only: [:index, :show, :new, :create, :update]
   end
+
   resources :scenes, shallow: true do
     patch :sort
     concerns :located, located_type: 'Book'
     resources :sections
     resources :character_scenes, only: %i[show edit update]
+    resources :signets, only: [:index, :show, :new, :create, :update]
   end
-  resources :epochs
+
+  resources :epochs do
+    get :timeline, to: 'timelines#timeline'
+    get :map_locs, to: 'epochs#map_locs', format: :js, constraints: ->(request) { request.xhr? }
+    get :geo_map, to: 'epochs#geo_map'
+    get :display, to: 'holocene_events#display'
+    get :add_event, to: 'holocene_events#add_event'
+    get :show, to: 'epochs#show'
+    post :holocene_events, to: 'holocene_events#objects'
+  end
   resources :timelines do
-    #get :geo_map
+    get :geo_map
+    get :holocene_events, to: 'holocene_events#index'
+    get :show, to: 'timelines#show'
+    get :display, to: 'holocene_events#display'
+    get :add_event, to: 'holocene_events#add_event'
+    post :holocene_events, to: 'holocene_events#objects'
+    get :timeline, to: 'timelines#timeline', as: :timelinejs, format: :json, constraints: lambda { |request| request.xhr?  }
+    get :timeline, to: 'timelines#timeline', as: :timeline
+    get :map_locs, to: 'timelines#map_locs', format: :js, as: :timeline_map_locs, constraints: ->(request) { request.xhr? }
   end
+
+  get '/holocene_events/:holocene_event_id/footnotes', to: 'footnotes#index', as: :holocene_event_footnotes
+  get '/holocene_events/:holocene_event_id/footnote/:id', to: 'footnotes#show', as: :holocene_event_footnote
+  get '/holocene_events/:holocene_event_id/footnotes/:slug', to: 'footnotes#new', as: :new_holocene_event_footnote
+  get '/holocene_events/:holocene_event_id/footnotes/edit', to: 'footnotes#edit', as: :edit_holocene_event_footnote
+  patch '/holocene_events/:holocene_event_id/footnote/:id', to: 'footnotes#update', as: :holocene_event_footnote_update
+  post '/holocene_events/:holocene_event_id/footnotes', to: 'footnotes#create', as: :holocene_event_footnote_create
+  post '/holocene_events/:object_type/:object_id/objects/:id', to: 'holocene_events#objects', as: :object_holocene_event
+  resources :holocene_events do
+    get :map_locs, to: 'holocene_events#map_locs', format: :js, constraints: ->(request) { request.xhr? }
+    get :geo_map, to: 'holocene_events#geo_map'
+    resources :footnotes
+  end
+  resources :regions
+  resources :event_types do
+    get :timeline, to: 'timelines#timeline'
+    get :map_locs, to: 'event_types#map_locs', format: :js, constraints: ->(request) { request.xhr? }
+    get :geo_map, to: 'event_types#geo_map'
+    get :holocene_events, to: 'holocene_events#index'
+  end
+
+  get '/artifacts/:book_id/tagged/(:tag)', to: 'artifacts#tagged', as: :tag_artifacts
+  get '/tagged/(:tag)', to: 'holocene_events#tagged', as: :tag
+
   get '/welcome/index'
   get '/welcome/show'
   get '/welcome/stats'
@@ -276,133 +352,10 @@ Rails.application.routes.draw do
   get '/history', to: 'welcome#history'
   get '/progress', to: 'welcome#progress'
   get '/tags', to: 'welcome#tags', as: :welcome_tags
-  resources :holocene_events
-  resources :regions
-  resources :event_types
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  #
-
-  get '/artifacts/:book_id/tagged/(:tag)', to: 'artifacts#tagged', as: :tag_artifacts
-  get '/tagged/(:tag)', to: 'holocene_events#tagged', as: :tag
-
-  get '/event_types/:id/geo_map', to: 'event_types#geo_map', as: :geo_map_event_type
-  get '/timelines/:id/geo_map', to: 'timelines#geo_map', as: :geo_map_timeline
-  get '/epochs/:id/geo_map', to: 'epochs#geo_map', as: :geo_map_epoch
-  get '/chapters/:id/geo_map', to: 'chapters#geo_map', as: :geo_map_chapter
-  get '/sections/:id/geo_map', to: 'sections#geo_map', as: :geo_map_section
-  get '/holocene_events/:id/geo_map', to: 'holocene_events#geo_map', as: :geo_map_holocene_event
-
-  get '/citations/index'
-  get '/timelines/display/:timeline_id', to: 'holocene_events#display', as: :timeline_display
-  get '/citation/display/:citation_id', to: 'holocene_events#display', as: :citation_display
-  get '/chapters/display/:chapter_id', to: 'holocene_events#display', as: :chapter_display
-  get '/sections/display/:section_id', to: 'holocene_events#display', as: :section_display
-  get '/epochs/display/:epoch_id', to: 'holocene_events#display', as: :epoch_display
-
-  get '/chapters/add_event/:chapter_id', to: 'holocene_events#add_event', as: :chapter_add_event
-  get '/sections/add_event/:section_id', to: 'holocene_events#add_event', as: :section_add_event
-  get '/timelines/add_event/:timeline_id', to: 'holocene_events#add_event', as: :timeline_add_event
-  get '/citations/add_event/:citation_id', to: 'holocene_events#add_event', as: :citation_add_event
-  get '/epochs/add_event/:epoch_id', to: 'holocene_events#add_event', as: :epoch_add_event
-
-  get '/chapters/show/:id', to: 'chapters#show', as: :show_chapter
-  get '/sections/show/:id', to: 'sections#show', as: :show_section
-  get '/citations/show/:id', to: 'citations#show', as: :show_citation
-  get '/timelines/show/:id', to: 'timelines#show', as: :show_timeline
-  get '/epochs/show/:id', to: 'epochs#show', as: :show_epoch
-
-  get '/chapters/:chapter_id/citations',               to: 'citations#index', as: :chapter_citations
-  get '/chapters/:chapter_id/footnotes',               to: 'footnotes#index', as: :chapter_footnotes
-  get '/sections/:section_id/footnotes',               to: 'footnotes#index', as: :section_footnotes
-  get '/holocene_events/:holocene_event_id/footnotes', to: 'footnotes#index', as: :holocene_event_footnotes
-
-  get '/chapters/:chapter_id/footnote/:id',               to: 'footnotes#show', as: :chapter_footnote
-  get '/sections/:section_id/footnote/:id',               to: 'footnotes#show', as: :section_footnote
-  get '/holocene_events/:holocene_event_id/footnote/:id', to: 'footnotes#show', as: :holocene_event_footnote
-
-  get '/chapters/:chapter_id/footnotes/:slug',               to: 'footnotes#new', as: :new_chapter_footnote
-  get '/sections/:section_id/footnotes/:slug',               to: 'footnotes#new', as: :new_section_footnote
-  get '/holocene_events/:holocene_event_id/footnotes/:slug', to: 'footnotes#new', as: :new_holocene_event_footnote
-
-  get '/chapters/:chapter_id/footnotes/edit/:id',               to: 'footnotes#edit', as: :edit_chapter_footnote
-  get '/sections/:section_id/footnotes/edit/:id',               to: 'footnotes#edit', as: :edit_section_footnote
-  get '/holocene_events/:holocene_event_id/footnotes/edit', to: 'footnotes#edit', as: :edit_holocene_event_footnote
-
-  patch '/chapters/:chapter_id/citations', to: 'citations#update', as: :chapter_citation_update
-  patch '/chapters/:chapter_id/footnote/:id',               to: 'footnotes#update', as: :chapter_footnote_update
-  patch '/sections/:section_id/footnote/:id',               to: 'footnotes#update', as: :section_footnote_update
-  patch '/holocene_events/:holocene_event_id/footnote/:id', to: 'footnotes#update', as: :holocene_event_footnote_update
-
-  get '/chapters/:id/sections/:section_id/promote', to: 'chapters#promote', as: :chapter_section_promote
-  get '/chapters/:id/demote', to: 'chapters#demote', as: :chapter_demote
-
-  post '/chapters/:chapter_id/citations',               to: 'citations#update', as: :chapter_citation_create
-  post '/chapters/:chapter_id/footnotes',               to: 'footnotes#create', as: :chapter_footnote_create
-  post '/sections/:section_id/footnotes',               to: 'footnotes#create', as: :section_footnote_create
-  post '/holocene_events/:holocene_event_id/footnotes', to: 'footnotes#create', as: :holocene_event_footnote_create
-
-  get '/chapters/:chapter_id/holocene_events', to: 'holocene_events#index', as: :chapter_holocene_events
-  get '/event_types/:event_type_id/holocene_events', to: 'holocene_events#index', as: :event_type_holocene_events
-  get '/sections/:section_id/holocene_events', to: 'holocene_events#index', as: :section_holocene_events
-  get '/timelines/:timeline_id/holocene_events', to: 'holocene_events#index', as: :timeline_holocene_events
-  get '/citations/:citation_id/holocene_events', to: 'holocene_events#index', as: :citation_holocene_events
-
-  post '/chapters/:chapter_id/holocene_events', to: 'holocene_events#objects', as: :chapter_holocene_event
-  post '/epochs/:epoch_id/holocene_events', to: 'holocene_events#objects', as: :epoch_holocene_event
-  post '/holocene_events/:object_type/:object_id/objects/:id', to: 'holocene_events#objects', as: :object_holocene_event
-
-  post '/sections/:section_id/holocene_events', to: 'holocene_events#objects', as: :section_holocene_event
-  post '/timelines/:timeline_id/holocene_events', to: 'holocene_events#objects', as: :timeline_holocene_event
-  post '/citations/:citation_id/holocene_events', to: 'holocene_events#objects', as: :citation_holocene_event
-
-  get '/books/:book_id/chapter/:id', to: 'chapters#move', as: :move_book_chapter
-
-  get '/chapters/:chapter_id/signets',               to: 'signets#index', as: :chapter_signets
-  get '/chapters/:chapter_id/signet/:id',               to: 'signets#show', as: :chapter_signet
-  get '/chapters/:chapter_id/signets/new',               to: 'signets#new', as: :new_chapter_signet
-  patch '/chapters/:chapter_id/signet/:id',               to: 'signets#update', as: :chapter_signet_update
-  post '/chapters/:chapter_id/signets',               to: 'signets#create', as: :chapter_signet_create
-
-
-  get '/stories/:story_id/signets',               to: 'signets#index', as: :story_signets
-  get '/stories/:story_id/signet/:id',               to: 'signets#show', as: :story_signet
-  get '/stories/:story_id/signets/new',               to: 'signets#new', as: :new_story_signet
-  patch '/stories/:story_id/signet/:id',               to: 'signets#update', as: :story_signet_update
-  post '/stories/:story_id/signets',               to: 'signets#create', as: :story_signet_create
-
-  get '/scenes/:scene_id/signets',               to: 'signets#index', as: :scene_signets
-  get '/scenes/:scene_id/signet/:id',               to: 'signets#show', as: :scene_signet
-  get '/scenes/:scene_id/signets/new',               to: 'signets#new', as: :new_scene_signet
-  patch '/scenes/:scene_id/signet/:id',               to: 'signets#update', as: :scene_signet_update
-  post '/scenes/:scene_id/signets',               to: 'signets#create', as: :scene_signet_create
-
-  get '/books/:book_id/notes', to: 'signets#notes', as: :book_notes
-  get '/stories/:story_id/notes', to: 'signets#notes', as: :story_notes
-  get '/chapters/:chapter_id/notes', to: 'signets#notes', as: :chapter_notes
-
-  get '/books/:book_id/signets', to: 'signets#index', as: :book_signets
-  get '/books/:book_id/signet/:id', to: 'signets#show', as: :book_signet
-  get '/books/:book_id/signets/new', to: 'signets#new', as: :new_book_signet
-  patch '/books/:book_id/signet/:id', to: 'signets#update', as: :book_signet_update
-  post '/books/:book_id/signets', to: 'signets#create', as: :book_signet_create
-
-  get '/holocene_events/:holocene_event_id/signets', to: 'signets#index', as: :holocene_event_signets
-  get '/holocene_events/:holocene_event_id/signet/:id', to: 'signets#show', as: :holocene_event_signet
-  get '/holocene_events/:holocene_event_id/signets/new', to: 'signets#new', as: :new_holocene_event_signet
-  patch '/holocene_events/:holocene_event_id/signet/:id', to: 'signets#update', as: :holocene_event_signet_update
-  post '/holocene_events/:holocene_event_id/signets', to: 'signets#create', as: :holocene_event_signet_create
-
-  get '/sections/:section_id/signet/:id',               to: 'signets#show', as: :section_signet
-  get '/sections/:section_id/signets/new',               to: 'signets#new', as: :new_section_signet
-  get '/sections/:section_id/signets',               to: 'signets#index', as: :section_signets
-  patch '/sections/:section_id/signet/:id',               to: 'signets#update', as: :section_signet_update
-  post '/sections/:section_id/signets',               to: 'signets#create', as: :section_signet_create
-
-  root to: 'welcome#index'
-  #root to: 'books#index'
-
   get '/faq', to: 'application#faq', as: 'faq'
   get '/secret', to: 'application#secret', as: 'secret'
   get '/about', to: 'application#about', as: 'about'
   get '/contact', to: 'application#contact', as: 'contact'
+
+  root to: 'welcome#index'
 end

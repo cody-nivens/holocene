@@ -54,7 +54,8 @@ class SegmentsController < ApplicationController
         @segments = Segment.where(stage_id: @stage.id).order(:name)
 #        format.html { redirect_to segment_url(@segment), notice: "Segment was successfully created." }
         format.json { render :show, status: :created, location: @segment }
-        format.turbo_stream { flash.now[:notice] = "Segment was successfully created." }
+        flash.now[:notice] = "Segment was successfully created."
+        format.turbo_stream { render "shared/index", locals: { object: Segment.new, objects: @segments } }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @segment.errors, status: :unprocessable_entity }

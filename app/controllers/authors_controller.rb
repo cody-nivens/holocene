@@ -75,7 +75,8 @@ class AuthorsController < ApplicationController
         @authors = @object.authors
 #        format.html { redirect_to polymorphic_path([@object, @author]), notice: 'Author was successfully created.' }
         format.json { render :show, status: :created, location: @author }
-        format.turbo_stream { flash.now[:notice] = "Author was successfully created." }
+        flash.now[:notice] = "Author was successfully created."
+        format.turbo_stream { render "shared/index", locals: { object: Author.new, objects: @authors } }
       else
         format.html { render :new }
         format.json { render json: @author.errors, status: :unprocessable_entity }

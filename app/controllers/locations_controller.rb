@@ -36,9 +36,11 @@ class LocationsController < ApplicationController
 
     respond_to do |format|
       if @location.save
+        @locations = Location.where(book_id: @book.id).order(:name)
         format.html { redirect_to location_url(@location), notice: "Location was successfully created." }
         format.json { render :show, status: :created, location: @location }
-        format.turbo_stream { flash.now[:notice] = "Location was successfully created." }
+        flash.now[:notice] = "Location was successfully created."
+        format.turbo_stream { render "shared/index", locals: { object: Location.new, objects: @locations } }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @location.errors, status: :unprocessable_entity }

@@ -90,9 +90,7 @@ class TimelinesController < ApplicationController
         format.html { redirect_to @timeline, notice: 'Timeline was successfully created.' }
         format.json { render :show, status: :created, location: @timeline }
         flash.now[:notice] = "Timeline was successfully created."
-        #format.turbo_stream { render "shared/show", locals: { object: @timeline } }
-        #format.turbo_stream { render "shared/index", locals: { object: Timeline.new, objects: @timelines } }
-        format.turbo_stream { }
+        format.turbo_stream { render "shared/index", locals: { object: Timeline.new, objects: @timelines } }
       else
         format.html { render :new }
         format.json { render json: @timeline.errors, status: :unprocessable_entity }
@@ -116,7 +114,6 @@ class TimelinesController < ApplicationController
         format.json { render :show, status: :ok, location: @timeline }
         flash.now[:notice] = "Timeline was successfully updated."
         format.turbo_stream { render "shared/show", locals: { object: @timeline } }
-        #format.turbo_stream { render "shared/update", locals: { object: @timeline, short: @short } }
       else
         format.html { render :edit }
         format.json { render json: @timeline.errors, status: :unprocessable_entity }
@@ -147,7 +144,7 @@ class TimelinesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_timeline
-    @timeline = Timeline.find(params[:id])
+    @timeline = Timeline.find(params[:id].nil? ? params[:timeline_id] : params[:id])
   end
 
   def set_object

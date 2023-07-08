@@ -153,7 +153,7 @@ class CitiesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_city
-    @city = City.find(params[:id])
+    @city = City.find(params[:id].nil? ? params[:city_id] : params[:id])
   end
 
   def set_tour

@@ -29,7 +29,7 @@ class ChaptersTest < ApplicationSystemTestCase
   end
   end
 
-  ['Partition','Asides','Stats','Timeline','Footnotes', 'Citations'].each do |item|
+  ['Partitions','Asides','Stats','Timeline','Footnotes', 'Citations'].each do |item|
     test "walk the Chapter #{item} menu" do
       menu_test 'Chapter', item
     end

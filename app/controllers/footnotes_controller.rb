@@ -109,7 +109,7 @@ class FootnotesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_footnote
-    @footnote = Footnote.find(params[:id])
+    @footnote = Footnote.find(params[:id].nil? ? params[:footnote_id] : params[:id])
   end
 
   def find_notable

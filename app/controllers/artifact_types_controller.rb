@@ -40,7 +40,8 @@ class ArtifactTypesController < ApplicationController
       if @artifact_type.save
 #        format.html { redirect_to artifact_type_url(@artifact_type), notice: 'Artifact type was successfully created.' }
         format.json { render :show, status: :created, location: @artifact_type }
-        format.turbo_stream { flash.now[:notice] = "Artifact Type was successfully created." }
+        flash.now[:notice] = "Artifact Type was successfully created."
+        format.turbo_stream { render "shared/index", locals: { object: ArtifactType.new, objects: @artifact_types } }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @artifact_type.errors, status: :unprocessable_entity }

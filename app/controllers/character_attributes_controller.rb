@@ -69,7 +69,8 @@ class CharacterAttributesController < ApplicationController
         @character_attributes = CharacterAttribute.where(character_category_id: @character_category.id)
 #        format.html { redirect_to @character_attribute, notice: 'Character attribute was successfully created.' }
         format.json { render :show, status: :created, location: @character_attribute }
-        format.turbo_stream { flash.now[:notice] = "Character Attribute was successfully created." }
+        flash.now[:notice] = "Character Attribute was successfully created."
+        format.turbo_stream { render "shared/index", locals: { object: CharacterAttribute.new, objects: @character_attributes } }
       else
         format.html { render :new, character_category_id: @character_category.id }
         format.json { render json: @character_attribute.errors, status: :unprocessable_entity }

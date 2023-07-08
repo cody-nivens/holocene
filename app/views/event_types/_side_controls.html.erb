@@ -1,4 +1,4 @@
 <%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_event_type_path(@event_type), data: { "turbo-frame": "#{dom_id @event_type}" }, class: 'btn', title: 'Edit' %>
 <%= link_to (fa_icon 'stream', class: 'fa-fw'), event_type_timeline_path(@event_type), method: :get, class: 'btn', title: 'Timeline' %>
-<%= link_to (fa_icon 'map', class: 'fa-fw'), geo_map_event_type_path(@event_type), method: :get, class: 'btn', title: 'Map' %>
+<%= link_to (fa_icon 'map', class: 'fa-fw'), event_type_geo_map_path(@event_type), method: :get, class: 'btn', title: 'Map' %>
 <%= link_to (fa_icon 'backward', class: 'fa-fw'), event_types_path, method: :get, class: 'btn', title: 'Back' %>

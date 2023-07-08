@@ -19,8 +19,8 @@
       <%== make_menu_ts_link('Stats', book_report_path(@book, report: "books/stats")) %>
       <% if @book.is_fiction? %>
         <%== make_menu_ts_link('Scenes', book_report_path(@book, report: "books/scenes")) %>
-        <%== make_menu_ts_link('Resync Stories', book_resync_stories_path(id: @book.id)) %>
-        <%== make_menu_ts_link('Publish All', book_publish_path(id: @book.id)) %>
+        <%== make_menu_ts_link('Resync Stories', book_resync_stories_path(@book)) %>
+        <%== make_menu_ts_link('Publish All', book_publish_path(@book)) %>
         <li><hr class="dropdown-divider"></li>
         <%== make_menu_ts_link('Key Points', book_key_points_path(@book)) %>
         <%== make_menu_ts_link('Plot Points', book_plot_points_path(@book)) %>
@@ -44,7 +44,7 @@
       <% unless @story.nil? or @story.new_record? %>
         <%== make_menu_ts_link('Key Points', polymorphic_path([@story, :key_points])) %>
         <%== make_menu_ts_link('Characters', story_character_report_path(story_id: @story.id, report: "characters/chars"))  %>
-        <%== make_menu_ts_link('Resync Scenes', story_resync_scenes_path(id: @story.id)) %>
+        <%== make_menu_ts_link('Resync Scenes', story_resync_scenes_path(@story)) %>
         <%== make_menu_ts_link('Move', polymorphic_path([@story, :move])) %>
         <li><hr class="dropdown-divider"></li>
         <%== make_menu_ts_link('Stats', story_report_path(@story, report: "stories/stats")) %>
@@ -68,14 +68,10 @@
             <li><hr class="dropdown-divider"></li>
           <% end %>
         <% end %>
+        <%== make_menu_ts_link('Partitions', book_partitions_path(@book)) %>
+        <%== make_menu_ts_link('Asides',  book_asides_path(@book)) %>
         <% unless @chapter.nil? or @chapter.new_record? %>
-          <% if @chapter.partition.nil? or @chapter.partition.new_record? %>
-            <%== make_menu_ts_link('Partition', new_chapter_partition_path(chapter_id: @chapter.id), 'new_object', no_method: true) %>
-          <% else %>
-            <%== make_menu_ts_link('Partition', edit_partition_path(@chapter.partition), 'new_object', no_method: true) %>
-          <% end %>
           <%== make_menu_ts_link('Stats', chapter_report_path(@chapter, report: "chapters/stats")) %>
-          <%== make_menu_ts_link('Asides',  chapter_asides_path(@chapter)) %>
           <%== make_menu_ts_link('Timeline', polymorphic_path([@chapter, :timeline])) %>
           <%== make_menu_ts_link('Footnotes',  chapter_footnotes_path(@chapter)) %>
           <%== make_menu_ts_link('Citations', chapter_citations_path(@chapter)) %>

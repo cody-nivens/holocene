@@ -5,6 +5,7 @@
 <% new_link_name ||= 'new_link' %>
 <% long ||= nil %>
 <% no_new_link ||= false %>
+<% no_nav ||= false %>
 <%= turbo_stream.replace "objects" do %>
   <%= content_tag "turbo-frame", class: "block", id: "objects" do %>
     <%= content_tag "turbo-frame", id: "#{dom_id object}" do %>
@@ -29,15 +30,17 @@
     <% if part == 'show' %>
       <%== render partial: "#{path_name}/side_controls", locals: { "#{object_name}": object, long: long } %>
     <% else %>
-    <%# if lookup_context.exists?("#{part.nil? ? '' : "#{part}"}_sides", [ "#{path_name}" ], true) %>
+      <%# if lookup_context.exists?("#{part.nil? ? '' : "#{part}"}_sides", [ "#{path_name}" ], true) %>
       <%== render partial: "#{path_name}/#{part}_sides", locals: { "#{object_name}": object, long: long } %>
-    <%# elsif lookup_context.exists?("_side_controls", [ "#{path_name}" ], true) %>
+      <%# elsif lookup_context.exists?("_side_controls", [ "#{path_name}" ], true) %>
     <% end %>
   <% end %>
 <% end %>
-<%= turbo_stream.replace "nav-bar" do %>
-  <%= content_tag :div, class: "block", id: "nav-bar" do %>
-    <%== render partial: "application/header" %>
+<% unless no_nav %>
+  <%= turbo_stream.replace "nav-bar" do %>
+    <%= content_tag :div, class: "block", id: "nav-bar" do %>
+      <%== render partial: "application/header" %>
+    <% end %>
   <% end %>
 <% end %>
 <%= render partial: "shared/send_flash" %>

@@ -1,20 +1,10 @@
-<turbo-frame id="objects">
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Body</th>
-      <th>Chapter</th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @partitions.each do |partition| %>
-      <turbo-frame id="<%= dom_id partition %>">
-        <%= render partial: "partitions/partition_item", locals: { partition: partition } %>
-      </turbo-frame>
-    <% end %>
-  </tbody>
-</table>
-</turbo-frame>
+<div class="row">
+  <div class="col-sm-2"><strong>Chapter</strong></div>
+  <div class="col-sm-2"><strong>Name</strong></div>
+  <div class="col-sm-8"><strong>Body</strong></div>
+</div>
+<% @partitions.each do |partition| %>
+  <turbo-frame id="<%= dom_id partition %>">
+    <%= render partial: "partitions/partition_item", locals: { partition: partition } %>
+  </turbo-frame>
+<% end %>

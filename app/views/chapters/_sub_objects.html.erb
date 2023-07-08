@@ -11,7 +11,7 @@
               <%= link_to (fa_icon 'sticky-note'), section_signets_path(section_id: section.id), method: :get, title: 'Signets', class: "#{!section.signets.empty? ? Signet.color_class(sections.signets[0].color) : ''}" %>
               <%= link_to (fa_icon 'list'), section_display_path(section_id: section.id), method: :get, title: 'Events' %>
               <%= link_to (fa_icon 'calendar'), section_timeline_path(section_id: section.id), method: :get, title: 'Timeline' %>
-              <%= link_to (fa_icon 'map'), geo_map_section_path(section), method: :get, title: 'Map' %>
+              <%= link_to (fa_icon 'map'), geo_map_sections_path(section), method: :get, title: 'Map' %>
               <%= link_to (fa_icon 'subscript', style: :light), section_footnotes_path(section_id: section.id), method: :get, title: 'Footnotes' %>
             </strong>
           </div>
@@ -21,11 +21,11 @@
             <strong<%== s %>>
               <%= link_to section.name, section, method: :get %>
               <%= link_to (fa_icon 'edit'), edit_polymorphic_path([chapter, section]), data: { "turbo-frame": "new_object" }, title: 'Edit' %>
-              <%= link_to (fa_icon 'sticky-note'), section_signets_path(section_id: section.id), method: :get, title: 'Signets', class: "#{!section.signets.empty? ? Signet.color_class(section.signets[0].color) : ''}" %>
-              <%= link_to (fa_icon 'list'), section_display_path(section_id: section.id), method: :get, title: 'Events' %>
-              <%= link_to (fa_icon 'calendar'), section_timeline_path(section_id: section.id), method: :get, title: 'Timeline' %>
-              <%= link_to (fa_icon 'map'), geo_map_section_path(section), method: :get, title: 'Map' %>
-              <%= link_to (fa_icon 'subscript'), section_footnotes_path(section_id: section.id), method: :get, title: 'Footnotes' %>
+              <%= link_to (fa_icon 'sticky-note'), sections_signets_path(section_id: section.id), method: :get, title: 'Signets', class: "#{!section.signets.empty? ? Signet.color_class(section.signets[0].color) : ''}" %>
+              <%= link_to (fa_icon 'list'), display_sections_path(section_id: section.id), method: :get, title: 'Events' %>
+              <%= link_to (fa_icon 'calendar'), timeline_sections_path(section_id: section.id), method: :get, title: 'Timeline' %>
+              <%= link_to (fa_icon 'map'), geo_map_sections_path(section), method: :get, title: 'Map' %>
+              <%= link_to (fa_icon 'subscript'), sections_footnotes_path(section_id: section.id), method: :get, title: 'Footnotes' %>
             </strong>
           <% end %>
 

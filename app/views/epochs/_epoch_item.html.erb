@@ -3,7 +3,7 @@
   <div class="col-sm-2"><%= epoch.start_date %></div>
   <div class="col-sm-2"><%= epoch.end_date %></div>
   <div class="col-sm-2"><%= epoch.holocene_events.size %></div>
-  <div class="col-sm-2"><%= link_to (fa_icon 'map'), geo_map_epoch_path(epoch), method: :get, title: 'Map' %>
+  <div class="col-sm-2"><%= link_to (fa_icon 'map'), epoch_geo_map_path(epoch), method: :get, title: 'Map' %>
   <%= link_to (fa_icon 'edit'), edit_epoch_path(epoch, short: true), title: 'Edit' %>
   <%= link_to (fa_icon 'trash'), epoch, method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %></div>
 </div>

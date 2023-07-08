@@ -6,4 +6,4 @@ partition_1:
 
 partition_2:
   name: Barking Dogs
-  chapter_id: <%= ActiveRecord::FixtureSet.identify(:chapter_1) %>
+  chapter_id: <%= ActiveRecord::FixtureSet.identify(:chapter_2) %>

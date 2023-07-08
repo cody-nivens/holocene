@@ -48,7 +48,8 @@ class ArtifactsController < ApplicationController
         @artifacts = Artifact.where(book_id: @book.id).joins(:artifact_type).order('artifact_types.name, artifacts.name')
  #       format.html { redirect_to artifact_path(@artifact), notice: 'Artifact was successfully created.' }
         format.json { render :show, status: :created, location: @artifact }
-        format.turbo_stream { flash.now[:notice] = "Artifact was successfully created." }
+        flash.now[:notice] = "Artifact was successfully created."
+        format.turbo_stream { render "shared/index", locals: { object: Artifact.new, objects: @artifacts } }
       else
         format.html { render :new, book_id: @book.id, status: :unprocessable_entity }
         format.json { render json: @artifact.errors, status: :unprocessable_entity }

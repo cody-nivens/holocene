@@ -1,11 +1,18 @@
 class AsidesController < ApplicationController
   before_action :set_aside, only: %i[show edit update destroy]
-  before_action :set_chapter, only: %i[index new ]
+  before_action :set_chapter, only: %i[new]
 
   # GET /asides
   # GET /asides.json
   def index
-    @asides = Aside.all.includes([:rich_text_body])
+    if params[:book_id].nil?
+      set_chapter
+      @asides = @chapter.asides
+    else
+      @book = Book.find(params[:book_id])
+      @asides = Aside.joins(:chapter).where("chapters.scripted_id = ? and chapters.scripted_type = ?", @book.id, 'Book').order("chapters.position")
+    end
+
     respond_to do |format|
       format.turbo_stream { render "shared/index", locals: { object: Aside.new, objects: @asides } }
     end
@@ -49,7 +56,7 @@ class AsidesController < ApplicationController
         format.json { render :show, status: :created, location: @aside }
         #format.turbo_stream { render 'shared/show', locals: { object: @chapter } }
         flash.now[:notice] = "Aside was successfully created."
-        format.turbo_stream { }
+        format.turbo_stream { render "shared/index", locals: { object: Aside.new, objects: @asides } }
       else
         format.html { render :new }
         format.json { render json: @aside.errors, status: :unprocessable_entity }

@@ -52,7 +52,8 @@ class EpochsController < ApplicationController
         @epochs = Epoch.all.order(:start_date)
 #        format.html { redirect_to @epoch, notice: 'Epoch was successfully created.' }
         format.json { render :show, status: :created, location: @epoch }
-        format.turbo_stream { flash.now[:notice] = "Epoch was successfully created." }
+        flash.now[:notice] = "Epoch was successfully created."
+        format.turbo_stream { render "shared/index", locals: { object: Epoch.new, objects: @epochs } }
       else
         format.html { render :new }
         format.json { render json: @epoch.errors, status: :unprocessable_entity }

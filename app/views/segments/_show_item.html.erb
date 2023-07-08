@@ -24,7 +24,7 @@
     <% else %>
       <% segs = @stage.segments.pluck(:id) %>
       <% tlocs = LocationTime.where(segment_id: segs) %>
-      <% loc_times = tlocs.pluck(:date_string).sort.uniq %>
+      <% loc_times = segment.location_times.pluck(:date_string).sort.uniq %>
       <tr>  
         <th></th>
         <% loc_times.each do |time| %>

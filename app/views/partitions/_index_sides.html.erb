@@ -1,2 +1,1 @@
-  <%= link_to (fa_icon 'plus', class: 'fa-fw'), new_chapter_partition_path(@chapter), data: { "turbo-frame": "new_object" }, class: 'btn', title: 'New Partition' %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), chapter_path(@chapter), method: :get, class: 'btn', title: 'Back' %>
+<%= link_to (fa_icon 'backward', class: 'fa-fw'), (@chapter.nil? ? @book : @chapter), method: :get, class: 'btn', title: 'Back' %>

@@ -38,7 +38,7 @@
           <td class='text-end'><%= HoloceneEvent.convert_ad(chapter.sections.map { |x| x.holocene_events.minimum('start_year') }.compact.min) %></td>
           <td class='text-end'><%= HoloceneEvent.convert_ad(chapter.sections.map { |x| x.holocene_events.maximum('start_year') }.compact.max) %></td>
           <td><%= link_to (fa_icon 'arrow-down'), chapter_demote_path(chapter), title: 'Demote' %></td>
-          <td><%= link_to (fa_icon 'map'), geo_map_chapter_path(chapter), title: 'Map' %></td>
+          <td><%= link_to (fa_icon 'map'), chapter_geo_map_path(chapter), title: 'Map' %></td>
           <td><%= link_to (fa_icon 'trash'), chapter_path(chapter), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete' %></td>
         </tr>
         <% if @long.kind_of?(TrueClass) or @long == "true" %>

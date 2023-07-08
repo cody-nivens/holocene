@@ -46,7 +46,8 @@ class GlossaryTermsController < ApplicationController
         #  redirect_to glossary_term_path(@glossary_term), notice: 'Glossary term was successfully created.'
         #end
         format.json { render :show, status: :created, location: @glossary_term }
-        format.turbo_stream { flash.now[:notice] = "Glossary Term was successfully created." }
+        flash.now[:notice] = "Glossary Term was successfully created."
+        format.turbo_stream { render "shared/index", locals: { object: GlossaryTerm.new, objects: @glossary_terms } }
       else
         format.html { render :new }
         format.json { render json: @glossary_term.errors, status: :unprocessable_entity }

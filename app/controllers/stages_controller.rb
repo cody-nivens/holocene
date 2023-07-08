@@ -149,13 +149,14 @@ class StagesController < ApplicationController
   def create
     @stage = Stage.new(stage_params)
     @act = @stage.act
-    @stages = Stage.where(act_id: @act.id).order(:name)
 
     respond_to do |format|
       if @stage.save
+        @stages = Stage.where(act_id: @act.id).order(:name)
 #        format.html { redirect_to stage_url(@stage), notice: "Stage was successfully created." }
         format.json { render :show, status: :created, location: @stage }
-        format.turbo_stream { flash.now[:notice] = "Stage was successfully created." }
+        flash.now[:notice] = "Stage was successfully created."
+        format.turbo_stream { render "shared/index", locals: { object: Stage.new, objects: @stages } }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @stage.errors, status: :unprocessable_entity }
@@ -196,7 +197,7 @@ class StagesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_stage
-      @stage = Stage.find(params[:id])
+      @stage = Stage.find(params[:id].nil? ? params[:stage_id] : params[:id])
       session[:stage_id] = @stage.id
       @act = @stage.act
       @book = @act.book

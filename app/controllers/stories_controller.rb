@@ -101,7 +101,7 @@ class StoriesController < ApplicationController
   # GET /stories/1.json
   def view
     #@story = Story.includes({ scenes: [:section, { key_point: :scenes }, :artifact, :rich_text_place, :rich_text_summary] }).find(params[:id])
-    @story = Story.find(params[:id])
+    @story = Story.find(params[:id].nil? ? params[:story_id] : params[:id])
     @title = "View#{params[:outline].nil? ? '' : ' Outline'}, #{@story.name}"
     @book = @story.book
     @object = @story
@@ -264,7 +264,7 @@ class StoriesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_story
-    @story = Story.find(params[:id])
+    @story = Story.find(params[:id].nil? ? params[:story_id] : params[:id])
     @book = @story.book
   end
 

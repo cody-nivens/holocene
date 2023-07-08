@@ -1,17 +1,14 @@
-<turbo-frame id="<%= dom_id @actor %>">
-<h2> <%= @actor.name %></h2>
-
 <p>
-  <%= @actor.desc %>
+<%= @actor.desc %>
 </p>
 
 <div>
   <strong>Characters:</strong>
-<%= link_to (fa_icon 'plus'), new_actor_actor_character_path(@actor) %>
+  <%= link_to (fa_icon 'plus'), new_actor_actor_character_path(@actor) %>
   <ul>
-<% @actor.actor_characters.each do |actor_character| %>
- <li><%= link_to actor_character.character.name, book_character_path(@book, actor_character.character) %></li>
- <% end %>
+    <% @actor.actor_characters.each do |actor_character| %>
+      <li><%= link_to actor_character.character.name, book_character_path(@book, actor_character.character) %></li>
+    <% end %>
   </ul>
 </div>
 
@@ -19,11 +16,9 @@
 <div>
   <strong>Location Times:</strong>
   <ul>
-<% @actor.actor_location_times.includes(:location_time).order("location_times.date_string").each do |actor_location| %>
-  <li> <%= link_to actor_location.location_time.date_string, stage_path(actor_location.location_time.segment.stage) %> :
-  <%= actor_location.location_time.location.name %> : <%= actor_location.title %></li>
- <% end %>
+    <% @actor.actor_location_times.includes(:location_time).order("location_times.date_string").each do |actor_location| %>
+      <li> <%= link_to actor_location.location_time.date_string, stage_path(actor_location.location_time.segment.stage) %> :
+        <%= actor_location.location_time.location.name %> : <%= actor_location.title %></li>
+    <% end %>
   </ul>
 </div>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'), book_actors_path(@book), method: :get, class: "btn", title: 'Back' %>
-</turbo-frame>

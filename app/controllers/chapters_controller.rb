@@ -207,7 +207,9 @@ class ChaptersController < ApplicationController
         @long = false
         format.html { redirect_to @chapter, notice: 'Chapter was successfully created.' }
         format.json { render :show, status: :created, location: @chapter }
-        format.turbo_stream { flash.now[:notice] = "Chapter was successfully created." }
+        flash.now[:notice] = "Chapter was successfully created."
+        #format.turbo_stream { render "shared/index", locals: { object: Chapter.new, objects: @chapters } }
+        format.turbo_stream { }
       else
         format.html { render :new }
         format.json { render json: @chapter.errors, status: :unprocessable_entity }
@@ -255,7 +257,7 @@ class ChaptersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_chapter
-    @chapter = Chapter.find(params[:id])
+    @chapter = Chapter.find(params[:id].nil? ? params[:chapter_id] : params[:id])
   end
 
   def set_scripted

@@ -54,7 +54,8 @@ class CharacterCategoriesController < ApplicationController
         @character_categories = CharacterCategory.order(:position)
 #        format.html { redirect_to @character_category, notice: 'Character category was successfully created.' }
         format.json { render :show, status: :created, character_category: @character_category }
-        format.turbo_stream { flash.now[:notice] = "Character Category was successfully created." }
+        flash.now[:notice] = "Character Category was successfully created."
+        format.turbo_stream { render "shared/index", locals: { object: CharacterCategory.new, objects: @character_categorys } }
       else
         format.html { render :new }
         format.json { render json: @character_category.errors, status: :unprocessable_entity }

@@ -30,7 +30,8 @@ class ActorCharactersController < ApplicationController
         @actor_characters = ActorCharacter.where(actor_id: @actor.id)
         format.html { redirect_to actor_actor_characters_url(@actor), notice: "Actor character was successfully created." }
         format.json { render :show, status: :created, location: @actor_character }
-        format.turbo_stream { flash.now[:notice] = "Actor Character was successfully created." }
+        flash.now[:notice] = "Actor Character was successfully created."
+        format.turbo_stream { render "shared/index", locals: { object: ActorCharacter.new, objects: @actor_characters } }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @actor_character.errors, status: :unprocessable_entity }

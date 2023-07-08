@@ -73,7 +73,8 @@ class PlotPointsController < ApplicationController
         @plot_points = PlotPoint.where(book_id: @book.id)
 #        format.html { redirect_to book_plot_points_url(@plot_point.book), notice: "Plot point was successfully created." }
         format.json { render :show, status: :created, location: @plot_point }
-        format.turbo_stream { flash.now[:notice] = "Plot Point was successfully created." }
+        flash.now[:notice] = "Plot Point was successfully created."
+        format.turbo_stream { render "shared/index", locals: { object: PlotPoint.new, objects: @plot_points } }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @plot_point.errors, status: :unprocessable_entity }

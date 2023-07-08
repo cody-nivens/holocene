@@ -277,9 +277,11 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       if @book.save
+        @books = Book.where(user_id: current_user.id).order(:position)
         #        format.html { redirect_to @book, notice: 'Book was successfully created.' }
         format.json { render :show, status: :created, location: @book }
-        format.turbo_stream { flash.now[:notice] = "Book was successfully created." }
+        flash.now[:notice] = "Book was successfully created."
+        format.turbo_stream { render "shared/index", locals: { object: Book.new, objects: @books } }
       else
         format.html { render :new }
         format.json { render json: @book.errors, status: :unprocessable_entity }
@@ -338,7 +340,7 @@ class BooksController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_book
-    @book = Book.find(params[:id])
+    @book = Book.find(params[:id].nil? ? params[:book_id] : params[:id])
     session[:book_id] = @book.id
     session[:story_id] = nil
     session[:chapter_id] = nil

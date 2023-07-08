@@ -14,13 +14,14 @@ class ItinerariesController < ApplicationController
       scope.where('itineraries.tour_id = ?', @tour.id)
     end
     @pagy, @records = pagy(@grid.assets)
+    @itineraries = @tour.itineraries.order(:position)
     if request.xhr?
       respond_to do |format|
-        format.turbo_stream { render "shared/index", locals: { object: Itinerary.new, objects: @itinerariess } }
+        format.turbo_stream { render "shared/index", locals: { object: Itinerary.new, objects: @itineraries } }
       end
     else
       respond_to do |format|
-        format.turbo_stream { render "shared/index", locals: { object: Itinerary.new, objects: @itinerariess } }
+        format.turbo_stream { render "shared/index", locals: { object: Itinerary.new, objects: @itineraries } }
       end
     end
   end
@@ -81,7 +82,8 @@ class ItinerariesController < ApplicationController
         @pagy, @records = pagy(@grid.assets)
 #        format.html { redirect_to itinerary_path(@itinerary), notice: 'Itinerary was successfully created.' }
         format.json { render :show, status: :created, location: @itinerary }
-        format.turbo_stream { flash.now[:notice] = "Itinerary was successfully created." }
+        flash.now[:notice] = "Itinerary was successfully created."
+        format.turbo_stream { render "shared/index", locals: { object: Itinerary.new, objects: @itinerariess } }
       else
         format.html do
           @cities = City.all.order(:name)
@@ -138,7 +140,7 @@ class ItinerariesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_itinerary
-    @itinerary = Itinerary.find(params[:id])
+    @itinerary = Itinerary.find(params[:id].nil? ? params[:itinerary_id] : params[:id])
   end
 
   def set_tour

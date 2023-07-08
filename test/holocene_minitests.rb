@@ -123,7 +123,7 @@ module HoloceneMinitests
     unless ['Characters with Scenes', 'Character Grid', 'Progress', 'Tags', 'History', 'Stats',
         'Stories', 'All Stories', 'Time by Actor', 'Time by Location', 'Actor by Location', 'Publish All',
         'Resync Stories', 'Key Points', 'By Occupation', 'By Occupation, All', 'Resync Scenes', 'Main Characters',
-        'Citations', 'Partition', 'Timeline', 'Scenes', 'Books', 'Import Chars',
+        'Citations', 'Partitions', 'Timeline', 'Scenes', 'Books', 'Import Chars',
         "#{@book.nil? ? 'Progress' : @book.name}", "#{@story.nil? ? 'Progress' : @story.name}", "#{@stage.nil? ? 'Progress' : @stage.name}", "#{@chapter.nil? ? 'Progress' : @chapter.name}", 
         'Move', 'Char List', 'Char List, All', 'Scene Characters', 'Stage List', 'New Chapter'].include?(object) or
       (master == 'Story' and object == 'Characters')
@@ -213,7 +213,7 @@ module HoloceneMinitests
     when 'New Book', 'New Story', 'Key Points', "#{@chapter.nil? ? (@story.nil? ? '' : @story.name) : @chapter.name}"
       assert_text 'Title'
     when 'Signets'
-      assert_text 'Message'
+      assert_text 'Signets'
     else
       assert_text "Name"
     end
@@ -548,8 +548,6 @@ module HoloceneMinitests
       assert_text 'Import Characters for'
     when 'Key Words'
       assert_text 'Key Words'
-    when 'Partition'
-      assert_selector "#partition_name"
     else
       assert_xpath "//h3[contains(text(),'#{object}')]"
 

@@ -79,7 +79,8 @@ class ToursController < ApplicationController
          @tours = Tour.where(story_id: @story.id)
 #        format.html { redirect_to tour_path(@tour), notice: 'Tour was successfully created.' }
         format.json { render :show, status: :created, location: @tour }
-        format.turbo_stream { flash.now[:notice] = "Tour was successfully created." }
+        flash.now[:notice] = "Tour was successfully created."
+        format.turbo_stream { render "shared/index", locals: { object: Tour.new, objects: @tours } }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @tour.errors, status: :unprocessable_entity }
@@ -125,7 +126,7 @@ class ToursController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_tour
-    @tour = Tour.find(params[:id])
+    @tour = Tour.find(params[:id].nil? ? params[:tour_id] : params[:id])
   end
 
   def set_story
