@@ -692,7 +692,7 @@ DEPENDENCIES
   pry
   puma (~> 5)
   rack (>= 2.2.3)
-  rails (~> 7.0.4, >= 7.0.4.3)
+  rails (~> 7.0.6, >= 7.0.4.3)
   rails-bootstrap-tabs (~> 0.3.2)
   rails-controller-testing
   rails-erd
