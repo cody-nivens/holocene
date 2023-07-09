@@ -1,6 +1,8 @@
 require "active_support"
 require "active_record"
-require 'rails/test_help'
+unless Rails.env.production?
+  require 'rails/test_help'
+end
 
 
 module CFRakeHelper
