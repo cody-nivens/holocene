@@ -75,7 +75,8 @@ class ArtifactTypesController < ApplicationController
     respond_to do |format|
 #      format.html { redirect_to book_artifact_types_url(@book), notice: 'Artifact type was successfully destroyed.' }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Artifact Type was successfully destroyed." }
+      flash.now[:now] = "Artifact Type was successfully destroyed."
+      format.turbo_stream { render "shared/destroy", locals: { object: ArtifactType.new } }
     end
   end
 

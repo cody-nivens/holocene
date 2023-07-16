@@ -156,7 +156,6 @@ gem 'rails-bootstrap-tabs', '~> 0.3.2'
 gem 'bootstrap-toggle-rails'
 #gem 'namey'
 gem 'acts_as_list'
-gem 'ranked-model', git: 'git@github.com:mixonic/ranked-model'
 gem 'chartkick'
 gem 'jdbc-mysql',      '~> 5.1.35', :platform => :jruby
 gem 'thinking-sphinx', '~> 5.3'

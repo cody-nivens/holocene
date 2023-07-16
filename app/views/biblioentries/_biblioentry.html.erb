@@ -29,6 +29,6 @@
   <%= @biblioentry.publisher %>
 </p>
 <% end -%>
-
+<% @footnotes = @biblioentry.footnotes %>
 <%= render 'footnotes/footnotes', footnotes: @biblioentry.footnotes, noted: @biblioentry %>
 

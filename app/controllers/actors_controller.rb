@@ -74,7 +74,8 @@ class ActorsController < ApplicationController
     respond_to do |format|
 #      format.html { redirect_to book_actors_url(@book), notice: "Actor was successfully destroyed." }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Actor was successfully destroyed." }
+      flash.now[:now] = "Actor was successfully destroyed."
+      format.turbo_stream { render "shared/destroy", locals: { object: Actor.new } }
     end
   end
 

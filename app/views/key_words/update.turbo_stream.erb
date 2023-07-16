@@ -1,4 +1,0 @@
-<%= turbo_stream.replace "#{dom_id @key_word}" do %>
-  <%= render partial: "key_words/key_word_item", locals: { key_word:  @key_word, book: @book } %>
-<% end %>
-<%= render partial: "shared/send_flash" %>

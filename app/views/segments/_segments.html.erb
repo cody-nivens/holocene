@@ -3,7 +3,7 @@
   <div class="col-sm-2">Scene</div>
   <div class="col-sm-2">Location Times</div>
 </div>
-<% segments.each do |segment| %>
+<% @segments.each do |segment| %>
   <turbo-frame id="<%= dom_id segment %>">
     <%= render partial: "segments/segment_item", locals: { segment: segment } %>
   </turbo-frame>

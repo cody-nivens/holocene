@@ -96,9 +96,7 @@ class AsidesController < ApplicationController
       format.html { redirect_to chapter_path(@chapter), notice: 'Aside was successfully destroyed.' }
       format.json { head :no_content }
       flash.now[:notice] = "Aside was successfully destroyed."
-      #format.turbo_stream { render 'shared/show', locals: { object: @chapter } }
-      flash.now[:notice] = "Aside was successfully destroyed."
-      format.turbo_stream { }
+      format.turbo_stream { render "shared/destroy", locals: { object: Aside.new } }
     end
   end
 

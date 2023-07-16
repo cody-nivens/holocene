@@ -6,7 +6,7 @@
     <strong>Stops</strong>
   </div>
 </div>
-<% tours.order(:position).each do |tour| %>
+<% @tours.order(:position).each do |tour| %>
   <turbo-frame id="<%= dom_id tour %>">
     <%= render partial: "tours/tour_item", locals: { tour: tour } %>
   </turbo-frame>

@@ -72,7 +72,8 @@ class LocationsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to book_locations_url(@book), notice: "Location was successfully destroyed." }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Location was successfully destroyed." }
+      flash.now[:now] = "Location was successfully destroyed."
+      format.turbo_stream { render "shared/destroy", locals: { object: Location.new } }
     end
   end
 

@@ -122,7 +122,8 @@ class SectionsController < ApplicationController
       if @sectioned.class.name == 'Chapter'
         @asides = @sectioned.asides
       end
-      format.turbo_stream { flash.now[:notice] = "Section was successfully destroyed." }
+      flash.now[:now] = "Section was successfully destroyed."
+      format.turbo_stream { render "shared/destroy", locals: { object: Section.new } }
     end
   end
 

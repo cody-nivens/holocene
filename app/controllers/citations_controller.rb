@@ -20,7 +20,7 @@ class CitationsController < ApplicationController
   def index
     do_index
     respond_to do |format|
-      format.turbo_stream { }
+      format.turbo_stream { render "citations/index", locals: { object: Footnote.new, objects: @citations } }
     end
   end
 
@@ -50,7 +50,7 @@ class CitationsController < ApplicationController
       flash.now[:notice] = "Citation was successfully updated."
       format.turbo_stream do
         do_index
-        render 'shared/index', locals: { object: Footnote.new, objects: @citations, no_new_link: true }
+        render "citations/index", locals: { object: Footnote.new, objects: @citations }
       end
     end
   end

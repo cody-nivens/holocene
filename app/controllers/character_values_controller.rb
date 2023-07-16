@@ -94,7 +94,8 @@ class CharacterValuesController < ApplicationController
                     notice: 'Character value was successfully destroyed.'
       end
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Character Value was successfully destroyed." }
+      flash.now[:now] = "Character Value was successfully destroyed."
+      format.turbo_stream { render "shared/destroy", locals: { object: CharacterValue.new } }
     end
   end
 

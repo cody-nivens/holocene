@@ -194,6 +194,7 @@ class StoriesController < ApplicationController
         $redis.set("book_scenes_#{@story.book.id}", nil)
         $redis.set("story_scenes_#{@story.id}", nil)
         #        format.html { redirect_to story_path(@story), notice: 'Story was successfully created.' }
+        @stories = Story.includes([:key_points]).where(book_id: @book.id).order(:position)
         format.json { render :show, status: :created, location: @story }
         format.turbo_stream { flash.now[:notice] = "Story was successfully created." }
       else
@@ -235,11 +236,14 @@ class StoriesController < ApplicationController
   def destroy
     $redis.set("book_scenes_#{@story.book.id}", nil)
     $redis.set("story_scenes_#{@story.id}", nil)
+    @book = @story.book
     @story.destroy
+    @stories = Story.includes([:key_points]).where(book_id: @book.id).order(:position)
     respond_to do |format|
       #      format.html { redirect_to book_stories_url(book_id: @book.id), notice: 'Story was successfully destroyed.' }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Story was successfully destroyed." }
+      flash.now[:now] = "Story was successfully destroyed."
+      format.turbo_stream { }
     end
   end
 

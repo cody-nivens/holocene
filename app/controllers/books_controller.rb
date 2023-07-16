@@ -332,7 +332,8 @@ class BooksController < ApplicationController
     respond_to do |format|
       #      format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Book was successfully destroyed." }
+      flash.now[:now] = "Book was successfully destroyed."
+      format.turbo_stream { render "shared/destroy", locals: { object: Book.new } }
     end
   end
 

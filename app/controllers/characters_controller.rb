@@ -206,8 +206,8 @@ class CharactersController < ApplicationController
     respond_to do |format|
       flash.now[:notice] = "Character was successfully destroyed."
       #      format.html { redirect_to polymorphic_url([@object, :characters]), notice: 'Character was successfully destroyed.' }
-      format.turbo_stream { }
       format.json { head :no_content }
+      format.turbo_stream { render "shared/destroy", locals: { object: Character.new } }
     end
   end
 

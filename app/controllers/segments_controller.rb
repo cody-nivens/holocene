@@ -89,7 +89,8 @@ class SegmentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to stage_segments_url(@stage), notice: "Segment was successfully destroyed." }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Segment was successfully destroyed." }
+      flash.now[:now] = "Segment was successfully destroyed."
+      format.turbo_stream { render "shared/destroy", locals: { object: Segment.new } }
     end
   end
 

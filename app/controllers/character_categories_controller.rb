@@ -91,7 +91,8 @@ class CharacterCategoriesController < ApplicationController
     respond_to do |format|
 #      format.html { redirect_to character_categories_url, notice: 'Character category was successfully destroyed.' }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Character Category was successfully destroyed." }
+      flash.now[:now] = "Character Category was successfully destroyed."
+      format.turbo_stream { render "shared/destroy", locals: { object: CharacterCategory.new } }
     end
   end
 

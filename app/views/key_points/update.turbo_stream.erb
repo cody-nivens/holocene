@@ -1,4 +1,0 @@
-<%= turbo_stream.replace "#{dom_id @key_point}" do %>
-  <%= render partial: "key_points/key_point_item", locals: { scripted: @key_point.scripted, key_point:  @key_point, long: @long, link: true } %>
-<% end %>
-<%= render partial: "shared/send_flash" %>

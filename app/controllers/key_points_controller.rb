@@ -192,7 +192,8 @@ class KeyPointsController < ApplicationController
       format.html do
         redirect_to polymorphic_url([@scripted, :key_points]), notice: 'Key point was successfully destroyed.'
       end
-      format.turbo_stream { flash.now[:notice] = "Key Point was successfully destroyed." }
+      flash.now[:now] = "Key Point was successfully destroyed."
+      format.turbo_stream { render "shared/destroy", locals: { object: KeyPoint.new } }
       format.json { head :no_content }
     end
   end

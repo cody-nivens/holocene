@@ -11,9 +11,9 @@ end
 Capybara.register_driver token do |app|
   options = Selenium::WebDriver::Chrome::Options.new
 
-unless ENV['NO_HEADLESS']
-  options.add_argument('--headless')
-end
+  unless ENV['NO_HEADLESS']
+    options.add_argument('--headless')
+  end
 
   options.add_argument('--no-sandbox')
   options.add_argument('--disable-gpu')
@@ -21,24 +21,35 @@ end
   options.add_argument('--window-size=1366,1900')
 
   options.add_preference(:download, directory_upgrade: true,
-                                      prompt_for_download: false,
-                                      default_directory: DOWNLOADS_PATH)
+                         prompt_for_download: false,
+                         default_directory: DOWNLOADS_PATH)
 
   #options.add_preference(:capabilities, Selenium::WebDriver::Remote::Capabilities.chrome(
-  options.add_preference(:capabilities, Selenium::WebDriver::Chrome::Options.new(
-        'chromeOptions' => {
-          'prefs' => {
-            'download.default_directory' => DOWNLOADS_PATH,
-            'download.prompt_for_download' => false,
-            'disable_screenshots' => true,
-            'plugins.plugins_disabled' => ['Chrome PDF Viewer']
-          }
-        }
-      )
-                          )
+#  options.add_preference(:capabilities, Selenium::WebDriver::Chrome::Options.new(
+#      'prefs' => {
+#        'download.default_directory' => DOWNLOADS_PATH,
+#        'download.prompt_for_download' => false,
+#        'disable_screenshots' => true,
+#        'plugins.plugins_disabled' => ['Chrome PDF Viewer']
+#    }
+#  )
+# )
+ options.add_preference('download.default_directory', DOWNLOADS_PATH)
+ options.add_preference(:download, default_directory: DOWNLOADS_PATH)
+#  options.add_preference(:capabilities, Selenium::WebDriver::Chrome::Options.new(
+#    'chromeOptions' => {
+#      'prefs' => {
+#        'download.default_directory' => DOWNLOADS_PATH,
+#        'download.prompt_for_download' => false,
+#        'disable_screenshots' => true,
+#        'plugins.plugins_disabled' => ['Chrome PDF Viewer']
+#      }
+#    }
+#  )
+#  )
   options.add_preference(:browser, set_download_behavior: { behavior: 'allow' })
 
-  service = Selenium::WebDriver::Service.chrome(args: { verbose: true, log_path: '/tmp/chromedriver.log' })
+  service = Selenium::WebDriver::Service.chrome(args: ["--verbose", '--log_path /tmp/chromedriver.log'])
   driver = Capybara::Selenium::Driver.new(app, browser: :chrome, service: service, options: options)
 
   bridge = driver.browser.send(:bridge)
@@ -47,10 +58,10 @@ end
   path[':session_id'] = bridge.session_id
 
   bridge.http.call(:post, path, cmd: 'Page.setDownloadBehavior',
-                                params: {
-                                  behavior: 'allow',
-                                  downloadPath: DOWNLOADS_PATH
-                                })
+                   params: {
+                     behavior: 'allow',
+                     downloadPath: DOWNLOADS_PATH
+                   })
 
   driver
 end
@@ -76,7 +87,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   def after_teardown
     super
-#    remove_uploaded_files
+    #    remove_uploaded_files
     errors = page.driver.browser.logs.get(:browser)
     if errors.present?
       errors.each do |error|

@@ -108,7 +108,8 @@ class CharacterAttributesController < ApplicationController
 #                    notice: 'Character attribute was successfully destroyed.'
 #      end
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Character Attribute was successfully destroyed." }
+      flash.now[:now] = "Character Attribute was successfully destroyed."
+      format.turbo_stream { render "shared/destroy", locals: { object: CharacterAttribute.new } }
     end
   end
 

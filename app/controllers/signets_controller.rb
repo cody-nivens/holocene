@@ -91,7 +91,8 @@ class SignetsController < ApplicationController
 #      format.html do
 #        redirect_to polymorphic_url([@sigged, :signets]), notice: 'Signet was successfully destroyed.'
 #      end
-      format.turbo_stream { flash.now[:notice] = "Signet was successfully destroyed." }
+      flash.now[:now] = "Signet was successfully destroyed."
+      format.turbo_stream { render "shared/destroy", locals: { object: Signet.new } }
       format.json { head :no_content }
     end
   end

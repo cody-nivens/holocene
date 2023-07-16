@@ -101,7 +101,8 @@ class FootnotesController < ApplicationController
 #                    notice: 'Footnote was successfully destroyed'
 #      end
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Footnote was successfully destroyed." }
+      flash.now[:now] = "Footnote was successfully destroyed."
+      format.turbo_stream { render "shared/destroy", locals: { object: Footnote.new } }
     end
   end
 

@@ -1,6 +1,0 @@
-<%= turbo_stream.replace "objects" do %>
-  <%= content_tag "turbo-frame", id: "sub_objects", class: "block" do %>
-    <%= render partial: "#{object.class.name.underscore.pluralize}/sub_objects", locals: { "#{object.class.name.underscore}": object } %>
-  <% end %>
-<% end %>
-<%= render partial: "shared/send_flash" %>

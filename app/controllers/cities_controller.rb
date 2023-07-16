@@ -145,7 +145,8 @@ class CitiesController < ApplicationController
     respond_to do |format|
 #      format.html { redirect_to cities_url, notice: 'City was successfully destroyed.' }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "City was successfully destroyed." }
+      flash.now[:now] = "City was successfully destroyed."
+      format.turbo_stream { render "shared/destroy", locals: { object: City.new } }
     end
   end
 

@@ -1,6 +1,0 @@
-<%= turbo_stream.replace "#{dom_id @book}" do %>
-  <%= content_tag "turbo-frame", id: "#{dom_id @book}", class: "block" do %>
-    <%= render partial: 'books/book', formats: [:html], locals: { book: @book, pdf: nil } %>
-  <% end %>
-<% end %>
-<%= render partial: "shared/send_flash" %>

@@ -4,7 +4,7 @@
   <div class="col-sm-2">Noted</div>
   <th colspan="2"></div>
 </div>
-<% footnotes.each do |footnote| %>
+<% @footnotes.each do |footnote| %>
   <turbo-frame id="<%= dom_id footnote %>">
     <%= render partial: 'footnotes/footnote_item', locals: { footnote: footnote } %>
   </turbo-frame>

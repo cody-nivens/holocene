@@ -132,7 +132,8 @@ class ItinerariesController < ApplicationController
     respond_to do |format|
 #      format.html { redirect_to tour_itineraries_url(@tour), notice: 'Itinerary was successfully destroyed.' }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:notice] = "Itinerary was successfully destroyed." }
+      flash.now[:now] = "Itinerary was successfully destroyed."
+      format.turbo_stream { render "shared/destroy", locals: { object: Itinerary.new } }
     end
   end
 

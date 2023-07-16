@@ -1,4 +1,0 @@
-<%= turbo_stream.replace "#{dom_id @character_category}" do %>
-  <%= render partial: "character_categories/character_category_item", locals: { character_category:  @character_category } %>
-<% end %>
-<%= render partial: "shared/send_flash" %>

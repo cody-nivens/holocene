@@ -190,7 +190,8 @@ class StagesController < ApplicationController
     respond_to do |format|
 #      format.html { redirect_to act_stages_url(@act), notice: "Stage was successfully destroyed." }
       format.json { head :no_content }
-        format.turbo_stream { flash.now[:notice] = "Stage was successfully destroyed." }
+        flash.now[:now] = "Stage was successfully destroyed."
+      format.turbo_stream { render "shared/destroy", locals: { object: Stage.new } }
     end
   end
 

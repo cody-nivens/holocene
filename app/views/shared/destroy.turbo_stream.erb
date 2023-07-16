@@ -1,0 +1,9 @@
+<% object_name ||= object.class.name.underscore %>
+<% part ||= object_name %>
+<% path_name ||= object_name.pluralize %>
+<%= turbo_stream.replace "objects" do %>
+  <%= content_tag "turbo-frame", class: "block", id: "objects" do %>
+    <%== render partial: "#{path_name}/#{path_name}" %>
+  <% end %>
+<% end %>
+<%= render partial: "shared/send_flash" %>

@@ -1,4 +1,0 @@
-<%= turbo_stream.replace "#{dom_id @biblioentry}" do %>
-  <%= render partial: "biblioentries/biblioentry_item", locals: { biblioentry:  @biblioentry } %>
-<% end %>
-<%= render partial: "shared/send_flash" %>
