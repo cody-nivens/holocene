@@ -11,6 +11,102 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
   end
 
+  test 'should not create book' do
+    assert_difference('Book.count', 0) do
+      post books_url, params: { book: { body: @book.body, name: '', user_id: @user.id } }
+    end
+
+    assert_response :success
+  end
+
+  test 'should get edit' do
+    get edit_book_url(@book)
+    assert_response :success
+  end
+
+  test 'should get new' do
+    get new_book_url
+    assert_select "turbo-frame", id: "new_object"
+    assert_response :success
+  end
+
+  test 'should show book TS 2' do
+    get book_url(@book, format: :turbo_stream)
+
+    assert_select "turbo-frame", id:  "#{dom_id @book}"
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
+    assert_response :success
+  end
+
+  test 'should show book index TS' do
+    get books_url(format: :turbo_stream)
+
+    assert_select "turbo-frame", id:  "new_object"
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "nav-bar"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "header"
+    assert_turbo_stream action: :replace, target: "side_controls"
+
+    assert_response :success
+  end
+
+  test "should show book TS" do
+    get book_url(@book, format: :turbo_stream)
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_response :success
+  end
+
+  test "should report book TS" do
+    [ "books/stats", "books/scenes"].each do |report|
+      get book_report_url(@book, format: :turbo_stream),
+        params: { report: report }
+
+      assert_turbo_stream action: :replace, target: "objects"
+      assert_turbo_stream action: :replace, target: "side_controls"
+
+      assert_response :success
+    end
+  end
+
+  test "should create book TS" do
+    assert_difference('Book.count') do
+      post books_url(format: :turbo_stream), params: { book: { body: @book.body, name: @book.name, user_id: @user.id } }
+    end
+    
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "new_object"
+    assert_turbo_stream action: :replace, target: "objects"
+    #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
+    #  assert_equal "<template>message_1</template>", selected.children.to_html
+    #end
+    assert_response :success
+  end
+
+  test "should update book TS" do
+    patch book_url(@book, format: :turbo_stream), params: { book: { body: @book.body, name: @book.name, user_id: @user.id } }
+    
+    assert_no_turbo_stream action: :update, target: "messages"
+    assert_turbo_stream action: :replace, target: "#{dom_id @book}"
+    #assert_turbo_stream action: :replace, target: "nav-bar"
+    #assert_turbo_stream action: :replace, target: "new_object"
+    #assert_turbo_stream action: :replace, target: "header"
+    #assert_turbo_stream action: :replace, target: "side_controls"
+    assert_response :success
+  end
+
+  test "should destroy book TS" do
+    assert_difference('Book.count', -1) do
+      delete book_url(@book, format: :turbo_stream)
+    end
+
+    assert_turbo_stream action: :replace, target: "objects"
+    assert_response :success
+  end
+
 if 1 == 0
   test 'should sort books' do
     patch book_sort_url(book_id: @book_2.id), xhr: true, params: { book: { id: @book_2.id, user_id: @book_2.user_id } }
@@ -48,14 +144,6 @@ if 1 == 0
     end
 
     assert_redirected_to book_url(Book.last)
-  end
-
-  test 'should not create book' do
-    assert_difference('Book.count', 0) do
-      post books_url, params: { book: { body: @book.body, name: '', user_id: @user.id } }
-    end
-
-    assert_response :success
   end
 
   test 'should publish all stories' do
@@ -155,94 +243,4 @@ if 1 == 0
     end
   end
 end
-
-
-  test 'should get edit' do
-    get edit_book_url(@book)
-    assert_response :success
-  end
-
-  test 'should get new' do
-    get new_book_url
-    assert_select "turbo-frame", id: "new_object"
-    assert_response :success
-  end
-
-  test 'should show book TS 2' do
-    get book_url(@book, format: :turbo_stream)
-
-    assert_select "turbo-frame", id:  "#{dom_id @book}"
-    assert_turbo_stream action: :replace, target: "objects"
-    assert_turbo_stream action: :replace, target: "side_controls"
-
-    assert_response :success
-  end
-
-  test 'should show book index TS' do
-    get books_url(format: :turbo_stream)
-
-    assert_select "turbo-frame", id:  "new_object"
-    assert_turbo_stream action: :replace, target: "objects"
-    assert_turbo_stream action: :replace, target: "nav-bar"
-    assert_turbo_stream action: :replace, target: "new_object"
-    assert_turbo_stream action: :replace, target: "header"
-    assert_turbo_stream action: :replace, target: "side_controls"
-
-    assert_response :success
-  end
-
-  test "should show book TS" do
-    get book_url(@book, format: :turbo_stream)
-
-    assert_turbo_stream action: :replace, target: "objects"
-    assert_response :success
-  end
-
-  test "should report book TS" do
-    [ "books/stats", "books/scenes"].each do |report|
-      get book_report_url(@book, format: :turbo_stream),
-        params: { report: report }
-
-      assert_turbo_stream action: :replace, target: "objects"
-      assert_turbo_stream action: :replace, target: "side_controls"
-
-      assert_response :success
-    end
-  end
-
-  test "should create book TS" do
-    assert_difference('Book.count') do
-      post books_url(format: :turbo_stream), params: { book: { body: @book.body, name: @book.name, user_id: @user.id } }
-    end
-    
-    assert_no_turbo_stream action: :update, target: "messages"
-    assert_turbo_stream action: :replace, target: "new_object"
-    assert_turbo_stream action: :replace, target: "objects"
-    #assert_turbo_stream status: :created, action: :append, target: "messages" do |selected|
-    #  assert_equal "<template>message_1</template>", selected.children.to_html
-    #end
-    assert_response :success
-  end
-
-  test "should update book TS" do
-    patch book_url(@book, format: :turbo_stream), params: { book: { body: @book.body, name: @book.name, user_id: @user.id } }
-    
-    assert_no_turbo_stream action: :update, target: "messages"
-    assert_turbo_stream action: :replace, target: "#{dom_id @book}"
-    #assert_turbo_stream action: :replace, target: "nav-bar"
-    #assert_turbo_stream action: :replace, target: "new_object"
-    #assert_turbo_stream action: :replace, target: "header"
-    #assert_turbo_stream action: :replace, target: "side_controls"
-    assert_response :success
-  end
-
-  test "should destroy book TS" do
-    assert_difference('Book.count', -1) do
-      delete book_url(@book, format: :turbo_stream)
-    end
-
-    assert_turbo_stream action: :replace, target: "objects"
-    assert_response :success
-  end
-
 end

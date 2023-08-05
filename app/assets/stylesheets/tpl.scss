@@ -752,4 +752,9 @@ div#side_controls {
 #stage-text {
  height: 700px;
 }
-
+div.row-striped:nth-of-type(odd){
+  background-color: #efefef;
+}
+div.row-striped:nth-of-type(even){
+  background-color: #ffffff;
+}

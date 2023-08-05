@@ -1,5 +1,7 @@
 <div data-controller="jvectormap"
-     data-jvectormap-url-value="<%= polymorphic_path([@object, :map_locs]) %>">
-     <div id="world-map" style="width: 100%; height: 600px"></div>
+     data-jvectormap-url-value="<%= polymorphic_path([@object, :map_locs]) %>"
+     data-jvectormap-mapname-value="jvectormap"
+     data-jvectormap-options-value="<%= map_options(@object).to_json %>"
+     >
+     <div id="jvectormap" style="width: 100%; height: 600px"></div>
 </div>
-

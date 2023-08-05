@@ -33,24 +33,18 @@
 <% end %>
 
 <% pdf ||= nil %>
+    <div class="card">
+      <div class="card-body">
+        <%= @story.summary_body %>
+      </div>
+    </div>
+
 <%= tabs do |c| %>
 
   <% c.tab 'Key Points' do %>
     <turbo-frame id="sub_objects">
       <%= render partial: 'key_points/key_points', formats: [:html] %>
     </turbo-frame>
-  <% end %>
-
-  <% c.tab 'Summary' do %>
-    <span>
-      <div class='container-fluid'>
-        <div class='row'>
-          <div class='col-sm-12'>
-            <%= @story.summary_body %>
-          </div>
-        </div>
-      </div>
-    </span>
   <% end %>
 
   <% c.tab 'Characters' do %>

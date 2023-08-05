@@ -2,6 +2,8 @@ require 'test_helper'
 
 Capybara.default_max_wait_time = 30
 
+Webdrivers::Chromedriver.required_version = '114.0.5735.90'
+
 DOWNLOADS_PATH = File.expand_path(File.join(Rails.root, 'tmp', 'downloads'))
 if ENV['NO_HEADLESS']
   token = :selenium

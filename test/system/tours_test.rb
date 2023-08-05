@@ -98,7 +98,7 @@ class ToursTest < ApplicationSystemTestCase
 
     assert_side 'map', 'Tour', 'map'
     click_side 'map'
-    assert_selector '#world-map'
+    assert_selector '#jvectormap'
     assert_current_path root_url
     assert_side 'backward', 'Tour', 'backward'
     click_side 'backward'

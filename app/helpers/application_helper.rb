@@ -20,6 +20,23 @@ module ApplicationHelper
     end
   end
 
+  def map_options(object)
+    {
+      map: 'world_mill_en',
+      scaleColors: ['#C8EEFF', '#0071A4'],
+      normalizeFunction: 'polynomial',
+      hoverOpacity: 0.7,
+      hoverColor: false,
+      markerStyle: {
+        initial: {
+          fill: '#F8E23B',
+          stroke: '#383f47'
+        }
+      },
+      backgroundColor: '#383f47'
+    }
+  end
+
   def scenes_list_ul(provider,object)
     s = "<ul>"
     scenes_ids = Scene.get_scenes_to_array(object)
