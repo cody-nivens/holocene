@@ -25,6 +25,6 @@
                                                                           word_count: word_count, scene_count: scene_count, word_avg: word_avg } %>
   </turbo-frame>
 <% end %>
- <% if all.kind_of?(TrueClass) or all == "true" %>
+ <% if @short.kind_of?(FalseClass) and @short != "true" and (all.kind_of?(TrueClass) or all == "true") %>
    <%= link_to (fa_icon 'backward', class: 'fa-fw'),  book_path(@book), method: :get,  class: 'btn', title: 'Back' %>
 <% end %>

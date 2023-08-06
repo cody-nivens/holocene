@@ -1,5 +1,5 @@
 <% all ||= nil %>
-<% if long.kind_of?(TrueClass) or long == "true" %>
+<% if @long.kind_of?(TrueClass) or @long == "true" %>
   <% scene_count = story.scene_count %>
   <% section_count = story.section_count %>
 
@@ -15,16 +15,16 @@
   </div>
   <div class="col-sm-3">
     <%= story.scene_character %>
-    <%= long ? link_to(story.title, story_path(story, long: long), method: :get) : link_to(story.title, story_path(story), method: :get) %>
+    <%= @long ? link_to(story.title, story_path(story, long: @long), method: :get) : link_to(story.title, story_path(story), method: :get) %>
   </div>
   <div class="col-sm-1">
-    <%= link_to (fa_icon 'edit'), edit_story_path(story, long: long), title: 'Edit' %>
+    <%= link_to (fa_icon 'edit'), edit_story_path(story, short: true, long: @long), title: 'Edit' %>
     <%= link_to (fa_icon 'trash'), story_path(story), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Destroy' %>
   </div>
   <div class="col-sm-1 text-end">
     <%== story.title_page? ? WordsCounted.count(story.summary_body.to_plain_text).token_count : '&nbsp;' %>
   </div>
-<% if long.kind_of?(TrueClass) or long == "true" %>
+<% if @long.kind_of?(TrueClass) or @long == "true" %>
     <div class="col-sm-1 ">
       <%= render partial: 'shared/progress_bar', locals: { items: items2 } %>
     </div>

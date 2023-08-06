@@ -176,7 +176,7 @@ class ScenesController < ApplicationController
     @long = false
 
     @scene.book = @key_point.scripted.book
-    @scene.date_string = '%04d' % params['t']['years'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i + '-%02d' % params['t']['hour'].to_i + '-%02d' % params['t']['minute'].to_i
+    @scene.date_string = '%04d' % params['t']['year'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i + '-%02d' % params['t']['hour'].to_i + '-%02d' % params['t']['minute'].to_i
 
     @option = params[:option]
     @long = params[:option]
@@ -200,7 +200,7 @@ class ScenesController < ApplicationController
   # PATCH/PUT /scenes/1.json
   def update
     @short = params[:short]
-    @scene.date_string = '%04d' % params['t']['years'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i + '-%02d' % params['t']['hour'].to_i + '-%02d' % params['t']['minute'].to_i
+    @scene.date_string = '%04d' % params['t']['year'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i + '-%02d' % params['t']['hour'].to_i + '-%02d' % params['t']['minute'].to_i
     @situated = @scene.situated
     @option = params[:option]
     @long = params[:option]
