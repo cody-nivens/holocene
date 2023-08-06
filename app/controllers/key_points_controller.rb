@@ -10,13 +10,12 @@ class KeyPointsController < ApplicationController
 
     if request.xhr?
       respond_to do |format|
-        format.json {
-          render json: {key_points: @key_points }
-        }
+        format.json { render json: { key_points: @key_points } }
       end
-    end
-    respond_to do |format|
-      format.turbo_stream { render "shared/index", locals: { object: KeyPoint.new, objects: @key_points } }
+    else
+      respond_to do |format|
+        format.turbo_stream { render "shared/index", locals: { object: KeyPoint.new, objects: @key_points } }
+      end
     end
   end
 
