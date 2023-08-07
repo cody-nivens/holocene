@@ -11,6 +11,10 @@
 <% @notes = {} -%>
 
 <% if book.is_fiction? %>
+  <% wc_total = 0 %>
+  <% @scenes.each do |scene| %>
+    <% wc_total += scene.word_count %>
+  <% end %>
   <% total_wc = 0 %>
   <% @scenes.each do |scene| %>
     <% if scene.title_scene and scene.situated.title_page? %>
@@ -29,7 +33,7 @@
       <div style="display:block; clear:both; page-break-after:always;"></div>
     <% end %>
     <% total_wc += scene.word_count %>
-    <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: @outline, pdf: @pdf, long: @long, total_wc: total_wc } %>
+    <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: @outline, pdf: @pdf, long: @long, total_wc: total_wc, wc_total: wc_total } %>
   <% end %>
 
 <% else %>

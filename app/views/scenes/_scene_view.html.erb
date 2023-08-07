@@ -1,12 +1,14 @@
-<% total_wc ||= 0 %>
-<% wc_total ||= 0 %>
-  <div class="row row-striped">
-    <div class="col-sm-12">
-<table style="width: 100%"><tbody>
-<%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: pdf , print_name: false, inline_date: false, long: long, total_wc: total_wc, wc_total: wc_total } %>
-  </tbody></table>
-    </div>
+<%# total_wc ||= 0 %>
+<%# wc_total ||= 0 %>
+<div class="row row-striped">
+  <div class="col-sm-12">
+    <table style="width: 100%">
+        <tbody>
+        <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: pdf , print_name: false, inline_date: false, long: long, total_wc: total_wc, wc_total: wc_total } %>
+        </tbody>
+    </table>
   </div>
+</div>
 <% unless pdf.nil? %>
   <br>
 <% end %>
@@ -14,7 +16,7 @@
   <div class="row row-striped">
     <div class="col-sm-1"></div>
     <div class="col-sm-10">
-  <%= scene.summary %>
+      <%= scene.summary %>
     </div>
   </div>
 <% end%>
