@@ -13,4 +13,8 @@
 <% else %>
   <%= link_to (fa_icon 'sort', class: 'fa-fw'), chapters_sort_path(@book), class: 'btn', title: 'Sort', method: :get %>
 <% end %>
-<%= link_to (fa_icon 'backward', class: 'fa-fw'),  books_path, method: :get, class: 'btn', title: 'Back' %>
+<% if controller.action_name == 'view' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  @book, method: :get, class: 'btn', title: 'Back' %>
+<% else %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),  books_path, method: :get, class: 'btn', title: 'Back' %>
+<% end %>

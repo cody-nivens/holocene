@@ -29,14 +29,15 @@ class ScenesController < ApplicationController
     end
 
     unless params[:low_wc].blank?
-      session[:wc_low] = @low_wc = params[:low_wc]
+      current_user.user_datum.wc_low = @low_wc = params[:low_wc]
     end
     unless params[:mid_wc].blank?
-      session[:wc_mid] = @mid_wc = params[:mid_wc]
+      current_user.user_datum.wc_mid = @mid_wc = params[:mid_wc]
     end
     unless params[:better_wc].blank?
-      session[:wc_better] = @better_wc = params[:better_wc]
+      current_user.user_datum.wc_better = @better_wc = params[:better_wc]
     end
+    current_user.user_datum.save if current_user.user_datum.changed?
 
     @year = params[:year]
     @years = []

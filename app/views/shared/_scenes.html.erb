@@ -12,7 +12,11 @@
       <%# scene = Scene.find(scene_id) %>
       <% case op %>
       <% when 'words' %>
-        <% next unless scene.section.nil? or (scene.section.word_count <= high.to_i and scene.section.word_count > low.to_i) %>
+        <% next if scene.section.nil? and option != 'low_word_count' and low.to_i > 0 %>
+        <% next if !scene.section.nil? and (
+                   (option == 'mid_word_count' and (scene.section.word_count >= high.to_i or scene.section.word_count < low.to_i)) or
+                   (option == 'better_word_count' and scene.section.word_count <= high.to_i) or
+                   (option == 'low_word_count' and scene.section.word_count > low.to_i)) %>
         <%= render partial: 'scenes/scene_title', formats: [:html], locals: { scene: scene, scripted: scene.key_point.scripted, key_point: scene.key_point, pdf: pdf, target: :_blank, long: long } %>
       <% when 'chars' %>
         <% next if scene.characters.size > 0 %>
@@ -22,6 +26,7 @@
         <% next if option == "only_section" && scene.section.nil? %>
         <% next if option == "checked" && !scene.check? %>
         <% next if option == "not_checked" && scene.check? %>
+
         <% if toggle == "on" %>
           <tr>
             <td class="text-wrap" style="width: 5%">

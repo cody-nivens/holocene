@@ -5,6 +5,7 @@ import { get, post, put, patch, destroy } from '@rails/request.js'
 export default class extends Controller {
 	static targets = [ 'toggle', 'situated_type', 'situated_id',
 	'long', 'print', 'year', 'low_word_count', 'mid_word_count',
+	'low_wc', 'mid_wc', 'better_wc',
 	'better_word_count' ]
   connect() {
   }
@@ -25,6 +26,9 @@ export default class extends Controller {
 		long: this.longTarget.checked,
 		print: this.printTarget.checked,
 		year: this.yearTarget.value,
+		low_wc: this.low_wcTarget.value,
+		mid_wc: this.mid_wcTarget.value,
+		better_wc: this.better_wcTarget.value,
 		option: option_value,
 		better_word_count: this.better_word_countTarget.checked,
 		mid_word_count: this.mid_word_countTarget.checked,
