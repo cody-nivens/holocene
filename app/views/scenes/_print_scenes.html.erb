@@ -16,7 +16,7 @@
             <% insert_scenes.each do |iscene| %>
               <% next unless iscene.key_point.scripted.publish? %>
               <% inserted_scenes << iscene.id %>
-              <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: iscene, outline: outline, pdf: pdf, long: long} %>
+              <%= render partial: 'scenes/scene_item', formats: [:html], locals: { scene: iscene, outline: outline, pdf: pdf, long: long} %>
             <% end %>
             <% if scene.title_scene and scene.situated.title_page? %>
               <div style="display:block; clear:both; page-break-after:always;"></div>
@@ -31,7 +31,7 @@
               <% end %>
             <% end %>
 
-            <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: outline, pdf: pdf, long: long} %>
+            <%= render partial: 'scenes/scene_item', formats: [:html], locals: { scene: scene, outline: outline, pdf: pdf, long: long} %>
           <% end %>
         <% end %>
       <% end %>

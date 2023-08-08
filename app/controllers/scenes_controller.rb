@@ -204,7 +204,7 @@ class ScenesController < ApplicationController
     @scene.date_string = '%04d' % params['t']['year'].to_i + '-%02d' % params['t']['month'].to_i + '-%02d' % params['t']['day'].to_i + '-%02d' % params['t']['hour'].to_i + '-%02d' % params['t']['minute'].to_i
     @situated = @scene.situated
     @option = params[:option]
-    @long = params[:option]
+    @long = params[:long]
 
     respond_to do |format|
       if @scene.update(scene_params)
@@ -213,8 +213,8 @@ class ScenesController < ApplicationController
 #        format.html { redirect_to scene_path(@scene), notice: 'Scene was successfully updated.' }
         format.json { render :show, status: :ok, location: @scene }
         flash.now[:notice] = "Scene was successfully updated."
-        format.turbo_stream { render "shared/show", locals: { object: @scene, no_new_link: true  } }
-        #format.turbo_stream { render "shared/update", locals: { object: @scene, short: @short } }
+        #format.turbo_stream { render "shared/show", locals: { object: @scene, no_new_link: true  } }
+        format.turbo_stream { render "shared/update", locals: { object: @scene, short: @short } }
       else
         format.html { render :edit, situated_type: @situated.class.name, situated_id: @situated.id }
         format.json { render json: @scene.errors, status: :unprocessable_entity }

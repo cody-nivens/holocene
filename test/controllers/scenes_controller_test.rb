@@ -223,7 +223,7 @@ end
                                                                        t: { t_years: '0099', t_month: '02', t_day: '15', t_hour: '08', t_minute: '30' },
                                                               session: { book_id: @scene.book.id } }
 
-    assert_turbo_stream action: :replace, target: "objects"
+    assert_turbo_stream action: :replace, target: "#{dom_id @scene}"
     assert_no_turbo_stream action: :update, target: "messages"
     assert_response :success
   end

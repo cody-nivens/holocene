@@ -72,6 +72,8 @@
         <%=  number_with_delimiter(total_wc, :delimiter => ',') %>
       <% end %>
     </td>
+    <td><%= link_to (fa_icon 'edit', class: 'fa-fw'), edit_scene_path(scene, short: true), title: 'Edit' %>
+    </td>
     <% if print_name %>
   </tr><tr><td></td><td colspan="7"><%= (short_labels ? scene.name : scene.plain_name) %></td>
   <% end %>

@@ -33,7 +33,7 @@
       <div style="display:block; clear:both; page-break-after:always;"></div>
     <% end %>
     <% total_wc += scene.word_count %>
-    <%= render partial: 'scenes/scene_view', formats: [:html], locals: { scene: scene, outline: @outline, pdf: @pdf, long: @long, total_wc: total_wc, wc_total: wc_total } %>
+    <%= render partial: 'scenes/scene_item', formats: [:html], locals: { scene: scene, outline: @outline, pdf: @pdf, long: @long, total_wc: total_wc, wc_total: wc_total } %>
   <% end %>
 
 <% else %>
