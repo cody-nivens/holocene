@@ -24,7 +24,8 @@
 # Pagy::VARS[:page_param] = :page                           # default
 # Pagy::VARS[:params]     = {}                              # default
 # Pagy::VARS[:fragment]   = '#fragment'                     # example
-# Pagy::VARS[:link_extra] = 'data-remote="true"'            # example
+# Pagy::VARS[:link_extra] = 'data-method="get"'
+Pagy::DEFAULT[:link_extra] = 'data-method="get"'
 # Pagy::VARS[:i18n_key]   = 'pagy.item_name'                # default
 # Pagy::VARS[:cycle]      = true                            # example
 

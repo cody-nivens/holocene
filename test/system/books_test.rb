@@ -142,7 +142,7 @@ class BooksTest < ApplicationSystemTestCase
     assert_no_text "Content missing"
     assert_text 'Section was successfully updated'
 
-    assert_no_text 'Display name'
+    assert_no_text 'Word Count'
     assert_text 'Deeply the stormy mists'
   end
 

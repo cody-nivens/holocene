@@ -103,7 +103,7 @@ class SectionsController < ApplicationController
         obj_name = @section.sectioned.class.name.underscore
         self.instance_variable_set("@#{obj_name}", @sectioned)
         #format.turbo_stream { render "shared/show", locals: { object: @section.sectioned } }
-        format.turbo_stream { render "shared/update", locals: { object: @section, short: @short } }
+        format.turbo_stream { render "shared/update", locals: { object: @section.sectioned, short: @short } }
       else
         format.turbo_stream { render :edit, locals: { object: @section } }
       end
