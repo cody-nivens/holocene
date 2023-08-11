@@ -18,7 +18,7 @@ class PagesController < ApplicationController
 
   # GET /pages/about/view
   def view
-    @page = Page.where(slug: params[:slug], user_id: current_user.id)[0]
+    @page = Page.where(slug: params[:slug])[0]
     respond_to do |format|
       format.turbo_stream { render "shared/show", locals: { object: @page, part: 'view', no_new_link: true } }
     end
