@@ -4,6 +4,9 @@ require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
+  resources :pages
+  get '/pages/:slug/view', to: 'pages#view', as: :page_view
+
   mount Sidekiq::Web => '/sidekiq'
 
   get '/character_categories/sort', to: 'character_categories#sort', as: :character_categories_sort

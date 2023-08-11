@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+page_1:
+  name: About
+  user: :users_1
+  slug: about
+
+page_2:
+  name: Help
+  user: :users_1
+  slug: help

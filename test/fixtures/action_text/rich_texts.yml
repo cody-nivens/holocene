@@ -101,6 +101,15 @@ rich_text_26:
   record: section_16 (Section)
   name: body
   body: A dog begged for food
+rich_text_27:
+  record: page_1 (Page)
+  name: body
+  body: Siggies Tour Guide.
+rich_text_28:
+  record: page_2 (Page)
+  name: body
+  body: Help is coming.
+    
 
 <% i = 30 %>
 rich_text_<%= i %>:

@@ -31,6 +31,7 @@ class User < ApplicationRecord
   has_many :section
   has_many :timeline
   has_many :character
+  has_many :pages
 
   def assign_default_role
     add_role(:newuser) if roles.blank?

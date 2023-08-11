@@ -112,7 +112,7 @@ module HoloceneMinitests
     setup_page_menu master, object, debug: debug
     p "Page menu setup for #{master}: #{object}" if debug
 
-    if ['Progress', 'Tags', 'History', 'Cities', 'Epochs', 'Event Types', 'Regions', 'Timelines',
+    if ['Pages', 'Progress', 'Tags', 'History', 'Cities', 'Epochs', 'Event Types', 'Regions', 'Timelines',
         'Books', 'Character Categories'].include?(object) or
       (master == 'Welcome' and object == 'Stats') or (master == 'Support' and object == 'Holocene Events')
       assert_no_side 'backward', master, object, debug: debug
@@ -432,7 +432,7 @@ module HoloceneMinitests
     end
 
     p "Deleted #{object} on #{master}" if debug
-    unless ['Timelines', 'Regions', 'Cities', 'Holocene Events', 'Character Categories', 'Epochs', 'Event Types'].include?(object)
+    unless ['Pages', 'Timelines', 'Regions', 'Cities', 'Holocene Events', 'Character Categories', 'Epochs', 'Event Types'].include?(object)
       assert_side 'backward', master, object
       click_side 'backward'
     end

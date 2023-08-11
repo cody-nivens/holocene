@@ -1,0 +1,7 @@
+<div id="pages">
+  <% @pages.each do |page| %>
+    <turbo-frame id="<%= dom_id page %>">
+      <%= render "pages/page_item", page: page %>
+    </turbo-frame>
+  <% end %>
+</div>

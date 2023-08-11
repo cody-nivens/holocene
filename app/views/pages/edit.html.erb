@@ -1,0 +1,6 @@
+<h1>Editing page</h1>
+
+<turbo-frame id="<%= dom_id @page %>">
+  <%= render "form", page: @page %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'),   pages_path, method: :get, class: 'btn', title: 'Back' %>
+</turbo-frame>
