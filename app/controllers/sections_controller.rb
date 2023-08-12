@@ -1,6 +1,6 @@
 class SectionsController < ApplicationController
   before_action :set_section, only: %i[map_locs geo_map timeline grid_params show edit update destroy]
-  before_action :set_sectioned, only: %i[sort index new]
+  before_action :set_sectioned, only: %i[index new]
 
   def index
     @sections = @sectioned.sections.includes([:rich_text_body]).order(:position)
@@ -16,6 +16,7 @@ class SectionsController < ApplicationController
       @section.save
       render body: nil
     else
+      set_sectioned
       @sections = @sectioned.sections.order(:position)
       respond_to do |format|
         format.turbo_stream { render "shared/sort", locals: { return_path: @sectioned, link_object: @sectioned, object: Section.new, objects: @sections } }
@@ -137,7 +138,7 @@ class SectionsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_sectioned
     @klass = [Chapter, Scene].detect { |c| params["#{c.name.underscore}_id"] }
-    @sectioned = @klass.find((params[:section].nil? || params[:section][:sectioned_id].empty? ? params["#{@klass.name.underscore}_id"] : params[:section][:sectioned_id]))
+    @sectioned = @klass.find((params[:section].nil? || params[:section][:sectioned_id].blank? ? (@klass.nil? ? @section.sectioned : params["#{@klass.name.underscore}_id"]) : params[:section][:sectioned_id]))
   end
 
   def update_metrics

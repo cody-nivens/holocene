@@ -51,7 +51,7 @@ class AsidesController < ApplicationController
 
     respond_to do |format|
       if @aside.save
-        @asides = Aside.all.includes([:rich_text_body])
+        @asides = @chapter.asides.includes([:rich_text_body])
         format.html { redirect_to chapter_path(@chapter), notice: 'Aside was successfully created.' }
         format.json { render :show, status: :created, location: @aside }
         #format.turbo_stream { render 'shared/show', locals: { object: @chapter } }

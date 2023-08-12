@@ -43,34 +43,37 @@
 
   <% unless @outline.kind_of?(TrueClass) or @outline == "true" %>
     <div style="display:block; clear:both; page-break-after:always;"></div>
-    <h2>Citations</h2>
-
-    <% @slugs = [] %>
-    <% @chapters.includes([:rich_text_body]).order(:position).each do |chapter| -%>
-      <% unless chapter.citations.size == 0 && chapter.holocene_events.size == %>
-        <h3><%== chapter.name %></h3>
-      <% end -%>
-      <% unless chapter.citations.size == 0 -%>
-        <%== render 'footnotes/citations', formats: [:html], slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: false %>
-      <% end -%>
-
+    <% if 1 == 0 %>
+      <h2>Citations</h2>
 
       <% @slugs = [] %>
-      <% @notes = {} -%>
-      <% @footnotes = ['', [], 1] %>
-      <% unless chapter.holocene_events.size == 0 or chapter.always_display_events? -%>
-        <%== render 'holocene_events/index', formats: [:html], holocene_events: chapter.holocene_events.order(:start_year), chapter: chapter, links: false, epub: true, short: true, slugs: @slugs %>
-        <% unless @slugs.size == 0 -%>
-          <%== Footnote.write_footnotes(@slugs) -%>
+      <% @chapters.includes([:rich_text_body]).order(:position).each do |chapter| -%>
+        <% unless chapter.citations.size == 0 && chapter.holocene_events.size == %>
+          <h3><%== chapter.name %></h3>
+        <% end -%>
+        <% unless chapter.citations.size == 0 -%>
+          <%== render 'footnotes/citations', formats: [:html], slugs: @slugs, footnotes: chapter.citations, chapter: chapter, links: false %>
+        <% end -%>
+
+        <% @slugs = [] %>
+        <% @notes = {} -%>
+        <% @footnotes = ['', [], 1] %>
+        <% unless chapter.holocene_events.size == 0 or chapter.always_display_events? -%>
+          <%== render 'holocene_events/index', formats: [:html], holocene_events: chapter.holocene_events.order(:start_year), chapter: chapter, links: false, epub: true, short: true, slugs: @slugs %>
+          <% unless @slugs.size == 0 -%>
+            <%== Footnote.write_footnotes(@slugs) -%>
+          <% end -%>
         <% end -%>
       <% end -%>
     <% end -%>
 
-    <% unless HoloceneEvent.where(user_id: current_user.id).size == 0 -%>
-      <h3>Holocene Events</h3>
-      <%== render 'holocene_events/index', formats: [:html], holocene_events: HoloceneEvent.where(user_id: current_user.id).order(:start_year), chapter: nil, links: false, epub: true, short: false, slugs: @slugs %>
-      <% unless @slugs.size == 0 -%>
-        <%== Footnote.write_footnotes(@slugs) -%>
+    <% if 1 == 0 %>
+      <% unless HoloceneEvent.where(user_id: current_user.id).size == 0 -%>
+        <h3>Holocene Events</h3>
+        <%== render 'holocene_events/index', formats: [:html], holocene_events: HoloceneEvent.where(user_id: current_user.id).order(:start_year), chapter: nil, links: false, epub: true, short: false, slugs: @slugs %>
+        <% unless @slugs.size == 0 -%>
+          <%== Footnote.write_footnotes(@slugs) -%>
+        <% end -%>
       <% end -%>
     <% end -%>
     <% unless book.glossary_terms.size == 0 -%>
