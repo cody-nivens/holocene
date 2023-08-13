@@ -703,6 +703,7 @@ DEPENDENCIES
   rubocop-minitest
   rubocop-rails
   ruby-graphviz
+  ruby-vips
   sass-rails
   selenium-webdriver
   sidekiq (>= 6.2.1)
