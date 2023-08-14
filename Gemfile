@@ -142,7 +142,7 @@ gem 'bootstrap-sass'
 gem 'simple_form'
 gem 'wicked_pdf'
 gem 'gepub'
-gem 'wkhtmltopdf-binary', '0.12.4'
+gem 'wkhtmltopdf-binary', '~> 0.12.6.5'  #, '~> 0.12.4'
 gem 'bootstrap_form', '>= 4.0.0'
 gem 'font_awesome5_rails'
 gem "font-awesome-sass", "~> 6.4.0"
