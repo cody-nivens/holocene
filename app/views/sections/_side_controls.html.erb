@@ -6,6 +6,7 @@
   <%= link_to (fa_icon 'list-alt', class: 'fa-fw'), display_sections_path(section_id: @section.id).to_s, method: :get, class: 'btn', title: 'Display' %>
   <%= link_to (fa_icon 'map', class: 'fa-fw'), geo_map_sections_path(@section).to_s, method: :get, class: 'btn', title: 'Map' %>
   <%= link_to (fa_icon 'list', class: 'fa-fw'), sections_footnote_path(@section), method: :get, class: 'btn', title: 'Footnotes' %>
+  <%= link_to (fa_icon 'truck', class: 'fa-fw'), polymorphic_path([@section, :move]), title: 'Move', method: :get, class: 'btn' %>
 <% end -%>
 <% unless priv_section.size.zero? %>
 <%= link_to (fa_icon 'arrow-left', class: 'fa-fw'), section_path(priv_section.first), method: :get, class: 'btn', title: 'Previous section' %>

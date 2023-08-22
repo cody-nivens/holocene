@@ -1,0 +1,22 @@
+<%= form_with url: polymorphic_path([@section, :moved]) do |f| %>
+  <%= hidden_field "#{@sectioned.class.name.underscore}_id", value: @sectioned.id %>
+  <%= hidden_field_tag :chapter_id, (@chapter.nil? ? nil : @chapter.id) %>
+  <%= hidden_field_tag :sectioned_id, @sectioned.id %>
+  <%= hidden_field_tag :sectioned_type, @sectioned.class.name %>
+  <%= f.hidden_field :chapter_id, value: (@chapter.nil? ? nil : @chapter.id) %>
+  <%= f.hidden_field :sectioned_id, value: @sectioned.id %>
+  <%= f.hidden_field :sectioned_type, value: @sectioned.class.name %>
+
+  <strong>Existing Chapter:</strong> <%= @chapter.name %><br>
+
+  <div class="row">
+    <div class="col col-md">
+      <%= f.select :new_chapter_id, options_from_collection_for_select(@chapter.scripted.chapters.order(:position), :id, :name, @chapter.id),
+        prompt: 'Select Chapter', multiple: false, size: 1 %>
+    </div>
+  </div>
+
+  <div class='actions'>
+    <%= f.submit nil, class: 'btn btn-primary' %>
+  </div>
+<% end %>

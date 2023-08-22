@@ -107,7 +107,7 @@ class ChaptersController < ApplicationController
       position += 1
     end
 
-    @chapter.destroy
+    #@chapter.destroy
 
     respond_to do |format|
       format.html { redirect_to polymorphic_path([@scripted, :chapters]), notice: 'Chapter was demoted.' }
@@ -138,7 +138,7 @@ class ChaptersController < ApplicationController
       position += 1
     end
 
-    @section.destroy
+#    @section.destroy
 
     respond_to do |format|
       format.html do

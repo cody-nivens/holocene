@@ -5,7 +5,7 @@ section_1:
   position: 0
   slug: FBz8kjcBbN
   sectioned: chapter_1 (Chapter)
-  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+  user: users_1
   holocene_events:
       - holocene_event_5
       - holocene_event_6
@@ -16,7 +16,7 @@ section_2:
   position: 1
   slug: HJct7pHDDe
   sectioned: chapter_1 (Chapter)
-  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+  user: users_1
   holocene_events:
       - holocene_event_5
 section_3:
@@ -25,7 +25,7 @@ section_3:
   position: 0
   slug: FBz8kjcBbN
   sectioned: chapter_3 (Chapter)
-  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+  user: users_1
   holocene_events:
       - holocene_event_5
 section_4:
@@ -34,14 +34,14 @@ section_4:
   position: 1
   slug: HJct7pHDDe
   sectioned: chapter_3 (Chapter)
-  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+  user: users_1
 section_5:
   name: 'Domestication of the strawberry'
   display_name:
   position: 0
   slug: FBz8kjcBbN
   sectioned: chapter_4 (Chapter)
-  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+  user: users_1
   holocene_events:
       - holocene_event_5
 section_6:
@@ -50,21 +50,21 @@ section_6:
   position: 1
   slug: HJct7pHDDe
   sectioned: chapter_4 (Chapter)
-  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+  user: users_1
 section_7:
   name: 'Vinoculture'
   display_name:
   position: 0
   slug: HJct7pHDDe
   sectioned: chapter_2 (Chapter)
-  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+  user: users_1
 section_8:
   name: 'Domestication of the Animals 2'
   display_name:
   position: 2
   slug: FBz8kjcBbN
   sectioned: chapter_2 (Chapter)
-  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+  user: users_1
   holocene_events:
       - holocene_event_5
 section_9:
@@ -73,67 +73,67 @@ section_9:
   position: 4
   slug: HJct7pHDDe
   sectioned: chapter_2 (Chapter)
-  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+  user: users_1
 section_10:
   name: 'Tasty things'
   display_name:
   position: 6
   slug: HJct7pHDDe
   sectioned: chapter_2 (Chapter)
-  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+  user: users_1
 section_11:
   name: 'Dark and stormy night'
   display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_1 (Scene)
-  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+  user: users_1
 section_12:
   name: 'Dark and stormy night, thundering brightly'
   display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_2 (Scene)
-  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+  user: users_1
 section_13:
   name: 'Another dark and stormy night dogs chasing brightly'
   display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_2 (Scene)
-  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+  user: users_1
 section_14:
   name: 'Just another dark and stormy night with dogs baying at the moon'
   display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_14 (Scene)
-  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+  user: users_1
 section_15:
   name: 'Just another dark and stormy night the dog is sleeping tight'
   display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_10 (Scene)
-  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+  user: users_1
 section_16:
   name: 'Just another dark and stormy night when the dog bayed at the storm'
   display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_11 (Scene)
-  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+  user: users_1
 section_17:
   name: 'Just another dark and stormy night when it broke into the room'
   display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_12 (Scene)
-  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+  user: users_1
 section_18:
   name: 'Just another dark and stormy night dancing with the moon'
   display_name:
   position: 1
   slug: HJct7pHDDe
   sectioned: scene_13 (Scene)
-  user_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+  user: users_1

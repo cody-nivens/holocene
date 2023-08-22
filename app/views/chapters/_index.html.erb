@@ -44,7 +44,7 @@
         <% if @long.kind_of?(TrueClass) or @long == "true" %>
           <% chapter.sections.order(:position).each do |section| -%>
             <tr><td></td>
-              <td><strong><%= (section.embed? ? 'Brief Note: ' : '') %></strong><%= section.name %></td>
+              <td><strong><%= (section.embed? ? 'Brief Note: ' : '') %></strong><%= link_to section.name, section, method: :get %></td>
               <td class='text-end'><%= number_with_delimiter chapter.signets.size %></td>
               <td class='text-end'><%= number_with_delimiter section.word_count %></td>
               <td class='text-end'><%= section.holocene_events.size %></td>

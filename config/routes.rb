@@ -150,6 +150,8 @@ Rails.application.routes.draw do
   get '/sections/:section_id/footnotes/edit/:id',               to: 'footnotes#edit', as: :edit_section_footnote
   patch '/sections/:section_id/footnote/:id',               to: 'footnotes#update', as: :section_footnote_update
   post '/sections/:section_id/footnotes',               to: 'footnotes#create', as: :section_footnote_create
+  get  '/sections/:id/move', to: 'sections#move', as: :section_move
+  post '/sections/:id/moved', to: 'sections#moved', as: :section_moved
   resource :sections do
     resources :signets, only: [:index, :show, :new, :create, :update]
     resources :footnotes
@@ -161,6 +163,8 @@ Rails.application.routes.draw do
     get :display, to: 'holocene_events#display'
     get :add_event, to: 'holocene_events#add_event'
     get :show, to: 'sections#show'
+#    post :moved, to: 'sections#moved'
+#    get :move, to: 'sections#move', as: :section_move
   end
 
   resources :books do
@@ -217,8 +221,8 @@ Rails.application.routes.draw do
       resources :steps, only: %i[show update], controller: 'character/steps'
       resources :character_values
     end
-    post :moved, to: 'scenes#moved'
     put :check, to: 'scenes#check'
+    post :moved, to: 'scenes#moved'
     get :move, to: 'scenes#move'
   end
 

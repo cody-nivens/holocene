@@ -1,5 +1,5 @@
 class SectionsController < ApplicationController
-  before_action :set_section, only: %i[map_locs geo_map timeline grid_params show edit update destroy]
+  before_action :set_section, only: %i[move moved map_locs geo_map timeline grid_params show edit update destroy]
   before_action :set_sectioned, only: %i[index new]
 
   def index
@@ -20,6 +20,31 @@ class SectionsController < ApplicationController
       @sections = @sectioned.sections.order(:position)
       respond_to do |format|
         format.turbo_stream { render "shared/sort", locals: { return_path: @sectioned, link_object: @sectioned, object: Section.new, objects: @sections } }
+      end
+    end
+  end
+
+  def move
+    @sectioned = @section.sectioned
+    @chapter = @sectioned
+    respond_to do |format|
+      format.turbo_stream { render "shared/show", locals: { object: @section, part: "move", no_new_link: true } }
+    end
+  end
+
+  def moved
+    @sectioned = @section.sectioned
+
+    @chapter = @sectioned
+
+    @new_chapter = Chapter.find(params[:new_chapter_id])
+    @section.sectioned = @new_chapter
+
+    respond_to do |format|
+      if @section.save
+        format.html { redirect_to polymorphic_path(@section), notice: 'Section was successfully moved.' }
+      else
+        format.html { redirect_to polymorphic_path([@section, :move]), notice: 'Section not updated.' }
       end
     end
   end

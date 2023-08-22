@@ -1,33 +1,33 @@
 <turbo-frame id="<%= dom_id @scene %>">
-<%= form_with url: polymorphic_path([@scene, :moved]) do |f| %>
-  <%= hidden_field "#{@situated.class.name.underscore}_id", value: @situated.id %>
-  <%= hidden_field_tag :key_point_id, (@key_point.nil? ? nil : @key_point.id) %>
-  <%= hidden_field_tag :situated_id, @situated.id %>
-  <%= hidden_field_tag :selector, @selector %>
-  <%= hidden_field_tag :situated_type, @situated.class.name %>
-  <% kp_value = (@key_point.nil? ? @scene.key_point.id : @key_point.id) %>
-  <%= f.hidden_field :key_point_id, value: (@scene.key_point.nil? ? nil : kp_value) %>
-  <%= f.hidden_field :situated_id, value: @situated.id %>
-  <%= f.hidden_field :situated_type, value: @situated.class.name %>
-  <%= f.hidden_field :selector, value: (@scene.selector.nil? ? @selector.to_i : @scene.selector) %>
+  <%= form_with url: polymorphic_path([@scene, :moved]) do |f| %>
+    <%= hidden_field "#{@situated.class.name.underscore}_id", value: @situated.id %>
+    <%= hidden_field_tag :key_point_id, (@key_point.nil? ? nil : @key_point.id) %>
+    <%= hidden_field_tag :situated_id, @situated.id %>
+    <%= hidden_field_tag :selector, @selector %>
+    <%= hidden_field_tag :situated_type, @situated.class.name %>
+    <% kp_value = (@key_point.nil? ? @scene.key_point.id : @key_point.id) %>
+    <%= f.hidden_field :key_point_id, value: (@scene.key_point.nil? ? nil : kp_value) %>
+    <%= f.hidden_field :situated_id, value: @situated.id %>
+    <%= f.hidden_field :situated_type, value: @situated.class.name %>
+    <%= f.hidden_field :selector, value: (@scene.selector.nil? ? @selector.to_i : @scene.selector) %>
 
-  <h2>Move scene <%= @scene.abc %>: <%= @scene.name %> </h2>
+    <h2>Move scene <%= @scene.abc %>: <%= @scene.name %> </h2>
 
-  <strong>Existing Key Point:</strong> <%= @key_point.name %><br>
-  <strong>Selector:</strong> <%= selector_string(@scene.selector) %>
+    <strong>Existing Key Point:</strong> <%= @key_point.name %><br>
+    <strong>Selector:</strong> <%= selector_string(@scene.selector) %>
 
   <table class='table'>
 
-  <tr>
-    <td>
-      <%= f.select "story_id".to_sym, options_from_collection_for_select( @situated.book.stories.order(:position), :id, :name, @situated.id), prompt: 'Select Story', multiple: false, size: 1 %>
+    <tr>
+      <td>
+        <%= f.select "story_id".to_sym, options_from_collection_for_select( @situated.book.stories.order(:position), :id, :name, @situated.id), prompt: 'Select Story', multiple: false, size: 1 %>
       </td>
-  </tr>
+    </tr>
 
     <tr>
       <td>
         <%= f.select :new_key_point_id, options_from_collection_for_select(@scene.key_point.scripted.key_points.order(:position), :id, :name, @key_point.id),
-                     prompt: 'Select Keypoint', multiple: false, size: 1 %>
+          prompt: 'Select Keypoint', multiple: false, size: 1 %>
       </td>
     </tr>
     <tr>
@@ -50,31 +50,31 @@
     $('[data-bs-toggle="popover"]').popover();
 
     $("#story_id").change(function(){
-        var story = $(this).val();
-        $.ajax({
-            url: "/stories/" + story + "/key_points",
-            method: "GET",
-            dataType: "json",
-            data: {story_id: story},
-            error: function (xhr, status, error) {
-                console.error('AJAX Error: ' + status + error);
-            },
-            success: function (response) {
-                console.log(response);
-                var key_points = response["key_points"];
-                $("#new_key_point_id").empty();
+      var story = $(this).val();
+      $.ajax({
+        url: "/stories/" + story + "/key_points",
+        method: "GET",
+        dataType: "json",
+        data: {story_id: story},
+        error: function (xhr, status, error) {
+          console.error('AJAX Error: ' + status + error);
+        },
+        success: function (response) {
+          console.log(response);
+          var key_points = response["key_points"];
+          $("#new_key_point_id").empty();
 
-                $("#new_key_point_id").append('<option>Select Key Point</option>');
-                for(var i = 0; i < key_points.length; i++){
-                        $("#new_key_point_id").append('<option value="' + key_points[i]["id"] + '">' + key_points[i]["hook"] + '</option>');
-                }
-            }
-        });
+          $("#new_key_point_id").append('<option>Select Key Point</option>');
+          for(var i = 0; i < key_points.length; i++){
+            $("#new_key_point_id").append('<option value="' + key_points[i]["id"] + '">' + key_points[i]["hook"] + '</option>');
+          }
+        }
+      });
     });
   })
 </script>
 </turbo-frame>
 
 <div id="side_controls" class="hide-print">
-    <%= link_to (fa_icon 'backward', class: 'fa-fw'), scene_path(@scene), class: 'btn', title: 'Back' %>
+  <%= link_to (fa_icon 'backward', class: 'fa-fw'), scene_path(@scene), class: 'btn', title: 'Back' %>
 </div>
