@@ -40,11 +40,11 @@ rich_text_stg_<%= i %>:
 rich_text_10:
   record: section_1 (Section)
   name: body
-  body: 'This [[new_slug]]is a test[[old_slug]]'
+  body: "This [[new_slug]]is a test[[old_slug]].  [['City','cities'],['GIS','gis_locations'],['Address','addresses']]"
 rich_text_11:
   record: section_2 (Section)
   name: body
-  body: 'THis is section 2.'
+  body: "This is section 2."
 rich_text_12:
   record: section_3 (Section)
   name: body

@@ -26,7 +26,7 @@ class Footnote < ApplicationRecord
   def self.process_body(object, _slugs, index = 1)
     footnote_slugs = []
     my_body = object.body.to_s.gsub(/&nbsp;/, '')
-    while my_m = my_body.match(/\[\[([^ ]*)\]\]/)
+    while my_m = my_body.match(/\[\[([^ \[\]]*)\]\]/)
       my_body.gsub!(/\[\[#{my_m[1]}\]\]/,
                     "<sup><a href=\"#fn#{index}\" data-turbo='false' id=\"ref#{index}\">[#{index}]</a></sup>")
       footnote_slugs << [my_m[1], object, index]
