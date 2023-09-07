@@ -7,7 +7,7 @@ module HoloceneMinitests
     binding.pry
   end
 
-  def walk_menu(menu_master, exclude_tops, exclude_objects, debug: false)
+  def walk_menu(menu_master, exclude_tops=[], exclude_objects=[], debug: false)
     setup_page menu_master, debug: debug
     doc = Nokogiri::HTML(page.html)
     tops = doc.xpath("//*[@id='nav-bar']/nav/ul/li/a[contains(@class,'dropdown-toggle')]")

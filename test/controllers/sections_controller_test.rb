@@ -7,6 +7,7 @@ class SectionsControllerTest < ActionDispatch::IntegrationTest
     @section = sections(:section_1)
     @section_2 = sections(:section_3)
     @sectioned_1 = @section.sectioned
+    @book = @sectioned_1.scripted
     @sectioned_2 = @section_2.sectioned
     @user = users(:users_1)
     sign_in @user

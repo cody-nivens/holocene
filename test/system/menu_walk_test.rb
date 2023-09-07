@@ -6,7 +6,6 @@ class MenuWalkTest < ApplicationSystemTestCase
     sign_in @user
   end
 
-  if 1 == 0
   test "walk the welcome menus" do
     walk_menu('Welcome')
   end
@@ -37,6 +36,5 @@ class MenuWalkTest < ApplicationSystemTestCase
     @book = books(:book_2)
     @stage = stages(:stage_1)
     walk_menu('Stage')
-  end
   end
 end

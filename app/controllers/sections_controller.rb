@@ -146,10 +146,12 @@ class SectionsController < ApplicationController
 #      format.html { redirect_to polymorphic_url(@sectioned), notice: 'Section was successfully destroyed.' }
       format.json { head :no_content }
       if @sectioned.class.name == 'Chapter'
+        @chapters = @sectioned.scripted.chapters
         @asides = @sectioned.asides
+        @long = true
       end
       flash.now[:now] = "Section was successfully destroyed."
-      format.turbo_stream { render "shared/destroy", locals: { object: Section.new } }
+      format.turbo_stream { render "shared/destroy", locals: { object: Chapter.new } }
     end
   end
 

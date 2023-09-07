@@ -1,7 +1,8 @@
 <% @slugs = [] -%>
 <% @footnotes = Footnote.process_body(section, @slugs) -%>
 <% values = section.set_values %>
-<%== highlight(@footnotes[0], Regexp.new(KeyWord.where(book_id: values[0].id).collect(&:key_word).join('|'))) %>
+<%#== highlight(@footnotes[0], Regexp.new(KeyWord.where(book_id: values[0].id).collect(&:key_word).join('|'))) %>
+<%== @footnotes[0] %>
 <% @slugs += @footnotes[1] -%>
 
 <% unless section.holocene_events.size == 0 || section.sectioned.show_events? -%>

@@ -52,7 +52,7 @@
               <td class='text-end'><%= section.citations.size %></td>
               <td class='text-end'><%= HoloceneEvent.convert_ad(section.holocene_events.minimum('start_year')) %></td>
               <td class='text-end'><%= HoloceneEvent.convert_ad(section.holocene_events.maximum('start_year')) %></td>
-              <td><%= link_to (fa_icon 'arrow-up'), chapter_section_promote_path(chapter, section), title: 'Promote' %></td>
+              <td><%= link_to (fa_icon 'trash'), section_path(section), method: :delete, data: { confirm: 'Are you sure?' }, title: 'Delete' %></td>
               <td colspan='6'></td>
             </tr>
           <% end -%>
