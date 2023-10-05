@@ -57,7 +57,7 @@ gem 'requestjs-rails'
 gem "ruby-vips"
 
 group :production do
-  #gem 'wkhtmltopdf-binary', '~> 0.12.6.5'  #, '~> 0.12.4'
+  gem 'wkhtmltopdf-binary', '~> 0.12.6.5'  #, '~> 0.12.4'
 end
 
 group :development, :test do
@@ -71,7 +71,7 @@ group :development, :test do
   gem 'rubocop-minitest', require: false
   gem 'erb_lint', require: false
   gem 'bullet'
-  gem 'wkhtmltopdf-binary', '0.12.4'
+  #gem 'wkhtmltopdf-binary', '0.12.4'
 end
 
 group :development do
