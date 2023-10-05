@@ -103,7 +103,7 @@ class SectionsController < ApplicationController
 #        format.html { redirect_to polymorphic_path(@sectioned), notice: 'Section was successfully created.' }
         format.json { render :show, status: :created, location: @section }
         flash.now[:notice] = "Section was successfully created."
-        format.turbo_stream { render "shared/show", locals: { object: @section.sectioned } }
+        format.turbo_stream { render "shared/show", locals: { object: @section.sectioned.kind_of?(Scene) ? @section.sectioned : @section } }
       else
         format.html { render :new, sectioned_type: @sectioned.class.name, sectioned_id: @sectioned.id }
         format.json { render json: @section.errors, status: :unprocessable_entity }

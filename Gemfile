@@ -56,6 +56,10 @@ gem "importmap-rails", "~> 1.1"
 gem 'requestjs-rails'
 gem "ruby-vips"
 
+group :production do
+  #gem 'wkhtmltopdf-binary', '~> 0.12.6.5'  #, '~> 0.12.4'
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -67,6 +71,7 @@ group :development, :test do
   gem 'rubocop-minitest', require: false
   gem 'erb_lint', require: false
   gem 'bullet'
+  gem 'wkhtmltopdf-binary', '0.12.4'
 end
 
 group :development do
@@ -142,7 +147,6 @@ gem 'bootstrap-sass'
 gem 'simple_form'
 gem 'wicked_pdf'
 gem 'gepub'
-gem 'wkhtmltopdf-binary', '~> 0.12.6.5'  #, '~> 0.12.4'
 gem 'bootstrap_form', '>= 4.0.0'
 gem 'font_awesome5_rails'
 gem "font-awesome-sass", "~> 6.4.0"

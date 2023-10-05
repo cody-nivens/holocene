@@ -21,4 +21,4 @@
 <% unless next_chapter.nil? %>
   <%= link_to((fa_icon 'angle-right', class: 'fa-fw'), chapter_path(next_chapter), method: :get, class: 'btn', title: 'Next') %>
 <% end %>
-<%= link_to((fa_icon 'backward', class: 'fa-fw'), polymorphic_path([chapter.scripted, :chapters]), method: :get, class: 'btn', title: 'Back') %>
+<%= link_to((fa_icon 'backward', class: 'fa-fw'), polymorphic_path(chapter.scripted), method: :get, class: 'btn', title: 'Back') %>
